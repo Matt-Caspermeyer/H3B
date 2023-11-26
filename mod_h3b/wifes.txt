@@ -1733,7 +1733,7 @@ wife_rina {
     11=belt,regalia
     12=shield,artefact
   }
-  children=kid_galthran,kid_isra,kid_moandor,kid_tamika,kid_vokial,kid_aislinn,kid_nagash,kid_sandro,kid_thant,kid_xsi,kid_finneas,kid_charna,kid_clavius,kid_straker,kid_nimbus,kid_septienna,kid_vidomina,kid_death_haart,kid_kid_young_christian
+  children=kid_galthran,kid_isra,kid_moandor,kid_tamika,kid_vokial,kid_aislinn,kid_nagash,kid_sandro,kid_thant,kid_xsi,kid_finneas,kid_charna,kid_clavius,kid_straker,kid_nimbus,kid_septienna,kid_vidomina,kid_death_haart,kid_young_christian
   fight {
     {
       filter {

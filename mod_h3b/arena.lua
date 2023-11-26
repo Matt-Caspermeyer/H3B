@@ -109,7 +109,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
 
     if resi > 95 then resi = 95 end
 
-    res_damage = dmg * ( 1 - resi / 100 )
+    local res_damage = dmg * ( 1 - resi / 100 )
     sdmg = sdmg + res_damage
 
     if res_damage > max_damage then

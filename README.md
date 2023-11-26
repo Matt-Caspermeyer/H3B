@@ -9,6 +9,13 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-11-13
+-------------------------
+
+Crash Fixes:
+
+1. Rina had a mispelling in one of her child names in wifes.txt. This would cause a crash to desktop when Rina was having a baby.
+
 Version: Alpha 2011-11-11
 -------------------------
 
@@ -42,7 +49,7 @@ Installation:
 
 
 Uninstallation:
--------------
+---------------
 
 1. Simply delete the 3 KFS files from your "mods" folder:
   a. mod_homm3_portraits.kfs
@@ -77,6 +84,8 @@ If you have any problems during play, here are some pointers:
   b. After you click OK, the game will most likely crash exit to Windows.
   c. If the game does not crash after you click OK, it is highly recommended to quit your game rather than continue since behavior may be strange.
 3. Save your game often just in case!
+4. If the game crashes right after a battle and you've asked your wife for children then it is due to a spelling error in one of that wife's children.
+  a. I just ran into this problem where I had a mispelling in one of Rina's children.
 
 Crash List
 ----------
