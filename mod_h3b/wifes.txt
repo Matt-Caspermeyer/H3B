@@ -677,7 +677,7 @@ wife_mirabella {
     {
       filter {
         belligerent=ally
-        unit=pirat,pirat2
+        unit=griffin,pirat,pirat2
       }
       pbonus=moral,1,0,0,-100,0,0
       dbonus=

@@ -138,46 +138,53 @@ function features_brutality( damage, addrage, attacker, receiver, minmax, userda
   return damage, addrage
 end
 
-function features_soul_drain(damage,addrage,attacker,receiver,minmax )
 
-	if (minmax==0) and damage>0 then
-	if Attack.act_enemy(receiver) and not (Attack.act_feature(receiver,"undead")) and not  (Attack.act_feature(receiver,"plant")) and not (Attack.act_feature(receiver,"golem")) and not (Attack.act_feature(receiver,"pawn"))then
-    local k=tonumber(Attack.get_custom_param("k"))
-  if k>0 then 
-    --local receiver=Attack.get_target(1)  -- кого?
-    --local attacker=Attack.get_target(0)  -- кто?
-    --local count_1 = Attack.act_size(attacker)
-    
-    local killed = math.min( AU.unitcount( receiver ) ,damage/ AU.health( receiver )) -- сколько закилято
-    local drain=damage --выпито силы
-    local real_max_hp=Attack.act_totalhp(receiver)
-    if real_max_hp<drain then drain = real_max_hp end
-    drain=math.floor(drain*k/100)
-    local attacker_count = AU.unitcount( attacker )
-    local add_unit=math.floor(drain/AU.health( attacker )) --на скролько прибавлений душ хватит
-    local heal_unit=drain-add_unit*AU.health( attacker )  -- на сколько лечения осталось
-		
-		Attack.act_size(attacker, attacker_count + add_unit)
-		Attack.act_cure(attacker, heal_unit, 1)
-		
- 	    --local count_2 = Attack.act_size(attacker)
- 	    
-    	Attack.atom_spawn(attacker, 0, "effect_total_cure")
-    	local log_msg="add_blog_vamp_0"
-	    local special = heal_unit
-	    
-    	if add_unit>0 then 
-    		log_msg="add_blog_soul_"
-	    	special = add_unit
-	   	end 
-			  Attack.act_damage_addlog(receiver,log_msg,true)
-			  Attack.log_special(special) -- работает  
+function features_soul_drain( damage, addrage, attacker, receiver, minmax )
+	 if ( minmax == 0 )
+  and damage > 0 then
+	   if Attack.act_enemy( receiver )
+    and not ( Attack.act_feature( receiver, "undead" ) )
+    and not ( Attack.act_feature( receiver, "plant" ) )
+    and not ( Attack.act_feature( receiver, "golem" ) )
+    and not ( Attack.act_feature( receiver, "pawn" ) ) then
+      local k = tonumber( Attack.get_custom_param( "k" ) )
+  
+      if k > 0 then 
+        --local receiver=Attack.get_target(1)  -- кого?
+        --local attacker=Attack.get_target(0)  -- кто?
+        --local count_1 = Attack.act_size(attacker)
+     
+        local killed = math.min( AU.unitcount( receiver ) ,damage/ AU.health( receiver ) ) -- сколько закилято
+        local drain = damage --выпито силы
+        local real_max_hp = Attack.act_totalhp( receiver )
+  
+        if real_max_hp < drain then drain = real_max_hp end
+  
+        drain = math.floor( drain * k / 100 )
+        local attacker_count = AU.unitcount( attacker )
+        local add_unit = math.floor( drain / AU.health( attacker ) ) --на скролько прибавлений душ хватит
+        local heal_unit = drain - add_unit * AU.health( attacker )  -- на сколько лечения осталось
+      		Attack.act_size( attacker, attacker_count + add_unit )
+	 	     Attack.act_cure( attacker, heal_unit, 1 )
+  	     --local count_2 = Attack.act_size(attacker)
+     	  Attack.atom_spawn( attacker, 0, "effect_total_cure" )
+     	  local log_msg = "add_blog_vamp_0"
+	       local special = heal_unit
+	     
+     	  if add_unit > 0 then 
+     		   log_msg = "add_blog_soul_"
+	     	   special = add_unit
+	    	  end 
+  
+	 		    Attack.act_damage_addlog( receiver, log_msg, true )
+	 		    Attack.log_special( special ) -- работает  
+     	end 
+   	end 
+	 end 
 
-	end 
-	end 
-	end 
-    return damage,addrage
+  return damage,addrage
 end
+
 
 function features_vampirism( damage,addrage,attacker,receiver,minmax ) -- minmax, равный 1 или 2 означает, что функция вызывается только для определения мин/макс урона во всп.подсказке
 
@@ -215,6 +222,7 @@ function features_vampirism( damage,addrage,attacker,receiver,minmax ) -- minmax
     return damage,addrage
 end
 
+
 function features_fire_shield( damage,addrage,attacker,receiver,minmax )
   if (minmax==0) then
     --local receiver=Attack.get_target(1)  -- кого?
@@ -243,6 +251,7 @@ function features_fire_shield( damage,addrage,attacker,receiver,minmax )
   return damage,addrage
 end
 
+
 function features_shock( damage, addrage, attacker, receiver, minmax )
   if ( minmax == 0 ) and damage > 0 then
   --local receiver=Attack.get_target(1)  -- кого?
@@ -269,6 +278,7 @@ function features_shock( damage, addrage, attacker, receiver, minmax )
 
   return damage, addrage
 end
+
 
 function features_poison( damage, addrage, attacker, receiver, minmax )
   if ( minmax == 0 )
@@ -361,6 +371,7 @@ function post_spell_dragon_slayer(damage,addrage,attacker,receiver,minmax,userda
 	return damage,addrage
 end
 
+
 function features_holy_attack(damage,addrage,attacker,receiver,minmax,userdata)
 	
 	if Attack.act_is_spell(attacker,"special_holy_rage") then
@@ -377,6 +388,7 @@ function features_holy_attack(damage,addrage,attacker,receiver,minmax,userdata)
 	return damage,addrage
 end 
 
+
 function special_priest(damage,addrage,attacker,receiver,minmax,userdata)
 
 	if Attack.act_race(receiver,"undead") then
@@ -386,6 +398,7 @@ function special_priest(damage,addrage,attacker,receiver,minmax,userdata)
 	return damage, addrage
 
 end
+
 
 function post_spell_demon_slayer(damage,addrage,attacker,receiver,minmax,userdata )
 
@@ -415,6 +428,7 @@ function post_spell_demon_slayer(damage,addrage,attacker,receiver,minmax,userdat
 	return damage,addrage
 
 end
+
 
 function post_spell_mana_source( damage, addrage, attacker, receiver, minmax, userdata )
 	 if ( minmax == 0 )
@@ -527,7 +541,6 @@ function post_spell_last_hero( damage, addrage, attacker, receiver, minmax )
 end
 
 
-
 -- NEW - based on special_spell, casts random beneficial spells
 function special_bonus_spell( attacker, receiver )
   Attack.act_aseq( 0, "cast" )
@@ -592,16 +605,13 @@ function special_bonus_spell( attacker, receiver )
 
   local tmp_spells = {}
 
-  if level > 2
-  and Attack.cell_need_resurrect( receiver )
-  and not Attack.act_feature( receiver, "undead" ) then
+  if not Attack.act_feature( receiver, "undead" )
+  and not Attack.act_feature( receiver, "plant" )
+  and Attack.cell_need_resurrect( receiver ) then
     table.insert( tmp_spells, spell_resurrection_attack )
-  elseif Attack.act_need_cure( receiver ) then
-    table.insert( tmp_spells, spell_cure_attack )
   end
 
-  if level > 2
-  and Attack.act_need_charge_or_reload( receiver ) then
+  if Attack.act_need_charge_or_reload( receiver ) then
     table.insert( tmp_spells, spell_gifts_attack )
   end
 

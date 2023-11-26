@@ -9,6 +9,19 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-11-25
+-------------------------
+
+Updates:
+
+* mod_homm3_babies.kfs
+  & UNIT_FEATURES.LUA
+    ^ Fixed the massive damage bug in the implementation of one of the Enchanted Hero spell casts.
+    ^ Removed that from the bugs list below.
+    ^ This is a *HUGE* buxfix and I've been trying to track this down for months and finally found it - yay!
+  & SPELLS.TXT - fixed Enchanted Hero so it cannot be cast on the Undead or Plants
+  & WIFES.TXT - fixed Mirabella's missing Griffin morale bonus - thanks Fatt_Shade!
+
 Version: Alpha 2011-11-23
 -------------------------
 
@@ -21,7 +34,7 @@ Updates:
 * mod_homm3_babies_en(g)_lng.kfs (this refers to both KFS *.LNG files)
   & EN(G)_SPELLS.LNG - fixed a few spells descriptions that were incorrect
   & EN(G)_HOMM3_BABIES_RINA.LNG - updated baby descriptors for Vidomina, Lord (Death) Haart, Isra, Thant, and Finneas.
-  & EN(G)_SKILLS.LONG - updated Glory skill description
+  & EN(G)_SKILLS.LNG - updated Glory skill description
 * mod_homm3_babies.kfs
   & NECROMANT.ATOM - experimental change making all 3 of the Necromancer's skills reloadable (kind of more like the Human Archmage).
   & TEMPLATES.LNG - removed Necro Call bonus for Necromancy Skill Template
@@ -151,12 +164,7 @@ Crash List
 Bug List - there is one bug that I'm not sure if I've squished or not:
 --------
 
-1. If you notice that your (or the enemy) units start doing damage in the 100,000's then let me know.
-  a. I think this bug may be related to the resurrection of the Phoenix, but I'm not sure.
-  b. I've only seen this bug twice in all my play throughs, but it is exhibited during combat.
-  c. It typically happens after many rounds and I have not been able to remember all my moves to repeat this bug and debug it.
-  d. If you are able to provide a save game with the exact sequence to get this bug to appear then I'll be able to debug it.
-2. Damage causing effects (i.e. burning and poison):
+1. Damage causing effects (i.e. burning and poison):
   a. If an AI unit is killed by a damage causing effect and if the next unit to move is another AI unit, then their damage causing effect is skipped if they have one.
   b. I worked and worked trying to fix this bug, but to no avail.
     i.  I'm pretty sure that it is a bug with the game itself as I don't think they intended for damaging effects to kill units.

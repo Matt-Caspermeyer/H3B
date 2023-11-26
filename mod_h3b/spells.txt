@@ -205,7 +205,7 @@ spell_last_hero {
     script_attack=spell_last_hero_attack
     script_calccells=calccells_all_ally_lasthero
     attack_cursor=magicstick
-    nfeatures=magic_immunitet,pawn,boss
+    nfeatures=undead,magic_immunitet,pawn,boss,plant,golem
   }
   params {
     duration=2,3,4
