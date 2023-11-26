@@ -1,0 +1,288 @@
+main {
+  class=pawn
+  nodimming=1
+  model=thewall.bma
+  apass=2
+  infobox {
+    msgbox=cpn_hint_thewall
+  }
+  
+}
+arena_params {
+  hitpoint=5
+  takedmg=1
+  defense=20
+  realdeath=1
+  chessboard_aligned=1
+  skipmove=0
+  repl_label1=thewall_repl1
+  repl_label2=glot_repl2
+  features=pawn,barrier,fire_immunitet,mind_immunitet,magic_immunitet,poison_immunitet,freeze_immunitet
+  attacks=scripted
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  scripted {
+    script_attack=thewall_attack
+    log_label=null
+  }
+}
+animations {
+  appear=thewall_appear.bsa/fr:25:50
+  idle=thewall_idle.bsa/fr:25:50
+  damage=thewall_damage.bsa/fr:25:50
+  death=thewall_death.bsa/fr:25:50
+  @damage {
+    2.0?x=
+  }
+  @death {
+    2.0?x=
+  }
+}
+scripts {
+  idle=default_idle
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  logicunit {
+    typeflags=vars
+    name=metalgate
+    vars {}
+  }
+}
+collisions {
+  ground=colshape_thewall.csh
+}
+attachments {
+  1 {
+    particle {
+      trans=-1.85180664/0/0/0/-0/0.07756189/0.60000002
+      animation=appear
+      frame=65/74
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=1.35803223/0/0/0/-0/-0.15512419/0.5
+      animation=appear
+      frame=82/90
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0/-0/0/0.40000001
+      animation=appear
+      frame=26/30
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=1.35803223/0/0/0/-0/0/0.30000001
+      animation=appear
+      frame=28/35
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=-1.35803223/0/0/0/-0/0/0.40000001
+      animation=appear
+      frame=27/33
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=1.39630544/0.38780975/0.31024745/0.5999999
+      animation=appear
+      frame=33/38
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-1.60000002/0/-0.3704834/0/-0/-0.15512419/0.60000002
+      animation=appear
+      frame=66/71
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=1.39999998/0/0/0/-0/-0.232686/0.69999999
+      animation=appear
+      frame=84/88
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/0.80000001/0/0/-0/0/0.60000002
+      animation=appear
+      frame=111
+      file=therock_wave.ptb
+    }
+    particle {
+      trans=-1.60491943/0/0/0/-0/0/0.69999999
+      animation=appear
+      frame=68/110
+      file=thewall_accum.ptb
+    }
+    particle {
+      trans=1.60491943/0/0/0/-0/0/0.60000002
+      animation=appear
+      frame=85/109
+      file=thewall_accum.ptb
+    }
+    particle {
+      trans=-1.35803223/1.20000005/0/0/-0/0/1.5
+      animation=appear
+      frame=77/115
+      file=therock_lightwave_red.ptb
+    }
+    particle {
+      trans=1.35803223/1.11114502/0/0/-0/0/1.5
+      animation=appear
+      frame=87/112
+      file=therock_lightwave_red.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/0.5
+      animation=appear
+      frame=82/112
+      file=therock_lightwave_red.ptb
+    }
+    particle {
+      trans=-0.86425781/0.79986572/0/0/-0/0.38780951/0.80000001
+      animation=appear
+      frame=111/120
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=1.35803223/0.80000001/0/0/-0/-0.3102479/0.80000019
+      animation=appear
+      frame=112/120
+      file=therock_swordflash_red.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=-1.85180664/0.5/0/0/-0/-0.23268604/0.60000002
+      animation=damage
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=-0.3704834/0/0/0/-0/0/0.69999999
+      animation=damage
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=1.54999995/0/0.2/0/-0/0/0.69999999
+      animation=damage
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=0.30000001/0/0/0/-0/0/0.69999999
+      animation=damage
+      file=therock_puff.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=1.60491943/0/0/0/-0/-0.3102479/0.70000005
+      animation=death
+      frame=0/10
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=0.3704834/0/0/0/-0/0.31024769/0.34999999
+      animation=death
+      frame=0/20
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0/-0/0/0.40000001
+      animation=death
+      frame=0/20
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=1.35803223/0/0/0/-0/0/0.30000001
+      animation=death
+      frame=0/20
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=-1.35803223/0/0/0/-0/0/0.40000001
+      animation=death
+      frame=0/22
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=1.39630556/-0.38780978/0.07756187/0.60000002
+      animation=death
+      frame=0/22
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-1.60000002/0/-0.3704834/0/-0/-0.15512419/0.60000002
+      animation=death
+      frame=0/22
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=1.39999998/0/0/0/-0/-0.232686/0.69999999
+      animation=death
+      frame=0/22
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-1.11114502/0/0/0/-0/0.31024772/0.69999999
+      animation=death
+      frame=0/10
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=-2.0999999/0.2/0/0/-0/0.08726646/0.5
+      animation=death
+      frame=8/12
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=2.0999999/0.2/0/0/-0/-0.08726645/0.5
+      animation=death
+      frame=8/12
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-0.5/0.2/0/-0/0.23268577/0.08726647/0.5
+      animation=death
+      frame=8/12
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0.69999999/0.2/0/0/-0.54302931/0.08726646/0.5
+      animation=death
+      frame=4/12
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-0.30000001/0.2/0/0/0.4654673/-0.07756186/0.5
+      animation=death
+      frame=8/12
+      file=therock_heavydust.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=appear
+      frame=0.01
+      file=thewall_appear
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=thewall_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=thewall_death
+      fadetime=60
+    }
+  }
+}

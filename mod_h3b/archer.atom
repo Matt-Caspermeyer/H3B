@@ -1,0 +1,372 @@
+main {
+  class=chesspiece
+  receiver=bones
+  model {
+    0=archer.bma
+    1=archer_death.bma
+  }
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_archer_feat
+  features_hints=undead_header/undead_hint,shot_header/shot_hint,bone_header/bone_hint
+  race=undead
+  cost=24
+  level=1
+  leadership=14
+  attack=3
+  defense=2
+  defenseup=1
+  initiative=4
+  speed=2
+  hitpoint=8
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,throw,poison,tranc,dragon
+  features=shot,undead,bone,archer
+  posthitmaster=special_archer
+  posthitslave=features_bone_creature
+  resistances {
+    physical=0
+    poison=50
+    magic=0
+    fire=-10
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    device=bone
+    ad_factor=1
+    damage {
+      physical=1,2
+    }
+    custom_params {
+      poison=0
+      tranc=0
+      dragon=0
+    }
+  }
+  dragon {
+//    dontusenearenemy=1
+    class=throw
+    picture=BA1_Dragon_Arrow_
+    picture_small=BA1_DragonArrow_small.png
+    hinthead=special_dragon_arrow_head
+    hint=special_dragon_arrow_hint
+    showdmg=0
+    moves=1
+    ad_factor=1
+    distance=100
+    mindist=1
+    disabled=1
+    penalty=1
+    animation=cast/throw/thtarget
+    throw=arrow_dragon
+    framekey=x
+    damage {
+      astral=2,3
+    }
+    custom_params {
+      poison=0
+      dragon=1
+      arrows=1
+      tranc=0
+    }
+  }
+  throw {
+    group=1,2
+    showdmg=1
+    base_attack=1
+    distance=5
+    ad_factor=1
+    mindist=2
+    penalty=0.5
+    animation=cast/throw/thtarget
+    throw=archer_arrow
+    framekey=x
+    damage {
+      physical=2,3
+    }
+    custom_params {
+      poison=0
+      tranc=0
+      arrows=1
+      dragon=0
+    }
+  }
+  poison {
+    dontusenearenemy=1
+    class=throw
+    picture=BA1_PoisonArrow_
+    picture_small=BA1_PoisonArrow_small.png
+    hinthead=special_poison_arrow_head
+    hint=special_poison_arrow_hint
+    moves=1
+    showdmg=0
+    ad_factor=1
+    distance=5
+    mindist=2
+    penalty=0.5
+    animation=cast/throw/thtarget
+    throw=arrow_poison
+    framekey=x
+    damage {
+      poison=2,3
+    }
+    custom_params {
+      poison=100
+      tranc=0
+      arrows=1
+      dragon=0
+    }
+  }
+  tranc {
+    dontusenearenemy=1
+    class=throw
+    picture=BA1_TrancArrow_
+    picture_small=BA1_TrancArrow_small.png
+    hinthead=special_tranc_arrow_head
+    hint=special_tranc_arrow_hint
+    showdmg=0
+    moves=1
+    ad_factor=1
+    distance=5
+    mindist=2
+    penalty=0.5
+    animation=cast/throw/thtarget
+    throw=arrow_unmagic
+    framekey=x
+    damage {
+      magic=3,4
+    }
+    custom_params {
+      poison=0
+      tranc=100
+      arrows=1
+      dragon=0
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      moral=1
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=archer_idle.bsa/fr:25:50
+  rare=archer_rare.bsa/fr:25:50
+  attack=archer_attack.bsa/fr:25:50
+  move=archer_move.bsa/fr:37:74
+  start=archer_start.bsa/fr:37:74
+  stop=archer_stop.bsa/fr:37:74
+  clock=archer_clock.bsa/fr:40:80
+  contra=archer_contra.bsa/fr:40:80
+  clock2=archer_2clock.bsa/fr:25:50
+  contra2=archer_2contra.bsa/fr:25:50
+  lturn=archer_lturn.bsa/fr:37:74
+  rturn=archer_rturn.bsa/fr:37:74
+  damage=archer_damage.bsa/fr:25:50
+  cast=archer_cast.bsa/fr:25:50
+  slew=archer_slew.bsa/fr:35:70
+  death=archer_death.bsa/fr:25:50/m:1
+  respawn=archer_death_respawn.bsa/fr:25:50/m:1
+  cursor=archer_rare.bsa/fr:25:50
+  teleout=archer_idle.bsa/fr:25:50/r:65:100
+  telein=archer_idle.bsa/fr:25:50/r:0:35
+  happy=archer_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:3:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    8.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    18.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    dummy {
+      tag=throw
+      trans=0/1.60000002/-1.5/0/-0/0/1
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0.3704834/0/0/-0/0/1.36667418
+      animation=death
+      frame=1/70
+      restart=true
+      file=death_archer.ptb
+    }
+    particle {
+      trans=0.1/0.1/0.1/0/-0/0/0.60000002
+      animation=death
+      frame=0/44
+      file=therock_heavydust.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=archer_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=archer_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=archer_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=archer_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=archer_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=archer_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=archer_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=archer_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=archer_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=archer_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=archer_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=archer_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=archer_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=archer_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=archer_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=archer_victory
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  archer_idle.bsa=file
+  archer_rare.bsa=file
+  archer_attack.bsa=file
+  archer_move.bsa=file
+  archer_start.bsa=file
+  archer_stop.bsa=file
+  archer_clock.bsa=file
+  archer_contra.bsa=file
+  archer_2clock.bsa=file
+  archer_2contra.bsa=file
+  archer_slew.bsa=file
+  archer_lturn.bsa=file
+  archer_rturn.bsa=file
+  archer_damage.bsa=file
+  archer_death.bsa=file
+  archer_death_respawn.bsa=file
+  archer_cast.bsa=file
+  archer_victory.bsa=file
+  archer_death.bma=file
+}

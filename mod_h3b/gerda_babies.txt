@@ -1,0 +1,1429 @@
+// Gerda Children, children are really level 4.5
+kid_uland {
+  category=o
+  image=heroitem_tome_uland.png
+  hint_config=object_item
+  label=itm_kid_uland_name
+  hint=itm_kid_uland_hint
+  information_label=itm_kid_uland_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=defense,0,16,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,32
+    sp_duration_magic_source=count,1
+    sp_gain_power_magic_source=count,16
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_malcom {
+  category=o
+  image=heroitem_tome_malcom.png
+  hint_config=object_item
+  label=itm_kid_malcom_name
+  hint=itm_kid_malcom_hint
+  information_label=itm_kid_malcom_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,16
+    intellect=count,16%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_clancy {
+  category=o
+  image=heroitem_tome_clancy.png
+  hint_config=object_item
+  label=itm_kid_clancy_name
+  hint=itm_kid_clancy_hint
+  information_label=itm_kid_clancy_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=unicorn,unicorn2
+      }
+      pbonus=health,0,13,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=unicorn,unicorn2
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=unicorn,unicorn2
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=unicorn,unicorn2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_unicorns=count,13
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_thorgrim {
+  category=o
+  image=heroitem_tome_thorgrim.png
+  hint_config=object_item
+  label=itm_kid_thorgrim_name
+  hint=itm_kid_thorgrim_hint
+  information_label=itm_kid_thorgrim_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,12,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,12,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,12,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,12,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ufretin {
+  category=o
+  image=heroitem_tome_ufretin.png
+  hint_config=object_item
+  label=itm_kid_ufretin_name
+  hint=itm_kid_ufretin_hint
+  information_label=itm_kid_ufretin_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=krit,0,40,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=krit,0,46,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=health,0,23,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=krit,0,36,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=health,0,18,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_miner=count,23
+    sp_lead_unit_dwarf=count,18
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_grindan {
+  category=o
+  image=heroitem_tome_grindan.png
+  hint_config=object_item
+  label=itm_kid_grindan_name
+  hint=itm_kid_grindan_hint
+  information_label=itm_kid_grindan_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,16,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,16
+    sp_addgold_battle=count,112
+    sp_addgold_chestt=count,112
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_gird {
+  category=o
+  image=heroitem_tome_gird.png
+  hint_config=object_item
+  label=itm_kid_gird_name
+  hint=itm_kid_gird_hint
+  information_label=itm_kid_gird_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,16
+    sp_spell_attack=count,32
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_oris {
+  category=o
+  image=heroitem_tome_oris.png
+  hint_config=object_item
+  label=itm_kid_oris_name
+  hint=itm_kid_oris_hint
+  information_label=itm_kid_oris_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,16
+    intellect=count,16%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_terek {
+  category=o
+  image=heroitem_tome_terek.png
+  hint_config=object_item
+  label=itm_kid_terek_name
+  hint=itm_kid_terek_hint
+  information_label=itm_kid_terek_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,16
+    attack=count,8%
+    defense=count,8%
+    sp_duration_haste=count,1
+    sp_add_power_haste=count,1
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ajit {
+  category=o
+  image=heroitem_tome_ajit.png
+  hint_config=object_item
+  label=itm_kid_ajit_name
+  hint=itm_kid_ajit_hint
+  information_label=itm_kid_ajit_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder
+      }
+      pbonus=krit,0,36,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder
+      }
+      pbonus=health,0,18,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder2
+      }
+      pbonus=health,0,13,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder2
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder2
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_beholder=count,18
+    sp_lead_unit_beholder2=count,13
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_lorelei {
+  category=o
+  image=heroitem_tome_lorelei.png
+  hint_config=object_item
+  label=itm_kid_lorelei_name
+  hint=itm_kid_lorelei_hint
+  information_label=itm_kid_lorelei_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,cannoner
+      }
+      pbonus=health,0,13,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,cannoner
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,cannoner
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,cannoner
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    rage=limit,16%
+    sp_lead_unit_alchemist=count,13
+    sp_lead_unit_cannoner=count,13
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_synca {
+  category=o
+  image=heroitem_tome_synca.png
+  hint_config=object_item
+  label=itm_kid_synca_name
+  hint=itm_kid_synca_hint
+  information_label=itm_kid_synca_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=giant
+      }
+      pbonus=health,0,8,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=giant
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=giant
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_inc=count,8
+    sp_power_mod=count,1
+    sp_lead_unit_giant=count,8
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_alamar {
+  category=o
+  image=heroitem_tome_alamar.png
+  hint_config=object_item
+  label=itm_kid_alamar_name
+  hint=itm_kid_alamar_hint
+  information_label=itm_kid_alamar_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,16
+    sp_power_inc=count,8
+    sp_power_mod=count,1
+    sp_gain_power_resurrection=count,16
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_jeddite {
+  category=o
+  image=heroitem_tome_jeddite.png
+  hint_config=object_item
+  label=itm_kid_jeddite_name
+  hint=itm_kid_jeddite_hint
+  information_label=itm_kid_jeddite_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,32
+    sp_gain_power_resurrection=count,16
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_sephinroth {
+  category=o
+  image=heroitem_tome_sephinroth.png
+  hint_config=object_item
+  label=itm_kid_sephinroth_name
+  hint=itm_kid_sephinroth_hint
+  information_label=itm_kid_sephinroth_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=orb
+      }
+      pbonus=attack,0,16,0,-100,0,0
+      dbonus=
+      rbonus=fire,16,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=orb
+      }
+      pbonus=krit,0,32,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=orb
+      }
+      pbonus=defense,0,16,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=orb
+      }
+      pbonus=health,0,16,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=orb
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,16
+    mana=limit,16%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_labetha {
+  category=o
+  image=heroitem_tome_labetha.png
+  hint_config=object_item
+  label=itm_kid_labetha_name
+  hint=itm_kid_labetha_hint
+  information_label=itm_kid_labetha_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,16,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,16
+    sp_add_penalty_stone_skin=count,1
+    sp_duration_stone_skin=1
+    sp_gain_power_stone_skin=count,16
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_mutare {
+  category=o
+  image=heroitem_tome_mutare.png
+  hint_config=object_item
+  label=itm_kid_mutare_name
+  hint=itm_kid_mutare_hint
+  information_label=itm_kid_mutare_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=blackdragon,bonedragon,greendragon,reddragon
+      }
+      pbonus=health,0,4,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_addgold_battle=count,40
+    sp_addgold_chestt=count,40
+    attack=limit,8%
+    defense=limit,8%
+    sp_lead_unit_blackdragon=count,4
+    sp_lead_unit_bonedragon=count,4
+    sp_lead_unit_greendragon=count,4
+    sp_lead_unit_reddragon=count,4
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_thunar {
+  category=o
+  image=heroitem_tome_thunar.png
+  hint_config=object_item
+  label=itm_kid_thunar_name
+  hint=itm_kid_thunar_hint
+  information_label=itm_kid_thunar_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=fire,0,8,0,-100,0,0
+      rbonus=fire,8,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=physical,0,8,0,-100,0,0
+      rbonus=physical,8,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_addgold_battle=count,40
+    sp_addgold_chestt=count,40
+    attack=count,8%
+    defense=count,8%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ordwald {
+  category=o
+  image=heroitem_tome_ordwald.png
+  hint_config=object_item
+  label=itm_kid_ordwald_name
+  hint=itm_kid_ordwald_hint
+  information_label=itm_kid_ordwald_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=krit,0,23,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=health,0,12,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=miner
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=health,0,9,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,cannoner
+      }
+      pbonus=health,0,7,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,cannoner
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=giant
+      }
+      pbonus=health,0,4,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_miner=count,12
+    sp_lead_unit_dwarf=count,9
+    sp_lead_unit_alchemist=count,7
+    sp_lead_unitcannoner=count,7
+    sp_lead_unit_giant=count,4
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}

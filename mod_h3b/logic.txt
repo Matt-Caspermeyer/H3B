@@ -1,0 +1,359 @@
+
+// Разное
+
+// Дополнительное разделение армий 5++ после определенного уровня сложности локаций
+split_difficulty=35
+split_probability=35
+split_percent_min=25
+split_percent_max=75
+
+// Коэффициент для перевода лидерства юнита в опыт игрока
+exp_from_lead_k=0.018 //0.016
+
+// Коэффициенты для покупки/продажи
+default_buy_coeff=0
+default_sell_coeff=0.25
+default_sell_scroll_coeff=0.2
+
+// Число максимум юнитов для продажи, более него продаются вечно
+infinity_units=9999
+
+// Сила врага/ Сила наша дает хинт кто сильнее на карте
+rel_strength=army_veryweak=.3,army_weak=.6,army_weaker=.8,army_equal=1.0,army_stronger=1.15,army_strong=1.5,army_verystrong=2.0,army_fatal=3.0,army_invincible
+// Какой должен быть уровень вражеского героя, чтобы его армия считалась в 2 раза сильнее. При 20 уровне в 2 раза, при 30 в 2.5 раза.
+enemy_hero_level_leadk=20
+// Прирост опыта и золота за бой от уровня враж. героя Exp=1.5+k*LV
+enemy_hero_money_exp_bonus_k=0.03
+
+//Коэф-т возврата армии в виде золота при поражении
+i_wanna_compensation_for_my_army_defeated_k=0.9
+compensation_pay_limit=5
+compensation_after_limit_reached=0.2
+
+// Коэффициент уменьшения денег при сложности карты 100%
+diffmap_to_kmoneyarmy=3.5 //3.5
+
+// Расы, Сопротивления, Особенности юнитов
+races=human,elf,orc,dwarf,undead,demon,neutral
+resistances=physical,poison,magic,fire,astral
+features=armor,shot,mage,undead,eyeless,demon,dragon,plant,mind_immunitet,fire_immunitet,magic_immunitet,poison_immunitet,freeze_immunitet,holy,bone,golem,humanoid,beast,beauty,nonecro,barrier,archer,boss,pawn,orb,wood,cute
+
+//Коэф-т прироста маны, когда ярость = 0
+mana_gain_k_when_no_rage=3
+
+// Настройки сложности игры
+difficulty_k {
+
+         exp=0.5|1.0|1.30|1.7   // коэф. растяжения таблицы опыта героя
+       alead=0.5|1.0|1.30|1.7   // коэф. лидерства врага
+       spexp=0.5|1.0|1.15|1.3   // коэф. растяжения таблицы опыта духов ярости
+       money=4.0|1.0|0.77|0.6   // коэф. полученных денег
+        rage=2.0|1.0|0.85|0.7   // коэф. прихода ярости в бою
+    manarage=2.0|1.0|0.80|0.5   // коэф. прихода маны на карте, а для ярости скорости падения
+       eunit=1.0|1.0|1.10|1.25  // New! Enemy unit statistic scaler based on difficulty level
+
+  minstatinc=0|0|0|1            // New! The minimum a stat will increase (or decrease) if eunit's scaling causes no change
+
+  emanaregen=0.0|0.0|5.0|10.0   // New! Enemy hero mana regen (percent of max mana, i.e. /100, per turn)
+    ehlvldbc=30|30|28|25        // New! Enemy hero level at which they can cast an extra spell per turn
+   ehmanadbc=350|300|250|200	// New! Enemy hero mana (limit) at which they can cast an extra spell per turn
+
+  roundmrgk1=20|15|10|5         // New! Round at which mana_rage_gain_k goes to 1/2
+  roundmrgk2=30|25|15|10        // New! Round at which mana_rage_gain_k goes to 1/4
+  roundmrgk3=40|35|20|15        // New! Round at which mana_rage_gain_k goes to 0
+  roundehero=20|15|10|5         // New! Rounds to add to when mana_rage_gain_k is implemented when fighting enemy heroes
+  roundtower=20|15|10|5         // New! Rounds to add to when mana_rage_gain_k is implemented when fighting towers
+   roundboss=20|15|10|5         // New! Rounds to add to when mana_rage_gain_k is implemented when fighting bosses
+
+     bossatk=1.0|1.0|1.4|2.0    // коэф. атаки босса
+      bosshp=1.0|1.0|1.4|2.0    // коэф. жизни босса
+
+   deadmoney=1.0|1.0|0.5|0.0   // коэф. полученных денег за потери в бою
+
+}
+
+// New! This may help with performance on slower systems
+//  Set the maximum number of spells that an enemy hero will consider for casting per attempt.
+//   If the hero has more spells than this value then a random number are removed until the
+//   number of spells in this list is this value. For example, if an enemy hero has 17 spells
+//   and ehero_max_spells=15 then 2 random spells are removed from the hero's spell list before
+//   deciding on which spell to cast. If you find that the computer is taking a while to cast
+//   spells, then lowering this number will speed things up, conversely if spell casting is fast,
+//   you can increase this number so that more of their spells are considered every attempt.
+//  Note: Only high-level heroes and mage heroes have more than 10 spells in their spell lists.
+ehero_max_spells=20
+
+// DefaultParam Mini, Small, Average, Big, Huge - коэффициенты для настройки эмбрионов
+parpresets {
+
+  leadership {
+    0=04:2:10
+    1=12:2:18 // Синий флаг * кСложности 
+    2=20:2:26 // Зеленый флаг * кСложности 
+    3=28:2:34 // Красный флаг * кСложности
+    4=36:2:42
+    //0=10:5:15
+    //1=20:5:25 // Синий флаг * кСложности 
+    //2=30:5:40 // Зеленый флаг * кСложности 
+    //3=45:5:50 // Красный флаг * кСложности
+    //4=55:5:70
+  }
+  money {
+    0=0080:10:0150
+    1=0200:20:0300
+    2=0400:20:0600
+    3=0800:20:1000
+    4=1200:20:1600
+    //0=70:10:150
+    //1=150:20:300
+    //2=300:20:500
+    //3=500:20:800
+    //4=800:20:1200
+  }
+
+  experience {
+    0=15:5:30
+    1=30:5:50
+    2=50:5:70
+    3=70:5:90
+    4=90:5:110
+    //0=20:5:40
+    //1=40:5:60
+    //2=60:5:80
+    //3=80:5:100
+    //4=100:5:120
+  }
+}
+
+difficulty {
+
+  //################################# maps
+  // MapParam
+
+  10 { // Difficulty 0..10%
+
+    k_money=1
+    k_lead=1
+    k_exp=1
+    k_mana=1
+    k_rage=1
+    profit=80,20,0,0,0  //50,25,12,10,3
+    ecmoney=1
+  }
+
+  20 { // Difficulty 11..20%
+
+    k_money=2
+    k_lead=1 //1.5
+    k_exp=2 //1.5
+    k_mana=1.5
+    k_rage=1.5
+    profit=70,30,0,0,0
+    ecmoney=1
+  }
+
+ 30 {
+
+    k_money=4 //5
+    k_lead=2
+    k_exp=3 //2
+    k_mana=2
+    k_rage=2
+    profit=50,40,10,0,0
+    ecmoney=1
+  }
+
+ 40 {
+    k_money=8 //10
+    k_lead=2.5
+    k_exp=5
+    k_mana=2.4
+    k_rage=2.4
+    profit=40,40,15,5,0
+    ecmoney=1
+  }
+
+ 50 {
+
+    k_money=14 //20
+    k_lead=3
+    k_exp=10
+    k_mana=2.7
+    k_rage=2.7
+    profit=30,34,24,10,2
+    ecmoney=1
+  }
+
+ 60 {
+
+    k_money=20 //30
+    k_lead=3.5
+    k_exp=20
+    k_mana=3
+    k_rage=3
+    profit=24,28,28,15,5
+    ecmoney=1
+  }
+
+ 70 {
+
+    k_money=25 //40
+    k_lead=4
+    k_exp=40
+    k_mana=3.5
+    k_rage=3.5
+    profit=15,25,30,20,10
+    ecmoney=1
+  }
+
+ 80 {
+
+    k_money=30 //50
+    k_lead=4.5
+    k_exp=60
+    k_mana=4
+    k_rage=4
+    profit=10,20,30,25,15
+    ecmoney=1
+  }
+
+ 90 {
+
+    k_money=40 //60
+    k_lead=5
+    k_exp=80
+    k_mana=4.5
+    k_rage=4.5
+    profit=5,15,30,30,20
+    ecmoney=1
+  }
+
+ 100 {
+
+    k_money=50 //70
+    k_lead=5
+    k_exp=100
+    k_mana=5
+    k_rage=5
+    profit=0,5,25,40,30
+    ecmoney=1
+  }
+
+  ///////////////////////////////////
+
+
+  // QuestRewardParam
+  //################################# quests
+
+   q10 { // Difficulty 0..10%
+
+    k_money=2 //1.5
+    k_lead=1
+    k_exp=1
+    k_mana=1
+    k_rage=1
+    profit=80,20,0,0,0  //50,25,12,10,3
+    ecmoney=1
+  }
+
+  q20 { // Difficulty 0..20%
+
+    k_money=4 //3.5
+    k_lead=1.5
+    k_exp=1.4   //1.3
+    k_mana=1.5
+    k_rage=1.5
+    profit=70,30,0,0,0
+    ecmoney=1
+  }
+
+ q30 {
+
+    k_money=6 //4.5
+    k_lead=2
+    k_exp=2.0 //1.6
+    k_mana=2
+    k_rage=2
+    profit=50,40,10,0,0
+    ecmoney=1
+  }
+
+ q40 {
+
+    k_money=10 //8
+    k_lead=2.4
+    k_exp=5
+    k_mana=2.4
+    k_rage=2.4
+    profit=40,40,15,5,0
+    ecmoney=1
+  }
+
+ q50 {
+
+    k_money=15 //11
+    k_lead=2.7
+    k_exp=10
+    k_mana=2.7
+    k_rage=2.7
+    profit=30,34,24,10,2
+    ecmoney=1
+  }
+
+ q60 {
+
+    k_money=20 //15
+    k_lead=3
+    k_exp=20
+    k_mana=3
+    k_rage=3
+    profit=24,28,28,15,5
+    ecmoney=1
+  }
+
+ q70 {
+
+    k_money=30 //22
+    k_lead=3.5
+    k_exp=40
+    k_mana=3.5
+    k_rage=3.5
+    profit=15,25,30,20,10
+    ecmoney=1
+  }
+
+ q80 {
+
+    k_money=45 //40
+    k_lead=4
+    k_exp=60
+    k_mana=4
+    k_rage=4
+    profit=10,20,30,25,15
+    ecmoney=1
+  }
+
+ q90 {
+
+    k_money=60 //60
+    k_lead=4.5
+    k_exp=80
+    k_mana=4.5
+    k_rage=4.5
+    profit=5,15,30,30,20
+    ecmoney=1
+  }
+
+ q100 {
+
+    k_money=80  //80
+    k_lead=5
+    k_exp=100
+    k_mana=5
+    k_rage=5
+    profit=0,5,25,40,30
+    ecmoney=1
+  }
+
+}
+

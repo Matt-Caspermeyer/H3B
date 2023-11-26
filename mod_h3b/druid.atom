@@ -1,0 +1,392 @@
+main {
+  class=chesspiece
+  model=druid.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_druid_feat
+  features_hints=druid_shot_header/druid_shot_hint,magic_resistance_header/magic_resistance_hint,harmony_header/harmony_hint
+  race=elf
+  cost=240
+  level=3
+  leadership=110
+  attack=16
+  defense=22
+  defenseup=3
+  initiative=2
+  speed=2
+  hitpoint=48
+  movetype=0
+  krit=5
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,cast_bear,throw1,beast_training
+  features=humanoid,mage
+  resistances {
+    physical=0
+    poison=0
+    magic=25
+    fire=0
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      physical=2,4
+    }
+    custom_params {
+      curse=0
+    }
+  }
+  throw1 {
+    group=1,2
+    showdmg=1
+    device=natureforce
+    base_attack=1
+    class=throw
+    distance=6
+    mindist=1
+    base_attack=1
+    penalty=0.5
+    animation=attack/throw/thtarget
+    throw=druid_bullet
+    framekey=x
+    7in1=0.5
+    damage {
+      magic=4,8
+    }
+    custom_params {
+      curse=0
+    }
+  }
+  cast_bear {
+    class=scripted
+    hinthead=special_cast_bear_head
+    hint=special_cast_bear_hint
+    reload=4
+    warning=sw_place
+    script_attack=special_cast_bear
+    script_calccells=calccells_all_empty_around
+    picture=BA1_CastBear_
+    picture_small=BA1_CastBear_small.png
+    attack_cursor=magicstick
+    anim_attack=cast
+    custom_params {
+      k=15-20
+    }
+  }
+  beast_training {
+    class=scripted
+    warning=sw_training
+    hinthead=special_beast_training_head
+    hint=special_beast_training_hint
+    picture=BA1_Beast_Training_
+    picture_small=BA1_Beast_Training_small.png
+    moves=1
+    script_attack=special_beast_training
+    script_calccells=calccells_enemy_beast
+    picture=BA1_CastBear_
+    picture_small=BA1_CastBear_small.png
+    attack_cursor=magicstick
+    --    anim_attack=cast
+    no_hint=1
+    features=beast
+    nfeatures=mind_immunitet,boss,pawn
+    custom_params {
+      level=3
+      duration=2
+      k=80-80
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=druid_idle.bsa/fr:25:50
+  rare=druid_rare.bsa/fr:25:50
+  attack=druid_attack.bsa/fr:25:50
+  cast=druid_cast.bsa/fr:25:50
+  move=druid_move.bsa/fr:30:60
+  start=druid_start.bsa/fr:30:60
+  stop=druid_stop.bsa/fr:35:70
+  clock=druid_clock.bsa/fr:40:80
+  contra=druid_contra.bsa/fr:40:80
+  clock2=druid_2clock.bsa/fr:40:80
+  contra2=druid_2contra.bsa/fr:40:80
+  lturn=druid_lturn.bsa/fr:30:60
+  rturn=druid_rturn.bsa/fr:30:60
+  damage=druid_damage.bsa/fr:25:50
+  slew=druid_slew.bsa/fr:35:70
+  death=druid_death.bsa/fr:25:50
+  respawn=druid_respawn.bsa/fr:25:50
+  cursor=druid_rare.bsa/fr:25:50
+  teleout=druid_idle.bsa/fr:25:50
+  telein=druid_idle.bsa/fr:25:50/r:0:35
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  happy=druid_cast.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    33.0?x=
+    0.0=cam
+  }
+  @cast {
+    35.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=druid_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=druid_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=druid_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=druid_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=druid_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=druid_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=druid_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=druid_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=druid_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=druid_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=druid_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=druid_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=druid_death
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=druid_cast
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0.30000001/-0.2/0/-0/0/0.80000001
+      animation=cast
+      frame=1/33
+      file=cast_druid_leaves.ptb
+    }
+    particle {
+      trans=0/-0.30000001/-0.2/0/-0/0/0.80000001
+      animation=cast
+      frame=8/22
+      file=cast_druid_leaves_green.ptb
+    }
+    particle {
+      trans=0/1.95000005/-0.5/0/-0/0/0.5
+      animation=cast
+      frame=22/42
+      file=cast_druid_arx.ptb
+    }
+    particle {
+      trans=-0.2/1.79999995/-0.5/0/-0/0/1
+      animation=cast
+      frame=22/41
+      file=cast_druid_flame.ptb
+    }
+    particle {
+      trans=-0.3704834/1.5/-0.5/0/-0/-2.48226881/0.5
+      animation=cast
+      frame=11/22
+      file=cast_druid_curve.ptb
+    }
+    particle {
+      trans=-0.12359619/0.99000001/-0.5/0/-0/-1.62899232/0.49999994
+      animation=cast
+      frame=12/23
+      file=cast_druid_curve.ptb
+    }
+    particle {
+      trans=0.3704834/1.35803223/-0.5/0/-0/-0.93083906/0.5
+      animation=cast
+      frame=13/24
+      file=cast_druid_curve.ptb
+    }
+    particle {
+      trans=0.40000001/1.5/-0.5/0/-0/0.38780951/0.5
+      animation=cast
+      frame=15/26
+      file=cast_druid_curve.ptb
+    }
+    particle {
+      trans=0/2.09869385/-0.5/0/-0/1.78411579/0.5
+      animation=cast
+      frame=16/27
+      file=cast_druid_curve.ptb
+    }
+    particle {
+      trans=-0.3704834/1.60491943/-0.5/0/-0/2.79251623/0.5
+      animation=cast
+      frame=17/28
+      file=cast_druid_curve.ptb
+    }
+    omni {
+      trans=0/2/-0.5/0/-0/0/1
+      animation=cast
+      frame=22/84
+      restart=true
+      lightland=true
+      key=0.5/FF000000/3/1
+      key=0.5/FFB3FE25/3/1
+      key=0.30000001/FFE4FFB3/3/1
+      key=0.30000001/FF669C01/3/1
+      key=0.5/FF000000/3/1
+      key=1/FF000000/3/1
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=0/1.60491943/0.1/0/-0/0/0.5
+      animation=attack
+      frame=11/44
+      file=cast_druid_accum.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0/-1/0/-0/0/1
+      animation=attack
+      frame=33/44
+      file=cast_druid_wave.ptb
+    }
+    particle {
+      trans=0/1/-0.5/0/-0/0/1
+      animation=attack
+      frame=5/11
+      file=cast_druid_curve.ptb
+    }
+    particle {
+      trans=0/1.79999995/-0.5/1.08596253/0.31024763/0/0.99999994
+      animation=attack
+      frame=11/14
+      file=cast_druid_curve.ptb
+    }
+    particle {
+      trans=0/1/-0.2/-3.1415925/-0/0/0.69999999
+      animation=attack
+      frame=29/44
+      file=cast_druid_whoosh.ptb
+    }
+    particle {
+      trans=0/0.2/-1/0/0.15512381/0/0.69999999
+      animation=attack
+      frame=33/44
+      file=cast_druid_sparkbang.ptb
+    }
+  }
+}
+prefetch {
+  druid_idle.bsa=file
+  druid_rare.bsa=file
+  druid_attack.bsa=file
+  druid_move.bsa=file
+  druid_start.bsa=file
+  druid_stop.bsa=file
+  druid_clock.bsa=file
+  druid_contra.bsa=file
+  druid_2clock.bsa=file
+  druid_2contra.bsa=file
+  druid_lturn.bsa=file
+  druid_rturn.bsa=file
+  druid_damage.bsa=file
+  druid_death.bsa=file
+  druid_respawn.bsa=file
+  druid_cast.bsa=file
+}

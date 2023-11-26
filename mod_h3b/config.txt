@@ -1,0 +1,956 @@
+==hero.txt // include
+==arena.txt // include arena params
+==logic.txt // logic params
+
+actors=actors.txt {}
+gamecamera=camera.txt {}
+forms=forms.txt {}
+unitbeh=unitbeh.txt {}
+effects=ui_effects.txt {}
+autoconf=autoconfig.txt {}
+
+//    GUI_MB_OK
+//    GUI_MB_CANCEL
+//    GUI_MB_TEXT
+//    GUI_MB_CENTERED
+//    GUI_MB_TOP
+//    GUI_MB_LEFT
+//    GUI_MB_RIGHT
+//    GUI_MB_BOTTOM
+//    GUI_MB_BY_MOUSE
+//    GUI_MB_AUTOSIZE
+//    GUI_MB_BY_COORDS
+//    GUI_MB_BY_PANEL
+//    GUI_MB_BY_CONTROL
+//    GUI_MB_IS_HINT
+
+templates {
+
+  quest {
+
+    quest_success=quest_success
+    quest_fail=quest_fail
+    quest_run=quest_run
+
+    qstage_done=qstage_done
+    qstage_fail=qstage_fail
+    qstage_run=qstage_run
+
+    task=quest_task
+
+  }
+
+  atom_info_hint=atom_info_hint
+  atom_info_msgbox=atom_info_msgbox
+
+  chat_text=chat_text_default
+  chat_answer=chat_answ_default
+  chat_name=chat_npc_name
+  taken_mb=taken_mb
+  taken_ffo=taken_ffo
+  taken_reserv=taken_reserv
+  action_mb=msg_box_t
+  action_que=msg_box_t
+  btq=msg_box_t
+
+//  item_hint_header_c= // template for hint header of counters
+  item_hint_header_s=spells_tC // template for hint header of spells
+
+  bigmaphint=bigmaphint
+
+  objects {
+    taken {
+
+      *=taken_mb
+    }
+    hhint {
+
+      *=items_tCap
+    }
+    hint {
+
+      *=items_tM
+    }
+    info {
+      *=items_tI
+    }
+    mhint {
+      *=map_status_th
+    }
+    minfo {
+      *=map_status_tm
+    }
+
+    //wife, map, quest, undropable, moral ,container, nobody, rare, usable, dialog
+    //helmet, weapon, shield, armor, belt, boots, regalia, artefact
+
+  }
+
+
+}
+
+mbox {
+  // hint=x,y,ident_x,ident_y,type,(14 flags),[panel]
+
+  default=0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1
+  hint=20,20,10,5,0,0,0,1,0,0,0,1,1,0,0,1,0,0,1
+  //mbox=0,0,40,20,1,0,0,1,0,1,0,1,0,1,1,0,0,0,1
+  mbox=0,0,15,10,1,0,0,1,0,1,0,1,0,1,1,0,0,0,1
+  rbox=0,0,5,10,1,0,0,1,0,1,0,1,0,1,1,0,0,0,1
+  //
+//  mp_hint=0,0,10,5,0,0,0,1,1,1,0,1,0,0,0,0,1,0,1,panel
+//                      >   t с t l r b m a c p с h
+  ui_default=0,-8,4,0,0,0,0,1,1,1,0,0,0,0,1,0,0,1,1
+  taken=0,0,40,20,2,1,0,1,1,0,0,0,0,0,1,0,0,0,0
+  amb=0,0,40,20,2,1,0,1,1,0,0,0,0,0,1,0,0,0,0           // action show mb
+  aqu=0,0,40,20,2,0,1,1,1,0,0,0,0,0,1,0,0,0,0           // action question
+  apc=0,0,40,20,2,0,1,1,1,0,0,0,0,0,1,0,0,0,0           // upgrade / pacify confirm
+  dismiss=0,0,40,20,2,0,1,1,1,0,0,0,0,0,1,0,0,0,0
+  buy_ask=0,0,40,20,2,0,1,1,1,0,0,0,0,0,1,0,0,0,0
+  warning=0,0,40,20,2,1,0,1,1,0,0,0,0,0,1,0,0,0,0
+  yes_no=0,0,40,20,2,1,1,1,1,0,0,0,0,0,1,0,0,0,0
+  escape=0,0,40,20,2,0,1,1,1,0,0,0,0,0,1,0,0,0,0
+  sysyn=0,0,40,20,2,0,1,1,1,0,0,0,0,0,1,0,0,0,0     // system yes no
+  sysok=0,0,40,20,2,1,0,1,1,0,0,0,0,0,1,0,0,0,0     // system ok
+}
+
+pointers {
+  landscape=cur_3arrows
+  water=cur_3arrows
+  arena=cur_3arrows
+}
+
+colors {
+  arena_current=FF00FF30
+  arena_target=FFFF0000
+
+  wsp_color_text=255,243,179,255,243,179
+  wsp_color_num=255,180,0,255,0,0
+}
+
+herofaces {
+  hero_warrior {
+    face=portret__warrior_2.png
+    doll_small=portret__warrior_0.png
+    doll_big=portret__warrior_1.png
+
+  }
+  hero_paladin {
+    face=portret__pal_2.png
+    doll_small=portret__pal_0.png
+    doll_big=portret__pal_1.png
+  }
+  hero_mage {
+    face=portret__mage_2.png
+    doll_small=portret__mage_0.png
+    doll_big=portret__mage_1.png
+  }
+}
+
+camera_eye_radius=2.85
+
+// dig
+
+default_treasure_effect=hll_treasure
+
+default_dig_failure_effect=hll_dig_failure
+default_dig_failure_sound=
+
+default_dig_success_effect=hll_dig_success
+default_dig_success_sound=
+
+default_treasure_popup_radius=3.0
+
+reward_text_generator=reward_text_generator
+
+fixer=633528458 // on-load quest.
+
+// звуки для предметов в инвентаре
+inventory_item_sounds {
+    take=take_items
+    put=drop_items
+//     {
+//         type=weapon
+//         take=5
+//         put=5
+//     }
+//     {
+//         type=shield,armor
+//         take=2
+//         put=4
+//     }
+//     {
+//         type=belt
+//         take=2
+//         put=2
+//     }
+//     {
+//         type=quest
+//         take=7
+//         put=8
+//     }
+//     {
+//         type=regalia
+//         take=6
+//         put=6
+//     }
+//     {
+//         type=helmet
+//         take=3
+//         put=4
+//     }
+}
+
+MoneyBlinkShowTime=0.15
+MoneyBlinkHideTime=0.15
+LeadBlinkShowTime=0.15
+LeadBlinkHideTime=0.15
+LeadMoneyBlinkShowTime=0.15
+LeadMoneyBlinkHideTime=0.15
+UnitsBlinkShowTime=0.15
+UnitsBlinkHideTime=0.15
+
+minimap_border=2
+hero_lighting_radius=8.0
+hero_boat_layer=7
+hero_army_layer=1
+object_timer_period=60 // real time
+
+diprip_delay=0.3
+rip_fade_time=1
+
+homeportal=home.darion_1
+
+worldmap=endoria_world
+
+// перечисление стартовых роликов
+always_video=1c_logo_eng.ogm
+start_video=katauri_logo800x600.ogm;kbtl-intro-800x600-eng.ogm
+victory_video=victory1024x512.bik
+defeat_video=defeat1024x512.bik
+
+maoptions {
+  friend_damage=0x0001
+  used_if_damaged=0x0002
+  3in1=0x0004
+  6in1=0x0008
+  disablerush=0x0010
+  nomove=0x0020
+  return=0x0040
+  longhit=0x0080
+  superhitback=0x0100
+  long2=0x0200
+}
+
+// слоты предметов для героя по умолчанию
+
+
+
+// флаги предметов все
+
+propbits {
+  wife=0x0001
+  map=0x0002
+  quest=0x0004
+  //undropable=0x0008
+  moral=0x0010
+  container=0x0020
+  nobody=0x0040
+  rare=0x0080
+  usable=0x0100
+  dialog=0x0200
+  child=0x0400
+  npc=0x0800
+  setbonus=0x1000
+  hidden=0x2000
+  multiuse=0x4000
+
+  helmet=0x10000
+  weapon=0x20000
+  shield=0x40000
+  armor=0x80000
+  belt=0x100000
+  boots=0x200000
+  regalia=0x400000
+  artefact=0x800000
+}
+
+surface_types {
+  0=water
+  1=show
+  2=sand
+  3=stone
+  4=grass
+  5=lava
+}
+
+labels {
+  dismiss=<label=dismiss_army>
+  buy_ask=<label=tn_buy_ask>
+  buy_cannot=<label=tn_buy_cannot>
+  buy_scroll_ask=<label=tn_buy_scroll_ask>
+  buy_scroll_cannot=<label=tn_buy_scroll_cannot>
+  no_lead=<label=by_lim_lead_hint>
+  no_place=<label=by_lim_units_hint>
+  load_cannot=<label=sl_cant_load>
+  attack_hint=<label=attack_hint>
+
+  at_no_place=<label=add_troop_no_place>
+  at_ok=<label=add_troop_ok>
+  at_res=<label=add_troop_res>
+  at_nol=<label=add_troop_nol>
+  at_res_nol=<label=add_troop_res_nol>
+
+  escape=<label=msg_escape>
+
+  taken_empty=<label=message_taken_empty>
+  taken_units=<label=message_taken_units>
+  noplaceforunit=<label=message_no_place>
+  taken_scrolls=<label=msg_scroll_found>
+  taken_object=<label=message_taken_object>
+
+  taken_money=<label=msg_gold_found_01>
+
+  reward=<label=reward_text>
+
+  // obj menu
+  obj_use=<label=popup_use>
+  obj_use_disabled=<label=popup_use_disabled>
+  obj_sale=<label=popup_sale>
+  obj_drop=<label=popup_drop>
+  obj_drop_ask=<label=popup_drop_ask>
+  obj_pacify=<label=popup_suppress>
+  obj_info=<label=popup_info>
+  obj_dialog=<label=popup_dialog>
+  obj_upgrade=<label=popup_upgrade>
+
+  not_enough_leadership=<label=army_not_enough_leadership>
+
+  garrison_deadlock=<label=garrison_deadlock>
+  garrison_noswap=<label=garrison_noswap>
+
+  pacitem=<label=message_pacify_item>
+  upgitem=<label=message_upgrade_item>
+
+  badsave=<label=warning_badsave>
+  protsave=<label=warning_protsave>
+
+  infinity_units=<label=tn_max_unit>
+
+  pause=<label=game_paused>
+
+  exitgame=<label=start_exit>
+}
+
+txt_font_config {
+     hint_sel=<label=hint_Sel_font>
+     hint_def=<label=hint_Def_font>
+     hint_dis=<label=hint_Dis_font>
+     hint_cap=<label=hint_Cap_font>
+     hint_sys=<label=hint_TM_font>
+     hint_com=<label=hint_Com_font>
+     msg_sel=<label=msg_Sel_font>
+     msg_def=<label=msg_Def_font>
+     dlg_sel=<label=dlg_Sel_font>
+     dlg_def=<label=dlg_Def_font>
+     spell_cap=<label=spell_caption_font>
+}
+
+spell_power_config {
+     int_power=10
+     int_duration=15
+     mod=7
+     inc=10
+     mod_limit=4
+     inc_limit=5
+     den_scholar=2
+     spell_level_min_limit = 1
+     spell_level_max_limit = 3
+     level_inc_elevel = 10
+}
+
+//New! For levelup, the level at which the min stat and min limit increase - see LOGIC_HERO.LUA
+hero_level_up_den {
+     stat_den = 15
+     limit_den = 10
+}
+
+loading {
+    backgrounds {
+          bg1=Loading_bg_03.png
+          bg2=Loading_bg_04.png
+          bg3=Loading_bg_05.png
+          bg4=Loading_bg_06.png
+          bg5=Loading_bg_07.png
+          bg6=Loading_bg_08.png
+          bg7=Loading_bg_09.png
+          bg8=Loading_bg_10.png
+          bg9=Loading_bg_11.png
+          bg0=Loading_bg_12.png
+    }
+    bars {
+        radius=145
+        ballsize=8.5
+        bar1 {
+          border=Loading_progressbar_border.png
+          image=Loading_progressbar_07.png
+          left=Loading_edges_light_red_left2.png
+          right=Loading_edges_light_red_right2.png
+        }
+        bar2 {
+          border=Loading_progressbar_border.png
+          image=Loading_progressbar_08.png
+          left=Loading_edges_light_blue_left2.png
+          right=Loading_edges_light_blue_right2.png
+        }
+        bar3 {
+          border=Loading_progressbar_border.png
+          image=Loading_progressbar_09.png
+          left=Loading_edges_light_green_left2.png
+          right=Loading_edges_light_green_right2.png
+        }
+    }
+    centers {
+        center1=Loading_center_01.png
+        center2=Loading_center_02.png
+        center3=Loading_center_03.png
+    }
+}
+
+races {
+    demon=raceicon_demon.png
+    dwarf=raceicon_dwarf.png
+    orc=raceicon_orc.png
+    neutral=raceicon_neutral.png
+    elf=raceicon_elf.png
+    human=raceicon_human.png
+    spirit=raceicon_spirit.png
+    undead=raceicon_undead.png
+}
+
+sporder=therock,slime,lina,death
+
+bias {
+  map {
+    land_bias=0
+    unit_bias=0
+    particle_bias=0
+    other_bias=0
+  }
+  arena {
+    land_bias=0
+    unit_bias=0
+    particle_bias=0
+    other_bias=0
+  }
+}
+
+unit_info_hints {
+  params_hint_config=object_top_right
+  spells_hint_config=object_top_right
+  // controlname=header/body
+  leadership=cpi_leadership_h_h/cpi_leadership_h
+  attack=cpi_attack_h_h/cpi_attack_h
+  defense=cpi_defense_h_h/cpi_defense_h
+  initiative=cpi_initiative_h_h/cpi_initiative_h
+  movement=cpi_movement_h_h/cpi_movement_h
+  health=cpi_health_h_h/cpi_health_h
+  health_left=cpi_healthl_h_h/cpi_healthl_h
+  damage=cpi_damage_h_h/cpi_damage_h
+  // cpirace=cpi_cpirace_h_h/cpi_cpirace_h
+  // level=cpi_level_h_h/cpi_level_h
+  features=cpi_features_h_h/cpi_features_h
+  damage_fire=/cpi_damage_fire_h_h
+  damage_magic=/cpi_damage_magic_h_h
+  damage_physical=/cpi_damage_physical_h_h
+  damage_poison=/cpi_damage_poison_h_h
+}
+
+level_animation_start_delay=500
+
+unitos_morales {
+    small {
+        -1=unitosmorales_small_out.png // out of control
+        0=unitosmorales_small-3.png
+        1=unitosmorales_small-2.png
+        2=unitosmorales_small-1.png
+        3=unitosmorales_small0.png
+        4=unitosmorales_small+1.png
+        5=unitosmorales_small+2.png
+        6=unitosmorales_small+3.png
+    }
+    big {
+        -1=unitosmorales_out.png // out of control
+        0=unitosmorales-3.png
+        1=unitosmorales-2.png
+        2=unitosmorales-1.png
+        3=unitosmorales0.png
+        4=unitosmorales+1.png
+        5=unitosmorales+2.png
+        6=unitosmorales+3.png
+    }
+}
+journal_labels {
+    current_stage=quests_current_stage
+    main_task=quests_main_task
+    stages_underline=quests_stages_underline
+    reward=quests_reward
+    reward_exp=quests_reward_exp
+    reward_money=quests_reward_money
+}
+
+mapicons {
+  0=map_icon_castle.png     // castle
+  1=map_icon_teleport       // just teleport
+  2=map_icon_dungeon.png    // dungeon
+}
+
+
+//loc_murok
+//loc_elinia_right
+//loc_elinia_left
+//loc_elinia_up
+//loc_kordar_small
+//loc_kordar_right
+//loc_kordar_left
+//loc_darion_left
+//loc_darion_down
+//loc_darion_right
+//loc_darion_up
+//loc_freeland_left
+//loc_freeland_up
+
+bigmaps {
+    endoria_world {
+        ui=darion_0.ui
+        scale=0
+        angle=0
+        x=0
+        y=0
+        quad=1024
+        label=bigmap_endoria_world
+    }
+    darion_1 {
+        ui=darion_1.ui
+        scale=75
+        angle=20.8
+        x=371
+        y=344
+        quad=1024
+        label=bigmap_darion1_big
+        button=loc_darion_up
+        player_pos_x=88
+        player_pos_y=80
+        hint_pos_x=12
+        hint_pos_y=48
+        clouds {
+        }
+    }
+    darion_2 {
+        ui=darion_2.ui
+        scale=89.1
+        angle=23.2
+        x=377
+        y=344
+        quad=1024
+        label=bigmap_darion2_big
+        button=loc_darion_down
+        player_pos_x=71
+        player_pos_y=48
+        hint_pos_x=5
+        hint_pos_y=22
+        clouds {
+            cloud_down_01=
+            cloud_down_02=
+            cloud_down_03=
+        }
+    }
+    darion_3 {
+        ui=darion_3.ui
+        scale=86.5
+        angle=18.9
+        x=397
+        y=274
+        quad=1024
+        label=bigmap_darion3_big
+        button=loc_darion_left
+        player_pos_x=111
+        player_pos_y=99
+        hint_pos_x=21
+        hint_pos_y=52
+        clouds {
+            cloud_left_01=
+            cloud_left_02=
+            cloud_left_03=
+            cloud_left_04=
+            cloud_left_05=
+            cloud_left_06=
+            cloud_left_07=
+        }
+    }
+    darion_4 {
+        ui=darion_4.ui
+        scale=79.7
+        angle=10.2
+        x=430
+        y=296
+        quad=1024
+        label=bigmap_darion4_big
+        button=loc_darion_right
+        player_pos_x=71
+        player_pos_y=79
+        hint_pos_x=-4
+        hint_pos_y=45
+        clouds {
+            cloud_right_01=
+            cloud_right_02=
+            cloud_right_03=
+            cloud_right_04=
+            cloud_right_05=
+        }
+    }
+    kordar_1 {
+        ui=kordar_1.ui
+        scale=102
+        angle=0
+        x=350
+        y=329
+        quad=1024
+        label=bigmap_kordar1_big
+        button=loc_kordar_left
+        player_pos_x=102
+        player_pos_y=54
+        hint_pos_x=22
+        hint_pos_y=51
+        clouds {
+            cloud_kordar_left_01=
+            cloud_kordar_left_02=
+            cloud_kordar_left_03=
+            cloud_kordar_left_04=
+        }
+    }
+    kordar_2 {
+        ui=kordar_2.ui
+        scale=93
+        angle=0
+        x=423
+        y=337
+        quad=1024
+        label=bigmap_kordar2_big
+        button=loc_kordar_right
+        player_pos_x=84
+        player_pos_y=96
+        hint_pos_x=9
+        hint_pos_y=60
+        clouds {
+            cloud_kordar_right_01=
+            cloud_kordar_right_02=
+            cloud_kordar_right_03=
+            cloud_kordar_right_04=
+        }
+    }
+    kordar_dungeon_1 {
+        ui=kordar_dungeon_1.ui
+        scale=80
+        angle=0
+        x=370
+        y=303
+        quad=1024
+        label=bigmap_kordar_dungeon1_big
+        button=
+        player_pos_x=
+        player_pos_y=
+        hint_pos_x=
+        hint_pos_y=
+        clouds {
+        }
+    }
+    kordar_dungeon_2 {
+        ui=kordar_dungeon_2.ui
+        scale=78.9
+        angle=0
+        x=341
+        y=302
+        quad=1024
+        label=bigmap_kordar_dungeon2_big
+        button=
+        player_pos_x=
+        player_pos_y=
+        hint_pos_x=
+        hint_pos_y=
+        clouds {
+        }
+    }
+    island_1 {
+        ui=island_1.ui
+        scale=79.1
+        angle=-26.1
+        x=311
+        y=272
+        quad=1024
+        label=bigmap_island1_big
+        button=loc_freeland_left
+        player_pos_x=100
+        player_pos_y=134
+        hint_pos_x=-12
+        hint_pos_y=68
+        clouds {
+            cloud_freeland_left_01=
+            cloud_freeland_left_02=
+            cloud_freeland_left_03=
+            cloud_freeland_left_04=
+            cloud_freeland_left_05=
+
+        }
+    }
+    island_2 {
+        ui=island_2.ui
+        scale=82
+        angle=-27.5
+        x=370
+        y=280
+        quad=1024
+        label=bigmap_island2_big
+        button=loc_freeland_up
+        player_pos_x=145
+        player_pos_y=75
+        hint_pos_x=-1
+        hint_pos_y=47
+        clouds {
+            cloud_freeland_up_01=
+            cloud_freeland_up_02=
+            cloud_freeland_up_03=
+            cloud_freeland_up_04=
+        }
+    }
+    ellinia_1 {
+        ui=ellinia_1.ui
+        scale=82.5
+        angle=28.9
+        x=338
+        y=329
+        quad=1024
+        label=bigmap_ellinia1_big
+        button=loc_elinia_left
+        player_pos_x=77
+        player_pos_y=79
+        hint_pos_x=27
+        hint_pos_y=60
+        clouds {
+            cloud_ellinia_left_01=
+            cloud_ellinia_left_02=
+            cloud_ellinia_left_03=
+        }
+    }
+    ellinia_2 {
+        ui=ellinia_2.ui
+        scale=77.8
+        angle=30
+        x=386
+        y=263
+        quad=1024
+        label=bigmap_ellinia2_big
+        button=loc_elinia_up
+        player_pos_x=86
+        player_pos_y=81
+        hint_pos_x=-8
+        hint_pos_y=74
+        clouds {
+            cloud_ellinia_up_01=
+            cloud_ellinia_up_02=
+        }
+    }
+    ellinia_3 {
+        ui=ellinia_3.ui
+        scale=67.0
+        angle=28.4
+        x=423
+        y=320
+        quad=1024
+        label=bigmap_ellinia3_big
+        button=loc_elinia_right
+        player_pos_x=106
+        player_pos_y=132
+        hint_pos_x=-4
+        hint_pos_y=77
+        clouds {
+            cloud_ellinia_right_01=
+            cloud_ellinia_right_02=
+            cloud_ellinia_right_03=
+            cloud_ellinia_right_04=
+            cloud_ellinia_right_05=
+        }
+    }
+    undead_1 {
+        ui=undead_1.ui
+        scale=78
+        angle=30
+        x=370
+        y=292
+        quad=1024
+        label=bigmap_undead1_big
+        button=
+        player_pos_x=
+        player_pos_y=
+        hint_pos_x=
+        hint_pos_y=
+        clouds {
+        }
+    }
+    undead_2 {
+        ui=undead_2.ui
+        scale=67.4
+        angle=30
+        x=461
+        y=318
+        quad=1024
+        label=bigmap_undead2_big
+        button=
+        player_pos_x=
+        player_pos_y=
+        hint_pos_x=
+        hint_pos_y=
+        clouds {
+        }
+    }
+    murok_1{
+        ui=murok.ui
+        scale=92.3
+        angle=0
+        x=395
+        y=330
+        quad=1024
+        label=bigmap_murok_big
+        button=loc_murok
+        player_pos_x=68
+        player_pos_y=117
+        hint_pos_x=-9
+        hint_pos_y=51
+        clouds {
+            cloud_murok_01=
+            cloud_murok_02=
+            cloud_murok_03=
+            cloud_murok_04=
+            cloud_murok_05=
+        }
+    }
+    demon_1 {
+        ui=demon_1.ui
+        scale=84.7
+        angle=0
+        x=373
+        y=277
+        quad=1024
+        label=bigmap_demon1_big
+        button=
+        player_pos_x=
+        player_pos_y=
+        hint_pos_x=
+        hint_pos_y=
+        clouds {
+        }
+    }
+    kordar_demonroad {
+        ui=kordar_demonroad.ui
+        scale=100
+        angle=0
+        x=391
+        y=340
+        quad=1024
+        label=bigmap_demonlake1_big
+        button=
+        player_pos_x=
+        player_pos_y=
+        hint_pos_x=
+        hint_pos_y=
+        clouds {
+        }
+    }
+    mehgard_1 {
+        ui=kordar_mehgard.ui
+        scale=116
+        angle=-130.4
+        x=367
+        y=169
+        quad=1024
+        label=bigmap_kordar_mehgard_big
+        button=loc_kordar_small
+        player_pos_x=50
+        player_pos_y=50
+        hint_pos_x=0
+        hint_pos_y=37
+        clouds {
+            cloud_kordar_small_01=
+            cloud_kordar_small_02=
+        }
+    }
+}
+
+
+
+
+map_regions {
+    endoria_world {
+        label=bigmap_region_world_label
+        endoria_world=
+    }
+
+    darion {
+        label=bigmap_region_darion_label
+        darion_1=
+        darion_2=
+        darion_3=
+        darion_4=
+    }
+    kordar {
+        label=bigmap_region_kordar_label
+        kordar_1=
+        kordar_2=
+        kordar_dungeon_1=
+        kordar_dungeon_2=
+        kordar_demonroad=
+        mehgard_1=
+    }
+    island {
+        label=bigmap_region_island_label
+        island_1=
+        island_2=
+    }
+   ellinia {
+        label=bigmap_region_ellinia_label
+        ellinia_1=
+        ellinia_2=
+        ellinia_3=
+   }
+   Undead {
+        label=bigmap_region_undead_label
+        undead_1=
+        undead_2=
+   }
+   demon {
+        label=bigmap_region_demon_label
+        demon_1=
+   }
+   murok{
+        label=bigmap_region_murok_label
+        murok_1=
+   }
+}
+
+
+heroclasses {
+  0=warrior
+  1=paladin
+  2=mage
+}
+
+shohidefx {
+  hero=effect_hero_appear/effect_hero_disappear
+  box=effect_item_appear/effect_item_disappear
+  npc=effect_hero_appear/effect_hero_disappear
+  army=effect_hero_appear/effect_hero_disappear
+  boat=effect_boat_appear/effect_boat_disappear
+}
+
+credits_speed=40
+

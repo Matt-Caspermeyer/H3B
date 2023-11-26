@@ -1,0 +1,2304 @@
+// Xeona Children
+kid_rashka {
+  category=o
+  image=heroitem_tome_rashka.png
+  hint_config=object_item
+  label=itm_kid_rashka_name
+  hint=itm_kid_rashka_hint
+  information_label=itm_kid_rashka_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=reddragon
+      }
+      pbonus=health,0,10,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=reddragon
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=reddragon
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_inc=count,10
+    sp_power_mod=count,1
+    sp_power_int=count,20
+    sp_lead_unit_reddragon=count,10
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_calh {
+  category=o
+  image=heroitem_tome_calh.png
+  hint_config=object_item
+  label=itm_kid_calh_name
+  hint=itm_kid_calh_hint
+  information_label=itm_kid_calh_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=fire,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=magic,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=physical,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=poison,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=fire,1,0,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=krit,0,50,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=health,0,25,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_fire
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    rage=limit,20%
+    sp_lead_unit_spider_fire=count,25
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_marius {
+  category=o
+  image=heroitem_tome_marius.png
+  hint_config=object_item
+  label=itm_kid_marius_name
+  hint=itm_kid_marius_hint
+  information_label=itm_kid_marius_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=defense,0,20,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demon
+      }
+      pbonus=krit,0,30,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demon
+      }
+      pbonus=health,0,15,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demon
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demon
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demon
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_demon=count,15
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_nymus {
+  category=o
+  image=heroitem_tome_nymus.png
+  hint_config=object_item
+  label=itm_kid_nymus_name
+  hint=itm_kid_nymus_hint
+  information_label=itm_kid_nymus_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=magic,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=physical,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=poison,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,2,0,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demoness
+      }
+      pbonus=health,0,15,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demoness
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demoness
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=demoness
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_demoness=count,15
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_octavia {
+  category=o
+  image=heroitem_tome_octavia.png
+  hint_config=object_item
+  label=itm_kid_octavia_name
+  hint=itm_kid_octavia_hint
+  information_label=itm_kid_octavia_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=magic,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=physical,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=poison,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,1,0,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_inc=count,10
+    sp_power_mod=count,1
+    sp_addgold_battle=count,140
+    sp_addgold_chestt=count,140
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ash {
+  category=o
+  image=heroitem_tome_ash.png
+  hint_config=object_item
+  label=itm_kid_ash_name
+  hint=itm_kid_ash_hint
+  information_label=itm_kid_ash_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    intellect=count,10%
+    sp_duration_berserker=count,1
+    sp_gain_power_berserker=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_axsis {
+  category=o
+  image=heroitem_tome_axsis.png
+  hint_config=object_item
+  label=itm_kid_axsis_name
+  hint=itm_kid_axsis_hint
+  information_label=itm_kid_axsis_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    sp_mana_battle=count,2
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_calid {
+  category=o
+  image=heroitem_tome_calid.png
+  hint_config=object_item
+  label=itm_kid_calid_name
+  hint=itm_kid_calid_hint
+  information_label=itm_kid_calid_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    sp_addexp_battle=count,20
+    sp_addexp_spirit=count,20
+    sp_gain_power_demonologist=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_xyron {
+  category=o
+  image=heroitem_tome_xyron.png
+  hint_config=object_item
+  label=itm_kid_xyron_name
+  hint=itm_kid_xyron_hint
+  information_label=itm_kid_xyron_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    sp_power_inc=count,10
+    sp_power_mod=count,1
+    sp_duration_fire_arrow=count,1
+    sp_gain_power_fire_arrow=count,20
+    sp_gain_infliction_fire_arrow=count,20
+    sp_duration_fire_rain=count,1
+    sp_gain_power_fire_rain=count,20
+    sp_gain_infliction_fire_rain=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_zydar {
+  category=o
+  image=heroitem_tome_zydar.png
+  hint_config=object_item
+  label=itm_kid_zydar_name
+  hint=itm_kid_zydar_hint
+  information_label=itm_kid_zydar_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    sp_spell_attack=count,40
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_xeron {
+  category=o
+  image=heroitem_tome_xeron.png
+  hint_config=object_item
+  label=itm_kid_xeron_name
+  hint=itm_kid_xeron_hint
+  information_label=itm_kid_xeron_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon
+      }
+      pbonus=health,0,10,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    attack=count,10%
+    defense=count,10%
+    sp_lead_unit_archdemon=count,10
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_fiona {
+  category=o
+  image=heroitem_tome_fiona.png
+  hint_config=object_item
+  label=itm_kid_fiona_name
+  hint=itm_kid_fiona_hint
+  information_label=itm_kid_fiona_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=cerberus
+      }
+      pbonus=krit,0,40,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=cerberus
+      }
+      pbonus=health,0,20,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=cerberus
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=cerberus
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=cerberus
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=cerberus
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    rage=limit,40%
+    sp_lead_unit_cerberus=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ignatius {
+  category=o
+  image=heroitem_tome_ignatius.png
+  hint_config=object_item
+  label=itm_kid_ignatius_name
+  hint=itm_kid_ignatius_hint
+  information_label=itm_kid_ignatius_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+	unit=imp,imp2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=krit,0,50,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=health,0,25,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=imp,imp2
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    attack=count,10%
+    defense=count,10%
+    sp_lead_unit_imps=count,25
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_pyre {
+  category=o
+  image=heroitem_tome_pyre.png
+  hint_config=object_item
+  label=itm_kid_pyre_name
+  hint=itm_kid_pyre_hint
+  information_label=itm_kid_pyre_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=attack,0,20,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archer
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archer
+      }
+      pbonus=krit,0,75,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archer
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archer
+      }
+      pbonus=health,0,15,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archer
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archer
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=thorn
+      }
+      pbonus=krit,0,30,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=thorn
+      }
+      pbonus=health,0,15,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=thorn
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=thorn
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=thorn
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bowman,goblin,priest
+      }
+      pbonus=health,0,13,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bowman,goblin,priest
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bowman,goblin,priest
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder,catapult,druid,elf,priest2
+      }
+      pbonus=health,0,10,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=beholder,catapult,druid,elf,priest2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archmage,beholder2,cannoner,elf2,kingthorn
+      }
+      pbonus=health,0,8,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=nercomant
+      }
+      pbonus=health,0,8,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=nercomant
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=cyclop
+      }
+      pbonus=health,0,5,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_alchemist=count,8
+    sp_lead_unit_archer=count,15
+    sp_lead_unit_archmage=count,8
+    sp_lead_unit_beholder=count,10
+    sp_lead_unit_beholder2=count,8
+    sp_lead_unit_bowman=count,13
+    sp_lead_unit_cannoner=count,8
+    sp_lead_unit_catapult=count,10
+    sp_lead_unit_cyclop=count,5
+    sp_lead_unit_druid=count,10
+    sp_lead_unit_elf=count,10
+    sp_lead_unit_elf2=count,8
+    sp_lead_unit_goblin=count,13
+    sp_lead_unit_necromant=count,8
+    sp_lead_unit_priest=count,13
+    sp_lead_unit_priest2=count,10
+    sp_lead_unit_thorn=count,15
+    sp_lead_unit_kingthorn=count,8
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ayden {
+  category=o
+  image=heroitem_tome_ayden.png
+  hint_config=object_item
+  label=itm_kid_ayden_name
+  hint=itm_kid_ayden_hint
+  information_label=itm_kid_ayden_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    mana=limit,40%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_olema {
+  category=o
+  image=heroitem_tome_olema.png
+  hint_config=object_item
+  label=itm_kid_olema_name
+  hint=itm_kid_olema_hint
+  information_label=itm_kid_olema_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=defense,0,20,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,20
+    sp_duration_weakness=count,1
+    sp_add_damage_weakness=count,1
+    sp_duration_effect_weakness=count,1
+    sp_power_effect_weakness=count,20
+    sp_chance_effect_weakness=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_xarfax {
+  category=o
+  image=heroitem_tome_xarfax.png
+  hint_config=object_item
+  label=itm_kid_xarfax_name
+  hint=itm_kid_xarfax_hint
+  information_label=itm_kid_xarfax_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,20
+    sp_duration_fire_arrow=count,1
+    sp_gain_power_fire_arrow=count,20
+    sp_add_infliction_fire_arrow=count,20
+    sp_duration_fire_ball=count,1
+    sp_gain_power_fire_ball=count,20
+    sp_gain_periphery_damage_fire_ball=count,20
+    sp_add_infliction_fire_ball=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_luna {
+  category=o
+  image=heroitem_tome_luna.png
+  hint_config=object_item
+  label=itm_kid_luna_name
+  hint=itm_kid_luna_hint
+  information_label=itm_kid_luna_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,20,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=phoenix_young,phoenix,phoenix_old
+      }
+      pbonus=attack,0,20,0,-100,0,0
+      dbonus=fire,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=phoenix_young,phoenix,phoenix_old
+      }
+      pbonus=krit,0,40,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=phoenix_young,phoenix,phoenix_old
+      }
+      pbonus=defense,0,20,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=phoenix_young,phoenix,phoenix_old
+      }
+      pbonus=health,0,20,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=phoenix_young,phoenix,phoenix_old
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=phoenix_young,phoenix,phoenix_old
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=phoenix_young,phoenix,phoenix_old
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,20
+    sp_kid_luna=count,1
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_inteus {
+  category=o
+  image=heroitem_tome_inteus.png
+  hint_config=object_item
+  label=itm_kid_inteus_name
+  hint=itm_kid_inteus_hint
+  information_label=itm_kid_inteus_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,20,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_power_int=count,20
+    sp_duration_berserker=count,1
+    sp_gain_power_berserker=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_fiur {
+  category=o
+  image=heroitem_tome_fiur.png
+  hint_config=object_item
+  label=itm_kid_fiur_name
+  hint=itm_kid_fiur_hint
+  information_label=itm_kid_fiur_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=magic,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=physical,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=poison,0,20,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,2,0,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=fire,0,20,0,-100,0,0
+      rbonus=fire,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ignissa {
+  category=o
+  image=heroitem_tome_ignissa.png
+  hint_config=object_item
+  label=itm_kid_ignissa_name
+  hint=itm_kid_ignissa_hint
+  information_label=itm_kid_ignissa_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=magic,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=physical,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=poison,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,1,0,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=attack,0,20,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=fire,0,20,0,-100,0,0
+      rbonus=fire,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,5,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_dace {
+  category=o
+  image=heroitem_tome_dace.png
+  hint_config=object_item
+  label=itm_kid_dace_name
+  hint=itm_kid_dace_hint
+  information_label=itm_kid_dace_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=fire,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=magic,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=physical,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=poison,0,10,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
+      }
+      pbonus=
+      dbonus=physical,1,0,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=skeleton
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=skeleton
+      }
+      pbonus=krit,0,75,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=skeleton
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=skeleton
+      }
+      pbonus=health,0,15,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=skeleton
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=skeleton
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=zombie,zombie2
+      }
+      pbonus=krit,0,50,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=zombie,zombie2
+      }
+      pbonus=health,0,13,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=zombie,zombie2
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,footman,goblin2
+      }
+      pbonus=health,0,13,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,footman,goblin2
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,footman,goblin2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf,footman2,orc,werewolf,wolf
+      }
+      pbonus=health,0,10,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dwarf,footman2,orc,werewolf,wolf
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=blackknight,demon,horseman,knight,orc2
+      }
+      pbonus=health,0,8,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    attack=limit,10%
+    defense=limit,10%
+    sp_lead_unit_skeleton=count,15
+    sp_lead_unit_zombie=count,13
+    sp_lead_unit_zombie2=count,13
+    sp_lead_unit_barbarian=count,13
+    sp_lead_unit_barbarian2=count,13
+    sp_lead_unit_footman=count,13
+    sp_lead_unit_goblin2=count,13
+    sp_lead_unit_dwarf=count,10
+    sp_lead_unit_footman2=count,10
+    sp_lead_unit_orc=count,10
+    sp_lead_unit_werewolf=count,10
+    sp_lead_unit_wolf=count,10
+    sp_lead_unit_blackknight=count,8
+    sp_lead_unit_demon=count,8
+    sp_lead_unithorseman=count,8
+    sp_lead_unitknight=count,8
+    sp_lead_unitorc2=count,8
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_gunnar {
+  category=o
+  image=heroitem_tome_gunnar.png
+  hint_config=object_item
+  label=itm_kid_gunnar_name
+  hint=itm_kid_gunnar_hint
+  information_label=itm_kid_gunnar_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=speed,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    attack=limit,10%
+    defense=limit,10%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_darkstorn {
+  category=o
+  image=heroitem_tome_darkstorn.png
+  hint_config=object_item
+  label=itm_kid_darkstorn_name
+  hint=itm_kid_darkstorn_hint
+  information_label=itm_kid_darkstorn_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    sp_addexp_battle=count,20
+    sp_addexp_spirit=count,20
+    sp_duration_lightning=count,1
+    sp_gain_power_lightning=count,20
+    sp_gain_infliction_lightning=count,20
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_deemer {
+  category=o
+  image=heroitem_tome_deemer.png
+  hint_config=object_item
+  label=itm_kid_deemer_name
+  hint=itm_kid_deemer_hint
+  information_label=itm_kid_deemer_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    rage=limit,40%
+    sp_spell_defense=count,5
+    sp_spell_attack=count,5
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_malekith {
+  category=o
+  image=heroitem_tome_malekith.png
+  hint_config=object_item
+  label=itm_kid_malekith_name
+  hint=itm_kid_malekith_hint
+  information_label=itm_kid_malekith_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_power_int=count,20
+    sp_spell_attack=count,40
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_mutare_drake {
+  category=o
+  image=heroitem_tome_mutare_drake.png
+  hint_config=object_item
+  label=itm_kid_mutare_drake_name
+  hint=itm_kid_mutare_drake_hint
+  information_label=itm_kid_mutare_drake_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=blackdragon,bonedragon,greendragon,reddragon
+      }
+      pbonus=health,0,5,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_addgold_battle=count,50
+    sp_addgold_chestt=count,50
+    attack=limit,10%
+    defense=limit,10%
+    sp_lead_unit_blackdragon=count,5
+    sp_lead_unit_bonedragon=count,5
+    sp_lead_unit_greendragon=count,5
+    sp_lead_unit_reddragon=count,5
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}

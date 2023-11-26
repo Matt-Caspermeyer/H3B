@@ -1,0 +1,295 @@
+main {
+  class=chesspiece
+  model=miner.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_miner_feat
+  features_hints=night_sight_header/night_sight_hint
+  race=dwarf
+  cost=40
+  level=2
+  leadership=20
+  attack=8
+  defense=8
+  defenseup=3
+  initiative=3
+  speed=2
+  hitpoint=20
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,run
+  movetype=0
+  features=humanoid
+  resistances {
+    physical=5
+    poison=5
+    magic=5
+    fire=5
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=3,4
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=dungeon
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=miner_idle.bsa/fr:25:50
+  rare=miner_rare.bsa/fr:25:50
+  attack=miner_attack.bsa/fr:25:50
+  move=miner_move.bsa/fr:30:50
+  start=miner_start.bsa/fr:30:50
+  stop=miner_stop.bsa/fr:30:50
+  clock=miner_clock.bsa/fr:40:80
+  contra=miner_contra.bsa/fr:40:80
+  clock2=miner_2clock.bsa/fr:40:80
+  contra2=miner_2contra.bsa/fr:40:80
+  lturn=miner_lturn.bsa/fr:30:50
+  rturn=miner_rturn.bsa/fr:30:50
+  damage=miner_damage.bsa/fr:25:50
+  death=miner_death.bsa/fr:25:50
+  respawn=miner_respawn.bsa/fr:25:50
+  slew=miner_slew.bsa/fr:35:70
+  rush=miner_rush.bsa/fr:25:50
+  cursor=miner_rare.bsa/fr:25:50
+  teleout=miner_idle.bsa/fr:25:50/r:45:80
+  telein=miner_idle.bsa/fr:25:50/r:0:35
+  happy=miner_happy.bsa/fr:25:50
+  special=miner_special.bsa/fr:30:60
+  victorymain=miner_victory.bsa/fr:25:50
+  victorylist=/fwd:3:happy:1:victorymain:3:special
+  victory=/t:1:1:victorylist:1:2:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    16.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    18.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=2
+    mesh {
+      trans=0/-1.5/0/0/-0/0/1
+      time=21/5
+      file=miner_lantern.bms
+    }
+  }
+  1 {
+    coord=-0.08/0.08/-0.49000001/0/-0/0/3.5
+    particle {
+      animation=rare
+      frame=28/32
+      file=cast_cannon_fuse.ptb
+    }
+    particle {
+      animation=rare
+      frame=55/58
+      file=cast_cannon_fuse.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=-0.1/-0.12359619/-0.3704834/0/0.08054433/0/0.30000001
+      animation=rare
+      frame=39/42
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=-0.12359619/0/-0.3704834/0/0.0348455/0/0.30000001
+      animation=rare
+      frame=62/66
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/-0.10278997/0/0.30000001
+      animation=rare
+      frame=81/85
+      file=therock_thickdust.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=miner_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=miner_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=miner_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=miner_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=miner_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=miner_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=miner_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=miner_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=miner_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=miner_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=miner_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=miner_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=miner_death
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=miner_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=miner_rush
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=miner_rare
+      fadetime=60
+    }
+    sound {
+      animation=victorymain
+      frame=0.01
+      file=miner_victorymain
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  miner_idle.bsa=file
+  miner_rare.bsa=file
+  miner_attack.bsa=file
+  miner_move.bsa=file
+  miner_start.bsa=file
+  miner_stop.bsa=file
+  miner_clock.bsa=file
+  miner_contra.bsa=file
+  miner_2clock.bsa=file
+  miner_2contra.bsa=file
+  miner_lturn.bsa=file
+  miner_rturn.bsa=file
+  miner_damage.bsa=file
+  miner_death.bsa=file
+  miner_respawn.bsa=file
+  miner_victory.bsa=file
+  miner_special.bsa=file
+  miner_rush.bsa=file
+}

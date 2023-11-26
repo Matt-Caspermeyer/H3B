@@ -1,0 +1,318 @@
+main {
+  class=chesspiece
+  model=elf.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_elf_feat
+  features_hints=shot_header/shot_hint,sniper_header/sniper_hint,no_melee_header/no_melee_hint
+  race=elf
+  cost=270
+  level=3
+  leadership=80
+  attack=21
+  defense=15
+  defenseup=3
+  initiative=5
+  speed=2
+  hitpoint=50
+  features=shot,humanoid,archer
+  hitback=1
+  hitbackprotect=0
+  krit=10
+  ooc=100
+  movetype=0
+  posthitmaster=feat_dragon_arrow
+  attacks=moveattack,throw,double_shot,dragon
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    device=bone
+    ad_factor=1
+    damage {
+      physical=4,5
+    }
+    custom_params {
+      dragon=0
+    }
+  }
+  throw {
+    group=1,2
+    showdmg=1
+    distance=100
+    mindist=2
+    ad_factor=1
+    penalty=1
+    base_attack=1
+    animation=cast/throw/thtarget
+    throw=archer_arrow
+    framekey=x
+    damage {
+      physical=4,5
+    }
+    custom_params {
+      arrows=1
+      dragon=0
+    }
+  }
+  double_shot {
+    dontusenearenemy=1
+    class=throw
+    picture=BA1_DoubleShot_
+    picture_small=BA1_DoubleShot_small.png
+    hinthead=special_double_arrow_head
+    hint=special_double_arrow_hint
+    reload=3
+    showdmg=0
+    distance=100
+    ad_factor=1
+    mindist=2
+    penalty=1
+    base_attack=0
+    animation=cast/throw/thtarget
+    throw=double_arrow
+    framekey=x
+    damage {
+      physical=8,10
+    }
+    custom_params {
+      arrows=1
+      dragon=0
+    }
+  }
+  dragon {
+//    dontusenearenemy=1
+    class=throw
+    picture=BA1_Dragon_Arrow_
+    picture_small=BA1_DragonArrow_small.png
+    hinthead=special_dragon_arrow_head
+    hint=special_dragon_arrow_hint
+    showdmg=0
+    moves=1
+    ad_factor=1
+    distance=100
+    disabled=1
+    mindist=1
+    penalty=1
+    animation=cast/throw/thtarget
+    throw=arrow_dragon
+    framekey=x
+    damage {
+      astral=4,5
+    }
+    custom_params {
+      dragon=1
+      arrows=1
+    }
+  }
+  aiming {
+    class=spell
+    picture=BA1_Aiming_
+    picture_small=BA1_Aiming_small.png
+    hinthead=special_aiming_head
+    hint=special_aiming_hint
+    spell=special_aiming
+    moves=1
+  }
+}
+scripts {
+  idle=default_idle
+  scenario=default_scenario
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=elf_idle.bsa/fr:25:50
+  rare=elf_rare.bsa/fr:25:50
+  attack=elf_attack.bsa/fr:35:70
+  move=elf_move.bsa/fr:35:70
+  start=elf_start.bsa/fr:35:70
+  stop=elf_stop.bsa/fr:35:70
+  clock=elf_clock.bsa/fr:40:80
+  contra=elf_contra.bsa/fr:40:80
+  clock2=elf_2clock.bsa/fr:40:80
+  contra2=elf_2contra.bsa/fr:40:80
+  lturn=elf_lturn.bsa/fr:35:70
+  rturn=elf_rturn.bsa/fr:35:70
+  damage=elf_damage.bsa/fr:25:50
+  cast=elf_cast.bsa/fr:35:70
+  slew=elf_slew.bsa/fr:35:70
+  death=elf_death.bsa/fr:25:50
+  respawn=elf_respawn.bsa/fr:25:50
+  cursor=elf_rare.bsa/fr:25:50
+  teleout=elf_idle.bsa/fr:25:50/r:60:95
+  telein=elf_idle.bsa/fr:25:50/r:0:35
+  happy=elf_victory.bsa/fr:25:50
+  victory=/t:1:4:happy:1:3:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    28.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    28.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    dummy {
+      tag=lothrow
+      trans=0/1.14999998/-1.39999998/0/-0/0/1
+    }
+    dummy {
+      tag=throw
+      trans=0/1.75/-1.29999995/0/-0/0/1
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=elf_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=elf_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=elf_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=elf_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=elf_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=elf_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=elf_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      file=elf_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      file=elf_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=elf_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=elf_rturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=elf_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=elf_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=elf_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=elf_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      file=elf_happy
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  elf_idle.bsa=file
+  elf_rare.bsa=file
+  elf_attack.bsa=file
+  elf_move.bsa=file
+  elf_start.bsa=file
+  elf_stop.bsa=file
+  elf_clock.bsa=file
+  elf_contra.bsa=file
+  elf_2clock.bsa=file
+  elf_2contra.bsa=file
+  elf_lturn.bsa=file
+  elf_rturn.bsa=file
+  elf_damage.bsa=file
+  elf_death.bsa=file
+  elf_respawn.bsa=file
+  elf_victory.bsa=file
+  elf_cast.bsa=file
+  elf_special.bsa=file
+}

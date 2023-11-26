@@ -1,0 +1,338 @@
+main {
+  class=chesspiece
+  model=horseman.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_horseman_feat
+  features_hints=armor_header/armor_hint,cavalry_header/cavalry_hint,fire_resistance_header/fire_resistance_hint
+  race=human
+  cost=800
+  level=4
+  leadership=180
+  attack=29
+  defense=25
+  defenseup=4
+  initiative=6
+  speed=5
+  hitpoint=130
+  movetype=0
+  krit=12
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,charge
+  features=armor,humanoid
+  posthitmaster=charge_posthit
+  resistances {
+    physical=20
+    poison=0
+    magic=0
+    fire=20
+  }
+  moveattack {
+    ad_factor=1
+    rush_dmg_inc=10
+    damage {
+      physical=12,16
+    }
+  }
+  charge {
+    class=scripted
+    reload=3
+    attack_cursor=attack
+    hinthead=special_charge_head
+    hint=special_charge_hint
+    require_skill=traning:3
+    script_attack=special_charge
+    script_calccells=charge_calccells
+    script_highlight=charge_highlight
+    picture_small=BA1_charge_small.png
+    picture=BA1_charge_
+    damage {
+      physical=12,16
+      }
+    custom_params {
+      rushanim=rush
+      rush_dmg_inc=15
+      nomiss=1
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=horseman_idle.bsa/fr:25:50
+  rare=horseman_rare.bsa/fr:25:50
+  spare=horseman_cursor.bsa/fr:25:50
+  attack=horseman_attack.bsa/fr:25:50
+  move=horseman_move.bsa/fr:35:70
+  start=horseman_start.bsa/fr:35:70
+  move2=horseman_move.bsa/fr:60:120
+  start2=horseman_start.bsa/fr:60:120
+  stop=horseman_stop.bsa/fr:35:70
+  clock=horseman_clock.bsa/fr:40:80
+  contra=horseman_contra.bsa/fr:40:80
+  clock2=horseman_2clock.bsa/fr:40:80
+  contra2=horseman_2contra.bsa/fr:40:80
+  lturn=horseman_lturn.bsa/fr:35:70
+  rturn=horseman_rturn.bsa/fr:35:70
+  lturn2=horseman_lturn.bsa/fr:60:120
+  rturn2=horseman_rturn.bsa/fr:60:120
+  damage=horseman_damage.bsa/fr:25:50
+  death=horseman_death.bsa/fr:25:50
+  cast=horseman_cast.bsa/fr:25:50
+  slew=horseman_slew.bsa/fr:35:70
+  rush=horseman_rush.bsa/fr:35:70
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  victorymain=horseman_victory.bsa/fr:25:50
+  happy=/fwd:1:victorymain
+  respawn=horseman_respawn.bsa/fr:25:50
+  teleout=horseman_idle.bsa/fr:25:50/r:65:100
+  telein=horseman_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    16.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    11.0?x=
+    0.0=cam
+  }
+  @cast {
+    17.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=horseman_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=horseman_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=horseman_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=horseman_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=horseman_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=horseman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=horseman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=horseman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=horseman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=horseman_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=horseman_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=horseman_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=horseman_death
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=horseman_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=horseman_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=horseman_rush
+      fadetime=60
+    }
+    sound {
+      animation=victorymain
+      frame=0.01
+      file=horseman_victory
+      fadetime=60
+    }
+    sound {
+      animation=start2
+      frame=0.01
+      file=horseman_start2
+      fadetime=60
+    }
+    sound {
+      animation=move2
+      frame=0.01
+      file=horseman_move2
+      fadetime=2.22198486
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=-0.5/-0.61737061/0/-3.1415925/-0.00000009/-3.1415925/1
+      animation=move2
+      file=move_star_trail.ptb
+    }
+    particle {
+      trans=0.5/-0.61737061/0/-3.1415925/-0.00000009/-3.1415925/1
+      animation=move2
+      file=move_star_trail.ptb
+    }
+    particle {
+      trans=-0.5/-0.61737061/0/-3.1415925/-0.00000009/-3.1415925/1
+      animation=start2
+      file=move_star_trail.ptb
+    }
+    particle {
+      trans=0.5/-0.61737061/0/-3.1415925/-0.00000009/-3.1415925/1
+      animation=start2
+      file=move_star_trail.ptb
+    }
+    particle {
+      trans=-0.5/-0.61737061/0/-3.1415925/-0.00000009/-3.1415925/1
+      animation=rush
+      file=move_star_trail.ptb
+    }
+    particle {
+      trans=0.5/-0.61737061/0/-3.1415925/-0.00000009/-3.1415925/1
+      animation=rush
+      file=move_star_trail.ptb
+    }
+    particle {
+      trans=0/0/-0.61737061/0/-0/0/0.80000001
+      animation=rush
+      file=move_horseman_tail.ptb
+    }
+  }
+  1 {
+    particle {
+      animation=start2
+      file=move_horseman_emi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=move2
+      file=move_horseman_emi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=rush
+      file=move_horseman_emi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.86425781/-1.35803223/0/-0/0/1
+      animation=rush
+      frame=4/12
+      file=attack_horseman_flash.ptb
+    }
+  }
+}
+prefetch {
+  horseman_idle.bsa=file
+  horseman_rare.bsa=file
+  horseman_attack.bsa=file
+  horseman_move.bsa=file
+  horseman_start.bsa=file
+  horseman_stop.bsa=file
+  horseman_clock.bsa=file
+  horseman_contra.bsa=file
+  horseman_2clock.bsa=file
+  horseman_2contra.bsa=file
+  horseman_lturn.bsa=file
+  horseman_rturn.bsa=file
+  horseman_damage.bsa=file
+  horseman_death.bsa=file
+  horseman_respawn.bsa=file
+  horseman_victory.bsa=file
+  horseman_cast.bsa=file
+  horseman_rush.bsa=file
+}

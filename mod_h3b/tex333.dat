@@ -1,0 +1,1307 @@
+TEX333 {
+  block {
+    filename=heroitem_tome_luna.png
+    in_tex_pos=0,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,338
+  }
+  block {
+    filename=heroitem_tome_orrin.png
+    in_tex_pos=52,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=338,338
+  }
+  block {
+    filename=heroitem_tome_pasis.png
+    in_tex_pos=104,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=676,338
+  }
+  block {
+    filename=heroitem_tome_adrienne.png
+    in_tex_pos=156,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1014,338
+  }
+  block {
+    filename=heroitem_tome_brissa.png
+    in_tex_pos=208,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1352,338
+  }
+  block {
+    filename=heroitem_tome_valeska.png
+    in_tex_pos=260,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1690,338
+  }
+  block {
+    filename=heroitem_tome_thunar.png
+    in_tex_pos=312,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2028,338
+  }
+  block {
+    filename=heroitem_tome_boragus.png
+    in_tex_pos=364,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2366,338
+  }
+  block {
+    filename=heroitem_tome_ciele.png
+    in_tex_pos=416,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2704,338
+  }
+  block {
+    filename=heroitem_tome_edric.png
+    in_tex_pos=468,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3042,338
+  }
+  block {
+    filename=heroitem_tome_ignissa.png
+    in_tex_pos=520,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3380,338
+  }
+  block {
+    filename=heroitem_tome_young_christian.png
+    in_tex_pos=572,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3718,338
+  }
+  block {
+    filename=heroitem_tome_labetha.png
+    in_tex_pos=624,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4056,338
+  }
+  block {
+    filename=heroitem_tome_sylvia.png
+    in_tex_pos=676,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4394,338
+  }
+  block {
+    filename=heroitem_tome_lacus.png
+    in_tex_pos=728,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4732,338
+  }
+  block {
+    filename=heroitem_tome_dracon.png
+    in_tex_pos=780,0
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=5070,338
+  }
+  block {
+    filename=heroitem_tome_inteus.png
+    in_tex_pos=0,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=5408,338
+  }
+  block {
+    filename=heroitem_tome_haart.png
+    in_tex_pos=52,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=5746,338
+  }
+  block {
+    filename=heroitem_tome_monere.png
+    in_tex_pos=104,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=6084,338
+  }
+  block {
+    filename=heroitem_tome_gelu.png
+    in_tex_pos=156,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=6422,338
+  }
+  block {
+    filename=heroitem_tome_aenain.png
+    in_tex_pos=208,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=6760,338
+  }
+  block {
+    filename=heroitem_tome_sorsha.png
+    in_tex_pos=260,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=7098,338
+  }
+  block {
+    filename=heroitem_tome_erdamon.png
+    in_tex_pos=312,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=7436,338
+  }
+  block {
+    filename=heroitem_tome_kilgor.png
+    in_tex_pos=364,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=7774,338
+  }
+  block {
+    filename=heroitem_tome_gelare.png
+    in_tex_pos=416,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=8112,338
+  }
+  block {
+    filename=heroitem_tome_christian.png
+    in_tex_pos=468,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=8450,338
+  }
+  block {
+    filename=heroitem_tome_fiur.png
+    in_tex_pos=520,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=8788,338
+  }
+  block {
+    filename=heroitem_tome_death_haart.png
+    in_tex_pos=572,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=9126,338
+  }
+  block {
+    filename=heroitem_tome_grindan.png
+    in_tex_pos=624,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=9464,338
+  }
+  block {
+    filename=heroitem_tome_tyris.png
+    in_tex_pos=676,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=9802,338
+  }
+  block {
+    filename=heroitem_tome_kalt.png
+    in_tex_pos=728,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=10140,338
+  }
+  block {
+    filename=heroitem_tome_mutare.png
+    in_tex_pos=780,52
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=10478,338
+  }
+  block {
+    filename=heroitem_tome_rion.png
+    in_tex_pos=0,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=10816,338
+  }
+  block {
+    filename=heroitem_tome_mutare_drake.png
+    in_tex_pos=52,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=11154,338
+  }
+  block {
+    filename=heroitem_tome_adela.png
+    in_tex_pos=104,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=11492,338
+  }
+  block {
+    filename=heroitem_tome_roland.png
+    in_tex_pos=156,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=11830,338
+  }
+  block {
+    filename=heroitem_tome_cuthbert.png
+    in_tex_pos=208,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=12168,338
+  }
+  block {
+    filename=heroitem_tome_adelaide.png
+    in_tex_pos=260,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=12506,338
+  }
+  block {
+    filename=heroitem_tome_ingham.png
+    in_tex_pos=312,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=12844,338
+  }
+  block {
+    filename=heroitem_tome_sanya.png
+    in_tex_pos=364,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=13182,338
+  }
+  block {
+    filename=heroitem_tome_loynis.png
+    in_tex_pos=416,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=13520,338
+  }
+  block {
+    filename=heroitem_tome_caitlin.png
+    in_tex_pos=468,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=13858,338
+  }
+  block {
+    filename=heroitem_tome_mephala.png
+    in_tex_pos=520,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=14196,338
+  }
+  block {
+    filename=heroitem_tome_ufretin.png
+    in_tex_pos=572,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=14534,338
+  }
+  block {
+    filename=heroitem_tome_jenova.png
+    in_tex_pos=624,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=14872,338
+  }
+  block {
+    filename=heroitem_tome_ryland.png
+    in_tex_pos=676,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=15210,338
+  }
+  block {
+    filename=heroitem_tome_thorgrim.png
+    in_tex_pos=728,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=15548,338
+  }
+  block {
+    filename=heroitem_tome_ivor.png
+    in_tex_pos=780,104
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=15886,338
+  }
+  block {
+    filename=heroitem_tome_clancy.png
+    in_tex_pos=0,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=16224,338
+  }
+  block {
+    filename=heroitem_tome_kyrre.png
+    in_tex_pos=52,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=16562,338
+  }
+  block {
+    filename=heroitem_tome_coronius.png
+    in_tex_pos=104,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=16900,338
+  }
+  block {
+    filename=heroitem_tome_uland.png
+    in_tex_pos=156,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=17238,338
+  }
+  block {
+    filename=heroitem_tome_elleshar.png
+    in_tex_pos=208,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=17576,338
+  }
+  block {
+    filename=heroitem_tome_gem.png
+    in_tex_pos=260,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=17914,338
+  }
+  block {
+    filename=heroitem_tome_malcom.png
+    in_tex_pos=312,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=18252,338
+  }
+  block {
+    filename=heroitem_tome_melodia.png
+    in_tex_pos=364,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=18590,338
+  }
+  block {
+    filename=heroitem_tome_alagar.png
+    in_tex_pos=416,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=18928,338
+  }
+  block {
+    filename=heroitem_tome_aeris.png
+    in_tex_pos=468,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=19266,338
+  }
+  block {
+    filename=heroitem_tome_piquedram.png
+    in_tex_pos=520,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=19604,338
+  }
+  block {
+    filename=heroitem_tome_thane.png
+    in_tex_pos=572,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=19942,338
+  }
+  block {
+    filename=heroitem_tome_josephine.png
+    in_tex_pos=624,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=20280,338
+  }
+  block {
+    filename=heroitem_tome_neela.png
+    in_tex_pos=676,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=20618,338
+  }
+  block {
+    filename=heroitem_tome_torosar.png
+    in_tex_pos=728,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=20956,338
+  }
+  block {
+    filename=heroitem_tome_fafner.png
+    in_tex_pos=780,156
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=21294,338
+  }
+  block {
+    filename=heroitem_tome_rissa.png
+    in_tex_pos=0,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=21632,338
+  }
+  block {
+    filename=heroitem_tome_iona.png
+    in_tex_pos=52,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=21970,338
+  }
+  block {
+    filename=heroitem_tome_astral.png
+    in_tex_pos=104,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=22308,338
+  }
+  block {
+    filename=heroitem_tome_halon.png
+    in_tex_pos=156,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=22646,338
+  }
+  block {
+    filename=heroitem_tome_serena.png
+    in_tex_pos=208,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=22984,338
+  }
+  block {
+    filename=heroitem_tome_daremyth.png
+    in_tex_pos=260,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=23322,338
+  }
+  block {
+    filename=heroitem_tome_theodorus.png
+    in_tex_pos=312,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=23660,338
+  }
+  block {
+    filename=heroitem_tome_solmyr.png
+    in_tex_pos=364,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=23998,338
+  }
+  block {
+    filename=heroitem_tome_cyra.png
+    in_tex_pos=416,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=24336,338
+  }
+  block {
+    filename=heroitem_tome_aine.png
+    in_tex_pos=468,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=24674,338
+  }
+  block {
+    filename=heroitem_tome_fiona.png
+    in_tex_pos=520,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=25012,338
+  }
+  block {
+    filename=heroitem_tome_rashka.png
+    in_tex_pos=572,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=25350,338
+  }
+  block {
+    filename=heroitem_tome_marius.png
+    in_tex_pos=624,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=25688,338
+  }
+  block {
+    filename=heroitem_tome_ignatius.png
+    in_tex_pos=676,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=26026,338
+  }
+  block {
+    filename=heroitem_tome_octavia.png
+    in_tex_pos=728,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=26364,338
+  }
+  block {
+    filename=heroitem_tome_calh.png
+    in_tex_pos=780,208
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=26702,338
+  }
+  block {
+    filename=heroitem_tome_pyre.png
+    in_tex_pos=0,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=27040,338
+  }
+  block {
+    filename=heroitem_tome_nymus.png
+    in_tex_pos=52,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=27378,338
+  }
+  block {
+    filename=heroitem_tome_ayden.png
+    in_tex_pos=104,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=27716,338
+  }
+  block {
+    filename=heroitem_tome_xyron.png
+    in_tex_pos=156,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=28054,338
+  }
+  block {
+    filename=heroitem_tome_axsis.png
+    in_tex_pos=208,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=28392,338
+  }
+  block {
+    filename=heroitem_tome_olema.png
+    in_tex_pos=260,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=28730,338
+  }
+  block {
+    filename=heroitem_tome_calid.png
+    in_tex_pos=312,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=29068,338
+  }
+  block {
+    filename=heroitem_tome_ash.png
+    in_tex_pos=364,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=29406,338
+  }
+  block {
+    filename=heroitem_tome_zydar.png
+    in_tex_pos=416,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=29744,338
+  }
+  block {
+    filename=heroitem_tome_xarfax.png
+    in_tex_pos=468,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=30082,338
+  }
+  block {
+    filename=heroitem_tome_straker.png
+    in_tex_pos=520,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=30420,338
+  }
+  block {
+    filename=heroitem_tome_vokial.png
+    in_tex_pos=572,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=30758,338
+  }
+  block {
+    filename=heroitem_tome_moandor.png
+    in_tex_pos=624,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=31096,338
+  }
+  block {
+    filename=heroitem_tome_charna.png
+    in_tex_pos=676,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=31434,338
+  }
+  block {
+    filename=heroitem_tome_tamika.png
+    in_tex_pos=728,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=31772,338
+  }
+  block {
+    filename=heroitem_tome_isra.png
+    in_tex_pos=780,260
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=32110,338
+  }
+  block {
+    filename=heroitem_tome_clavius.png
+    in_tex_pos=0,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=32448,338
+  }
+  block {
+    filename=heroitem_tome_galthran.png
+    in_tex_pos=52,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=32786,338
+  }
+  block {
+    filename=heroitem_tome_septienna.png
+    in_tex_pos=104,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=33124,338
+  }
+  block {
+    filename=heroitem_tome_aislinn.png
+    in_tex_pos=156,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=33462,338
+  }
+  block {
+    filename=heroitem_tome_sandro.png
+    in_tex_pos=208,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=33800,338
+  }
+  block {
+    filename=heroitem_tome_nimbus.png
+    in_tex_pos=260,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=34138,338
+  }
+  block {
+    filename=heroitem_tome_thant.png
+    in_tex_pos=312,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=34476,338
+  }
+  block {
+    filename=heroitem_tome_xsi.png
+    in_tex_pos=364,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=34814,338
+  }
+  block {
+    filename=heroitem_tome_vidomina.png
+    in_tex_pos=416,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=35152,338
+  }
+  block {
+    filename=heroitem_tome_nagash.png
+    in_tex_pos=468,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=35490,338
+  }
+  block {
+    filename=heroitem_tome_lorelei.png
+    in_tex_pos=520,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=35828,338
+  }
+  block {
+    filename=heroitem_tome_arlach.png
+    in_tex_pos=572,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=36166,338
+  }
+  block {
+    filename=heroitem_tome_dace.png
+    in_tex_pos=624,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=36504,338
+  }
+  block {
+    filename=heroitem_tome_ajit.png
+    in_tex_pos=676,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=36842,338
+  }
+  block {
+    filename=heroitem_tome_damacon.png
+    in_tex_pos=728,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=37180,338
+  }
+  block {
+    filename=heroitem_tome_gunnar.png
+    in_tex_pos=780,312
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=37518,338
+  }
+  block {
+    filename=heroitem_tome_synca.png
+    in_tex_pos=0,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=37856,338
+  }
+  block {
+    filename=heroitem_tome_shakti.png
+    in_tex_pos=52,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=38194,338
+  }
+  block {
+    filename=heroitem_tome_alamar.png
+    in_tex_pos=104,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=38532,338
+  }
+  block {
+    filename=heroitem_tome_jaegar.png
+    in_tex_pos=156,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=38870,338
+  }
+  block {
+    filename=heroitem_tome_malekith.png
+    in_tex_pos=208,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=39208,338
+  }
+  block {
+    filename=heroitem_tome_jeddite.png
+    in_tex_pos=260,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=39546,338
+  }
+  block {
+    filename=heroitem_tome_geon.png
+    in_tex_pos=312,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=39884,338
+  }
+  block {
+    filename=heroitem_tome_deemer.png
+    in_tex_pos=364,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=40222,338
+  }
+  block {
+    filename=heroitem_tome_sephinroth.png
+    in_tex_pos=416,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=40560,338
+  }
+  block {
+    filename=heroitem_tome_darkstorn.png
+    in_tex_pos=468,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=40898,338
+  }
+  block {
+    filename=heroitem_tome_yog.png
+    in_tex_pos=520,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=41236,338
+  }
+  block {
+    filename=heroitem_tome_gurnisson.png
+    in_tex_pos=572,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=41574,338
+  }
+  block {
+    filename=heroitem_tome_jabarkas.png
+    in_tex_pos=624,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=41912,338
+  }
+  block {
+    filename=heroitem_tome_shiva.png
+    in_tex_pos=676,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=42250,338
+  }
+  block {
+    filename=heroitem_tome_gretchen.png
+    in_tex_pos=728,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=42588,338
+  }
+  block {
+    filename=heroitem_tome_krellion.png
+    in_tex_pos=780,364
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=42926,338
+  }
+  block {
+    filename=heroitem_tome_crag_hack.png
+    in_tex_pos=0,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=43264,338
+  }
+  block {
+    filename=heroitem_tome_tyraxor.png
+    in_tex_pos=52,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=43602,338
+  }
+  block {
+    filename=heroitem_tome_gird.png
+    in_tex_pos=104,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=43940,338
+  }
+  block {
+    filename=heroitem_tome_vey.png
+    in_tex_pos=156,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=44278,338
+  }
+  block {
+    filename=heroitem_tome_dessa.png
+    in_tex_pos=208,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=44616,338
+  }
+  block {
+    filename=heroitem_tome_terek.png
+    in_tex_pos=260,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=44954,338
+  }
+  block {
+    filename=heroitem_tome_zubin.png
+    in_tex_pos=312,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=45292,338
+  }
+  block {
+    filename=heroitem_tome_gundula.png
+    in_tex_pos=364,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=45630,338
+  }
+  block {
+    filename=heroitem_tome_oris.png
+    in_tex_pos=416,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=45968,338
+  }
+  block {
+    filename=heroitem_tome_saurug.png
+    in_tex_pos=468,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=46306,338
+  }
+  block {
+    filename=heroitem_tome_bron.png
+    in_tex_pos=520,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=46644,338
+  }
+  block {
+    filename=heroitem_tome_drakon.png
+    in_tex_pos=572,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=46982,338
+  }
+  block {
+    filename=heroitem_tome_wystan.png
+    in_tex_pos=624,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=47320,338
+  }
+  block {
+    filename=heroitem_tome_tazar.png
+    in_tex_pos=676,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=47658,338
+  }
+  block {
+    filename=heroitem_tome_alkin.png
+    in_tex_pos=728,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=47996,338
+  }
+  block {
+    filename=heroitem_tome_korbac.png
+    in_tex_pos=780,416
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=48334,338
+  }
+  block {
+    filename=heroitem_tome_gerwulf.png
+    in_tex_pos=0,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=48672,338
+  }
+  block {
+    filename=heroitem_tome_broghild.png
+    in_tex_pos=52,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=49010,338
+  }
+  block {
+    filename=heroitem_tome_mirlanda.png
+    in_tex_pos=104,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=49348,338
+  }
+  block {
+    filename=heroitem_tome_rosic.png
+    in_tex_pos=156,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=49686,338
+  }
+  block {
+    filename=heroitem_tome_voy.png
+    in_tex_pos=208,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=50024,338
+  }
+  block {
+    filename=heroitem_tome_verdish.png
+    in_tex_pos=260,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=50362,338
+  }
+  block {
+    filename=heroitem_tome_merist.png
+    in_tex_pos=312,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=50700,338
+  }
+  block {
+    filename=heroitem_tome_styg.png
+    in_tex_pos=364,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=51038,338
+  }
+  block {
+    filename=heroitem_tome_andra.png
+    in_tex_pos=416,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=51376,338
+  }
+  block {
+    filename=heroitem_tome_tiva.png
+    in_tex_pos=468,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=51714,338
+  }
+  block {
+    filename=heroitem_tome_catherine.png
+    in_tex_pos=520,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=52052,338
+  }
+  block {
+    filename=heroitem_tome_kendal.png
+    in_tex_pos=572,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=52390,338
+  }
+  block {
+    filename=heroitem_tome_mullich.png
+    in_tex_pos=624,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=52728,338
+  }
+  block {
+    filename=heroitem_tome_xeron.png
+    in_tex_pos=676,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=53066,338
+  }
+  block {
+    filename=heroitem_tome_ordwald.png
+    in_tex_pos=728,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=53404,338
+  }
+  block {
+    filename=heroitem_tome_finneas.png
+    in_tex_pos=780,468
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=53742,338
+  }
+  block {
+    filename=heroitem_tome_young_gem.png
+    in_tex_pos=0,520
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=54080,338
+  }
+  block {
+    filename=heroitem_tome_young_sandro.png
+    in_tex_pos=52,520
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=54418,338
+  }
+  block {
+    filename=heroitem_tome_young_yog.png
+    in_tex_pos=104,520
+    in_tex_size=52,52
+    geom_pos=0,0
+    geom_size=1,1
+    mask=54756,338
+  }
+  texture_size=832,572
+}

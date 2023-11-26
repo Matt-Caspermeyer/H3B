@@ -1,0 +1,513 @@
+main {
+  class=chesspiece
+  model=bookevil.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_book2_feat
+  features_hints=spell2_header/spell2_hint,poison_immunity_header/poison_immunity_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint,voidability_header/voidability_hint
+  realdeath=1
+  race=neutral
+  cost=400
+  level=4
+  leadership=1
+  attack=30
+  defense=30
+  defenseup=6
+  initiative=6
+  speed=3
+  hitpoint=400
+  movetype=0
+  krit=20
+  hitback=1
+  hitbackprotect=1
+  attacks=moveattack,gulp,attack_spell
+  posthitmaster=features_saturation
+  features=poison_immunitet,magic_immunitet,mind_immunitet,eyeless,golem
+  resistances {
+    physical=10
+    poison=80
+    magic=80
+    fire=-90
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=40,100
+    }
+    custom_params {
+      charge=2
+    }
+  }
+  attack_spell {
+    class=scripted
+    ad_factor=0
+    nfeatures=magic_immunitet
+    script_attack=special_spell
+    script_calccells=calccells_all_enemy_no_magic_immunitet
+    moves=2
+    no_hint=1
+    picture=BA1_Random_Spell_
+    picture_small=BA1_Random_Spell_small.png
+    hinthead=special_cast_head
+    hint=special_cast_hint
+    attack_cursor=magicstick
+    custom_params {
+      charge=2
+    }
+  }
+  gulp {
+    class=scripted
+    ad_factor=0
+    warning=sw_gulp
+    script_attack=special_gulp
+    script_calccells=calccells_ally_gulp
+    moves=1
+    no_hint=1
+    picture=BA1_Get_Down_
+    picture_small=BA1_Get_Down_small.png
+    hinthead=special_gulp_head
+    hint=special_gulp_hint
+    attack_cursor=magicstick
+    disabled=1
+    custom_params {
+      health=400
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:2:rare:1:spare
+  appear=bookevil_appear.bsa/fr:25:50
+  idlemain=bookevil_idle.bsa/fr:25:50
+  rare=bookevil_rare.bsa/fr:25:50
+  spare=bookevil_spare.bsa/fr:25:50
+  attack=bookevil_attack.bsa/fr:25:50
+  special=bookevil_special.bsa/fr:25:50
+  move=bookevil_move.bsa/fr:25:50
+  start=bookevil_start.bsa/fr:25:50
+  stop=bookevil_stop.bsa/fr:25:50
+  clock=bookevil_clock.bsa/fr:35:70
+  contra=bookevil_contra.bsa/fr:35:70
+  clock2=bookevil_2clock.bsa/fr:25:50
+  contra2=bookevil_2contra.bsa/fr:25:50
+  lturn=bookevil_lturn.bsa/fr:25:50
+  rturn=bookevil_rturn.bsa/fr:25:50
+  damage=bookevil_damage.bsa/fr:25:50
+  death=bookevil_death.bsa/fr:25:50
+  cast=bookevil_cast.bsa/fr:25:50
+  castpositive=bookevil_cast.bsa/fr:25:50
+  slew=bookevil_slew.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  victorymain=bookevil_victory.bsa/fr:25:50
+  happy=/fwd:1:victorymain
+  teleout=bookevil_idle.bsa/fr:25:50/r:65:100
+  telein=bookevil_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @appear {
+    16.0?x=
+    5.0=alpha/1/40
+  }
+  @attack {
+    21.0?x=
+    0.0=cam
+  }
+  @special {
+    30.0?x=
+    38.0?y=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+    48.0=alpha/0/10
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    49.0?x=
+    0.0=cam
+  }
+  @castpositive {
+    49.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      animation=death
+      frame=40/55
+      file=death_evilbook_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/0.69999999
+      animation=death
+      frame=11/38
+      file=death_evilbook_puddle.ptb
+    }
+    particle {
+      animation=death
+      file=death_evilbook_chars_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.89999998/0.5/0/-0/0/1.60000002
+      animation=death
+      frame=0/5
+      file=death_evilbook_burst.ptb
+    }
+    particle {
+      trans=0/0.80000001/-0.2/-3.1415925/-0.077562/0/0.99999803
+      animation=spare
+      frame=22/80
+      file=evilbook_letters.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1
+      animation=cast
+      frame=40/50
+      file=cast_evilbook_rays.ptb
+    }
+    omni {
+      trans=0/2/0/0/-0/0/1
+      animation=cast
+      frame=28/79
+      restart=true
+      lightland=true
+      key=0/FF000000/3/1
+      key=0.69999999/FFCC5200/3/1
+      key=0.2/FFFF8E4A/6/1
+      key=0.60000002/FF000000/5/1
+      key=0.60000002/FF000000/5/1
+    }
+    particle {
+      trans=0/1.70000005/0/0/-0/0/2
+      animation=cast
+      frame=40/45
+      file=cast_evilbook_burst.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1
+      animation=castpositive
+      frame=40/50
+      file=cast_evilbook_rays_pos.ptb
+    }
+    omni {
+      trans=0/2/0/0/-0/0/1
+      animation=castpositive
+      frame=28/79
+      restart=true
+      lightland=true
+      key=0/FF000000/3/1
+      key=0.69999999/FF14CC00/3/1
+      key=0.2/FF61FF4A/6/1
+      key=0.60000002/FF000000/5/1
+      key=0.60000002/FF000000/5/1
+    }
+    particle {
+      trans=0/1.70000005/0/0/-0/0/2
+      animation=castpositive
+      frame=40/45
+      file=cast_evilbook_burst_pos.ptb
+    }
+  }
+  0 {
+    particle {
+      trans=0/-0/0/0.5
+      animation=death
+      frame=5/22
+      file=death_evilbook_fields.ptb
+    }
+    particle {
+      trans=0/-0/0/1.5
+      animation=cast
+      frame=5/44
+      file=cast_evilbook_tail.ptb
+    }
+    particle {
+      trans=0/-0/0/1.5
+      animation=castpositive
+      frame=5/44
+      file=cast_evilbook_tail_pos.ptb
+    }
+    particle {
+      trans=0/0.30000001/-0.1/0/-0/0/1
+      animation=damage
+      frame=0/5
+      file=evilbook_letter_burst.ptb
+    }
+    particle {
+      trans=0/0.2/-0.40000001/0/-0/0/1
+      animation=attack
+      frame=20/22
+      file=evilbook_letter_burst.ptb
+    }
+    particle {
+      trans=0/0.30000001/-0.1/0/-0/0/1
+      animation=attack
+      frame=36/44
+      file=evilbook_letter_burst.ptb
+    }
+    particle {
+      trans=0/0.30000001/-0.1/0/-0/0/1
+      animation=special
+      frame=31/36
+      file=evilbook_letter_burst.ptb
+    }
+    particle {
+      trans=0/0.2/-0.40000001/0/-0/-3.1415925/1
+      animation=special
+      frame=39/44
+      file=evilbook_letter_burst.ptb
+    }
+    particle {
+      trans=0/0.30000001/-0.1/0/-0/0/1
+      animation=special
+      frame=54/60
+      file=evilbook_letter_burst.ptb
+    }
+    slot=3
+  }
+  0 {
+    particle {
+      trans=0/-0/0/0.5
+      animation=death
+      frame=5/22
+      file=death_evilbook_fields.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1.5
+      animation=cast
+      frame=15/44
+      file=cast_evilbook_tail.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1.5
+      animation=castpositive
+      frame=15/44
+      file=cast_evilbook_tail_pos.ptb
+    }
+    slot=4
+  }
+  0 {
+    particle {
+      trans=0.03/0/0.11/0/-0/0/1
+      file=evilbook_eye.ptb
+    }
+    particle {
+      trans=0.03/0/-0.11/-3.1415925/-0/0/1
+      file=evilbook_eye.ptb
+    }
+    slot=0
+  }
+  0 {
+    particle {
+      trans=-0.03/0/0.11/0/-0/0/1
+      file=evilbook_eye.ptb
+    }
+    particle {
+      trans=-0.03/0/-0.11/-3.1415925/-0/0/1
+      file=evilbook_eye.ptb
+    }
+    slot=1
+  }
+  1 {
+    particle {
+      animation=appear
+      frame=1/39
+      file=deadhand_glowtail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/-0/0/0.60000002
+      animation=appear
+      frame=15/33
+      file=dynam_wishwell_finish.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=appear
+      frame=8/33
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-0.5/0/-0.2/0/-0/0.26179948/0.40000001
+      animation=appear
+      frame=27/33
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0.5/0/0.1/0/-0/-0.17453296/0.40000001
+      animation=appear
+      frame=32/35
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-0.5/0/0.40000001/0/-0/0/0.5
+      animation=appear
+      frame=41/44
+      file=therock_heavydust.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=appear
+      frame=0.01
+      iina=true
+      file=evilbook1_appear
+      fadetime=60
+    }
+    sound {
+      animation=spare
+      frame=0.01
+      file=evilbook1_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=evilbook1_attack
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=evilbook1_special
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=evilbook1_move
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=evilbook1_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=evilbook1_death
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=evilbook1_cast
+      fadetime=60
+    }
+    sound {
+      animation=victorymain
+      frame=0.01
+      file=evilbook1_victory
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=evilbook1_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=evilbook1_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=evilbook1_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=evilbook1_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=evilbook1_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=evilbook1_contra2
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=evilbook1_slew
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=evilbook1_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=evilbook1_lturn
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  bookevil_idle.bsa=file
+  bookevil_rare.bsa=file
+  bookevil_attack.bsa=file
+  bookevil_move.bsa=file
+  bookevil_start.bsa=file
+  bookevil_stop.bsa=file
+  bookevil_clock.bsa=file
+  bookevil_contra.bsa=file
+  bookevil_2clock.bsa=file
+  bookevil_2contra.bsa=file
+  bookevil_lturn.bsa=file
+  bookevil_rturn.bsa=file
+  bookevil_damage.bsa=file
+  bookevil_death.bsa=file
+  bookevil_respawn.bsa=file
+  bookevil_victory.bsa=file
+  bookevil_cast.bsa=file
+  bookevil_special.bsa=file
+}

@@ -1,0 +1,273 @@
+
+slot_bgs {
+  weapon=inventory_slot_bg11.png/hero_slot_weapon
+  shield=inventory_slot_bg5.png/hero_slot_shield
+  boots=inventory_slot_bg13.png/hero_slot_boots
+  artefact=inventory_slot_bg15.png/hero_slot_artefact
+  regalia=inventory_slot_bg14.png/hero_slot_regalia
+  helmet=inventory_slot_bg10.png/hero_slot_helmet
+  belt=inventory_slot_bg3.png/hero_slot_belt
+  armor=inventory_slot_bg12.png/hero_slot_armor
+  shield,regalia=inventory_slot_bg16.png/hero_slot_shield_regalia
+  belt,artefact=inventory_slot_bg17.png/hero_slot_belt_artefact
+  shield,artefact=inventory_slot_bg18.png/hero_slot_shield_artefact
+  shield,weapon=inventory_slot_bg19.png/hero_slot_shield_weapon
+  belt,regalia=inventory_slot_bg20.png/hero_slot_belt_regalia
+}
+
+// скрипт прокачки и картинки
+levelup_script=calc_levelup
+levelup_bonus_pictures {
+  attack=levelup_bonus_attack2.png
+  mana=LevelUp_bonus_mana2.png
+  rage=LevelUp_bonus_rage2.png
+  attack=levelup_bonus_attack2.png
+  defense=levelup_bonus_defense2.png
+  leadership=LevelUp_bonus_leadership2.png
+  intellect=levelup_bonus_intellect2.png
+  //attack,rage=
+}
+
+// таблица опыта геро€
+ 
+// Made the delta-delta between levels consistent for a better level-up experience
+exptable=100,300,700,1400,2500,4100,6300,9200,12900,17500,23100,29800,37750,47100,58000,70600,85050,101500,120200,141400,165350,192300,222750,257200,296150,340100,389550,445000,506950,1000000
+
+//exptable=100,370,900,1800,3100,4900,7300,10400,14000,19000,25000,32000,40000,50000,60000,75000,90000,106000,125000,146000,170000,197000,227000,261000,300000,340000,388000,440000,500000
+
+// таблица опыта дл€ перевода уровн€ геро€ в лидерство, т.е. 1 ур = 150 лидерства, 2=210 и т.д. и монстров по этому уровню ставим
+
+leadtable=100,180,290,440,620,840,1100,1400,1740,2130,2570,3060,3610,4220,4890,5640,6470,7380,8390,9510,10750,12120,13630,15000,17000,19000,21000,23000,25000,27000
+
+leadcalcdispersion=10 // –азброс дл€ лидерства врагов
+
+// за сколько уровней накидываетс€ еще одна руна к максимальному диапазону. Ќе используетс€!
+rune_level=20
+
+ // стартовый герой = paladin,mage,warrior
+//start_hero=test
+
+heroclasses {
+  0=warrior
+  1=paladin
+  2=mage
+}
+
+heroparams {
+  0 {
+    ctl=nwg_butt_war
+    img=newgame_button_war_active.png
+    bg=newgame_bg_war.png
+    body=newgame_portrait_war.png
+    disp=-48,52
+    name=nwg_warname_default
+  }
+  1 {
+    ctl=nwg_butt_pal
+    img=newgame_button_pal_active.png
+    bg=newgame_bg_pal.png
+    body=newgame_portrait_pal.png
+    disp=-48,52
+    name=nwg_palname_default
+  }
+  2 {
+    ctl=nwg_butt_mag
+    img=newgame_button_mage_active.png
+    bg=newgame_bg_mage.png
+    body=newgame_portrait_mage.png
+    disp=0,0
+    name=nwg_magname_default
+  }
+}
+
+hero_warrior { // ******************** ¬оин ********************
+// стартовые параметры
+    start {
+        leadership=210
+        attack=2
+        defense=1
+        intellect=0
+        mana=10
+//        rage=20
+        rage=30
+        gold=2000
+        rune_might=6
+        rune_mind=2
+        rune_magic=0
+        crystals=3
+        book=3
+        // стартовые умени€ изученные и недоступные
+//        skills_open=rage,traning //order,chaos,dist
+        skills_open=rage,traning,rage_control //order,chaos,dist
+        skills_off=hi_magic,alchemist,rune_stone,holy_rage
+//        army=bowman|4|footman|6|bear|3
+        army=bowman|4|footman|6|footman2|4
+        spells {
+          spell_haste=-3
+        }
+
+        items {
+        }
+    }
+// слоты
+    slots {
+      // им€_слота_в_интерфейсе=типы_предметов_которые_в_него_можно_складывать_перечисленные_через_зап€тую
+      // не забываем указывать картинки нужных комбинаций в hero.txt -> slot_bgs
+      1=helmet
+      2=weapon
+      3=armor
+      4=boots
+      5=regalia
+      6=shield,weapon
+      7=belt,regalia
+      8=artefact
+      wife=wife
+    }
+// прокачка
+    level_up {
+        leadership=50,70  // this range is scaled by the hero's level for determining leadership levelup
+        attack=1,2,30  // attack, defense, intellect, mana, and rage probability should add to 100
+        defense=1,1,20
+        intellect=1,1,10
+        mana=2,6,10
+        rage=10,14,30
+        runes=7-7	// „исло и веро€тности получени€ рун. Ќе используетс€ в 1.6.
+        rune_might=50
+        rune_mind=40
+        rune_magic=10
+        book=1,3 // растет на 1 каждый 8 уровень
+    }
+   k_spirit_up=1.0 // коэффициент набирани€ опыта спирита
+}
+
+hero_paladin { // ******************** ѕаладин ********************
+// стартовые параметры
+    start {
+        leadership=160
+        attack=1
+        defense=1
+        intellect=1
+//        mana=15
+        mana=20
+//        rage=15
+        rage=20
+        gold=1500
+        rune_might=2
+        rune_mind=4
+        rune_magic=2
+        book=4
+        crystals=10
+        // стартовые умени€ изученные и недоступные
+//        skills_open=explorer,holy_rage //chaos,dist
+        skills_open=explorer,holy_rage,glory //chaos,dist
+        skills_off=hi_magic,alchemist,rage,iron_fist
+//        army=bowman|3|priest|3|peasant|32
+        army=priest|7|footman2|7|priest2|3
+
+        spells {
+          spell_healing=1 // 1 level
+          spell_bless=-2 // 2 scrolls
+          spell_resurrection=-1
+        }
+
+        items {
+        }
+    }
+// слоты
+    slots {
+      // им€_слота_в_интерфейсе=типы_предметов_которые_в_него_можно_складывать_перечисленные_через_зап€тую
+      // не забываем указывать картинки нужных комбинаций в hero.txt -> slot_bgs
+      1=helmet
+      2=weapon
+      3=armor
+      4=boots
+      5=regalia
+      6=shield,regalia
+      7=belt,artefact
+      8=artefact
+      wife=wife
+    }
+// прокачка
+    level_up {
+        leadership=40,60  // this range is scaled by the hero's level for determining leadership levelup
+        attack=1,1,20  // attack, defense, intellect, mana, and rage probability should add to 100
+        defense=1,2,20
+        intellect=1,1,20
+        mana=6,10,20
+        rage=6,10,20
+        runes=7-7	// „исло и веро€тности получени€ рун. Ќе используетс€ в 1.6.
+        rune_might=30 
+        rune_mind=40
+        rune_magic=30
+        book=2,3 // растет на 1 каждый 7 уровень
+    }
+   k_spirit_up=0.8 // коэффициент набирани€ опыта спирита
+}
+
+hero_mage { // ******************** ћаг ********************
+// стартовые параметры
+    start {
+        leadership=120
+        attack=0
+        defense=0
+        intellect=3
+//        mana=20
+        mana=30
+        rage=10
+        gold=1000
+        rune_might=1
+        rune_mind=1
+        rune_magic=6
+        crystals=20
+        book=5
+        // стартовые умени€ изученные и недоступные
+//        skills_open=wizdom,meditation //chaos, alchemist
+        skills_open=wizdom,meditation,alchemist //chaos, alchemist
+        skills_off=rune_stone,holy_rage, rage,iron_fist
+//        army=sprite|15|peasant|24|dragonfly_lake|13
+        army=priest|2|priest2|1|archmage|1
+        spells {
+        	spell_slow=1
+//        	spell_fire_ball=1
+        	spell_fire_ball=-2
+        	spell_defenseless=1
+//        	spell_fire_arrow=-2
+        	spell_fire_arrow=1
+        	spell_healing=-1
+        }
+
+        items {
+        }
+    }
+// слоты
+    slots {
+      // им€_слота_в_интерфейсе=типы_предметов_которые_в_него_можно_складывать_перечисленные_через_зап€тую
+      // не забываем указывать картинки нужных комбинаций в hero.txt -> slot_bgs
+      1=helmet
+      2=weapon
+      3=armor
+      4=boots
+      5=regalia
+      6=shield,artefact
+      7=belt,artefact
+      8=artefact
+      wife=wife
+    }
+
+// прокачка
+    level_up {
+        leadership=10,20  // this range is scaled by the hero's level for determining leadership levelup
+        attack=1,1,10  // attack, defense, intellect, mana, and rage probability should add to 100
+        defense=1,1,10
+        intellect=1,2,35
+        mana=10,14,35
+        rage=2,6,10
+        runes=7-7	// „исло и веро€тности получени€ рун. Ќе используетс€ в 1.6.
+        rune_might=20
+        rune_mind=20
+        rune_magic=60
+        book=1,1 // растет на 1 каждый 5 уровень
+    }
+   k_spirit_up=0.5 // коэффициент набирани€ опыта спирита
+}
+

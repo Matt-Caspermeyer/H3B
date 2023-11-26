@@ -1,0 +1,2230 @@
+main {
+  class=spirit
+  nodimming=1
+  bboxanim=1
+  blend=0
+  model {
+    0=death.bma
+    1=clip_icemagic.bma
+    2=deathred.bma
+  }
+}
+animations {
+  appear=death_appear.bsa/fr:25:50/clip:transmute
+  idle=death_idle.bsa/fr:25:50
+  rare=death_rare.bsa/fr:25:50
+  reaping=death_reaping.bsa/fr:25:50/clip:disappear
+  timeshift=death_timeshift.bsa/fr:25:50/clip:timedis
+  blackhole=death_blackhole.bsa/fr:25:50
+  harvest=deathred_harvest.bsa/fr:25:50/clip:harvestclip
+  2reaping=death_short_reaping.bsa/fr:25:50/clip:disappear
+  2timeshift=death_short_timeshift.bsa/fr:25:50/clip:timedis
+  2blackhole=death_short_blackhole.bsa/fr:25:50
+  2harvest=death_short_harvest.bsa/fr:25:50/clip:harvestclip
+  @appear {
+    0.0=alpha/1/10
+  }
+  @reaping {
+    0.0?r0=
+    15.0?r1=
+    45.0?hand=
+    68.0?handstop=
+    80.0?lift=
+    94.0?liftstop=
+    110.0?drop=
+    190.0=alpha/0/20
+  }
+  @timeshift {
+    90.0?x=
+    140.0?y=
+    110.0=alpha/0/30
+  }
+  @blackhole {
+    100.0?x=
+    120.0=alpha/0/20
+  }
+  @harvest {
+    0.0?r0=
+    10.0?r1=
+    60.0?x=
+    90.0=alpha/0/10
+  }
+  @2reaping {
+    0.0?r0=
+    15.0?r1=
+    45.0?hand=
+    68.0?handstop=
+    80.0?lift=
+    94.0?liftstop=
+    110.0?drop=
+    10.0=alpha/1/10
+    190.0=alpha/0/20
+  }
+  @2timeshift {
+    90.0?x=
+    140.0?y=
+    110.0=alpha/0/30
+    10.0=alpha/1/10
+  }
+  @2blackhole {
+    100.0?x=
+    120.0=alpha/0/20
+    10.0=alpha/1/10
+  }
+  @2harvest {
+    0.0?r0=
+    10.0?r1=
+    60.0?x=
+    90.0=alpha/0/10
+    10.0=alpha/1/10
+  }
+}
+clippers {
+  transmute {
+    clipatom=clip_icemagic,deathappear,clip
+    toatom=magic_death,idle
+  }
+  disappear {
+    clipatom=clip_icemagic,deathdisappear,clip
+    toatom=clip_icemagic,deathdisappear
+  }
+  timedis {
+    clipatom=clip_icemagic,timeshift,clip
+    toatom=clip_icemagic,timeshift
+  }
+  harvestclip {
+    clipatom=clip_icemagic,harvest,clip
+    toatom=deathred,idle
+  }
+}
+slogic {}
+spirit {
+  reaping {
+    script_attack=death_reaping
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    nfeatures=pawn,undead,golem,plant
+    level=0
+    default=level1
+    upgrade {
+      level1=level:0/kill:10,rage:10,rest:5,exp:10,level:1
+      level2=level:1/kill:+10,rage:+10,exp:+10,level:2
+      level3=level:2/kill:+10,rage:+15,exp:+15,level:3
+      level4=level:3,LV:>12/kill:+10,rage:+20,exp:+20,level:4
+      level5=level:4,LV:>16/kill:+10,rage:+25,exp:+25,level:5
+      level6=level:5,LV:>24/kill:+10,rage:+30,exp:+30,level:6
+      level7=level:6,LV:>34/kill:+10,rage:+35,exp:+35,level:7
+      rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,level:>4,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
+      rage3=rs:2,level:>6,rage:>20/rage:-20,rs:3,exp:+20,ragelevel:3
+      rest1=rest:5,LV:>7/rest:4,exp:+2,restlevel:1
+      rest2=rest:4,LV:>18/rest:3,exp:+4,restlevel:2
+      rest3=rest:3,LV:>25/rest:2,exp:+6,restlevel:3
+    }
+  }
+  rage_gain {
+	no_hint=1
+    script_attack=death_rage_gain
+    script_highlight=death_rage_gain_highlight
+    script_calccells=calccells_mass_all_19
+    level=2
+    default=level1
+    upgrade {
+      level1=level:0/damage:astral:50:180,rage_gain:10,rage:1,rest:5,exp:1,level:1
+      level2=level:1/damage:astral:+80:+210,rage_gain:+10,rage:+1,exp:+1,level:2
+      level3=level:2/damage:astral:+110:+240,rage_gain:+10,rage:+2,exp:+2,level:3
+      level4=level:3/damage:astral:+140:+270,rage_gain:+10,rage:+3,exp:+3,level:4
+      level5=level:4,LV:>10/damage:astral:+170:+300,rage_gain:+10,rage:+4,exp:+4,level:5
+      level6=level:5,LV:>12/damage:astral:+200:+330,rage_gain:+15,rage:+5,exp:+5,level:6
+      level7=level:6,LV:>14/damage:astral:+230:+360,rage_gain:+15,rage:+6,exp:+6,level:7
+      level8=level:7,LV:>21/damage:astral:+230:+360,rage_gain:+20,rage:+7,exp:+7,level:8
+      rage1=rs:0,level:>5,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
+      rage2=rs:1,level:>7,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
+      rest1=rest:5,LV:>8/rest:4,exp:+2,restlevel:1
+      rest2=rest:4,LV:>18/rest:3,exp:+4,restlevel:2
+      rest3=rest:3,LV:>30/rest:2,exp:+6,restlevel:3
+    }
+  }
+  time_return {
+	no_hint=1
+    script_attack=death_time_return
+    script_calccells=calccells_time_return
+    log_label=null
+    level=4
+    default=level1
+    upgrade {
+      level1=level:0/rage:20,rest:5,exp:20,level:1
+      level2=level:1/rage:+2,exp:+2,level:2
+      level3=level:2/rage:+4,exp:+4,level:3
+      level4=level:3,LV:>7/rage:+8,exp:+8,level:4
+      level5=level:4,LV:>12/rage:+16,exp:+16,level:5
+      rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,level:>4,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
+      rest1=rest:5,LV:>9/rest:4,exp:+2,restlevel:1
+      rest2=rest:4,LV:>14/rest:3,exp:+4,restlevel:2
+      rest3=rest:3,LV:>20/rest:2,exp:+6,restlevel:3
+    }
+  }
+  black_hole {
+	no_hint=1
+    script_attack=death_blackhole
+    level=6
+    default=level1
+    upgrade {
+      level1=level:0/damage:astral:300:700,rage:15,rest:6,exp:15,level_influence:50,level:1
+      level2=level:1/damage:astral:+300:+700,rage:+10,exp:+5,level_influence:+5,level:2
+      level3=level:2/damage:astral:+300:+700,rage:+20,exp:+10,level_influence:+5,level:3
+      level4=level:3,LV:>12/damage:astral:+300:+700,rage:+30,exp:+15,level_influence:+5,level:4
+      level5=level:4,LV:>15/damage:astral:+300:+700,rage:+40,exp:+20,level_influence:+5,level:5
+      rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,level:>4,rage:>10,LV:>15/rage:-15,rs:2,exp:+15,ragelevel:2
+      rest1=rest:6,LV:>10/rest:5,exp:+2,restlevel:1
+      rest2=rest:5,LV:>13/rest:4,exp:+4,restlevel:2
+      rest3=rest:4,LV:>17/rest:3,exp:+6,restlevel:3
+    }
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=1:1:360
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    aspawn {
+      animation=appear
+      atag=litedeath
+    }
+    aspawn {
+      animation=reaping
+      frame=0/199
+      atag=deathravens
+    }
+    particle {
+      animation=appear
+      frame=50/80
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    aspawn {
+      trans=0/0/-0.5/0/-0/0/1
+      animation=appear
+      atag=fxm_death_bg
+    }
+    light_alterator {
+      animation=appear
+      key=0/100/100/100/0/100/100/100/100/100/0/100/100
+      key=0.80000001/100/100/100/0/100/20/20/50/20/0/100/100
+      key=2.79999995/100/100/100/0/100/20/20/50/20/0/100/100
+    }
+    light_alterator {
+      animation=reaping
+      key=0/100/100/100/0/100/20/20/50/20/0/100/100
+      key=1.5/100/100/100/0/100/20/20/50/20/0/100/100
+      key=1/11/55/33/0/100/100/11/55/33/0/100/100
+      key=4/11/55/33/0/100/100/11/55/33/0/100/100
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    light_alterator {
+      animation=rare
+      key=0/100/100/100/0/100/20/20/50/20/0/100/100
+      key=3.5999999/100/100/100/0/100/20/20/50/20/0/100/100
+    }
+    light_alterator {
+      animation=timeshift
+      key=0/100/100/100/0/100/20/20/50/20/0/100/100
+      key=1/100/100/100/0/100/20/20/50/20/0/100/100
+      key=0.40000001/30/100/60/0/100/50/30/100/60/0/100/50
+      key=1.60000002/30/100/60/0/100/50/30/100/60/0/100/50
+      key=2.4000001/100/100/100/0/100/100/100/100/100/0/100/100
+      key=3/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    light_alterator {
+      animation=blackhole
+      key=0/100/100/100/0/100/20/20/50/20/0/100/100
+      key=5/20/20/100/0/100/20/0/20/40/0/100/100
+      key=1.79999995/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    omni {
+      trans=0/7/0/0/-0/0/1
+      animation=reaping
+      lightland=true
+      key=0/FF000000/11/1
+      key=1.60000002/FF000000/11/1
+      key=0.40000001/FF008CFF/11/1
+      key=3.5999999/FF008CFF/11/1
+      key=0.12/FF6ADAFF/11/1.5
+      key=1.79999995/FF000000/11/1
+      key=1.79999995/FF000000/11/1
+    }
+    omni {
+      trans=0/10/3/0/-0/0/1
+      animation=timeshift
+      lightland=true
+      key=0/FF000000/30/1
+      key=1/FF000000/30/1
+      key=1/FF71AAFF/30/1
+      key=1/FF71AAFF/30/1
+      key=1.79999995/FF000000/30/1
+      key=5/FF000000/30/1
+    }
+    omni {
+      trans=0/10/3/0/-0/0/1
+      animation=blackhole
+      lightland=true
+      key=0/FF000000/30/1
+      key=1/FF000000/30/1
+      key=1/FF71FFB8/30/1
+      key=3/FF71FFB8/30/1
+      key=1.79999995/FF000000/30/1
+    }
+    light_alterator {
+      animation=harvest
+      key=0/100/100/100/0/100/20/20/50/20/0/100/100
+      key=0.2/100/100/100/0/100/20/20/50/20/0/100/100
+      key=0.80000001/55/22/22/0/100/100/55/22/22/0/100/100
+      key=3.5/55/22/22/0/100/100/55/22/22/0/100/100
+      key=0.30000001/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+  }
+  0 {
+    particle {
+      trans=-0.12359619/-0.3704834/0/0/-0/0/1
+      animation=rare
+      frame=27/62
+      file=death_scythe.ptb
+    }
+    particle {
+      trans=-0.3704834/-0.3704834/-0.12359619/0/-0/0/1
+      animation=rare
+      frame=27/62
+      file=death_scythe_accum.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=harvest
+      frame=15/66
+      file=death_harvest_accum.ptb
+    }
+    particle {
+      trans=0/-0/-1.86167777/0.99999928
+      animation=harvest
+      frame=30/60
+      file=death_harvest_shine.ptb
+    }
+    particle {
+      animation=harvest
+      frame=44/77
+      file=death_archdemon.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=2harvest
+      frame=15/66
+      file=death_harvest_accum.ptb
+    }
+    particle {
+      trans=0/-0/-1.86167777/0.99999928
+      animation=2harvest
+      frame=30/60
+      file=death_harvest_shine.ptb
+    }
+    particle {
+      animation=2harvest
+      frame=44/77
+      file=death_archdemon.ptb
+    }
+    slot=0
+  }
+  1 {
+    particle {
+      trans=0/0.5/0/0/-0/0/0.69999999
+      animation=appear
+      frame=20/30
+      file=death_sun.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=appear
+      frame=1/50
+      file=death_electro_accum.ptb
+    }
+    particle {
+      trans=0/-0/0/0.60000002
+      animation=appear
+      frame=1/35
+      file=death_rift.ptb
+    }
+    particle {
+      trans=0/0.60000002/0/0/-0/0/1
+      animation=appear
+      frame=30/40
+      file=death_rift_mid.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1
+      animation=appear
+      frame=35/45
+      file=death_rift_big.ptb
+    }
+    particle {
+      trans=0/0.3704834/-0.86425781/0/-0/0/1
+      animation=appear
+      frame=16/26
+      file=death_shine.ptb
+    }
+    particle {
+      trans=0.12359619/0.3704834/0.12359619/0/-0/0/1
+      animation=appear
+      frame=40/50
+      file=death_shine.ptb
+    }
+    particle {
+      trans=0/-0.61737061/0.3704834/0/-0/0/1
+      animation=appear
+      frame=35/45
+      file=death_shine.ptb
+    }
+    particle {
+      trans=0/-1.5/0/0/-0/0/1
+      animation=appear
+      frame=55/65
+      file=death_shine.ptb
+    }
+    particle {
+      trans=0/0/-0.15000001/0/-0/0/0.5
+      animation=appear
+      frame=10/55
+      file=death_rift.ptb
+    }
+    coord=0/2.34558105/0.30000001/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=0/0.2/0.30000001/0/-0/0/1.20000005
+      animation=appear
+      frame=60/70
+      file=death_burst.ptb
+    }
+    particle {
+      trans=0/0.2/0.30000001/0/-0/0/0.69999999
+      animation=reaping
+      frame=150/190
+      file=death_feathers.ptb
+    }
+    particle {
+      trans=0/3.08654785/0.30000001/0.15512401/-1.24108696/0.00000003/1
+      animation=appear
+      frame=0/10
+      file=death_ray_small.ptb
+    }
+    particle {
+      trans=0/2.34558105/0.30000001/-0.15512416/-1.31865251/-0.00000023/0.99999905
+      animation=appear
+      frame=2/12
+      file=death_ray_small.ptb
+    }
+    particle {
+      trans=0/2.09869385/0.30000001/0.07756221/-1.55143023/-0.00000024/1
+      animation=appear
+      frame=4/14
+      file=death_ray_small.ptb
+    }
+    particle {
+      trans=0/1.60491943/0.30000001/-0.31024778/-1.43503952/-0.00000009/1
+      animation=appear
+      frame=6/16
+      file=death_ray_small.ptb
+    }
+    particle {
+      trans=0/1.85180664/0.30000001/-3.1415925/-1.27991557/3.1415925/1
+      animation=appear
+      frame=8/18
+      file=death_ray_small.ptb
+    }
+    particle {
+      trans=0/1.60491943/0.30000001/-2.94764018/-1.27991641/3.1415925/0.99999839
+      animation=appear
+      frame=10/20
+      file=death_ray_small.ptb
+    }
+    particle {
+      trans=0/2.34558105/0/0.07756163/-1.39630616/-0.00000005/1
+      animation=appear
+      frame=22/32
+      file=death_ray.ptb
+    }
+    particle {
+      trans=0/3.33343506/0/-0.07756186/-1.08596277/0.00000007/1
+      animation=appear
+      frame=24/34
+      file=death_ray.ptb
+    }
+    particle {
+      trans=0/1.85180664/0/0.23267701/-1.51260579/-0.00000115/0.99999887
+      animation=appear
+      frame=26/36
+      file=death_ray.ptb
+    }
+    particle {
+      trans=0/1.35803223/0/-0.07756164/-1.43503904/0.00000003/1
+      animation=appear
+      frame=28/38
+      file=death_ray.ptb
+    }
+    particle {
+      trans=0/0.86425781/0/-3.06403065/-1.35747683/3.1415925/1
+      animation=appear
+      frame=30/40
+      file=death_ray.ptb
+    }
+  }
+  1 {
+    particle {
+      animation=reaping
+      frame=130/160
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.40000001/0/0/-0/0/1
+      animation=reaping
+      frame=125/155
+      file=death_oilfog.ptb
+    }
+    particle {
+      trans=0/0.40000001/0.2/0/-0/0/1
+      animation=rare
+      frame=0/90
+      file=death_wave.ptb
+    }
+    particle {
+      trans=0/0.40000001/0.2/0/-0/0/1
+      animation=reaping
+      frame=0/130
+      file=death_wave.ptb
+    }
+    particle {
+      trans=0/0.40000001/0.2/0/-0/0/1
+      animation=appear
+      frame=50/100
+      file=death_wave.ptb
+    }
+    particle {
+      trans=0/0.1/0.2/0/-0/0/1
+      animation=rare
+      frame=0/90
+      file=death_under.ptb
+    }
+    particle {
+      trans=0/0.1/0.2/0/-0/0/1
+      animation=reaping
+      frame=0/130
+      file=death_under.ptb
+    }
+    particle {
+      trans=0/0.1/0.2/0/-0/0/1
+      animation=appear
+      frame=50/100
+      file=death_under.ptb
+    }
+    particle {
+      trans=0/0.3704834/0/0/-0/0/1
+      animation=reaping
+      frame=150/160
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0/0/1
+      animation=reaping
+      frame=155/165
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/1.60491943/0/0/-0/0/1
+      animation=reaping
+      frame=157/167
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/1.35803223/0/0/-0/0/1
+      animation=reaping
+      frame=159/169
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/2.59246826/0/0/-0/0/1
+      animation=reaping
+      frame=161/171
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/0.61737061/0/0/-0/0/0.69999999
+      animation=reaping
+      frame=120/166
+      file=death_arcs.ptb
+    }
+  }
+  0 {
+    particle {
+      trans=0.89999998/0/-1.5/0.87266451/0.43633229/0.00000001/0.99999982
+      animation=rare
+      frame=33/53
+      file=death_scythe_tail.ptb
+    }
+    particle {
+      trans=1.29999995/-0.5/-1.38999999/0.87266451/0.43633229/0.00000001/0.99999982
+      animation=rare
+      frame=40/60
+      file=death_scythe_tail.ptb
+    }
+    particle {
+      trans=1.70000005/-0.80000001/-1/0.87266451/0.43633229/0.00000001/0.99999982
+      animation=rare
+      frame=45/65
+      file=death_scythe_tail.ptb
+    }
+    particle {
+      trans=2.0999999/-1.10000002/-0.5/0.87266451/0.43633229/0.00000001/0.99999982
+      animation=rare
+      frame=50/70
+      file=death_scythe_tail.ptb
+    }
+    slot=1
+  }
+  1 {
+    particle {
+      trans=-3.08654785/-1.35803223/0/-0.00000002/-0.38780981/2.01680136/0.99999976
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=-3.58032227/-0.61737061/0/-0.00000004/-0.38780987/1.86167753/1.00000012
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=-3.58032227/0.3704834/0/0.00000004/-0.38780978/1.55142987/0.99999994
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=-3.33343506/1.35803223/0/-0.00000006/-0.38780981/1.2410866/0.99999589
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=-2.9000001/2.27999997/0/-0/-0.38780981/0.77571493/1.00000024
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=-2.09869385/3.08654785/0/0/-0.38780978/0.54302919/0.99999994
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=-1.35803223/3.5/0/0.00000001/-0.38780972/0.31024754/0.99999964
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=-0.3704834/3.70000005/0/-0.00000002/-0.38780981/0.0775619/1.00000012
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=0.69999999/3.58032227/0/-0.00000002/-0.38780978/-0.23268604/0.99999994
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=1.76999998/3.20000005/0/-0/-0.38780972/-0.54302931/0.99999988
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=2.59246826/2.5/0/0.00000001/-0.3878099/-1.00840116/1.00000024
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=3.28999996/1.44000006/0/-0.00000037/-0.38781017/-1.3186487/0.99999964
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=3.58032227/0.49000001/0/0/-0.38780978/-1.6289922/0.99999988
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=3.5/-0.49000001/0/0/-0.38780981/-1.93923974/1.00000024
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    particle {
+      trans=3.0999999/-1.60491943/0/0/-0.38780978/-2.09436321/0.99999994
+      animation=appear
+      frame=0/66
+      file=death_ray_dark.ptb
+    }
+    coord=0/2.34558105/1.60491943/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=0/5.55541992/0/0/-0/0/0.60000002
+      animation=timeshift
+      frame=30/100
+      file=death_time_sun.ptb
+    }
+    particle {
+      trans=0/5.55541992/0/0/-0/0/1.29999995
+      animation=timeshift
+      frame=29/95
+      file=death_time_core.ptb
+    }
+    particle {
+      trans=0/3.08654785/0/0/-0/0/0.69999999
+      animation=timeshift
+      frame=60/122
+      file=death_rift_mid.ptb
+    }
+    particle {
+      trans=0.61737061/5.55541992/0/1.3963052/-0.13962622/-0/1.29999959
+      animation=timeshift
+      frame=35/99
+      file=death_long_arcs.ptb
+    }
+    particle {
+      trans=1.35803223/1.35803223/0/-1.47386789/-0/0/1.60000002
+      animation=timeshift
+      frame=55/109
+      file=death_curly_arcs.ptb
+    }
+    particle {
+      trans=-0.61737061/5.55541992/0/-1.6289922/-0.1396264/0/1.29999912
+      animation=timeshift
+      frame=35/99
+      file=death_long_arcs.ptb
+    }
+    particle {
+      trans=-1.35803223/1.35803223/0/1.55142987/-0/0/1.60000002
+      animation=timeshift
+      frame=55/112
+      file=death_curly_arcs.ptb
+    }
+    particle {
+      trans=-1/0.40000001/0/0/-0/-0.05236007/1
+      animation=timeshift
+      frame=55/96
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=-0.61737061/0.40000001/-0.2/-0/0.08726685/-0.05236007/1
+      animation=timeshift
+      frame=55/97
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=0/0.40000001/-0.3704834/0/-0/0/1
+      animation=timeshift
+      frame=55/100
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=0.5/0.40000001/-0.2/0/0.08726647/0.08726647/1
+      animation=timeshift
+      frame=55/90
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=1/0.40000001/0/0/-0/0.08726646/1
+      animation=timeshift
+      frame=55/95
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=timeshift
+      frame=60/80
+      file=death_star_screw.ptb
+    }
+    particle {
+      trans=2.32714462/-0/0/0.69999963
+      animation=timeshift
+      frame=55/77
+      file=death_star_screw.ptb
+    }
+    particle {
+      trans=-2.0168016/-0/0/0.69999999
+      animation=timeshift
+      frame=50/92
+      file=death_star_screw.ptb
+    }
+  }
+  0 {
+    particle {
+      trans=2.1500001/-0.80000001/-0.5/0/-0/0/1
+      animation=blackhole
+      frame=32/48
+      file=death_scythe_accum.ptb
+    }
+    particle {
+      trans=2.28999996/-1.35803223/-0.5/0/-0/0/1
+      animation=blackhole
+      frame=33/44
+      file=death_scythe_spiky.ptb
+    }
+    particle {
+      trans=2.1500001/-0.80000001/-0.5/0/-0/0/1
+      animation=blackhole
+      frame=33/44
+      file=death_scythe_spiky.ptb
+    }
+    particle {
+      trans=2.1500001/-0.80000001/-0.5/0/-0/0/1
+      animation=blackhole
+      frame=32/48
+      file=death_scythe.ptb
+    }
+    particle {
+      trans=1.11114502/0.3704834/0/0/-0/2.24958277/1
+      animation=blackhole
+      frame=31/11
+      file=death_scythe_onion_arcs.ptb
+    }
+    particle {
+      trans=2.1500001/-0.80000001/-0.5/0/-0/0/1
+      animation=2blackhole
+      frame=32/48
+      file=death_scythe_accum.ptb
+    }
+    particle {
+      trans=2.28999996/-1.35803223/-0.5/0/-0/0/1
+      animation=2blackhole
+      frame=33/44
+      file=death_scythe_spiky.ptb
+    }
+    particle {
+      trans=2.1500001/-0.80000001/-0.5/0/-0/0/1
+      animation=2blackhole
+      frame=33/44
+      file=death_scythe_spiky.ptb
+    }
+    particle {
+      trans=2.1500001/-0.80000001/-0.5/0/-0/0/1
+      animation=2blackhole
+      frame=32/48
+      file=death_scythe.ptb
+    }
+    particle {
+      trans=1.11114502/0.3704834/0/0/-0/2.24958277/1
+      animation=2blackhole
+      frame=31/11
+      file=death_scythe_onion_arcs.ptb
+    }
+    slot=4
+  }
+  1 {
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=blackhole
+      frame=33/52
+      file=death_whitehole_grow.ptb
+    }
+    particle {
+      trans=0/-0/0/2
+      animation=blackhole
+      frame=39/44
+      file=death_scythe_onion_arcs.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0.77571487/0/1
+      animation=blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=1.85180664/-0.12359619/0/0/-0.77571487/0/1
+      animation=blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=-1.35803223/-0.12359619/0/0/-0.77571487/0/1
+      animation=blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=0/-1.60491943/0/0/-0.77571487/0/1
+      animation=blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=0/0/0.40000001/0/-1.39630616/0/1.5
+      animation=blackhole
+      frame=33/55
+      file=death_blackhole_twirl.ptb
+    }
+    particle {
+      trans=0/0/0.2/0/-0/0/3.70000005
+      animation=blackhole
+      frame=40/133
+      file=death_blackhole_halo.ptb
+    }
+    particle {
+      trans=1.39626348/-0.15512432/0/1
+      animation=blackhole
+      frame=33/99
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=1.39626443/0.46546754/0.00000039/0.99999803
+      animation=blackhole
+      frame=33/98
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=1.39626372/1.24108636/-0.0000002/1
+      animation=blackhole
+      frame=33/97
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.7453295/1.16352439/3.1415925/0.99999958
+      animation=blackhole
+      frame=33/96
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.74532938/0.38780957/-3.1415925/1
+      animation=blackhole
+      frame=33/95
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.74532938/-0.38780969/3.1415925/1.00000203
+      animation=blackhole
+      frame=33/94
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.7453326/-1.1247915/-3.1415925/1.00000072
+      animation=blackhole
+      frame=33/93
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=0/0/0.2/0/-0/0/3.70000005
+      animation=blackhole
+      frame=36/150
+      file=death_blackhole.ptb
+    }
+    coord=0/3.0999999/2.0999999/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=1.39626348/-0.15512432/0/1
+      animation=blackhole
+      frame=33/111
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=1.39626443/0.46546754/0.00000039/0.99999803
+      animation=blackhole
+      frame=33/105
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=1.39626372/1.24108636/-0.0000002/1
+      animation=blackhole
+      frame=33/100
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.7453295/1.16352439/3.1415925/0.99999958
+      animation=blackhole
+      frame=33/99
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.74532938/0.38780957/-3.1415925/1
+      animation=blackhole
+      frame=33/95
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.74532938/-0.38780969/3.1415925/1.00000203
+      animation=blackhole
+      frame=33/90
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.7453326/-1.1247915/-3.1415925/1.00000072
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_smoketail.ptb
+    }
+    coord=0/3.0999999/2.0999999/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=1.39626348/-0.15512432/0/1
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=1.39626443/0.46546754/0.00000039/0.99999803
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=1.39626372/1.24108636/-0.0000002/1
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.7453295/1.16352439/3.1415925/0.99999958
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.74532938/0.38780957/-3.1415925/1
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.74532938/-0.38780969/3.1415925/1.00000203
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.7453326/-1.1247915/-3.1415925/1.00000072
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    coord=0/3.0999999/2.5/0/-0/0.46546736/1
+  }
+  1 {
+    particle {
+      trans=-0.61737061/0/-1.60491943/0.3102476/-0/0/0.99999982
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=-0.12359619/0.86425781/-1.60491943/0.54302907/0.07756191/0/0.99999988
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=0.61737061/0.61737061/-1.60491943/-0.31024793/0.3102476/0/0.99999994
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=0.86425781/0/-1.60491943/-0.46546745/-0/0/0.99999982
+      animation=blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=0/0/-2/0/-0/-3.1415925/1
+      animation=blackhole
+      frame=80/105
+      file=death_blackhole_intohands.ptb
+    }
+    coord=0/3.0999999/2.5/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=0/-0/2.63739228/1
+      animation=blackhole
+      frame=75/94
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      trans=0/-0/1.24108636/1
+      animation=blackhole
+      frame=75/96
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      animation=blackhole
+      frame=75/98
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      trans=0/-0/-0.69815296/1
+      animation=blackhole
+      frame=75/100
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      trans=0/-0/-2.01680136/1
+      animation=blackhole
+      frame=75/102
+      file=death_blackhole_vacuum.ptb
+    }
+    camshaker {
+      animation=reaping
+      frame=112/140
+      envelope=quake_boom.envlp
+      attenuation=0.2
+    }
+    camshaker {
+      animation=appear
+      envelope=quake_appear.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=appear
+      frame=80/90
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=blackhole
+      frame=60/150
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=harvest
+      frame=60/110
+      envelope=quake_appear.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=blackhole
+      frame=80/150
+      envelope=quake_appear.envlp
+      attenuation=0.02
+    }
+    camshaker {
+      animation=harvest
+      frame=80/130
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    coord=0/3/-3.29999995/0/-0/0/1
+  }
+  0 {
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=appear
+      lightland=true
+      key=0/FF000000/10/1
+      key=1/FF000000/10/1
+      key=1/FF71FFB8/10/1
+      key=1.60000002/FF71FFB8/10/1
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=rare
+      lightland=true
+      key=0/FF71FFB8/10/1
+      key=2/FF71FFB8/10/1
+      key=0.69999999/FF71FFB8/10/1.5
+      key=0.60000002/FF71FFB8/10/1
+      key=5/FF71FFB8/10/1
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=reaping
+      lightland=true
+      key=0/FF71FFB8/10/1
+      key=1/FF71FFB8/10/1
+      key=2/FF000000/10/1
+      key=8/FF000000/10/1
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=timeshift
+      lightland=true
+      key=0/FF71FFB8/10/1
+      key=1/FF71FFB8/10/1
+      key=2/FF000000/10/1
+      key=8/FF000000/10/1
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=blackhole
+      lightland=true
+      key=0/FF71FFB8/10/1
+      key=1/FF71FFB8/10/1
+      key=2/FF000000/10/1
+      key=8/FF000000/10/1
+    }
+    particle {
+      trans=0/-0.23999999/0/0/-0/0/1
+      animation=harvest
+      frame=80/115
+      file=death_archdemon.ptb
+    }
+    particle {
+      trans=0/-0.19/0.3704834/0/-1.16352487/0/0.5
+      animation=harvest
+      frame=80/111
+      file=death_harvest_flow.ptb
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=harvest
+      restart=true
+      lightland=true
+      key=0/FF71FFB8/10/1
+      key=0.2/FF71FFB8/10/1
+      key=0.80000001/FFFFB442/10/1
+      key=1.89999998/FFFFBD5B/10/1
+      key=0.30000001/FFFFE13C/10/1.5
+      key=1.20000005/FFFFE13C/10/1
+      key=0.5/FF000000/10/1
+      key=5/FF000000/10/1
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=2reaping
+      lightland=true
+      key=0/FF000000/10/1
+      key=1/FF71FFB8/10/1
+      key=2/FF000000/10/1
+      key=8/FF000000/10/1
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=2timeshift
+      lightland=true
+      key=0/FF000000/10/1
+      key=1/FF71FFB8/10/1
+      key=2/FF000000/10/1
+      key=8/FF000000/10/1
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=2blackhole
+      lightland=true
+      key=0/FF000000/10/1
+      key=1/FF71FFB8/10/1
+      key=2/FF000000/10/1
+      key=8/FF000000/10/1
+    }
+    particle {
+      trans=0/-0.23999999/0/0/-0/0/1
+      animation=2harvest
+      frame=80/115
+      file=death_archdemon.ptb
+    }
+    omni {
+      trans=0/1.35803223/-1.11114502/0/-0/0/1
+      animation=2harvest
+      restart=true
+      lightland=true
+      key=0/FF000000/10/1
+      key=0.2/FF71FFB8/10/1
+      key=0.80000001/FFFFB442/10/1
+      key=1.89999998/FFFFBD5B/10/1
+      key=0.30000001/FFFFE13C/10/1.5
+      key=1.20000005/FFFFE13C/10/1
+      key=0.5/FF000000/10/1
+      key=5/FF000000/10/1
+    }
+    slot=2
+  }
+  1 {
+    particle {
+      trans=0/4.07409668/0.61737061/0/-0/0/1
+      animation=harvest
+      frame=70/115
+      file=death_harvest_shine.ptb
+    }
+    particle {
+      animation=harvest
+      frame=44/111
+      file=death_harvest_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=harvest
+      frame=70/90
+      file=death_harvest_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=harvest
+      frame=75/111
+      file=death_harvest_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/3.5/0.3704834/0/-0/0/0.69999999
+      animation=harvest
+      frame=77/99
+      file=death_harvest_ray.ptb
+    }
+    particle {
+      trans=0/-0/0/2
+      animation=harvest
+      frame=20/66
+      file=death_harvest_twirl.ptb
+    }
+    particle {
+      trans=0/1.11114502/-0.3704834/0/-0/0/1
+      animation=harvest
+      frame=55/66
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0.61737061/1.11114502/-0.3704834/0/-0/0/1
+      animation=harvest
+      frame=55/66
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=-0.61737061/1.35803223/-0.3704834/0/-0/0/1
+      animation=harvest
+      frame=57/67
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0.3704834/1.85180664/-0.3704834/0/-0/0/1
+      animation=harvest
+      frame=58/68
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0/2.59246826/-0.3704834/0/-0/0/1
+      animation=harvest
+      frame=59/69
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=-0.3704834/3.33343506/-0.3704834/0/-0/0/1
+      animation=harvest
+      frame=60/70
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0.61737061/3.33343506/-0.3704834/0/-0/0/1
+      animation=harvest
+      frame=61/71
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0/4.56787109/0.12359619/0/-0/0/1
+      animation=harvest
+      frame=62/72
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0/0.60000002/0/0/-0/0/0.69999999
+      animation=harvest
+      frame=70/74
+      file=death_harvest_wave.ptb
+    }
+    particle {
+      trans=0/0.80000001/0.30000001/0/-0/0/1
+      animation=harvest
+      frame=66/75
+      file=death_harvest_stream.ptb
+    }
+    particle {
+      trans=0/0.2/0/0/-0/0/2.79999995
+      animation=harvest
+      frame=72/88
+      file=death_harvest_spot.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=appear
+      frame=0.01
+      file=death_appear
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=death_rare
+      fadetime=60
+    }
+    sound {
+      animation=blackhole
+      frame=0.01
+      file=death_blackhole
+      fadetime=60
+    }
+    sound {
+      animation=harvest
+      frame=0.01
+      file=death_harvest
+      fadetime=60
+    }
+    sound {
+      animation=reaping
+      frame=0.01
+      file=death_reaping
+      fadetime=60
+    }
+    sound {
+      animation=timeshift
+      frame=0.01
+      file=death_timeshift
+      fadetime=60
+    }
+    sound {
+      animation=2reaping
+      frame=0.01
+      file=death_2reaping
+      fadetime=60
+    }
+    sound {
+      animation=2timeshift
+      frame=0.01
+      file=death_2timeshift
+      fadetime=60
+    }
+    sound {
+      animation=2blackhole
+      frame=0.01
+      file=death_2blackhole
+      fadetime=60
+    }
+    sound {
+      animation=2harvest
+      frame=0.01
+      file=death_2harvest
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/4.07409668/0.61737061/0/-0/0/1
+      animation=2harvest
+      frame=70/115
+      file=death_harvest_shine.ptb
+    }
+    particle {
+      animation=2harvest
+      frame=44/111
+      file=death_harvest_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2harvest
+      frame=70/90
+      file=death_harvest_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2harvest
+      frame=75/111
+      file=death_harvest_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/3.5/0.3704834/0/-0/0/0.69999999
+      animation=2harvest
+      frame=77/99
+      file=death_harvest_ray.ptb
+    }
+    particle {
+      trans=0/-0/0/2
+      animation=2harvest
+      frame=20/66
+      file=death_harvest_twirl.ptb
+    }
+    particle {
+      trans=0/1.11114502/-0.3704834/0/-0/0/1
+      animation=2harvest
+      frame=55/66
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0.61737061/1.11114502/-0.3704834/0/-0/0/1
+      animation=2harvest
+      frame=55/66
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=-0.61737061/1.35803223/-0.3704834/0/-0/0/1
+      animation=2harvest
+      frame=57/67
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0.3704834/1.85180664/-0.3704834/0/-0/0/1
+      animation=2harvest
+      frame=58/68
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0/2.59246826/-0.3704834/0/-0/0/1
+      animation=2harvest
+      frame=59/69
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=-0.3704834/3.33343506/-0.3704834/0/-0/0/1
+      animation=2harvest
+      frame=60/70
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0.61737061/3.33343506/-0.3704834/0/-0/0/1
+      animation=2harvest
+      frame=61/71
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0/4.56787109/0.12359619/0/-0/0/1
+      animation=2harvest
+      frame=62/72
+      file=death_harvest_intense.ptb
+    }
+    particle {
+      trans=0/0.60000002/0/0/-0/0/0.69999999
+      animation=2harvest
+      frame=70/74
+      file=death_harvest_wave.ptb
+    }
+    particle {
+      trans=0/0.80000001/0.30000001/0/-0/0/1
+      animation=2harvest
+      frame=66/75
+      file=death_harvest_stream.ptb
+    }
+    particle {
+      trans=0/0.2/0/0/-0/0/2.79999995
+      animation=2harvest
+      frame=72/88
+      file=death_harvest_spot.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0/2.63739228/1
+      animation=2blackhole
+      frame=75/94
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      trans=0/-0/1.24108636/1
+      animation=2blackhole
+      frame=75/96
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      animation=2blackhole
+      frame=75/98
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      trans=0/-0/-0.69815296/1
+      animation=2blackhole
+      frame=75/100
+      file=death_blackhole_vacuum.ptb
+    }
+    particle {
+      trans=0/-0/-2.01680136/1
+      animation=2blackhole
+      frame=75/102
+      file=death_blackhole_vacuum.ptb
+    }
+    camshaker {
+      animation=2reaping
+      frame=112/140
+      envelope=quake_boom.envlp
+      attenuation=0.2
+    }
+    camshaker {
+      animation=2blackhole
+      frame=60/150
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=2harvest
+      frame=60/110
+      envelope=quake_appear.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=2blackhole
+      frame=80/150
+      envelope=quake_appear.envlp
+      attenuation=0.02
+    }
+    camshaker {
+      animation=2harvest
+      frame=80/130
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    coord=0/3/-3.29999995/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=-0.61737061/0/-1.60491943/0.3102476/-0/0/0.99999982
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=-0.12359619/0.86425781/-1.60491943/0.54302907/0.07756191/0/0.99999988
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=0.61737061/0.61737061/-1.60491943/-0.31024793/0.3102476/0/0.99999994
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=0.86425781/0/-1.60491943/-0.46546745/-0/0/0.99999982
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobstream.ptb
+    }
+    particle {
+      trans=0/0/-2/0/-0/-3.1415925/1
+      animation=2blackhole
+      frame=80/105
+      file=death_blackhole_intohands.ptb
+    }
+    coord=0/3.0999999/2.5/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=1.39626348/-0.15512432/0/1
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=1.39626443/0.46546754/0.00000039/0.99999803
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=1.39626372/1.24108636/-0.0000002/1
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.7453295/1.16352439/3.1415925/0.99999958
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.74532938/0.38780957/-3.1415925/1
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.74532938/-0.38780969/3.1415925/1.00000203
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    particle {
+      trans=-1.7453326/-1.1247915/-3.1415925/1.00000072
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_scobs.ptb
+    }
+    coord=0/3.0999999/2.5/0/-0/0.46546736/1
+  }
+  1 {
+    particle {
+      trans=1.39626348/-0.15512432/0/1
+      animation=2blackhole
+      frame=33/111
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=1.39626443/0.46546754/0.00000039/0.99999803
+      animation=2blackhole
+      frame=33/105
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=1.39626372/1.24108636/-0.0000002/1
+      animation=2blackhole
+      frame=33/100
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.7453295/1.16352439/3.1415925/0.99999958
+      animation=2blackhole
+      frame=33/99
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.74532938/0.38780957/-3.1415925/1
+      animation=2blackhole
+      frame=33/95
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.74532938/-0.38780969/3.1415925/1.00000203
+      animation=2blackhole
+      frame=33/90
+      file=death_blackhole_smoketail.ptb
+    }
+    particle {
+      trans=-1.7453326/-1.1247915/-3.1415925/1.00000072
+      animation=2blackhole
+      frame=33/88
+      file=death_blackhole_smoketail.ptb
+    }
+    coord=0/3.0999999/2.0999999/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=2blackhole
+      frame=33/52
+      file=death_whitehole_grow.ptb
+    }
+    particle {
+      trans=0/-0/0/2
+      animation=2blackhole
+      frame=39/44
+      file=death_scythe_onion_arcs.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0.77571487/0/1
+      animation=2blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=1.85180664/-0.12359619/0/0/-0.77571487/0/1
+      animation=2blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=-1.35803223/-0.12359619/0/0/-0.77571487/0/1
+      animation=2blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=0/-1.60491943/0/0/-0.77571487/0/1
+      animation=2blackhole
+      frame=50/60
+      file=death_whitehole_burst.ptb
+    }
+    particle {
+      trans=0/0/0.40000001/0/-1.39630616/0/1.5
+      animation=2blackhole
+      frame=33/55
+      file=death_blackhole_twirl.ptb
+    }
+    particle {
+      trans=0/0/0.2/0/-0/0/3.70000005
+      animation=2blackhole
+      frame=40/133
+      file=death_blackhole_halo.ptb
+    }
+    particle {
+      trans=1.39626348/-0.15512432/0/1
+      animation=2blackhole
+      frame=33/99
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=1.39626443/0.46546754/0.00000039/0.99999803
+      animation=2blackhole
+      frame=33/98
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=1.39626372/1.24108636/-0.0000002/1
+      animation=2blackhole
+      frame=33/97
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.7453295/1.16352439/3.1415925/0.99999958
+      animation=2blackhole
+      frame=33/96
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.74532938/0.38780957/-3.1415925/1
+      animation=2blackhole
+      frame=33/95
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.74532938/-0.38780969/3.1415925/1.00000203
+      animation=2blackhole
+      frame=33/94
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=-1.7453326/-1.1247915/-3.1415925/1.00000072
+      animation=2blackhole
+      frame=33/93
+      file=death_blackhole_tail.ptb
+    }
+    particle {
+      trans=0/0/0.2/0/-0/0/3.70000005
+      animation=2blackhole
+      frame=36/150
+      file=death_blackhole.ptb
+    }
+    coord=0/3.0999999/2.0999999/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=0/5.55541992/0/0/-0/0/0.60000002
+      animation=2timeshift
+      frame=30/100
+      file=death_time_sun.ptb
+    }
+    particle {
+      trans=0/5.55541992/0/0/-0/0/1.29999995
+      animation=2timeshift
+      frame=29/95
+      file=death_time_core.ptb
+    }
+    particle {
+      trans=0/3.08654785/0/0/-0/0/0.69999999
+      animation=2timeshift
+      frame=60/122
+      file=death_rift_mid.ptb
+    }
+    particle {
+      trans=0.61737061/5.55541992/0/1.3963052/-0.13962622/-0/1.29999959
+      animation=2timeshift
+      frame=35/99
+      file=death_long_arcs.ptb
+    }
+    particle {
+      trans=1.35803223/1.35803223/0/-1.47386789/-0/0/1.60000002
+      animation=2timeshift
+      frame=55/109
+      file=death_curly_arcs.ptb
+    }
+    particle {
+      trans=-0.61737061/5.55541992/0/-1.6289922/-0.1396264/0/1.29999912
+      animation=2timeshift
+      frame=35/99
+      file=death_long_arcs.ptb
+    }
+    particle {
+      trans=-1.35803223/1.35803223/0/1.55142987/-0/0/1.60000002
+      animation=2timeshift
+      frame=55/112
+      file=death_curly_arcs.ptb
+    }
+    particle {
+      trans=-1/0.40000001/0/0/-0/-0.05236007/1
+      animation=2timeshift
+      frame=55/96
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=-0.61737061/0.40000001/-0.2/-0/0.08726685/-0.05236007/1
+      animation=2timeshift
+      frame=55/97
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=0/0.40000001/-0.3704834/0/-0/0/1
+      animation=2timeshift
+      frame=55/100
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=0.5/0.40000001/-0.2/0/0.08726647/0.08726647/1
+      animation=2timeshift
+      frame=55/90
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=1/0.40000001/0/0/-0/0.08726646/1
+      animation=2timeshift
+      frame=55/95
+      file=death_time_tail.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=2timeshift
+      frame=60/80
+      file=death_star_screw.ptb
+    }
+    particle {
+      trans=2.32714462/-0/0/0.69999963
+      animation=2timeshift
+      frame=55/77
+      file=death_star_screw.ptb
+    }
+    particle {
+      trans=-2.0168016/-0/0/0.69999999
+      animation=2timeshift
+      frame=50/92
+      file=death_star_screw.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.2/0.30000001/0/-0/0/0.69999999
+      animation=2reaping
+      frame=150/190
+      file=death_feathers.ptb
+    }
+    particle {
+      animation=2reaping
+      frame=130/160
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.40000001/0/0/-0/0/1
+      animation=2reaping
+      frame=125/155
+      file=death_oilfog.ptb
+    }
+    particle {
+      trans=0/0.40000001/0.2/0/-0/0/1
+      animation=2reaping
+      frame=0/130
+      file=death_wave.ptb
+    }
+    particle {
+      trans=0/0.1/0.2/0/-0/0/1
+      animation=2reaping
+      frame=0/130
+      file=death_under.ptb
+    }
+    particle {
+      trans=0/0.3704834/0/0/-0/0/1
+      animation=2reaping
+      frame=150/160
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0/0/1
+      animation=2reaping
+      frame=155/165
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/1.60491943/0/0/-0/0/1
+      animation=2reaping
+      frame=157/167
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/1.35803223/0/0/-0/0/1
+      animation=2reaping
+      frame=159/169
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/2.59246826/0/0/-0/0/1
+      animation=2reaping
+      frame=161/171
+      file=death_cluster.ptb
+    }
+    particle {
+      trans=0/0.61737061/0/0/-0/0/0.69999999
+      animation=2reaping
+      frame=120/166
+      file=death_arcs.ptb
+    }
+  }
+  1 {
+    aspawn {
+      animation=2reaping
+      frame=0/199
+      atag=deathravens
+    }
+    particle {
+      animation=2reaping
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2timeshift
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2blackhole
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2harvest
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    light_alterator {
+      animation=2reaping
+      key=0/100/100/100/0/100/100/100/100/100/0/100/100
+      key=1.5/100/100/100/0/100/20/20/50/20/0/100/100
+      key=1/11/55/33/0/100/100/11/55/33/0/100/100
+      key=4/11/55/33/0/100/100/11/55/33/0/100/100
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    light_alterator {
+      animation=2timeshift
+      key=0/100/100/100/0/100/100/100/100/100/0/100/100
+      key=1/100/100/100/0/100/20/20/50/20/0/100/100
+      key=0.40000001/30/100/60/0/100/50/30/100/60/0/100/50
+      key=1.60000002/30/100/60/0/100/50/30/100/60/0/100/50
+      key=2.4000001/100/100/100/0/100/100/100/100/100/0/100/100
+      key=3/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    light_alterator {
+      animation=2blackhole
+      key=0/100/100/100/0/100/100/100/100/100/0/100/100
+      key=5/20/20/100/0/100/20/0/20/40/0/100/100
+      key=1.79999995/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    omni {
+      trans=0/7/0/0/-0/0/1
+      animation=2reaping
+      lightland=true
+      key=0/FF000000/11/1
+      key=1.60000002/FF000000/11/1
+      key=0.40000001/FF008CFF/11/1
+      key=3.5999999/FF008CFF/11/1
+      key=0.12/FF6ADAFF/11/1.5
+      key=1.79999995/FF000000/11/1
+      key=1.79999995/FF000000/11/1
+    }
+    omni {
+      trans=0/10/3/0/-0/0/1
+      animation=2timeshift
+      lightland=true
+      key=0/FF000000/30/1
+      key=1/FF000000/30/1
+      key=1/FF71AAFF/30/1
+      key=1/FF71AAFF/30/1
+      key=1.79999995/FF000000/30/1
+      key=5/FF000000/30/1
+    }
+    omni {
+      trans=0/10/3/0/-0/0/1
+      animation=2blackhole
+      lightland=true
+      key=0/FF000000/30/1
+      key=1/FF000000/30/1
+      key=1/FF71FFB8/30/1
+      key=3/FF71FFB8/30/1
+      key=1.79999995/FF000000/30/1
+    }
+    light_alterator {
+      animation=2harvest
+      key=0/100/100/100/0/100/20/20/50/20/0/100/100
+      key=0.2/100/100/100/0/100/20/20/50/20/0/100/100
+      key=0.80000001/55/22/22/0/100/100/55/22/22/0/100/100
+      key=3.5/55/22/22/0/100/100/55/22/22/0/100/100
+      key=0.30000001/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+  }
+  1 {
+    camshaker {
+      trans=0/0.5/0.2/0/-0/0/1
+      animation=2reaping
+      frame=9/22
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    particle {
+      trans=0/0.2/0.30000001/0/-0/0/1.20000005
+      animation=2reaping
+      frame=15/33
+      file=death_burst.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=2reaping
+      frame=0/22
+      file=death_electro_accum.ptb
+    }
+    particle {
+      animation=2reaping
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2reaping
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+  }
+
+  1 {
+    camshaker {
+      trans=0/0.5/0.2/0/-0/0/1
+      animation=2timeshift
+      frame=9/22
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    particle {
+      trans=0/0.2/0.30000001/0/-0/0/1.20000005
+      animation=2timeshift
+      frame=15/33
+      file=death_burst.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=2timeshift
+      frame=0/22
+      file=death_electro_accum.ptb
+    }
+    particle {
+      animation=2timeshift
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2timeshift
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+  }
+
+  1 {
+    camshaker {
+      trans=0/0.5/0.2/0/-0/0/1
+      animation=2blackhole
+      frame=9/22
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    particle {
+      trans=0/0.2/0.30000001/0/-0/0/1.20000005
+      animation=2blackhole
+      frame=15/33
+      file=death_burst.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=2blackhole
+      frame=0/22
+      file=death_electro_accum.ptb
+    }
+    particle {
+      animation=2blackhole
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2blackhole
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+  }
+
+
+  1 {
+    camshaker {
+      trans=0/0.5/0.2/0/-0/0/1
+      animation=2harvest
+      frame=9/22
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    particle {
+      trans=0/0.2/0.30000001/0/-0/0/1.20000005
+      animation=2harvest
+      frame=15/33
+      file=death_burst.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=2harvest
+      frame=0/22
+      file=death_electro_accum.ptb
+    }
+    particle {
+      animation=2harvest
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2harvest
+      frame=0/22
+      file=deadhand_tail_memi.ptb
+      meshemission=true
+    }
+  }
+}
+prefetch {
+  death_appear.bsa=file
+  death_idle.bsa=file
+  death_rare.bsa=file
+  death_reaping.bsa=file
+  death_timeshift.bsa=file
+  death_blackhole.bsa=file
+  deathred_harvest.bsa=file
+  death_short_reaping.bsa=file
+  death_short_timeshift.bsa=file
+  death_short_blackhole.bsa=file
+  death_short_harvest.bsa=file
+}

@@ -1,0 +1,1017 @@
+main {
+  class=spirit
+  nodimming=1
+  bboxanim=1
+  model=lina.bma
+  blend=0
+}
+animations {
+  appear=lina_appear.bsa/fr:25:50/clip:appear
+  idle=lina_idle.bsa/fr:25:50
+  rare=lina_rare.bsa/fr:25:50
+  cast=lina_devatron.bsa/fr:25:50/clip:devatron
+  orbcast=lina_devatron.bsa/fr:25:50/clip:devatron
+  2cast=lina_short_devatron.bsa/fr:25:50/clip:devatron
+  2orbcast=lina_short_devatron.bsa/fr:25:50/clip:devatron
+  @appear {
+    0.0=alpha/1/1
+  }
+  @rare {
+    40.0?x=
+    90.0?y=
+  }
+  @cast {
+    30.0?x=
+    24.0?y=
+    34.0?z=
+    150.0=alpha/0/22
+  }
+  @orbcast {
+    30.0?x=
+    24.0?y=
+    34.0?z=
+    150.0=alpha/0/22
+  }
+  @2cast {
+    30.0?x=
+    24.0?y=
+    34.0?z=
+    15=alpha/1/15
+    150.0=alpha/0/22
+  }
+  @2orbcast {
+    30.0?x=
+    24.0?y=
+    34.0?z=
+    15=alpha/1/15
+    150.0=alpha/0/22
+  }
+}
+clippers {
+  appear {
+    clipatom=clip_icemagic,linaappear,clip
+    toatom=clip_icemagic,linaappear
+  }
+  devatron {
+    clipatom=clip_icemagic,linadevatron,clip
+    toatom=clip_icemagic,linadevatron
+  }
+  short_devatron {
+    clipatom=clip_icemagic,linadevatron,clip
+    toatom=clip_icemagic,linadevatron
+  }
+}
+slogic {
+  long_seq_play_interval=5
+}
+spirit {
+  enboxes {
+    script_attack=lina_enboxes
+    level=0
+    default=level1
+    upgrade {
+      level1=level:0/rage:1,rest:5,exp:1,manabonus:2:4,ragebonus:2:4,count:4,level:1
+      level2=level:1/count:+1,rage:+1,exp:+1,level:2
+      level3=level:2/count:+1,rage:+2,exp:+2,level:3
+      level4=level:3,LV:>10/count:+1,rage:+3,exp:+3,level:4
+      level5=level:4,LV:>20/count:+1,rage:+4,exp:+4,level:5
+      rage1=rs:0,level:>1/rage:+2,rs:1,exp:+2,manabonus:4:8,ragebonus:4:8,ragelevel:1
+      rage2=rs:1,LV:>10/rage:+3,rs:2,exp:+3,manabonus:8:16,ragebonus:8:16,ragelevel:2
+      rage3=rs:2,LV:>20/rage:+4,rs:3,exp:+4,manabonus:16:32,ragebonus:16:32,ragelevel:3
+      rest1=rest:5,LV:>5/rest:4,exp:+2,restlevel:1
+      rest2=rest:4,LV:>15/rest:3,exp:+4,restlevel:2
+    }
+  }
+  orb {
+	no_hint=1
+    script_attack=lina_orb
+    script_calccells=calccells_all_empty
+    level=2
+    default=level1
+    upgrade {
+      level1=level:0/damage:physical:110:130,health:150,init:1,rage:15,rest:6,exp:15,level:1
+      attack1=attack:0,level:>0/damage:physical:+110:+130,health:+75,init:+2,rage:+5,exp:+5,atk:+10,attack:1
+      attack2=attack:1/damage:physical:+110:+130,health:+75,init:+2,rage:+10,exp:+10,atk:+15,attack:2
+      attack3=attack:2,LV:>29/damage:physical:+110:+130,health:+75,init:+2,rage:+15,exp:+15,atk:+25,attack:3
+      defense1=defense:0,level:>0/damage:physical:+55:+65,health:+150,init:+1,rage:+5,exp:+5,def:+10,defense:1
+      defense2=defense:1/damage:physical:+55:+65,health:+150,init:+1,rage:+10,exp:+10,def:+15,defense:2
+      defense3=defense:2,LV:>28/damage:physical:+55:+65,health:+150,init:+1,rage:+15,exp:+15,def:+25,defense:3
+      rage1=rs:0,level:>0,rage:>10,LV:>6/rage:-10,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,LV:>10,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
+      rage3=rs:2,LV:>35,rage:>20/rage:-20,rs:3,exp:+20,ragelevel:3
+      rest1=rest:6,LV:>9/rest:5,exp:+2,restlevel:1
+      rest2=rest:5,LV:>19/rest:4,exp:+4,restlevel:2
+      rest3=rest:4,LV:>34/rest:3,exp:+6,restlevel:3
+    }
+  }
+  devatron {
+	no_hint=1
+    script_attack=lina_devatron
+    script_calccells=devatron_calccells
+    script_highlight=devatron_highlight
+    log_label=null
+    level=4
+    default=level1
+    upgrade {
+      level1=level:0/rage:20,rest:5,exp:20,level:1
+      rage1=rs:0,level:>0,LV:>6,rage:>2/rage:-2,rs:1:exp:+2,ragelevel:1
+      rage2=rs:1,LV:>5,rage:>3/rage:-3,rs:2,exp:+3,ragelevel:2
+      rage3=rs:2,LV:>10,rage:>4/rage:-4,rs:3,exp:+4,ragelevel:3
+      rage4=rs:3,LV:>15,rage:>5/rage:-5,rs:4,exp:+5,ragelevel:4
+      rest1=rest:5,LV:>6/rest:4,exp:+2,restlevel:1
+      rest2=rest:4,LV:>10/rest:3,exp:+4,restlevel:2
+      rest3=rest:3,LV:>14/rest:2,exp:+6,restlevel:3
+      rest4=rest:2,LV:>18/rest:1,exp:+8,restlevel:4
+    }
+  }
+  gizmo {
+	no_hint=1
+    script_attack=lina_gizmo
+    script_calccells=gizmo_calccells
+    level=6
+    default=level1
+    upgrade {
+      level1=level:0/dmg:250:750,charges:1,ap:2,init:1,heal:500,rage:15,rest:6,exp:15,dispellgood:0,dispellbad:0,apally:0,apenemy:0,level:1
+      attack1=attack:0,level:>0/dmg:+250:+750,charges:+1,init:+2,heal:+250,rage:+5,exp:+5,dispellgood:1,attack:1
+      attack2=attack:1/dmg:+250:+750,charges:+1,ap:+2,heal:+250,rage:+10,exp:+10,apenemy:1,attack:2
+      attack3=attack:2/dmg:+250:+750,charges:+1,init:+2,heal:+250,rage:+15,exp:+15,attack:3
+      attack4=attack:3,LV:>28/dmg:+250:+750,charges:+1,ap:+2,heal:+250,rage:+20,exp:+20,attack:4
+      healing1=healing:0,level:>0/dmg:+125:+375,charges:+1,ap:+2,heal:+500,rage:+5,exp:+5,dispellbad:1,healing:1
+      healing2=healing:1/dmg:+125:+375,charges:+1,init:+2,heal:+500,rage:+10,exp:+10,apally:1,healing:2
+      healing3=healing:2/dmg:+125:+375,charges:+1,ap:+2,heal:+500,rage:+15,exp:+15,healing:3
+      healing4=healing:3,LV:>29/dmg:+125:+375,charges:+1,init:+2,heal:+500,rage:+20,exp:+20,healing:4
+      rage1=rs:0,level:>0,rage:>10,LV:>12/rage:-10,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,LV:>18,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
+      rest1=rest:6,LV:>10/rest:5,exp:+2,restlevel:1
+      rest2=rest:5,LV:>25/rest:4,exp:+4,restlevel:2
+      rest3=rest:4,LV:>35/rest:3,exp:+6,restlevel:3
+    }
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=1:1:360
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    aspawn {
+      animation=appear
+      frame=1/109
+      atag=icicle
+    }
+    aspawn {
+      animation=orbcast
+      frame=0/189
+      atag=icicle_devatron
+    }
+    aspawn {
+      animation=2orbcast
+      frame=0/189
+      atag=icicle_devatron
+    }
+    aspawn {
+      animation=cast
+      frame=0/189
+      atag=icicle_devatron
+    }
+    aspawn {
+      animation=2cast
+      frame=0/189
+      atag=icicle_devatron
+    }
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=appear
+      frame=22/100
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/0.80000001
+      animation=appear
+      frame=0/111
+      file=lina_snow_pillar.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/1
+      animation=appear
+      frame=1/111
+      file=lina_snow.ptb
+    }
+    particle {
+      trans=0/1.20000005/0/0/-0/0/1
+      animation=appear
+      frame=22/88
+      file=altar_lightning_accum.ptb
+    }
+    aspawn {
+      trans=-0.40000001/0.5/0.40000001/-2.09439588/0.17453289/-0.52360016/0.80000061
+      animation=appear
+      frame=15/109
+      atag=lina_frost
+    }
+    aspawn {
+      trans=0.40000001/0.5/0.40000001/2.0943954/0.17453371/0.52359819/0.80000007
+      animation=appear
+      frame=15/109
+      atag=lina_frost
+    }
+    aspawn {
+      trans=0/0.1/1.20000005/1.57079625/0/0.17453292/0.99999928
+      animation=appear
+      frame=22/109
+      atag=lina_back
+    }
+    particle {
+      trans=0/0.2/0/0/-0/0/1.5
+      animation=appear
+      frame=15
+      file=lina_spot.ptb
+    }
+    omni {
+      trans=0/5/3/0/-0/0/1
+      animation=appear
+      frame=1
+      restart=true
+      lightland=true
+      key=0/FF000000/33/1.5
+      key=0.5/FF000000/33/1
+      key=1/FF1AD7FF/33/1
+      key=5/FF1AD7FF/33/1
+    }
+    light_alterator {
+      animation=appear
+      restart=true
+      key=0/100/100/100/0/100/100/100/100/100/0/100/100
+      key=1/100/100/100/0/8/188/100/100/100/0/8/188
+      key=5/100/100/100/0/8/188/100/100/100/0/8/188
+    }
+    omni {
+      trans=0/5/3/0/-0/0/1
+      animation=rare
+      restart=true
+      lightland=true
+      key=0/FF1AD7FF/33/1
+    }
+  }
+  1 {
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=rare
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/0.80000001
+      animation=rare
+      frame=0/55
+      file=lina_snow_pillar.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/1
+      animation=rare
+      file=lina_snow.ptb
+    }
+    omni {
+      trans=0/5/3/0/-0/0/1
+      animation=orbcast
+      restart=true
+      lightland=true
+      key=0/FF1AD7FF/33/1
+      key=4/FF1AD7FF/33/1
+      key=3.5999999/FF000000/33/1
+      key=3.5999999/FF000000/33/1
+    }
+    light_alterator {
+      animation=orbcast
+      restart=true
+      key=0/100/100/100/0/8/188/100/100/100/0/8/188
+      key=6/100/100/100/0/8/188/100/100/100/0/8/188
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+      key=5/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    omni {
+      trans=0/5/3/0/-0/0/1
+      animation=cast
+      restart=true
+      lightland=true
+      key=0/FF1AD7FF/33/1
+      key=4/FF1AD7FF/33/1
+      key=3.5999999/FF000000/33/1
+      key=3.5999999/FF000000/33/1
+    }
+    light_alterator {
+      animation=cast
+      restart=true
+      key=0/100/100/100/0/8/188/100/100/100/0/8/188
+      key=6/100/100/100/0/8/188/100/100/100/0/8/188
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+      key=5/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    omni {
+      trans=0/5/3/0/-0/0/1
+      animation=2orbcast
+      restart=true
+      lightland=true
+      key=0/FF000000/33/1
+      key=1/FF1AD7FF/33/1
+      key=3/FF1AD7FF/33/1
+      key=3.5999999/FF000000/33/1
+      key=3.5999999/FF000000/33/1
+    }
+    light_alterator {
+      animation=2orbcast
+      restart=true
+      key=0/100/100/100/0/100/100/100/100/100/0/100/100
+      key=1/100/100/100/0/8/188/100/100/100/0/8/188
+      key=5/100/100/100/0/8/188/100/100/100/0/8/188
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+      key=5/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    omni {
+      trans=0/5/3/0/-0/0/1
+      animation=2cast
+      restart=true
+      lightland=true
+      key=0/FF000000/33/1
+      key=1/FF1AD7FF/33/1
+      key=3/FF1AD7FF/33/1
+      key=3.5999999/FF000000/33/1
+      key=3.5999999/FF000000/33/1
+    }
+    light_alterator {
+      animation=2cast
+      restart=true
+      key=0/100/100/100/0/100/100/100/100/100/0/100/100
+      key=1/100/100/100/0/8/188/100/100/100/0/8/188
+      key=5/100/100/100/0/8/188/100/100/100/0/8/188
+      key=2/100/100/100/0/100/100/100/100/100/0/100/100
+      key=5/100/100/100/0/100/100/100/100/100/0/100/100
+    }
+    light_alterator {
+      animation=rare
+      key=0/100/100/100/0/8/188/100/100/100/0/8/188
+      key=1/100/100/100/0/8/188/100/100/100/0/8/188
+    }
+    particle {
+      trans=-0.61737061/0/0/-0.00000002/0.54302925/0.77571493/1
+      animation=orbcast
+      frame=111/122
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=0.61737061/0/0/-0.00000004/0.54302925/-0.62059134/0.99999982
+      animation=orbcast
+      frame=122/133
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.00000002/-0/0/1
+      animation=orbcast
+      frame=125/138
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0/-0.00000002/0.54302925/0.77571493/1
+      animation=cast
+      frame=111/122
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=0.61737061/0/0/-0.00000004/0.54302925/-0.62059134/0.99999982
+      animation=cast
+      frame=122/133
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.00000002/-0/0/1
+      animation=cast
+      frame=125/138
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0/-0.00000002/0.54302925/0.77571493/1
+      animation=2orbcast
+      frame=111/122
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=0.61737061/0/0/-0.00000004/0.54302925/-0.62059134/0.99999982
+      animation=2orbcast
+      frame=122/133
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.00000002/-0/0/1
+      animation=2orbcast
+      frame=125/138
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0/-0.00000002/0.54302925/0.77571493/1
+      animation=2cast
+      frame=111/122
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=0.61737061/0/0/-0.00000004/0.54302925/-0.62059134/0.99999982
+      animation=2cast
+      frame=122/133
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.00000002/-0/0/1
+      animation=2cast
+      frame=125/138
+      file=lina_snow_flow.ptb
+    }
+  }
+  0 {
+    particle {
+      animation=rare
+      frame=11
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=orbcast
+      frame=1/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=cast
+      frame=1/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=2orbcast
+      frame=1/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=2cast
+      frame=1/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=rare
+      file=lina_accum.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/-0.0388277/-1.47386742/-2.13318539/1.49999797
+      animation=orbcast
+      frame=37/45
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/1.82294381/-1.04723001/1.00840235/1.49999845
+      animation=orbcast
+      frame=37/41
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/-0.0388277/-1.47386742/-2.13318539/1.49999797
+      animation=cast
+      frame=37/45
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/1.82294381/-1.04723001/1.00840235/1.49999845
+      animation=cast
+      frame=37/41
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/-0.0388277/-1.47386742/-2.13318539/1.49999797
+      animation=2orbcast
+      frame=37/45
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/1.82294381/-1.04723001/1.00840235/1.49999845
+      animation=2orbcast
+      frame=37/41
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/-0.0388277/-1.47386742/-2.13318539/1.49999797
+      animation=2cast
+      frame=37/45
+      file=lina_snow_flow.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.61737061/1.82294381/-1.04723001/1.00840235/1.49999845
+      animation=2cast
+      frame=37/41
+      file=lina_snow_flow.ptb
+    }
+    slot=0
+  }
+  0 {
+    particle {
+      animation=rare
+      frame=11
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=orbcast
+      frame=0/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=cast
+      frame=0/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=2orbcast
+      frame=0/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=2cast
+      frame=0/40
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      animation=rare
+      file=lina_accum.ptb
+    }
+    particle {
+      trans=0.12359619/-0.2/0.30000001/0/-0/0/0.80000001
+      animation=rare
+      frame=33/70
+      file=lina_magic.ptb
+    }
+    particle {
+      trans=0.12359619/-0.2/0.30000001/0/-0/0/0.60000002
+      animation=orbcast
+      frame=0/37
+      file=lina_magic.ptb
+    }
+    particle {
+      trans=0.12359619/-0.2/0.30000001/0/-0/0/0.60000002
+      animation=cast
+      frame=0/37
+      file=lina_magic.ptb
+    }
+    particle {
+      trans=0.12359619/-0.2/0.30000001/0/-0/0/0.60000002
+      animation=2orbcast
+      frame=0/37
+      file=lina_magic.ptb
+    }
+    particle {
+      trans=0.12359619/-0.2/0.30000001/0/-0/0/0.60000002
+      animation=2cast
+      frame=0/37
+      file=lina_magic.ptb
+    }
+    slot=1
+  }
+  1 {
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=orbcast
+      frame=1/105
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/1
+      animation=orbcast
+      frame=75/82
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1.20000005
+      animation=orbcast
+      frame=78/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.79999995/0/0/-0/0/1.5
+      animation=orbcast
+      frame=86/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.20000005/0/0/-0/0/2
+      animation=orbcast
+      frame=89/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.30000001/2.5/0/0/-0/0/2
+      animation=orbcast
+      frame=92/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.9000001/0.30000001/0/-0/0/2
+      animation=orbcast
+      frame=95/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.30000001/3.5/0/0/-0/0/2
+      animation=orbcast
+      frame=97/102
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/4.19999981/-0.2/0/-0/0/1.5
+      animation=orbcast
+      frame=98/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.1/4.4000001/-0.2/0/-0/0/1
+      animation=orbcast
+      frame=99/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/0.22/0/0/-0/0/1.5
+      animation=orbcast
+      frame=106/111
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=0.55000001/0.22/-0.1/0/-0/0/2
+      animation=orbcast
+      frame=122/125
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=-0.5/0.22/0.2/0/-0/0/2
+      animation=orbcast
+      frame=128/133
+      file=lina_icicle_tail.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=2orbcast
+      frame=1/105
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/1
+      animation=2orbcast
+      frame=75/82
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1.20000005
+      animation=2orbcast
+      frame=78/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.79999995/0/0/-0/0/1.5
+      animation=2orbcast
+      frame=86/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.20000005/0/0/-0/0/2
+      animation=2orbcast
+      frame=89/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.30000001/2.5/0/0/-0/0/2
+      animation=2orbcast
+      frame=92/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.9000001/0.30000001/0/-0/0/2
+      animation=2orbcast
+      frame=95/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.30000001/3.5/0/0/-0/0/2
+      animation=2orbcast
+      frame=97/102
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/4.19999981/-0.2/0/-0/0/1.5
+      animation=2orbcast
+      frame=98/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.1/4.4000001/-0.2/0/-0/0/1
+      animation=2orbcast
+      frame=99/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/0.22/0/0/-0/0/1.5
+      animation=2orbcast
+      frame=106/111
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=0.55000001/0.22/-0.1/0/-0/0/2
+      animation=2orbcast
+      frame=122/125
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=-0.5/0.22/0.2/0/-0/0/2
+      animation=2orbcast
+      frame=128/133
+      file=lina_icicle_tail.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=cast
+      frame=1/105
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/1
+      animation=cast
+      frame=75/82
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1.20000005
+      animation=cast
+      frame=78/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.79999995/0/0/-0/0/1.5
+      animation=cast
+      frame=86/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.20000005/0/0/-0/0/2
+      animation=cast
+      frame=89/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.30000001/2.5/0/0/-0/0/2
+      animation=cast
+      frame=92/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.9000001/0.30000001/0/-0/0/2
+      animation=cast
+      frame=95/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.30000001/3.5/0/0/-0/0/2
+      animation=cast
+      frame=97/102
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/4.19999981/-0.2/0/-0/0/1.5
+      animation=cast
+      frame=98/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.1/4.4000001/-0.2/0/-0/0/1
+      animation=cast
+      frame=99/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/0.22/0/0/-0/0/1.5
+      animation=cast
+      frame=106/111
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=0.55000001/0.22/-0.1/0/-0/0/2
+      animation=cast
+      frame=122/125
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=-0.5/0.22/0.2/0/-0/0/2
+      animation=cast
+      frame=128/133
+      file=lina_icicle_tail.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/2.5/0/0/-0/0/1
+      animation=2cast
+      frame=1/105
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/1
+      animation=2cast
+      frame=75/82
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1.20000005
+      animation=2cast
+      frame=78/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/1.79999995/0/0/-0/0/1.5
+      animation=2cast
+      frame=86/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.20000005/0/0/-0/0/2
+      animation=2cast
+      frame=89/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.30000001/2.5/0/0/-0/0/2
+      animation=2cast
+      frame=92/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/2.9000001/0.30000001/0/-0/0/2
+      animation=2cast
+      frame=95/99
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.30000001/3.5/0/0/-0/0/2
+      animation=2cast
+      frame=97/102
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/4.19999981/-0.2/0/-0/0/1.5
+      animation=2cast
+      frame=98/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.1/4.4000001/-0.2/0/-0/0/1
+      animation=2cast
+      frame=99/122
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/0.22/0/0/-0/0/1.5
+      animation=2cast
+      frame=106/111
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=0.55000001/0.22/-0.1/0/-0/0/2
+      animation=2cast
+      frame=122/125
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=-0.5/0.22/0.2/0/-0/0/2
+      animation=2cast
+      frame=128/133
+      file=lina_icicle_tail.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.2/0/0/-0/0/0.30000001
+      animation=appear
+      frame=33/44
+      file=cast_ghots_flatwave.ptb
+    }
+    particle {
+      animation=2cast
+      frame=0/22
+      file=lina_still_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2orbcast
+      frame=0/22
+      file=lina_still_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.08726647/0/0.80000001
+      animation=2cast
+      frame=30/36
+      file=lina_snowfall.ptb
+    }
+    particle {
+      trans=0/-0.55000001/-1/0/0.17453298/0/0.88
+      animation=2cast
+      frame=32/38
+      file=lina_snowfall.ptb
+    }
+    particle {
+      trans=0/-0.89999998/-2/0/0.27925271/0/1.10000002
+      animation=2cast
+      frame=34/40
+      file=lina_snowfall.ptb
+    }
+    particle {
+      trans=0/-1.5/-4/0/0.38397247/0/1.20000005
+      animation=2cast
+      frame=36/42
+      file=lina_snowfall.ptb
+    }
+
+    particle {
+      trans=0/0.08726647/0/0.80000001
+      animation=cast
+      frame=30/36
+      file=lina_snowfall.ptb
+    }
+    particle {
+      trans=0/-0.55000001/-1/0/0.17453298/0/0.88
+      animation=cast
+      frame=32/38
+      file=lina_snowfall.ptb
+    }
+    particle {
+      trans=0/-0.89999998/-2/0/0.27925271/0/1.10000002
+      animation=cast
+      frame=34/40
+      file=lina_snowfall.ptb
+    }
+    particle {
+      trans=0/-1.5/-4/0/0.38397247/0/1.20000005
+      animation=cast
+      frame=36/42
+      file=lina_snowfall.ptb
+    }
+  }
+1 {
+    sound {
+      animation=appear
+      frame=0.01
+      file=lina_appear
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=lina_rare
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=lina_cast
+      fadetime=60
+    }
+    sound {
+      animation=orbcast
+      frame=0.01
+      file=lina_orbcast
+      fadetime=60
+    }
+    sound {
+      animation=2cast
+      frame=0.01
+      file=lina_2cast
+      fadetime=60
+    }
+    sound {
+      animation=2orbcast
+      frame=0.01
+      file=lina_2orbcast
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  lina_appear.bsa=file
+  lina_idle.bsa=file
+  lina_rare.bsa=file
+  lina_devatron.bsa=file
+  lina_devatron.bsa=file
+  lina_short_devatron.bsa=file
+  lina_short_devatron.bsa=file
+}

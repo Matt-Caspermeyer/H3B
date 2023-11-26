@@ -1,0 +1,479 @@
+
+//список эффектов
+//+Отравление - снижает атаку и каждый ход наносит урон ядом 5-15. 3 хода (отравляющие удары и магия)
+//+Горение - снижает защиту и каждый ход наносит урон огнем 5-15. 3 хода (поджигающие удары и магия)
+//Кровотечение - каждый ход наносит физический урон зависящий от полученного при нанесении кровотечения урона. 3 хода (оборотень)
+//+Оцепенение, оглушение - скорость снижена на 1 (от заморозки и от оглушающих ударов). 3 хода
+//+Шок - ОД=1, инициативая снижена на 1. 1 ход (от всех молний)
+//+Коррозия - физическая сопротивляемость снижена на 50%. 3 хода
+//Бессилие - атака снижена на 30%. 3 хода. (феечки и привидения)
+//
+//
+
+// New! Effect Entangle
+effect_entangle {
+  category=s
+  hide=1
+  image=book_effect_slow.png   // не нужно для эффекта
+  icon=s_overtime_slow.png
+  label=EN_entangle
+  attack=scripted
+  hint_config=object_spell
+  school=2
+  hint=effect_entangle_hint
+  hint_header=effect_entangle_header
+  icon=book_effect_slow.png       // не нужно для эффекта
+  
+  nfeatures=golem
+  scripted {
+    script_attack=effect_entangle_attack
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=3
+    type=penalty
+  }
+  levels {}
+}
+
+// Пост-эффект от ударов молнии. Это не заклинание
+effect_shock {
+  category=s
+  hide=1
+  image=book_effect_shock.png   // не нужно для эффекта
+  icon=s_overtime_shock.png
+  label=EN_shock
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_shock_hint
+  hint_header=effect_shock_header
+  icon=book_effect_shock.png        // не нужно для эффекта
+  
+  nfeatures=plant,golem
+  scripted {
+    script_attack=effect_shock_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    speedbonus=1
+    inbonus=1
+    duration=1
+    type=penalty
+  }
+  levels {}
+}
+
+// Пост-Эффект. Нужен спецэффект.
+effect_poison {
+  category=s
+  hide=1
+  image=book_effect_poison.png   // не нужно для эффекта
+  icon=s_overtime_toxication.png
+  label=EN_poison
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_poison_hint
+  hint_header=effect_poison_header
+  icon=book_effect_poison.png       // не нужно для эффекта
+  
+  each_turn_attack=scripted
+  
+  scripted {
+    script_attack=effect_poison_attack
+    ad_factor=0  // use attack/defense
+    nfeatures=poison_immunitet
+  }
+  params {
+    power=20		// на сколько процентов падает атака
+    damage=5-15
+    duration=3
+    type=penalty
+    typedmg=poison
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=1,0
+    2=2,1
+    3=3,2
+  }
+}
+
+// Пост-Эффект. Нужен спецэффект.
+effect_burn {
+  category=s
+  hide=1
+  image=book_effect_burn.png   // не нужно для эффекта
+  icon=s_overtime_burning.png
+  label=EN_burn
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_burn_hint
+  hint_header=effect_burn_header
+  icon=book_effect_burn.png     // не нужно для эффекта
+  
+  each_turn_attack=scripted
+  
+  scripted {
+    script_attack=effect_burn_attack
+    script_calccells=calccells_all_enemy
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=fire_immunitet
+  }
+  params {
+    power=20		// на сколько процентов падает защита
+    damage=5-15
+    duration=3
+    typedmg=fire
+    type=penalty
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=1,0
+    2=2,1
+    3=3,2
+  }
+}
+
+// Пост-эффект от заморозки. Это не заклинание
+effect_slow {
+  category=s
+  hide=1
+  image=book_effect_slow.png   // не нужно для эффекта
+  icon=s_overtime_slow.png
+  label=EN_slow
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_slow_hint
+  hint_header=effect_slow_header
+  icon=book_effect_slow.png       // не нужно для эффекта
+  // nfeatures=freeze_immunitet
+  scripted {
+    script_attack=effect_slow_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    speedbonus=1
+    duration=3
+    type=penalty
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=1,0
+    2=2,1
+    3=3,2
+  }
+}
+
+// выкинули, сделаю эффект от третьей стороны
+effect_corrosion {
+  category=s
+  hide=1
+  image=book_effect_corrosion.png
+  icon=s_overtime_corrosion.png
+  label=SN_corrosion
+  attack=scripted
+  school=2
+  hint=spell_corrosion_hint
+  hint_header=effect_corrosion_header
+  icon=book_effect_corrosion.png
+  
+  scripted {
+    script_attack=effect_corrosion_attack
+    script_calccells=
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=2
+    power=50 // по умолчанию падает вдвое
+    type=penalty
+  }
+  levels {}
+}
+
+effect_sleep {
+  category=s
+  hide=1
+  image=book_effect_sleep.png   // не нужно для эффекта
+  icon=s_overtime_sleep.png
+  label=EN_sleep
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_sleep_hint
+  hint_header=effect_sleep_header
+  icon=book_effect_sleep.png        // не нужно для эффекта
+  onremove=sleep_onremove
+  
+  each_turn_attack=scripted
+  
+  nfeatures=mind_immunitet,undead
+  scripted {
+    script_attack=effect_sleep_attack
+    script_calccells=
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=1
+    level=3
+    type=penalty
+  }
+  levels {}
+}
+
+effect_holy {
+  category=s
+  hide=1
+  icon=s_overtime_holy.png
+  hint_config=object_spell
+  school=3
+  hint=effect_holy_small
+  hint_header=effect_holy_head
+  
+  attack=scripted
+  features=undead
+  
+  scripted {
+    script_attack=effect_holy_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=2
+    power=30 //%
+    type=penalty
+  }
+  levels {}
+}
+
+effect_stun {
+  category=s
+  hide=1
+  image=book_effect_stun.png   // не нужно для эффекта
+  icon=s_overtime_stun.png
+  label=EN_stun
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_stun_hint
+  hint_header=effect_stun_header
+  icon=book_effect_stun.png       // не нужно для эффекта
+  
+  scripted {
+    script_attack=effect_stun_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    speedbonus=1
+    inbonus=1
+    duration=1
+    type=penalty
+  }
+  levels {}
+}
+
+effect_weakness {
+  category=s
+  hide=1
+  image=book_effect_weakness.png   // не нужно для эффекта
+  icon=s_overtime_weakness.png
+  label=EN_shock
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_weakness_hint
+  hint_header=effect_weakness_header
+  icon=book_effect_weakness.png        // не нужно для эффекта
+  
+  nfeatures=golem
+  scripted {
+    script_attack=effect_weakness_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    power=50 //% снижения атаки
+    duration=1
+    type=penalty
+  }
+  levels {}
+}
+
+effect_fear {
+  category=s
+  hide=1
+  image=book_effect_fear.png   // не нужно для эффекта
+  icon=s_overtime_scare.png
+  label=EN_fear
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  onremove=effect_fear_onremove
+  hint=effect_fear_hint
+  hint_header=effect_fear_header
+  icon=book_effect_fear.png        // не нужно для эффекта
+  
+  nfeatures=mind_immunitet
+  scripted {
+    script_attack=effect_fear_attack
+    script_calccells=
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=2
+    type=penalty
+  }
+  levels {}
+}
+
+// Пост-эффект от заморозки. Это не заклинание
+effect_freeze {
+  category=s
+  hide=1
+  image=book_effect_freeze.png   // не нужно для эффекта
+  icon=s_overtime_freeze.png
+  label=EN_freeze
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_freeze_hint
+  hint_header=effect_freeze_header
+  icon=book_effect_freeze.png       // не нужно для эффекта
+  nfeatures=freeze_immunitet
+  scripted {
+    script_attack=effect_freeze_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    speedbonus=1
+    duration=3
+    type=penalty
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=1,0
+    2=2,1
+    3=3,2
+  }
+}
+
+effect_curse {
+  category=s
+  hide=1
+  image=book_effect_curse.png   // не нужно для эффекта
+  icon=s_overtime_curse.png
+  label=EN_curse
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_curse_hint
+  hint_header=effect_curse_header
+  icon=book_effect_curse.png        // не нужно для эффекта
+  
+  nfeatures=undead
+  scripted {
+    script_attack=effect_curse_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    level=4
+    power=1
+    duration=3
+    type=penalty
+  }
+  levels {}
+}
+
+effect_charm {
+  category=s
+  hide=1
+  icon=s_overtime_seduction.png
+  hint_config=object_spell
+  school=2
+  hint=effect_charm_small
+  hint_header=effect_charm_head
+  
+  attack=scripted
+  onremove=effect_charm_onremove
+  nfeatures=mind_immunitet,undead
+  
+  scripted {
+    script_attack=
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=2
+    level=3 //%
+    type=bonus
+  }
+  levels {}
+}
+
+effect_blood {
+  category=s
+  hide=1
+  image=book_effect_blood.png   // не нужно для эффекта
+  icon=s_overtime_bleed.png
+  label=EN_stun
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_stun_hint
+  hint_header=effect_blood_header
+  icon=book_effect_blood.png       // не нужно для эффекта
+  
+  scripted {
+    script_attack=effect_blood_attack
+    script_calccells=
+    attack_cursor=
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    inbonus=2
+    duration=2
+    type=bonus
+    moral=2
+  }
+  levels {}
+}
+
+//OOC
+
+effect_ooc {
+  category=s
+  hide=1
+  attack=scripted
+  
+  scripted {
+    script_attack=effect_ooc
+  }
+}
+
+effect_buc {
+  category=s
+  hide=1
+  attack=scripted
+  
+  scripted {
+    script_attack=effect_buc
+  }
+}

@@ -1,0 +1,375 @@
+main {
+  class=chesspiece
+  model=cannoner.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_cannoner_feat
+  features_hints=shot_header/shot_hint,siege_weapon_header/siege_weapon_hint,no_melee_header/no_melee_hint
+  race=dwarf
+  cost=800
+  level=4
+  leadership=220
+  attack=30
+  defense=22
+  defenseup=3
+  initiative=6
+  speed=2
+  hitpoint=100
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  movetype=0
+  attacks=moveattack,throw,siegegun,megathrow
+  features=shot,humanoid
+  resistances {
+    physical=8
+    poison=8
+    magic=8
+    fire=18
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      physical=6,10
+    }
+  }
+  throw {
+    nfeatures=barrier
+    group=1,2
+    class=throw
+    distance=7
+    base_attack=1
+    mindist=2
+    showdmg=1
+    penalty=0.8
+    animation=attack/throw/thtarget
+    throw=cannonball
+    framekey=x
+    damage {
+      physical=6,10
+    }
+  }
+  siegegun {
+    features=barrier
+    group=1,3
+    class=throw
+    distance=7
+    base_attack=1
+    mindist=2
+    showdmg=1
+    penalty=0.5
+    animation=attack/throw/thtarget
+    throw=cannonball
+    framekey=x
+    damage {
+      physical=12,20
+    }
+  }
+  megathrow {
+    dontusenearenemy=1
+    class=throw
+    distance=7
+    reload=3
+    base_attack=0
+    mindist=2
+    penalty=0.5
+    animation=power/megatag/thtarget
+    picture=BA1_CannoneerFire_
+    picture_small=BA1_CannoneerFire_small.png
+    throw=cannonround
+    hinthead=special_rembo_head
+    hint=special_rembo_hint
+    framekey=x
+    damage {
+      physical=18,30
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=cannoner_idle.bsa/fr:25:50
+  rare=cannoner_rare.bsa/fr:25:50
+  attack=cannoner_attack.bsa/fr:30:60
+  move=cannoner_move.bsa/fr:30:60
+  start=cannoner_start.bsa/fr:30:60
+  stop=cannoner_stop.bsa/fr:30:60
+  clock=cannoner_clock.bsa/fr:40:80
+  contra=cannoner_contra.bsa/fr:40:80
+  clock2=cannoner_2clock.bsa/fr:30:60
+  contra2=cannoner_2contra.bsa/fr:30:60
+  lturn=cannoner_lturn.bsa/fr:30:60
+  rturn=cannoner_rturn.bsa/fr:30:60
+  damage=cannoner_damage.bsa/fr:25:50
+  death=cannoner_death.bsa/fr:25:50
+  respawn=cannoner_respawn.bsa/fr:25:50
+  slew=cannoner_slew.bsa/fr:35:70
+  power=cannoner_power.bsa/fr:25:50
+  cursor=cannoner_rare.bsa/fr:25:50
+  teleout=cannoner_idle.bsa/fr:25:50/r:45:80
+  telein=cannoner_idle.bsa/fr:25:50/r:0:35
+  happy=cannoner_happy.bsa/fr:25:50
+  victorymain=cannoner_victory.bsa/fr:25:50
+  victorylist=/fwd:4:happy:1:victorymain
+  victory=/t:1:1:victorylist:1:2:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    81.0?x=
+    0.0=cam
+  }
+  @power {
+    87.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    dummy {
+      tag=throw
+      trans=0/0.85000002/-1.79999995/0/-0/0/1
+    }
+    dummy {
+      tag=megatag
+      trans=0/0.89999998/-1.29999995/0/-0/0/1
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.76999998/-0.88/1.57000005/0.00000003/0.50420058/1.00000024
+      animation=attack
+      frame=80/82
+      file=cast_cannon_bang.ptb
+    }
+    particle {
+      trans=0/0.76999998/-0.80000001/0/-0.7654106/0/0.80000001
+      animation=attack
+      frame=81/99
+      file=cast_cannon_wave.ptb
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      animation=idlemain
+      file=env_smoking.ptb
+    }
+  }
+  0 {
+    slot=6
+    particle {
+      trans=0/0.12359619/0/0/-0/0/3
+      animation=attack
+      frame=69/79
+      restart=true
+      file=cast_cannon_fuse.ptb
+    }
+  }
+  1 {
+    coord=-0.28/1.20000005/-0.61737061/1.57079649/-0/0/0.99999946
+    particle {
+      trans=0/-0/0.23268557/1
+      animation=power
+      frame=86/90
+      file=cast_canpower_bang.ptb
+    }
+    particle {
+      trans=0/-0/0.29670563/1
+      animation=power
+      frame=91/102
+      file=cast_canpower_bang.ptb
+    }
+    particle {
+      trans=0/-0/0.43633223/0.99999988
+      animation=power
+      frame=96/109
+      file=cast_canpower_bang.ptb
+    }
+    omni {
+      trans=0.3704834/0.61737061/0/0/-0/0/1
+      animation=power
+      frame=85/120
+      restart=true
+      lightland=true
+      key=0.001/FF000000/5/1
+      key=0.05/FFFFBD24/4/0.60000002
+      key=0.05/FFFFBD24/4/0.60000002
+      key=0.1/FFFFBD24/4/0.2
+      key=0.05/FFFFBD24/4/0.60000002
+      key=0.05/FFFFBD24/4/0.60000002
+      key=0.1/FFFFBD24/4/0.2
+      key=0.1/FF000000/5/1
+      key=5/FF000000/5/1
+    }
+    particle {
+      trans=-0.1/0.1/0/1.55142963/1.2410866/0.00000054/0.59999996
+      animation=power
+      frame=90/111
+      file=cast_cannon_wave.ptb
+    }
+    particle {
+      trans=-0.2/0.2/0/1.55142963/1.2410866/0.00000053/0.6499998
+      animation=power
+      frame=96/111
+      file=cast_cannon_wave.ptb
+    }
+    particle {
+      trans=1.55142975/1.24108696/0.00000034/0.54999995
+      animation=power
+      frame=86/111
+      file=cast_cannon_wave.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=cannoner_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=cannoner_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=cannoner_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=cannoner_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=cannoner_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=cannoner_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=cannoner_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=cannoner_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=cannoner_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=cannoner_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=cannoner_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=cannoner_death
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=cannoner_slew
+      fadetime=60
+    }
+    sound {
+      animation=power
+      frame=0.01
+      file=cannoner_power
+      fadetime=60
+    }
+    sound {
+      animation=victorymain
+      frame=0.01
+      file=cannoner_victorymain
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=cannoner_victory
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  cannoner_idle.bsa=file
+  cannoner_rare.bsa=file
+  cannoner_attack.bsa=file
+  cannoner_move.bsa=file
+  cannoner_start.bsa=file
+  cannoner_stop.bsa=file
+  cannoner_clock.bsa=file
+  cannoner_contra.bsa=file
+  cannoner_2clock.bsa=file
+  cannoner_2contra.bsa=file
+  cannoner_lturn.bsa=file
+  cannoner_rturn.bsa=file
+  cannoner_damage.bsa=file
+  cannoner_death.bsa=file
+  cannoner_respawn.bsa=file
+  cannoner_victory.bsa=file
+  cannoner_power.bsa=file
+}

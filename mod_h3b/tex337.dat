@@ -1,0 +1,11 @@
+TEX337 {
+  block {
+    filename=face_orc_orcelyn.png
+    in_tex_pos=0,0
+    in_tex_size=106,147
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,1948
+  }
+  texture_size=106,147
+}

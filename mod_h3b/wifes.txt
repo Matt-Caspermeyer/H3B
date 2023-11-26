@@ -1,0 +1,2634 @@
+==diana_babies.txt
+==feanora_babies.txt
+==gerda_babies.txt
+==mirabella_babies.txt
+==neoka_babies.txt
+==orcelyn_babies.txt
+==rina_babies.txt
+==xeona_babies.txt
+
+wife_orcelyn {
+  category=o
+  image=heroitem_wife_orcelyn.png
+  hint_config=object_item
+  label=itm_wife_orcelyn_name
+  hint=itm_wife_orcelyn_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=9
+  maxcount=0
+  level=4
+  race=neutral
+  use {}
+  wifeslots {
+    9=shield,weapon
+    10=boots
+    11=shield,weapon
+    12=artefact,belt
+  }
+  children=kid_crag_hack,kid_kilgor,kid_erdamon,kid_gretchen,kid_gurnisson,kid_jabarkas,kid_krellion,kid_tyraxor,kid_dessa,kid_gundula,kid_saurug,kid_vey,kid_zubin,kid_alkin,kid_drakon,kid_merist,kid_rosic,kid_tiva,kid_boragus,kid_young_yog
+  fight {
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==1
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==3
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==4
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==5
+      }
+      pbonus=attack,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==1
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==3
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==4
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+        level==5
+      }
+      pbonus=defense,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+      }
+      pbonus=health,0,9,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=orc
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,9,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,9,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_goblin=count,9
+    sp_lead_unit_goblin2=count,9
+    sp_lead_unit_catapult=count,9
+    sp_lead_unit_orc=count,9
+    sp_lead_unit_orc2=count,9
+    sp_lead_unit_ogre=count,9
+  }
+  propbits=usable,wife
+  params {
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    onuse=100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075510FC204010000007306000000736E61705F30
+    afight=3000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075510FC204010000007308000000736E61705F6B69640200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B696402000000687014000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=02000000000000000
+  }
+}
+wife_diana {
+  category=o
+  image=heroitem_wife_diana.png
+  hint_config=object_item
+  label=itm_wife_diana_name
+  hint=itm_wife_diana_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=9
+  maxcount=0
+  level=4
+  race=neutral
+  use {}
+  wifeslots {
+    9=shield,weapon
+    10=belt,artefact
+    11=belt,regalia
+    12=shield,regalia
+  }
+  children=kid_piquedram,kid_rissa,kid_shiva,kid_astral,kid_cyra,kid_dracon,kid_fafner,kid_iona,kid_neela,kid_thane,kid_yog,kid_aine,kid_daremyth,kid_halon,kid_solmyr,kid_brissa,kid_aenain,kid_kalt,kid_lacus,kid_young_gem
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=dragonfly_fire,dragonfly_lake,sprite,sprite_lake,thorn,thorn_warrior
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dragonfly_fire,dragonfly_lake,sprite,sprite_lake,thorn,thorn_warrior
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dryad
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dryad
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=ent,kingthorn,unicorn,unicorn2
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=ent,kingthorn,unicorn,unicorn2
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=ent2
+      }
+      pbonus=attack,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=ent2
+      }
+      pbonus=defense,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dragonfly_fire,dragonfly_lake,sprite,sprite_lake,thorn,thorn_warrior,dryad,ent,kingthorn,unicorn,unicorn2,ent2
+      }
+      pbonus=health,0,9,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dragonfly_fire,dragonfly_lake,sprite,sprite_lake,thorn,thorn_warrior,dryad,ent,kingthorn,unicorn,unicorn2,ent2
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dragonfly_fire,dragonfly_lake,sprite,sprite_lake,thorn,thorn_warrior,dryad,ent,kingthorn,unicorn,unicorn2,ent2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=dragonfly_fire,dragonfly_lake,sprite,sprite_lake,thorn,thorn_warrior,dryad,ent,kingthorn,unicorn,unicorn2,ent2
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,6,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,6,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,6,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_dragonflies=count,9
+    sp_lead_unit_ent=count,9
+    sp_lead_unit_ent2=count,9
+    sp_lead_unit_dryad=count,9
+    sp_lead_unit_sprites=count,9
+    sp_lead_unit_thorn=count,9
+    sp_lead_unit_thorn_warrior=count,9
+    sp_lead_unit_kingthorn=count,9
+    sp_lead_unit_unicorns=count,9
+  }
+  propbits=usable,wife
+  params {
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    onuse=100000001000000020000000C000000424547494E5F4449414C4F47020000000500000003000000010000007542D61804010000007306000000736E61705F30
+    afight=3000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F47020000000500000003000000010000007542D61804010000007308000000736E61705F6B69640200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B696402000000687014000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=02000000000000000
+  }
+}
+wife_mirabella {
+  category=o
+  image=heroitem_wife_mirabella.png
+  hint_config=object_item
+  label=itm_wife_mirabella_name
+  hint=itm_wife_mirabella_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=4
+  race=human
+  use {}
+  wifeslots {
+    9=shield,weapon
+    10=boots
+    11=belt,artefact
+    12=shield,regalia
+  }
+  children=kid_adela,kid_cuthbert,kid_caitlin,kid_adelaide,kid_ingham,kid_loynis,kid_rion,kid_sanya,kid_edric,kid_orrin,kid_sylvia,kid_haart,kid_valeska,kid_christian,kid_sorsha,kid_tyris,kid_mullich,kid_catherine,kid_roland
+  fight {
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==1
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==3
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==4
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==5
+      }
+      pbonus=attack,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=pirat
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=griffin,pirat2
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==1
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==3
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==4
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+        level==5
+      }
+      pbonus=defense,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=pirat
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=griffin,pirat2
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=archmage,bowman,footman,footman2,griffin,horseman,knight,peasant,pirat,pirat2,priest,priest2,robber,robber2
+      }
+      pbonus=health,0,8,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=griffin,pirat,pirat2
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=pirat,pirat2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=human
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=griffin,pirat,pirat2
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,16,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_archmage=count,8
+    sp_lead_unit_bowman=count,8
+    sp_lead_unit_footmn=count,8
+    sp_lead_unit_footman2=count,8
+    sp_lead_unit_horseman=count,8
+    sp_lead_unit_knight=count,8
+    sp_lead_unit_peasant=count,8
+    sp_lead_unit_priest=count,8
+    sp_lead_unit_priest2=count,8
+    sp_lead_unit_robber=count,8
+    sp_lead_unit_robber2=count,8
+    sp_lead_unit_pirate=count,8
+    sp_lead_unit_pirate2=count,8
+    sp_lead_unit_griffin=count,8
+  }
+  propbits=usable,wife
+  params {
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    onuse=100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075239C9877010000007306000000736E61705F30
+    afight=3000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075239C9877010000007308000000736E61705F6B69640200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B696402000000687014000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=02000000000000000
+  }
+}
+wife_neoka {
+  category=o
+  image=heroitem_wife_neoka.png
+  hint_config=object_item
+  label=itm_wife_neoka_name
+  hint=itm_wife_neoka_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  wifeslots {
+    9=shield,regalia
+    10=shield,regalia
+    11=regalia,belt
+    12=belt,artefact
+  }
+  children=kid_aeris,kid_elleshar,kid_melodia,kid_ivor,kid_jenova,kid_kyrre,kid_ciele,kid_gelare,kid_josephine,kid_torosar,kid_alagar,kid_coronius,kid_gem,kid_mephala,kid_ryland,kid_gelu,kid_monere,kid_pasis,kid_kendal
+  fight {
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==1
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==3
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==4
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==5
+      }
+      pbonus=attack,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==1
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==3
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==4
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+        level==5
+      }
+      pbonus=defense,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+      }
+      pbonus=health,0,10,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=elf
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,20,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_druid=count,10
+    sp_lead_unit_dryad=count,10
+    sp_lead_unit_elf=count,10
+    sp_lead_unit_elf2=count,10
+    sp_lead_unit_ent=count,10
+    sp_lead_unit_ent2=count,10
+    sp_lead_unit_sprites=count,10
+    sp_lead_unit_unicorns=count,10
+    sp_lead_unit_werewolf=count,10
+  }
+  propbits=usable,wife
+  params {
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    tick=60000000000000000000000
+    onuse=2000000000000000100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075FBEFF405010000007306000000736E61705F30
+    afight=20000000000000003000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075FBEFF405010000007308000000736E61705F6B69640200000004000000636F6E6401000000010000000200000007000000434F4D504C45580200000001000000040000000200000005000000636F6E647302000000010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B6964020000006870140000000200000007000000514F4E4C494E45020000000500000005000000010000007578767956010000007302000000020000006C6601000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=2000000000000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=0
+  }
+}
+wife_nessy {
+  category=o
+  image=heroitem_wife_girl_ugly.png
+  hint_config=object_item
+  label=itm_wife_nessy_name
+  hint=itm_wife_nessy_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=4
+  race=human
+  use {}
+  wifeslots {
+    9=regalia,shield
+    10=boots
+    11=armor
+    12=belt,regalia
+  }
+  children=kid_uland,kid_malcom,kid_clancy,kid_thorgrim,kid_ufretin,kid_grindan,kid_gird,kid_oris,kid_terek,kid_ajit,kid_lorelei,kid_synca,kid_alamar,kid_jeddite,kid_sephinroth,kid_labetha,kid_mutare,kid_thunar,kid_ordwald
+  fight {
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==1
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==3
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==4
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==5
+      }
+      pbonus=attack,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==1
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==3
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==4
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+        level==5
+      }
+      pbonus=defense,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+      }
+      pbonus=health,0,8,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=dwarf
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,4,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_alchemist=count,8
+    sp_lead_unit_cannoner=count,8
+    sp_lead_unit_dwarf=count,8
+    sp_lead_unit_giant=count,8
+    sp_lead_unit_miner=count,8
+  }
+  propbits=usable,wife
+  params {
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    onuse=100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075EC691F2F010000007306000000736E61705F30
+    afight=3000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075EC691F2F010000007308000000736E61705F6B69640200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B696402000000687014000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=02000000000000000
+  }
+}
+wife_xeona {
+  category=o
+  image=heroitem_wife_xeona.png
+  hint_config=object_item
+  label=itm_wife_xeona_name
+  hint=itm_wife_xeona_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=5
+  race=human
+  use {}
+  wifeslots {
+    9=shield,weapon
+    10=boots
+    11=shield,weapon
+    12=artefact,belt
+  }
+  children=kid_rashka,kid_calh,kid_marius,kid_nymus,kid_octavia,kid_ash,kid_axsis,kid_calid,kid_xyron,kid_zydar,kid_xeron,kid_fiona,kid_ignatius,kid_pyre,kid_ayden,kid_olema,kid_xarfax,kid_luna,kid_inteus,kid_fiur,kid_ignissa,kid_dace,kid_gunnar,kid_darkstorn,kid_deemer,kid_malekith,kid_mutare_drake
+  fight {
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==1
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==3
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==4
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==5
+      }
+      pbonus=attack,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==1
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==3
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==4
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+        level==5
+      }
+      pbonus=defense,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+      }
+      pbonus=health,0,10,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=demon
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,20,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_archdemon=count,10
+    sp_lead_unit_cerberus=count,10
+    sp_lead_unit_demon=count,10
+    sp_lead_unit_demoness=count,10
+    sp_lead_unit_imps=count,10
+  }
+  propbits=usable,wife
+  params {
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    onuse=100000001000000020000000C000000424547494E5F4449414C4F4702000000050000000300000001000000755A8F9E5A0100000073080000007377697463685F30
+    afight=3000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F4702000000050000000300000001000000755A8F9E5A010000007308000000736E61705F6B69640200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B696402000000687014000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=02000000000000000
+  }
+}
+wife_feanora {
+  category=o
+  image=heroitem_wife_frog_feanora.png
+  hint_config=object_item
+  label=itm_wife_feanora_name
+  hint=itm_wife_feanora_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=7
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  wifeslots {
+    9=helmet
+    10=artefact,belt
+    11=shield,artefact
+    12=belt,artefact
+  }
+  children=kid_broghild,kid_korbac,kid_wystan,kid_styg,kid_voy,kid_bron,kid_gerwulf,kid_tazar,kid_adrienne,kid_andra,kid_mirlanda,kid_verdish,kid_serena,kid_theodorus,kid_arlach,kid_damacon,kid_shakti,kid_geon,kid_jaegar,kid_young_sandro
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=hyena,snake,snake_green,graywolf
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear,bear2,snake_royal
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear_white
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=hyena,snake,snake_green,graywolf
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear,bear2,snake_royal
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear_white
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear,bear2,bear_white,hyena,snake,snake_green,snake_royal,graywolf
+      }
+      pbonus=health,0,7,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear,bear2,bear_white,hyena,snake,snake_green,snake_royal,graywolf
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear,bear2,bear_white,hyena,snake,snake_green,snake_royal,graywolf
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=bear,bear2,bear_white,hyena,snake,snake_green,snake_royal,graywolf
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,7,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,7,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_bears=count,7
+    sp_lead_unit_bear_white=count,7
+    sp_lead_unit_hyena=count,7
+    sp_lead_unit_snakes=count,7
+    sp_lead_unit_snake_royal=count,7
+    sp_lead_unit_graywolf=count,7
+  }
+  propbits=usable,wife
+  params {
+    minut=13
+    max=21
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    tick=60000000000000000000000
+    onuse=200000000000000020000000100000001000000020000000C000000424547494E5F4449414C4F47020000000500000003000000010000007584CAF965010000007306000000736E61705F30020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761720C00000000000000FEFFFFFF01000000060000000200000073730000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D050000006D696E7574020000006E61050000006D696E7574020000000600000069746D5F6370020000000300000003000000030000006E616D030000006D6178020000006E61030000006D6178
+    bfight=60000000000000000000000
+    afight=200000000000000050000000100000001000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F47020000000500000003000000010000007584CAF965010000007308000000736E61705F6B69640200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B696402000000687014000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF03000000020000000200000073730100000004000000010000003000000000020000000200000076760400000001000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D050000006D696E7574020000006E61050000006D696E7574020000000600000069746D5F6370020000000300000003000000030000006E616D030000006D6178020000006E61030000006D6178020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374110000000400000073636E7211000000776966655F66726F675F6665616E6F726102000000070000004D425F53484F57050000000200000005000000030000000400000004000000050000006C6162656C0C0000007300790073005F006D00730067005F00660072006F0067000300000066727A01000000030000006C756E050000002473656C66030000006E7965FFFFFFFF030000006E6E6FFFFFFFFF0200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F010000000000008002000000020000007373020000000400000004000000070000003D3D3120616E6400000000030000003C3E310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D050000006D696E7574020000006E61050000006D696E7574020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002D3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D050000006D696E7574020000006E61050000006D696E75740200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F010000000000008002000000020000007373020000000400000004000000060000003E3120616E6400000000030000003C3E310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D050000006D696E7574020000006E61050000006D696E7574020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=2000000000000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=0
+  }
+}
+wife_frog_feanora {
+  category=o
+  image=heroitem_wife_frog.png
+  hint_config=object_item
+  label=itm_wife_frog_feanora_name
+  hint=itm_wife_frog_feanora_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=7
+  maxcount=0
+  level=3
+  race=neutral
+  use {}
+  wifeslots {
+    9=helmet
+    10=artefact,belt
+    11=shield,artefact
+    12=belt,artefact
+  }
+  children=
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=spider_venom,spider_fire,spider,spider_undead,snake_royal,snake_green,snake,thorn,thorn_warrior,kingthorn,devilfish,dragonfly_fire,dragonfly_lake,beholder,beholder2
+      }
+      pbonus=attack,0,70,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_venom,spider_fire,spider,spider_undead,snake_royal,snake_green,snake,thorn,thorn_warrior,kingthorn,devilfish,dragonfly_fire,dragonfly_lake,beholder,beholder2
+      }
+      pbonus=defense,0,70,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=spider_venom,spider_fire,spider,spider_undead,snake_royal,snake_green,snake,thorn,thorn_warrior,kingthorn,devilfish,dragonfly_fire,dragonfly_lake,beholder,beholder2
+      }
+      pbonus=krit,0,70,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,-7,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,-7,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_beholder=count,7
+    sp_lead_unit_beholder2=count,7
+    sp_lead_unit_devilfish=count,7
+    sp_lead_unit_dragonflies=count,7
+    sp_lead_unit_kingthorn=count,7
+    sp_lead_unit_snakes=count,7
+    sp_lead_unit_snake_royal=count,7
+    sp_lead_unit_spider=count,7
+    sp_lead_unit_spider_fire=count,7
+    sp_lead_unit_spider_undead=count,7
+    sp_lead_unit_spider_venom=count,7
+    sp_lead_unit_thorn=count,7
+    sp_lead_unit_thorn_warrior=count,7
+  }
+  propbits=usable,wife
+  params {
+    minut=17
+    max=47
+  }
+  actions {
+    onuse=C000000424547494E5F4449414C4F470200000005000000030000000100000075082E355C010000007306000000736E61705F30
+    clean=A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=02000000000000000100000001000000020000000
+  }
+}
+wife_rina {
+  category=o
+  image=heroitem_wife_rina_girl.png
+  hint_config=object_item
+  label=itm_wife_rina_name
+  hint=itm_wife_rina_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=6
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  wifeslots {
+    9=armor
+    10=boots
+    11=belt,regalia
+    12=shield,artefact
+  }
+  children=kid_galthran,kid_isra,kid_moandor,kid_tamika,kid_vokial,kid_aislinn,kid_nagash,kid_sandro,kid_thant,kid_xsi,kid_finneas,kid_charna,kid_clavius,kid_straker,kid_nimbus,kid_septienna,kid_vidomina,kid_death_haart,kid_kid_young_christian
+  fight {
+    {
+      filter {
+        belligerent=ally
+        unit=robber
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber,robber2
+      }
+      pbonus=krit,0,12,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=robber
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber,robber2
+      }
+      pbonus=health,0,6,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber,robber2
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber,robber2
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber,robber2
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=barbarian,barbarian2,robber,robber2
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,12,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_barbarians=count,6
+    sp_lead_unit_robber=count,6
+    sp_lead_unit_robber2=count,6
+  }
+  propbits=usable,wife
+  params {
+    kid=0
+    sex=0
+    win=0
+  }
+  actions {
+    tick=60000000000000000000000
+    onuse=2000000000000000100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075FB43E652010000007306000000736E61705F30
+    afight=20000000000000003000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761721000000000000000FEFFFFFF00000000FFFFFF7F020000000200000073730100000004000000020000002B3100000000020000000200000076760100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E730100000001000000020000000C000000424547494E5F4449414C4F470200000005000000030000000100000075FB43E652010000007308000000736E61705F6B69640200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721800000000000000FFFFFF7F0100000000000080020000000100008002000000020000007373030000000400000004000000040000000900000025353D3D3020616E6400000000070000003D3D3020616E6400000000020000003C34000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000400000068657270020000000300000005000000030000006E616D030000006B696402000000687014000000040000007465726D00000000020000000B0000004D554C5449414354494F4E030000000100000001000000040000000200000007000000616374696F6E7303000000010000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761723000000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFF020000000000008002000000020000007373020000000400000004000000010000003000000000020000002B31000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000C00000052554E5F5343454E4152494F020000000400000003000000020000007374120000000400000073636E7200000000020000000500000051554553540100000001000000020000000600000070756C7365730100000005000000110000003932323437343130382F6E65775F6B6964010000000200000004000000636F6E64010000000100000002000000040000004558505203000000000000000100000001000000030000007761721000000000000000FFFFFF7F0100000000000080020000000200000073730200000004000000040000000A0000002531303D3D3020616E6400000000030000003D3D310000000002000000020000007676020000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578040000007465726D00000000
+    clean=2000000000000000100000001000000020000000A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=0
+  }
+}
+wife_rina_zombie {
+  category=o
+  image=heroitem_wife_rina_zombi.png
+  hint_config=object_item
+  label=itm_wife_rina_zombie_name
+  hint=itm_wife_rina_zombie_hint
+  information_label=
+  maphint=
+  mapinfo=
+  price=6
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  wifeslots {
+    9=armor
+    10=boots
+    11=belt,regalia
+    12=shield,artefact
+  }
+  children=
+  fight {
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==1
+      }
+      pbonus=attack,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==2
+      }
+      pbonus=attack,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==3
+      }
+      pbonus=attack,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==4
+      }
+      pbonus=attack,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==5
+      }
+      pbonus=attack,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==1
+      }
+      pbonus=defense,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==2
+      }
+      pbonus=defense,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==3
+      }
+      pbonus=defense,3,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==4
+      }
+      pbonus=defense,4,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+        level==5
+      }
+      pbonus=defense,5,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+      }
+      pbonus=health,0,6,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+      }
+      pbonus=speed,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        race=undead
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,-12,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_lead_unit_archer=count,6
+    sp_lead_unit_vampire=count,6
+    sp_lead_unit_vampire2=count,6
+    sp_lead_unit_bonedragon=count,6
+    sp_lead_unit_ghosts=count,6
+    sp_lead_unit_necromant=count,6
+    sp_lead_unit_skeleton=count,6
+    sp_lead_unit_spider_undead=count,6
+    sp_lead_unit_zombies=count,6
+  }
+  propbits=usable,wife
+  params {}
+  actions {
+    onuse=C000000424547494E5F4449414C4F470200000005000000030000000100000075C7BEE81F010000007306000000736E61705F30
+    clean=A00000045585052455353494F4E03000000000000000100000001000000030000007761722C00000000000000FEFFFFFFFFFFFF7FFFFFFFFF01000000FEFFFFFFFFFFFF7FFFFFFFFF02000000FEFFFFFFFFFFFF7F0200000002000000737301000000040000000100000030000000000200000002000000767603000000010000000100000001000000020000000600000069746D5F6370020000000300000003000000030000006E616D030000006B6964020000006E61030000006B6964020000000600000069746D5F6370020000000300000003000000030000006E616D03000000736578020000006E6103000000736578020000000600000069746D5F6370020000000300000003000000030000006E616D0300000077696E020000006E610300000077696E
+    @=02000000000000000100000001000000020000000
+  }
+}
+// The older children are left here for compatibility, even though they are no longer available
+kid_alexander {
+  category=o
+  image=heroitem_kid_aleksandr.png
+  hint_config=object_item
+  label=itm_kid_alexander_name
+  hint=itm_kid_alexander_hint
+  information_label=itm_kid_alexander_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=5
+  mods {
+    leadership=count,10%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_robert {
+  category=o
+  image=heroitem_kid_robert.png
+  hint_config=object_item
+  label=itm_kid_robert_name
+  hint=itm_kid_robert_hint
+  information_label=itm_kid_robert_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    leadership=count,5%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_gendalf {
+  category=o
+  image=heroitem_kid_gendalf.png
+  hint_config=object_item
+  label=itm_kid_gendalf_name
+  hint=itm_kid_gendalf_hint
+  information_label=itm_kid_gendalf_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=5
+  mods {
+    intellect=count,20%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_gavriil {
+  category=o
+  image=heroitem_kid_gavriil.png
+  hint_config=object_item
+  label=itm_kid_gavriil_name
+  hint=itm_kid_gavriil_hint
+  information_label=itm_kid_gavriil_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    defense=count,5
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_gomer {
+  category=o
+  image=heroitem_kid_gomer.png
+  hint_config=object_item
+  label=itm_kid_gomer_name
+  hint=itm_kid_gomer_hint
+  information_label=itm_kid_gomer_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    attack=count,3
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_serg {
+  category=o
+  image=heroitem_kid_serg.png
+  hint_config=object_item
+  label=itm_kid_serg_name
+  hint=itm_kid_serg_hint
+  information_label=itm_kid_serg_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=7
+  mods {
+    defense=count,20%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_adamus {
+  category=o
+  image=heroitem_kid_adamus.png
+  hint_config=object_item
+  label=itm_kid_adamus_name
+  hint=itm_kid_adamus_hint
+  information_label=itm_kid_adamus_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=5
+  mods {
+    attack=count,20%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_dmitry {
+  category=o
+  image=heroitem_kid_dmitry.png
+  hint_config=object_item
+  label=itm_kid_dmitry_name
+  hint=itm_kid_dmitry_hint
+  information_label=itm_kid_dmitry_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    sp_addexp_battle=count,10
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_neiron {
+  category=o
+  image=heroitem_kid_neron.png
+  hint_config=object_item
+  label=itm_kid_neiron_name
+  hint=itm_kid_neiron_hint
+  information_label=itm_kid_neiron_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=7
+  mods {
+    sp_addexp_battle=count,5
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_john {
+  category=o
+  image=heroitem_kid_johan.png
+  hint_config=object_item
+  label=itm_kid_john_name
+  hint=itm_kid_john_hint
+  information_label=itm_kid_john_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    rage=limit,10
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_googlik {
+  category=o
+  image=heroitem_kid_googlik.png
+  hint_config=object_item
+  label=itm_kid_googlik_name
+  hint=itm_kid_googlik_hint
+  information_label=itm_kid_googlik_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=5
+  mods {
+    intellect=count,5
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ajven {
+  category=o
+  image=heroitem_kid_ajven.png
+  hint_config=object_item
+  label=itm_kid_ajven_name
+  hint=itm_kid_ajven_hint
+  information_label=itm_kid_ajven_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=3
+  mods {
+    mana=limit,30%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_richard {
+  category=o
+  image=heroitem_kid_richard.png
+  hint_config=object_item
+  label=itm_kid_richard_name
+  hint=itm_kid_richard_hint
+  information_label=itm_kid_richard_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=7
+  mods {
+    leadership=count,7%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_janna {
+  category=o
+  image=heroitem_kid_janna.png
+  hint_config=object_item
+  label=itm_kid_janna_name
+  hint=itm_kid_janna_hint
+  information_label=itm_kid_janna_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=3
+  mods {
+    leadership=count,10%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_elly {
+  category=o
+  image=heroitem_kid_elli.png
+  hint_config=object_item
+  label=itm_kid_elly_name
+  hint=itm_kid_elly_hint
+  information_label=itm_kid_elly_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=5
+  mods {
+    mana=limit,20%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_anna {
+  category=o
+  image=heroitem_kid_anna.png
+  hint_config=object_item
+  label=itm_kid_anna_name
+  hint=itm_kid_anna_hint
+  information_label=itm_kid_anna_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=5
+  mods {
+    booksize=count,8
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_ambrella {
+  category=o
+  image=heroitem_kid_ambrella.png
+  hint_config=object_item
+  label=itm_kid_ambrella_name
+  hint=itm_kid_ambrella_hint
+  information_label=itm_kid_ambrella_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    booksize=count,4
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=0000000
+    onuse=20000000100000001000000020000000C000080424547494E5F4449414C4F47020000000500000003000000010000807584CAF965010000807306000000736E61705F30020000000A00008045585052455353494F4E03000000000000000100000001000000030000807761720C00000000000000FEFFFFFF01000000020000000200008073730000000002000000020000807676020000000100000001000000020000000600008069746D5F6370020000000300000003000000030000806E616D050000006D696E7574020000806E61050000006D696E7574020000000600008069746D5F6370020000000300000003000000030000806E616D030000006D6178020000806E61030000006D6178
+    bfight=0000000
+    @=02000000000000800
+  }
+}
+kid_laura {
+  category=o
+  image=heroitem_kid_laura .png
+  hint_config=object_item
+  label=itm_kid_laura_name
+  hint=itm_kid_laura_hint
+  information_label=itm_kid_laura_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    mana=limit,10%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_emmanuel {
+  category=o
+  image=heroitem_kid_emmanuel.png
+  hint_config=object_item
+  label=itm_kid_emmanuel_name
+  hint=itm_kid_emmanuel_hint
+  information_label=itm_kid_emmanuel_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=3
+  mods {
+    rage=limit,20%
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_angelika {
+  category=o
+  image=heroitem_kid_ angelika.png
+  hint_config=object_item
+  label=itm_kid_angelika_name
+  hint=itm_kid_angelika_hint
+  information_label=itm_kid_angelika_info
+  maphint=
+  mapinfo=
+  price=10
+  maxcount=0
+  level=3
+  race=human
+  use {}
+  weight=10
+  mods {
+    mana=limit,10
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}

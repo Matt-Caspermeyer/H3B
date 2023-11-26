@@ -1,0 +1,512 @@
+main {
+  class=chesspiece
+  model {
+    0=cyclop.bma
+    1=cyclop_death.bma
+  }
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_cyclop_feat
+  features_hints=shot_header/shot_hint,sniper_header/sniper_hint,stone_header/stone_hint,no_melee_header/no_melee_hint
+  posthitslave=features_stone_creature
+  race=neutral
+  cost=5000
+  level=5
+  leadership=1400
+  attack=40
+  defense=47
+  defenseup=10
+  initiative=1
+  speed=2
+  hitpoint=520
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,throw,stun,push
+  posthitmaster=features_stun
+  features=shot,golem,poison_immunitet
+  resistances {
+    physical=50
+    poison=80
+    magic=0
+    fire=50
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      physical=70,80
+    }
+    custom_params {
+      stun=20
+    }
+  }
+  stun {
+    class=moveattack
+    hinthead=special_cyclop_stun_head
+    hint=special_cyclop_stun_hint
+    moves=1
+    base_attack=0
+    ad_factor=1
+    options=disablerush,used_if_damaged
+    anim_attack=clap
+    picture=BA1_Clap_
+    picture_small=BA1_Clap_small.png
+    damage {
+      physical=60,70
+    }
+    custom_params {
+      stun=100
+    }
+  }
+  push {
+    class=scripted
+    hinthead=special_cyclop_push_head
+    hint=special_cyclop_push_hint
+    nfeatures=boss,pawn
+    reload=3
+    warning=sw_near
+    base_attack=0
+    ad_factor=1
+    options=disablerush,used_if_damaged
+    attack_cursor=attack
+    script_attack=special_cyclop_push
+    script_calccells=calccells_all_enemy_around
+    picture=BA1_Push_
+    picture_small=BA1_Push_small.png
+    damage {
+      physical=80,100
+    }
+    custom_params {
+      stun=0
+    }
+  }
+  throw {
+    class=throw
+    group=1,2
+    distance=100
+    picture=ba1_waterflask_
+    picture_small=ba1_waterflask_small.png
+    mindist=1
+    base_attack=1
+    penalty=1
+    showdmg=1
+    animation=cast/throw/thtarget
+    throw=cyclopcast
+    framekey=x
+    damage {
+      physical=50,60
+    }
+    custom_params {
+      stun=0
+      push=0
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=cyclop_idle.bsa/fr:25:50
+  rare=cyclop_rare.bsa/fr:25:50
+  attack=cyclop_attack.bsa/fr:25:50
+  move=cyclop_move.bsa/fr:30:60
+  start=cyclop_start.bsa/fr:35:70
+  stop=cyclop_stop.bsa/fr:35:70
+  clock=cyclop_clock.bsa/fr:50:100
+  contra=cyclop_contra.bsa/fr:50:100
+  clock2=cyclop_2clock.bsa/fr:30:60
+  contra2=cyclop_2contra.bsa/fr:30:60
+  lturn=cyclop_lturn.bsa/fr:30:60
+  rturn=cyclop_rturn.bsa/fr:30:60
+  damage=cyclop_damage.bsa/fr:25:50
+  cast=cyclop_cast.bsa/fr:25:50
+  slew=cyclop_slew.bsa/fr:35:70
+  rush=cyclop_rush.bsa/fr:25:50
+  death=cyclop_death.bsa/fr:25:50/m:1
+  respawn=cyclop_death_respawn.bsa/fr:25:50/m:1
+  cursor=cyclop_rare.bsa/fr:25:50
+  teleout=cyclop_idle.bsa/fr:25:50/r:60:95
+  telein=cyclop_idle.bsa/fr:25:50/r:0:35
+  happy=cyclop_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:idlemain
+  clap=cyclop_clap.bsa/fr:25:50
+  push=cyclop_push.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    14.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    15.0?x=
+    0.0=cam
+  }
+  @cast {
+    27.0?x=
+    0.0=cam
+  }
+  @clap {
+    24.0?x=
+    0.0=cam
+  }
+  @push {
+    22.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=3
+    particle {
+      animation=move
+      frame=12/150
+      file=cyclop_step.ptb
+    }
+    particle {
+      animation=lturn
+      frame=12/150
+      file=cyclop_step.ptb
+    }
+    particle {
+      animation=rturn
+      frame=12/150
+      file=cyclop_step.ptb
+    }
+    particle {
+      animation=start
+      frame=12/150
+      file=cyclop_step.ptb
+    }
+  }
+  0 {
+    slot=4
+    particle {
+      animation=move
+      frame=24/150
+      file=cyclop_step.ptb
+    }
+    particle {
+      animation=lturn
+      frame=24/150
+      file=cyclop_step.ptb
+    }
+    particle {
+      animation=rturn
+      frame=24/150
+      file=cyclop_step.ptb
+    }
+    particle {
+      animation=start
+      frame=24/150
+      file=cyclop_step.ptb
+    }
+  }
+  1 {
+    particle {
+      animation=death
+      frame=6/100
+      file=cyclop_puff.ptb
+    }
+    particle {
+      trans=-0.12359619/0.17/-0.12359619/0/-0/0/0.2
+      animation=death
+      frame=6/111
+      file=therock_dustbox.ptb
+    }
+    aspawn {
+      animation=cast
+      frame=0/39
+      atag=cyclopstone
+    }
+    dummy {
+      tag=throw
+      trans=0/0.898/-2/0/-0/0/1
+    }
+    particle {
+      trans=0.5/1.5/-0.80000001/1.74532938/-0/0/0.80000049
+      animation=push
+      frame=18/25
+      file=attack_cyclop_push.ptb
+    }
+    particle {
+      trans=0.5/1.20000005/-0.80000001/-1.3962636/-0.00000009/3.1415925/0.80000001
+      animation=push
+      frame=18/25
+      file=attack_cyclop_push.ptb
+    }
+    particle {
+      trans=0.2/1.35803223/-2.09869385/0/-0/0/0.60000002
+      animation=push
+      frame=19/22
+      file=attack_cyclop_core.ptb
+    }
+    particle {
+      trans=0/2.20000005/-1.79999995/0/-0/0/0.60000002
+      animation=clap
+      frame=22/27
+      file=attack_cyclop_clap.ptb
+    }
+    particle {
+      trans=0/2.20000005/-1.79999995/0/-0/0/1
+      animation=clap
+      frame=21
+      file=attack_cyclop_sparks.ptb
+    }
+    particle {
+      trans=0/2.20000005/-1.79999995/0/-0/0/1
+      animation=clap
+      frame=22/27
+      file=attack_sprite_beams.ptb
+    }
+    particle {
+      trans=0/2.20000005/-1.79999995/0/-0/0/0.80000001
+      animation=clap
+      frame=22/27
+      file=attack_cyclop_radio.ptb
+    }
+  }
+  1 {
+    coord=0/0.61737061/-1.35803223/0/-0/0/0.30000001
+    particle {
+      animation=attack
+      frame=13/25
+      file=therock_fountain.ptb
+    }
+    particle {
+      animation=rush
+      frame=15/20
+      file=therock_fountain.ptb
+    }
+    camshaker {
+      animation=death
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=cast
+      frame=8
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=cast
+      frame=18
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=cyclop_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=cyclop_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=cyclop_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=cyclop_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=cyclop_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=cyclop_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=cyclop_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=cyclop_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=cyclop_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=cyclop_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=cyclop_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=cyclop_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=cyclop_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=cyclop_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=cyclop_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=cyclop_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=cyclop_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=cyclop_happy
+      fadetime=60
+    }
+    sound {
+      animation=clap
+      frame=0.01
+      file=cyclop_clap
+      fadetime=60
+    }
+    sound {
+      animation=push
+      frame=0.01
+      file=cyclop_push
+      fadetime=60
+    }
+  }
+  1 {
+    coord=0/0/-0.86425781/0/-0/0/1
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.30000001
+      animation=cast
+      frame=16/22
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0/-0/0/0.2
+      animation=cast
+      frame=14/22
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=0/0.40000001/0/1.55142987/-0/0/0.5
+      animation=cast
+      frame=17/22
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/-0/0.17453294/0.49999994
+      animation=cast
+      frame=6/8
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/-0/-0.17453291/0.49999994
+      animation=cast
+      frame=6/8
+      file=therock_heavydust.ptb
+    }
+  }
+}
+prefetch {
+  cyclop_idle.bsa=file
+  cyclop_rare.bsa=file
+  cyclop_attack.bsa=file
+  cyclop_move.bsa=file
+  cyclop_start.bsa=file
+  cyclop_stop.bsa=file
+  cyclop_clock.bsa=file
+  cyclop_contra.bsa=file
+  cyclop_2clock.bsa=file
+  cyclop_2contra.bsa=file
+  cyclop_lturn.bsa=file
+  cyclop_rturn.bsa=file
+  cyclop_damage.bsa=file
+  cyclop_death.bsa=file
+  cyclop_respawn.bsa=file
+  cyclop_victory.bsa=file
+  cyclop_cast.bsa=file
+  cyclop_rush.bsa=file
+  cyclop_clap.bsa=file
+  cyclop_push.bsa=file
+}

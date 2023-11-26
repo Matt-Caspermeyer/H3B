@@ -1,0 +1,2069 @@
+// Begin New Parameters Mod
+
+sp_lead_unit_alchemist {
+  cmc=1
+  params {
+    units=alchemist
+  }
+}
+
+sp_lead_unit_archdemon {
+  cmc=1
+  params {
+    units=archdemon
+  }
+}
+
+sp_lead_unit_archer {
+  cmc=1
+  params {
+    units=archer
+  }
+}
+
+sp_lead_unit_archmage {
+  cmc=1
+  params {
+    units=archmage
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_barbarians {
+  cmc=1
+  params {
+    units=barbarian,barbarian2
+  }
+}
+
+sp_lead_unit_vampire {
+  cmc=1
+  params {
+    units=bat,vampire
+  }
+}
+
+sp_lead_unit_vampire2 {
+  cmc=1
+  params {
+    units=bat2,vampire2
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_bears {
+  cmc=1
+  params {
+    units=bear,bear2
+  }
+}
+
+sp_lead_unit_bear_white {
+  cmc=1
+  params {
+    units=bear_white
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_beholder {
+  cmc=1
+  params {
+    units=beholder
+  }
+}
+
+sp_lead_unit_beholder2 {
+  cmc=1
+  params {
+    units=beholder2
+  }
+}
+
+sp_lead_unit_blackdragon {
+  cmc=1
+  params {
+    units=blackdragon
+  }
+}
+
+sp_lead_unit_blackknight {
+  cmc=1
+  params {
+    units=blackknight
+  }
+}
+
+sp_lead_unit_bonedragon {
+  cmc=1
+  params {
+    units=bonedragon
+  }
+}
+
+sp_lead_unit_bowman {
+  cmc=1
+  params {
+    units=bowman
+  }
+}
+
+sp_lead_unit_cannoner {
+  cmc=1
+  params {
+    units=cannoner
+  }
+}
+
+sp_lead_unit_catapult {
+  cmc=1
+  params {
+    units=catapult
+  }
+}
+
+sp_lead_unit_cerberus {
+  cmc=1
+  params {
+    units=cerberus
+  }
+}
+
+sp_lead_unit_cyclop {
+  cmc=1
+  params {
+    units=cyclop
+  }
+}
+
+sp_lead_unit_demon {
+  cmc=1
+  params {
+    units=demon
+  }
+}
+
+sp_lead_unit_demoness {
+  cmc=1
+  params {
+    units=demoness
+  }
+}
+
+sp_lead_unit_devilfish {
+  cmc=1
+  params {
+    units=devilfish
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_dragonflies {
+  cmc=1
+  params {
+    units=dragonfly_fire,dragonfly_lake
+  }
+}
+
+sp_lead_unit_druid {
+  cmc=1
+  params {
+    units=druid
+  }
+}
+
+sp_lead_unit_dryad {
+  cmc=1
+  params {
+    units=dryad
+  }
+}
+
+sp_lead_unit_dwarf {
+  cmc=1
+  params {
+    units=dwarf
+  }
+}
+
+sp_lead_unit_elf {
+  cmc=1
+  params {
+    units=elf
+  }
+}
+
+sp_lead_unit_elf2 {
+  cmc=1
+  params {
+    units=elf2
+  }
+}
+
+sp_lead_unit_ent {
+  cmc=1
+  params {
+    units=ent
+  }
+}
+
+sp_lead_unit_ent2 {
+  cmc=1
+  params {
+    units=ent2
+  }
+}
+
+sp_lead_unit_footman {
+  cmc=1
+  params {
+    units=footman
+  }
+}
+
+sp_lead_unit_footman2 {
+  cmc=1
+  params {
+    units=footman2
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_ghosts {
+  cmc=1
+  params {
+    units=ghost,ghost2
+  }
+}
+
+sp_lead_unit_giant {
+  cmc=1
+  params {
+    units=giant
+  }
+}
+
+sp_lead_unit_goblin {
+  cmc=1
+  params {
+    units=goblin
+  }
+}
+
+sp_lead_unit_goblin2 {
+  cmc=1
+  params {
+    units=goblin2
+  }
+}
+
+sp_lead_unit_graywolf {
+  cmc=1
+  params {
+    units=graywolf
+  }
+}
+
+sp_lead_unit_greendragon {
+  cmc=1
+  params {
+    units=greendragon
+  }
+}
+
+// Changed to sp_lead_unit_griffin to be consistent
+sp_lead_unit_griffin {
+  cmc=1
+  params {
+    units=griffin
+  }
+}
+
+sp_lead_unit_horseman {
+  cmc=1
+  params {
+    units=horseman
+  }
+}
+
+sp_lead_unit_hyena {
+  cmc=1
+  params {
+    units=hyena
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_imps {
+  cmc=1
+  params {
+    units=imp,imp2
+  }
+}
+
+sp_lead_unit_kingthorn {
+  cmc=1
+  params {
+    units=kingthorn
+  }
+}
+
+sp_lead_unit_knight {
+  cmc=1
+  params {
+    units=knight
+  }
+}
+
+sp_lead_unit_miner {
+  cmc=1
+  params {
+    units=miner
+  }
+}
+
+sp_lead_unit_necromant {
+  cmc=1
+  params {
+    units=necromant
+  }
+}
+
+sp_lead_unit_ogre {
+  cmc=1
+  params {
+    units=ogre
+  }
+}
+
+sp_lead_unit_orc {
+  cmc=1
+  params {
+    units=orc
+  }
+}
+
+sp_lead_unit_orc2 {
+  cmc=1
+  params {
+    units=orc2
+  }
+}
+
+sp_lead_unit_peasant {
+  cmc=1
+  params {
+    units=peasant
+  }
+}
+
+sp_lead_unit_pirate {
+  cmc=1
+  params {
+    units=pirat
+  }
+}
+
+sp_lead_unit_pirate2 {
+  cmc=1
+  params {
+    units=pirat2
+  }
+}
+
+sp_lead_unit_priest {
+  cmc=1
+  params {
+    units=priest
+  }
+}
+
+sp_lead_unit_priest2 {
+  cmc=1
+  params {
+    units=priest2
+  }
+}
+
+sp_lead_unit_reddragon {
+  cmc=1
+  params {
+    units=reddragon
+  }
+}
+
+sp_lead_unit_robber {
+  cmc=1
+  params {
+    units=robber
+  }
+}
+
+sp_lead_unit_robber2 {
+  cmc=1
+  params {
+    units=robber2
+  }
+}
+
+sp_lead_unit_shaman {
+  cmc=1
+  params {
+    units=shaman
+  }
+}
+
+sp_lead_unit_skeleton {
+  cmc=1
+  params {
+    units=skeleton
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_snakes {
+  cmc=1
+  params {
+    units=snake,snake_green
+  }
+}
+
+sp_lead_unit_snake_royal {
+  cmc=1
+  params {
+    units=snake_royal
+  }
+}
+
+sp_lead_unit_spider {
+  cmc=1
+  params {
+    units=spider
+  }
+}
+
+sp_lead_unit_spider_fire {
+  cmc=1
+  params {
+    units=spider_fire
+  }
+}
+
+sp_lead_unit_spider_undead {
+  cmc=1
+  params {
+    units=spider_undead
+  }
+}
+
+sp_lead_unit_spider_venom {
+  cmc=1
+  params {
+    units=spider_venom
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_sprites {
+  cmc=1
+  params {
+    units=sprite,sprite_lake
+  }
+}
+
+sp_lead_unit_thorn {
+  cmc=1
+  params {
+    units=thorn
+  }
+}
+
+sp_lead_unit_thorn_warrior {
+  cmc=1
+  params {
+    units=thorn_warrior
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_unicorns {
+  cmc=1
+  params {
+    units=unicorn,unicorn2
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_werewolf {
+  cmc=1
+  params {
+    units=werewolf,wolf
+  }
+}
+
+// It is anticipated that this group of units will always be manipulated together.
+// If not, then this group will need to be broken up into its individual units.
+sp_lead_unit_zombies {
+  cmc=1
+  params {
+    units=zombie,zombie2
+  }
+}
+
+// Special Groups
+
+// The bonus remains, however, in order for the individual unit bonuses to work
+// with the leadership skills, each individual bonus must be applied such that
+// the bonus being modified works properly.
+// Races
+sp_lead_demon {
+  cmc=1
+//  params {
+//    units=archdemon,cerberus,demon,demoness,imp,imp2
+//  }
+}
+
+// The bonus remains, however, in order for the individual unit bonuses to work
+// with the leadership skills, each individual bonus must be applied such that
+// the bonus being modified works properly.
+sp_lead_dwarf {
+  cmc=1
+//  params {
+//    units=miner,dwarf,cannoner,alchemist,giant
+//  }
+}
+
+// The bonus remains, however, in order for the individual unit bonuses to work
+// with the leadership skills, each individual bonus must be applied such that
+// the bonus being modified in SKILLS.LUA works properly.
+sp_lead_archer {
+  cmc=1
+//  params {
+//    units=bowman,archer,elf,elf2
+//  }
+}
+
+// The bonus remains, however, in order for the individual unit bonuses to work
+// with the leadership skills, each individual bonus must be applied such that
+// the bonus being modified in SKILLS.LUA works properly.
+sp_lead_archmage {
+  cmc=1
+//  params {
+//    units=priest,priest2,druid,archmage,shaman,necromant
+//  }
+}
+
+// The bonus remains, however, in order for the individual unit bonuses to work
+// with the leadership skills, each individual bonus must be applied such that
+// the bonus being modified in SKILLS.LUA works properly.
+sp_lead_warrior {
+  cmc=1
+//  params {
+//    units=horseman,knight,footman,footman2
+//  }
+}
+
+// Unit Abilities - these are of the form sp_add_ custom_param _ ability name.
+// For example: Alchemist ability - throw1, custom_param - poison is sp_add_poison_throw1
+sp_add_ap_ogre_rage {
+  cmc=1
+}
+
+sp_add_ap_run {
+  cmc=1
+}
+
+sp_add_burn_firepower {
+  cmc=1
+}
+
+sp_add_burn_fire_shot {
+  cmc=1
+}
+
+sp_add_burn_firethrow {
+  cmc=1
+}
+
+sp_add_burn_rail {
+  cmc=1
+}
+
+sp_add_burn_throw2 {
+  cmc=1
+}
+
+sp_add_dragonslayer_krugom {
+  cmc=1
+}
+
+sp_add_freeze_throw3 {
+  cmc=1
+}
+
+sp_add_heal_cast_sacrifice {
+  cmc=1
+}
+
+sp_add_heal_cure {
+  cmc=1
+}
+
+sp_add_heal_respawn {
+  cmc=1
+}
+
+sp_add_health_ice_totem {
+  cmc=1
+}
+
+sp_add_health_protective_totem {
+  cmc=1
+}
+
+sp_add_holy_throw3 {
+  cmc=1
+}
+
+sp_add_HP_rooted {
+  cmc=1
+}
+
+sp_add_k_animate_dead {
+  cmc=1
+}
+
+sp_add_k_beast_training {
+  cmc=1
+}
+
+sp_add_k_cast_bear {
+  cmc=1
+}
+
+sp_add_k_cast_demon {
+  cmc=1
+}
+
+sp_add_k_cast_thorn {
+  cmc=1
+}
+
+sp_add_k_charm {
+  cmc=1
+}
+
+sp_add_k_quake {
+  cmc=1
+}
+
+sp_add_k_summonplant {
+  cmc=1
+}
+
+sp_add_k_summonplant2 {
+  cmc=1
+}
+
+sp_add_krit_battle_mage {
+  cmc=1
+}
+
+sp_add_k_level_beast_training {
+  cmc=1
+}
+
+sp_add_k_level_cast_sleep {
+  cmc=1
+}
+
+sp_add_penalty_battle_mage {
+  cmc=1
+}
+
+sp_add_penalty_berserk {
+  cmc=1
+}
+
+sp_add_poison_throw1 {
+  cmc=1
+}
+
+sp_add_power_badabum {
+  cmc=1
+}
+
+sp_add_power_battle_mage {
+  cmc=1
+}
+
+sp_add_power_berserk {
+  cmc=1
+}
+
+sp_add_power_blood {
+  cmc=1
+}
+
+sp_add_power_ogre_rage {
+  cmc=1
+}
+
+sp_add_resist_rooted {
+  cmc=1
+}
+
+sp_add_shock_battle_mage {
+  cmc=1
+}
+
+sp_add_rage_holy_rage {
+  cmc=1
+}
+
+sp_add_rush_dmg_inc_charge {
+  cmc=1
+}
+
+sp_add_shock_lightning {
+  cmc=1
+}
+
+sp_add_sleep_ray {
+  cmc=1
+}
+
+
+// Unit Ability Duration: sp_duration_ability
+sp_duration_ogre_rage {
+  cmc=1
+}
+
+sp_duration_battle_mage {
+  cmc=1
+}
+
+sp_duration_beast_training {
+  cmc=1
+}
+
+sp_duration_berserk {
+  cmc=1
+}
+
+sp_duration_blood {
+  cmc=1
+}
+
+sp_duration_cast_sleep {
+  cmc=1
+}
+
+sp_duration_charm {
+  cmc=1
+}
+
+sp_duration_holy_rage {
+  cmc=1
+}
+
+sp_duration_ray {
+  cmc=1
+}
+
+sp_duration_rooted {
+  cmc=1
+}
+
+
+// Unit Abilities - these are of the form sp_gain_ custom_param _ ability name.
+// For example: Alchemist ability - throw1, custom_param - poison is sp_gain_poison_throw1
+sp_gain_ap_ogre_rage {
+  cmc=1
+}
+
+sp_gain_ap_run {
+  cmc=1
+}
+
+sp_gain_burn_firepower {
+  cmc=1
+}
+
+sp_gain_burn_fire_shot {
+  cmc=1
+}
+
+sp_gain_burn_firethrow {
+  cmc=1
+}
+
+sp_gain_burn_rail {
+  cmc=1
+}
+
+sp_gain_burn_throw2 {
+  cmc=1
+}
+
+sp_gain_dragonslayer_krugom {
+  cmc=1
+}
+
+sp_gain_freeze_throw3 {
+  cmc=1
+}
+
+sp_gain_heal_cast_sacrifice {
+  cmc=1
+}
+
+sp_gain_heal_cure {
+  cmc=1
+}
+
+sp_gain_heal_respawn {
+  cmc=1
+}
+
+sp_gain_health_ice_totem {
+  cmc=1
+}
+
+sp_gain_health_protective_totem {
+  cmc=1
+}
+
+sp_gain_holy_throw3 {
+  cmc=1
+}
+
+sp_gain_HP_rooted {
+  cmc=1
+}
+
+sp_gain_k_animate_dead {
+  cmc=1
+}
+
+sp_gain_k_beast_training {
+  cmc=1
+}
+
+sp_gain_k_cast_bear {
+  cmc=1
+}
+
+sp_gain_k_cast_demon {
+  cmc=1
+}
+
+sp_gain_k_cast_thorn {
+  cmc=1
+}
+
+sp_gain_k_charm {
+  cmc=1
+}
+
+sp_gain_k_quake {
+  cmc=1
+}
+
+sp_gain_k_summonplant {
+  cmc=1
+}
+
+sp_gain_k_summonplant2 {
+  cmc=1
+}
+
+sp_gain_krit_battle_mage {
+  cmc=1
+}
+
+sp_gain_k_level_beast_training {
+  cmc=1
+}
+
+sp_gain_k_level_cast_sleep {
+  cmc=1
+}
+
+sp_gain_penalty_battle_mage {
+  cmc=1
+}
+
+sp_gain_penalty_berserk {
+  cmc=1
+}
+
+sp_gain_poison_throw1 {
+  cmc=1
+}
+
+sp_gain_power_badabum {
+  cmc=1
+}
+
+sp_gain_power_battle_mage {
+  cmc=1
+}
+
+sp_gain_power_berserk {
+  cmc=1
+}
+
+sp_gain_power_blood {
+  cmc=1
+}
+
+sp_gain_power_ogre_rage {
+  cmc=1
+}
+
+//sp_gain_resist_rooted {
+//  cmc=1
+//}
+//
+//sp_gain_shock_battle_mage {
+//  cmc=1
+//}
+//
+//sp_gain_rage_holy_rage {
+//  cmc=1
+//}
+//
+sp_gain_rush_dmg_inc_charge {
+  cmc=1
+}
+
+sp_gain_shock_lightning {
+  cmc=1
+}
+
+sp_gain_sleep_ray {
+  cmc=1
+}
+
+
+// Spell Parameters
+
+// sp_add_damage_ is an additive (and negative) bonus to the Bless and Weakness Spell Damage
+sp_add_damage_bless {
+  cmc=1
+}
+
+sp_add_damage_weakness {
+  cmc=1
+}
+
+// sp_add_infliction is an additive bonus to the percent chance of an infliction (i.e. burning, poison, etc.)
+
+sp_add_infliction_armageddon {
+  cmc=1
+}
+
+sp_add_infliction_fire_arrow {
+  cmc=1
+}
+
+sp_add_infliction_fire_ball {
+  cmc=1
+}
+
+sp_add_infliction_fire_rain {
+  cmc=1
+}
+
+sp_add_infliction_geyser {
+  cmc=1
+}
+
+sp_add_infliction_ice_serpent {
+  cmc=1
+}
+
+sp_add_infliction_lightning {
+  cmc=1
+}
+
+sp_add_infliction_smile_skull {
+  cmc=1
+}
+
+// sp_add_penalty is a subtractive bonus to the base penalty of spells
+sp_add_penalty_armageddon {
+  cmc=1
+}
+
+sp_add_penalty_pacifism {
+  cmc=1
+}
+
+sp_add_penalty_stone_skin {
+  cmc=1
+}
+
+// sp_add_periphery is an additive bonus for the periphery damage of the Ice Snake and Fire Ball spells
+sp_add_periphery_damage_fire_ball {
+  cmc=1
+}
+
+sp_add_periphery_damage_ice_serpent {
+  cmc=1
+}
+
+// sp_add_power is an additive bonus to the base power of spells
+sp_add_power_accuracy {
+  cmc=1
+}
+
+sp_add_power_adrenalin {
+  cmc=1
+}
+
+sp_add_power_armageddon {
+  cmc=1
+}
+
+sp_add_power_berserker {
+  cmc=1
+}
+
+sp_add_power_demonologist {
+  cmc=1
+}
+
+sp_add_power_demon_slayer {
+  cmc=1
+}
+
+sp_add_power_divine_armor {
+  cmc=1
+}
+
+sp_add_power_dragon_slayer {
+  cmc=1
+}
+
+sp_add_power_fire_arrow {
+  cmc=1
+}
+
+sp_add_power_fire_ball {
+  cmc=1
+}
+
+sp_add_power_fire_rain {
+  cmc=1
+}
+
+sp_add_power_geyser {
+  cmc=1
+}
+
+sp_add_power_ghost_sword {
+  cmc=1
+}
+
+sp_add_power_haste {
+  cmc=1
+}
+
+sp_add_power_healing {
+  cmc=1
+}
+
+sp_add_power_holy_rain {
+  cmc=1
+}
+
+sp_add_power_hypnosis {
+  cmc=1
+}
+
+sp_add_power_ice_serpent {
+  cmc=1
+}
+
+sp_add_power_kamikaze {
+  cmc=1
+}
+
+sp_add_power_lightning {
+  cmc=1
+}
+
+sp_add_power_magic_axe {
+  cmc=1
+}
+
+sp_add_power_magic_source {
+  cmc=1
+}
+
+sp_add_power_necromancy {
+  cmc=1
+}
+
+sp_add_power_oil_fog {
+  cmc=1
+}
+
+sp_add_power_pacifism {
+  cmc=1
+}
+
+sp_add_power_pain_mirror {
+  cmc=1
+}
+
+sp_add_power_phantom {
+  cmc=1
+}
+
+sp_add_power_plague {
+  cmc=1
+}
+
+sp_add_power_resurrection {
+  cmc=1
+}
+
+sp_add_power_sacrifice {
+  cmc=1
+}
+
+sp_add_power_slow {
+  cmc=1
+}
+
+sp_add_power_smile_skull {
+  cmc=1
+}
+
+sp_add_power_stone_skin {
+  cmc=1
+}
+
+sp_add_power_trap {
+  cmc=1
+}
+
+// sp_add_special is for special capabilities that units use
+sp_add_shock_special_archmage_lightning_attack {
+  cmc=1
+}
+
+sp_add_krit_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_add_penalty_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_add_power_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_add_shock_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_add_special_heal {
+  cmc=1
+}
+
+sp_add_special_holy_rage {
+  cmc=1
+}
+
+// "sp_chance_effect_" adds to the percent chance of an effect occurring
+sp_chance_effect_blood {
+  cmc=1
+}
+
+sp_chance_effect_burn {
+  cmc=1
+}
+
+sp_chance_effect_charm {
+  cmc=1
+}
+
+sp_chance_effect_corrosion {
+  cmc=1
+}
+
+sp_chance_effect_curse {
+  cmc=1
+}
+
+sp_chance_effect_freeze {
+  cmc=1
+}
+
+sp_chance_effect_holy {
+  cmc=1
+}
+
+sp_chance_effect_poison {
+  cmc=1
+}
+
+sp_chance_effect_shock {
+  cmc=1
+}
+
+sp_chance_effect_sleep {
+  cmc=1
+}
+
+sp_chance_effect_slow {
+  cmc=1
+}
+
+sp_chance_effect_stun {
+  cmc=1
+}
+
+sp_chance_effect_weakness {
+  cmc=1
+}
+
+// This next group of sp_chance is for unit features
+sp_chance_feat_bleeding {
+  cmc=1
+}
+
+sp_chance_feat_brutality {
+  cmc=1
+}
+
+sp_chance_feat_increase_anger {
+  cmc=1
+}
+
+sp_chance_feat_rabid {
+  cmc=1
+}
+
+// "sp_dur_" for altering the intelligence bonus of spells, i.e. math.floor( Intelligence / ( 15 - sp_dur_mod ) )
+sp_dur_mod {
+  cmc=1
+}
+
+// The prefix "sp_duration_" is meant to be a string replacement of "spell_" so that the function
+// gen_spell_duration in SPELLS_HINT.LUA can use the string.gsub function to replace the spell name
+// object with its appropriate bonus derived from its name. For example, if the spell name in SPELLS.TXT
+// is "spell_accuracy", "spell_" is replaced with "sp_duration_" so that it forms "sp_duration_accuracy"
+// and allows the calling of the function int_dur in SPELLS_POWER.LUA with the proper bonus to match the
+// spell name. So all duration bonuses must start with "sp_duration_" and the name of the spell must
+// match its name in SPELLS.TXT for this to work correctly. This is an additive bonus
+sp_duration_accuracy {
+  cmc=1
+}
+
+sp_duration_adrenalin {
+  cmc=1
+}
+
+sp_duration_armageddon {
+  cmc=1
+}
+
+sp_duration_berserker {
+  cmc=1
+}
+
+sp_duration_bless {
+  cmc=1
+}
+
+sp_duration_blind {
+  cmc=1
+}
+
+sp_duration_crue_fate {
+  cmc=1
+}
+
+sp_duration_defenseless {
+  cmc=1
+}
+
+sp_duration_demon_slayer {
+  cmc=1
+}
+
+sp_duration_divine_armor {
+  cmc=1
+}
+
+sp_duration_dragon_slayer {
+  cmc=1
+}
+
+sp_duration_fire_arrow {
+  cmc=1
+}
+
+sp_duration_fire_ball {
+  cmc=1
+}
+
+sp_duration_fire_breath {
+  cmc=1
+}
+
+sp_duration_fire_rain {
+  cmc=1
+}
+
+sp_duration_geyser {
+  cmc=1
+}
+
+sp_duration_haste {
+  cmc=1
+}
+
+sp_duration_holy_rain {
+  cmc=1
+}
+
+sp_duration_hypnosis {
+  cmc=1
+}
+
+sp_duration_ice_serpent {
+  cmc=1
+}
+
+sp_duration_invisibility {
+  cmc=1
+}
+
+sp_duration_last_hero {
+  cmc=1
+}
+
+sp_duration_lightning {
+  cmc=1
+}
+
+sp_duration_magic_bondage {
+  cmc=1
+}
+
+sp_duration_magic_source {
+  cmc=1
+}
+
+sp_duration_oil_fog {
+  cmc=1
+}
+
+sp_duration_pacifism {
+  cmc=1
+}
+
+sp_duration_phantom {
+  cmc=1
+}
+
+sp_duration_plague {
+  cmc=1
+}
+
+sp_duration_pygmy {
+  cmc=1
+}
+
+sp_duration_ram {
+  cmc=1
+}
+
+sp_duration_reaction {
+  cmc=1
+}
+
+sp_duration_scare {
+  cmc=1
+}
+
+sp_duration_shroud {
+  cmc=1
+}
+
+sp_duration_slow {
+  cmc=1
+}
+
+sp_duration_smile_skull {
+  cmc=1
+}
+
+sp_duration_stone_skin {
+  cmc=1
+}
+
+sp_duration_target {
+  cmc=1
+}
+
+sp_duration_trap {
+  cmc=1
+}
+
+sp_duration_weakness {
+  cmc=1
+}
+
+// This next group of sp_duration is for special effects from units or spell attacks
+sp_duration_effect_blood {
+  cmc=1
+}
+
+sp_duration_effect_burn {
+  cmc=1
+}
+
+sp_duration_effect_charm {
+  cmc=1
+}
+
+sp_duration_effect_corrosion {
+  cmc=1
+}
+
+sp_duration_effect_curse {
+  cmc=1
+}
+
+sp_duration_effect_freeze {
+  cmc=1
+}
+
+sp_duration_effect_holy {
+  cmc=1
+}
+
+sp_duration_effect_poison {
+  cmc=1
+}
+
+sp_duration_effect_shock {
+  cmc=1
+}
+
+sp_duration_effect_sleep {
+  cmc=1
+}
+
+sp_duration_effect_slow {
+  cmc=1
+}
+
+sp_duration_effect_stun {
+  cmc=1
+}
+
+sp_duration_effect_weakness {
+  cmc=1
+}
+
+// This next group of sp_duration is for unit features
+sp_duration_feat_bleeding {
+  cmc=1
+}
+
+sp_duration_feat_brutality {
+  cmc=1
+}
+
+sp_duration_feat_increase_anger {
+  cmc=1
+}
+
+sp_duration_feat_rabid {
+  cmc=1
+}
+
+// This next group of sp_duration is for special attacks
+sp_duration_special_aiming {
+  cmc=1
+}
+
+sp_duration_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_duration_special_berserk {
+  cmc=1
+}
+
+sp_duration_special_demoness_pentagramm {
+  cmc=1
+}
+
+sp_duratoin_special_elf_song {
+  cmc=1
+}
+
+sp_duration_special_haste {
+  cmc=1
+}
+
+// This is for both Priests and Inquisitors
+sp_duration_special_bless_attack {
+  cmc=1
+}
+
+sp_duration_special_holy_rage {
+  cmc=1
+}
+
+sp_duration_special_magic_shield {
+  cmc=1
+}
+
+sp_duration_special_ogre_rage {
+  cmc=1
+}
+
+// This is for the Necromancer Plague Attack
+sp_duration_special_plague {
+  cmc=1
+}
+
+sp_duration_special_preparation {
+  cmc=1
+}
+
+sp_duration_special_spider_web {
+  cmc=1
+}
+
+sp_duration_special_stupid {
+  cmc=1
+}
+
+sp_duration_special_wolf_cry {
+  cmc=1
+}
+
+// sp_gain_infliction is a multiplicative bonus to the percent chance of an infliction (i.e. burning, poison, etc.)
+
+sp_gain_infliction_armageddon {
+  cmc=1
+}
+
+sp_gain_infliction_fire_arrow {
+  cmc=1
+}
+
+sp_gain_infliction_fire_ball {
+  cmc=1
+}
+
+sp_gain_infliction_fire_rain {
+  cmc=1
+}
+
+sp_gain_infliction_geyser {
+  cmc=1
+}
+
+sp_gain_infliction_ice_serpent {
+  cmc=1
+}
+
+sp_gain_infliction_lightning {
+  cmc=1
+}
+
+sp_gain_infliction_smile_skull {
+  cmc=1
+}
+
+// sp_gain_penalty is for a multiplicative bonus and is 1 - count / 100, i.e. a percent decrease
+sp_gain_penalty_armageddon {
+  cmc=1
+}
+
+sp_gain_penalty_pacifism {
+  cmc=1
+}
+
+// sp_gain_periphery is for a multiplicative bonus to the periphery damage of the Ice Snake and Fire Ball spells
+sp_gain_periphery_damage_fire_ball {
+  cmc=1
+}
+
+sp_gain_periphery_damage_ice_serpent {
+  cmc=1
+}
+
+// sp_gain_power is for a multiplicative bonus and is 1 + count / 100, i.e. a percent increase
+sp_gain_power_accuracy {
+  cmc=1
+}
+
+sp_gain_power_adrenalin {
+  cmc=1
+}
+
+sp_gain_power_armageddon {
+  cmc=1
+}
+
+sp_gain_power_berserker {
+  cmc=1
+}
+
+sp_gain_power_defenseless {
+  cmc=1
+}
+
+sp_gain_power_demonologist {
+  cmc=1
+}
+
+sp_gain_power_demon_slayer {
+  cmc=1
+}
+
+sp_gain_power_divine_armor {
+  cmc=1
+}
+
+sp_gain_power_dragon_slayer {
+  cmc=1
+}
+
+sp_gain_power_fire_arrow {
+  cmc=1
+}
+
+sp_gain_power_fire_ball {
+  cmc=1
+}
+
+sp_gain_power_fire_rain {
+  cmc=1
+}
+
+sp_gain_power_geyser {
+  cmc=1
+}
+
+sp_gain_power_ghost_sword {
+  cmc=1
+}
+
+sp_gain_power_haste {
+  cmc=1
+}
+
+sp_gain_power_healing {
+  cmc=1
+}
+
+sp_gain_power_holy_rain {
+  cmc=1
+}
+
+sp_gain_power_hypnosis {
+  cmc=1
+}
+
+sp_gain_power_ice_serpent {
+  cmc=1
+}
+
+sp_gain_power_kamikaze {
+  cmc=1
+}
+
+sp_gain_power_lightning {
+  cmc=1
+}
+
+sp_gain_power_magic_axe {
+  cmc=1
+}
+
+sp_gain_power_magic_source {
+  cmc=1
+}
+
+sp_gain_power_necromancy {
+  cmc=1
+}
+
+sp_gain_power_oil_fog {
+  cmc=1
+}
+
+sp_gain_power_pacifism {
+  cmc=1
+}
+
+sp_gain_power_pain_mirror {
+  cmc=1
+}
+
+sp_gain_power_phantom {
+  cmc=1
+}
+
+sp_gain_power_plague {
+  cmc=1
+}
+
+sp_gain_power_resurrection {
+  cmc=1
+}
+
+sp_gain_power_sacrifice {
+  cmc=1
+}
+
+sp_gain_power_slow {
+  cmc=1
+}
+
+sp_gain_power_smile_skull {
+  cmc=1
+}
+
+sp_gain_power_stone_skin {
+  cmc=1
+}
+
+sp_gain_power_trap {
+  cmc=1
+}
+
+// sp_gain_special is for special capabilities that units use
+sp_gain_shock_special_archmage_lightning_attack {
+  cmc=1
+}
+
+sp_gain_krit_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_gain_penalty_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_gain_power_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_gain_shock_special_battle_mage_attack {
+  cmc=1
+}
+
+sp_gain_special_heal {
+  cmc=1
+}
+
+sp_gain_special_holy_rage {
+  cmc=1
+}
+
+// sp_lvl_inc is for an additive bonus to the base level damage of a spell
+sp_lvl_inc_armageddon {
+  cmc=1
+}
+
+sp_lvl_inc_fire_arrow {
+  cmc=1
+}
+
+sp_lvl_inc_fire_ball {
+  cmc=1
+}
+
+sp_lvl_inc_fire_rain {
+  cmc=1
+}
+
+sp_lvl_inc_geyser {
+  cmc=1
+}
+
+sp_lvl_inc_ghost_sword {
+  cmc=1
+}
+
+sp_lvl_inc_healing {
+  cmc=1
+}
+
+sp_lvl_inc_holy_rain {
+  cmc=1
+}
+
+sp_lvl_inc_ice_serpent {
+  cmc=1
+}
+
+sp_lvl_inc_kamikaze {
+  cmc=1
+}
+
+sp_lvl_inc_lightning {
+  cmc=1
+}
+
+sp_lvl_inc_oil_fog {
+  cmc=1
+}
+
+sp_lev_inc_resurrection {
+  cmc=1
+}
+
+sp_lvl_inc_sacrifice {
+  cmc=1
+}
+
+sp_lvl_inc_smile_skull {
+  cmc=1
+}
+
+sp_lvl_inc_trap {
+  cmc=1
+}
+
+// "sp_power_effect_" adds to the percent power of an effect
+sp_power_effect_blood {
+  cmc=1
+}
+
+sp_power_effect_burn {
+  cmc=1
+}
+
+sp_power_effect_charm {
+  cmc=1
+}
+
+sp_power_effect_corrosion {
+  cmc=1
+}
+
+sp_power_effect_curse {
+  cmc=1
+}
+
+sp_power_effect_freeze {
+  cmc=1
+}
+
+sp_power_effect_holy {
+  cmc=1
+}
+
+sp_power_effect_poison {
+  cmc=1
+}
+
+sp_power_effect_shock {
+  cmc=1
+}
+
+sp_power_effect_sleep {
+  cmc=1
+}
+
+sp_power_effect_slow {
+  cmc=1
+}
+
+sp_power_effect_stun {
+  cmc=1
+}
+
+sp_power_effect_weakness {
+  cmc=1
+}
+
+// sp_power for altering the formula power = power * ( 1 + math.floor( Intelligence / mod ) * inc / 100 )
+// defaults: mod = 7, inc = 10
+// adds to inc so that spell power increases +inc%
+sp_power_inc {
+  cmc=1
+}
+
+// scales intelligence by 1 + sp_power_int / 100
+sp_power_int {
+  cmc=1
+}
+
+// subtracts from the modulus so that for every n intelligence the power increases inc%
+sp_power_mod {
+  cmc=1
+}
+
+// sp_special_attacks is for adding to the special attacks of units
+sp_special_attacks_horseman_charge {
+  cmc=1
+}
+
+sp_special_attacks_thorn_gift {
+  cmc=1
+}
+
+
+// Increased unit attack spells: Berserker, Precision, Hell Breath, Bless, Demon Slayer, Dragon Slayer
+// Increased unit defense spells: Magic Spring, Stone Skin, Divine Armor
+
+// Increases combat experience
+sp_addexp_battle {
+  cmc=1
+}
+
+// Increases spirit experience
+sp_addexp_spirit {
+  cmc=1
+}
+
+// Increases combat gold
+sp_addgold_battle {
+  cmc=1
+}
+
+// Increases gold found in chests
+sp_addgold_chest {
+  cmc=1
+}
+
+// Increases damage to undead if attacker is human
+sp_attack_undead {
+  cmc=1
+}
+
+// Increases damage to dragons if attacker is human
+sp_attack_dragon {
+  cmc=1
+}
+
+// Increases damage to demons if attacker is human
+sp_attack_demon {
+  cmc=1
+}
+
+// Takes mana and converts to rage
+sp_rage_battle_prc {
+  cmc=1
+}
+
+// Decreases rage drain on map
+sp_rage_map {
+  cmc=1
+}
+
+// Regenerates mana during combat
+sp_mana_battle {
+  cmc=1
+}
+
+// Increases mana regeneration on map
+sp_mana_map_prc {
+  cmc=1
+}
+
+// Spells: set spell param attack=1 to use
+sp_spell_attack {
+  cmc=1
+}
+
+// Spells: set spell param defense=1 to use
+sp_spell_defense {
+  cmc=1
+}
+
+// Spells: lightning - OBSELETE: changed to sp_add_power_lightning
+//sp_lightning_attack {
+//  cmc=1
+//}
+
+// Spells: armageddon
+sp_spell_astral {
+  cmc=1
+}
+
+// Spells: fire_breath, oil_fog, fire_ball, fire_rain, fire_arrow
+sp_spell_fire {
+  cmc=1
+}
+
+// Spells: magic_axe, trap, ghost_sword, geyser, ice_serpent, kamikaze
+sp_spell_physical {
+  cmc=1
+}
+
+// Spells: healing, lightning, holy_rain
+sp_spell_magic {
+  cmc=1
+}
+
+// Spells: smile_skull
+sp_spell_poison {
+  cmc=1
+}
+
+// Spells: divine_armor, resurrection, healing, holy_rain
+sp_spell_holy {
+  cmc=1
+}
+
+// Spells: slow, haste
+sp_spell_speed {
+  cmc=1
+}
+
+// Spell: pain_mirror - OBSELETE: changed to sp_add_power_pain_mirror
+//sp_spell_mirror {
+//  cmc=1
+//}
+
+// Spell: pacifism - OBSELETE: changed to sp_add_power_pacifism
+//sp_spell_peace {
+//  cmc=1
+//}
+
+sp_boots_speed {
+  cmc=1
+}
+
+sp_rage_predator {
+  cmc=1
+}
+
+// These are added to allow proper computation of the bonuses these children add since
+// hero_lu_item_on_body does not seem to work correctly
+sp_kid_luna {
+  cmc=1
+}
+
+sp_kid_aislinn {
+  cmc=1
+}

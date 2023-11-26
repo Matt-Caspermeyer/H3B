@@ -1,0 +1,131 @@
+TEX335 {
+  block {
+    filename=BA1_castsacrifice_normal.png
+    in_tex_pos=0,0
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,237
+  }
+  block {
+    filename=BA1_castsacrifice_disabled.png
+    in_tex_pos=43,0
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=237,237
+  }
+  block {
+    filename=BA1_castsacrifice_onmouse.png
+    in_tex_pos=86,0
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=474,237
+  }
+  block {
+    filename=BA1_castsacrifice_onpress.png
+    in_tex_pos=129,0
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=711,237
+  }
+  block {
+    filename=BA1_charge_normal.png
+    in_tex_pos=0,44
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=948,237
+  }
+  block {
+    filename=BA1_charge_disabled.png
+    in_tex_pos=43,44
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1185,237
+  }
+  block {
+    filename=BA1_charge_onmouse.png
+    in_tex_pos=86,44
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1422,237
+  }
+  block {
+    filename=BA1_charge_onpress.png
+    in_tex_pos=129,44
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1659,237
+  }
+  block {
+    filename=BA1_rooted_normal.png
+    in_tex_pos=0,88
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1896,237
+  }
+  block {
+    filename=BA1_rooted_disabled.png
+    in_tex_pos=43,88
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2133,237
+  }
+  block {
+    filename=BA1_rooted_onmouse.png
+    in_tex_pos=86,88
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2370,237
+  }
+  block {
+    filename=BA1_rooted_onpress.png
+    in_tex_pos=129,88
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2607,237
+  }
+  block {
+    filename=BA1_summonplant_normal.png
+    in_tex_pos=0,132
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2844,237
+  }
+  block {
+    filename=BA1_summonplant_disabled.png
+    in_tex_pos=43,132
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3081,237
+  }
+  block {
+    filename=BA1_summonplant_onmouse.png
+    in_tex_pos=86,132
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3318,237
+  }
+  block {
+    filename=BA1_summonplant_onpress.png
+    in_tex_pos=129,132
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3555,237
+  }
+  texture_size=172,176
+}

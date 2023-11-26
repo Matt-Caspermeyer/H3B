@@ -1,0 +1,154 @@
+Heroes of Might and Magic 3 Babies (HOMM3 Babies) Mod / Micro / Mini Expansion Pack for King's Bounty: The Legend
+-----------------------------------------------------------------------------------------------------------------
+
+Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
+-------------------------------------------------------
+
+You are free to use any part of my work in your projects so long as you give me credit.
+
+
+Version: Alpha 2011-11-11
+-------------------------
+
+This archive contains all the files for the HOMM3 Babies mod / micro / mini expansion pack for King's Bounty: The Legend. This work will be referred to loosely as the mod in the rest of this document.
+
+There are many changes to the game, but at this time I do not have them listed here. In the future, this file will list those changes. In the mean time, visit the YouTube video page: http://youtu.be/JE0VbSnfYkM and the King's Bounty: The Legend Mod forum for more information: http://forum.1cpublishing.eu/showthread.php?p=360731#post360731.
+
+
+Installation:
+-------------
+
+1. This mod is not compatible with any other mods since I've most likely modified a file that another mod uses.
+  a. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
+  b. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+    i. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
+2. Extract the 3 *.KFS files included in this archive to the King's Bounty: The Legend folder.
+  a. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+  b. If the "mods" folder does not exist, then see note 1ai above.
+  c. The 3 KFS files are:
+    i.   mod_homm3_portraits.kfs - stand alone game picture resources containing all *.DAT and *.DDS files that may be used in other mods.
+    ii.  mod_tougher_eheroes.kfs - stand alone tougher heroes containing all *.HERO files that may be used in other mods.
+    iii. mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LNG, *.LUA, and *.TXT files modified for this mod.
+  d. All 3 KFS files are needed for the complete HOMM3 babies mod experience!
+3. Run the game
+  a. Start a new game to play!
+  b. It is not recommended to continue your current game, please restart.
+  c. For your first play through:
+    i.   Please do not use any cheats (i.e. Save Game Scanner, etc.)
+    ii.  Please do not use with any other mods (probably won't work anyway)
+    iii. You'll be able to experience the mod as I intended it to be played.
+
+
+Uninstallation:
+-------------
+
+1. Simply delete the 3 KFS files from your "mods" folder:
+  a. mod_homm3_portraits.kfs
+  b. mod_tougher_eheroes.kfs
+  c. mod_homm3_babies.kfs
+2. Done!
+
+
+Notes:
+------
+
+1. This mod was developed using the Gamer's Gate V1.7 version of King's Bounty: The Legend.
+2. I have not tried it with other versions.
+3. This mod uses the English localizations using the "eng_" prefix for the localization files.
+  a. Other versions may have other prefixes and so you may be able to get this mod to work with your localization version by changing the prefixes of the *.LNG localization files.
+    i.   The *.LNG files are located inside mod_homm3_babies.kfs.
+    ii.  Simply rename mod_homm3_babies.kfs to mod_homm3_babies.zip and extract files if you wish to attempt this.
+    iii. Currently, you're on your own if you want to get it to work with a different localization, but if you'd like to help with localizations in your country then please let me know.
+  b. In the future I hope to be able to have feedback from users to help me with the different English localization variants.
+
+
+Issues / Bugs:
+--------------
+
+Since this is an alpha release of this mod, it is quite possible that your game with crash or you'll find bugs in this mod. Please provide me feedback on any issues that you are having with my mod so that I can make improvements and make your playing experience more enjoyable.
+
+If you have any problems during play, here are some pointers:
+
+1. If it is a game crash, note which action caused the crash.
+2. If the game appears to lock up, ALT-TAB back to Windows to see if there is a pop-up.
+  a. If there is a pop-up window, note the message and then click OK to proceed.
+  b. After you click OK, the game will most likely crash exit to Windows.
+  c. If the game does not crash after you click OK, it is highly recommended to quit your game rather than continue since behavior may be strange.
+3. Save your game often just in case!
+
+Crash List
+----------
+
+1. I've had crashes with a failure to allocate more memory a couple of times.
+  a. The solution is to reload your most recent save game and simply continue.
+  b. Let me know if you see this problem, but currently I have no idea how to resolve it (I probably would need 1CC or Katauri Interactive's help with this one).
+
+Bug List - there is one bug that I'm not sure if I've squished or not:
+--------
+
+1. If you notice that your (or the enemy) units start doing damage in the 100,000's then let me know.
+  a. I think this bug may be related to the resurrection of the Phoenix, but I'm not sure.
+  b. I've only seen this bug twice in all my play throughs, but it is exhibited during combat.
+  c. It typically happens after many rounds and I have not been able to remember all my moves to repeat this bug and debug it.
+  d. If you are able to provide a save game with the exact sequence to get this bug to appear then I'll be able to debug it.
+2. Damage causing effects (i.e. burning and poison):
+  a. If an AI unit is killed by a damage causing effect and if the next unit to move is another AI unit, then their damage causing effect is skipped if they have one.
+  b. I worked and worked trying to fix this bug, but to no avail.
+    i.  I'm pretty sure that it is a bug with the game itself as I don't think they intended for damaging effects to kill units.
+    ii. As such, I don't know how to fix this bug, but if you have any ideas then please let me know!
+
+If you notice any other problems or issues, then please let me know!
+
+It is my intent to make this mod as bug free and enjoyable as possible!
+
+
+Updates:
+--------
+
+1. As this version of the mod is in an alpha state, there are still changes that are being done; however:
+  a. The mod is stable enough to play the game completely through - enjoy!
+  b. Every change has been checked at least once, but I'm in the quality assurance phase rechecking the code.
+  c. I'm about to start a new Paladin game to check gameplay some more.
+2. At this stage, changes should not require you to restart your game - simply install the new files and continue playing.
+3. Updates will most likely occur on a bi-monthly basis depending on severity and other factors.
+4. Once the quality assurance phase is completed and sufficient feedback is garnered, the project will transition to the beta release phase.
+5. The beta release phase will have all features properly implemented and all controllable bugs fixed.
+  a. Changes will be focused on editing data files (i.e. *.ATOM, *.TXT) to improve game balance and user enjoyability.
+  b. Once the beta phase has garnered sufficient feedback, the project will transition to the official release phase - more information on that once the beta phase is reached.
+
+
+Modders:
+--------
+
+1. I've made many changes under the hood that only modders or code aficionados would notice.
+2. I've added comments where warranted to the areas in the game that I've changed.
+  a. Feel free to look at these comments and provide me feedback if you know of a better way to implement something.
+  b. Certain comments have the word "HACK" where I did not know how to do it a better way - once again if you know a better way to implement this feature then please let me know!
+3. I've unified many *.LUA functions (i.e. like SPELLS_POWER.LUA) so that they all use the same bonus system, etc.
+4. I've made common functions for dealing with redundant code.
+  a. The original *.LUA files had lots and lots of redundant code.
+  b. I've replaced most of the redundant code in the *.LUA functions I've edited to reduce error and provide code consistency.
+5. I've beautified the sections of the *.LUA files I've changed to make reading the code much, much easier.
+6. The changes I've made really form the basis of a new code base from which you can create new mods.
+
+
+Copyright Issues:
+-----------------
+
+1. This work contains images from the Heroes of Might and Magic 3 game and those images are copyrighted.
+2. The picture for Orcelyn Ordy I found via the web, but I have not been able to find out who created that source image.
+  a. If you have any information about who created this picture please let me know and I'll give credit to the author.
+3. I created all the new ability icons.
+4. All of my effort is being freely distributed to the public domain.
+  a. Please give me credit if you use any portion of my work in your projects - thanks! :-)
+  b. Feel free to use this code base as a starting point for your own mod!
+
+
+THANK YOU!!!
+------------
+
+1. Thanks to all the people posting in the King's Bounty forums, especially those with modding tips!
+2. Thanks for trying out my mod and providing feedback!
+
+
+/C\/C\ Matt Caspermeyer

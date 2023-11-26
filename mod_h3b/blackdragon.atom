@@ -1,0 +1,652 @@
+main {
+  class=chesspiece
+  model=blackdragon.bma
+  cullcat=0
+  bboxanim=1
+}
+arena_params {
+  features_label=cpi_blackdragon_feat
+  features_hints=flies_header/flies_hint,dragon_breath_header/dragon_breath_hint,fire_immunity_header/fire_immunity_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint,dragon_power_header/dragon_power_hint
+  race=neutral
+  cost=15000
+  level=5
+  leadership=2500
+  attack=56
+  defense=56
+  defenseup=8
+  initiative=7
+  speed=8
+  hitpoint=800
+  features=dragon,mind_immunitet,magic_immunitet,fire_immunitet
+  ondamage=black_dragon_ondamage
+  krit=20
+  movetype=2
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,firepower
+  posthitmaster=features_burn
+  resistances {
+    physical=15
+    poison=0
+    magic=80
+    fire=80
+  }
+  moveattack {
+    ad_factor=1
+    usefly=4
+    options=long2,friend_damage
+    damage {
+      fire=110,130
+    }
+    custom_params {
+      burn=35
+    }
+  }
+  firepower {
+    class=scripted
+    hinthead=special_firepower_head
+    hint=special_firepower_hint
+    picture=BA1_Fire_Power_
+    picture_small=BA1_Fire_Power_small.png
+    warning=sw_firepower
+    ad_factor=1
+    reload=3
+    script_attack=special_blackdragon_firepower
+    script_calccells=calccells_blackdragon_firepower
+    script_highlight=special_blackdragon_firepower_highlight
+    attack_cursor=magicstick
+    damage {
+      fire=110,140
+    }
+    custom_params {
+      typedmg=fire
+      damage=110-140
+      burn=70
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+  subturn_modificators=features_initiative_penalty
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=blackdragon_idle.bsa/fr:25:50
+  rare=blackdragon_rare.bsa/fr:25:50
+  attack=blackdragon_attack.bsa/fr:25:50
+  move=blackdragon_move.bsa/fr:35:70
+  start=blackdragon_start.bsa/fr:35:70
+  stop=blackdragon_stop.bsa/fr:35:70
+  clock=blackdragon_clock.bsa/fr:40:80
+  contra=blackdragon_contra.bsa/fr:40:80
+  clock2=blackdragon_2clock.bsa/fr:40:80
+  contra2=blackdragon_2contra.bsa/fr:40:80
+  lturn=blackdragon_lturn.bsa/fr:35:70
+  rturn=blackdragon_rturn.bsa/fr:35:70
+  damage=blackdragon_damage.bsa/fr:25:50
+  death=blackdragon_death.bsa/fr:25:50
+  respawn=blackdragon_respawn.bsa/fr:25:50
+  takeoff=blackdragon_takeoff.bsa/fr:25:50
+  flight=blackdragon_flight.bsa/fr:25:50
+  descent=blackdragon_descent.bsa/fr:25:50
+  ldivert=blackdragon_ldivert.bsa/fr:25:50
+  rdivert=blackdragon_rdivert.bsa/fr:25:50
+  slew=blackdragon_slew.bsa/fr:35:70
+  waft=blackdragon_waft.bsa/fr:25:50
+  cursor=blackdragon_rare.bsa/fr:25:50
+  teleout=blackdragon_idle.bsa/fr:25:50/r:55:90
+  telein=blackdragon_idle.bsa/fr:25:50/r:0:35
+  happy=blackdragon_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:4:idlemain
+  fire_takeoff=blackdragon_fire_takeoff.bsa/fr:25:50
+  fire_flight=blackdragon_fire_flight.bsa/fr:25:50
+  fire_descent=blackdragon_fire_descent.bsa/fr:25:50
+  fire_ldivert=blackdragon_fire_ldivert.bsa/fr:25:50
+  fire_rdivert=blackdragon_fire_rdivert.bsa/fr:25:50
+  fire_waft=blackdragon_fire_waft.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    34.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @fire_flight {
+    2.0?x=
+    0.0=cam
+  }
+  @fire_ldivert {
+    2.0?x=
+    0.0=cam
+  }
+  @fire_rdivert {
+    2.0?x=
+    0.0=cam
+  }
+  @fire_waft {
+    2.0?v=
+    12.0?w=
+    22.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=move
+      frame=0.01
+      file=blackdragon_move
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=blackdragon_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=blackdragon_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=blackdragon_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=blackdragon_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=blackdragon_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=blackdragon_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=blackdragon_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=blackdragon_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=blackdragon_rturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=blackdragon_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=blackdragon_death
+      fadetime=60
+    }
+    sound {
+      animation=respawn
+      frame=0.01
+      file=blackdragon_respawn
+      fadetime=60
+    }
+    sound {
+      animation=takeoff
+      frame=0.01
+      file=blackdragon_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=flight
+      frame=0.01
+      file=blackdragon_flight
+      fadetime=60
+    }
+    sound {
+      animation=descent
+      frame=0.01
+      file=blackdragon_descent
+      fadetime=60
+    }
+    sound {
+      animation=ldivert
+      frame=0.01
+      file=blackdragon_ldivert
+      fadetime=60
+    }
+    sound {
+      animation=rdivert
+      frame=0.01
+      file=blackdragon_rdivert
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=blackdragon_slew
+      fadetime=60
+    }
+    sound {
+      animation=waft
+      frame=0.01
+      file=blackdragon_waft
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=blackdragon_victory
+      fadetime=60
+    }
+    sound {
+      animation=fire_takeoff
+      frame=0.01
+      file=blackdragon_fire_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=fire_flight
+      frame=0.01
+      file=blackdragon_fire_flight
+      fadetime=60
+    }
+    sound {
+      animation=fire_descent
+      frame=0.01
+      file=blackdragon_fire_descent
+      fadetime=60
+    }
+    sound {
+      animation=fire_ldivert
+      frame=0.01
+      file=blackdragon_fire_ldivert
+      fadetime=60
+    }
+    sound {
+      animation=fire_rdivert
+      frame=0.01
+      file=blackdragon_fire_rdivert
+      fadetime=60
+    }
+    sound {
+      animation=fire_waft
+      frame=0.01
+      file=blackdragon_fire_waft
+      fadetime=60
+    }
+  }
+  0 {
+    slot=2
+    particle {
+      trans=0/0/0.30000001/0.00000015/1.30899692/0.00000015/0.60000002
+      animation=attack
+      frame=27/42
+      file=attack_fire_flow_core.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=attack
+      frame=27/42
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_flight
+      frame=0/10
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_ldivert
+      frame=0/13
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_rdivert
+      frame=0/13
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_waft
+      frame=0/30
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_takeoff
+      frame=25/30
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_descent
+      frame=0/5
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=attack
+      frame=27/42
+      file=attack_fire_flow_tail.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_flight
+      frame=0/10
+      file=attack_fire_flow_tail.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_ldivert
+      frame=0/13
+      file=attack_fire_flow_tail.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_rdivert
+      frame=0/13
+      file=attack_fire_flow_tail.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_waft
+      frame=0/30
+      file=attack_fire_flow_tail.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_takeoff
+      frame=25/30
+      file=attack_fire_flow_tail.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.22173059/0/1
+      animation=fire_descent
+      frame=0/5
+      file=attack_fire_flow_tail.ptb
+    }
+    omni {
+      trans=0/-0.12359619/-0.86425781/0/-0/0/1
+      animation=attack
+      frame=15
+      restart=true
+      lightland=true
+      key=1/FF000000/5/1
+      key=0.40000001/FF000000/5/1
+      key=0.2/FFFFB324/5/1
+      key=0.2/FFFFC862/5/1
+      key=0.2/FFFFB324/5/1
+      key=0.2/FFFFC862/5/1
+      key=0.2/FF000000/5/1
+      key=2/FF000000/5/1
+    }
+    omni {
+      trans=0/-0.61737061/-0.61737061/0/-0/0/1
+      animation=fire_flight
+      frame=0/10
+      restart=true
+      lightland=true
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+    }
+    omni {
+      trans=0/-0.61737061/-0.61737061/0/-0/0/1
+      animation=fire_waft
+      frame=0/30
+      restart=true
+      lightland=true
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+    }
+    omni {
+      trans=0/-0.61737061/-0.61737061/0/-0/0/1
+      animation=fire_ldivert
+      frame=0/10
+      restart=true
+      lightland=true
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+    }
+    omni {
+      trans=0/-0.61737061/-0.61737061/0/-0/0/1
+      animation=fire_rdivert
+      frame=0/10
+      restart=true
+      lightland=true
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+      key=0.08/FFFFB324/5/1
+      key=0.08/FFFFC862/5/1
+    }
+    omni {
+      trans=0/-0.12359619/-0.86425781/0/-0/0/1
+      animation=fire_takeoff
+      frame=16/30
+      restart=true
+      lightland=true
+      key=1/FF000000/5/1
+      key=0.40000001/FF000000/5/1
+      key=0.2/FFFFB324/5/1
+      key=0.2/FFFFC862/5/1
+      key=0.2/FFFFB324/5/1
+      key=0.2/FFFFC862/5/1
+      key=0.2/FF000000/5/1
+      key=2/FF000000/5/1
+    }
+    omni {
+      trans=0/-0.12359619/-0.86425781/0/-0/0/1
+      animation=fire_descent
+      frame=0/30
+      restart=true
+      lightland=true
+      key=0.1/FFFFB324/5/1
+      key=0.1/FFFFC862/5/1
+      key=0.1/FFFFB324/5/1
+      key=0.1/FFFFC862/5/1
+      key=0.40000001/FF000000/5/1
+      key=2/FF000000/5/1
+    }
+  }
+  1 {
+    particle {
+      trans=0/0/-2/-3.1415925/-0/0/0.80000001
+      animation=attack
+      frame=30/44
+      file=cast_fire_sweep.ptb
+    }
+    particle {
+      trans=0/1.29999995/-1.10000002/0/1.04719722/0/1.5
+      animation=attack
+      frame=27/30
+      file=attack_fire_flow_core.ptb
+    }
+    particle {
+      trans=0/1/-1.29999995/0/1.13446391/0/1.5
+      animation=attack
+      frame=28/31
+      file=attack_fire_flow_core.ptb
+    }
+    particle {
+      trans=0/0.89999998/-1.70000005/0/1.30899644/0/1.5
+      animation=attack
+      frame=29/32
+      file=attack_fire_flow_core.ptb
+    }
+    particle {
+      trans=0/0.69999999/-1.89999998/0/1.30899644/0/1.5
+      animation=attack
+      frame=30/33
+      file=attack_fire_flow_core.ptb
+    }
+    particle {
+      trans=0/0.60000002/-2.0999999/0/1.57079637/0/1.5
+      animation=attack
+      frame=31/34
+      file=attack_fire_flow_core.ptb
+    }
+    camshaker {
+      animation=death
+      frame=30/69
+      restart=true
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0/0/2
+      animation=fire_flight
+      frame=0/8
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-0.80000001/0/-0/0/2
+      animation=fire_flight
+      frame=3/11
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-1.5/0/-0/0/2
+      animation=fire_flight
+      frame=5/10
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/-0/0/2
+      animation=fire_waft
+      frame=0/8
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-0.80000001/0/-0/0/2
+      animation=fire_waft
+      frame=3/11
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-1.5/0/-0/0/2
+      animation=fire_waft
+      frame=5/13
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-1.79999995/0/-0/0/2
+      animation=fire_waft
+      frame=7/15
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-2.0999999/0/-0/0/2
+      animation=fire_waft
+      frame=9/17
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-2.70000005/0/-0/0/2
+      animation=fire_waft
+      frame=11/19
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-3/0/-0/0/2
+      animation=fire_waft
+      frame=13/21
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-3.79999995/0/-0/0/2
+      animation=fire_waft
+      frame=15/23
+      file=attack_dragon_fire.ptb
+    }
+    particle {
+      trans=0/0/-4.5/0/-0/0/2
+      animation=fire_waft
+      frame=17/30
+      file=attack_dragon_fire.ptb
+    }
+  }
+}
+prefetch {
+  blackdragon_idle.bsa=file
+  blackdragon_rare.bsa=file
+  blackdragon_attack.bsa=file
+  blackdragon_move.bsa=file
+  blackdragon_start.bsa=file
+  blackdragon_stop.bsa=file
+  blackdragon_clock.bsa=file
+  blackdragon_contra.bsa=file
+  blackdragon_2clock.bsa=file
+  blackdragon_2contra.bsa=file
+  blackdragon_lturn.bsa=file
+  blackdragon_rturn.bsa=file
+  blackdragon_damage.bsa=file
+  blackdragon_death.bsa=file
+  blackdragon_respawn.bsa=file
+  blackdragon_cast.bsa=file
+  blackdragon_victory.bsa=file
+  blackdragon_takeoff.bsa=file
+  blackdragon_flight.bsa=file
+  blackdragon_descent.bsa=file
+  blackdragon_ldivert.bsa=file
+  blackdragon_rdivert.bsa=file
+  blackdragon_slew.bsa=file
+  blackdragon_waft.bsa=file
+}

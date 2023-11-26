@@ -1,0 +1,743 @@
+// New difficulty bonus - easy
+special_difficulty_easy {
+  category=s
+  hide=1
+  icon=BA1_difficulty_easy_small.png
+  hint=special_difficulty_easy_small
+  hint_header=special_difficulty_easy_head
+  
+  params {
+    type=bonus
+  }
+}
+
+// New difficulty bonus - normal
+special_difficulty_normal {
+  category=s
+  hide=1
+  icon=BA1_difficulty_normal_small.png
+  hint=special_difficulty_normal_small
+  hint_header=special_difficulty_normal_head
+  
+  params {
+    type=bonus
+  }
+}
+
+// New difficulty bonus - hard
+special_difficulty_hard {
+  category=s
+  hide=1
+  icon=BA1_difficulty_hard_small.png
+  hint=special_difficulty_hard_small
+  hint_header=special_difficulty_hard_head
+  
+  params {
+    type=bonus
+  }
+}
+
+// New difficulty bonus - impossible
+special_difficulty_impossible {
+  category=s
+  hide=1
+  icon=BA1_difficulty_impossible_small.png
+  hint=special_difficulty_impossible_small
+  hint_header=special_difficulty_impossible_head
+  
+  params {
+    type=bonus
+  }
+}
+
+// New summon_bonus
+special_summon_bonus {
+  category=s
+  hide=1
+  icon=s_overtime_battle_mage.png
+  hint=special_summon_bonus_small
+  hint_header=special_summon_bonus_head
+  
+  params {
+    type=bonus
+  }
+}
+
+// New special_rooted
+special_rooted {
+  category=s
+  hide=1
+  icon=BA1_rooted_small.png
+  hint=special_rooted_small
+  hint_header=special_rooted_head
+  onremove=features_rooted_onremove
+  
+  params {
+    type=bonus
+  }
+}
+
+feat_potion_evasion {
+  category=s
+  hide=1
+  icon=s_overtime_bless.png
+  hint_config=object_spell
+  school=2
+  hint=feat_potion_poison_damage_small
+  hint_header=feat_potion_poison_damage_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    type=bonus
+  }
+  levels {}
+}
+
+feat_potion_poison_damage {
+  category=s
+  hide=1
+  icon=s_overtime_toxication.png
+  hint_config=object_spell
+  school=3
+  hint=feat_potion_evasion_small
+  hint_header=feat_potion_evasion_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    type=penalty
+  }
+  levels {}
+}
+
+feat_explode {
+  category=s
+  hide=1
+  icon=s_overtime_bless.png
+  hint_config=object_spell
+  school=3
+  hint=feat_rabid_small
+  hint_header=feat_rabid_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=explode_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=1
+    level=3 //%
+    type=penalty
+  }
+  levels {}
+}
+
+feat_rabid {
+  category=s
+  hide=1
+  icon=s_overtime_mad.png
+  hint_config=object_spell
+  school=3
+  hint=feat_rabid_small
+  hint_header=feat_rabid_head
+  
+  attack=scripted
+  onremove=features_rabid_onremove
+  scripted {
+    script_attack=
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    level=3 //%
+    type=penalty
+  }
+  levels {}
+}
+
+feat_bleeding {
+  category=s
+  hide=1
+  icon=s_overtime_bleed.png
+  hint_config=object_spell
+  school=3
+  hint=feat_bleeding_small
+  hint_header=feat_bleeding_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=1
+    power=30 //%
+    type=penalty
+  }
+  levels {}
+}
+
+feat_lump_bleeding {
+  category=s
+  hide=1
+  icon=s_overtime_bleed.png
+  hint_config=object_spell
+  school=3
+  hint=feat_lump_bleeding_small
+  hint_header=feat_lump_bleeding_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=3
+    type=penalty
+  }
+  levels {}
+}
+
+special_elf_song {
+  category=s
+  hide=1
+  icon=s_overtime_elf_song.png
+  hint_config=object_spell
+  school=3
+  hint=special_elf_song_small
+  hint_header=special_elf_song_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=special_elf_song_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=5
+    power=3 //%
+    type=bonus
+  }
+  levels {}
+}
+
+// 100%
+special_ogre_rage {
+  category=s
+  hide=1
+  icon=s_overtime_ogre_rage.png
+  //  label=special_ogre_rage
+  hint_config=object_spell
+  school=3
+  hint=special_ogre_rage
+  hint_header=special_ogre_rage_head
+  
+  params {
+    type=bonus
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=0,0
+    2=2,1
+    3=3,2
+  }
+}
+
+// 100%
+special_magic_shield {
+  category=s
+  hide=1
+  icon=s_overtime_magic_shield.png
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=special_magic_shield_small
+  hint_header=special_magic_shield_head
+  
+  scripted {
+    nfeatures=magic_immunitet,boss,pawn
+    script_attack=special_magic_shield_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=3
+    power=50    // % снижения урона
+    type=bonus
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=1,0
+    2=2,1
+    3=3,2
+  }
+}
+
+special_battle_mage {
+  category=s
+  hide=1
+  icon=s_overtime_battle_mage.png
+  hint_config=object_spell
+  school=3
+  hint=special_battle_mage_small
+  hint_header=special_battle_mage_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=special_battle_mage_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=2
+    power=100 //%
+    penalty=50 //%
+    type=bonus
+    shock=50    //%шокирования
+    krit=15 //%крита
+  }
+  levels {}
+}
+
+special_berserk {
+  category=s
+  hide=1
+  icon=s_overtime_berserk.png
+  hint_config=object_spell
+  school=3
+  hint=special_barb_small
+  hint_header=special_barb_head
+  onremove=spell_berserker_onremove
+  attack=scripted
+  
+  scripted {
+    script_attack=special_berserk_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=3
+    power=100 //%
+    penalty=50 //%
+    type=bonus
+  }
+  levels {}
+}
+
+special_haste {
+  category=s
+  hide=1
+  icon=s_overtime_haste.png
+  hint_config=object_spell
+  school=3
+  hint=special_speeder_small
+  hint_header=special_speeder_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=special_haste_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=2
+    power=100 //%
+    type=bonus
+  }
+  levels {}
+}
+
+special_aiming {
+  category=s
+  hide=1
+  icon=s_overtime_aiming.png
+  hint_config=object_spell
+  school=3
+  hint=special_aiming_small
+  hint_header=special_aiming_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=special_aiming_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=2
+    power=50 //%
+    type=bonus
+  }
+  levels {}
+}
+
+special_spider_web {
+  category=s
+  hide=1
+  // поправить
+  icon=s_overtime_web.png
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=special_spider_web_small
+  hint_header=special_spider_web_head
+  onremove=spider_web_onremove
+  
+  scripted {
+    script_attack=special_spider_web_attack
+    script_calccells=calccells_all_enemy_around
+    attack_cursor=magicstick
+    nfeatures=pawn,boss
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=2
+    type=penalty
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=1,0
+    2=2,1
+    3=3,2
+  }
+}
+
+special_holy_rage {
+  category=s
+  hide=1
+  icon=s_overtime_holy_rage.png
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=special_holy_rage_small
+  hint_header=special_holy_rage_head
+  
+  scripted {
+    script_attack=special_bless_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=2
+    rage=5-10
+    damage=50  //+% к урону
+    type=bonus
+  }
+}
+
+special_stupid {
+  category=s
+  hide=1
+  icon=s_overtime_magic_bondage.png
+  hint_config=object_spell
+  school=2
+  hint=special_stupid_small
+  hint_header=special_stupid_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=special_stupid_attack
+    script_calccells=calccells_all_enemy
+    attack_cursor=magicstick
+    nfeatures=mind_immunitet
+  }
+  params {
+    duration=2
+    type=penalty
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=1,0
+    2=2,1
+    3=3,2
+  }
+}
+
+special_wolf_cry {
+  category=s
+  hide=1
+  icon=s_overtime_bless.png
+  hint_config=object_spell
+  school=2
+  hint=special_wolf_cry_small
+  hint_header=special_wolf_cry_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=special_wolf_cry_attack
+    script_calccells=
+    attack_cursor=magicstick
+    nfeatures=mind_immunitet
+  }
+  params {
+    duration=2
+    power=50
+    level=2
+    race=human
+    type=penalty
+  }
+  levels {}
+}
+
+special_preparation {
+  category=s
+  hide=1
+  icon=s_overtime_preparation.png
+  hint_config=object_spell
+  school=2
+  hint=special_preparation_small
+  hint_header=special_preparation_head
+  
+  params {
+    //    krit=150    //+%
+    type=bonus
+    power=2
+    duration=1
+  }
+  levels {}
+}
+
+// features
+feat_increase_anger {
+  category=s
+  hide=1
+  icon=s_overtime_surged_wrath.png
+  hint_config=object_spell
+  school=2
+  hint=feat_increase_anger_small
+  hint_header=feat_increase_anger_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=features_increase_anger
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    type=bonus
+    krit_bonus=3 // бонус к % крита
+    power=3 //бонус в единицах к урону
+    duration=10
+  }
+  levels {}
+}
+
+feat_brutality {
+  category=s
+  hide=1
+  icon=s_overtime_brutality.png
+  hint_config=object_spell
+  school=2
+  hint=feat_brutality_small
+  hint_header=feat_brutality_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=features_brutality
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    type=bonus
+    added=no   // если yes то бонусы складываются. иначе последний бонус заменяет предыдущий
+    power=100 //%
+    duration=1
+  }
+  levels {}
+}
+
+feat_fire_shield {
+  category=s
+  hide=1
+  icon=s_overtime_bless.png
+  hint_config=object_spell
+  school=3
+  hint=feat_wolf_cry_small
+  hint_header=feat_wolf_cry_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=features_fire_shield
+    script=features_fire_shield
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    type=bonus
+    typedmg=fire
+    phoenix=10-20
+    cerberus=10-20
+    duration=3
+  }
+  levels {}
+}
+
+
+//Спелы для атак спиритов
+
+spirit_slime_poison {
+  category=s
+  hide=1
+  icon=s_overtime_toxication.png
+  hint_config=object_spell
+  school=2
+  hint=spirit_poison_small
+  hint_header=spirit_poison_head
+  nfeatures=poison_immunitet
+  
+  each_turn_attack=scripted
+  
+  scripted {
+    script_attack=slime_spittle_poison_attack
+    custom_params {
+      typedmg=poison
+    }
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    type=penalty
+    power=20            // на 20% снижена атака
+  }
+}
+
+spirit_slime_glot {
+  category=s
+  hide=1
+  icon=s_overtime_glot_armor.png
+  hint_config=object_spell
+  school=2
+  hint=spirit_slime_glot_small
+  hint_header=spirit_slime_glot_header
+  nfeatures=magic_immunitet
+  onremove=spirit_slime_glot_onremove
+  
+  params {
+    type=bonus
+    power=20            // на 20% снижена атака
+  }
+}
+
+
+spirit_therock_stunning {
+  category=s
+  hide=1
+  icon=s_overtime_stun.png
+  hint_config=object_spell
+  school=2
+  hint=special_wolf_cry_small
+  hint_header=special_wolf_cry_head
+  
+  params {
+    type=penalty
+  }
+}
+
+
+totem_totem_life {
+  category=s
+  hide=1
+  icon=s_overtime_totem_life.png
+  hint_config=object_spell
+  school=2
+  hint=special_totem_life_small
+  hint_header=special_totem_life_head
+  params {
+    type=bonus
+  }
+  
+}
+
+totem_totem_death {
+  category=s
+  hide=1
+  icon=s_overtime_totem_death.png
+  hint_config=object_spell
+  school=2
+  hint=special_totem_death_small
+  hint_header=special_totem_death_head
+  params {
+    type=penalty
+  }
+  
+}
+
+totem_blood_rune {
+  category=s
+  hide=1
+  icon=s_overtime_blood_pentagram.png
+  hint_config=object_spell
+  school=2
+  hint=special_blood_rune_small
+  hint_header=special_blood_rune_head
+  params {
+    type=bonus
+  }
+  
+}
+
+totem_shroud {
+  category=s
+  hide=1
+  icon=s_overtime_shroud.png
+  hint_config=object_spell
+  school=2
+  hint=spell_shroud_hint
+  hint_header=spell_shroud_header
+  params {
+    type=penalty
+  }
+  
+}
+
+
+//Для боссов
+
+sboss_arena_start {
+  category=s
+  hide=1
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=sboss_arena_start
+  }
+}
+
+
+kraken_boss_arena_start {
+  category=s
+  hide=1
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=kraken_boss_arena_start
+  }
+}

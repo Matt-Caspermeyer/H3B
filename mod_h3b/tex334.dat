@@ -1,0 +1,67 @@
+TEX334 {
+  block {
+    filename=BA1_castsacrifice_small.png
+    in_tex_pos=0,0
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,85
+  }
+  block {
+    filename=BA1_charge_small.png
+    in_tex_pos=26,0
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=85,85
+  }
+  block {
+    filename=BA1_rooted_small.png
+    in_tex_pos=52,0
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=170,85
+  }
+  block {
+    filename=BA1_summonplant_small.png
+    in_tex_pos=78,0
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=255,85
+  }
+  block {
+    filename=BA1_difficulty_easy_small.png
+    in_tex_pos=0,26
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=340,85
+  }
+  block {
+    filename=BA1_difficulty_normal_small.png
+    in_tex_pos=26,26
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=425,85
+  }
+  block {
+    filename=BA1_difficulty_hard_small.png
+    in_tex_pos=52,26
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=510,85
+  }
+  block {
+    filename=BA1_difficulty_impossible_small.png
+    in_tex_pos=78,26
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=595,85
+  }
+  texture_size=104,52
+}

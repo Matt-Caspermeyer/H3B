@@ -1,0 +1,225 @@
+main {
+  class=chesspiece
+  model=dwarf.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_dwarf_feat
+  race=dwarf
+  cost=220
+  level=3
+  leadership=80
+  attack=20
+  defense=16
+  defenseup=4
+  initiative=4
+  speed=2
+  hitpoint=80
+  movetype=0
+  krit=14
+  hitback=1
+  hitbackprotect=0
+  features=humanoid
+  attacks=moveattack,run
+  resistances {
+    physical=7
+    poison=7
+    magic=7
+    fire=7
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=8,12
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=dwarf_idle.bsa/fr:25:50
+  rare=dwarf_rare.bsa/fr:25:50
+  attack=dwarf_attack.bsa/fr:25:50
+  move=dwarf_move.bsa/fr:35:70
+  start=dwarf_start.bsa/fr:35:70
+  stop=dwarf_stop.bsa/fr:40:80
+  clock=dwarf_clock.bsa/fr:40:80
+  contra=dwarf_contra.bsa/fr:40:80
+  clock2=dwarf_2clock.bsa/fr:35:70
+  contra2=dwarf_2contra.bsa/fr:35:70
+  lturn=dwarf_lturn.bsa/fr:35:70
+  rturn=dwarf_rturn.bsa/fr:35:70
+  damage=dwarf_damage.bsa/fr:25:50
+  slew=dwarf_slew.bsa/fr:35:70
+  rush=dwarf_rush.bsa/fr:30:50
+  death=dwarf_death.bsa/fr:25:50
+  respawn=dwarf_respawn.bsa/fr:25:50
+  cursor=dwarf_rare.bsa/fr:25:50
+  teleout=dwarf_idle.bsa/fr:25:50/r:65:100
+  telein=dwarf_idle.bsa/fr:25:50/r:0:35
+  happy=dwarf_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    16.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    24.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=dwarf_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=dwarf_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=dwarf_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=dwarf_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=dwarf_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=dwarf_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=dwarf_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=dwarf_contra
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=dwarf_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=dwarf_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=dwarf_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=dwarf_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=dwarf_death
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=dwarf_rush
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  dwarf_idle.bsa=file
+  dwarf_rare.bsa=file
+  dwarf_attack.bsa=file
+  dwarf_move.bsa=file
+  dwarf_start.bsa=file
+  dwarf_stop.bsa=file
+  dwarf_clock.bsa=file
+  dwarf_contra.bsa=file
+  dwarf_2clock.bsa=file
+  dwarf_2contra.bsa=file
+  dwarf_lturn.bsa=file
+  dwarf_rturn.bsa=file
+  dwarf_damage.bsa=file
+  dwarf_death.bsa=file
+  dwarf_respawn.bsa=file
+  dwarf_victory.bsa=file
+  dwarf_rush.bsa=file
+}

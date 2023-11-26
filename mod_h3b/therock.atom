@@ -1,0 +1,1528 @@
+main {
+  class=spirit
+  nodimming=1
+  bboxanim=1
+  model {
+    0=therock.bma
+    1=therocklump.bma
+  }
+}
+animations {
+  idle=therock_appear.bsa/fr:25:50/r:0:1
+  rare=therock_rare.bsa/fr:25:50
+  extra=therock_extra.bsa/fr:25:50
+  spare=therock_spare.bsa/fr:25:50
+  appear=therock_appear.bsa/fr:25:50
+  attack1=therock_attack_quake.bsa/fr:25:50
+  attack2=therocklump_lump.bsa/fr:25:50/m:1
+  attack3=therock_attack_rockfall_7.bsa/fr:25:50/r:0:50
+  attack4=therock_wall.bsa/fr:25:50
+  2attack1=therock_short_quake.bsa/fr:25:50
+  2attack2=therocklump_short_lump.bsa/fr:25:50/m:1
+  2attack3=therock_short_rockfall.bsa/fr:25:50/r:0:50
+  2attack4=therock_short_thewall.bsa/fr:25:50
+  @attack1 {
+    25.0?quake=
+  }
+  @attack2 {
+    125?start=
+    145?end=
+    146?lump=
+  }
+  @attack3 {
+    40.0=alpha/0/5
+    49?drop=
+  }
+  @2attack1 {
+    25.0?quake=
+  }
+  @2attack2 {
+    125?start=
+    145?end=
+    146?lump=
+  }
+  @2attack3 {
+    40.0=alpha/0/5
+    49?drop=
+  }
+}
+slogic {
+  long_seq_play_interval=10
+  posthitmaster=therock_posthit
+}
+spirit {
+  lump {
+    script_attack=therock_lump
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    level=0
+    default=level1
+    upgrade {
+      level1=level:0/damage:physical:80:100,rage:4,rest:3,exp:4,level:1,bleeding:10
+      level2=level:1/damage:physical:+80:+100,rage:+1,exp:+1,level:2,bleeding:+10
+      level3=level:2/damage:physical:+160:+200,rage:+2,exp:+2,level:3,bleeding:+10
+      level4=level:3,LV:>4/damage:physical:+320:+400,rage:+3,exp:+3,level:4,bleeding:+10
+      level5=level:4,LV:>7/damage:physical:+640:+800,rage:+4,exp:+4,level:5,bleeding:+10
+      level6=level:5,LV:>10/damage:physical:+1280:+1600,rage:+5,exp:+5,level:6,bleeding:+10
+      level7=level:6,LV:>13/damage:physical:+2560:+3200,rage:+6,exp:+6,level:7,bleeding:+10
+      rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
+      rage2=rs:1,level:>6,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
+      rest1=rest:3,LV:>5/rest:2,exp:+2,restlevel:1
+      rest2=rest:2,LV:>15/rest:1,exp:+4,restlevel:2
+    }
+  }
+  wall {
+	no_hint=1
+    script_attack=therock_wall
+    script_calccells=therock_wall_calccells
+    level=2
+    default=level1
+    upgrade {
+      level1=level:0/rage:10,rest:4,exp:10,level:1,health:500,ttl:6,wall_def:20,level:1,res_all:10
+      level2=level:1/rage:+1,exp:+1,level:2,health:+500,wall_def:+20,level:2,res_all:+10
+      level3=level:2/rage:+2,exp:+2,level:3,health:+1000,wall_def:+20,level:3,res_all:+10
+      level4=level:3/rage:+3,exp:+3,level:4,health:+2000,wall_def:+20,level:4,res_all:+10
+      level5=level:4/rage:+4,exp:+4,level:5,health:+4000,wall_def:+20,level:5,res_all:+10
+      rage1=rs:0,level:>2,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
+      rage2=rs:1,level:>4,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
+      rest1=rest:4,LV:>6/rest:3,exp:+2,restlevel:1
+      rest2=rest:3,LV:>13/rest:2,exp:+4,restlevel:2
+      ttl1=ttl:6/ttl:9,rage:+5,exp:+5,ttllevel:1
+      ttl2=ttl:9/ttl:12,rage:+10,exp:+10,ttllevel:2
+    }
+  }
+  rockfall {
+    script_attack=therock_rockfall
+    script_calccells=therock_rockfall_select
+    level=4
+    default=level1
+    upgrade {
+      level1=level:0/damage:physical:100:150,rage:6,rest:4,exp:6,square:3,level:1,stunning:50
+      level2=level:1/damage:physical:+100:+150,rage:+2,exp:+2,level:2,stunning:+5
+      level3=level:2/damage:physical:+200:+250,rage:+4,exp:+4,level:3,stunning:+5
+      level4=level:3/damage:physical:+400:+450,rage:+6,exp:+6,level:4,stunning:+5
+      level5=level:4,LV:>10/damage:physical:+600:+650,rage:+8,exp:+8,level:5,stunning:+5
+      level6=level:5,LV:>14/damage:physical:+800:+850,rage:+10,exp:+10,level:6,stunning:+5
+      level7=level:6,LV:>18/damage:physical:+1000:+1050,rage:+12,exp:+12,level:7,stunning:+5
+      rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
+      rage2=rs:1,level:>5,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
+      square1=square:3,LV:>10/rage:+5,square:7,exp:+5,squarelevel:1
+      square2=square:7,LV:>15/rage:+10,square:19,exp:+10,squarelevel:2
+      rest1=rest:4,LV:>6/rest:3,exp:+2,restlevel:1
+      rest2=rest:3,LV:>18/rest:2,exp:+4,restlevel:2
+    }
+  }
+  quake {
+    log_label=sdmg_s
+    script_attack=therock_quake
+    script_calccells=
+    framekey=x
+    level=8
+    default=level1
+    upgrade {
+      level1=level:0/damage:physical:150:200,rage:9,rest:4,exp:9,level:1,bleeding:5
+      level2=level:1/damage:physical:+150:+200,rage:+3,exp:+2,level:2,bleeding:+5
+      level3=level:2/damage:physical:+200:+250,rage:+6,exp:+3,level:3,bleeding:+5
+      level4=level:3,LV:>11/damage:physical:+300:+350,rage:+9,exp:+5,level:4,bleeding:+5
+      level5=level:4,LV:>13/damage:physical:+400:+450,rage:+12,exp:+6,level:5,bleeding:+5
+      level6=level:5,LV:>18/damage:physical:+500:+550,rage:+15,exp:+8,level:6,bleeding:+5
+      level7=level:6,LV:>25/damage:physical:+600:+650,rage:+18,exp:+9,level:7,bleeding:+5
+      rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
+      rage2=rs:1,level:>5,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
+      rest1=rest:4,LV:>10/rest:3,exp:+2,restlevel:1
+      rest2=rest:3,LV:>20/rest:2,exp:+4,restlevel:2
+    }
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=1:1:360
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/0.61737061/-0.12359619/0/-0/0/1
+      animation=attack1
+      frame=24/64
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0/0/1
+      animation=attack1
+      frame=24/64
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=0/0.12359619/0/0/-0/0/1
+      animation=attack1
+      frame=28/64
+      file=therock_dustbox.ptb
+    }
+    particle {
+      trans=0/0.86425781/-1.11114502/0/-0/0/1
+      animation=attack1
+      frame=24/64
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/0.12359619/0.86425781/0/-0/0/1
+      animation=attack1
+      frame=25/64
+      file=therock_heavydust.ptb
+    }
+    camshaker {
+      animation=attack1
+      frame=24
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    coord=0/-0.2/-0.61737061/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=-0.61737061/0.1/-0.61737061/1.59016275/-0/0/0.99999988
+      animation=appear
+      frame=5/50
+      file=therock_tidein.ptb
+    }
+    particle {
+      trans=-0.12359619/0.2/-0.12359619/2.44343972/-0/0/0.99999988
+      animation=appear
+      frame=5/50
+      file=therock_tidein.ptb
+    }
+    particle {
+      trans=-0.2/0.30000001/-0.2/2.36587787/-0/0/1
+      animation=appear
+      frame=20/50
+      file=therock_tidein.ptb
+    }
+    particle {
+      trans=-0.1/0.2/-0.1/2.90890694/-0/0/1.00000143
+      animation=appear
+      frame=5/50
+      file=therock_tidein.ptb
+    }
+    particle {
+      trans=0.61737061/0.2/0.61737061/-2.05563021/-0/0/0.99999988
+      animation=appear
+      frame=5/50
+      file=therock_tidein.ptb
+    }
+    particle {
+      trans=0.30000001/0.2/0.30000001/-2.44343972/-0/0/0.99999988
+      animation=appear
+      frame=5/50
+      file=therock_tidein.ptb
+    }
+    particle {
+      trans=0.1/0.2/0.1/-1.82294452/-0/0/0.99999988
+      animation=appear
+      frame=5/50
+      file=therock_tidein.ptb
+    }
+    camshaker {
+      animation=appear
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    particle {
+      trans=2.34558105/0.02/4.56787109/0/-0/0/1
+      animation=appear
+      frame=0/3
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=-6.29638672/0.01/-0.3704834/0/-0/0/1
+      animation=appear
+      frame=1/5
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=-4.32098389/0/-2.34558105/0/-0/0/1
+      animation=appear
+      frame=4/8
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=-4.07409668/0/-3.82720947/0/-0/0/1
+      animation=appear
+      frame=7/11
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=7.77770996/0/-3.82720947/0/1.57079637/0/1.39999998
+      animation=appear
+      frame=3/7
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=0.3704834/0.1/-4.56787109/0/1.57079637/0/1.39999998
+      animation=appear
+      frame=19/23
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=0/2.34558105/0/-0.42663887/0.001151/0/0.79999989
+      animation=appear
+      frame=25/27
+      file=therock_thickdust.ptb
+    }
+    coord=0/0.1/0/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=-0.3704834/3.08654785/0/1.82294798/-0.00000014/0.19395332/0.80000001
+      animation=appear
+      frame=27/50
+      file=therock_sparkpuff_red.ptb
+    }
+    particle {
+      trans=-0.12359619/1.35803223/-1.11114502/0.4723067/0.00117904/0.05814494/0.90000015
+      animation=appear
+      frame=24/50
+      file=therock_sparkpuff_red.ptb
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/1
+      animation=appear
+      frame=28/45
+      file=therock_red_dusty.ptb
+    }
+    particle {
+      trans=-1.11114502/3.08654785/0/0/0.65932423/0/1
+      animation=appear
+      frame=27/49
+      file=therock_sparkbang_red.ptb
+    }
+    particle {
+      trans=0/1.85180664/-0.86425781/0.81444824/0.96966726/-0/1
+      animation=appear
+      frame=25/49
+      file=therock_sparkbang_red.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=1.60491943/0/-2.09869385/1.04722953/0.11639079/-0/0.99999994
+      animation=rare
+      frame=20/49
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=-1.11114502/0/-2.09869385/0.58176291/-0.00000002/0.34907693/0.80000019
+      animation=rare
+      frame=23/49
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=1.60491943/0.12359619/-2.34558105/-1.51260126/-0.65919679/0.00000028/0.9999947
+      animation=rare
+      frame=21/29
+      file=therock_duststrikes.ptb
+    }
+    particle {
+      trans=1.60491943/0.1/-2.34558105/1.51260114/-0.42663842/0.27151459/1
+      animation=rare
+      frame=21/29
+      file=therock_duststrikes.ptb
+    }
+    particle {
+      trans=-1.35803223/0.1/-2.34558105/-1.51260114/-0.5042004/-0.27151456/1
+      animation=rare
+      frame=23/33
+      file=therock_duststrikes.ptb
+    }
+    particle {
+      trans=-1.11114502/0.1/-2.34558105/1.51260114/-0/0/1
+      animation=rare
+      frame=23/33
+      file=therock_duststrikes.ptb
+    }
+    camshaker {
+      animation=rare
+      frame=20/200
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    coord=0/0.1/0/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=2.34558105/2.59246826/-0.3704834/0/-0/-0.89200985/1.10000002
+      animation=extra
+      frame=25/29
+      file=therock_lightwave_red.ptb
+    }
+    particle {
+      trans=1.60491943/3.33343506/-0.2/0/-0/0/1.20000005
+      animation=extra
+      frame=28/32
+      file=therock_lightwave_red.ptb
+    }
+    particle {
+      trans=0.86425781/3.33343506/-0.61737061/0/-0/0/1.20000005
+      animation=extra
+      frame=35/40
+      file=therock_lightwave_red.ptb
+    }
+    particle {
+      trans=-0.61737061/3.33343506/-0.3704834/0/-0/0/1.20000005
+      animation=extra
+      frame=42/50
+      file=therock_lightwave_red.ptb
+    }
+    particle {
+      trans=-1.60491943/3.08654785/0.12359619/0/-0/0.65932423/1.20000005
+      animation=extra
+      frame=47/53
+      file=therock_lightwave_red.ptb
+    }
+    camshaker {
+      animation=extra
+      frame=22/111
+      envelope=in_out_25.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=extra
+      frame=33/111
+      envelope=in_out_25.envlp
+      attenuation=0.1
+    }
+  }
+  0 {
+    particle {
+      trans=0/0.3704834/0/0.24157253/-1.57079637/0/1.49999988
+      frame=10/50
+      file=therock_field_red.ptb
+    }
+    particle {
+      trans=0.3704834/0/0/-0.96966755/-0.00000007/-0.34907648/0.99999994
+      animation=spare
+      frame=21/48
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.2/0/0.65932435/-0.03882891/0.42663857/0.9999997
+      animation=spare
+      frame=21/40
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=0.3704834/-0.12359619/0.12359619/2.94763994/-0.9308362/-3.1415925/0.99999988
+      compass=true
+      animation=spare
+      frame=21/47
+      file=therock_dustmill.ptb
+    }
+    particle {
+      trans=-0.12359619/-0.3704834/-0.12359619/0.73688608/-0.27151456/0.00000001/1
+      animation=spare
+      frame=21/48
+      file=therock_rockfountain.ptb
+    }
+    particle {
+      trans=0.1/-0.5/0.2/0/0.00014979/0/0.69999999
+      compass=true
+      animation=spare
+      frame=22/45
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/1.24108636/0/1
+      animation=attack4
+      frame=17/36
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/1.24108636/0/1
+      animation=attack4
+      frame=79/89
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/1.24108636/0/1
+      animation=attack4
+      frame=108/116
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/1.24108636/0/1
+      animation=2attack4
+      frame=27/36
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/1.24108636/0/1
+      animation=2attack4
+      frame=79/89
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/1.24108636/0/1
+      animation=2attack4
+      frame=108/116
+      file=therock_handpower_red.ptb
+    }
+    slot=0
+  }
+  0 {
+    particle {
+      trans=0/0.3704834/0/0/-0/0/1.10000002
+      frame=22/88
+      file=therock_field_red.ptb
+    }
+    slot=3
+  }
+  0 {
+    particle {
+      trans=1.11114502/0/-0.12359619/0/-0/0/1.20000005
+      frame=15/88
+      file=therock_field_red.ptb
+    }
+    particle {
+      trans=-0.86425781/-0.1/0/0/-0/0/1.29999995
+      frame=12/88
+      file=therock_field_red.ptb
+    }
+    slot=5
+  }
+  0 {
+    particle {
+      trans=0.12359619/0.40000001/0/0/-0/0/1.20000005
+      frame=12/88
+      file=therock_field_red.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=attack4
+      frame=16/37
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=attack4
+      frame=59/68
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=attack4
+      frame=108/116
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=2attack4
+      frame=27/37
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=2attack4
+      frame=59/68
+      file=therock_handpower_red.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=2attack4
+      frame=108/116
+      file=therock_handpower_red.ptb
+    }
+    slot=1
+  }
+  0 {
+    particle {
+      trans=0/0.69999999/0.12359619/0/-0/0/1.20000005
+      frame=12/88
+      file=therock_field_red.ptb
+    }
+    slot=4
+  }
+  0 {
+    particle {
+      trans=0/0.3704834/-0.1/0/-0/0/1.39999998
+      frame=12/88
+      file=therock_field_red.ptb
+    }
+    slot=6
+  }
+  0 {
+
+    particle {
+      trans=0/0.12359619/0.3704834/0/-0/0/1.29999995
+      animation=appear
+      frame=13/88
+      file=therock_field_red.ptb
+    }
+    particle {
+      trans=-0.19/0.03/-0.40000001/-0.42504513/-1.57079637/0/1.29999959
+      animation=appear
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=0.22/0.02/-0.3704834/0.31124049/-1.57079637/0/1.29999995
+      animation=appear
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=-0.2/0.03/-0.41999999/-0.5042004/-0.61631364/0/1.29999995
+      animation=appear
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+    particle {
+      trans=0.23/0.02/-0.38999999/0.42663836/-0.19753857/0/1.29999983
+      animation=appear
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+
+    particle {
+      trans=0/0.12359619/0.3704834/0/-0/0/1.29999995
+      animation=rare
+      frame=13/88
+      file=therock_field_red.ptb
+    }
+    particle {
+      trans=-0.19/0.03/-0.40000001/-0.42504513/-1.57079637/0/1.29999959
+      animation=rare
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=0.22/0.02/-0.3704834/0.31124049/-1.57079637/0/1.29999995
+      animation=rare
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=-0.2/0.03/-0.41999999/-0.5042004/-0.61631364/0/1.29999995
+      animation=rare
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+    particle {
+      trans=0.23/0.02/-0.38999999/0.42663836/-0.19753857/0/1.29999983
+      animation=rare
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+    particle {
+      trans=0/0.12359619/0.3704834/0/-0/0/1.29999995
+      animation=spare
+      frame=13/88
+      file=therock_field_red.ptb
+    }
+    particle {
+      trans=-0.19/0.03/-0.40000001/-0.42504513/-1.57079637/0/1.29999959
+      animation=spare
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=0.22/0.02/-0.3704834/0.31124049/-1.57079637/0/1.29999995
+      animation=spare
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=-0.2/0.03/-0.41999999/-0.5042004/-0.61631364/0/1.29999995
+      animation=spare
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+    particle {
+      trans=0.23/0.02/-0.38999999/0.42663836/-0.19753857/0/1.29999983
+      animation=spare
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+    particle {
+      trans=0/0.12359619/0.3704834/0/-0/0/1.29999995
+      animation=extra
+      frame=13/88
+      file=therock_field_red.ptb
+    }
+    particle {
+      trans=-0.19/0.03/-0.40000001/-0.42504513/-1.57079637/0/1.29999959
+      animation=extra
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=0.22/0.02/-0.3704834/0.31124049/-1.57079637/0/1.29999995
+      animation=extra
+      restart=true
+      file=therock_eye_red.ptb
+    }
+    particle {
+      trans=-0.2/0.03/-0.41999999/-0.5042004/-0.61631364/0/1.29999995
+      animation=extra
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+    particle {
+      trans=0.23/0.02/-0.38999999/0.42663836/-0.19753857/0/1.29999983
+      animation=extra
+      restart=true
+      file=therock_eyepupil_red.ptb
+    }
+
+    slot=2
+  }
+  0 {
+    particle {
+      trans=0/-0.12359619/-0.30000001/0/-0/0/1.29999995
+      frame=11/88
+      file=therock_field_red.ptb
+    }
+    slot=7
+  }
+  1 {
+    aspawn {
+      animation=spare
+      frame=0/80
+      restart=true
+      atag=therock_rocks_spare
+    }
+    particle {
+      trans=1.11114502/0.1/-1.85180664/1.20235324/-0/0/1.20000005
+      animation=spare
+      frame=13/18
+      file=therock_duststrikes.ptb
+    }
+    particle {
+      trans=0.86425781/0.1/-1.60491943/0/-0/-0.19395277/0.34999999
+      animation=spare
+      frame=13/20
+      file=therock_fountain.ptb
+    }
+    camshaker {
+      animation=spare
+      frame=13/70
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=spare
+      frame=17/70
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    particle {
+      trans=0/1.35803223/-0.3704834/0/-0/0/0.80000001
+      animation=attack2
+      frame=49/65
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/2.34558105/0/0/-0/0/1.20000005
+      animation=attack2
+      frame=63/80
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/3.58032227/0.3704834/0/-0/0/0.69999999
+      animation=attack2
+      frame=72/88
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/4.8147583/1.11114502/0/-0/0/1
+      animation=attack2
+      frame=81/99
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/6.04949951/1.35803223/0/-0/0/0.80000001
+      animation=attack2
+      frame=90/105
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0.61737061/6.54327393/1.60491943/0/-0/0/0.80000001
+      animation=attack2
+      frame=92/108
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=-0.86425781/6.79016113/1.60491943/0/-0/0/0.69999999
+      animation=attack2
+      frame=94/111
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/7.53082275/2.34558105/0/-0/0/1
+      animation=attack2
+      frame=94/122
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0.61737061/0/0/2.30537891/0.54302931/-0/1.99998987
+      animation=attack2
+      frame=146/155
+      file=therock_electrobeams_red.ptb
+    }
+    particle {
+      trans=-0.86425781/0/0/0.7757147/-0.69815308/0.00000049/1.8999995
+      animation=attack2
+      frame=146/155
+      file=therock_electrobeams_red.ptb
+    }
+    particle {
+      trans=0/0/-0.61737061/0.00000009/-0.5041998/0.00000009/1.95000005
+      animation=attack2
+      frame=146/155
+      file=therock_electrobeams_red.ptb
+    }
+    camshaker {
+      animation=attack2
+      frame=145/155
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+  }
+  0 {
+    particle {
+      trans=0.15000001/-3.5999999/-0.12359619/0/-0/0.34907651/1
+      animation=attack2
+      frame=50/64
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-2.4000001/-0.12359619/0/-0/-0.27151459/1.20000005
+      animation=attack2
+      frame=64/73
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-1.60491943/-0.12359619/0/-0/0/0.80000001
+      animation=attack2
+      frame=73/81
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-0.61737061/-0.12359619/0/-0/-0.5042004/1
+      animation=attack2
+      frame=82/87
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/0.3704834/-0.12359619/0/-0/0/1.20000005
+      animation=attack2
+      frame=87/91
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/1.35803223/-0.12359619/0/-0/0/0.69999999
+      animation=attack2
+      frame=91/93
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/2.09869385/0/0/-0/0.73688591/1
+      animation=attack2
+      frame=92/95
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-2.83935547/0/0/-0/1.66772485/2.5
+      animation=attack2
+      frame=120/145
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/2.59246826/0/0/-0/1.59016275/1.99999976
+      animation=attack2
+      frame=124/146
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0.15000001/-3.5999999/-0.12359619/0/-0/0.34907651/1
+      animation=2attack2
+      frame=50/64
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-2.4000001/-0.12359619/0/-0/-0.27151459/1.20000005
+      animation=2attack2
+      frame=64/73
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-1.60491943/-0.12359619/0/-0/0/0.80000001
+      animation=2attack2
+      frame=73/81
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-0.61737061/-0.12359619/0/-0/-0.5042004/1
+      animation=2attack2
+      frame=82/87
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/0.3704834/-0.12359619/0/-0/0/1.20000005
+      animation=2attack2
+      frame=87/91
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/1.35803223/-0.12359619/0/-0/0/0.69999999
+      animation=2attack2
+      frame=91/93
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/2.09869385/0/0/-0/0.73688591/1
+      animation=2attack2
+      frame=92/95
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/-2.83935547/0/0/-0/1.66772485/2.5
+      animation=2attack2
+      frame=120/145
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/2.59246826/0/0/-0/1.59016275/1.99999976
+      animation=2attack2
+      frame=124/146
+      file=therock_electro_red.ptb
+    }
+    slot=8
+  }
+  1 {
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.80000001
+      animation=attack2
+      frame=146/150
+      file=therock_thickdust.ptb
+    }
+    particle {
+      animation=attack2
+      frame=146/178
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/0.05/0/0/-0/0/0.60000002
+      animation=attack2
+      frame=146/176
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=attack2
+      frame=154/169
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.69999999
+      animation=attack2
+      frame=170/176
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0/0/1.29999995
+      animation=attack2
+      frame=146/172
+      file=therock_rockfountain.ptb
+    }
+    camshaker {
+      animation=2attack2
+      frame=145/155
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    aspawn {
+      animation=attack1
+      frame=0/105
+      atag=thespikes
+    }
+    camshaker {
+      animation=attack1
+      frame=24/55
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=attack1
+      frame=70/100
+      envelope=quake_appear.envlp
+      attenuation=0.1
+    }
+    particle {
+      trans=0/0.3704834/-1.11114502/0/-0/0/0.25
+      animation=attack1
+      frame=22/80
+      file=therock_quakewave_red.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=therock_rare
+      fadetime=60
+    }
+    sound {
+      animation=extra
+      frame=0.01
+      file=therock_extra
+      fadetime=60
+    }
+    sound {
+      animation=spare
+      frame=0.01
+      file=therock_spare
+      fadetime=60
+    }
+    sound {
+      animation=appear
+      frame=0.01
+      file=therock_appear
+      fadetime=60
+    }
+    sound {
+      animation=attack1
+      frame=0.01
+      file=therock_attack1
+      fadetime=60
+    }
+    sound {
+      animation=attack2
+      frame=0.01
+      file=therock_attack2
+      fadetime=60
+    }
+    sound {
+      animation=attack3
+      frame=0.01
+      file=therock_attack3
+      fadetime=60
+    }
+    sound {
+      animation=attack4
+      file=therock_attack4
+      fadetime=60
+    }
+    sound {
+      animation=2attack1
+      frame=0.01
+      file=therock_2attack1
+      fadetime=60
+    }
+    sound {
+      animation=2attack2
+      frame=0.01
+      file=therock_2attack2
+      fadetime=60
+    }
+    sound {
+      animation=2attack3
+      frame=0.01
+      file=therock_2attack3
+      fadetime=60
+    }
+    sound {
+      animation=2attack4
+      frame=0.01
+      file=therock_2attack4
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=1.35803223/0.72000003/-0.61737061/-2.87007833/0.23268569/-0.07756185/0.69999963
+      animation=attack4
+      frame=30/36
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=-0.99000001/0.72000003/-0.61737061/2.79251623/0.23268573/0/0.69999999
+      animation=attack4
+      frame=30/36
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=-2.59246826/0.99000001/-0.69999999/-2.94764018/0.46546721/0.4654671/0.70000052
+      animation=attack4
+      frame=62/69
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=1.54999995/1.10000002/-0.61737061/-2.87007833/0.38780984/-0.23268603/0.70000011
+      animation=attack4
+      frame=80/86
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=-3.20000005/3.58032227/0.86425781/-2.28831601/-0.11639063/2.24958277/0.69999987
+      animation=attack4
+      frame=110/115
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=3.20000005/4.07409668/0.86425781/2.44343972/-0.38780981/-2.24958277/0.69999975
+      animation=attack4
+      frame=110/115
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=attack4
+      frame=128
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=-0.86425781/0/-0.86425781/0/-0/0.3102476/0.30000001
+      animation=attack4
+      frame=125/130
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0.86425781/0/-0.61737061/0.93083864/0/-0.23268592/0.60000008
+      animation=attack4
+      frame=124/130
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0.61737061/0/-0.61737061/0/-0/0/0.69999999
+      animation=attack4
+      frame=140/145
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0.12359619/0/-0/0/0.5
+      animation=attack4
+      frame=144/150
+      file=therock_heavydust.ptb
+    }
+    camshaker {
+      animation=attack4
+      frame=0/40
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=attack4
+      frame=60/100
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=attack4
+      frame=83/99
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=attack4
+      frame=113/133
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=attack4
+      frame=139/150
+      envelope=quake_boom.envlp
+      attenuation=0.15000001
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.61737061/-0.12359619/0/-0/0/1
+      animation=2attack1
+      frame=24/64
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0/0/1
+      animation=2attack1
+      frame=24/64
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=0/0.12359619/0/0/-0/0/1
+      animation=2attack1
+      frame=28/64
+      file=therock_dustbox.ptb
+    }
+    particle {
+      trans=0/0.86425781/-1.11114502/0/-0/0/1
+      animation=2attack1
+      frame=24/64
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/0.12359619/0.86425781/0/-0/0/1
+      animation=2attack1
+      frame=25/64
+      file=therock_heavydust.ptb
+    }
+    camshaker {
+      animation=2attack1
+      frame=24
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    coord=0/-0.2/-0.61737061/0/-0/0/1
+  }
+  1 {
+    particle {
+      trans=0/1.35803223/-0.3704834/0/-0/0/0.80000001
+      animation=2attack2
+      frame=49/65
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/2.34558105/0/0/-0/0/1.20000005
+      animation=2attack2
+      frame=63/80
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/3.58032227/0.3704834/0/-0/0/0.69999999
+      animation=2attack2
+      frame=72/88
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/4.8147583/1.11114502/0/-0/0/1
+      animation=2attack2
+      frame=81/99
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/6.04949951/1.35803223/0/-0/0/0.80000001
+      animation=2attack2
+      frame=90/105
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0.61737061/6.54327393/1.60491943/0/-0/0/0.80000001
+      animation=2attack2
+      frame=92/108
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=-0.86425781/6.79016113/1.60491943/0/-0/0/0.69999999
+      animation=2attack2
+      frame=94/111
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0/7.53082275/2.34558105/0/-0/0/1
+      animation=2attack2
+      frame=94/122
+      file=therock_swordflash_red.ptb
+    }
+    particle {
+      trans=0.61737061/0/0/2.30537891/0.54302931/-0/1.99998987
+      animation=2attack2
+      frame=146/155
+      file=therock_electrobeams_red.ptb
+    }
+    particle {
+      trans=-0.86425781/0/0/0.7757147/-0.69815308/0.00000049/1.8999995
+      animation=2attack2
+      frame=146/155
+      file=therock_electrobeams_red.ptb
+    }
+    particle {
+      trans=0/0/-0.61737061/0.00000009/-0.5041998/0.00000009/1.95000005
+      animation=2attack2
+      frame=146/155
+      file=therock_electrobeams_red.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.80000001
+      animation=2attack2
+      frame=146/150
+      file=therock_thickdust.ptb
+    }
+    particle {
+      animation=2attack2
+      frame=146/178
+      file=therock_electro_red.ptb
+    }
+    particle {
+      trans=0/0.05/0/0/-0/0/0.60000002
+      animation=2attack2
+      frame=146/176
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=2attack2
+      frame=154/169
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.69999999
+      animation=2attack2
+      frame=170/176
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0/0/1.29999995
+      animation=2attack2
+      frame=146/172
+      file=therock_rockfountain.ptb
+    }
+  }
+  1 {
+//    aspawn {
+//      animation=2attack1
+//      frame=0/105
+//      atag=thespikes
+//    }
+    camshaker {
+      animation=2attack1
+      frame=24/55
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=2attack1
+      frame=70/100
+      envelope=quake_appear.envlp
+      attenuation=0.1
+    }
+    particle {
+      trans=0/0.3704834/-1.11114502/0/-0/0/0.25
+      animation=2attack1
+      frame=22/80
+      file=therock_quakewave_red.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=1.35803223/0.72000003/-0.61737061/-2.87007833/0.23268569/-0.07756185/0.69999963
+      animation=2attack4
+      frame=30/36
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=-0.99000001/0.72000003/-0.61737061/2.79251623/0.23268573/0/0.69999999
+      animation=2attack4
+      frame=30/36
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=-2.59246826/0.99000001/-0.69999999/-2.94764018/0.46546721/0.4654671/0.70000052
+      animation=2attack4
+      frame=62/69
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=1.54999995/1.10000002/-0.61737061/-2.87007833/0.38780984/-0.23268603/0.70000011
+      animation=2attack4
+      frame=80/86
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=-3.20000005/3.58032227/0.86425781/-2.28831601/-0.11639063/2.24958277/0.69999987
+      animation=2attack4
+      frame=110/115
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=3.20000005/4.07409668/0.86425781/2.44343972/-0.38780981/-2.24958277/0.69999975
+      animation=2attack4
+      frame=110/115
+      file=therock_handtail_red.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=2attack4
+      frame=128
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=-0.86425781/0/-0.86425781/0/-0/0.3102476/0.30000001
+      animation=2attack4
+      frame=125/130
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0.86425781/0/-0.61737061/0.93083864/0/-0.23268592/0.60000008
+      animation=2attack4
+      frame=124/130
+      file=therock_fountain.ptb
+    }
+    particle {
+      trans=0.61737061/0/-0.61737061/0/-0/0/0.69999999
+      animation=2attack4
+      frame=140/145
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0.12359619/0/-0/0/0.5
+      animation=2attack4
+      frame=144/150
+      file=therock_heavydust.ptb
+    }
+    camshaker {
+      animation=2attack4
+      frame=0/40
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=2attack4
+      frame=60/100
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=2attack4
+      frame=83/99
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=2attack4
+      frame=113/133
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=2attack4
+      frame=139/150
+      envelope=quake_boom.envlp
+      attenuation=0.15000001
+    }
+  }
+  1 {
+    particle {
+      trans=0.86425781/0/0/0/-0/-0.08726645/0.70000011
+      animation=2attack4
+      frame=0/8
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=2attack4
+      frame=0/15
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=-0.86425781/0/0/0/-0/0.08726646/0.70000011
+      animation=2attack4
+      frame=0/8
+      file=therock_thickdust.ptb
+    }
+    particle {
+      animation=2attack4
+      frame=0/15
+      file=therock_dustbox.ptb
+    }
+    particle {
+      trans=0.86425781/0/0/0/-0/-0.08726645/0.70000011
+      animation=2attack3
+      frame=0/4
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=2attack3
+      frame=0/8
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=-0.86425781/0/0/0/-0/0.08726646/0.70000011
+      animation=2attack3
+      frame=0/7
+      file=therock_thickdust.ptb
+    }
+    particle {
+      animation=2attack3
+      frame=0/8
+      file=therock_dustbox.ptb
+    }
+    particle {
+      trans=0.86425781/0/0/0/-0/-0.08726645/0.70000011
+      animation=2attack2
+      frame=0/8
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=2attack2
+      frame=0/15
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=-0.86425781/0/0/0/-0/0.08726646/0.70000011
+      animation=2attack2
+      frame=0/8
+      file=therock_thickdust.ptb
+    }
+    particle {
+      animation=2attack2
+      frame=0/15
+      file=therock_dustbox.ptb
+    }
+    particle {
+      trans=-1.85180664/0/0/0/-0/-0.08726645/0.70000017
+      animation=2attack1
+      frame=0/8
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=2attack1
+      frame=0/15
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=2.09869385/0/0/0/-0/0.08726646/0.70000017
+      animation=2attack1
+      frame=0/8
+      file=therock_thickdust.ptb
+    }
+    particle {
+      animation=2attack1
+      frame=0/15
+      file=therock_dustbox.ptb
+    }
+  }
+}
+prefetch {
+  therock_appear.bsa=file
+  therock_rare.bsa=file
+  therock_extra.bsa=file
+  therock_spare.bsa=file
+  therock_appear.bsa=file
+  therock_attack_quake.bsa=file
+  therocklump_lump.bsa=file
+  therock_attack_rockfall_7.bsa=file
+  therock_wall.bsa=file
+  therock_short_quake.bsa=file
+  therocklump_short_lump.bsa=file
+  therock_short_rockfall.bsa=file
+  therock_short_thewall.bsa=file
+}

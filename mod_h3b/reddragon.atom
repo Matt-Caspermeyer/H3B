@@ -1,0 +1,469 @@
+main {
+  class=chesspiece
+  model=reddragon.bma
+  cullcat=0
+  bboxanim=1
+}
+arena_params {
+  features_label=cpi_reddragon_feat
+  features_hints=flies_header/flies_hint,dragon_breath_header/dragon_breath_hint,magic_resistance_header/magic_resistance_hint,fire_immunity_header/fire_immunity_hint,mind_immunity_header/mind_immunity_hint
+  race=neutral
+  cost=12000
+  level=5
+  leadership=2000
+  attack=53
+  defense=53
+  defenseup=7
+  initiative=6
+  speed=7
+  hitpoint=770
+  features=dragon,fire_immunitet,mind_immunitet
+  krit=20
+  movetype=2
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,rail
+  posthitmaster=features_burn
+  resistances {
+    physical=10
+    poison=0
+    magic=30
+    fire=80
+  }
+  moveattack {
+    group=1,1
+    options=long2,friend_damage
+    ad_factor=1
+    usefly=4
+    damage {
+      fire=100,120
+    }
+    custom_params {
+      burn=25
+    }
+  }
+  rail {
+    class=scripted
+    ad_factor=1
+    attack_cursor=attack
+    script_attack=special_dragon_rail
+    script_calccells=special_reddragon_rail_calccells
+    script_highlight=special_reddragon_rail_highlight
+    anim_attack=mana
+    picture=BA1_Fire_Flow_
+    picture_small=BA1_Fire_Flow_small.png
+    reload=3
+    hinthead=special_dragon_rail_head
+    hint=special_dragon_rail_hint
+    damage {
+      fire=100,140
+    }
+    custom_params {
+      typedmg=fire
+      damage=100-140
+      burn=50
+    }
+  }
+}
+scripts {
+  idle=default_idle
+  scenario=default_scenario
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=reddragon_idle.bsa/fr:25:50
+  rare=reddragon_rare.bsa/fr:25:50
+  attack=reddragon_attack.bsa/fr:25:50
+  move=reddragon_move.bsa/fr:25:50
+  start=reddragon_start.bsa/fr:25:50
+  stop=reddragon_stop.bsa/fr:25:50
+  clock=reddragon_clock.bsa/fr:25:50
+  contra=reddragon_contra.bsa/fr:25:50
+  clock2=reddragon_2clock.bsa/fr:25:50
+  contra2=reddragon_2contra.bsa/fr:25:50
+  lturn=reddragon_lturn.bsa/fr:25:50
+  rturn=reddragon_rturn.bsa/fr:25:50
+  damage=reddragon_damage.bsa/fr:25:50
+  death=reddragon_death.bsa/fr:25:50
+  respawn=reddragon_respawn.bsa/fr:25:50
+  cast=reddragon_cast.bsa/fr:25:50
+  takeoff=reddragon_takeoff.bsa/fr:25:50
+  flight=reddragon_flight.bsa/fr:25:50
+  descent=reddragon_descent.bsa/fr:25:50
+  ldivert=reddragon_ldivert.bsa/fr:25:50
+  rdivert=reddragon_rdivert.bsa/fr:25:50
+  slew=reddragon_slew.bsa/fr:20:40
+  waft=reddragon_waft.bsa/fr:25:50
+  cursor=reddragon_rare.bsa/fr:25:50
+  teleout=reddragon_idle.bsa/fr:25:50/r:55:90
+  telein=reddragon_idle.bsa/fr:25:50/r:0:35
+  happy=reddragon_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:4:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    26.0?x=
+    0.0=cam
+  }
+  @cast {
+    26.0?x=
+    5.7?y=
+    10.0?z=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=reddragon_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=reddragon_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=reddragon_move
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=reddragon_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=reddragon_cast
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=reddragon_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=reddragon_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=reddragon_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=reddragon_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=reddragon_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=reddragon_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=reddragon_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=reddragon_rturn
+      fadetime=60
+    }
+    sound {
+      animation=takeoff
+      frame=0.01
+      file=reddragon_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=flight
+      frame=0.01
+      file=reddragon_flight
+      fadetime=60
+    }
+    sound {
+      animation=descent
+      frame=0.01
+      file=reddragon_descent
+      fadetime=60
+    }
+    sound {
+      animation=ldivert
+      frame=0.01
+      file=reddragon_ldivert
+      fadetime=60
+    }
+    sound {
+      animation=rdivert
+      frame=0.01
+      file=reddragon_rdivert
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=reddragon_slew
+      fadetime=60
+    }
+    sound {
+      animation=waft
+      frame=0.01
+      file=reddragon_waft
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=reddragon_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=reddragon_happy
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=reddragon_death
+      fadetime=60
+    }
+    sound {
+      animation=respawn
+      frame=0.01
+      file=reddragon_respawn
+      fadetime=60
+    }
+  }
+  0 {
+    slot=2
+    particle {
+      trans=-3.1415925/1.51260161/-3.1415925/0.5
+      animation=attack
+      frame=18/33
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=attack
+      frame=10/50
+      file=attack_bulbfire.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=happy
+      frame=28/55
+      file=attack_bulbfire.ptb
+    }
+    particle {
+      trans=-3.1415925/1.51260161/-3.1415925/0.5
+      animation=cast
+      frame=18/33
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      animation=cast
+      frame=10/44
+      file=attack_bulbfire.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.60000002/-2/0/-0/0/1
+      animation=attack
+      frame=22/35
+      file=cast_firebody.ptb
+    }
+    particle {
+      trans=0/0.30000001/-1.79999995/-3.1415925/-0/0/1
+      animation=attack
+      frame=25/44
+      file=cast_fire_sweep.ptb
+    }
+    particle {
+      trans=0/0.1/-3/-3.1415925/-0/0/1
+      animation=attack
+      frame=27/44
+      file=cast_fire_sweep.ptb
+    }
+    particle {
+      trans=0/0.1/-2.5/-3.1415925/-0/0/1
+      animation=attack
+      frame=25/44
+      file=cast_firebody.ptb
+    }
+    particle {
+      trans=0/0.30000001/-3.5/-3.1415925/-0/0/1
+      animation=attack
+      frame=25/44
+      file=cast_firebody.ptb
+    }
+  }
+  1 {
+    coord=0/0/-1.79999995/0/-0/0/1
+    particle {
+      trans=0/0.60000002/-2/0/-0/0/1
+      animation=cast
+      frame=21/35
+      file=cast_firebody.ptb
+    }
+    particle {
+      trans=0/0.30000001/-1.79999995/-3.1415925/-0/0/1
+      animation=cast
+      frame=25/44
+      file=cast_fire_sweep.ptb
+    }
+    particle {
+      trans=0/0.1/-3/-3.1415925/-0/0/1
+      animation=cast
+      frame=27/44
+      file=cast_fire_sweep.ptb
+    }
+    particle {
+      trans=0/0.1/-2.5/-3.1415925/-0/0/1
+      animation=cast
+      frame=24/44
+      file=cast_firebody.ptb
+    }
+    particle {
+      trans=0/0.30000001/-3.5/-3.1415925/-0/0/1
+      animation=cast
+      frame=25/44
+      file=cast_firebody.ptb
+    }
+    particle {
+      trans=0/0.1/-4.20000029/-3.1415925/-0/0/1
+      animation=cast
+      frame=27/44
+      file=cast_fire_sweep.ptb
+    }
+    particle {
+      trans=0/0.1/-3.70000005/-3.1415925/-0/0/1
+      animation=cast
+      frame=25/44
+      file=cast_firebody.ptb
+    }
+    omni {
+      trans=0/2/-1.5/0/-0/0/1
+      animation=cast
+      frame=22/59
+      lightland=true
+      key=0.1/FF000000/5/1
+      key=0.1/FFFFA928/5/1
+      key=0.2/FFFFCA79/5/1
+      key=0.1/FFFFA928/5/1
+      key=0.5/FF000000/5/1
+      key=0.5/FF000000/5/1
+    }
+    omni {
+      trans=0/2/-1.5/0/-0/0/1
+      animation=attack
+      frame=22/59
+      lightland=true
+      key=0.1/FF000000/5/1
+      key=0.1/FFFFA928/5/1
+      key=0.2/FFFFCA79/5/1
+      key=0.1/FFFFA928/5/1
+      key=0.80000001/FF000000/5/1
+      key=0.5/FF000000/5/1
+    }
+    omni {
+      trans=0/3.5/1.11114502/0/-0/0/1
+      animation=happy
+      frame=33/69
+      lightland=true
+      key=0.1/FF000000/5/1
+      key=0.5/FFFFA928/5/1
+      key=0.2/FFFFCA79/5/1
+      key=0.1/FFFFA928/5/1
+      key=0.5/FF000000/5/1
+      key=0.5/FF000000/5/1
+    }
+    camshaker {
+      animation=death
+      frame=30
+      envelope=quake_appear.envlp
+      attenuation=0.1
+    }
+  }
+}
+prefetch {
+  reddragon_idle.bsa=file
+  reddragon_rare.bsa=file
+  reddragon_attack.bsa=file
+  reddragon_move.bsa=file
+  reddragon_start.bsa=file
+  reddragon_stop.bsa=file
+  reddragon_clock.bsa=file
+  reddragon_contra.bsa=file
+  reddragon_2clock.bsa=file
+  reddragon_2contra.bsa=file
+  reddragon_lturn.bsa=file
+  reddragon_rturn.bsa=file
+  reddragon_damage.bsa=file
+  reddragon_death.bsa=file
+  reddragon_respawn.bsa=file
+  reddragon_victory.bsa=file
+  reddragon_cast.bsa=file
+  reddragon_takeoff.bsa=file
+  reddragon_flight.bsa=file
+  reddragon_descent.bsa=file
+  reddragon_ldivert.bsa=file
+  reddragon_rdivert.bsa=file
+  reddragon_slew.bsa=file
+  reddragon_waft.bsa=file
+}

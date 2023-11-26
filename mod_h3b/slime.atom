@@ -1,0 +1,1305 @@
+main {
+  class=spirit
+  nodimming=1
+  bboxanim=1
+  model {
+    0=slime.bma
+    1=slime_glow.bma
+  }
+}
+animations {
+  idle=slime_appear.bsa/fr:25:50/r:0:1
+  rare=slime_extra.bsa/fr:25:50
+  extra=slime_extra.bsa/fr:25:50
+  spare=slime_extra.bsa/fr:25:50
+  appear=slime_appear.bsa/fr:25:25
+  attack1=slime_slimefish.bsa/fr:25:50
+  attack2=slime_fog.bsa/fr:25:50
+  attack3=slime_spit.bsa/fr:25:50
+  attack4=slime_slimefish.bsa/fr:25:50/m:1
+  2attack1=slime_short_slimefish.bsa/fr:25:50
+  2attack2=slime_short_fog.bsa/fr:25:50
+  2attack3=slime_short_spit.bsa/fr:25:50
+  2attack4=slime_short_slimefish.bsa/fr:25:50/m:1
+  @attack1 {
+    15.0?start=
+    60.0?end=
+    75.0?fish=
+    59.0=alpha/0/1
+  }
+  @attack2 {
+    25.0?start=
+    90.0?end=
+    99.0?fog=
+    25.0=alpha/0.5/60
+    85.0=alpha/0/3
+  }
+  @attack3 {
+    30.0?start=
+  }
+  @attack4 {
+    15.0?start=
+    55.0?end=
+    10.0?armour=
+    50.0=alpha/0/10
+  }
+  @2attack1 {
+    15.0?start=
+    60.0?end=
+    75.0?fish=
+  }
+  @2attack2 {
+    25.0?start=
+    90.0?end=
+    99.0?fog=
+    25.0=alpha/0.5/60
+    85.0=alpha/0/3
+  }
+  @2attack3 {
+    30.0?start=
+  }
+  @2attack4 {
+    15.0?start=
+    55.0?end=
+    10.0?armour=
+    50.0=alpha/0/10
+  }
+}
+prefetch {
+  slime_appear.wav=file
+  slime_rare.wav=file
+  slime.bma=file
+  slime.vmsp=file
+  slimedrop.bma=file
+  slimedrop.vmsp=file
+  slimeball.bma=file
+  slimeball.vmsp=file
+  cell_path_line.dds=file
+  slime_diff.dds=file
+  slime_mask_spec.dds=file
+  fx_smokestrike_ani.dds=file
+  fx_slime_puddle.dds=file
+  fx_slime_splash.dds=file
+  fx_boomerang.dds=file
+  fxm_slimeball.dds=file
+  fx_slime_bubble.dds=file
+  fx_cloud_curl_ani.dds=file
+  fx_whoosh_arc.dds=file
+  fx_slime_star.dds=file
+  fx_slime_foam.dds=file
+  fx_drop_alfa.dds=file
+  fx_glowaxis.dds=file
+  fx_circle_spots.dds=file
+  fx_jsmoke_w.dds=file
+  cubenv_glass.dds=file
+  fxm_slimeball.dds=file
+  fx_slime_bubble.dds=file
+  fx_slime_puddle.dds=file
+  fx_slime_splash.dds=file
+  fx_slime_star.dds=file
+  fx_unit_enemy.dds=file
+  fx_slime_bubble_single.dds=file
+  fx_slime_soap.dds=file
+  fx_steamleak_ani.dds=file
+  slime_bubbles.ptb=file
+  slime_circle.ptb=file
+  slime_drops_memi.ptb=file
+  slime_fountain.ptb=file
+  slime_fountainhigh.ptb=file
+  slime_puddle.ptb=file
+  slime_rune.ptb=file
+  slime_star.ptb=file
+  magic_warcry_arcs.ptb=file
+  quake_boom.envlp=file
+  quake_small.envlp=file
+  quake_appear.envlp=file
+  slime_bubbles.ptb=file
+  fx_slime_bubble.dds=file
+  slime_rune.ptb=file
+  fx_cloud_curl_ani.dds=file
+  fx_whoosh_arc.dds=file
+  slime_star.ptb=file
+  fx_slime_star.dds=file
+  slime_circle.ptb=file
+  slime_spit_bubbletrail.ptb=file
+  fx_slime_foam.dds=file
+  slime_spit_drops.ptb=file
+  fx_drop_alfa.dds=file
+  magic_shield_intense.ptb=file
+  fx_glowaxis.dds=file
+  slime_fog_memi.ptb=file
+  slime_spit_bubbles.ptb=file
+  slime_poison_puddle.ptb=file
+  slimefish_fountain.ptb=file
+  slime_foggy_memi.ptb=file
+  slime_spot.ptb=file
+  fx_circle_spots.dds=file
+  slime_steam.ptb=file
+  fx_jsmoke_w.dds=file
+  slime_appear.bsa=file
+  slime_slimefish.bsa=file
+  slimeball.bma=file
+  slimeball_appear.bsa=file
+  slimedrop_appear.bsa=file
+  slimedrop.bma=file
+  slimefish_diff.dds=file
+  slime_waterfall.ptb=file
+  slime_appear_extra_slimefish_2forest.track=file
+  unit_army.ptb=file
+  fx_unit_enemy.dds=file
+  slime_appear.bsa=file
+  slime_extra.bsa=file
+  slime_spit.bsa=file
+  slime_spit_bubblecore.ptb=file
+  slime_spit_trail.ptb=file
+  fx_slime_bubble_single.dds=file
+  slime_spit_soap.ptb=file
+  fx_slime_soap.dds=file
+  slime_spit_soaptail.ptb=file
+  slime_spit_dropbubble.ptb=file
+  slime_spit_poison.ptb=file
+  slime_poisonfall.ptb=file
+  fx_steamleak_ani.dds=file
+  slime_poison_vapor.ptb=file
+  slimedrop_appear.bsa=file
+  slimeball_appear.bsa=file
+}
+slogic {
+  long_seq_play_interval=10
+}
+spirit {
+  spittle {
+    script_attack=slime_spittle
+    script_calccells=calccells_all_enemy
+    level=0
+    default=level1
+    upgrade {
+      level1=level:0/damage:poison:25:40,rage:5,rest:3,exp:5,level:1,time:3,poison_min:25,poison_max:40
+      level2=level:1/damage:poison:+25:+40,rage:+1,exp:+1,level:2,poison_min:+25,poison_max:+40
+      level3=level:2/damage:poison:+50:+80,rage:+2,exp:+2,level:3,poison_min:+50,poison_max:+80
+      level4=level:3/damage:poison:+100:+160,rage:+3,exp:+3,level:4,poison_min:+100,poison_max:+160
+      level5=level:4,LV:>9/damage:poison:+200:+320,rage:+4,exp:+4,level:5,poison_min:+200,poison_max:+320
+      level6=level:5,LV:>15/damage:poison:+400:+640,rage:+5,exp:+5,level:6,poison_min:+400,poison_max:+640
+      level7=level:6,LV:>19/damage:poison:+800:+1280,rage:+6,exp:+6,level:7,poison_min:+800,poison_max:+1280
+      poison1=ppwr:0,level:>2,LV:>6/poison_min:+200,poison_max:+320,rage:+5,exp:+5,ppwr:1
+      poison2=ppwr:1,level:>4,LV:>12/poison_min:+400,poison_max:+640,rage:+10,exp:+10,ppwr:2
+      rage1=rs:0,level:>5,rage:>24/rage:-10,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,level:>6,rage:>30/rage:-15,rs:2,exp:+15,ragelevel:2
+      rest1=rest:3,LV:>2/rest:2,exp:+2,restlevel:1
+      rest2=rest:2,LV:>12/rest:1,exp:+4,restlevel:2
+    }
+  }
+  fishes {
+	no_hint=1
+    script_attack=slime_fishes
+    script_highlight=slime_fishes_highlight
+    script_calccells=slime_fishes_calc_cells
+    level=2
+    default=level1
+    upgrade {
+      level1=level:0/damage:physical:125:175,rage:10,rest:5,exp:10,level:1
+      level2=level:1/damage:physical:+125:+175,rage:+3,exp:+3,level:2
+      level3=level:2/damage:physical:+225:+275,rage:+6,exp:+6,level:3
+      level4=level:3,LV:>7/damage:physical:+425:+475,rage:+9,exp:+9,level:4
+      level5=level:4,LV:>10/damage:physical:+625:+675,rage:+12,exp:+12,level:5
+      level6=level:5,LV:>14/damage:physical:+825:+875,rage:+15,exp:+15,level:6
+      level7=level:6,LV:>19/damage:physical:+1025:+1075,rage:+18,exp:+18,level:7
+      rage1=rs:0,level:>3,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,level:>5,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
+      rest1=rest:5,LV:>9/rest:4,exp:+2,restlevel:1
+      rest2=rest:4,LV:>22/rest:3,exp:+4,restlevel:2
+    }
+  }
+  fog {
+	no_hint=1
+    script_attack=slime_fog
+    script_calccells=slime_fog_calc_cells
+    log_label=null
+    level=4
+    default=level1
+    upgrade {
+      level1=level:0/dmg:135:270,rage:11,rest:6,exp:11,level:1,time:1
+      level2=level:1/dmg:+135:+270,rage:+10,exp:+10,level:2
+      level3=level:2/dmg:+270:+540,rage:+20,exp:+20,level:3
+      level4=level:3,LV:>11/dmg:+540:+1080,rage:+30,exp:+30,level:4
+      level5=level:4,LV:>19/dmg:+1080:+2160,rage:+40,exp:+40,level:5
+      time1=time:2,LV:>9/time:2,rage:+10,exp:+10,timelevel:1
+      time2=time:3,LV:>29/time:3,rage:+15,exp:+15,timelevel:2
+      rage1=level:>3,rage:>10/rage:-10,exp:+10,ragelevel:1
+      rage2=level:>4,rage:>15/rage:-15,exp:+15,ragelevel:2
+      rest1=rest:6,LV:>8/rest:5,exp:+2,restlevel:1
+      rest2=rest:5,LV:>12/rest:4,exp:+4,restlevel:2
+    }
+  }
+  glot {
+	no_hint=1
+    script_attack=slime_glot
+    script_calccells=calccells_all_ally
+    nfeatures=pawn,orb
+    level=6
+    default=level1
+    upgrade {
+      level1=level:0/health:100,duration:4,rage:7,rest:5,exp:7,level:1,res_all:50
+      level2=level:1/health:+100,duration:+1,rage:+1,exp:+1,level:2,res_all:+5
+      level3=level:2/health:+200,duration:+1,rage:+2,exp:+2,level:3,res_all:+5
+      level4=level:3,LV:>8/health:+400,duration:+1,rage:+3,exp:+3,level:4,res_all:+5
+      level5=level:4,LV:>10/health:+800,duration:+1,rage:+4,exp:+4,level:5,res_all:+5
+      level6=level:5,LV:>15/health:+1600,duration:+1,rage:+5,exp:+5,level:6,res_all:+5
+      level7=level:6,LV:>20/health:+3200,duration:+1,rage:+6,exp:+6,level:7,res_all:+5
+      rage1=rs:0,level:>4,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
+      rage2=rs:1,level:>6,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
+      rest1=rest:5,LV:>10/rest:4,exp:+2,restlevel:1
+      rest2=rest:4,LV:>12/rest:3,exp:+4,restlevel:2
+    }
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=1:1:360
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      animation=attack1
+      restart=true
+      file=slime_drops_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.18780001/0/0/-0/0/1
+      animation=attack1
+      frame=55/70
+      file=slime_puddle.ptb
+    }
+    particle {
+      trans=0/0.18000001/0/0/-0/0/1
+      animation=attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.61737061/0.12/0/2.09436274/-0/0/1.00000024
+      animation=attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=-0.12359619/0.211/0/-1.93923938/-0/0/0.80000001
+      animation=attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.1567/0/-0.46546733/-0/0/1.5
+      animation=attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1
+      animation=attack1
+      frame=55/80
+      file=magic_warcry_arcs.ptb
+    }
+    camshaker {
+      animation=attack1
+      frame=50/70
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=extra
+      frame=62/72
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=extra
+      frame=62/82
+      restart=true
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=spare
+      frame=62/72
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=spare
+      frame=62/82
+      restart=true
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=rare
+      frame=62/72
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=rare
+      frame=62/82
+      restart=true
+      envelope=quake_appear.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    particle {
+      trans=1.69000006/0.28999999/-1.37/0/-0/0/1.5
+      animation=appear
+      frame=0/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=1.76999998/0.1/0.99000001/0/-0/0/1.5
+      animation=appear
+      frame=10/15
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=-2.09869385/0.1/0.86425781/0/-0/0/1.5
+      animation=appear
+      frame=12/17
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=-0.3704834/0.1/2.09869385/0/-0/0/1.5
+      animation=appear
+      frame=15/20
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=-0.86425781/0.1/-2.83935547/0/-0/0/1.5
+      animation=appear
+      frame=16/21
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/0.28999999/0/0/-0/0/1.5
+      animation=appear
+      frame=35/40
+      restart=true
+      file=slime_fountain.ptb
+    }
+    aspawn {
+      animation=appear
+      frame=0/100
+      restart=true
+      atag=slimedrop
+    }
+    aspawn {
+      animation=appear
+      frame=0/82
+      restart=true
+      atag=slimeball
+    }
+    particle {
+      animation=appear
+      frame=50/100
+      restart=true
+      file=slime_drops_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/2
+      animation=appear
+      frame=50/88
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/0.077/0/0/-0/0/1.29999995
+      animation=appear
+      frame=0/66
+      restart=true
+      file=slime_puddle.ptb
+    }
+    particle {
+      trans=0/0.111/0/0/-0/0/1
+      animation=appear
+      frame=20/77
+      file=slime_bubbles.ptb
+    }
+    particle {
+      trans=0.30000001/0/-0.12359619/2.17192483/-0/0/1.00000024
+      animation=appear
+      frame=50/55
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=-0.30000001/0/-0.12359619/-2.32714438/-0/0/0.99999273
+      animation=appear
+      frame=35/40
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.2/0/-0.12359619/0.85327667/-0/0/0.99999976
+      animation=appear
+      frame=15/20
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/-2.40470648/-0/0/0.99999595
+      animation=appear
+      frame=40/45
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.61737061/0/-0.12359619/-2.40470648/-0/0/0.69999868
+      animation=appear
+      frame=28/33
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.3704834/2.83935547/0.86425781/0.93083876/-0/0/0.99999958
+      animation=appear
+      frame=85/95
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=-0.3704834/3.08654785/0.61737061/-0.62059116/-0/0/0.69999981
+      animation=appear
+      frame=85/95
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.2/0/0/-0/0/1.5
+      animation=appear
+      frame=0/10
+      restart=true
+      file=slime_rune.ptb
+    }
+    particle {
+      trans=0/0.2/0/1.25663722/-0/0/1.5
+      animation=appear
+      frame=0/10
+      restart=true
+      file=slime_rune.ptb
+    }
+    particle {
+      trans=0/0.2/0/2.51327372/-0/0/1.50000608
+      animation=appear
+      frame=0/10
+      restart=true
+      file=slime_rune.ptb
+    }
+    particle {
+      trans=0/0.2/0/-2.51327395/-0/0/1.49999988
+      animation=appear
+      frame=0/10
+      restart=true
+      file=slime_rune.ptb
+    }
+    particle {
+      trans=0/0.2/0/-1.25663662/-0/0/1.49999988
+      animation=appear
+      frame=0/10
+      restart=true
+      file=slime_rune.ptb
+    }
+    particle {
+      trans=1.55142963/-0/0/1.49999988
+      animation=appear
+      frame=5/20
+      restart=true
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=-1.62899184/-0/0/1.50000012
+      animation=appear
+      frame=5/20
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.2/1.35803223/0/-0/0/0.80000001
+      animation=appear
+      frame=77/82
+      file=slime_star.ptb
+    }
+    camshaker {
+      animation=appear
+      frame=0/20
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    camshaker {
+      animation=appear
+      frame=84/94
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+  }
+  0 {
+    particle {
+      trans=0/0.3704834/0/0/-0/0/0.69999999
+      animation=attack1
+      frame=30/45
+      restart=true
+      file=slime_circle.ptb
+    }
+    particle {
+      trans=0/0.3704834/0/0/-0/0/0.69999999
+      animation=2attack1
+      frame=30/45
+      restart=true
+      file=slime_circle.ptb
+    }
+    slot=8
+  }
+  0 {
+    particle {
+      trans=-3.1415925/1.35747683/-3.1415925/0.69999999
+      animation=attack1
+      frame=25/60
+      restart=true
+      file=slime_circle.ptb
+    }
+    particle {
+      trans=0/-0.1/-0.30000001/0/-0/0/2
+      animation=attack3
+      frame=25/33
+      file=slime_spit_bubbletrail.ptb
+    }
+    particle {
+      trans=0/0/-0.40000001/0/-0/0/1
+      animation=attack3
+      frame=25/29
+      file=slime_spit_drops.ptb
+    }
+    particle {
+      trans=-3.1415925/1.35747683/-3.1415925/0.69999999
+      animation=2attack1
+      frame=25/60
+      restart=true
+      file=slime_circle.ptb
+    }
+    particle {
+      trans=0/-0.1/-0.30000001/0/-0/0/2
+      animation=2attack3
+      frame=25/33
+      file=slime_spit_bubbletrail.ptb
+    }
+    particle {
+      trans=0/0/-0.40000001/0/-0/0/1
+      animation=2attack3
+      frame=25/29
+      file=slime_spit_drops.ptb
+    }
+    slot=2
+  }
+  0 {
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=attack1
+      frame=25/50
+      restart=true
+      file=slime_circle.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=2attack1
+      frame=25/50
+      restart=true
+      file=slime_circle.ptb
+    }
+    slot=7
+  }
+  0 {
+    particle {
+      animation=attack1
+      frame=10/80
+      file=magic_shield_intense.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      animation=attack1
+      frame=30/55
+      restart=true
+      file=slime_circle.ptb
+    }
+    particle {
+      animation=2attack1
+      frame=10/80
+      file=magic_shield_intense.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      animation=2attack1
+      frame=30/55
+      restart=true
+      file=slime_circle.ptb
+    }
+    slot=6
+  }
+  1 {
+    particle {
+      animation=attack2
+      frame=85/99
+      file=slime_fog_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/2/0/0/-0/0/2
+      animation=attack4
+      frame=48/55
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/-0/0/2
+      animation=attack4
+      frame=48/55
+      file=slime_poisonfall.ptb
+    }
+    particle {
+      animation=attack4
+      frame=0/5
+      restart=true
+      file=slime_acid_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=attack4
+      frame=20/55
+      file=slime_acid_memi.ptb
+      meshemission=true
+    }
+    aspawn {
+      animation=attack4
+      restart=true
+      atag=slime_glow
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=slime_rare
+      fadetime=60
+    }
+    sound {
+      animation=extra
+      frame=0.01
+      file=slime_extra
+      fadetime=60
+    }
+    sound {
+      animation=spare
+      frame=0.01
+      file=slime_spare
+      fadetime=60
+    }
+    sound {
+      animation=appear
+      frame=0.01
+      file=slime_appear
+      fadetime=60
+    }
+    sound {
+      animation=attack1
+      frame=0.01
+      file=slime_attack1
+      fadetime=60
+    }
+    sound {
+      animation=attack2
+      frame=0.01
+      file=slime_attack2
+      fadetime=60
+    }
+    sound {
+      animation=attack3
+      frame=0.01
+      file=slime_attack3
+      fadetime=60
+    }
+    sound {
+      animation=attack4
+      frame=0.01
+      file=slime_attack4
+      fadetime=60
+    }
+    sound {
+      animation=2attack1
+      frame=0.01
+      file=slime_2attack1
+      fadetime=60
+    }
+    sound {
+      animation=2attack2
+      frame=0.01
+      file=slime_2attack2
+      fadetime=60
+    }
+    sound {
+      animation=2attack3
+      frame=0.01
+      file=slime_2attack3
+      fadetime=60
+    }
+    sound {
+      animation=2attack4
+      frame=0.01
+      file=slime_2attack4
+      fadetime=60
+    }
+  }
+  1 {
+    dummy {
+      tag=throw
+      trans=0/3.0999999/-1/0/-0/0/1
+    }
+    particle {
+      trans=0/3.08654785/-1.11114502/0/-0/0/1
+      animation=attack3
+      frame=36/35
+      file=slime_spit_bubbles.ptb
+    }
+    particle {
+      trans=0/-0/0/1.5
+      animation=attack3
+      frame=77/88
+      file=slime_poison_puddle.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0.3704834/0/0.15512411/0.15512402/1.50000012
+      animation=attack3
+      frame=71/79
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=-0.86425781/0/-0.61737061/0/-0.23268604/0/1.5
+      animation=attack3
+      frame=70/78
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=0.40000001/0/1.11114502/0.85327673/0.23268574/0.00000001/1.5
+      animation=attack3
+      frame=74/82
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=-0.3704834/0/0.86425781/0/0.46546736/0/1.5
+      animation=attack3
+      frame=70/78
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=0.30000001/0/-0.61737061/1.70655406/0.46546724/-0.00000001/1.50000036
+      animation=attack3
+      frame=77/82
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=-0.40000001/0/-0.61737061/0/-0.07756186/0/1.5
+      animation=attack3
+      frame=70/78
+      file=slimefish_fountain.ptb
+    }
+    camshaker {
+      animation=attack3
+      frame=77/90
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    particle {
+      animation=attack2
+      frame=20/99
+      file=slime_acid_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1.5
+      animation=appear
+      frame=80/110
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1.5
+      animation=appear
+      frame=80/110
+      file=slime_steam.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1.5
+      animation=rare
+      frame=0/120
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1.5
+      animation=rare
+      frame=0/120
+      file=slime_steam.ptb
+    }
+    particle {
+      trans=0/0.2/0/0/-0/0/1.5
+      animation=extra
+      frame=0/120
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1.5
+      animation=extra
+      frame=0/120
+      file=slime_steam.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1.5
+      animation=spare
+      frame=0/120
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1.5
+      animation=spare
+      frame=0/120
+      file=slime_steam.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/3.08654785/-1.11114502/0/-0/0/1
+      animation=2attack3
+      frame=36/35
+      file=slime_spit_bubbles.ptb
+    }
+    particle {
+      trans=0/-0/0/1.5
+      animation=2attack3
+      frame=77/88
+      file=slime_poison_puddle.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0.3704834/0/0.15512411/0.15512402/1.50000012
+      animation=2attack3
+      frame=71/79
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=-0.86425781/0/-0.61737061/0/-0.23268604/0/1.5
+      animation=2attack3
+      frame=70/78
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=0.40000001/0/1.11114502/0.85327673/0.23268574/0.00000001/1.5
+      animation=2attack3
+      frame=74/82
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=-0.3704834/0/0.86425781/0/0.46546736/0/1.5
+      animation=2attack3
+      frame=70/78
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=0.30000001/0/-0.61737061/1.70655406/0.46546724/-0.00000001/1.50000036
+      animation=2attack3
+      frame=77/82
+      file=slimefish_fountain.ptb
+    }
+    particle {
+      trans=-0.40000001/0/-0.61737061/0/-0.07756186/0/1.5
+      animation=2attack3
+      frame=70/78
+      file=slimefish_fountain.ptb
+    }
+    camshaker {
+      animation=2attack3
+      frame=77/90
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+    particle {
+      animation=2attack2
+      frame=20/99
+      file=slime_acid_memi.ptb
+      meshemission=true
+    }
+  }
+  1 {
+    particle {
+      animation=2attack2
+      frame=85/99
+      file=slime_fog_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/2/0/0/-0/0/2
+      animation=2attack4
+      frame=48/55
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/-0/0/2
+      animation=2attack4
+      frame=48/55
+      file=slime_poisonfall.ptb
+    }
+    particle {
+      animation=2attack4
+      frame=0/5
+      restart=true
+      file=slime_acid_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=2attack4
+      frame=20/55
+      file=slime_acid_memi.ptb
+      meshemission=true
+    }
+    aspawn {
+      animation=2attack4
+      restart=true
+      atag=2slime_glow
+    }
+  }
+  1 {
+    particle {
+      trans=0.69999999/0.28999999/-0.5/0/-0/0/1.5
+      animation=2attack1
+      frame=0/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0.80000001/0.1/0.5/0/-0/0/1.5
+      animation=2attack1
+      frame=2/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=-0.80000001/0.1/0.30000001/0/-0/0/1.5
+      animation=2attack1
+      frame=0/6
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      animation=2attack1
+      frame=0/22
+      restart=true
+      file=slime_drops_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.80000001/0/0/-0/0/1.5
+      animation=2attack1
+      frame=3/9
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/-2.40470648/-0/0/0.99999595
+      animation=2attack1
+      frame=5/10
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.61737061/0/-0.12359619/-2.40470648/-0/0/0.69999868
+      animation=2attack1
+      frame=7/12
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1
+      animation=2attack1
+      frame=0/22
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=2attack1
+      frame=0/15
+      file=slime_steam.ptb
+    }
+    camshaker {
+      animation=2attack1
+      frame=0/20
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    particle {
+      animation=2attack1
+      restart=true
+      file=slime_drops_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.18780001/0/0/-0/0/1
+      animation=2attack1
+      frame=55/70
+      file=slime_puddle.ptb
+    }
+    particle {
+      trans=0/0.18000001/0/0/-0/0/1
+      animation=2attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.61737061/0.12/0/2.09436274/-0/0/1.00000024
+      animation=2attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=-0.12359619/0.211/0/-1.93923938/-0/0/0.80000001
+      animation=2attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.1567/0/-0.46546733/-0/0/1.5
+      animation=2attack1
+      frame=55/65
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1
+      animation=2attack1
+      frame=55/80
+      file=magic_warcry_arcs.ptb
+    }
+    camshaker {
+      animation=2attack1
+      frame=50/70
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    particle {
+      trans=0.69999999/0.28999999/-0.5/0/-0/0/1.5
+      animation=2attack2
+      frame=0/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0.80000001/0.1/0.5/0/-0/0/1.5
+      animation=2attack2
+      frame=2/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=-0.80000001/0.1/0.30000001/0/-0/0/1.5
+      animation=2attack2
+      frame=0/6
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      animation=2attack2
+      frame=0/22
+      restart=true
+      file=slime_drops_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.80000001/0/0/-0/0/1.5
+      animation=2attack2
+      frame=3/9
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/-2.40470648/-0/0/0.99999595
+      animation=2attack2
+      frame=5/10
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.61737061/0/-0.12359619/-2.40470648/-0/0/0.69999868
+      animation=2attack2
+      frame=7/12
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1
+      animation=2attack2
+      frame=0/22
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=2attack2
+      frame=0/15
+      file=slime_steam.ptb
+    }
+    camshaker {
+      animation=2attack2
+      frame=0/20
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    particle {
+      trans=0.69999999/0.28999999/-0.5/0/-0/0/1.5
+      animation=2attack3
+      frame=0/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0.80000001/0.1/0.5/0/-0/0/1.5
+      animation=2attack3
+      frame=2/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=-0.80000001/0.1/0.30000001/0/-0/0/1.5
+      animation=2attack3
+      frame=0/6
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      animation=2attack3
+      frame=0/22
+      restart=true
+      file=slime_drops_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.80000001/0/0/-0/0/1.5
+      animation=2attack3
+      frame=3/9
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/-2.40470648/-0/0/0.99999595
+      animation=2attack3
+      frame=5/10
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.61737061/0/-0.12359619/-2.40470648/-0/0/0.69999868
+      animation=2attack3
+      frame=7/12
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1
+      animation=2attack3
+      frame=0/22
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=2attack3
+      frame=0/55
+      file=slime_steam.ptb
+    }
+    camshaker {
+      animation=2attack3
+      frame=0/20
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+  }
+  1 {
+    particle {
+      trans=0.69999999/0.28999999/-0.5/0/-0/0/1.5
+      animation=2attack4
+      frame=0/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0.80000001/0.1/0.5/0/-0/0/1.5
+      animation=2attack4
+      frame=2/5
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=-0.80000001/0.1/0.30000001/0/-0/0/1.5
+      animation=2attack4
+      frame=0/6
+      restart=true
+      file=slime_fountain.ptb
+    }
+    particle {
+      animation=2attack4
+      frame=0/22
+      restart=true
+      file=slime_drops_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.80000001/0/0/-0/0/1.5
+      animation=2attack4
+      frame=3/9
+      file=slime_fountain.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/-2.40470648/-0/0/0.99999595
+      animation=2attack4
+      frame=5/10
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0.61737061/0/-0.12359619/-2.40470648/-0/0/0.69999868
+      animation=2attack4
+      frame=7/12
+      file=slime_fountainhigh.ptb
+    }
+    particle {
+      trans=0/0.25/0/0/-0/0/1
+      animation=2attack4
+      frame=0/22
+      file=slime_spot.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=2attack4
+      frame=0/15
+      file=slime_steam.ptb
+    }
+    camshaker {
+      animation=2attack4
+      frame=0/20
+      restart=true
+      envelope=quake_small.envlp
+      attenuation=0.05
+    }
+  }
+}

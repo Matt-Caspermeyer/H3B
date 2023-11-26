@@ -1,0 +1,365 @@
+main {
+  class=chesspiece
+  model=bowman.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_bowman_feat
+  features_hints=shot_header/shot_hint
+  race=human
+  cost=100
+  level=2
+  leadership=50
+  attack=16
+  defense=10
+  defenseup=3
+  initiative=4
+  speed=2
+  hitpoint=28
+  krit=10
+  movetype=0
+  hitback=1
+  hitbackprotect=0
+  features=shot,humanoid,archer
+  attacks=moveattack,throw1,throw2,throw3,dragon
+  posthitmaster=special_bowman
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      physical=2,3
+    }
+    custom_params {
+      burn=0
+      freeze=0
+    }
+  }
+  throw1 {
+    group=1,2
+    showdmg=1
+    base_attack=1
+    class=throw
+    distance=6
+    mindist=2
+    penalty=0.5
+    animation=cast/throw/thtarget
+    throw=bowman_arrow
+    framekey=x
+    damage {
+      physical=3,4
+    }
+    custom_params {
+      burn=0
+      freeze=0
+      arrows=1
+      dragon=0
+    }
+  }
+  throw2 {
+    moves=1
+    dontusenearenemy=1
+    class=throw
+    picture=ba1_fieryarrow_
+    picture_small=ba1_fieryarrow_small.png
+    require_skill=traning:2
+    hinthead=special_fire_arrow_head
+    hint=special_fire_arrow_hint
+    distance=6
+    mindist=2
+    penalty=0.5
+    animation=firecast/throw/thtarget
+    throw=bowman_firearrow
+    framekey=x
+    damage {
+      fire=4,5
+    }
+    custom_params {
+      burn=100
+      dragon=0
+      freeze=0
+      arrows=1
+    }
+  }
+  throw3 {
+    moves=1
+    dontusenearenemy=1
+    class=throw
+    picture=BA1_IceArrow_
+    picture_small=BA1_IceArrow_small.png
+    hinthead=special_ice_arrow_head
+    hint=special_ice_arrow_hint
+    distance=6
+    mindist=2
+    penalty=0.5
+    animation=icycast/throw/thtarget
+    throw=bowman_icyarrow
+    framekey=x
+    damage {
+      physical=3,4
+    }
+    custom_params {
+      burn=0
+      freeze=100
+      dragon=0
+      arrows=1
+    }
+  }
+  dragon {
+//    dontusenearenemy=1
+    class=throw
+    picture=BA1_Dragon_Arrow_
+    picture_small=BA1_DragonArrow_small.png
+    hinthead=special_dragon_arrow_head
+    hint=special_dragon_arrow_hint
+    showdmg=0
+    moves=1
+    ad_factor=1
+    distance=100
+    disabled=1
+    mindist=1
+    penalty=1
+    animation=cast/throw/thtarget
+    throw=arrow_dragon
+    framekey=x
+    damage {
+      astral=3,4
+    }
+    custom_params {
+      burn=0
+      dragon=1
+      arrows=1
+      freeze=0
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=bowman_idle.bsa/fr:25:50
+  rare=bowman_rare.bsa/fr:25:50
+  attack=bowman_attack.bsa/fr:25:50
+  move=bowman_move.bsa/fr:37:74
+  start=bowman_start.bsa/fr:37:74
+  stop=bowman_stop.bsa/fr:37:74
+  clock=bowman_clock.bsa/fr:40:80
+  contra=bowman_contra.bsa/fr:40:80
+  clock2=bowman_2clock.bsa/fr:40:80
+  contra2=bowman_2contra.bsa/fr:40:80
+  lturn=bowman_lturn.bsa/fr:37:74
+  rturn=bowman_rturn.bsa/fr:37:74
+  damage=bowman_damage.bsa/fr:25:50
+  cast=bowman_cast.bsa/fr:25:50
+  firecast=bowman_cast.bsa/fr:25:50
+  icycast=bowman_cast.bsa/fr:25:50
+  slew=bowman_slew.bsa/fr:35:70
+  death=bowman_death.bsa/fr:25:50
+  respawn=bowman_respawn.bsa/fr:25:50
+  teleout=bowman_idle.bsa/fr:25:50/r:30:65
+  telein=bowman_idle.bsa/fr:25:50/r:0:35
+  happy=bowman_victory.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  cursor=/t:1:1:victory
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    17.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    28.0?x=
+    0.0=cam
+  }
+  @firecast {
+    28.0?x=
+    0.0=cam
+  }
+  @icycast {
+    28.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    dummy {
+      tag=throw
+      trans=0/1.60491943/-2/0/-0/0/1
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=0/-0.1/-0.2/3.1415925/-0.00676311/0.27151448/0.70000011
+      animation=firecast
+      frame=15/27
+      file=attack_fire_bowman.ptb
+    }
+    particle {
+      trans=0/-0.1/-0.2/3.1415925/-0.00676311/0.27151448/0.70000011
+      animation=icycast
+      frame=15/27
+      file=attack_ice_bowman.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=bowman_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=bowman_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=bowman_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=bowman_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=bowman_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=bowman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=bowman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=bowman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=bowman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=bowman_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=bowman_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=bowman_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=bowman_cast
+      fadetime=60
+    }
+    sound {
+      animation=firecast
+      frame=0.01
+      file=bowman_firecast
+      fadetime=60
+    }
+    sound {
+      animation=icycast
+      frame=0.01
+      file=bowman_icycast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=bowman_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=bowman_death
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  bowman_idle.bsa=file
+  bowman_rare.bsa=file
+  bowman_attack.bsa=file
+  bowman_move.bsa=file
+  bowman_start.bsa=file
+  bowman_stop.bsa=file
+  bowman_clock.bsa=file
+  bowman_contra.bsa=file
+  bowman_2clock.bsa=file
+  bowman_2contra.bsa=file
+  bowman_lturn.bsa=file
+  bowman_rturn.bsa=file
+  bowman_damage.bsa=file
+  bowman_death.bsa=file
+  bowman_respawn.bsa=file
+  bowman_victory.bsa=file
+  bowman_cast.bsa=file
+}

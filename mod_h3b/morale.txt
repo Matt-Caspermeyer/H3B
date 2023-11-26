@@ -1,0 +1,154 @@
+// Наличие представителей только определенных рас в отряде изменяет их мораль
+
+onerace {
+    //human=1,hint_morale_onerace          //Все войска одной расы. Мораль +1
+    //human,elf=1,hint_morale_friend  //Все войска дружественных рас. Мораль +1
+    elf=1,hint_morale_onerace                //Все войска одной расы. Мораль +1
+    dwarf=1,hint_morale_onerace          //Все войска одной расы. Мораль +1
+    orc=1,hint_morale_onerace                //Все войска одной расы. Мораль +1
+}
+
+// Наличие представителей одной расы изменяет мораль другой расы
+race2race {
+    undead {
+        human=-2,hint_morale_undead,tolerance<1 //Присутствие нежити в армии. Мораль -2
+        elf=-3,hint_morale_undead,tolerance<1   //Присутствие нежити в армии. Мораль -3
+        dwarf=-2,hint_morale_undead,tolerance<1 //Присутствие нежити в армии. Мораль -2
+        orc=-1,hint_morale_undead,tolerance<1   //Присутствие нежити в армии. Мораль -1
+    }
+    demon {
+        human=-2,hint_morale_demon,tolerance<2  //Присутствие демонов в армии. Мораль -2
+        elf=-2,hint_morale_demon,tolerance<2  	//Присутствие демонов в армии. Мораль -2
+        dwarf=-3,hint_morale_demon,tolerance<2	//Присутствие демонов в армии. Мораль -3
+    }
+    elf {
+        dwarf=-1,hint_morale_elf			//Присутствие гномов в армии. Мораль -1
+    }
+    dwarf {
+        elf=-1,hint_morale_dwarf			//Присутствие эльфов в армии. Мораль -1
+    }
+}
+
+// Наличие представителей одной расы изменяет мораль конкретного юнита
+race2unit {
+    undead {
+        priest,priest2=+2,hint_morale_undead1,tolerance<1   //Терпимость к нежити.
+        unicorn2,werewolf,wolf=+3,hint_morale_undead1,tolerance<1    	//Терпимость к нежити.
+    }
+}
+
+
+// Наличие одних юнитов изменяет мораль других юнитов
+unit2unit {
+    alchemist,bowman,cannoner,catapult,cyclop,elf,elf2,goblin,kingthorn,thorn {
+        alchemist,bowman,cannoner,catapult,cyclop,elf,elf2,goblin,kingthorn,thorn=+1,hint_morale_shot_commander3,shot_commander>2
+    }
+    priest,priest2 {
+        priest,priest2=+1,hint_morale_inquisition1,inquisition>0
+    }
+    knight {
+        knight=+1,hint_morale_knight0		// повышенная мораль
+    }
+    robber, robber2 {
+        peasant,bowman,footman,priest=-1,hint_morale_robber    //Присутствие разбойников в армии. Мораль -1
+    }
+    footman2 {
+        bowman,footman=+1,hint_morale_commander    //Присутствие командира в армии. Мораль +1
+    }
+    giant {
+        greendragon=-2,hint_morale_giant       //Присутствие Гигантов в армии. Мораль -2
+    }
+    greendragon {
+        giant=1,hint_morale_green  //Присутствие Изумрудных Драконов в армии. Мораль +1
+    }
+    blackknight {
+        archer,Skeleton,zombie,zombie2,ghost,ghost2,vampire,vampire2,bat,bat2,necromant,spider_undead,bonedragon=+1,hint_morale_commander        //Присутствие Полководца Тьмы в армии. Мораль +1
+    }
+    dryad {
+        thorn,thorn_warrior,kingthorn,ent,ent2=+1,hint_morale_driad        //Присутствие дреесной феи в армии. Мораль +1
+    }
+    ogre {
+        shaman,orc,orc2,goblin,goblin2,catapult=+1,hint_morale_commander    //Присутствие командира в армии. Мораль +1
+    }
+    druid {
+        dryad,elf2,elf,ent2,ent,sprite_lake,sprite,unicorn2,unicorn,werewolf,wolf=+1,hint_morale_druid    //Присутствие командира в армии. Мораль +1
+    }
+    unicorn {
+    	dryad,sprite_lake,sprite=+2,hint_morale_unicorn
+    }
+    werewolf, wolf {
+        graywolf=+1,hint_morale_werewolf
+    }
+    ent, ent2 {
+        kingthorn=+2,hint_morale_ent
+    }
+    kingthorn {
+    	thorn,thorn_warrior=+3,hint_morale_kingthorn
+    }
+    barbarian, barbarian2 {
+    	bear,bear2,bear_white,graywolf,hyena=+2,hint_morale_barbarian
+    }
+    bear, bear2, bear_white {
+    	barbarian,barbarian2=+2,hint_morale_bear
+    }
+    archmage,druid,priest,priest2,shaman {
+        archmage,druid,priest,priest2,shaman=+1,hint_morale_megamage3,megamage>2
+    }
+    alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,blackknight,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf {
+        alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,blackknight,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_tolerance2,tolerance>1
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+krit_power=1.5 // 1.3..1.5..1.7
+
+3 {
+  krit_prob=2
+  attack=30
+  defence=30
+}
+
+2 {
+  krit_prob=1.5
+  attack=20
+  defence=20
+}
+
+1 {
+  krit_prob=1.25
+  attack=10
+  defence=10
+}
+
+0 {
+  krit_prob=1	// 0.7..1..1.3
+  attack=0
+  defence=0
+}
+
+-1 {
+  krit_prob=0.75
+  attack=-10
+  defence=-10
+}
+
+-2 {
+  krit_prob=0.5
+  attack=-20
+  defence=-20
+}
+
+-3 {
+  krit_prob=0
+  attack=-30
+  defence=-30
+}

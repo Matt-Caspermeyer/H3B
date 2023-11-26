@@ -1,0 +1,455 @@
+main {
+  class=chesspiece
+  model=dryad.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_dryad_feat
+  features_hints=soars_header/soars_hint,no_retaliation_header/no_retaliation_hint,beauty_header/beauty_hint,charm_header/charm_hint,wood_fairy_header/wood_fairy_hint
+  race=elf
+  cost=50
+  level=2
+  leadership=20
+  attack=4
+  defense=12
+  defenseup=3
+  initiative=4
+  speed=3
+  hitpoint=25
+  features=beauty
+  movetype=1
+  krit=3
+  hitback=1
+  hitbackprotect=1
+  attacks=moveattack,cast_thorn,elf_song,cast_sleep
+  posthitmaster=features_charm
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      magic=1,4
+    }
+    custom_params {
+      charm=20
+      k=100-100
+    }
+  }
+  cast_thorn {
+    class=scripted
+    hinthead=special_dryad_thorn_head
+    hint=special_dryad_thorn_hint
+    reload=3
+    warning=sw_place
+    script_attack=special_cast_thorn
+    script_calccells=calccells_all_empty_around
+    attack_cursor=magicstick
+    picture=BA1_CastThorn_
+    picture_small=BA1_CastThorn_small.png
+    custom_params {
+      k=35-55
+    }
+  }
+  cast_sleep {
+    class=scripted
+    hinthead=special_lullaby_head
+    hint=special_lullaby_hint
+    reload=4
+    script_attack=special_cast_sleep
+    script_calccells=
+    attack_cursor=
+    picture=BA1_Lullaby_
+    picture_small=BA1_Lullaby_small.png
+    custom_params {
+      nfeatures=mind_immunitet,undead,boss,pawn
+      level=3
+      duration=2
+    }
+  }
+  elf_song {
+    class=spell
+    hinthead=special_elf_song_head
+    hint=special_elf_song_hint
+    moves=1
+    spell=special_elf_song
+    nfeatures=mind_immunitet,pawn
+    picture=BA1_ElfSong_
+    picture_small=BA1_ElfSong_small.png
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist:1:1:spare
+  rarelist=/fwd:1:rare
+  idlemain=dryad_idle.bsa/fr:25:50
+  spare=dryad_spare.bsa/fr:25:50
+  rare=dryad_rare.bsa/fr:25:50
+  attack=dryad_attack.bsa/fr:25:50
+  move=dryad_move.bsa/fr:25:50
+  start=dryad_start.bsa/fr:25:50
+  stop=dryad_stop.bsa/fr:25:50
+  clock=dryad_clock.bsa/fr:25:50
+  contra=dryad_contra.bsa/fr:25:50
+  clock2=dryad_2clock.bsa/fr:25:50
+  contra2=dryad_2contra.bsa/fr:25:50
+  lturn=dryad_lturn.bsa/fr:25:50
+  rturn=dryad_rturn.bsa/fr:25:50
+  damage=dryad_damage.bsa/fr:25:50
+  death=dryad_death.bsa/fr:25:50
+  cast=dryad_cast.bsa/fr:25:25
+  slew=dryad_slew.bsa/fr:25:50
+  respawn=dryad_respawn.bsa/fr:25:50
+  cursor=dryad_spare.bsa/fr:25:50
+  happy=dryad_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:1:spare:1:2:idlemain
+  teleout=dryad_idle.bsa/fr:25:50/r:15:50
+  telein=dryad_idle.bsa/fr:25:50/r:0:35
+  song=dryad_special.bsa/fr:25:50
+  sleep=dryad_special.bsa/fr:25:50
+  avoid=dryad_avoid.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    22.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    27.0?x=
+    0.0=cam
+  }
+  @song {
+    25.0?x=
+    0.0=cam
+  }
+  @sleep {
+    25.0?x=
+    0.0=cam
+  }
+  @avoid {
+    15.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack
+    2=scn_cast
+    5=scn_rush
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    aspawn {
+      animation=cast
+      atag=thornseed_dryad
+    }
+    particle {
+      trans=0/0/-1.65999997/0/0.3102476/0/0.30000001
+      animation=cast
+      frame=33/44
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/0/-1.76999998/0/-0.15512419/0/0.30000001
+      animation=cast
+      frame=33/44
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/0/-1.70000005/0/-0/0.38780951/0.30000004
+      animation=cast
+      frame=33/44
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/0/-1.70000005/0/-0/-0.54302931/0.30000001
+      animation=cast
+      frame=33/44
+      file=therock_heavydust.ptb
+    }
+    particle {
+      trans=0/0/-1.70000005/0/-0/0/0.2
+      animation=cast
+      frame=33/44
+      file=therock_dustwave.ptb
+    }
+    particle {
+      trans=0.15000001/1.79999995/-0.5/0/-0/0/1
+      animation=song
+      frame=11/22
+      file=post_song_out.ptb
+    }
+    particle {
+      trans=0.15000001/2/-0.5/0/-0/0/1
+      animation=song
+      frame=15/22
+      file=post_song_stars.ptb
+    }
+    omni {
+      trans=0/2.5/-0.5/0/-0/0/1
+      animation=song
+      frame=10
+      restart=true
+      lightland=true
+      key=0.2/FF000000/3/1
+      key=0.5/FF00FDC4/3/1
+      key=1/FF000000/3/1
+      key=1/FF000000/3/1
+    }
+  }
+  0 {
+    slot=0
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=cast
+      frame=13/39
+      file=cast_dryad_hands.ptb
+    }
+    particle {
+      trans=0/-0.15000001/-0.12359619/0/-0/0/1.29999995
+      animation=cast
+      frame=12/18
+      file=attack_bulbstars.ptb
+    }
+    particle {
+      animation=song
+      frame=11/22
+      file=cast_dryad_hands.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=song
+      frame=11/22
+      file=post_song_stars.ptb
+    }
+    particle {
+      animation=sleep
+      frame=11/22
+      file=cast_dryad_hands.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=sleep
+      frame=9/22
+      file=cast_zzz.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=sleep
+      frame=11/22
+      file=cast_zzz_arx.ptb
+    }
+  }
+  0 {
+    slot=1
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=cast
+      frame=11/39
+      file=cast_dryad_hands.ptb
+    }
+    particle {
+      animation=song
+      frame=11/22
+      file=cast_dryad_hands.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=song
+      frame=11/22
+      file=post_song_stars.ptb
+    }
+    particle {
+      animation=sleep
+      frame=11/22
+      file=cast_dryad_hands.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=sleep
+      frame=9/22
+      file=cast_zzz.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=sleep
+      frame=11/22
+      file=cast_zzz_arx.ptb
+    }
+    particle {
+      trans=-2.09436321/0.54302919/-0/1
+      animation=attack
+      frame=18/33
+      file=cast_dryad.ptb
+    }
+    particle {
+      trans=0/-0/0/0.2
+      animation=attack
+      frame=9/35
+      file=post_song_stars.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=move
+      frame=0.01
+      file=dryad_move
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=dryad_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=dryad_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=dryad_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=dryad_clock
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=dryad_contra
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=dryad_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=dryad_rturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=dryad_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=dryad_death
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=dryad_slew
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=dryad_happy
+      fadetime=60
+    }
+    sound {
+      animation=song
+      frame=0.01
+      file=dryad_song
+      fadetime=60
+    }
+    sound {
+      animation=avoid
+      frame=0.01
+      file=dryad_avoid
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=dryad_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=dryad_contra2
+      fadetime=60
+    }
+    sound {
+      animation=respawn
+      frame=0.01
+      file=dryad_respawn
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=dryad_cast
+      fadetime=60
+    }
+    sound {
+      animation=sleep
+      frame=0.01
+      file=dryad_sleep
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  dryad_idle.bsa=file
+  dryad_rare.bsa=file
+  dryad_attack.bsa=file
+  dryad_move.bsa=file
+  dryad_start.bsa=file
+  dryad_stop.bsa=file
+  dryad_clock.bsa=file
+  dryad_contra.bsa=file
+  dryad_2clock.bsa=file
+  dryad_2contra.bsa=file
+  dryad_lturn.bsa=file
+  dryad_rturn.bsa=file
+  dryad_damage.bsa=file
+  dryad_death.bsa=file
+  dryad_respawn.bsa=file
+  dryad_victory.bsa=file
+  dryad_cast.bsa=file
+  dryad_special.bsa=file
+  dryad_avoid.bsa=file
+}

@@ -1,0 +1,430 @@
+main {
+  class=chesspiece
+  receiver=bones
+  model {
+    0=bonedragon.bma
+    1=bonedragondeath.bma
+  }
+  cullcat=0
+  bboxanim=1
+}
+arena_params {
+  features_label=cpi_bonedragon_feat
+  features_hints=undead_header/undead_hint,bone_header/bone_hint,flies_header/flies_hint
+  posthitslave=features_bone_creature
+  race=undead
+  cost=3200
+  level=5
+  leadership=1300
+  attack=43
+  defense=43
+  defenseup=6
+  initiative=6
+  speed=7
+  hitpoint=600
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  movetype=2
+  attacks=moveattack,poison_cloud
+  features=bone,undead,dragon
+  resistances {
+    physical=0
+    poison=50
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    usefly=4
+    damage {
+      poison=50,65
+    }
+    custom_params {
+      poison=0
+    }
+  }
+  poison_cloud {
+    class=scripted
+    picture=BA1_PoisonCloud_
+    picture_small=BA1_PoisonCloud_small.png
+    script_attack=special_poison_cloud
+    reload=3
+    ad_factor=1
+    deadonly=0
+    hinthead=special_poison_cloud_head
+    hint=special_poison_cloud_hint
+    damage {
+      poison=60,80
+    }
+    custom_params {
+      poison=100
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      moral=1
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=bonedragon_idle.bsa/fr:25:50
+  rare=bonedragon_rare.bsa/fr:25:50
+  attack=bonedragon_attack.bsa/fr:25:50
+  move=bonedragon_move.bsa/fr:35:70
+  start=bonedragon_start.bsa/fr:35:70
+  stop=bonedragon_stop.bsa/fr:35:70
+  clock=bonedragon_clock.bsa/fr:50:100
+  contra=bonedragon_contra.bsa/fr:50:100
+  clock2=bonedragon_clock.bsa/fr:100:200/twofold
+  contra2=bonedragon_contra.bsa/fr:100:200/twofold
+  lturn=bonedragon_lturn.bsa/fr:35:70
+  rturn=bonedragon_rturn.bsa/fr:35:70
+  damage=bonedragon_damage.bsa/fr:25:50
+  takeoff=bonedragon_takeoff.bsa/fr:25:50
+  flight=bonedragon_flight.bsa/fr:25:50
+  descent=bonedragon_descent.bsa/fr:25:50
+  ldivert=bonedragon_ldivert.bsa/fr:25:50
+  rdivert=bonedragon_rdivert.bsa/fr:25:50
+  slew=bonedragon_slew.bsa/fr:35:70
+  waft=bonedragon_waft.bsa/fr:25:50
+  death=bonedragondeath_death.bsa/fr:25:50/m:1
+  respawn=bonedragondeath_respawn.bsa/fr:25:50/m:1
+  cursor=bonedragon_rare.bsa/fr:25:50
+  teleout=bonedragon_idle.bsa/fr:25:50/r:65:100
+  telein=bonedragon_idle.bsa/fr:25:50/r:0:35
+  happy=bonedragon_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:idlemain:1:1:rare
+  special=bonedragon_special.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    18.0?x=
+    0.0=cam
+  }
+  @special {
+    32.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=2
+    particle {
+      trans=0/0/0.30000001/0.00000015/1.51260161/0.00000015/0.89999998
+      animation=attack
+      frame=12/25
+      file=attack_acid_flow_core.ptb
+    }
+    particle {
+      trans=0/0/-0.12359619/0/1.57079637/0/0.5
+      animation=attack
+      frame=8/15
+      file=attack_acid_flow.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      animation=special
+      frame=18/29
+      file=attack_acid_breath.ptb
+    }
+    particle {
+      trans=0/0/0.2/0.00000009/1.16352415/0.00000015/0.69999999
+      animation=special
+      frame=18/22
+      file=attack_acid_flow_core.ptb
+    }
+    particle {
+      trans=0.08/0.13/0.1/0/-0/0/0.5
+      file=move_undead_eye.ptb
+    }
+    particle {
+      trans=-0.08/0.13/0.1/0/-0/0/0.5
+      file=move_undead_eye.ptb
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=0/-0.12359619/0/0/-0.77571476/0/1
+      animation=attack
+      frame=0/5
+      file=attack_bonedragon_stars.ptb
+    }
+  }
+  0 {
+    slot=6
+    particle {
+      trans=0/-0.85327697/0/1
+      animation=attack
+      frame=3/7
+      file=attack_bonedragon_stars.ptb
+    }
+  }
+  0 {
+    slot=7
+    particle {
+      trans=0/0/0.2/-3.1415925/-1.16352451/-3.1415925/1
+      animation=attack
+      frame=5/7
+      file=attack_bonedragon_stars.ptb
+    }
+  }
+  0 {
+    slot=8
+    particle {
+      trans=0/-0.15000001/0.12359619/-3.1415925/0.42663896/-3.1415925/1
+      animation=attack
+      frame=6/8
+      file=attack_bonedragon_stars.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=bonedragon_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=bonedragon_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=bonedragon_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=bonedragon_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=bonedragon_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=bonedragon_clocon
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=bonedragon_clocon
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=bonedragon_clocon2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=bonedragon_clocon2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=bonedragon_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=bonedragon_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=bonedragon_damage
+      fadetime=60
+    }
+    sound {
+      animation=takeoff
+      frame=0.01
+      file=bonedragon_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=flight
+      frame=0.01
+      file=bonedragon_flight
+      fadetime=60
+    }
+    sound {
+      animation=descent
+      frame=0.01
+      file=bonedragon_descent
+      fadetime=60
+    }
+    sound {
+      animation=ldivert
+      frame=0.01
+      file=bonedragon_ldivert
+      fadetime=60
+    }
+    sound {
+      animation=rdivert
+      frame=0.01
+      file=bonedragon_ldivert
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=bonedragon_slew
+      fadetime=60
+    }
+    sound {
+      animation=waft
+      frame=0.01
+      file=bonedragon_waft
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=bonedragon_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=bonedragon_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=bonedragon_happy
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=bonedragon_special
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.5/0/0/-0/0/1
+      animation=special
+      frame=27
+      restart=true
+      file=cast_acid_circle_blast.ptb
+    }
+    particle {
+      trans=0/2.83935547/-0.61737061/0/-0.38780975/0/0.80000001
+      animation=special
+      frame=19/25
+      file=attack_acid_flow.ptb
+    }
+    particle {
+      trans=0/0.033/0/0/-0/0/1
+      animation=special
+      frame=25/33
+      restart=true
+      file=cast_acid_foam.ptb
+    }
+    particle {
+      trans=0/0/-2/0/-0/0/0.5
+      animation=attack
+      frame=17/21
+      file=cast_acid_circle_blast.ptb
+    }
+    camshaker {
+      animation=death
+      frame=1/49
+      restart=true
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+    camshaker {
+      animation=special
+      frame=26/54
+      restart=true
+      envelope=quake_boom.envlp
+      attenuation=0.2
+    }
+  }
+}
+prefetch {
+  bonedragon_idle.bsa=file
+  bonedragon_rare.bsa=file
+  bonedragon_attack.bsa=file
+  bonedragon_move.bsa=file
+  bonedragon_start.bsa=file
+  bonedragon_stop.bsa=file
+  bonedragon_clock.bsa=file
+  bonedragon_contra.bsa=file
+  bonedragon_2clock.bsa=file
+  bonedragon_2contra.bsa=file
+  bonedragon_lturn.bsa=file
+  bonedragon_rturn.bsa=file
+  bonedragon_damage.bsa=file
+  bonedragon_death.bsa=file
+  bonedragon_respawn.bsa=file
+  bonedragon_victory.bsa=file
+  bonedragon_special.bsa=file
+  bonedragon_takeoff.bsa=file
+  bonedragon_flight.bsa=file
+  bonedragon_descent.bsa=file
+  bonedragon_ldivert.bsa=file
+  bonedragon_rdivert.bsa=file
+  bonedragon_slew.bsa=file
+  bonedragon_waft.bsa=file
+}

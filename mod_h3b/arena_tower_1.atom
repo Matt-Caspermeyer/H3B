@@ -1,0 +1,335 @@
+main {
+  class=pawn
+  model=arena_tower_1.bma
+  mustdieforwin=1
+  apass=3
+  cullcat=0
+  spawnscale=0.65
+  infobox {
+    msgbox=cpn_hint_arena_tower_1
+  }
+  
+}
+arena_params {
+  hitpoint=200
+  takedmg=1
+  defense=3
+  initiative=3
+  repl_label1=gremlin_repl1
+  realdeath=1
+  hitback=1
+  skipmove=0
+  chessboard_aligned=1
+  ondamage=
+  isenemy=1
+  spells=spell_slow=L,spell_summon=L,spell_dispell=L
+  // enemy is the tower's allied troops (i.e. your enemy)
+  // _race means that the tower will get these spells to cast on your troops if its army has units of these races
+  // the list is extensible so long as there is such a race in the game
+  spells_enemy_human=spell_magic_axe=L,spell_lightning=L,spell_defenseless=L
+  spells_enemy_dwarf=spell_geyser=L,spell_ice_serpent=L,spell_defenseless=L
+  spells_enemy_elf=spell_magic_axe=L,spell_lightning=L,spell_magic_bondage=L
+  spells_enemy_undead=spell_smile_skull=L,spell_scare=L,spell_plague=L,spell_weakness=L
+  spells_enemy_demon=spell_fire_arrow=L,spell_fire_ball=L,spell_fire_rain=L,spell_blind=L,spell_ram=L,spell_crue_fate=L
+  spells_enemy_orc=spell_ghost_sword=L,spell_pain_mirror=L,spell_pygmy=L,spell_crue_fate=L
+  // _feature_... means that the tower will get these spells to cast on your troops if its army has units with the features specified
+  // the list is extensible so long as such a feature exists in the game on a unit
+  spells_enemy_feature_dragon=spell_lightning=L,spell_fire_rain=L,spell_ice_serpent=L,spell_ram=L,spell_pygmy=L,spell_geyser=L
+  // ally is the tower's enemy troops (i.e. your troops)
+  // _race means that the tower will get these spells to cast on your troops if your army has units of the race specified
+  // the list is extensible so long as there is such a race in the game
+  spells_ally_human=spell_smile_skull=L,spell_plague=L,spell_weakness=L,spell_scare=L,spell_crue_fate=L,spell_defenseless=L,spell_ram=L
+  spells_ally_dwarf=spell_fire_arrow=L,spell_fire_ball=L,spell_fire_rain=L,spell_plague=L,spell_weakness=L,spell_scare=L,spell_crue_fate=L,spell_ram=L
+  spells_ally_elf=spell_smile_skull=L,spell_fire_arrow=L,spell_fire_ball=L,spell_fire_rain=L,spell_plague=L,spell_weakness=L,spell_scare=L,spell_crue_fate=L,spell_ram=L
+  spells_ally_undead=spell_holy_rain=L,spell_magic_axe=L,spell_lightning=L,spell_fire_arrow=L,spell_fire_ball=L,spell_fire_rain=L
+  spells_ally_demon=spell_geyser=L,spell_ice_serpent=L,spell_pygmy=L,spell_pain_mirror=L
+  spells_ally_orc=spell_pain_mirror=L,spell_crue_fate=L,spell_ram=L
+  // _feature... means that the tower will get these spells to cast on your troops if your army has units with the features specified
+  // the list is extensible so long as such a feature exists in the game on a unit
+  spells_ally_feature_archer=spell_shroud=L,spell_blind=L
+  spells_ally_feature_shot=spell_shroud=L,spell_blind=L
+  spells_ally_feature_armor=spell_ghost_sword=L,spell_defenseless=L
+  spells_ally_feature_beast=spell_pygmy=L
+  spells_ally_feature_dragon=spell_ghost_sword=L,spell_weakness=L,spell_crue_fate=L
+  spells_ally_feature_fire_immunitet=spell_geyser=L,spell_ice_serpent=L
+  spells_ally_feature_freeze_immunitet=spell_fire_arrow=L,spell_fire_ball=L,spell_fire_rain=L
+  spells_ally_feature_plant=spell_fire_arrow=L,spell_fire_ball=L,spell_fire_rain=L
+  spells_ally_feature_humanoid=spell_defenseless=L,spell_ram=L,spell_weakness=L,spell_crue_fate=L
+  spells_ally_feature_mage=spell_magic_bondage=L,spell_weakness=L
+  spells_ally_feature_poison_immunitet=spell_magic_axe=L,spell_lightning=L,spell_fire_arrow=L,spell_fire_ball=L,spell_fire_rain=L
+  // additional random spells to select from based on average ally level
+  spells_evil=spell_defenseless=L,spell_magic_axe=L,spell_ghost_blade=L,spell_pygmy=L,spell_blind=L,spell_geyser=L,spell_fire_arrow=L,spell_smile_skull=L,spell_scare=L,spell_oil_fog=L,spell_plague=L,spell_magic_bondage=L,spell_ice_serpent=L,spell_fire_ball=L,spell_weakness=L,spell_crue_fate=L,spell_ram=L,spell_pain_mirror=L,spell_fire_rain=L,spell_lightning=L
+  attacks=scripted,hitbackatk
+  features=pawn,barrier
+  resistances {
+    physical=0
+    poison=20
+    magic=80
+    fire=0
+  }
+  scripted {
+    script_attack=item_tower_attack
+    ad_factor=0
+    custom_params {
+      k=50-100  // percent of summon health
+    }
+  }
+  hitbackatk {
+    class=scripted
+    script_attack=item_tower_hitback
+    ad_factor=0
+    custom_params {}
+  }
+  script_data {
+    intellect=3
+  }
+}
+scripts {
+  idle=default_idle
+  pawn_change_attack=arena_tower_selattack
+  pl_hitback=arena_tower_selhitback
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=0.65
+  spawnscale=0.65
+  logicunit {
+    typeflags=vars
+    name=arena_tower_1
+    vars {}
+    capture {}
+  }
+}
+animations {
+  idle=/fwd:3:idlemain:1:rare:1:spare
+  idlemain=arena_tower_idle.bsa/fr:25:50
+  rare=arena_tower_rare.bsa/fr:25:50
+  spare=arena_tower_spare.bsa/fr:25:50
+  cast=arena_tower_cast.bsa/fr:25:50
+  damage=arena_tower_damage.bsa/fr:25:50
+  death=arena_tower_death.bsa/fr:25:50
+  @cast {
+    31.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    80.0=alpha/0/5
+    2.0?x=
+    0.0=cam
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/0.40000001/-0.86425781/0/-0/0/0.89999998
+      animation=damage
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0/0.40000001/0.86425781/0/-0/0/0.89999998
+      animation=damage
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0.86425781/0.40000001/0/0/-0/0/0.89999998
+      animation=damage
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=-0.80000001/0.40000001/0/0/-0/0/0.89999998
+      animation=damage
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=-0.40000001/0.30000001/-0.44/1.24108458/1.31864846/-0.00000018/1.60000038
+      animation=damage
+      frame=0/5
+      file=train_sparks.ptb
+    }
+    particle {
+      trans=0.60000002/0.30000001/-0.44/-1.90050638/1.20235336/-3.14159203/1.39999998
+      animation=damage
+      frame=0/5
+      file=train_sparks.ptb
+    }
+    particle {
+      trans=0/0.30000001/-0.80000001/0/1.47386742/0/1.50000012
+      animation=damage
+      frame=0/5
+      file=train_sparks.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.40000001/-0.86425781/0/-0/0/0.89999998
+      animation=death
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0/0.40000001/0.86425781/0/-0/0/0.89999998
+      animation=death
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0.86425781/0.40000001/0/0/-0/0/0.89999998
+      animation=death
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=-0.80000001/0.40000001/0/0/-0/0/0.89999998
+      animation=death
+      frame=0/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=-0.40000001/0.30000001/-0.44/1.24108458/1.31864846/-0.00000018/1.60000038
+      animation=death
+      frame=0/5
+      file=train_sparks.ptb
+    }
+    particle {
+      trans=0.60000002/0.30000001/-0.44/-1.90050638/1.20235336/-3.14159203/1.39999998
+      animation=death
+      frame=0/5
+      file=train_sparks.ptb
+    }
+    particle {
+      trans=0/0.30000001/-0.80000001/0/1.47386742/0/1.50000012
+      animation=death
+      frame=0/5
+      file=train_sparks.ptb
+    }
+    particle {
+      trans=0/0/-0.69999999/0/-0.08726647/0/0.80000001
+      animation=death
+      frame=55/72
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/0/0.69999999/0/0.08726647/0/0.80000001
+      animation=death
+      frame=55/68
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=-0.69999999/0/0/0/-0/0.08726646/0.80000001
+      animation=death
+      frame=55/70
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0.69999999/0/0/0/-0/-0.08726645/0.80000001
+      animation=death
+      frame=55/66
+      file=therock_thickdust.ptb
+    }
+    particle {
+      trans=0/1/0/0/-0/0/1
+      animation=death
+      frame=66/70
+      file=shaman_orc_stars.ptb
+    }
+    particle {
+      trans=0/-0/0/3
+      animation=death
+      frame=58/75
+      file=shaman_orc_smoke.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.5/-0.5/0/-0.00000009/0/1
+      animation=cast
+      frame=20/22
+      file=attack_beholder_accum.ptb
+    }
+    particle {
+      trans=0/0.5/-0.5/0/-0/0/1.5
+      animation=cast
+      frame=22/30
+      file=cast_bullflame.ptb
+    }
+    particle {
+      trans=0/0.40000001/-0.5/0/-0/0/1
+      animation=cast
+      frame=8/15
+      file=cast_demoness_twirl.ptb
+    }
+    particle {
+      trans=0/0.40000001/-0.30000001/0/-0/0/1
+      animation=cast
+      frame=8/22
+      file=magic_rust_spot.ptb
+    }
+    particle {
+      trans=0/5/-0.5/-3.1415925/-0.00000009/-3.1415925/0.80000001
+      animation=cast
+      frame=24/30
+      file=magic_fireflow.ptb
+    }
+    omni {
+      trans=0/1/-1/0/-0/0/1
+      animation=cast
+      frame=15
+      restart=true
+      lightland=true
+      key=0.1/FF000000/7/1
+      key=0.5/FF7D2800/10/1
+      key=0.1/FFFE8856/10/1
+      key=0.30000001/FFF46B06/10/1
+      key=0.5/FF000000/10/1
+      key=5/FF000000/7/1
+    }
+    coord=0/4/0/0/-0/0/1
+  }
+  1 {
+    sound {
+      animation=idlemain
+      frame=0.01
+      file=arena_tower_idle
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=arena_tower_idle
+      fadetime=60
+    }
+    sound {
+      animation=spare
+      frame=0.01
+      file=arena_tower_spare
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=arena_tower_cast
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=arena_tower_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=arena_tower_death
+      fadetime=60
+    }
+  }
+}

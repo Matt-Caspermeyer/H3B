@@ -1,0 +1,615 @@
+
+arenacommon {
+  rail_hit_threshold=15
+  defenseup_def=30
+  level_step_sound=
+  spell_ooc=effect_ooc
+  spell_buc=effect_buc
+  genbox=genbox
+ 
+  // Опыт духов ярости - added levels 31-46 (46 is max for all spirits) and made the delta-delta between levels consistent
+  exptable=10,20,40,80,140,230,350,500,690,920,1190,1500,1860,2270,2730,3240,3800,4420,5100,5840,6640,7500,8420,9410,10470,11600,12800,14070,15410,16820,18310,19880,21530,23260,25070,26960,28930,30990,33140,35380,37710,40130,42640,45240,47930,100000
+
+  kCost=0.20 // Коэффициент цены от стоимости убитого существа 0.12
+
+  logic_bits=cemetery,lava,dungeon,forest,sea,winter
+}
+
+
+arenaobstacles {
+  dwarf_dungeon {
+    20=arena_dwarf01
+    20=arena_dwarf02
+    20=arena_dwarf03
+    20=arena_dwarf04
+    20=arena_dwarf05
+    20=arena_garbage01
+    20=arena_dwarf_barrel
+  }
+  demon_land {
+    30=arena_vulcano01
+    30=arena_vulcano02
+    50=arena_demonstones01
+    50=arena_demonstones02
+    50=arena_red_crystal_01
+    50=arena_red_crystal_02
+    50=arena_red_crystal_03
+    50=arena_red_crystal_04
+    50=arena_red_crystal_05
+  }
+  forest {
+    30=arena_log01
+    30=arena_log02
+    30=arena_log03
+    20=arena_stub01
+    20=arena_stub02
+    20=arena_rock01
+    20=arena_rock02
+    20=arena_rock03
+    20=arena_bonedragon01
+  }
+  elf_forest {
+    30=arena_elfstone_01
+    30=arena_elfstone_02
+    30=arena_elfstone_03
+    30=arena_elfstone_04
+    30=arena_elfstone_05
+    30=arena_elfstone_06
+    30=arena_elfstone_07
+    30=arena_elfstone_08
+    30=arena_elfcolumn_01
+    30=arena_elfcolumn_02
+    30=arena_elfcolumn_03
+    30=arena_elfcolumn_04
+    30=arena_elfcolumn_05
+    30=arena_elfcolumn_06
+    30=arena_elfcolumn_07
+  }
+  dark_forest {
+    30=arena_stone_dark_01
+    30=arena_stone_dark_02
+    30=arena_stone_dark_03
+    30=arena_stone_dark_04
+    30=arena_stone_dark_05
+    30=arena_stone_dark_06
+    30=arena_stonedark02
+    30=arena_stonedark01
+  }
+  coast {
+    30=arena_coast_01
+    30=arena_coast_02
+    30=arena_coast_03
+    30=arena_coast_04
+    30=arena_coast_05
+  }
+  castle {
+    arena_castle_01
+    arena_castle_02
+    arena_castle_03
+    arena_castle_04
+  }
+  dungeon {
+    10=arena_bonedragon01
+    40=arena_mushroom01
+    45=arena_mushroom02
+    45=arena_mushroom_01
+    45=arena_mushroom_02
+    45=arena_mushroom_03
+    50=arena_caveroot01
+    50=arena_deadroot_01
+    50=arena_deadroot_02
+    50=arena_deadroot_03
+  }
+  death_land {
+    30=arena_deadruins_01
+    30=arena_deadruins_02
+    30=arena_deadruins_03
+    30=arena_deadruins_04
+    30=arena_deadruins_05
+    30=arena_deadruins_06
+    30=arena_deadruins_07
+    30=arena_deadmountin_01
+    30=arena_deadmountin_02
+    30=arena_deadmountin_03
+    30=arena_deadcrow_01
+    50=arena_caveroot01
+    50=arena_deadroot_01
+    50=arena_deadroot_02
+    50=arena_deadroot_03
+    30=arena_stone_dark_01
+    30=arena_stone_dark_02
+    30=arena_stone_dark_03
+    30=arena_stone_dark_04
+    30=arena_stone_dark_05
+    30=arena_stone_dark_06
+    }
+  crypt {
+    30=arena_crypt01
+    30=arena_crypt02
+    30=arena_crypt03
+    30=arena_crypt04
+    30=arena_crypt05
+  }
+  ice_land {
+    30=arena_snowmountin_01
+    30=arena_snowmountin_02
+    30=arena_snowmountin_03
+    30=arena_snowmountin_04
+    30=arena_snowmountin_05
+    30=arena_ice_01
+    30=arena_ice_02
+    30=arena_ice_03
+    30=arena_ice_04
+  }
+  death_mountain {
+    30=arena_deadruins_01
+    30=arena_deadruins_02
+    30=arena_deadruins_03
+    30=arena_deadruins_05
+    30=arena_deadmountin_01
+    30=arena_deadmountin_02
+    30=arena_deadmountin_03
+    50=arena_caveroot01
+    50=arena_deadroot_01
+    50=arena_deadroot_02
+    50=arena_deadroot_03
+    30=arena_stone_dark_01
+    30=arena_stone_dark_02
+    30=arena_stone_dark_03
+    30=arena_stone_dark_04
+    30=arena_stone_dark_05
+    30=arena_stone_dark_06
+    }
+}
+
+arenaboxes {
+  box {
+    10=box_chest_04_1,box_temp_arena11
+    10=box_chest_03_1,box_temp_arena12
+    10=box_chest_05_1,box_temp_arena13
+  }
+}
+
+arenapawns {
+  pawn_castle {
+    100=arena_bomb
+    100=altar_barrel
+    100=barrier01
+  }
+  pawn_ice {
+    100=altar_ice
+  }
+  pawn_forest {
+    100=altar_hollow
+  }
+  pawn_undead {
+    100=altar_grave
+    100=altar_bad_statue
+    100=altar_hollow
+  }
+  pawn_elf {
+    100=altar_good_statue
+    100=altar_hollow
+  }
+  pawn_human {
+    100=altar
+    100=altar_good_statue
+  }
+  pawn_swamp_crypt {
+    100=altar_bad_statue
+    100=altar_grave
+  }
+  pawn_dwarf_dungeon {
+    100=arena_bomb
+    100=altar_barrel
+    100=altar
+  }
+  pawn_demon {
+    100=altar_volcano
+  }
+  pawn_coast {
+    100=arena_bomb
+    100=altar_barrel
+    100=altar_good_statue
+  }
+  pawn_ship {
+    100=barrier01
+    100=altar_barrel
+  }
+  pawn_dungeon {
+    100=altar_bad_statue
+    100=altar
+  }
+  pawn_dark_forest {
+    100=altar_hollow
+    100=altar_bad_statue
+    100=altar
+  }
+  pawn_dwarf_land {
+    100=arena_bomb
+    100=altar_barrel
+    100=altar
+    100=altar_good_statue
+  }
+  pawn_castle_dungeon {
+    50=arena_bomb
+    50=altar_barrel
+    100=altar
+    100=altar_good_statue
+    100=altar_bad_statue
+  }
+  item_pawn {
+    100=arena_tower
+    100=arena_tower
+    100=arena_tower_1
+    100=arena_tower_1
+    100=arena_tower_1
+    100=arena_tower_1
+    100=arena_tower_1
+  }
+}
+
+
+arenaselect {
+  avenemy=unit_army.ptb/0.05
+  altenemy=unit_army_player.ptb/0.06
+  highlight=cell_on.ptb/0.01
+  available=cell_available.ptb/0.015
+  avlast=cell_available_last.ptb/0.015
+  destination=cell_destination.ptb/0.04
+  fishsmall=cell_fish_small.ptb/0.04
+  fishbig=cell_fish_big.ptb/0.04
+  pathright=cell_path_corner_mirr.ptb/0.04
+  pathleft=cell_path_corner.ptb/0.04
+  pathend=cell_path_end.ptb/0.04
+  pathline=cell_path_line.ptb/0.04
+  pathstart=cell_path_start.ptb/0.04
+
+  //undercurosr=
+  //unithuman=unit_army.ptb
+  unitsel=unit_selected.ptb/0.03
+  path=cell_path.ptb/0.03
+
+  transparent {
+    highlight=cell_on_itemfight.ptb/0.01
+    available=cell_available_itemfight.ptb/0.015
+    avlast=cell_available_last_itemfight.ptb/0.015
+  }
+
+  yellow {
+    highlight=cell_on_yellow.ptb/0.01
+  }
+
+  green {
+    highlight=cell_on_green.ptb/0.01
+  }
+
+  beige {
+    highlight=cell_on_beige.ptb/0.01
+  }
+
+  red {
+    highlight=cell_on_red.ptb/0.01
+  }
+
+  brown {
+    highlight=cell_on_brown.ptb/0.01
+  }
+
+  blue {
+    highlight=cell_on_blue.ptb/0.01
+  }
+
+  totem0=cell_totem_line_green.ptb/0.01
+  totem1=cell_totem_line_red.ptb/0.01
+
+}
+
+ffo_config {
+  textures {
+    enemy_bg=borderred.png
+    enemy_bg_w=39
+    enemy_bg_h=16
+
+    alied_bg=borderblue.png
+    alied_bg_w=39
+    alied_bg_h=16
+
+    thirdparty_bg=borderred2.png
+    thirdparty_bg_w=39
+    thirdparty_bg_h=16
+
+
+    info_back_left=battle_gradient_left.png
+    info_back_right=battle_gradient_right.png
+    info_bonus_one=battle_baffs_positive1.png
+    info_bonus_many=battle_baffs_positive2.png
+    info_penalty_one=battle_baffs_negative1.png
+    info_penalty_many=battle_baffs_negative2.png
+
+    arenainfo_bg=Message_bg01.png
+    arenainfo_bg_w=600
+    arenainfo_bg_h=26
+    arenainfo_bg_y=125
+
+    mapinfo_bg=
+    mapinfo_bg_w=600
+    mapinfo_bg_h=60
+    mapinfo_bg_y=125
+
+  }
+  tags {
+    enemy=ffo_flyers_enemy
+    alied=ffo_flyers_alied
+    thirdparty=ffo_flyers_thirdparty
+    info=ffo_flyers_info
+    arenainfo=ffo_arena_info
+    mapinfo=ffo_map_info
+  }
+  flyers {
+    speed=0.02
+    time_fly=2000
+    time=2000
+    tpres=ffo_flyers_tpres
+    tpres_cure=ffo_flyers_tpres_cure
+  }
+  flyers_ex {
+    speed=0.02
+    time=1000
+    time_fly=2000
+    tpres=ffo_flyers_tpres_ex
+
+    money=message_icon1_money.png
+    crystals=message_icon1_crystal.png
+    leadership=message_icon1_leadership.png
+    mana=message_icon1_mana.png
+    rage=message_icon1_rage.png
+    rune_magic=message_icon1_rune_blue.png
+    rune_mind=message_icon1_rune_green.png
+    rune_might=message_icon1_rune_red.png
+  }
+
+  flyers_crit_dmg {
+    speed=0.02
+    time=1000
+    time_fly=2000
+    tpres=ffo_flyers_tpres_crit
+    backimg=damage_crit_back.png
+    backimg_large=damage_crit_back2.png
+  }
+
+  flyers_miss_dmg {
+    speed=0.02
+    time=1000
+    time_fly=2000
+    tpres=ffo_flyers_tpres_crit
+    backimg=battle_miss_bg.png
+  }
+
+  pb_pawn {
+    width=59
+    height=4
+
+    bg_width=67
+    bg_height=10
+
+    bg=hp_progressbar_bg.png
+
+    offset_x=4
+    offset_y=3
+
+    lives_full_left=hp_progressbar_green_left.png
+    lives_full_right=hp_progressbar_green_right.png
+    lives_full_center=hp_progressbar_green_center.png
+
+    lives_few_left=hp_progressbar_yellow_left.png
+    lives_few_right=hp_progressbar_yellow_right.png
+    lives_few_center=hp_progressbar_yellow_center.png
+
+    lives_low_left=hp_progressbar_red_left.png
+    lives_low_right=hp_progressbar_red_right.png
+    lives_low_center=hp_progressbar_red_center.png
+  }
+
+  pb_unit {
+    width=59
+    height=4
+
+    bg_width=67
+    bg_height=10
+
+    bg=hp_progressbar_bg.png
+
+    offset_x=4
+    offset_y=3
+
+    lives_full_left=hp_progressbar_green_left.png
+    lives_full_right=hp_progressbar_green_right.png
+    lives_full_center=hp_progressbar_green_center.png
+
+    lives_few_left=hp_progressbar_yellow_left.png
+    lives_few_right=hp_progressbar_yellow_right.png
+    lives_few_center=hp_progressbar_yellow_center.png
+
+    lives_low_left=hp_progressbar_red_left.png
+    lives_low_right=hp_progressbar_red_right.png
+    lives_low_center=hp_progressbar_red_center.png
+  }
+
+  pb_boss {
+    width=119
+    height=4
+
+    bg_width=127
+    bg_height=10
+
+    bg=hp_progressbar_large_bg.png
+
+    offset_x=4
+    offset_y=3
+
+    lives_full_left=hp_progressbar_green_left.png
+    lives_full_right=hp_progressbar_green_right.png
+    lives_full_center=hp_progressbar_green_center.png
+
+    lives_few_left=hp_progressbar_yellow_left.png
+    lives_few_right=hp_progressbar_yellow_right.png
+    lives_few_center=hp_progressbar_yellow_center.png
+
+    lives_low_left=hp_progressbar_red_left.png
+    lives_low_right=hp_progressbar_red_right.png
+    lives_low_center=hp_progressbar_red_center.png
+
+  }
+
+}
+
+
+spirits {
+  status_sleep_1=casket_status_sleep_1
+  status_sleep_2=casket_status_sleep_2
+  status_sleep_3=casket_status_sleep_3
+  status_sleep_4=casket_status_sleep_4
+
+  status_ready=casket_status_ready
+  status_no_rage=casket_status_no_rage
+  status_offline=casket_status_offline
+  status_wait=casket_status_wait
+  therock {
+
+    // labels and icons for menu
+    // label/icon/icondisabled
+
+    hw_button_normal=hero_warspirit_therock3_normal.png
+    hw_button_focused=hero_warspirit_therock3_onmouse.png
+    hw_button_pressed=hero_warspirit_therock3_onpress.png
+
+    face=spirit_therock.png
+    lu_face=spirit_levelup_therock.png
+    hint_config=object_top_right
+    quake=spmi_thr_quake/warspirit_ability2_02.png/warspirit_ability2_02.png/warspirit_ability_02.png/warspirit_ability_02dis.png
+    quake_header=spmi_thr_quake_hdr
+    quake_text=spmi_thr_quake_txt
+    lump=spmi_thr_lump/warspirit_ability2_01.png/warspirit_ability2_01.png/warspirit_ability_01.png/warspirit_ability_01dis.png
+    lump_header=spmi_thr_lump_hdr
+    lump_text=spmi_thr_lump_txt
+    rockfall=spmi_thr_rockfall/warspirit_ability2_04.png/warspirit_ability2_04.png/warspirit_ability_04.png/warspirit_ability_04dis.png
+    rockfall_header=spmi_thr_rockfall_hdr
+    rockfall_text=spmi_thr_rockfall_txt
+    wall=spmi_thr_wall/warspirit_ability2_03.png/warspirit_ability2_03.png/warspirit_ability_03.png/warspirit_ability_03dis.png
+    wall_header=spmi_thr_wall_hdr
+    wall_text=spmi_thr_wall_txt
+
+
+    // button hint
+    hint_on=therock_hint_on
+    hint_off=therock_hint_off
+    dream_hint=therock_dream_hint
+    rage_hint=therock_rage_hint
+  }
+
+
+  slime {
+
+    // labels and icons for menu
+    // label/icon/icondisabled
+
+    hw_button_normal=hero_warspirit_theslime3_normal.png
+    hw_button_focused=hero_warspirit_theslime3_onmouse.png
+    hw_button_pressed=hero_warspirit_theslime2_onpress.png
+
+    face=spirit_theslime.png
+    lu_face=spirit_levelup_theslime.png
+    hint_config=object_top_right
+    fishes=spmi_thr_fishes/warspirit_ability2_05.png/warspirit_ability2_05.png/warspirit_ability_05.png/warspirit_ability_05dis.png
+    fishes_header=spmi_thr_fishes_hdr
+    fishes_text=spmi_thr_fishes_txt
+
+    fog=spmi_thr_fog/warspirit_ability2_07.png/warspirit_ability2_07.png/warspirit_ability_07.png/warspirit_ability_07dis.png
+    fog_header=spmi_thr_fog_hdr
+    fog_text=spmi_thr_fog_txt
+
+    spittle=spmi_thr_spittle/warspirit_ability2_06.png/warspirit_ability2_06.png/warspirit_ability_06.png/warspirit_ability_06dis.png
+    spittle_header=spmi_thr_spittle_hdr
+    spittle_text=spmi_thr_spittle_txt
+
+    glot=spmi_thr_glot/warspirit_ability2_12.png/warspirit_ability2_12.png/warspirit_ability_12.png/warspirit_ability_12dis.png
+    glot_header=spmi_thr_glot_hdr
+    glot_text=spmi_thr_glot_txt
+
+    // button hint
+    hint_on=slime_hint_on
+    hint_off=slime_hint_off
+    dream_hint=slime_dream_hint
+    rage_hint=slime_rage_hint
+  }
+
+  lina {
+
+    // labels and icons for menu
+    // label/icon/icondisabled
+
+    hw_button_normal=hero_warspirit_leena_normal.png
+    hw_button_focused=hero_warspirit_leena_onmouse.png
+    hw_button_pressed=hero_warspirit_leena_onpress.png
+
+    face=spirit_thedeath.png
+    lu_face=Spirit_LevelUp_TheLina.png
+    hint_config=object_top_right
+    orb=spmi_thr_orb/warspirit_ability2_15.png/warspirit_ability2_15.png/warspirit_ability_15.png/warspirit_ability_15dis.png
+    orb_header=spmi_thr_orb_hdr
+    orb_text=spmi_thr_orb_txt
+    gizmo=spmi_thr_gizmo/warspirit_ability2_14.png/warspirit_ability2_14.png/warspirit_ability_14.png/warspirit_ability_14dis.png
+    gizmo_header=spmi_thr_gizmo_hdr
+    gizmo_text=spmi_thr_gizmo_txt
+    enboxes=spmi_thr_enboxes/warspirit_ability2_13.png/warspirit_ability2_13.png/warspirit_ability_13.png/warspirit_ability_13dis.png
+    enboxes_header=spmi_thr_enboxes_hdr
+    enboxes_text=spmi_thr_enboxes_txt
+    devatron=spmi_thr_devatron/warspirit_ability2_16.png/warspirit_ability2_16.png/warspirit_ability_16.png/warspirit_ability_16dis.png
+    devatron_header=spmi_thr_devatron_hdr
+    devatron_text=spmi_thr_devatron_txt
+
+    // button hint
+    hint_on=lina_hint_on
+    hint_off=lina_hint_off
+    dream_hint=thedeath_dream_hint
+    rage_hint=thedeath_rage_hint
+  }
+
+  death {
+
+    // labels and icons for menu
+    // label/icon/icondisabled
+
+    hw_button_normal=hero_warspirit_thedeath_normal.png
+    hw_button_focused=hero_warspirit_thedeath_onmouse.png
+    hw_button_pressed=hero_warspirit_thedeath_onpress.png
+
+    face=spirit_thedeath.png
+    lu_face=spirit_levelup_death.png
+    hint_config=object_top_right
+    reaping=spmi_thr_reaping/warspirit_ability2_10.png/warspirit_ability2_10.png/warspirit_ability_10.png/warspirit_ability_10dis.png
+    reaping_header=spmi_thr_reaping_hdr
+    reaping_text=spmi_thr_reaping_txt
+    time_return=spmi_thr_time_return/warspirit_ability2_11.png/warspirit_ability2_11.png/warspirit_ability_11.png/warspirit_ability_11dis.png
+    time_return_header=spmi_thr_time_return_hdr
+    time_return_text=spmi_thr_time_return_txt
+    black_hole=spmi_thr_black_hole/warspirit_ability2_08.png/warspirit_ability2_08.png/warspirit_ability_08.png/warspirit_ability_08dis.png
+    black_hole_header=spmi_thr_black_hole_hdr
+    black_hole_text=spmi_thr_black_hole_txt
+    rage_gain=spmi_thr_rage_gain/warspirit_ability2_09.png/warspirit_ability2_09.png/warspirit_ability_09.png/warspirit_ability_09dis.png
+    rage_gain_header=spmi_thr_rage_gain_hdr
+    rage_gain_text=spmi_thr_rage_gain_txt
+
+    // button hint
+    hint_on=death_hint_on
+    hint_off=death_hint_off
+    dream_hint=thedeath_dream_hint
+    rage_hint=thedeath_rage_hint
+  }
+
+
+
+
+}
+

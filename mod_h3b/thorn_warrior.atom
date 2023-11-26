@@ -1,0 +1,355 @@
+main {
+  class=chesspiece
+  model=thorn_warrior.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_thorn2_feat
+  features_hints=plant_header/plant_hint,eyeless_header/eyeless_hint
+  race=neutral
+  cost=10
+  level=1
+  leadership=8
+  attack=4
+  defense=3
+  defenseup=2
+  initiative=4
+  speed=3
+  hitpoint=8
+  features=eyeless,plant,mind_immunitet,poison_immunitet
+  movetype=0
+  krit=12
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,cast_thorn,cast_sacrifice
+  resistances {
+    physical=0
+    poison=80
+    magic=0
+    fire=-100
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=1,3
+    }
+  }
+  cast_thorn {
+    class=scripted
+    warning=sw_corpse
+    picture=BA1_CastThorn_
+    picture_small=BA1_CastThorn_small.png
+    hinthead=special_thorn4_head
+    hint=special_thorn4_hint
+    moves=1
+    script_attack=special_cast_thorn
+    script_calccells=calccells_corpse_around
+    attack_cursor=magicstick
+    anim_attack=special
+    custom_params {
+      k=80-90
+    }
+  }
+  cast_sacrifice {
+    class=scripted
+    warning=sw_no_plants
+    picture=BA1_castsacrifice_
+    picture_small=BA1_castsacrifice_small.png
+    hinthead=special_thorn3_head
+    hint=special_thorn3_hint
+    moves=1
+    features=plant
+    script_attack=special_cast_thorn_sacrifice
+    script_calccells=calccells_plant_around
+    attack_cursor=magicstick
+    disabled=1
+    custom_params {
+      heal=40  // percent of unit health
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:4:rare:1:spare
+  idlemain=thorn_idle.bsa/fr:25:50
+  rare=thorn_rare.bsa/fr:25:50
+  spare=thorn_spare.bsa/fr:25:50
+  attack=thorn_attack.bsa/fr:25:50
+  move=thorn_move.bsa/fr:25:50
+  start=thorn_start.bsa/fr:25:50
+  stop=thorn_stop.bsa/fr:25:50
+  clock=thorn_clock.bsa/fr:40:80
+  contra=thorn_contra.bsa/fr:40:80
+  clock2=thorn_2clock.bsa/fr:40:80
+  contra2=thorn_2contra.bsa/fr:40:80
+  lturn=thorn_lturn.bsa/fr:25:50
+  rturn=thorn_rturn.bsa/fr:25:50
+  damage=thorn_damage.bsa/fr:25:50
+  cast=thorn_cast.bsa/fr:25:50
+  slew=thorn_slew.bsa/fr:35:70
+  cursor=thorn_rare.bsa/fr:25:50
+  death=thorn_death.bsa/fr:25:50
+  respawn=thorn_respawn.bsa/fr:25:50
+  teleout=thorn_idle.bsa/fr:25:50/r:60:95
+  telein=thorn_idle.bsa/fr:25:50/r:0:30
+  happy=/fwd:1:spare
+  victory=/t:1:2:spare:1:2:idlemain
+  grow=thorn_grow.bsa/fr:25:50
+  special=thorn_special.bsa/fr:25:50
+  resur=thorn_cast.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    17.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    17.0?x=
+    0.0=cam
+  }
+  @special {
+    55.0?x=
+    0.0=cam
+  }
+  @grow {
+    0.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=thorn_rare
+      fadetime=60
+    }
+    sound {
+      animation=spare
+      frame=0.01
+      file=thorn_happy
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=thorn_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=thorn_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=thorn_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=thorn_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=thorn_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=thorn_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=thorn_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=thorn_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=thorn_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=thorn_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=thorn_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=thorn_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=thorn_slew
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=thorn_rare
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=thorn_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=thorn_happy
+      fadetime=60
+    }
+    sound {
+      animation=grow
+      file=thorn_grow
+      fadetime=60
+    }
+    sound {
+      animation=special
+      file=thorn_special
+      fadetime=60
+    }
+  }
+  1 {
+    coord=0/-0/0/0.60000002
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=grow
+      frame=5/47
+      file=thorn_dust.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=grow
+      frame=52/66
+      file=thorn_dust.ptb
+    }
+    particle {
+      animation=grow
+      frame=5/33
+      file=thorn_soil.ptb
+    }
+    particle {
+      animation=grow
+      frame=48/66
+      file=thorn_soil.ptb
+    }
+    particle {
+      trans=0/0/-0.1/0/-0.46546742/0/1
+      animation=grow
+      frame=14/28
+      file=thorn_soil.ptb
+    }
+    particle {
+      trans=0/0.69999999/0/0/-0/0/1
+      animation=grow
+      frame=5/69
+      file=thorn_grow.ptb
+    }
+  }
+  1 {
+    aspawn {
+      animation=special
+      atag=thornseed_thorn
+    }
+    aspawn {
+      animation=resur
+      atag=hll_priest_heal_cast
+    }
+    particle {
+      trans=0/0.1/-1.85180664/0/-0/0/0.60000002
+      animation=special
+      frame=22/27
+      file=thorn_dust.ptb
+    }
+    particle {
+      trans=0/0.11/-1.85180664/0/-0/0/0.60000002
+      animation=special
+      frame=20/25
+      file=thorn_soil.ptb
+    }
+    dummy {
+      tag=throw
+      trans=0/1.14999998/-1/0/-0/0/1
+    }
+  }
+}
+prefetch {
+  thorn_idle.bsa=file
+  thorn_rare.bsa=file
+  thorn_attack.bsa=file
+  thorn_move.bsa=file
+  thorn_start.bsa=file
+  thorn_stop.bsa=file
+  thorn_clock.bsa=file
+  thorn_contra.bsa=file
+  thorn_2clock.bsa=file
+  thorn_2contra.bsa=file
+  thorn_lturn.bsa=file
+  thorn_rturn.bsa=file
+  thorn_damage.bsa=file
+  thorn_death.bsa=file
+  thorn_respawn.bsa=file
+  thorn_grow.bsa=file
+  thorn_cast.bsa=file
+  thorn_special.bsa=file
+}

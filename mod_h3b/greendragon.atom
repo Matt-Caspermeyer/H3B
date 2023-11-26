@@ -1,0 +1,564 @@
+main {
+  class=chesspiece
+  model=greendragon.bma
+  cullcat=0
+  bboxanim=1
+}
+arena_params {
+  features_label=cpi_greendragon_feat
+  features_hints=flies_header/flies_hint,hates_giants_header/hates_giants_hint,magic_resistance_header/magic_resistance_hint,fire_protection_header/fire_protection_hint,mind_immunity_header/mind_immunity_hint
+  race=neutral
+  cost=9000
+  level=5
+  leadership=1600
+  attack=43
+  defense=49
+  defenseup=6
+  initiative=7
+  speed=6
+  hitpoint=700
+  features=dragon,mind_immunitet
+  krit=10
+  movetype=2
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,gianthate,capture,gain_mana
+  resistances {
+    physical=10
+    poison=0
+    magic=50
+    fire=50
+  }
+  moveattack {
+    group=1,1
+    ad_factor=1
+    usefly=4
+    conditions {
+      ~name=giant
+    }
+    damage {
+      physical=80,110
+    }
+  }
+  gianthate {
+    group=1,2
+    class=moveattack
+    usefly=4
+    ad_factor=1
+    anim_attack=power
+    options=disablerush
+    conditions {
+      unit=giant
+    }
+    damage {
+      physical=160,220
+    }
+  }
+  capture {
+    class=scripted
+    ad_factor=1
+    warning=sw_long
+    attack_cursor=attack
+    script_attack=special_capture_target
+    script_calccells=calccells_capture
+    picture=BA1_Capture_
+    picture_small=BA1_Capture_small.png
+    reload=3
+    nfeatures=boss,pawn
+    hinthead=special_dragon_capture_head
+    hint=special_dragon_capture_hint
+    damage {
+      physical=130,130
+    }
+  }
+  gain_mana {
+    class=scripted
+    attack_cursor=
+    warning=warning_gain_mana
+    script_attack=special_gain_mana
+    script_calccells=calccells_gain_mana
+    anim_attack=cast
+    picture=BA1_Mana_Source_
+    picture_small=BA1_Mana_Source_small.png
+    reload=4
+    hinthead=special_mana_source_head
+    hint=special_mana_source_hint
+    damage {
+      magic=50,70
+    }
+    custom_params {
+      mana_k=100
+    }
+  }
+}
+scripts {
+  idle=default_idle
+  scenario=default_scenario
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=greendragon_idle.bsa/fr:25:50
+  rare=greendragon_rare.bsa/fr:25:50
+  attack=greendragon_attack.bsa/fr:25:50
+  move=greendragon_move.bsa/fr:35:70
+  start=greendragon_start.bsa/fr:35:70
+  stop=greendragon_stop.bsa/fr:35:70
+  clock=greendragon_clock.bsa/fr:40:80
+  contra=greendragon_contra.bsa/fr:40:80
+  clock2=greendragon_2clock.bsa/fr:40:80
+  contra2=greendragon_2contra.bsa/fr:40:80
+  lturn=greendragon_lturn.bsa/fr:35:70
+  rturn=greendragon_rturn.bsa/fr:35:70
+  damage=greendragon_damage.bsa/fr:25:50
+  death=greendragon_death.bsa/fr:25:50
+  respawn=greendragon_respawn.bsa/fr:25:50
+  cast=greendragon_cast.bsa/fr:25:50
+  takeoff=greendragon_takeoff.bsa/fr:25:50
+  flight=greendragon_flight.bsa/fr:25:50
+  descent=greendragon_descent.bsa/fr:25:50
+  ldivert=greendragon_ldivert.bsa/fr:25:50
+  rdivert=greendragon_rdivert.bsa/fr:25:50
+  slew=greendragon_slew.bsa/fr:35:70
+  waft=greendragon_waft.bsa/fr:25:50
+  cursor=greendragon_rare.bsa/fr:25:50
+  teleout=greendragon_idle.bsa/fr:25:50/r:55:90
+  telein=greendragon_idle.bsa/fr:25:50/r:0:35
+  happy=greendragon_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:4:idlemain
+  special=greendragon_special.bsa/fr:25:50
+  power=greendragon_power.bsa/fr:25:50
+  mana=greendragon_victory.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    14.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    15.0?x=
+    0.0=cam
+  }
+  @special {
+    13.0?x=
+    31.0?y=
+    43.0?z=
+    0.0=cam
+  }
+  @power {
+    20.0?x=
+    0.0=cam
+  }
+  @mana {
+    5.0?x=
+  }
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=greendragon_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=greendragon_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=greendragon_move
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=greendragon_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=greendragon_cast
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=greendragon_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=greendragon_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=greendragon_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=greendragon_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=greendragon_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=greendragon_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=greendragon_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=greendragon_turn
+      fadetime=60
+    }
+    sound {
+      animation=takeoff
+      frame=0.01
+      file=greendragon_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=flight
+      frame=0.01
+      file=greendragon_flight
+      fadetime=60
+    }
+    sound {
+      animation=descent
+      frame=0.01
+      file=greendragon_descent
+      fadetime=60
+    }
+    sound {
+      animation=ldivert
+      frame=0.01
+      file=greendragon_divert
+      fadetime=60
+    }
+    sound {
+      animation=rdivert
+      frame=0.01
+      file=greendragon_divert
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=greendragon_slew
+      fadetime=60
+    }
+    sound {
+      animation=waft
+      frame=0.01
+      file=greendragon_waft
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=greendragon_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=greendragon_happy
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=greendragon_death
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=greendragon_special
+      fadetime=60
+    }
+    sound {
+      animation=power
+      frame=0.01
+      file=greendragon_power
+      fadetime=60
+    }
+    sound {
+      animation=mana
+      frame=0.01
+      file=greendragon_mana
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      animation=mana
+      frame=22/33
+      file=cast_mana_source_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/1
+      animation=mana
+      frame=24/32
+      file=cast_mana_circle.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/1
+      animation=mana
+      frame=0/22
+      file=cast_mana_startwirl.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/2.01680136/0.80000001
+      animation=mana
+      frame=0/8
+      file=cast_mana_stars.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0.9308387/0.80000001
+      animation=mana
+      frame=0/8
+      file=cast_mana_stars.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/0/0.80000001
+      animation=mana
+      frame=0/8
+      file=cast_mana_stars.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/-1.00840092/0.80000001
+      animation=mana
+      frame=0/8
+      file=cast_mana_stars.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0/-2.17192507/0.79999971
+      animation=mana
+      frame=0/8
+      file=cast_mana_stars.ptb
+    }
+    omni {
+      trans=0/3.20000005/-0.69999999/0/-0/0/1
+      animation=mana
+      frame=15/59
+      restart=true
+      lightland=true
+      key=0.5/FF000000/5/1
+      key=0.5/FF17B4FF/5/1
+      key=0.5/FF6ACFFF/5/1
+      key=0.5/FF000000/5/1
+      key=2/FF000000/5/1
+    }
+    camshaker {
+      animation=attack
+      frame=13/30
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    particle {
+      trans=0/2.4000001/0/0/-0.00000009/0/1.5
+      animation=mana
+      frame=1/11
+      file=attack_sprite_accum.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=1.60491943/0.86425781/0/-1.57079685/0.46546727/-3.1415925/0.69999999
+      animation=mana
+      frame=2/22
+      file=cast_mana_arc.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/-2.40470672/0.39999989
+      animation=mana
+      file=attack_lightbolt.ptb
+    }
+    particle {
+      trans=1.60000002/1/0/0/-0/0/1.79999995
+      animation=mana
+      frame=3/8
+      file=cast_mana_bang.ptb
+    }
+  }
+  1 {
+    coord=1.04719758/-0/0/1
+    particle {
+      trans=1.60491943/0.86425781/0/-1.57079685/0.46546727/-3.1415925/0.69999999
+      animation=mana
+      frame=2/22
+      file=cast_mana_arc.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/-2.40470672/0.39999989
+      animation=mana
+      file=attack_lightbolt.ptb
+    }
+    particle {
+      trans=1.60000002/1/0/0/-0/0/1.79999995
+      animation=mana
+      frame=3/8
+      file=cast_mana_bang.ptb
+    }
+  }
+  1 {
+    coord=-3.1415925/-0/0/1
+    particle {
+      trans=1.60491943/0.86425781/0/-1.57079685/0.46546727/-3.1415925/0.69999999
+      animation=mana
+      frame=2/22
+      file=cast_mana_arc.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/-2.40470672/0.39999989
+      animation=mana
+      file=attack_lightbolt.ptb
+    }
+    particle {
+      trans=1.60000002/1/0/0/-0/0/1.79999995
+      animation=mana
+      frame=3/8
+      file=cast_mana_bang.ptb
+    }
+  }
+  1 {
+    coord=-2.09439516/-0/0/1
+    particle {
+      trans=1.60491943/0.86425781/0/-1.57079685/0.46546727/-3.1415925/0.69999999
+      animation=mana
+      frame=2/22
+      file=cast_mana_arc.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/-2.40470672/0.39999989
+      animation=mana
+      file=attack_lightbolt.ptb
+    }
+    particle {
+      trans=1.60000002/1/0/0/-0/0/1.79999995
+      animation=mana
+      frame=3/8
+      file=cast_mana_bang.ptb
+    }
+  }
+  1 {
+    coord=-1.04719782/-0/0/0.99999988
+    particle {
+      trans=1.60491943/0.86425781/0/-1.57079685/0.46546727/-3.1415925/0.69999999
+      animation=mana
+      frame=2/22
+      file=cast_mana_arc.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/-2.40470672/0.39999989
+      animation=mana
+      file=attack_lightbolt.ptb
+    }
+    particle {
+      trans=1.60000002/1/0/0/-0/0/1.79999995
+      animation=mana
+      frame=3/8
+      file=cast_mana_bang.ptb
+    }
+  }
+  1 {
+    coord=2.09439516/-0/0/1
+    particle {
+      trans=1.60491943/0.86425781/0/-1.57079685/0.46546727/-3.1415925/0.69999999
+      animation=mana
+      frame=2/22
+      file=cast_mana_arc.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/-2.40470672/0.39999989
+      animation=mana
+      file=attack_lightbolt.ptb
+    }
+    particle {
+      trans=1.60000002/1/0/0/-0/0/1.79999995
+      animation=mana
+      frame=3/8
+      file=cast_mana_bang.ptb
+    }
+  }
+}
+prefetch {
+  greendragon_idle.bsa=file
+  greendragon_rare.bsa=file
+  greendragon_attack.bsa=file
+  greendragon_move.bsa=file
+  greendragon_start.bsa=file
+  greendragon_stop.bsa=file
+  greendragon_clock.bsa=file
+  greendragon_contra.bsa=file
+  greendragon_2clock.bsa=file
+  greendragon_2contra.bsa=file
+  greendragon_lturn.bsa=file
+  greendragon_rturn.bsa=file
+  greendragon_damage.bsa=file
+  greendragon_death.bsa=file
+  greendragon_respawn.bsa=file
+  greendragon_cast.bsa=file
+  greendragon_victory.bsa=file
+  greendragon_special.bsa=file
+  greendragon_power.bsa=file
+  greendragon_takeoff.bsa=file
+  greendragon_flight.bsa=file
+  greendragon_descent.bsa=file
+  greendragon_ldivert.bsa=file
+  greendragon_rdivert.bsa=file
+  greendragon_slew.bsa=file
+  greendragon_waft.bsa=file
+}

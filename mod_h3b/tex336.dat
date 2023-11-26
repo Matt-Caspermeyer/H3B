@@ -1,0 +1,19 @@
+TEX336 {
+  block {
+    filename=heroitem_wife_diana.png
+    in_tex_pos=0,0
+    in_tex_size=102,130
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,1658
+  }
+  block {
+    filename=heroitem_wife_orcelyn.png
+    in_tex_pos=102,0
+    in_tex_size=102,130
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1658,1658
+  }
+  texture_size=204,130
+}

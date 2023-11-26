@@ -1,0 +1,354 @@
+main {
+  class=chesspiece
+  model=ghost2.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_ghost2_feat
+  features_hints=undead_header/undead_hint,soars_header/soars_hint,phantom_header/phantom_hint,soul_drain_header/soul_drain_hint
+  race=undead
+  cost=280
+  level=3
+  leadership=130
+  attack=21
+  defense=17
+  defenseup=1
+  initiative=6
+  speed=4
+  hitpoint=60
+  realdeath=1
+  krit=20
+  movetype=-2
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,gcry
+  features=undead
+  posthitmaster=features_soul_drain
+  resistances {
+    physical=80
+    poison=80
+    magic=-100
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      magic=6,9
+    }
+    custom_params {
+      k=100
+    }
+  }
+  gcry {
+    class=scripted
+    hinthead=special_ghost_cry_head
+    hint=special_ghost_cry_hint
+    reload=5
+    ad_factor=1
+    script_attack=special_ghost_cry
+    script_calccells=
+    attack_cursor=
+    anim_attack=special
+    picture=BA1_Scream_
+    picture_small=BA1_Scream_small.png
+    nfeatures=boss,pawn
+    damage {
+      physical=6,9
+    }
+    custom_params {
+      power=2
+      level=3
+      k=0
+      typedmg=physical
+      dist=2
+      damage=6-9
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      moral=1
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:5:rare:1:spare
+  idlemain=ghost_idle.bsa/fr:25:50
+  rare=ghost_rare.bsa/fr:25:50
+  spare=ghost_spare.bsa/fr:25:50
+  attack=ghost_attack.bsa/fr:25:50
+  move=ghost_move.bsa/fr:36:72
+  start=ghost_start.bsa/fr:36:72
+  stop=ghost_stop.bsa/fr:36:72
+  clock=ghost_clock.bsa/fr:40:80
+  contra=ghost_contra.bsa/fr:40:80
+  clock2=ghost_2clock.bsa/fr:25:50
+  contra2=ghost_2contra.bsa/fr:25:50
+  lturn=ghost_lturn.bsa/fr:36:72
+  rturn=ghost_rturn.bsa/fr:36:72
+  damage=ghost_damage.bsa/fr:25:50
+  cast=ghost_cast.bsa/fr:25:50
+  slew=ghost_slew.bsa/fr:36:72
+  respawn=ghost_respawn.bsa/fr:25:50
+  death=ghost_death.bsa/fr:25:50
+  cursor=ghost_rare.bsa/fr:25:50
+  teleout=ghost_idle.bsa/fr:25:50/r:65:100
+  telein=ghost_idle.bsa/fr:25:50/r:0:35
+  happy=ghost_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:4:idlemain:1:1:rarelist
+  special=ghost_special.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    12.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    5.0=alpha/0/15
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    14.0?x=
+    0.0=cam
+  }
+  @special {
+    21.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      animation=death
+      frame=1/190
+      file=death_ghost.ptb
+    }
+  }
+  0 {
+    slot=0
+    particle {
+      trans=-0.30000001/0/0.12359619/0/-0/0/1
+      compass=true
+      animation=attack
+      frame=13
+      file=attack_ghost.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/1.08000004/-0.69999999/3.1415925/-0/0/1
+      animation=cast
+      frame=12/24
+      file=cast_ghots.ptb
+    }
+    particle {
+      trans=0/0.89999998/0/0/-0/0/1
+      animation=special
+      frame=15/22
+      file=cast_ghots_cry.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/0.34999999
+      animation=special
+      frame=18/33
+      file=cast_ghots_wave.ptb
+    }
+    particle {
+      trans=0/0.03/0/0/-0/0/0.2
+      animation=special
+      frame=22/25
+      file=cast_ghots_flatwave.ptb
+    }
+    particle {
+      trans=0/0.2/0/0/-0/0/0.31999999
+      animation=special
+      frame=22/44
+      file=cast_ghots_flatwave_b.ptb
+    }
+    particle {
+      trans=0/0.03/0/0/-0/0/0.36000001
+      animation=special
+      frame=17/35
+      file=cast_ghots_radiowave.ptb
+    }
+    omni {
+      trans=0/3/0/0/-0/0/1
+      animation=special
+      frame=15/40
+      restart=true
+      lightland=true
+      key=0.1/FF000000/5/1
+      key=0.30000001/FF0F99FF/5/1
+      key=0.80000001/FF000000/5/1
+      key=2/FF000000/5/1
+    }
+  }
+  1 {
+    sound {
+      animation=move
+      frame=0.01
+      file=ghost_move
+      fadetime=60
+    }
+    sound {
+      animation=spare
+      frame=0.01
+      file=ghost_spare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=ghost_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=ghost_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=ghost_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=ghost_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=ghost_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=ghost_clocont2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=ghost_clocont2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=ghost_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=ghost_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=ghost_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=ghost_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=ghost_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=ghost_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=ghost_victory
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=ghost2_special
+      fadetime=60
+    }
+  }
+  0 {
+    slot=2
+    particle {
+      trans=0/-0/0/1
+      animation=special
+      frame=15/25
+      file=cast_ghots_cry.ptb
+    }
+  }
+}
+prefetch {
+  ghost_idle.bsa=file
+  ghost_rare.bsa=file
+  ghost_attack.bsa=file
+  ghost_move.bsa=file
+  ghost_start.bsa=file
+  ghost_stop.bsa=file
+  ghost_clock.bsa=file
+  ghost_contra.bsa=file
+  ghost_2clock.bsa=file
+  ghost_2contra.bsa=file
+  ghost_lturn.bsa=file
+  ghost_rturn.bsa=file
+  ghost_damage.bsa=file
+  ghost_death.bsa=file
+  ghost_respawn.bsa=file
+  ghost_victory.bsa=file
+  ghost_cast.bsa=file
+  ghost_special.bsa=file
+}

@@ -1,0 +1,412 @@
+main {
+  class=chesspiece
+  model=demon.bma
+}
+arena_params {
+  features_label=cpi_demon_feat
+  features_hints=demon_header/demon_hint,tireless_header/tireless_hint,domination_header/domination_hint
+  race=demon
+  cost=600
+  level=4
+  leadership=250
+  attack=33
+  defense=33
+  defenseup=6
+  initiative=4
+  speed=3
+  hitpoint=200
+  movetype=0
+  krit=15
+  hitback=2
+  hitbackprotect=0
+  attacks=moveattack,domination,run,blood,cast_demon
+  features=demon,humanoid
+  resistances {
+    physical=10
+    poison=0
+    magic=0
+    fire=50
+  }
+  moveattack {
+    ad_factor=1
+    group=1,1
+    conditions {
+      ~level=<4
+    }
+    damage {
+      physical=22,28
+    }
+  }
+  domination {
+    base_attack=1
+    ad_factor=1
+    group=1,2
+    class=moveattack
+    anim_attack=special
+    conditions {
+      level=<4
+    }
+    damage {
+      physical=33,42
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+  blood {
+    class=scripted
+    hinthead=special_blood_pentagramm_head
+    hint=special_blood_pentagramm_hint
+    ad_factor=1
+    moves=1
+    endmove=0
+    no_hint=1
+    script_attack=special_demoness_pentagramm
+    script_calccells=calccells_blood
+    attack_cursor=magicstick
+    picture=BA1_Blood_Pentagram_
+    picture_small=BA1_Blood_Pentagram_small.png
+    custom_params {
+      atomname=blood_rune
+      duration=2
+      power=2
+    }
+  }
+  cast_demon {
+    class=scripted
+    hinthead=special_cast_demon_head
+    hint=special_cast_demon_hint
+    moves=1
+    warning=sw_place
+    script_attack=special_summon_demon
+    script_calccells=calccells_all_empty_around
+    picture=BA1_Servant_Call_
+    picture_small=BA1_Servant_Call_small.png
+    attack_cursor=magicstick
+    anim_attack=cast
+    custom_params {
+      k=20-30
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=lava
+      defense=50%
+    }
+    2 {
+      logbits=winter
+      defense=-50%
+    }
+  }
+}
+scripts {
+  idle=default_idle
+  scenario=default_scenario
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=demon_idle.bsa/fr:25:50
+  rare=demon_rare.bsa/fr:25:50
+  attack=demon_attack.bsa/fr:25:50
+  cast=demon_cast.bsa/fr:25:50
+  move=demon_move.bsa/fr:35:70
+  start=demon_start.bsa/fr:35:70
+  stop=demon_stop.bsa/fr:35:70
+  clock=demon_clock.bsa/fr:40:80
+  contra=demon_contra.bsa/fr:40:80
+  clock2=demon_2clock.bsa/fr:40:80
+  contra2=demon_2contra.bsa/fr:40:80
+  lturn=demon_lturn.bsa/fr:35:70
+  rturn=demon_rturn.bsa/fr:35:70
+  damage=demon_damage.bsa/fr:25:50
+  slew=demon_slew.bsa/fr:35:70
+  rush=demon_rush.bsa/fr:25:50
+  death=demon_death.bsa/fr:25:50
+  respawn=demon_respawn.bsa/fr:25:50
+  cursor=demon_rare.bsa/fr:25:50
+  teleout=demon_idle.bsa/fr:25:50/r:40:75
+  telein=demon_idle.bsa/fr:25:50/r:0:35
+  happy=demon_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:1:rare:1:2:idlemain
+  special=demon_special.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    35.0?x=
+    0.0=cam
+  }
+  @cast {
+    28.0?x=
+    0.0=cam
+  }
+  @special {
+    24.0?x=
+    0.0=cam
+  }
+  @rush {
+    13.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    particle {
+      trans=-0.23999999/0/0/0/-0/0/6
+      animation=happy
+      frame=34/38
+      file=cast_cannon_fuse.ptb
+    }
+    particle {
+      trans=-0.3704834/0/0/0.93083876/0.15512373/-0.62059116/0.15000002
+      animation=happy
+      frame=37/38
+      file=dynam_axesparks.ptb
+    }
+    particle {
+      trans=0/-0.07/0/0/-0/0/1.5
+      animation=special
+      frame=7/28
+      file=demon_sparks.ptb
+    }
+    slot=5
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=demon_rare
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=demon_move
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=demon_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=demon_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=demon_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=demon_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=demon_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=demon_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=demon_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=demon_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=demon_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=demon_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=demon_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=demon_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=demon_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=demon_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=demon_victory
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=demon_special
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01/2.00999999
+      file=demon_cast
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.69999999/-1.70000005/0/-0/2.71495414/0.30000004
+      animation=special
+      frame=23/25
+      restart=true
+      file=demon_axesparks.ptb
+    }
+    particle {
+      trans=0/0/-1.69000006/0/-0/1.24108636/0.5
+      animation=attack
+      frame=35/36
+      file=demon_axesparks.ptb
+    }
+    particle {
+      trans=0/0/-1.60000002/0/-0/1.93923938/0.30000004
+      animation=attack
+      frame=35/37
+      file=demon_axesparks.ptb
+    }
+    particle {
+      trans=0/0/-1.69000006/0/-0/1.24108636/0.5
+      animation=rush
+      frame=15/17
+      file=demon_axesparks.ptb
+    }
+    particle {
+      trans=0/0/-1.60000002/0/-0/1.93923938/0.30000004
+      animation=rush
+      frame=15/17
+      file=demon_axesparks.ptb
+    }
+    particle {
+      trans=-0.1/1.85180664/-0.44/0/-0/0/1
+      animation=cast
+      frame=27/55
+      file=cast_evilbook_burst.ptb
+    }
+    particle {
+      trans=-0.1/2.5/-0.61737061/0/-0/0/0.5
+      animation=cast
+      frame=25/29
+      file=attack_fire_flow.ptb
+    }
+    particle {
+      trans=-0.1/3.29999995/-0.61737061/-0/-1.57079637/0/0.5
+      animation=cast
+      frame=1/22
+      file=env_demongate_hose.ptb
+    }
+    particle {
+      trans=-0.1/1.54999995/-0.5/0/-0/0/0.80000001
+      animation=cast
+      frame=11/33
+      file=env_demongate_symbol.ptb
+    }
+    particle {
+      trans=-0.1/2/-0.40000001/3.14159274/1.43503904/3.14159274/1
+      animation=cast
+      frame=1/22
+      file=env_demongate_twirl.ptb
+    }
+  }
+}
+prefetch {
+  demon_idle.bsa=file
+  demon_rare.bsa=file
+  demon_attack.bsa=file
+  demon_move.bsa=file
+  demon_start.bsa=file
+  demon_stop.bsa=file
+  demon_clock.bsa=file
+  demon_contra.bsa=file
+  demon_2clock.bsa=file
+  demon_2contra.bsa=file
+  demon_lturn.bsa=file
+  demon_rturn.bsa=file
+  demon_damage.bsa=file
+  demon_death.bsa=file
+  demon_respawn.bsa=file
+  demon_victory.bsa=file
+  demon_special.bsa=file
+  demon_rush.bsa=file
+}

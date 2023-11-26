@@ -1,0 +1,259 @@
+main {
+  class=chesspiece
+  model=barbarian.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_barbarian_feat
+  features_hints=northerner_header/northerner_hint,mind_immunity_header/mind_immunity_hint,primal_link_header/primal_link_hint
+  race=neutral
+  cost=60
+  level=2
+  leadership=35
+  attack=10
+  defense=8
+  defenseup=1
+  initiative=3
+  speed=3
+  hitpoint=30
+  movetype=0
+  krit=15
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,berserk
+  features=freeze_immunitet,humanoid,mind_immunitet
+  resistances {
+    physical=5
+    poison=5
+    magic=0
+    fire=5
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=4,6
+    }
+  }
+  berserk {
+    class=scripted
+    picture=BA1_Berserk_
+    picture_small=BA1_Berserk_small.png
+    moves=1
+    hinthead=special_barb_head
+    hint=special_barb_hint
+    script_attack=special_berserk_attack
+    endmove=0
+    custom_params {
+      duration=3
+      power=100
+      penalty=50
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=winter
+      defense=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=barbarian_idle.bsa/fr:25:50
+  rare=barbarian_rare.bsa/fr:25:50
+  attack=barbarian_attack.bsa/fr:25:50
+  cast=barbarian_cast.bsa/fr:25:50
+  move=barbarian_move.bsa/fr:25:50
+  start=barbarian_start.bsa/fr:25:50
+  stop=barbarian_stop.bsa/fr:25:50
+  clock=barbarian_clock.bsa/fr:50:100
+  contra=barbarian_contra.bsa/fr:50:100
+  clock2=barbarian_2clock.bsa/fr:50:100
+  contra2=barbarian_2contra.bsa/fr:50:100
+  lturn=barbarian_lturn.bsa/fr:25:50
+  rturn=barbarian_rturn.bsa/fr:25:50
+  damage=barbarian_damage.bsa/fr:25:50
+  slew=barbarian_slew.bsa/fr:35:70
+  rush=barbarian_rush.bsa/fr:25:50
+  death=barbarian_death.bsa/fr:25:50
+  respawn=barbarian_respawn.bsa/fr:25:50
+  cursor=barbarian_rare.bsa/fr:25:50
+  teleout=barbarian_idle.bsa/fr:25:50/r:40:75
+  telein=barbarian_idle.bsa/fr:25:50/r:0:35
+  happy=barbarian_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:1:rare:1:2:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    13.0?x=
+    0.0=cam
+  }
+  @damage {
+    11.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    10.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=barbarian_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=barbarian_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=barbarian_move
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=barbarian_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=barbarian_turn
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=barbarian_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=barbarian_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=barbarian_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=barbarian_contra2
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=barbarian_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=barbarian_rush
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=barbarian_rare
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=barbarian_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=barbarian_stop
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=barbarian_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=barbarian_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=barbarian_victory
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=barbarian_cast
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  barbarian_idle.bsa=file
+  barbarian_rare.bsa=file
+  barbarian_attack.bsa=file
+  barbarian_move.bsa=file
+  barbarian_start.bsa=file
+  barbarian_stop.bsa=file
+  barbarian_clock.bsa=file
+  barbarian_contra.bsa=file
+  barbarian_2clock.bsa=file
+  barbarian_2contra.bsa=file
+  barbarian_lturn.bsa=file
+  barbarian_rturn.bsa=file
+  barbarian_damage.bsa=file
+  barbarian_death.bsa=file
+  barbarian_respawn.bsa=file
+  barbarian_cast.bsa=file
+  barbarian_victory.bsa=file
+  barbarian_rush.bsa=file
+}

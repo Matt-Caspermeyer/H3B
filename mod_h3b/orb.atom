@@ -1,0 +1,349 @@
+main {
+  class=chesspiece
+  nodimming=1
+  model=orb.bma
+  blend=0
+  norndframe=1
+}
+arena_params {
+  features_label=cpi_orb_feat
+  features_hints=ice_header/ice_hint,orb_header/orb_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint
+  race=neutral
+  cost=10
+  level=5
+  leadership=10
+  attack=50
+  defense=50
+  defenseup=10
+  initiative=2
+  speed=2
+  thrower=0
+  hitpoint=10
+  realdeath=1
+  movetype=0
+  krit=20
+  hitback=0
+  hitbackprotect=1
+  attacks=rollattack
+  features=freeze_immunitet,mind_immunitet,golem,orb,magic_immunitet,poison_immunitet
+  posthitmaster=orb_posthit
+  resistances {
+    physical=80
+    poison=80
+    magic=80
+    fire=-50
+  }
+  rollattack {
+    group=1,1
+    class=scripted
+    base_attack=1
+    ad_factor=1
+    nfeatures=
+    attack_cursor=attack
+    script_attack=orb_rollattack
+    script_calccells=orb_calccells
+    script_highlight=orb_highlight
+    damage {
+      physical=10,15
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/fwd:1:idlemain
+  rarelist=/fwd:1:rare
+  idlemain=orb_idle.bsa/fr:25:50
+  rare=orb_idle.bsa/fr:25:50
+  attack=orb_attack.bsa/fr:25:50
+  appear=orb_appear.bsa/fr:25:50
+  move=orb_move.bsa/fr:25:50
+  start=orb_start.bsa/fr:25:50
+  stop=orb_stop.bsa/fr:25:50
+  clock=orb_clock.bsa/fr:25:50
+  contra=orb_contra.bsa/fr:25:50
+  clock2=orb_2clock.bsa/fr:25:50
+  contra2=orb_2contra.bsa/fr:25:50
+  lturn=orb_lturn.bsa/fr:25:50
+  rturn=orb_rturn.bsa/fr:25:50
+  damage=orb_damage.bsa/fr:25:50
+  death=orb_death.bsa/fr:25:50
+  slew=orb_slew.bsa/fr:25:50
+  rush=orb_rush.bsa/fr:25:50
+  teleout=orb_idle.bsa/fr:25:50/r:65:100
+  telein=orb_idle.bsa/fr:25:50/r:0:35
+  happy=orb_idle.bsa/fr:25:50
+  victory=/fwd:1:happy
+  cursor=/fwd:1:happy
+  @appear {
+    40.0?x=
+    86.0?y=
+    20.0=alpha/1.0/40
+    0.0=cam
+  }
+  @attack {
+    11.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.5?x=
+    0.0=cam
+  }
+  @rush {
+    11.0?x=
+    0.0=cam
+  }
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=appear
+      frame=22/44
+      file=lina_twirl.ptb
+    }
+    particle {
+      trans=0/-0/0/7
+      animation=appear
+      frame=22/99
+      file=energo_mana.ptb
+    }
+    slot=5
+  }
+  1 {
+    particle {
+      trans=0/-0/0/2
+      animation=appear
+      frame=76/82
+      file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=0/0.69999999/-1.70000005/0/0.46546739/0/0.80000001
+      animation=attack
+      frame=7/33
+      file=therock_sparkpuff.ptb
+    }
+    particle {
+      trans=0.22/0.30000001/-1.60000002/0.77571464/0.46546751/-0.00000002/0.80000007
+      animation=attack
+      frame=7/33
+      file=therock_sparkpuff.ptb
+    }
+    particle {
+      trans=-0.2/0.30000001/-1.5/-0.69815296/0.46546733/0/0.80000001
+      animation=attack
+      frame=7/33
+      file=therock_sparkpuff.ptb
+    }
+    particle {
+      trans=0/0.69999999/-2/0/0.46546739/0/0.80000001
+      animation=rush
+      frame=7/33
+      file=therock_sparkpuff.ptb
+    }
+    particle {
+      trans=0.22/0.30000001/-1.79999995/0.77571452/1.08596206/-0.00000004/0.80000007
+      animation=rush
+      frame=7/33
+      file=therock_sparkpuff.ptb
+    }
+    particle {
+      trans=-0.2/0.30000001/-1.79999995/-0.6981529/0.85327661/-0.00000001/0.80000001
+      animation=rush
+      frame=7/33
+      file=therock_sparkpuff.ptb
+    }
+    particle {
+      trans=0/1.20000005/-0.30000001/0/-0/0/1.5
+      animation=damage
+      frame=0/22
+      file=lina_icy_burst.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1.20000005
+      animation=death
+      frame=0/9
+      file=kraken_drops.ptb
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/1
+      animation=death
+      frame=0/22
+      file=kraken_spot.ptb
+    }
+    particle {
+      animation=death
+      file=kraken_steam.ptb
+    }
+    particle {
+      trans=0.5/0/0/0/-0/0/1.5
+      animation=death
+      frame=0/3
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.5/0/0.30000001/0/-0/0/1.5
+      animation=death
+      frame=6/9
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.5/0/-0.30000001/0/-0/0/1.5
+      animation=death
+      frame=11/13
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/0/-0.5/0/-0/0/1.5
+      animation=death
+      frame=15/17
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/-0/0.34906575/1.99999976
+      animation=death
+      file=lina_icy_burst.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=appear
+      frame=0.01
+      file=orb_appear
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=orb_attack
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=orb_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=orb_death
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=orb_rush
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=orb_move
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=orb_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=orb_rturn
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=orb_slew
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=orb_contra2
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=orb_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=orb_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=orb_clock
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=orb_stop
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=orb_start
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  orb_idle.bsa=file
+  orb_attack.bsa=file
+  orb_move.bsa=file
+  orb_start.bsa=file
+  orb_stop.bsa=file
+  orb_clock.bsa=file
+  orb_contra.bsa=file
+  orb_slew.bsa=file
+  orb_2clock.bsa=file
+  orb_2contra.bsa=file
+  orb_lturn.bsa=file
+  orb_rturn.bsa=file
+  orb_damage.bsa=file
+  orb_death.bsa=file
+  orb_appear.bsa=file
+
+  orb_rush.bsa=file
+}

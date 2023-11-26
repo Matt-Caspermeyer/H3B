@@ -1,0 +1,271 @@
+main {
+  class=chesspiece
+  model=werewolf.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_werewolf_feat
+  features_hints=blade_header/blade_hint,night_sight_header/night_sight_hint,regeneration_header/regeneration_hint,tolerance_header/tolerance_hint,pack_leader_header/pack_leader_hint
+  race=elf
+  cost=160
+  level=3
+  leadership=60
+  attack=16
+  defense=16
+  defenseup=3
+  initiative=5
+  speed=2
+  hitpoint=45
+  movetype=0
+  krit=20
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,transform
+  features=humanoid
+  transformto=wolf
+  posthitmaster=features_bleeding
+  each_turn_script=features_regeneration
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=7,9
+    }
+  }
+  transform {
+    class=scripted
+    script_attack=special_transform
+    hinthead=special_wolf_transform_head
+    hint=special_wolf_transform_hint
+    picture=BA1_WolfTransform_
+    picture_small=BA1_WolfTransform_small.png
+    endmove=0
+    reload=3
+  }
+  arena_bonuses {
+    1 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+clippers {
+  transmute {
+    clipatom=clip_icemagic,wolftransform,clip
+    toatom=magic_wolf,idle
+  }
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=werewolf_idle.bsa/fr:25:50
+  rare=werewolf_rare.bsa/fr:25:50
+  attack=werewolf_attack.bsa/fr:32:64
+  move=werewolf_move.bsa/fr:40:80
+  start=werewolf_start.bsa/fr:40:80
+  stop=werewolf_stop.bsa/fr:40:80
+  clock=werewolf_clock.bsa/fr:40:80
+  contra=werewolf_contra.bsa/fr:40:80
+  clock2=werewolf_2clock.bsa/fr:40:80
+  contra2=werewolf_2contra.bsa/fr:40:80
+  lturn=werewolf_lturn.bsa/fr:40:80
+  rturn=werewolf_rturn.bsa/fr:40:80
+  damage=werewolf_damage.bsa/fr:25:50
+  death=werewolf_death.bsa/fr:25:50
+  respawn=werewolf_respawn.bsa/fr:25:50
+  slew=werewolf_slew.bsa/fr:35:70
+  rush=werewolf_rush.bsa/fr:30:60
+  cursor=werewolf_rare.bsa/fr:25:50
+  teleout=werewolf_idle.bsa/fr:25:50/r:45:80
+  telein=werewolf_idle.bsa/fr:25:50/r:0:35
+  transform=werewolf_transform.bsa/fr:25:25/clip:transmute
+  victorymain=werewolf_victory.bsa/fr:25:50
+  happy=/fwd:1:rare:1:victorymain
+  victory=/t:1:2:happy:1:2:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    9.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    15.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=move
+      frame=0.01
+      file=werewolf_move
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=werewolf_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=werewolf_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=werewolf_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=werewolf_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=werewolf_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=werewolf_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=werewolf_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=werewolf_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=werewolf_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=werewolf_rturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=werewolf_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=werewolf_death
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=werewolf_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=werewolf_rush
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=werewolf_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=transform
+      frame=0.01
+      file=werewolf_transform
+      fadetime=60
+    }
+    sound {
+      animation=victorymain
+      frame=0.01
+      file=werewolf_victorymain
+      fadetime=60
+    }
+  }
+  1 {
+    aspawn {
+      animation=transform
+      frame=0/69
+      atag=clip_icemagic_wolftransform
+    }
+  }
+}
+prefetch {
+  werewolf_idle.bsa=file
+  werewolf_rare.bsa=file
+  werewolf_attack.bsa=file
+  werewolf_move.bsa=file
+  werewolf_start.bsa=file
+  werewolf_stop.bsa=file
+  werewolf_clock.bsa=file
+  werewolf_contra.bsa=file
+  werewolf_2clock.bsa=file
+  werewolf_2contra.bsa=file
+  werewolf_lturn.bsa=file
+  werewolf_rturn.bsa=file
+  werewolf_damage.bsa=file
+  werewolf_death.bsa=file
+  werewolf_respawn.bsa=file
+  werewolf_victory.bsa=file
+  werewolf_rush.bsa=file
+}

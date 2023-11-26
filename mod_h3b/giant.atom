@@ -1,0 +1,319 @@
+main {
+  class=chesspiece
+  model=giant.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_giant_feat
+  features_hints=hates_green_header/hates_green_hint
+  race=dwarf
+  cost=7000
+  level=5
+  leadership=1600
+  attack=44
+  defense=50
+  defenseup=7
+  initiative=5
+  speed=1
+  hitpoint=900
+  krit=25
+  features=humanoid
+  movetype=0
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,quake,run
+  resistances {
+    physical=10
+    poison=10
+    magic=10
+    fire=10
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=70,100
+    }
+  }
+  quake {
+    class=scripted
+    reload=2
+    hinthead=special_quake_head
+    hint=special_quake_hint
+    base_attack=0
+    ad_factor=1
+    showdmg=0
+    script_attack=special_giant_quake
+    script_calccells=
+    attack_cursor=
+    picture_small=BA1_Quake_small.png
+    picture=BA1_Quake_
+    custom_params {
+      damage=40-50
+      typedmg=physical
+      k=10 // 10% за клетку падение силы удара ранее 5%
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=giant_idle.bsa/fr:25:50
+  rare=giant_rare.bsa/fr:25:50
+  attack=giant_attack.bsa/fr:25:50
+  move=giant_move.bsa/fr:25:50
+  start=giant_start.bsa/fr:25:50
+  stop=giant_stop.bsa/fr:25:50
+  clock=giant_clock.bsa/fr:25:50
+  contra=giant_contra.bsa/fr:25:50
+  clock2=giant_2clock.bsa/fr:25:50
+  contra2=giant_2contra.bsa/fr:25:50
+  lturn=giant_lturn.bsa/fr:25:50
+  rturn=giant_rturn.bsa/fr:25:50
+  damage=giant_damage.bsa/fr:25:50
+  slew=giant_slew.bsa/fr:25:50
+  rush=giant_rush.bsa/fr:25:50
+  respawn=giant_respawn.bsa/fr:25:50
+  death=giant_death.bsa/fr:25:50
+  cursor=giant_rare.bsa/fr:25:50
+  teleout=giant_idle.bsa/fr:25:50/r:50:85
+  telein=giant_idle.bsa/fr:25:50/r:0:35
+  victorymain=giant_victory.bsa/fr:25:50
+  happy=/fwd:1:victorymain
+  victory=/t:1:1:victorymain:1:2:idlemain:1:1:rare
+  special=giant_special.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    23.0?x=
+    0.0=cam
+  }
+  @special {
+    28.0?x=
+    0.0=cam
+  }
+  @rush {
+    12.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=giant_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=giant_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=giant_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=giant_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=giant_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=giant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=giant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=giant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=giant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=giant_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=giant_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=giant_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=giant_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=giant_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=giant_death
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=giant_rare
+      fadetime=60
+    }
+    sound {
+      animation=victorymain
+      frame=0.01
+      file=giant_victory
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=giant_special
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.55000001
+      animation=special
+      frame=25
+      file=therock_dustwave.ptb
+    }
+    camshaker {
+      animation=special
+      frame=25
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    particle {
+      trans=0/0/-0.5/0/-0.15512419/0/0.44999999
+      animation=special
+      frame=24
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=0.3704834/0/-0.1/-0/-0.15512419/-0.27925301/0.5
+      animation=special
+      frame=25
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=-0.61737061/0/-0.1/-0/-0.15512419/0.3102476/0.40000001
+      animation=special
+      frame=24
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=0.3704834/0/0.2/0/0.23268571/-0.15512419/0.5
+      animation=special
+      frame=25
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=-0.30000001/0/0.30000001/0/0.23268573/0/0.40000001
+      animation=special
+      frame=25
+      file=therock_puff.ptb
+    }
+  }
+}
+prefetch {
+  giant_idle.bsa=file
+  giant_rare.bsa=file
+  giant_attack.bsa=file
+  giant_move.bsa=file
+  giant_start.bsa=file
+  giant_stop.bsa=file
+  giant_clock.bsa=file
+  giant_contra.bsa=file
+  giant_2clock.bsa=file
+  giant_2contra.bsa=file
+  giant_lturn.bsa=file
+  giant_rturn.bsa=file
+  giant_damage.bsa=file
+  giant_death.bsa=file
+  giant_respawn.bsa=file
+  giant_victory.bsa=file
+  giant_special.bsa=file
+  giant_rush.bsa=file
+}

@@ -1,0 +1,509 @@
+main {
+  class=chesspiece
+  blend=0
+  cullcat=0
+  model {
+    0=phoenix.bma
+    1=phoenixash.bma
+  }
+}
+arena_params {
+  features_label=cpi_phoenix_feat
+  features_hints=flies_header/flies_hint,fire_breath_header/fire_breath_hint,fire_immunity_header/fire_immunity_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint,rebirth_header/rebirth_hint
+  race=neutral
+  cost=1000
+  level=5
+  leadership=1
+  attack=80
+  defense=60
+  defenseup=12
+  initiative=9
+  speed=8
+  hitpoint=800
+  movetype=2
+  krit=40
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,resurrect
+  ondamage=phoenix_ondamage
+  posthitmaster=features_burn
+  each_turn_script=phoenix_onmove
+  features=fire_immunitet,nonecro,freeze_immunitet,magic_immunitet,mind_immunitet,golem
+  resistances {
+    physical=20
+    poison=15
+    magic=80
+    fire=180
+  }
+  moveattack {
+    ad_factor=1
+    options=3in1
+    usefly=3
+    damage {
+      astral=80,120
+      fire=80,120
+    }
+    custom_params {
+      burn=100
+    }    
+  }
+  resurrect {
+    class=scripted
+    script_attack=special_resurrect
+    deadonly=1
+    picture=BA1_Phoenix_Resurection_
+    picture_small=BA1_Phoenix_Resurection_small.png
+    hinthead=special_resurrect_head
+    hint=special_resurrect_hint
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  appear=phoenix_appear.bsa/fr:25:50
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=phoenix_idle.bsa/fr:25:50
+  rare=phoenix_rare.bsa/fr:25:50
+  attack=phoenix_attack.bsa/fr:25:50
+  move=phoenix_move.bsa/fr:25:50
+  start=phoenix_start.bsa/fr:25:50
+  stop=phoenix_stop.bsa/fr:25:50
+  clock=phoenix_clock.bsa/fr:25:50
+  contra=phoenix_contra.bsa/fr:25:50
+  clock2=phoenix_clock.bsa/fr:25:50/twofold
+  contra2=phoenix_contra.bsa/fr:25:50/twofold
+  lturn=phoenix_lturn.bsa/fr:25:50
+  rturn=phoenix_rturn.bsa/fr:25:50
+  damage=phoenix_damage.bsa/fr:25:50
+  takeoff=phoenix_takeoff.bsa/fr:25:50
+  flight=phoenix_flight.bsa/fr:25:50
+  waft=phoenix_waft.bsa/fr:25:50
+  descent=phoenix_descent.bsa/fr:25:50
+  ldivert=phoenix_ldivert.bsa/fr:25:50
+  rdivert=phoenix_rdivert.bsa/fr:25:50
+  slew=phoenix_slew.bsa/fr:25:50
+  death=phoenixash_death.bsa/fr:25:50/m:1
+  realdeath=phoenixash_death.bsa/fr:25:50/m:1
+  erase=phoenixash_erase.bsa/fr:25:50/m:1
+  respawn=phoenixash_respawn.bsa/fr:25:50/m:1
+  victory=phoenix_victory.bsa/fr:25:50
+  teleout=phoenix_idle.bsa/fr:25:50/r:40:75
+  telein=phoenix_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  @appear {
+    5.0=alpha/1/35
+  }
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    18.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @realdeath {
+    0.0=alpha/0/25
+    2.0?x=
+    0.0=cam
+  }
+  @erase {
+    0.0=alpha/0/25
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      animation=idlemain
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=rare
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=victory
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=attack
+      frame=18/25
+      file=attack_phoenix_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=flight
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=ldivert
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=rdivert
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=attack
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=start
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=stop
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=move
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=lturn
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=rturn
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=damage
+      file=phoenix_horz_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=takeoff
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=descent
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=clock
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=contra
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=slew
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=death
+      frame=0/20
+      file=phoenixash_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=respawn
+      frame=35/45
+      file=phoenixash_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=respawn
+      frame=10/45
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=respawn
+      frame=20/45
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=respawn
+      frame=30/45
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=respawn
+      frame=35/45
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.80000001/0/0/-0/0/1
+      animation=respawn
+      frame=15/35
+      file=phoenix_respawn.ptb
+    }
+  }
+  0 {
+    omni {
+      lightland=true
+      key=1/FFFFC455/2/1
+    }
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=idlemain
+      file=phoenix_sparks.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0/0/1
+      animation=respawn
+      frame=20/30
+      file=phoenix_respawn.ptb
+    }
+    slot=6
+  }
+  0 {
+    particle {
+      trans=-3.1415925/-0.58176237/2.05562949/1
+      animation=attack
+      frame=20/30
+      restart=true
+      file=attack_phoenix_fire.ptb
+    }
+    slot=3
+  }
+  0 {
+    particle {
+      trans=-0.12359619/-0.30000001/0/-3.1415925/-0.96966714/-2.59856319/0.99999976
+      animation=attack
+      frame=20/30
+      file=attack_phoenix_fire.ptb
+    }
+    slot=4
+  }
+  0 {
+    particle {
+      trans=-3.1415925/-1.43504/-3.1415925/1
+      animation=attack
+      frame=20/30
+      file=attack_phoenix_fire.ptb
+    }
+    slot=2
+  }
+  1 {
+    sound {
+      animation=idlemain
+      frame=0.01
+      file=phoenix_idle
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=phoenix_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=phoenix_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=phoenix_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=phoenix_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=phoenix_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=phoenix_contra
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=phoenix_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=phoenix_rturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=phoenix_damage
+      fadetime=60
+    }
+    sound {
+      animation=takeoff
+      frame=0.01
+      file=phoenix_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=flight
+      frame=0.01
+      file=phoenix_flight
+      fadetime=60
+    }
+    sound {
+      animation=descent
+      frame=0.01
+      file=phoenix_descent
+      fadetime=60
+    }
+    sound {
+      animation=ldivert
+      frame=0.01
+      file=phoenix_ldivert
+      fadetime=60
+    }
+    sound {
+      animation=rdivert
+      frame=0.01
+      file=phoenix_rdivert
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=phoenix_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=phoenix_death
+      fadetime=60
+    }
+    sound {
+      animation=respawn
+      frame=0.01
+      file=phoenix_respawn
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=phoenix_rare
+      fadetime=60
+    }
+    sound {
+      animation=waft
+      frame=0.01
+      file=phoenix_waft
+      fadetime=60
+    }
+    sound {
+      animation=victory
+      frame=0.01
+      file=phoenix_victory
+      fadetime=60
+    }
+    sound {
+      animation=appear
+      frame=0.01/2.00999999
+      file=phoenix_appear
+      fadetime=5
+    }
+  }
+  1 {
+    particle {
+      animation=appear
+      frame=0/33
+      file=phoenix_fire_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.86425781/-0.3704834/0/-0/0/1
+      animation=appear
+      frame=10/50
+      file=phoenix_respawn.ptb
+    }
+    particle {
+      trans=0/6/0/0/-0/-1.57079649/0.9999997
+      animation=appear
+      frame=0/30
+      restart=true
+      file=attack_unicorn_beam.ptb
+    }
+  }
+}
+prefetch {
+  phoenix_idle.bsa=file
+  phoenix_rare.bsa=file
+  phoenix_attack.bsa=file
+  phoenix_move.bsa=file
+  phoenix_start.bsa=file
+  phoenix_stop.bsa=file
+  phoenix_clock.bsa=file
+  phoenix_contra.bsa=file
+  phoenix_2clock.bsa=file
+  phoenix_2contra.bsa=file
+  phoenix_lturn.bsa=file
+  phoenix_rturn.bsa=file
+  phoenix_damage.bsa=file
+  phoenix_death.bsa=file
+  phoenix_respawn.bsa=file
+  phoenix_victory.bsa=file
+  phoenix_takeoff.bsa=file
+  phoenix_flight.bsa=file
+  phoenix_descent.bsa=file
+  phoenix_ldivert.bsa=file
+  phoenix_rdivert.bsa=file
+  phoenix_slew.bsa=file
+  phoenix_waft.bsa=file
+}

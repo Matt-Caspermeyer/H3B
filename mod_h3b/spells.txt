@@ -1,0 +1,2509 @@
+///////////////////////////////////////
+/// ПОРЯДОК  
+///////////////////////////////////////
+
+// Spread
+// 1urv - all with their own. 2urv - all with all, third - from their ill with the enemies of good
+spell_dispell {
+  category=s
+  profit=1
+  price=2330
+  image=book_spell_dispell.png
+  button_image=book_scroll_dispell.png
+  label=SN_dispell
+  attack=scripted
+  hint_config=object_spell
+  school=1
+  hint_config=object_spell
+  hint=spell_dispell_hint
+  hint_header=spell_dispell_header
+  icon=book_spell_dispell.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_dispell_attack
+    script_calccells=calccells_one_intellect
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=0
+    target=ally,all,all		// For whom valid
+    spell=all,all,custom	// Removes any effects
+    type=bonus
+    mana_cost=5,7,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=5,2
+    2=7,3
+    3=12,6
+  }
+}
+
+// Treatment. Inflicts damage to undead
+// At the 3rd level eliminates poisoning, plague and Weakness
+spell_healing {
+  category=s
+  profit=1
+  image=book_spell_healing.png
+  button_image=book_scroll_healing.png
+  label=SN_healing
+  attack=scripted
+  school=1
+  hInt_config=object_spell
+  hint=spell_healing_hint
+  hint_header=spell_healing_header
+  price=2400
+  
+  scripted {
+    script_attack=spell_cure_attack
+    log_label=null
+    warning=warning_cure
+    script_calccells=calccells_all_need_cure_all
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=demon,magic_immunitet,pawn,boss,plant,golem
+  }
+  params {
+    rephits=100      // Damage in the format min-max
+    typedmg=magic    // Type of damage
+    lvl_inc=150      // Increase the damage level in%
+    duration=0       // Duration. '¤ from 0 to be at each spell correctly dl ¤ hint
+    prc_damage=300   // What percentage of harms undead spell of the basic forces
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=1
+    holy_rage=1
+    attack=1
+    mana_cost = 2,5,8  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=2,1
+    2=5,2
+    3=8,4
+  }
+}
+
+// Helplessness
+spell_defenseless {
+  profit=1
+  category=s
+  price=6500
+  image=book_spell_defenseless.png
+  button_image=book_scroll_defenseless.png
+  icon=s_overtime_defenseless.png
+  label=SN_defenseless
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=spell_defenseless_hint
+  hint_header=spell_defenseless_header
+  icon=book_spell_defenseless.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_defenseless_attack
+    script_calccells=calccells_complex_enemy
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=1,2,2
+    power=10,20,20
+    unit_count=one,one,all
+//    lvl_def=50  //How much% increased effect from the level
+    type=penalty
+    int=1 //  If = 1 then the intelligence affects the duration of spells
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=0
+    holy_rage=1
+    attack=0
+    mana_cost = 4,8,40  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=8,4
+    3=40,20
+  }
+}
+
+// Stone Leather
+spell_stone_skin {
+  category=s
+  profit=1
+  price=3500
+  hide=0
+  image=book_spell_stone_skin.png
+  icon=s_overtime_stone_skin.png
+  button_image=book_scroll_stone_skin.png
+  label=SN_stone_skin
+  attack=scripted
+  school=2
+  hint=spell_stone_skin_hint
+  hint_header=spell_stone_skin_header
+  icon=book_spell_stone_skin.png
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_stone_skin_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,4
+    type=bonus
+    power=15,20,25
+    int=1 //  If = 1 then the intelligence affects the duration of spells
+    penalty=1,1,1		// How many drops Initiative
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=1
+    attack=0
+    defense=1
+    mana_cost = 5,7,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=5,2
+    2=7,3
+    3=9,4
+  }
+}
+
+// Survivor
+spell_last_hero {
+  category=s
+  profit=1
+  price=2700
+  icon=s_overtime_last_hero.png
+  image=book_spell_last_hero.png
+  button_image=book_scroll_last_hero.png
+  label=SN_last_hero
+  hint_config=object_spell
+  school=1
+  onremove=spell_last_hero_onremove
+  hint=spell_last_hero_hint
+  hint_header=spell_last_hero_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_last_hero_attack
+    script_calccells=calccells_all_ally_lasthero
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,4
+    script=post_spell_last_hero
+    level=2,3,4
+    type=bonus
+    int=1 // if = 1 that intelligence affects the duration of spells
+    mana_cost = 4,8,22  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=5,2
+    2=9,4
+    3=23,11
+  }
+}
+
+// Arrows of the Dragon
+// Gives archers arrows that ignore the distance, armor and all resists
+spell_dragon_arrow {
+  category=s
+  icon=s_overtime_dragon_arrow.png
+  profit=2
+  price=3000
+  button_image=book_scroll_dragon_arrow.png
+  image=book_spell_dragon_arrow.png
+  label=SN_dragon_arrow
+  
+  hint_config=object_spell
+  school=1
+  hint=spell_dragon_arrow_hint
+  hint_header=spell_dragon_arrow_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    features=archer
+    script_attack=spell_dragon_arrow_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+  }
+  params {
+    count=1,2,3 // as given by arrows archers
+    holy_rage=1
+    mana_cost = 3,6,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=10,5
+    2=20,10
+    3=30,15
+  }
+}
+
+// Ax Magicheskaya
+spell_magic_axe {
+  category=s
+  profit=2
+  price=3200
+  image=book_spell_magic_axe.png
+  button_image=book_scroll_magic_axe.png
+  label=SN_magic_axe
+  
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=spell_magic_axe_hint
+  hint_header=spell_magic_axe_header
+  
+  scripted {
+    script_attack=spell_magic_axe_attack
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=0
+    damage=250	// damage the ax first
+    lvl_inc=150	// increase the damage level in%
+    typedmg=physical
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    holy_rage=1
+    attack=1
+    mana_cost = 3,7,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=3,1
+    2=7,3
+    3=12,6
+  }
+}
+
+// Blessing
+spell_bless {
+  category=s
+  profit=2
+  price=3555
+  image=book_spell_bless.png
+  button_image=book_scroll_bless.png
+  icon=s_overtime_bless.png
+  label=SN_bless
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=spell_bless_hint
+  hint_header=spell_bless_header
+  icon=book_spell_bless.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_bless_attack
+    script_calccells=calccells_complex_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=undead,magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    int=1 // if = 1 that intelligence affects the duration of spells
+    unit_count=one,one,all
+    type=bonus
+    healer=1
+    mana_cost = 3,4,20  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=3,1
+    2=4,2
+    3=20,10
+  }
+}
+
+// Burst of energy
+spell_adrenalin {
+  category=s
+  profit=3
+  price=4250
+  icon=s_overtime_reaction.png
+  image=book_spell_adrenalin.png
+  button_image=book_scroll_adrenalin.png
+  label=SN_adrenalin
+  hint_config=object_spell
+  school=1
+  hint=spell_adrenalin_hint
+  hint_header=spell_adrenalin_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    nfeatures=magic_immunitet,pawn,boss
+    script_attack=spell_adrenalin_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+  }
+  params {
+    bonus=1,2,2
+    duration=0,0,1
+    int=1 //  If = 1 then the intelligence affects the duration of spells
+    holy_rage=1
+    type=bonus
+    mana_cost = 4,8,22  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=8,4
+    3=22,11
+  }
+}
+
+// Peacefulness.
+spell_pacifism {
+  category=s
+  profit=3
+  price=2800
+  image=book_spell_pacifism.png
+  button_image=book_scroll_pacifism.png
+  icon=s_overtime_pacifism.png
+  label=SN_pacifism
+  attack=scripted
+  hint_config=object_spell
+  school=1
+  hint_config=object_spell
+  hint=spell_pacifism_hint
+  hint_header=spell_pacifism_header
+  icon=book_spell_pacifism.png
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_pacifism_attack
+    script_calccells=calccells_all_one
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=1,2,3
+    int=1 // if = 1 then the intelligence affects the duration of spells
+    penalty=10,15,20	// how many drops Damage
+    power=10,15,20	// how much growing hitpoint
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=1
+    holy_rage=1
+    attack=0
+    mana_cost = 4,6,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=6,3
+    3=9,4
+  }
+}
+
+// Убийца Драконов
+spell_dragon_slayer {
+  profit=3
+  category=s
+  price=9580
+  icon=s_overtime_dragon_slayer.png
+  image=book_spell_dragon_slayer.png
+  button_image=book_scroll_dragon_slayer.png
+  label=SN_dragon_slayer
+  hint_config=object_spell
+  school=1
+  hint=spell_dragon_slayer_hint
+  hint_header=spell_dragon_slayer_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_dragon_slayer_attack
+    script_calccells=calccells_complex_ally
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    power=10,15,15 // бонус урона в %
+    unit_count=one,one,all
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    script=post_spell_dragon_slayer
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    holy_rage=1
+    attack=1
+    mana_cost = 5,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=5,2
+    2=7,3
+    3=35,17
+  }
+}
+
+// Феникс 
+spell_phoenix {
+  category=s
+  profit=3
+  price=20930
+  icon=s_overtime_phoenix.png
+  image=book_spell_phoenix.png
+  button_image=book_scroll_phoenix.png
+  label=SN_phoenix
+  hint_config=object_spell
+  school=1
+  hint=spell_phoenix_hint
+  hint_header=spell_phoenix_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_phoenix_call
+    script_calccells=calccells_ally_empty_around
+    //calccells_all_empty
+    attack_cursor=magicstick
+  }
+  params {
+    unit_name=phoenix_young,phoenix,phoenix_old
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=1
+    holy_rage=1
+    attack=1
+    defense=1
+    astral=1
+    fire=1
+    res_fire=1
+    res_physical=1
+    res_magic=1
+    res_poison=1
+    mana_cost = 15,30,60  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=15,7
+    2=30,15
+    3=60,30
+  }
+}
+
+// Одарение
+spell_gifts {
+  category=s
+  profit=3
+  price=8300
+  icon=s_overtime_gifts.png
+  image=book_spell_gifts.png
+  button_image=book_scroll_gifts.png
+  label=SN_gifts
+  hint_config=object_spell
+  school=1
+  hint=spell_gifts_hint
+  hint_header=spell_gifts_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    nfeatures=magic_immunitet,pawn,boss
+    script_attack=spell_gifts_attack
+    script_calccells=calccells_gifts
+    attack_cursor=magicstick
+  }
+  params {
+    duration=0
+    int=0 // если =1 то интеллект влияет на длительность заклинания
+    level=2,3,4	// at a maximum level beings act
+    mana_cost = 9,20,27  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=9,4
+    2=20,10
+    3=27,13
+  }
+}
+
+// Убийца Демонов
+spell_demon_slayer {
+  category=s
+  profit=4
+  hide=0
+  price=8330
+  icon=s_overtime_demon_slayer.png
+  image=book_spell_demon_slayer.png
+  button_image=book_scroll_demon_slayer.png
+  label=SN_demon_slayer
+  hint_config=object_spell
+  school=1
+  hint=spell_demon_slayer_hint
+  hint_header=spell_demon_slayer_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_demon_slayer_attack
+    script_calccells=calccells_complex_ally
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    power=10,15,15 // бонус урона в %
+    unit_count=one,one,all
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    script=post_spell_demon_slayer
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    holy_rage=1
+    attack=1
+    mana_cost = 4,6,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=6,3
+    3=30,15
+  }
+}
+
+// Lightning. Claps all around is split into categories from the second level.
+spell_lightning {
+  category=s
+  profit=4
+  price=30330
+  image=book_spell_lightning.png
+  button_image=book_scroll_lightning.png
+  label=SN_lightning
+  school=1
+  hint_config=object_spell
+  hint=spell_lightning_hint
+  hint_header=spell_lightning_header
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=spell_lightning_attack
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+  }
+  params {
+    damage=125-200   // Damage in the format min-max
+    typedmg=magic    // Type of damage
+    lvl_inc=125      // Increase the damage level in%
+    duration=1       // Duration
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    shock=15         // Probability of shock, depending on the level
+    count=1,2,4
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    holy_rage=1
+    attack=1
+    mana_cost = 14,31,49  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=14,7
+    2=31,15
+    3=49,24
+  }
+}
+
+// Resurrection
+spell_resurrection {
+  category=s
+  profit=4
+  price=16200
+  image=book_spell_resurrection.png
+  button_image=book_scroll_resurrection.png
+  label=SN_resurrection
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=spell_resurrection_hint
+  hint_header=spell_resurrection_header
+  
+  scripted {
+    log_label=null
+    warning=warning_resurrect
+    script_attack=spell_resurrection_attack
+    script_calccells=calccells_all_need_resurrect_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,undead,plant,golem,pawn,boss
+  }
+  params {
+    duration=0
+    rephits=300	// How many treats
+    lvl_inc=150	// How much% increase from the level
+    level=2,3,4
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=1
+    holy_rage=1
+    attack=0
+    mana_cost = 12,24,36  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=12,6
+    2=24,12
+    3=36,18
+  }
+}
+
+// Доспехи Бога
+spell_divine_armor {
+  category=s
+  profit=4
+  price=20100
+  image=book_spell_divine_armor.png
+  button_image=book_scroll_divine_armor.png
+  icon=s_overtime_divine_armor.png
+  label=SN_divine_armor
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=spell_divine_armor_hint
+  hint_header=spell_divine_armor_header
+  icon=book_spell_divine_armor.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_divine_armor_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=undead,magic_immunitet,pawn,boss
+  }
+  params {
+    duration=1,2,3
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    power=5,10,15
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=1
+    holy_rage=1
+    attack=0
+    defense=1
+    mana_cost = 15,30,45  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=15,7
+    2=30,15
+    3=45,22
+  }
+}
+
+// Свет Жизни
+spell_holy_rain {
+  category=s
+  profit=5
+  price=20830
+  hide=0
+  rare=1
+  image=book_spell_holy_rain.png
+  label=SN_holy_rain
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=spell_holy_rain_hint
+  hint_header=spell_holy_rain_header
+  button_image=book_scroll_holy_rain.png
+  
+  scripted {
+//    no_hint=1
+    ai_ignore=1
+    script_attack=spell_holy_rain_attack
+    script_calccells=calccells_mass_all
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=pawn,boss
+  }
+  params {
+    rephits=75       // урон в формате min-max
+    typedmg=magic    // тип урона
+    lvl_inc=125      // прирост урона с уровнем в %
+    duration=1       // длительность
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    holy=5           // power of holy attack effect
+    prc_damage=300		 // какая часть от силы лечения наносит урон. Можно ставить и больше 100%, тогда урон будет сильнее лечения
+    multi=7
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=1
+    holy_rage=1
+    attack=1
+    mana_cost = 10,22,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=10,5
+    2=22,11
+    3=35,17
+  }
+}
+
+///////////////////////////////////////
+/// ИСКАЖЕНИЕ
+///////////////////////////////////////
+
+// Точность
+spell_accuracy {
+  category=s
+  profit=1
+  price=5555
+  icon=s_overtime_accuracy.png
+  button_image=book_scroll_accuracy.png
+  image=book_spell_accuracy.png
+  label=SN_accuracy
+  hint_config=object_spell
+  school=2
+  hint=spell_accuracy_hint
+  hint_header=spell_accuracy_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_accuracy_attack
+    script_calccells=calccells_complex_ally
+    attack_cursor=magicstick
+    features=shot
+    nfeatures=eyeless,magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    power=15,20,20
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    unit_count=one,one,all
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 3,4,20  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=3,1
+    2=4,2
+    3=20,10
+  }
+}
+
+// Ускорение 
+spell_haste {
+  category=s
+  profit=1
+  price=3465
+  image=book_spell_haste.png
+  button_image=book_scroll_haste.png
+  icon=s_overtime_haste.png
+  label=SN_haste
+  attack=scripted
+  school=2
+  hint=spell_haste_hint
+  hint_header=spell_haste_header
+  icon=book_spell_haste.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_haste_attack
+    script_calccells=calccells_complex_ally
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    bonus=1,2,2
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    unit_count=one,one,all
+    type=bonus
+    mana_cost = 3,5,25  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=3,1
+    2=5,2
+    3=25,12
+  }
+}
+
+// Замедление
+spell_slow {
+  category=s
+  profit=1
+  price=4910
+  image=book_spell_slow.png
+  button_image=book_scroll_slow.png
+  icon=s_overtime_slow.png
+  label=SN_slow
+  attack=scripted
+  school=2
+  hint=spell_slow_hint
+  hint_header=spell_slow_header
+  icon=book_spell_slow.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_slow_attack
+    script_calccells=calccells_complex_enemy
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    penalty=1,2,2
+    unit_count=one,one,all
+    type=penalty
+    mana_cost = 4,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=7,3
+    3=35,17
+  }
+}
+
+// Боевой Клич
+spell_reaction {
+  category=s
+  profit=1
+  price=2090
+  image=book_spell_reaction.png
+  button_image=book_scroll_reaction.png
+  icon=s_overtime_reaction.png
+  label=SN_reaction
+  attack=scripted
+  school=1
+  hint_config=object_spell
+  hint=spell_reaction_hint
+  hint_header=spell_reaction_header
+  icon=book_spell_reaction.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_reaction_attack
+    script_calccells=calccells_complex_ally
+    unit_count=one,one,all
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    unit_count=one,one,all
+    bonus=1,2,2
+    holy_rage=1
+    type=bonus
+    mana_cost = 2,3,15  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=2,1
+    2=3,1
+    3=15,7
+  }
+}
+
+// Берсеркер
+// Юнит сражается в режиме автобоя!
+spell_berserker {
+  category=s
+  profit=2
+  price=3500
+  icon=s_overtime_berserker.png
+  image=book_spell_berserker.png
+  button_image=book_scroll_berserker.png
+  label=SN_berserker
+  hint_config=object_spell
+  school=2
+  hint=spell_berserker_hint
+  hint_header=spell_berserker_header
+  onremove=spell_berserker_onremove
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_berserker_attack
+    script_calccells=calccells_all_ally_level//one
+    attack_cursor=magicstick
+    nfeatures=mind_immunitet,magic_immunitet,pawn,boss,undead
+  }
+  params {
+    duration=2,3,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    power=25,30,35
+    level=2,3,4
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 5,7,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=5,2
+    2=7,3
+    3=9,4
+  }
+}
+
+// снятие Берсеркера, невидимый автоспелл
+spell_berserker_duration_end {
+  category=s
+  hide=1
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=spell_berserker_duration_end
+  }
+}
+
+// Пелена 
+spell_shroud {
+  category=s
+  profit=2
+  hide=0
+  price=1080
+  icon=s_overtime_shroud.png
+  image=book_spell_shroud.png
+  button_image=book_scroll_shroud.png
+  label=SN_shroud
+  hint_config=object_spell
+  school=2
+  hint=spell_shroud_hint
+  hint_header=spell_shroud_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_shroud_attack
+    script_calccells=calccells_mass_all
+    attack_cursor=magicstick
+    log_label=add_blog_pelena
+    
+    custom_params {}
+  }
+  params {
+    duration=3,4,5
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    power=10,15,20
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=0
+    attack=0
+    mana_cost = 2,3,4  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=2,1
+    2=3,1
+    3=4,2
+  }
+}
+
+// Зеркало боли
+spell_pain_mirror {
+  category=s
+  profit=2
+  price=7200
+  icon=s_overtime_pain_mirror.png
+  image=book_spell_pain_mirror.png
+  button_image=book_scroll_pain_mirror.png
+  label=SN_pain_mirror
+  hint_config=object_spell
+  school=2
+  hint=spell_pain_mirror_hint
+  hint_header=spell_pain_mirror_header
+  
+  attack=scripted
+  
+  scripted {
+    ai_ignore=1
+    script_attack=spell_pain_mirror_attack
+    script_calccells=calccells_pain_mirror
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    power=15,20,25
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    necromancy=1
+    mana_cost = 12,16,20  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=12,6
+    2=16,8
+    3=20,10
+  }
+}
+
+// Мишень
+spell_target {
+  category=s
+  profit=3
+  price=2700
+  icon=s_overtime_target.png
+  image=book_spell_target.png
+  button_image=book_scroll_target.png
+  label=SN_target
+  hint_config=object_spell
+  school=2
+  hint=spell_target_hint
+  hint_header=spell_target_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_target_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,4
+    lvl=2,3,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    type=bonus
+    mana_cost = 8,12,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=8,4
+    2=12,6
+    3=16,8
+  }
+}
+
+// Source of Magic
+spell_magic_source {
+  category=s
+  profit=2
+  price=5200
+  icon=s_overtime_magic_source.png
+  image=book_spell_magic_source.png
+  button_image=book_scroll_magic_source.png
+  label=SN_magic_source
+  hint_config=object_spell
+  school=2
+  hint=spell_magic_source_hint
+  hint_header=spell_magic_source_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_magic_source_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,4
+    power=5,10,15  // % increase in protection
+    mana=3,6,9     // how much mana is given
+    int=1          // if = 1 then the intelligence affects the duration of spells
+    script=post_spell_mana_source
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=1
+    attack=0
+    defense=1
+    mana_cost = 5,9,13  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=5,2
+    2=9,4
+    3=13,6
+  }
+}
+
+// Trap
+// At the 3rd level poisons
+// What level, so many traps you can put odnovremennro
+spell_trap {
+  category=s
+  profit=2
+  hide=0
+  price=8550
+  icon=s_overtime_trap.png
+  image=book_spell_trap.png
+  button_image=book_scroll_trap.png
+  label=SN_trap
+  hint_config=object_spell
+  school=2
+  hint=spell_trap_hint
+  hint_header=spell_trap_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_trap_attack
+    script_calccells=calccells_all_empty
+    attack_cursor=magicstick
+    
+    custom_params {}
+  }
+  params {
+    duration=3,4,5	// lifetime
+    int=1 // if = 1 then the intelligence affects the duration of spells
+    typedmg=physical
+    damage=250-300	// damage
+    lvl_inc=150	// increase the damage level in%
+    poison=35
+    count=1,1,1	// not used
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 7,13,19  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=7,3
+    2=13,6
+    3=19,9
+  }
+}
+
+// Невидимость
+spell_invisibility {
+  category=s
+  profit=3
+  hide=0
+  price=12100
+  icon=s_overtime_invisibility.png
+  image=book_spell_invisibility.png
+  button_image=book_scroll_invisibility.png
+  label=SN_invisibility
+  hint_config=object_spell
+  school=2
+  hint=spell_invisibility_hint
+  hint_header=spell_invisibility_header
+  onremove=spell_invisibility_onremove
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    nfeatures=magic_immunitet,pawn,boss
+    script_attack=spell_invisibility
+    script_calccells=calccells_all_ally_level
+    attack_cursor=magicstick
+    custom_params {}
+  }
+  params {
+    duration=1,2,3
+    level=2,3,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    unit_count=one,one,one
+    type=bonus
+    mana_cost = 18,27,36  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=18,9
+    2=27,13
+    3=36,18
+  }
+}
+
+// Меч-Призрак
+spell_ghost_sword {
+  category=s
+  profit=3
+  price=3600
+  image=book_spell_ghost_sword.png
+  button_image=book_scroll_ghost_sword.png
+  label=SN_ghost_sword
+  school=2
+  hint=spell_ghost_sword_hint
+  hint_header=spell_ghost_sword_header
+  
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=spell_ghost_sword_attack
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+    
+  }
+  params {
+    duration=0
+    damage=235
+    typedmg=physical
+    lvl_inc=150 //%
+    power=50,75,100
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 4,8,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=8,4
+    3=12,6
+  }
+}
+
+// Фантом
+spell_phantom {
+  category=s
+  profit=3
+  hide=0
+  price=11250
+  image=book_spell_phantom.png
+  button_image=book_scroll_phantom.png
+  icon=s_overtime_phantom.png
+  label=SN_phantom
+  attack=scripted
+  school=2
+  log_label=null
+  hint=spell_phantom_hint
+  hint_header=spell_phantom_header
+  icon=book_spell_phantom.png
+  onremove=spell_phantom_onremove
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_phantom_attack
+    script_calccells=calccells_phantom
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+    log_label=null
+  }
+  params {
+    duration=1,2,3
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    power=10,15,20	// % Health phantom detachment from the original
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=0
+    attack=0
+    mana_cost = 20,30,40  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=20,10
+    2=30,15
+    3=40,20
+  }
+}
+
+// Teleport
+// At 3, 5, and any number of cells
+spell_teleport {
+  category=s
+  profit=3
+  price=4000
+  image=book_spell_teleport.png
+  button_image=book_scroll_teleport.png
+  label=SN_teleport
+  attack=scripted
+  school=2
+  hint=spell_teleport_hint
+  hint_header=spell_teleport_header
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_teleport_attack
+    script_calccells=calccells_teleport
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet,pawn,boss
+    log_label=null
+  }
+  params {
+    duration=0
+    all=4           // when it begins to move all units, the level known to be unattainable, then never
+    dist=3,5,100    // radius of teleportation of a portable unit, if the 100 - no restrictions
+    mana_cost = 9,15,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=9,4
+    2=15,7
+    3=30,15
+  }
+}
+
+// Карлик
+spell_pygmy {
+  category=s
+  profit=4
+  price=15750
+  icon=s_overtime_pygmy.png
+  button_image=book_scroll_pygmy.png
+  image=book_spell_pygmy.png
+  label=SN_pygmy
+  hint_config=object_spell
+  school=2
+  onremove=spell_pygmy_onremove
+  hint=spell_pygmy_hint
+  hint_header=spell_pygmy_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_pygmy_attack
+    script_calccells=calccells_all_enemy_level
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=1,2,3
+    level=2,3,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания    
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    power=10,15,20
+    hero=1
+    type=penalty
+    mana_cost = 18,30,42  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=18,9
+    2=30,15
+    3=42,21
+  }
+}
+
+// Ослепление 
+spell_blind {
+  category=s
+  profit=4
+  price=11600
+  image=book_spell_blind.png
+  button_image=book_scroll_blind.png
+  icon=s_overtime_blind.png
+  label=SN_blind
+  attack=scripted
+  onremove=spell_blind_attack_onremove
+  school=2
+  hint=spell_blind_hint
+  hint_header=spell_blind_header
+  icon=book_spell_blind.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_blind_attack
+    script_calccells=calccells_all_enemy_level
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=eyeless,magic_immunitet,pawn,boss
+  }
+  params {
+    duration=1,2,3
+    level=2,3,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    type=penalty
+    mana_cost = 15,26,37  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=15,7
+    2=26,13
+    3=37,18
+  }
+}
+
+// Гипноз 
+spell_hypnosis {
+  category=s
+  profit=5
+  price=14700
+  attack=scripted
+  icon=s_overtime_hypnosis.png
+  image=book_spell_hypnosis.png
+  button_image=book_scroll_hypnosis.png
+  label=SN_hypnosis
+  hint_config=object_spell
+  school=2
+  hint=spell_hypnosis_hint
+  hint_header=spell_hypnosis_header
+  onremove=spell_hypnosis_onremove
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_hypnosis_attack
+    script_calccells=calccells_hypnosis
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,mind_immunitet,undead,pawn,boss
+  }
+  params {
+    duration=1,2,3
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    power=5,10,20
+    level=2,3,4
+    type=bonus //это упырьское заклинание, т.к. когда враг под гипнозом - его нужно снимать, т.к. он свой
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=0
+    attack=0
+    mana_cost = 17,31,51  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=17,8
+    2=31,15
+    3=51,25
+  }
+}
+
+// Гейзер 
+spell_geyser {
+  category=s
+  profit=5
+  price=34765
+  hide=0
+  image=book_spell_geyser.png
+  button_image=book_scroll_geyser.png
+  label=SN_geyser
+  attack=scripted
+  school=2
+  hint=spell_geyser_hint
+  hint_header=spell_geyser_header
+  
+  scripted {
+    script_attack=spell_geyser_attack
+    script_calccells=
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+  }
+  params {
+    duration=1
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    typedmg=physical
+    damage=75-150
+    lvl_inc=125
+    count=4,6,8	// Maximum number of the targeted goals
+    stun=10     // New parameter, stun targets
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 15,33,52  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=15,7
+    2=33,16
+    3=52,26
+  }
+}
+
+///////////////////////////////////////
+/// ХАОС
+///////////////////////////////////////
+
+//Огненая Стрела
+spell_fire_arrow {
+  category=s
+  profit=1
+  price=6750
+  image=book_spell_fire_arrow.png
+  button_image=book_scroll_fire_arrow.png
+  label=SN_fire_arrow
+  school=3
+  hint=spell_fire_arrow_hint
+  hint_header=spell_fire_arrow_header
+  
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=spell_fire_arrow_attack
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+    
+  }
+  params {
+    damage=150               // урон в формате min-max
+    typedmg=fire    // тип урона
+    lvl_inc=150             // прирост урона с уровнем в %
+    duration=2              // длительность
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    burn=25                     // вероятность поджога в зависимости от уровня
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 4,10,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=10,5
+    3=16,8
+  }
+}
+
+// Ядовитый Череп
+spell_smile_skull {
+  category=s
+  profit=1
+  price=7500
+  image=book_spell_smile_skull.png
+  button_image=book_scroll_smile_skull.png
+  label=SN_smile_skull
+  attack=scripted
+  school=3
+  hint=spell_smile_skull_hint
+  hint_header=spell_smile_skull_header
+  
+  scripted {
+    script_attack=spell_smile_skull_attack
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+  }
+  params {
+    duration=2
+    damage=125-175
+    lvl_inc=150
+    typedmg=poison
+    poison=25
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    necromancy=1
+    mana_cost = 4,10,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=10,5
+    3=16,8
+  }
+}
+
+// Испуг
+spell_scare {
+  category=s
+  profit=1
+  price=6800
+  hide=0
+  icon=s_overtime_scare.png
+  image=book_spell_scare.png
+  button_image=book_scroll_scare.png
+  label=SN_scare
+  hint_config=object_spell
+  school=3
+  hint=spell_scare_hint
+  hint_header=spell_scare_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_scare_attack
+    script_calccells=calccells_all_enemy_level
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,mind_immunitet,undead,pawn,boss
+    custom_params {
+      duration=2
+    }
+  }
+  params {
+    duration=1,2,3
+    level=2,3,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    necromancy=1
+    mana_cost = 9,15,22  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=9,4
+    2=15,7
+    3=22,11
+  }
+}
+
+// Масляный Туман
+spell_oil_fog {
+  profit=2
+  category=s
+  price=3900
+  image=book_spell_oil_fog.png
+  button_image=book_scroll_oil_fog.png
+  icon=s_overtime_oil_fog.png
+  label=SN_oil_fog
+  attack=scripted
+  school=3
+  hint=spell_oil_fog_hint
+  hint_header=spell_oil_fog_header
+  icon=book_spell_oil_fog.png
+  
+  scripted {
+    script_attack=spell_oil_fog_attack
+    script_calccells=calccells_all_enemy
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+  }
+  params {
+    duration=3,4,5
+    power=5,10,15	// Which receives the vulnerability unit. Resists do not matter
+    typedmg=fire
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    damage=75
+    lvl_inc=150
+    type=penalty
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 3,6,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=3,1
+    2=6,3
+    3=9,4
+  }
+}
+
+// Чума
+spell_plague {
+  category=s
+  icon=s_overtime_infection.png
+  profit=2
+  price=16800
+  button_image=book_scroll_infection.png
+  image=book_spell_infection.png
+  label=SN_plague
+  
+  hint_config=object_spell
+  school=3
+  hint=spell_plague_hint
+  hint_header=spell_plague_header
+  button_image=book_scroll_plague.png
+  attack=scripted
+  each_turn_attack=scripted
+  
+  scripted {
+    no_hint=1
+    nfeatures=plant,golem,demon,pawn,boss
+    script_attack=spell_plague_attack
+    script_calccells=calccells_all_enemy
+    attack_cursor=magicstick
+  }
+  params {
+    duration=1,2,3
+    power=10,15,20 // How much% drop characteristics
+    type=penalty
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=0
+    attack=0
+    necromancy=1
+    mana_cost = 16,28,40  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=16,8
+    2=28,14
+    3=40,20
+  }
+}
+
+// Дыхание Ада
+spell_fire_breath {
+  category=s
+  hide=0
+  profit=2
+  price=3600
+  icon=s_overtime_fire_breath.png
+  image=book_spell_fire_breath.png
+  button_image=book_scroll_fire_breath.png
+  label=SN_fire_breath
+  hint_config=object_spell
+  school=3
+  hint=spell_fire_breath_hint
+  hint_header=spell_fire_breath_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_fire_breath_attack
+    script_calccells=calccells_all_ally
+    attack_cursor=magicstick
+    nfeatures=demon,magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,4
+    power=10,15,20
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    type=bonus
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    fire=1
+    mana_cost = 4,6,8  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=6,3
+    3=8,4
+  }
+}
+
+// Магические оковы
+spell_magic_bondage {
+  category=s
+  profit=2
+  price=10450
+  icon=s_overtime_magic_bondage.png
+  button_image=book_scroll_magic_bondage.png
+  image=book_spell_magic_bondage.png
+  label=SN_magic_bondage
+  hint_config=object_spell
+  school=2
+  hint=spell_magic_bondage_hint
+  hint_header=spell_magic_bondage_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_magic_bondage_attack
+    script_calccells=calccells_all_enemy_level_complex
+    attack_cursor=magicstick
+    nfeatures=mind_immunitet,magic_immunitet,pawn,boss
+  }
+  params {
+    level=3,4,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    unit_count=one,one,all
+    duration=1,2,3
+    type=penalty
+    mana_cost = 6,10,50  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=6,3
+    2=10,5
+    3=50,25
+  }
+}
+
+// Ледяная Змея
+spell_ice_serpent {
+  category=s
+  profit=3
+  price=17055
+  image=book_spell_ice_serpent.png
+  button_image=book_scroll_ice_serpent.png
+  label=SN_ice_serpent
+  attack=scripted
+  school=3
+  hint_config=object_spell
+  hint=spell_ice_serpent_hint
+  hint_header=spell_ice_serpent_header
+  
+  scripted {
+    script_attack=spell_ice_serpent_attack
+    script_highlight=spell_ice_serpent_highlight
+    script_calccells=calccells_ice_serpent
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+  }
+  params {
+    duration=2
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    typedmg=physical
+    damage=125-150		// урон цели
+    periphery_damage=100-125	// Damage to neighbors
+    lvl_inc=125
+    freeze=20    //вероятность заморозки * на уровень. Скорость -1
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 10,21,31  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=10,5
+    2=21,10
+    3=31,15
+  }
+}
+
+// Огненный Шар
+spell_fire_ball {
+  category=s
+  profit=3
+  price=19355
+  image=book_spell_fire_ball.png
+  button_image=book_scroll_fire_ball.png
+  label=SN_fire_ball
+  attack=scripted
+  school=3
+  hint=spell_fire_ball_hint
+  hint_header=spell_fire_ball_header
+  
+  scripted {
+    script_attack=spell_fire_ball_attack
+    script_calccells=calccells_mass_all
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+  }
+  params {
+    duration=1
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    typedmg=fire
+    damage=100-150		// урон в эпицентре
+    lvl_inc=125
+    periphery_damage=50-100	// урон соседним
+    burn=15 //10
+    multi=7
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 10,22,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=10,5
+    2=22,11
+    3=35,17
+  }
+}
+
+// Жертвоприношение
+spell_sacrifice {
+  category=s
+  profit=3
+  price=10000
+  icon=s_overtime_sacrifice.png
+  button_image=book_scroll_sacrifice.png
+  image=book_spell_sacrifice.png
+  label=SN_sacrifice
+  hint_config=object_spell
+  school=3
+  hint=spell_sacrifice_hint
+  hint_header=spell_sacrifice_header
+  
+  attack=scripted
+  nfeatures=magic_immunitet,undead
+  
+  scripted {
+    ai_ignore=1
+    log_label=null
+    script_attack=spell_sacrifice_attack
+    script_calccells=calccells_sacrifice
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=0
+    damage=250
+    lvl_inc=150         // прирост урона с уровнем в %
+    power=15,20,25	// какой процент от отнятого здоровья идет на увеличение численности
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=0
+    necromancy=1
+    mana_cost = 9,17,25  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=9,4
+    2=17,8
+    3=25,12
+  }
+}
+
+//Слабость. Цель наносит минимальный урон
+spell_weakness {
+  category=s
+  profit=3
+  price=2665
+  image=book_spell_weakness.png
+  icon=s_overtime_weakness.png
+  button_image=book_scroll_weakness.png
+  label=SN_weakness
+  attack=scripted
+  school=3
+  hint_config=object_spell
+  hint=spell_weakness_hint
+  hint_header=spell_weakness_header
+  icon=book_spell_weakness.png
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_weakness_attack
+    script_calccells=calccells_complex_enemy
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=undead,golem,plant,magic_immunitet,pawn,boss
+  }
+  params {
+    duration=2,3,3
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    unit_count=one,one,all
+    type=penalty
+    necromancy=1
+    mana_cost = 3,4,20  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=3,1
+    2=4,2
+    3=20,10
+  }
+}
+
+// Книга Зла
+spell_evilbook {
+  category=s
+  profit=3
+  hide=0
+  price=14000
+  icon=s_overtime_evilbook.png
+  image=book_spell_evilbook.png
+  button_image=book_scroll_evilbook.png
+  label=SN_evilbook
+  hint_config=object_spell
+  school=3
+  hint=spell_evilbook_hint
+  hint_header=spell_evilbook_header
+  onremove=spell_evilbook_onremove
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_evilbook_attack
+    script_calccells=calccells_ally_empty_around
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet
+    
+    custom_params {}
+  }
+  params {
+    duration=0
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    defense=1
+    physical=1
+    res_fire=1
+    res_physical=1
+    res_magic=1
+    res_poison=1
+    necromancy=1
+    mana_cost = 10,20,40  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=10,5
+    2=20,10
+    3=40,20
+  }
+}
+
+// Камикадзе
+spell_kamikaze {
+  category=s
+  profit=3
+  hide=0
+  price=7500
+  icon=s_overtime_kamikaze.png
+  image=book_spell_kamikaze.png
+  button_image=book_scroll_kamikaze.png
+  label=SN_kamikaze
+  hint_config=object_spell
+  school=3
+  hint=spell_kamikaze_hint
+  hint_header=spell_kamikaze_header
+  onremove=spell_kamikaze_onremove
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    ai_ignore=1
+    script_attack=spell_kamikaze_attack
+    script_calccells=calccells_all_one
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    damage=200-400              // урон в формате min-max
+    typedmg=physical            // тип урона
+    lvl_inc=150                 // прирост урона с уровнем в %
+    duration=0,0,0
+    time=3,3,3			// время действия - power~!
+    type=penalty
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    necromancy=1
+    mana_cost = 4,10,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=4,2
+    2=10,5
+    3=16,8
+  }
+}
+
+// Злой рок
+spell_crue_fate {
+  category=s
+  profit=4
+  hide=0
+  price=4500
+  icon=s_overtime_crue_fate.png
+  image=book_spell_crue_fate.png
+  button_image=book_scroll_crue_fate.png
+  label=SN_crue_fate
+  hint_config=object_spell
+  school=3
+  hint=spell_crue_fate_hint
+  hint_header=spell_crue_fate_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_crue_fate_attack
+    script_calccells=calccells_all_enemy_level
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss
+  }
+  params {
+    duration=1,2,3
+    type=penalty
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    level=2,3,4
+    necromancy=1
+    mana_cost = 8,12,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=8,4
+    2=12,6
+    3=16,8
+  }
+}
+
+// Баран
+spell_ram {
+  category=s
+  profit=4
+  hide=0
+  price=20065
+  icon=s_overtime_ram.png
+  image=book_spell_ram.png
+  button_image=book_scroll_ram.png
+  label=SN_ram
+  hint_config=object_spell
+  school=3
+  hint=spell_ram_hint
+  hint_header=spell_ram_header
+  onremove=spell_ram_onremove
+  button_image=book_scroll_ram.png
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_ram_attack
+    script_calccells=calccells_all_enemy_level
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss,plant,undead,golem
+  }
+  params {
+    duration=1,2,3
+    level=2,3,4
+    int=1 // если =1 то интеллект влияет на длительность заклинания
+    type=penalty
+    speed=4		// скорость барана
+    mana_cost = 22,38,55  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=22,11
+    2=38,19
+    3=55,27
+  }
+}
+
+// Portal Demons
+spell_demonologist {
+  category=s
+  profit=4
+  hide=0
+  price=13180
+  icon=s_overtime_demonologist.png
+  image=book_spell_demonologist.png
+  button_image=book_scroll_demonologist.png
+  label=SN_demonologist
+  hint_config=object_spell
+  school=3
+  hint=spell_demonologist_hint
+  hint_header=spell_demonologist_header
+  onremove=spell_invisibility_onremove
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    script_attack=spell_demonologist
+    script_calccells=calccells_all_empty
+    attack_cursor=magicstick
+    
+    custom_params {}
+  }
+  params {
+    time=1,1,1					// time after which will be called demons
+    level=2-3,2-4,3-5		// level demon
+    units1=imp,imp2,cerberus		// which units may be called at any level
+    units2=imp,imp2,cerberus,demon,demoness
+    units3=cerberus,demon,demoness,archdemon
+    power=5,10,20          // percent hero leadership (scaled by intellect)
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=0
+    attack=0
+    mana_cost = 14,23,39  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=14,7
+    2=23,11
+    3=39,19
+  }
+}
+
+// Огненный Дождь
+spell_fire_rain {
+  category=s
+  profit=4
+  price=20890
+  image=book_spell_fire_rain.png
+  button_image=book_scroll_fire_rain.png
+  label=SN_fire_rain
+  attack=scripted
+  school=3
+  hint=spell_fire_rain_hint
+  hint_header=spell_fire_rain_header
+  
+  scripted {
+    script_attack=spell_fire_rain_attack
+    script_calccells=calccells_mass_all
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=magic_immunitet
+  }
+  params {
+    duration=1
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    typedmg=fire
+    damage=75-125
+    lvl_inc=125
+    burn=15  //5
+    multi=7
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 11,24,38  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=11,5
+    2=24,12
+    3=38,19
+  }
+}
+
+// Зов Некроманта
+spell_necromancy {
+  category=s
+  icon=s_overtime_bless.png
+  profit=4
+  price=10500
+  button_image=book_scroll_necromancy.png
+  image=book_spell_necromancy.png
+  label=SN_necromancy
+  
+  hint_config=object_spell
+  school=3
+  hint=spell_necromancy_hint
+  hint_header=spell_necromancy_header
+  
+  attack=scripted
+  
+  scripted {
+    no_hint=1
+    log_label=null
+    nfeatures=nonecro,golem,plant,demon,magic_immunitet
+    script_attack=spell_necromancy_attack
+    script_calccells=calccells_all_corpse
+    attack_cursor=magicstick
+  }
+  params {
+    // someone who rises from
+    skeleton=,sprite,dryad,werewolf,druid,sprite_lake,robber,peasant,footman,goblin2,goblin,robber2,pirat,pirat2,skeleton,
+    archer=,elf,elf2,bowman,archer,
+    spider_undead=,spider,spider_venom,spider_fire,spider_undead,
+    zombie=,werewolf,druid,wolf,robber,footman,zombie,miner,orc2,barbarian,orc,
+    zombie2=,footman2,zombie2,dwarf,cannoner,alchemist,catapult,barbarian2,ogre,orc2,
+    ghost=,druid,griffin,ghost,alchemist,giant,hyena,catapult,bear,graywolf,
+    ghost2=,ghost2,bear_white,bear2,ogre,shaman,unicorn2,unicorn,
+    vampire=,bat,werewolf,horseman,knight,vampire,footman2,pirat2,priest,priest2,
+    vampire2=,bat2,archmage,vampire2,
+    blackknight=,horseman,knight,blackknight,
+    necromant=,druid,archmage,necromant,
+    bonedragon=,bonedragon,greendragon,blackdragon,reddragon,
+    power=400,800,1200 // суммарный хитпоинт
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=0
+    healer=0
+    attack=0
+    necromancy=1
+    mana_cost = 10,20,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=10,5
+    2=20,10
+    3=30,20
+  }
+}
+
+// Armageddon
+spell_armageddon {
+  category=s
+  profit=5
+  price=58580
+  hide=0
+  image=book_spell_armageddon.png
+  button_image=book_scroll_armageddon.png
+  label=SN_armageddon
+  attack=scripted
+  school=3
+  hint=spell_armageddon_hint
+  hint_header=spell_armageddon_header
+  
+  scripted {
+    script_attack=spell_armageddon_attack
+    script_calccells=
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    //nfeatures=magic_immunitet
+  }
+  params {
+    duration=2
+    int=1            //  If = 1 then the intelligence affects the duration of spells
+    typedmg=astral
+    damage=100-300
+    lvl_inc=125
+    prc_damage=10,15,20
+    burn=30
+    int_pwr=1  // if = 1 then the intelligence effects spell power
+    hero=1
+    destroyer=1
+    healer=0
+    attack=1
+    mana_cost = 23,41,60  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+  }
+  levels {
+    // level = mana_cost, crystals_cost to upgrade from previous level
+    1=23,11
+    2=41,20
+    3=60,30
+  }
+}
+
+// АAvtosnyatie phantom. Invisible spell
+spell_phantom_duration_end {
+  category=s
+  hide=1
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=spell_phantom_duration_end
+  }
+}
+
+// Explosion Kamikaze. Invisible spell
+spell_bomb_explode {
+  category=s
+  hide=1
+  icon=s_overtime_bless.png
+  hint_config=object_spell
+  school=3
+  hint=feat_rabid_small
+  hint_header=feat_rabid_head
+  
+  attack=scripted
+  
+  scripted {
+    ad_factor=0
+    script_attack=spell_bomb_explode_attack
+    script_calccells=
+    attack_cursor=magicstick
+  }
+  params {
+    duration=1
+    level=3 //%
+    type=penalty
+  }
+  levels {}
+}
+
+// For skill TACTICS
+spell_army_disposition {
+  category=s
+  hide=1
+  attack=scripted
+  
+  scripted {
+    infohint=bah_tactics
+    script_attack=spell_army_disposition
+    script_calccells=calccells_army_disposition
+    attack_cursor=arrow
+    log_label=null
+  }
+}

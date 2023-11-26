@@ -1,0 +1,398 @@
+main {
+  class=chesspiece
+  model=alchemist.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_alchemist_feat
+  features_hints=poison_resistance_header/poison_resistance_hint,acid_sprays_header/acid_sprays_hint,no_melee_header/no_melee_hint
+  race=dwarf
+  cost=920
+  level=4
+  leadership=260
+  attack=25
+  defense=35
+  defenseup=4
+  initiative=5
+  speed=2
+  hitpoint=120
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,acidcannon,throw1,throw2,throw3
+  posthitmaster=special_alchemist
+  features=shot,humanoid
+  resistances {
+    physical=8
+    poison=33
+    magic=8
+    fire=8
+  }
+  moveattack {
+    group=1,1
+    damage {
+      poison=10,25
+    }
+    custom_params {
+      burn=0
+      poison=10
+      holy=0
+    }
+  }
+  acidcannon {
+    group=1,2
+    class=scripted
+    base_attack=1
+    ad_factor=1
+    showdmg=1
+    distance=3
+    script_attack=alchemist_acidcannon_attack
+    script_calccells=alchemist_acidcannon_selcells
+    script_filter=alchemist_acidcannon_filter
+    script_highlight=alchemist_acidcannon_highlight
+    attack_cursor=magicstick
+    damage {
+      poison=10,25
+    }
+    custom_params {
+      burn=0
+      poison=0
+      holy=0
+    }
+  }
+  throw1 {
+    class=throw
+    hint=special_alch_poison_hint
+    hinthead=special_alch_poison_head
+    picture=BA1_Poison_Water_
+    picture_small=BA1_Poison_Water_small.png
+    moves=1
+    distance=7
+    device=poisoncloud
+    up=1
+    mindist=1
+    penalty=0.8
+    animation=cast/throw/thtarget
+    throw=alchemist_bulb
+    framekey=x
+    7in1=0.3
+    friendly_fire=1
+    damage {
+      poison=5,15
+    }
+    custom_params {
+      burn=0
+      poison=100
+      holy=0
+    }
+  }
+  throw2 {
+    class=throw
+    hinthead=special_alch_fire_head
+    hint=special_alch_fire_hint
+    picture=ba1_fieryflask_
+    picture_small=ba1_fieryflask_small.png
+    distance=7
+    moves=1
+    up=1
+    mindist=1
+    penalty=0.8
+    animation=firecast/throw/thtarget
+    throw=alchemist_firebulb
+    framekey=x
+    damage {
+      fire=10,20
+    }
+    custom_params {
+      burn=100
+      poison=0
+      holy=0
+    }
+  }
+  throw3 {
+    class=throw
+    picture=BA1_Holy_Water_
+    picture_small=BA1_Holy_Water_small.png
+    hinthead=special_alch_holy_head
+    hint=special_alch_holy_hint
+    moves=1
+    warning=sw_holywater
+    distance=7
+    up=1
+    mindist=1
+    penalty=0.8
+    animation=watercast/throw/thtarget
+    throw=alchemist_waterbulb
+    framekey=x
+    nfeatures=boss,pawn
+    features=undead
+    damage {
+      magic=15,25
+    }
+    custom_params {
+      burn=0
+      poison=0
+      holy=100
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:3:6:idlemain:1:1:rarelist
+  idlemain=alchemist_idle.bsa/fr:25:50
+  rarelist=/fwd:1:rare:5:spare
+  rare=alchemist_rare.bsa/fr:25:50
+  spare=alchemist_rare.bsa/fr:20:40
+  attack=alchemist_attack.bsa/fr:25:50
+  start=alchemist_start.bsa/fr:25:50
+  move=alchemist_move.bsa/fr:25:50
+  stop=alchemist_stop.bsa/fr:25:50
+  lturn=alchemist_lturn.bsa/fr:25:50
+  rturn=alchemist_rturn.bsa/fr:25:50
+  clock=alchemist_clock.bsa/fr:25:50
+  contra=alchemist_contra.bsa/fr:25:50
+  clock2=alchemist_2clock.bsa/fr:25:50
+  contra2=alchemist_2contra.bsa/fr:25:50
+  damage=alchemist_damage.bsa/fr:25:50
+  slew=alchemist_slew.bsa/fr:25:50
+  cast=alchemist_cast.bsa/fr:25:50
+  firecast=alchemist_cast.bsa/fr:25:50
+  watercast=alchemist_cast.bsa/fr:25:50
+  death=alchemist_death.bsa/fr:25:50
+  respawn=alchemist_respawn.bsa/fr:25:50
+  cursor=alchemist_rare.bsa/fr:25:50
+  teleout=alchemist_idle.bsa/fr:25:50/r:35:70
+  telein=alchemist_idle.bsa/fr:25:50/r:0:35
+  happy=alchemist_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:3:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    14.0?x=
+    0.0=cam
+  }
+  @cast {
+    28.0?x=
+    0.0=cam
+  }
+  @firecast {
+    28.0?x=
+    0.0=cam
+  }
+  @watercast {
+    28.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=2
+    mesh {
+      trans=0/0.03/0.035/-3.1415925/1.45159316/-3.1415925/0.94999999
+      time=21/5
+      file=alchemist_goggles.bms
+    }
+  }
+  1 {
+    particle {
+      trans=0.40000001/0.1/-0.25/0/-0/0/0.5
+      animation=rare
+      frame=5/50
+      file=alchemist_raredrop.ptb
+    }
+    particle {
+      trans=0.40000001/0.1/-0.25/0/-0/0/0.5
+      animation=spare
+      frame=5/50
+      file=alchemist_raredrop.ptb
+    }
+  }
+  0 {
+    slot=1
+    mesh {
+      trans=0.09/0.03/0.03/2.21075368/-0.34907648/0.0388289/0.99999964
+      animation=cast
+      frame=18/27
+      file=alchemist_bulb.bms
+    }
+  }
+  0 {
+    slot=1
+    mesh {
+      trans=0.09/0.03/0.03/2.21075368/-0.34907648/0.0388289/0.99999964
+      animation=firecast
+      frame=18/27
+      file=alchemist_firebulb.bms
+    }
+  }
+  0 {
+    slot=1
+    mesh {
+      trans=0.09/0.03/0.03/2.21075368/-0.34907648/0.0388289/0.99999964
+      animation=watercast
+      frame=18/27
+      file=alchemist_waterbulb.bms
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=alchemist_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=alchemist_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=alchemist_start
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=alchemist_move
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=alchemist_stop
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=alchemist_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=alchemist_turn
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=alchemist_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=alchemist_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=alchemist_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=alchemist_clocont
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=alchemist_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=alchemist_slew
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=alchemist_cast
+      fadetime=60
+    }
+    sound {
+      animation=firecast
+      frame=0.01
+      file=alchemist_cast
+      fadetime=60
+    }
+    sound {
+      animation=watercast
+      frame=0.01
+      file=alchemist_cast
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=alchemist_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=alchemist_rare
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  alchemist_idle.bsa=file
+  alchemist_rare.bsa=file
+  alchemist_attack.bsa=file
+  alchemist_move.bsa=file
+  alchemist_start.bsa=file
+  alchemist_stop.bsa=file
+  alchemist_clock.bsa=file
+  alchemist_contra.bsa=file
+  alchemist_2clock.bsa=file
+  alchemist_2contra.bsa=file
+  alchemist_lturn.bsa=file
+  alchemist_rturn.bsa=file
+  alchemist_damage.bsa=file
+  alchemist_death.bsa=file
+  alchemist_respawn.bsa=file
+  alchemist_cast.bsa=file
+  alchemist_victory.bsa=file
+}

@@ -1,0 +1,347 @@
+main {
+  class=chesspiece
+  model=ent.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_ent_feat
+  features_hints=plant_header/plant_hint,wood_header/wood_hint,forest_spirit_header/forest_spirit_hint,entangle_header/entangle_hint
+  posthitslave=features_wood_creature
+  race=elf
+  cost=800
+  level=4
+  leadership=260
+  attack=30
+  defense=36
+  defenseup=8
+  initiative=2
+  speed=2
+  hitpoint=200
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  movetype=0
+  attacks=moveattack,throw1,rooted,summonplant1,run
+  features=plant,mind_immunitet,poison_immunitet,wood
+  each_turn_script=features_treeoflifetap
+  posthitmaster=features_entangle
+  resistances {
+    physical=35
+    poison=80
+    magic=50
+    fire=-50
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=25,30
+    }
+    custom_params {
+      entangle=50
+    }    
+  }
+  throw1 {
+    reload=3
+    class=throw
+    picture=BA1_Wasp_
+    picture_small=BA1_Wasp_small.png
+    hinthead=special_swarm_head
+    hint=special_swarm_hint
+    ad_factor=1
+    distance=5
+    mindist=1
+    penalty=1
+    animation=cast/throw/thtarget
+    throw=ent_wasps
+    framekey=x
+    damage {
+      poison=12,15
+      physical=12,15
+    }
+  }
+  rooted {
+    class=scripted
+    moves=1
+    script_attack=special_rooted
+    script_calccells=
+    attack_cursor=magicstick
+    picture=BA1_rooted_
+    picture_small=BA1_rooted_small.png
+    hinthead=special_rooted_head
+    hint=special_rooted_hint
+    custom_params {
+      HP=100
+      resist=25
+      duration=3
+    }
+  }
+  summonplant1 {
+    class=scripted
+    hinthead=special_summonplant1_head
+    hint=special_summonplant1_hint
+    reload=5
+    warning=sw_place
+    script_attack=special_summonplant
+    script_calccells=calccells_all_empty_around
+    attack_cursor=magicstick
+    picture=BA1_summonplant_
+    picture_small=BA1_summonplant_small.png
+    custom_params {
+      k=30-50
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    disabled=1
+    custom_params {
+      ap=2
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=ent_idle.bsa/fr:25:50
+  rare=ent_rare.bsa/fr:25:50
+  attack=ent_attack.bsa/fr:25:50
+  move=ent_move.bsa/fr:35:50
+  start=ent_start.bsa/fr:35:50
+  stop=ent_stop.bsa/fr:35:50
+  clock=ent_clock.bsa/fr:50:100
+  contra=ent_contra.bsa/fr:50:100
+  clock2=ent_2clock.bsa/fr:25:50
+  contra2=ent_2contra.bsa/fr:25:50
+  lturn=ent_lturn.bsa/fr:35:50
+  rturn=ent_rturn.bsa/fr:35:50
+  damage=ent_damage.bsa/fr:25:50
+  death=ent_death.bsa/fr:25:50
+  respawn=ent_respawn.bsa/fr:25:50
+  cast=ent_cast.bsa/fr:30:60
+  slew=ent_slew.bsa/fr:35:70
+  rush=ent_rush.bsa/fr:35:70
+  cursor=ent_rare.bsa/fr:25:50
+  teleout=ent_idle.bsa/fr:25:50
+  telein=ent_idle.bsa/fr:25:50/r:0:35
+  summon=ent_idle.bsa/fr:25:50
+  happy=ent_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    25.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    17.0?x=
+    0.0=cam
+  }
+  @cast {
+    20.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    coord=0/1.79999995/0.1/0/-0/0/0.5
+    particle {
+      trans=0/0/0.86425781/0/-0/0/0.80000001
+      animation=rare
+      frame=58/99
+      restart=true
+      file=ent_leaves.ptb
+    }
+    particle {
+      trans=0.86425781/0.12359619/0/-0.3102482/-0.07756121/-0/0.80000001
+      animation=rare
+      frame=58/64
+      restart=true
+      file=ent_leaves_mir.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=ent_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=ent_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=ent_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=ent_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=ent_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=ent_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=ent_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=ent_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=ent_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=ent_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=ent_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=ent_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=ent_death
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=ent_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=ent_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=ent_rush
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=ent_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=ent_victory
+      fadetime=60
+    }
+  }
+  0 {
+    slot=2
+    particle {
+      trans=-3.1415925/-0.23268604/-0/0.99999994
+      animation=cast
+      frame=17/24
+      file=cast_ent_wasps_jet.ptb
+    }
+  }
+  1 {
+    dummy {
+      tag=throw
+      trans=0.15000001/1.35000002/-1/0/-0/0/1
+    }
+  }
+}
+prefetch {
+  ent_idle.bsa=file
+  ent_rare.bsa=file
+  ent_attack.bsa=file
+  ent_move.bsa=file
+  ent_start.bsa=file
+  ent_stop.bsa=file
+  ent_clock.bsa=file
+  ent_contra.bsa=file
+  ent_2clock.bsa=file
+  ent_2contra.bsa=file
+  ent_lturn.bsa=file
+  ent_rturn.bsa=file
+  ent_damage.bsa=file
+  ent_death.bsa=file
+  ent_respawn.bsa=file
+  ent_victory.bsa=file
+  ent_cast.bsa=file
+  ent_special.bsa=file
+  ent_rush.bsa=file
+}

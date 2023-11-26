@@ -1,0 +1,290 @@
+main {
+  class=chesspiece
+  model=bear2.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_bear_feat
+  features_hints=critical_damage_header/critical_damage_hint,spiteful_header/spiteful_hint,drowsiness_header/drowsiness_hint,noble_beast_header/noble_beast_hint
+  race=neutral
+  cost=240
+  level=3
+  leadership=80
+  attack=18
+  defense=20
+  defenseup=3
+  initiative=3
+  speed=2
+  hitpoint=70
+  movetype=0
+  krit=30
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,run
+  features=beast
+  posthitslave=bear_slave
+  resistances {
+    physical=10
+    poison=0
+    magic=0
+    fire=-10
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=9,12
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=winter
+      defense=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+  after_move=bear_after_move
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=bear_idle.bsa/fr:25:50
+  rare=bear_rare.bsa/fr:25:50
+  attack=bear_attack.bsa/fr:25:50
+  move=bear_move.bsa/fr:25:50
+  start=bear_start.bsa/fr:25:50
+  stop=bear_stop.bsa/fr:25:50
+  clock=bear_clock.bsa/fr:25:50
+  contra=bear_contra.bsa/fr:25:50
+  clock2=bear_clock.bsa/fr:25:50/twofold
+  contra2=bear_contra.bsa/fr:25:50/twofold
+  lturn=bear_lturn.bsa/fr:25:50
+  rturn=bear_rturn.bsa/fr:25:50
+  damage=bear_damage.bsa/fr:25:50
+  slew=bear_slew.bsa/fr:25:50
+  death=bear_death.bsa/fr:25:50
+  respawn=bear_respawn.bsa/fr:25:50
+  cursor=bear_rare.bsa/fr:25:50
+  teleout=bear_idle.bsa/fr:25:50/r:45:80
+  telein=bear_idle.bsa/fr:25:50/r:0:35
+  happy=bear_victory.bsa/fr:25:50
+  victory=/t:1:2:special:1:2:happy:1:2:idlemain
+  special=bear_special.bsa/fr:25:50
+  castbear=bear_castbear.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    17.0?x=
+    0.0=cam
+  }
+  @damage {
+    0.1?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=bear_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=bear_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=bear_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=bear_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=bear_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=bear_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=bear_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=bear_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=bear_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=bear_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=bear_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=bear_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=bear_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=bear_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=bear_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=bear_happy
+      fadetime=60
+    }
+    sound {
+      animation=castbear
+      frame=0.01
+      file=bear_castbear
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=bear_victory
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.30000001/0/0/-0/0/1
+      animation=castbear
+      frame=1/44
+      file=cast_bear_stars.ptb
+    }
+    particle {
+      trans=0/0.30000001/0/-3.1415925/-0/0/1
+      animation=castbear
+      frame=1/44
+      file=cast_bear_stars.ptb
+    }
+    particle {
+      trans=0/0.69999999/0/0/-0/0/1.5
+      animation=castbear
+      frame=66
+      file=cast_bear_accum.ptb
+    }
+    omni {
+      trans=0/0.89999998/0/0/-0/0/1
+      animation=castbear
+      frame=60
+      lightland=true
+      key=0.1/FF000000/3/1
+      key=0.30000001/FF15FFB4/3/1
+      key=0.40000001/FF000000/3/1
+      key=1/FF000000/3/1
+    }
+    aspawn {
+      animation=castbear
+      frame=15
+      atag=fxm_bear
+    }
+  }
+}
+prefetch {
+  bear_idle.bsa=file
+  bear_rare.bsa=file
+  bear_attack.bsa=file
+  bear_move.bsa=file
+  bear_start.bsa=file
+  bear_stop.bsa=file
+  bear_clock.bsa=file
+  bear_contra.bsa=file
+  bear_2clock.bsa=file
+  bear_2contra.bsa=file
+  bear_lturn.bsa=file
+  bear_rturn.bsa=file
+  bear_damage.bsa=file
+  bear_death.bsa=file
+  bear_respawn.bsa=file
+  bear_victory.bsa=file
+  bear_special.bsa=file
+}
