@@ -7,12 +7,30 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-11-19
+-------------------------
+
+Fixes:
+
+* LOGIC_HERO.LUA had an error in it where for Easy and Normal difficulty level, the level up didn't work correctly.
+
+Thanks to erkki (Erkilmarl) for helping find and fix this bug!
+
+Changes:
+
+* Updated Sleem's Cloud of Poison such that the early levels mana increase is less and for the 2nd upgrade you need Sleem to be higher level to get it.
+  ^ I recently updated Sleem's Cloud of Poison before restarting my new game and as I played the previous values didn't feel right.
+
+Additions:
+
+* I've added the en_ language files for those users of the game with the alternate English locality files.
+
 Version: Alpha 2011-11-13
 -------------------------
 
 Crash Fixes:
 
-1. Rina had a mispelling in one of her child names in wifes.txt. This would cause a crash to desktop when Rina was having a baby.
+* Rina had a mispelling in one of her child names in wifes.txt. This would cause a crash to desktop when Rina was having a baby.
 
 Version: Alpha 2011-11-11
 -------------------------
@@ -35,7 +53,10 @@ Installation:
   c. The 3 KFS files are:
     i.   mod_homm3_portraits.kfs - stand alone game picture resources containing all *.DAT and *.DDS files that may be used in other mods.
     ii.  mod_tougher_eheroes.kfs - stand alone tougher heroes containing all *.HERO files that may be used in other mods.
-    iii. mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LNG, *.LUA, and *.TXT files modified for this mod.
+    iii. mod_homm3_babies.kfs ***OR*** en_mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LNG, *.LUA, and *.TXT files modified for this mod.
+      1) Use mod_homm3_babies.kfs for your English localization with eng_*.lng
+      2) Use en_mod_homm3_babies.kfs for your English localization with en_*.lng
+      3) DO NOT USE BOTH FILES!!! Just one or the other!!!
   d. All 3 KFS files are needed for the complete HOMM3 babies mod experience!
 3. Run the game
   a. Start a new game to play!

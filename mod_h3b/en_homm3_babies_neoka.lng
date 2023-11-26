@@ -1,0 +1,151 @@
+//==== kid_aeris
+itm_kid_aeris_name=Aeris
+itm_kid_aeris_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, Scouting, Pegasi, Silver...[/s] [postamble_boy][wisdom1][scouting1][druid1]
+itm_kid_aeris_info=^?^[info_boy]
+itm_kid_aeris_mhint=^?^
+itm_kid_aeris_minfo=^?^
+itm_kid_aeris_taken=^?^
+
+//==== kid_elleshar
+itm_kid_elleshar_name=Elleshar
+itm_kid_elleshar_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, Intelligence, Circle, Elders...[/s] [postamble_boy][wisdom1][intelligence2]
+itm_kid_elleshar_info=^?^[info_boy]
+itm_kid_elleshar_mhint=^?^
+itm_kid_elleshar_minfo=^?^
+itm_kid_elleshar_taken=^?^
+
+//==== kid_melodia
+itm_kid_melodia_name=Melodia
+itm_kid_melodia_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, Luck, Fortune...[/s] [postamble_girl][wisdom1][luck2]
+itm_kid_melodia_info=^?^[info_girl]
+itm_kid_melodia_mhint=^?^
+itm_kid_melodia_minfo=^?^
+itm_kid_melodia_taken=^?^
+
+//==== kid_ivor
+itm_kid_ivor_name=Ivor
+itm_kid_ivor_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Offense, Wood, Elves, Grand, Silence...[/s] [postamble_boy][archery1][magic_damage1][offense1][magic_damage1][elf1][elf21]
+itm_kid_ivor_info=^?^[info_boy]
+itm_kid_ivor_mhint=^?^
+itm_kid_ivor_minfo=^?^
+itm_kid_ivor_taken=^?^
+
+//==== kid_jenova
+itm_kid_jenova_name=Jenova
+itm_kid_jenova_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Gold...[/s] [postamble_girl][archery2][magic_damage2][gold350]
+itm_kid_jenova_info=^?^[info_girl]
+itm_kid_jenova_mhint=^?^
+itm_kid_jenova_minfo=^?^
+itm_kid_jenova_taken=^?^
+
+//==== kid_kyrre
+itm_kid_kyrre_name=Kyrre
+itm_kid_kyrre_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Logistics, Kreegan...[/s] [postamble_girl][archery1][magic_damage1][logistics2]
+itm_kid_kyrre_info=^?^[info_girl]
+itm_kid_kyrre_mhint=^?^
+itm_kid_kyrre_minfo=^?^
+itm_kid_kyrre_taken=^?^
+
+//==== kid_ciele
+itm_kid_ciele_name=Ciele
+itm_kid_ciele_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Conflux, Elementalist, Wisdom, Water, Magic, Arrow...[/s] [postamble_girl][wisdom1][water_magic1][magic_axe1]
+itm_kid_ciele_info=^?^[info_girl]
+itm_kid_ciele_mhint=^?^
+itm_kid_ciele_minfo=^?^
+itm_kid_ciele_taken=^?^
+
+//==== kid_gelare
+itm_kid_gelare_name=Gelare
+itm_kid_gelare_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Conflux, Elementalist, Wisdom, Water, Magic, Gold...[/s] [postamble_boy][wisdom1][water_magic1][gold350]
+itm_kid_gelare_info=^?^[info_boy]
+itm_kid_gelare_mhint=^?^
+itm_kid_gelare_minfo=^?^
+itm_kid_gelare_taken=^?^
+
+//==== kid_josephine
+itm_kid_josephine_name=Josephine
+itm_kid_josephine_hint=^?^[preamble_girl] [s]Antagarich, Bracada, Tower, Alchemist, Mysticism, Sorcery, Stone, Golem, Iron...[/s] [postamble_girl][mysticsm1][sorcery1][sprites1][dryad1]
+itm_kid_josephine_info=^?^[info_girl]
+itm_kid_josephine_mhint=^?^
+itm_kid_josephine_minfo=^?^
+itm_kid_josephine_taken=^?^
+
+//==== kid_torosar
+itm_kid_torosar_name=Torosar
+itm_kid_torosar_hint=^?^[preamble_boy] [s]Antagarich, Bracada, Tower, Alchemist, Mysticism, Tactics, Ballista...[/s] [postamble_boy][mysticism1][tactics1][graywolf1][werewolf1]
+itm_kid_torosar_info=^?^[info_boy]
+itm_kid_torosar_mhint=^?^
+itm_kid_torosar_minfo=^?^
+itm_kid_torosar_taken=^?^
+
+//==== kid_alagar
+itm_kid_alagar_name=Alagar
+itm_kid_alagar_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, Sorcery, Ice, Bolt, Vori, Snow, Elves, Water, Kreegans...[/s] [postamble_boy][wisdom1][sorcery1][ice_serpent1]
+itm_kid_alagar_info=^?^[info_boy]
+itm_kid_alagar_mhint=^?^
+itm_kid_alagar_minfo=^?^
+itm_kid_alagar_taken=^?^
+
+//==== kid_coronius
+itm_kid_coronius_name=Coronius
+itm_kid_coronius_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, Scholar, Slayer, University...[/s] [postamble_boy][wisdom1][scholar1][slayer1]
+itm_kid_coronius_info=^?^[info_boy]
+itm_kid_coronius_mhint=^?^
+itm_kid_coronius_minfo=^?^
+itm_kid_coronius_taken=^?^
+
+//==== kid_gem
+itm_kid_gem_name=Gem
+itm_kid_gem_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, First, Aid, Sorceress, Enroth, Roland, Ironfist, Succession, War...[/s] [postamble_girl][wisdom1][first_aid2]
+itm_kid_gem_info=^?^[info_girl]
+itm_kid_gem_mhint=^?^
+itm_kid_gem_minfo=^?^
+itm_kid_gem_taken=^?^
+
+//==== kid_mephala
+itm_kid_mephala_name=Mephala
+itm_kid_mephala_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Leadership, Armorer...[/s] [postamble_girl][leadership1][armorer2]
+itm_kid_mephala_info=^?^[info_girl]
+itm_kid_mephala_mhint=^?^
+itm_kid_mephala_minfo=^?^
+itm_kid_mephala_taken=^?^
+
+//==== kid_ryland
+itm_kid_ryland_name=Ryland
+itm_kid_ryland_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Ranger, Leadership, Diplomacy, Dendroid, Guard, Soldier, Circle, Elder, Elf...[/s] [postamble_boy][leadership1][diplomacy1][ent1][ent21]
+itm_kid_ryland_info=^?^[info_boy]
+itm_kid_ryland_mhint=^?^
+itm_kid_ryland_minfo=^?^
+itm_kid_ryland_taken=^?^
+
+//==== kid_gelu
+itm_kid_gelu_name=Gelu
+itm_kid_gelu_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Leadership, Sharpshooter, Morgan, Kendal, Catherine, Ironfist, Vori...[/s] [postamble_boy][archery1][magic_damage1][leadership1][allgoodarchers1]
+itm_kid_gelu_info=^?^[info_boy]
+itm_kid_gelu_mhint=^?^
+itm_kid_gelu_minfo=^?^
+itm_kid_gelu_taken=^?^
+
+//==== kid_monere
+itm_kid_monere_name=Monere
+itm_kid_monere_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Logistics, Psychic, Magic, Elemental...[/s] [postamble_boy][offense1][magic_damage1][logistics1][psychic_magic_elemental1]
+itm_kid_monere_info=^?^[info_boy]
+itm_kid_monere_mhint=^?^
+itm_kid_monere_minfo=^?^
+itm_kid_monere_taken=^?^
+
+//==== kid_pasis
+itm_kid_pasis_name=Pasis
+itm_kid_pasis_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Psychic, Magic, Elemental...[/s] [postamble_girl][offense1][magic_damage1][artillery1][psychic_magic_elemental1]
+itm_kid_pasis_info=^?^[info_girl]
+itm_kid_pasis_mhint=^?^
+itm_kid_pasis_minfo=^?^
+itm_kid_pasis_taken=^?^
+
+//==== kid_kendal
+itm_kid_kendal_name=Kendal
+itm_kid_kendal_hint=^?^[preamble_boy] [s]Erathia, Castle, Knight, Leadership, Estates, Logistics, King, Gryphonheart, General, Erathia, Steadwick...[/s] [postamble_boy][leadership1][estates1][logistics2]
+itm_kid_kendal_info=^?^[info_boy]
+itm_kid_kendal_mhint=^?^
+itm_kid_kendal_minfo=^?^
+itm_kid_kendal_taken=^?^

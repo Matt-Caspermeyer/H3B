@@ -1,0 +1,216 @@
+//==== kid_rashka
+itm_kid_rashka_name=Rashka
+itm_kid_rashka_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Scholar, Wisdom, Efreet...[/s] [postamble_boy][scholar1][wisdom1][reddragon1]
+itm_kid_rashka_info=^?^[info_boy]
+itm_kid_rashka_mhint=^?^
+itm_kid_rashka_minfo=^?^
+itm_kid_rashka_taken=^?^
+
+//==== kid_calh
+itm_kid_calh_name=Calh
+itm_kid_calh_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Archery, Scouting, Marius, Gogs, Magogs...[/s] [postamble_boy][archery1][fire_damage1][scouting1][spider_fire1]
+itm_kid_calh_info=^?^[info_boy]
+itm_kid_calh_mhint=^?^
+itm_kid_calh_minfo=^?^
+itm_kid_calh_taken=^?^
+
+//==== kid_marius
+itm_kid_marius_name=Marius
+itm_kid_marius_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Armorer, Calh, Demon, Horned, Dendroid...[/s] [postamble_girl][armor2][demon1]
+itm_kid_marius_info=^?^[info_girl]
+itm_kid_marius_mhint=^?^
+itm_kid_marius_minfo=^?^
+itm_kid_marius_taken=^?^
+
+//==== kid_nymus
+itm_kid_nymus_name=Nymus
+itm_kid_nymus_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Offense, Pit, Fiends, Lords...[/s] [postamble_girl][offense2][fire_damage2][demoness1]
+itm_kid_nymus_info=^?^[info_girl]
+itm_kid_nymus_mhint=^?^
+itm_kid_nymus_minfo=^?^
+itm_kid_nymus_taken=^?^
+
+//==== kid_octavia
+itm_kid_octavia_name=Octavia
+itm_kid_octavia_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Efreet, Scholar, Offense, Gold...[/s] [postamble_girl][scholar1][offense1][fire_damage1][gold350]
+itm_kid_octavia_info=^?^[info_girl]
+itm_kid_octavia_mhint=^?^
+itm_kid_octavia_minfo=^?^
+itm_kid_octavia_taken=^?^
+
+//==== kid_ash
+itm_kid_ash_name=Ash
+itm_kid_ash_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Eagle, Eye, Bloodlust...[/s] [postamble_girl][wisdom1][eagle_eye1][berserker1]
+itm_kid_ash_info=^?^[info_girl]
+itm_kid_ash_mhint=^?^
+itm_kid_ash_minfo=^?^
+itm_kid_ash_taken=^?^
+
+//==== kid_axsis
+itm_kid_axsis_name=Axsis
+itm_kid_axsis_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Mysticism...[/s] [postamble_boy][wisdom1][mysticism2]
+itm_kid_axsis_info=^?^[info_boy]
+itm_kid_axsis_mhint=^?^
+itm_kid_axsis_minfo=^?^
+itm_kid_axsis_taken=^?^
+
+//==== kid_calid
+itm_kid_calid_name=Calid
+itm_kid_calid_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Learning, Sulfur...[/s] [postamble_girl][wisdom1][learning1][demonologist1]
+itm_kid_calid_info=^?^[info_girl]
+itm_kid_calid_mhint=^?^
+itm_kid_calid_minfo=^?^
+itm_kid_calid_taken=^?^
+
+//==== kid_xyron
+itm_kid_xyron_name=Xyron
+itm_kid_xyron_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Efreet, Wisdom, Scholar...[/s] [postamble_boy][wisdom1][scholar1][fire_arrow_rain1]
+itm_kid_xyron_info=^?^[info_boy]
+itm_kid_xyron_mhint=^?^
+itm_kid_xyron_minfo=^?^
+itm_kid_xyron_taken=^?^
+
+//==== kid_zydar
+itm_kid_zydar_name=Zydar
+itm_kid_zydar_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Efreet, Wisdom, Sorcery...[/s] [postamble_boy][wisdom1][sorcery2]
+itm_kid_zydar_info=^?^[info_boy]
+itm_kid_zydar_mhint=^?^
+itm_kid_zydar_minfo=^?^
+itm_kid_zydar_taken=^?^
+
+//==== kid_xeron
+itm_kid_xeron_name=Xeron
+itm_kid_xeron_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Efreet, Leadership, Tactics, Devil, Arch, Xenofex, Lucifer...[/s] [postamble_boy][leadership1][tactics1][archdemon1]
+itm_kid_xeron_info=^?^[info_boy]
+itm_kid_xeron_mhint=^?^
+itm_kid_xeron_minfo=^?^
+itm_kid_xeron_taken=^?^
+
+//==== kid_fiona
+itm_kid_fiona_name=Fiona
+itm_kid_fiona_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Scouting, Hell, Hound, Cerberi...[/s] [postamble_girl][scouting2][cerberus1]
+itm_kid_fiona_info=^?^[info_girl]
+itm_kid_fiona_mhint=^?^
+itm_kid_fiona_minfo=^?^
+itm_kid_fiona_taken=^?^
+
+//==== kid_ignatius
+itm_kid_ignatius_name=Ignatius
+itm_kid_ignatius_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Tactics, Resistance, Imps, Familiars...[/s] [postamble_boy][tactics1][resistance1][imps1]
+itm_kid_ignatius_info=^?^[info_boy]
+itm_kid_ignatius_mhint=^?^
+itm_kid_ignatius_minfo=^?^
+itm_kid_ignatius_taken=^?^
+
+//==== kid_pyre
+itm_kid_pyre_name=Pyre
+itm_kid_pyre_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Logistics, Artillery, Ballista...[/s] [postamble_girl][logistics1][artillery1][allranged1]
+itm_kid_pyre_info=^?^[info_girl]
+itm_kid_pyre_mhint=^?^
+itm_kid_pyre_minfo=^?^
+itm_kid_pyre_taken=^?^
+
+//==== kid_ayden
+itm_kid_ayden_name=Ayden
+itm_kid_ayden_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Intelligence, Shaman...[/s] [postamble_boy][wisdom1][intelligence2]
+itm_kid_ayden_info=^?^[info_boy]
+itm_kid_ayden_mhint=^?^
+itm_kid_ayden_minfo=^?^
+itm_kid_ayden_taken=^?^
+
+//==== kid_olema
+itm_kid_olema_name=Olema
+itm_kid_olema_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Ballistics, Weaknees...[/s] [postamble_girl][wisdom1][ballistics1][weakness1][effect_weakness1]
+itm_kid_olema_info=^?^[info_girl]
+itm_kid_olema_mhint=^?^
+itm_kid_olema_minfo=^?^
+itm_kid_olema_taken=^?^
+
+//==== kid_xarfax
+itm_kid_xarfax_name=Xarfax
+itm_kid_xarfax_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Leadership, Fireball, Erathia...[/s] [postamble_boy][wisdom1][leadership1][fire_arrow_ball1]
+itm_kid_xarfax_info=^?^[info_boy]
+itm_kid_xarfax_mhint=^?^
+itm_kid_xarfax_minfo=^?^
+itm_kid_xarfax_taken=^?^
+
+//==== kid_luna
+itm_kid_luna_name=Luna
+itm_kid_luna_hint=^?^[preamble_girl] [s]Antagarich, Erathia, Conflux, Elementalist, Wisdom, Fire, Magic, Firewall, Sorceress, Enroth...[/s] [postamble_girl][wisdom1][fire_magic1][phoenix1]
+itm_kid_luna_info=^?^[info_girl]
+itm_kid_luna_mhint=^?^
+itm_kid_luna_minfo=^?^
+itm_kid_luna_taken=^?^
+
+//==== kid_inteus
+itm_kid_inteus_name=Inteus
+itm_kid_inteus_hint=^?^[preamble_boy] [s]Antagarich, Erathia, Conflux, Elementalist, Wisdom, Fire, Magic, Bloodlust...[/s] [postamble_boy][wisdom1][fire_magic1][berserker1]
+itm_kid_inteus_info=^?^[info_boy]
+itm_kid_inteus_mhint=^?^
+itm_kid_inteus_minfo=^?^
+itm_kid_inteus_taken=^?^
+
+//==== kid_fiur
+itm_kid_fiur_name=Fiur
+itm_kid_fiur_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Fire, Energy, Elemental...[/s] [postamble_boy][offense2][fire_damage2][fire_energy_elemental1]
+itm_kid_fiur_info=^?^[info_boy]
+itm_kid_fiur_mhint=^?^
+itm_kid_fiur_minfo=^?^
+itm_kid_fiur_taken=^?^
+
+//==== kid_ignissa
+itm_kid_ignissa_name=Ignissa
+itm_kid_ignissa_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Fire, Energy, Elemental...[/s] [postamble_girl][offense1][fire_damage1][artillery1][fire_energy_elemental1]
+itm_kid_ignissa_info=^?^[info_girl]
+itm_kid_ignissa_mhint=^?^
+itm_kid_ignissa_minfo=^?^
+itm_kid_ignissa_taken=^?^
+
+//==== kid_dace
+itm_kid_dace_name=Dace
+itm_kid_dace_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Overlord, Tactics, Offense, Minotaur, King, Scout, Guide, Bodyguard...[/s] [postamble_boy][tactics1][offense1][physical_damage1][allwarriors1]
+itm_kid_dace_info=^?^[info_boy]
+itm_kid_dace_mhint=^?^
+itm_kid_dace_minfo=^?^
+itm_kid_dace_taken=^?^
+
+//==== kid_gunnar
+itm_kid_gunnar_name=Gunnar
+itm_kid_gunnar_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Overlord, Tactics, Logistics...[/s] [postamble_boy][tactics1][logistics2]
+itm_kid_gunnar_info=^?^[info_boy]
+itm_kid_gunnar_mhint=^?^
+itm_kid_gunnar_minfo=^?^
+itm_kid_gunnar_taken=^?^
+
+//==== kid_darkstorn
+itm_kid_darkstorn_name=Darkstorn
+itm_kid_darkstorn_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Warlock, Wisdom, Learning, Stone, Skin, Magic...[/s] [postamble_boy][wisdom1][lightning1]
+itm_kid_darkstorn_info=^?^[info_boy]
+itm_kid_darkstorn_mhint=^?^
+itm_kid_darkstorn_minfo=^?^
+itm_kid_darkstorn_taken=^?^
+
+//==== kid_deemer
+itm_kid_deemer_name=deemer
+itm_kid_deemer_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Warlock, Wisdom, Scouting, Meteor, Shower, Control...[/s] [postamble_boy][wisdom1][scouting2][attack_spells1][defense_spells1]
+itm_kid_deemer_info=^?^[info_boy]
+itm_kid_deemer_mhint=^?^
+itm_kid_deemer_minfo=^?^
+itm_kid_deemer_taken=^?^
+
+//==== kid_malekith
+itm_kid_malekith_name=malekith
+itm_kid_malekith_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Warlock, Wisdom, Sorcery, Fury...[/s] [postamble_boy][wisdom1][sorcery2]
+itm_kid_malekith_info=^?^[info_boy]
+itm_kid_malekith_mhint=^?^
+itm_kid_malekith_minfo=^?^
+itm_kid_malekith_taken=^?^
+
+//==== kid_mutare_drake
+itm_kid_mutare_drake_name=Mutare Drake
+itm_kid_mutare_drake_hint=^?^[preamble_girl] [s]Antagarich, Nighon, Dungeon, Overlord, Estates, Tactics, Drake, Vial, Blood, Father...[/s] [postamble_girl][estates1][tactics1][alldragons1]
+itm_kid_mutare_drake_info=^?^[info_girl]
+itm_kid_mutare_drake_mhint=^?^
+itm_kid_mutare_drake_minfo=^?^
+itm_kid_mutare_drake_taken=^?^
+

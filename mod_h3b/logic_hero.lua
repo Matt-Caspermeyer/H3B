@@ -395,11 +395,13 @@ function calc_levelup()
   local rage2 = tonumber( text_dec( Game.Config( hero_cfg.."/level_up/rage" ), 2 ) ) + rage_mod2
 
   if Game.HSP_difficulty() == 0 then
-    mana, rage = mana + 2, rage + 2
+    mana1, rage1 = mana1 + 2, rage1 + 2
+    mana2, rage2 = mana2 + 2, rage2 + 2
   end
 
   if Game.HSP_difficulty() == 1 then
-    mana, rage = mana + 1, rage + 1
+    mana1, rage1 = mana1 + 1, rage1 + 1
+    mana2, rage2 = mana2 + 1, rage2 + 1
   end
 
   local book = tonumber( text_dec( Game.Config( hero_cfg.."/level_up/book" ), 1 ) )

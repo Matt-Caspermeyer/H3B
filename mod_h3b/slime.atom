@@ -219,10 +219,10 @@ spirit {
     default=level1
     upgrade {
       level1=level:0/dmg:135:270,rage:11,rest:6,exp:11,level:1,time:1
-      level2=level:1/dmg:+135:+270,rage:+10,exp:+10,level:2
-      level3=level:2/dmg:+270:+540,rage:+20,exp:+20,level:3
-      level4=level:3,LV:>11/dmg:+540:+1080,rage:+30,exp:+30,level:4
-      level5=level:4,LV:>19/dmg:+1080:+2160,rage:+40,exp:+40,level:5
+      level2=level:1/dmg:+135:+270,rage:+5,exp:+5,level:2
+      level3=level:2,LV:>11/dmg:+270:+540,rage:+10,exp:+10,level:3
+      level4=level:3,LV:>16/dmg:+540:+1080,rage:+20,exp:+20,level:4
+      level5=level:4,LV:>24/dmg:+1080:+2160,rage:+40,exp:+40,level:5
       time1=time:2,LV:>9/time:2,rage:+10,exp:+10,timelevel:1
       time2=time:3,LV:>29/time:3,rage:+15,exp:+15,timelevel:2
       rage1=level:>3,rage:>10/rage:-10,exp:+10,ragelevel:1

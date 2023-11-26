@@ -1,0 +1,159 @@
+//==== kid_adamus
+itm_kid_adamus_name=Adamus
+itm_kid_adamus_hint=^?^A naughty and wayward child who considers himself to be of great importance, and demands much attention.<br>[s]+20% to Attack
+itm_kid_adamus_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_adamus_mhint=^?^
+itm_kid_adamus_minfo=^?^
+itm_kid_adamus_taken=^?^
+
+//==== kid_ajven
+itm_kid_ajven_name=Aiven
+itm_kid_ajven_hint=^?^You expect that this boy will become a powerful mage, for his magic aura is very strong.<br>[s]+30% to Mana
+itm_kid_ajven_info=^?^It's hard to believe that this nice boy is your son, but it's true. You're the happy father.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_ajven_mhint=^?^
+itm_kid_ajven_minfo=^?^
+itm_kid_ajven_taken=^?^
+
+//==== kid_alexander
+itm_kid_alexander_name=Alexander
+itm_kid_alexander_hint=^?^The boy has a strong charisma. You expect him to do well, no matter what path he chooses in life!<br>[s]+10% to Leadership
+itm_kid_alexander_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_alexander_mhint=^?^
+itm_kid_alexander_minfo=^?^
+itm_kid_alexander_taken=^?^
+
+//==== kid_ambrella
+itm_kid_ambrella_name=Ambrella
+itm_kid_ambrella_hint=^?^The clever and beautiful girl, she has a flair for magic.<br>[s]+4 additional scrolls for your Spell Book
+itm_kid_ambrella_info=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+itm_kid_ambrella_mhint=^?^
+itm_kid_ambrella_minfo=^?^
+itm_kid_ambrella_taken=^?^
+
+//==== kid_angelika
+itm_kid_angelika_name=Angelika
+itm_kid_angelika_hint=^?^This babe is constantly mumbling to herself, but sometimes this mumbling turns into real spells!<br>[s]+10 to Mana
+itm_kid_angelika_info=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+itm_kid_angelika_mhint=^?^
+itm_kid_angelika_minfo=^?^
+itm_kid_angelika_taken=^?^
+
+//==== kid_anna
+itm_kid_anna_name=Anna
+itm_kid_anna_hint=^?^The amazing babe, she has a rare magic flair. Such people are called "Wells of Magic."<br>[s]+8 additional scrolls for your Spell Book
+itm_kid_anna_info=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+itm_kid_anna_mhint=^?^
+itm_kid_anna_minfo=^?^
+itm_kid_anna_taken=^?^
+
+//==== kid_dmitry
+itm_kid_dmitry_name=Dmitry
+itm_kid_dmitry_hint=^?^This chubby child is very intelligent and catches on very fast.<br>[s]+10% to Experience in combat
+itm_kid_dmitry_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_dmitry_mhint=^?^
+itm_kid_dmitry_minfo=^?^
+itm_kid_dmitry_taken=^?^
+
+//==== kid_elly
+itm_kid_elly_name=Elly
+itm_kid_elly_hint=^?^The babe has a flair for magic and levitation.<br>[s]+20% to Mana
+itm_kid_elly_info=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+itm_kid_elly_mhint=^?^
+itm_kid_elly_minfo=^?^
+itm_kid_elly_taken=^?^
+
+//==== kid_emmanuel
+itm_kid_emmanuel_name=Emmanuel
+itm_kid_emmanuel_hint=^?^A charming but fussy baby - and watch our for the bite!<br>[s]+20% to Rage
+itm_kid_emmanuel_info=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+itm_kid_emmanuel_mhint=^?^
+itm_kid_emmanuel_minfo=^?^
+itm_kid_emmanuel_taken=^?^
+
+//==== kid_gavriil
+itm_kid_gavriil_name=Gabriel
+itm_kid_gavriil_hint=^?^He was named after the angel, and like his namesake has a divine protective power.<br>[s]+5 to Defense
+itm_kid_gavriil_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_gavriil_mhint=^?^
+itm_kid_gavriil_minfo=^?^
+itm_kid_gavriil_taken=^?^
+
+//==== kid_gendalf
+itm_kid_gendalf_name=Gandalf
+itm_kid_gendalf_hint=^?^Due to his magic flair, this rather intelligent boy was named after the famous mage, the hero of bards' songs.<br>[s]+20% to Intellect
+itm_kid_gendalf_info=^?^It's hard to believe that this nice child is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_gendalf_mhint=^?^
+itm_kid_gendalf_minfo=^?^
+itm_kid_gendalf_taken=^?^
+
+//==== kid_gomer
+itm_kid_gomer_name=Homer
+itm_kid_gomer_hint=^?^A slow-witted boy, but very strong, named after one of the Titans.<br>[s]+3 to Attack
+itm_kid_gomer_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_gomer_mhint=^?^
+itm_kid_gomer_minfo=^?^
+itm_kid_gomer_taken=^?^
+
+//==== kid_googlik
+itm_kid_googlik_name=Googlik
+itm_kid_googlik_hint=^?^A nice and very intelligent boy. <br>[s]+5 to Intellect
+itm_kid_googlik_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_googlik_mhint=^?^
+itm_kid_googlik_minfo=^?^
+itm_kid_googlik_taken=^?^
+
+//==== kid_janna
+itm_kid_janna_name=Joan
+itm_kid_janna_hint=^?^This babe has the piercing glance of a fighter - and it's impossible not to obey!<br>[s]+10% to Leadership
+itm_kid_janna_info=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+itm_kid_janna_mhint=^?^
+itm_kid_janna_minfo=^?^
+itm_kid_janna_taken=^?^
+
+//==== kid_john
+itm_kid_john_name=John
+itm_kid_john_hint=^?^A fussy kid who can bite. He is not to be trifled with!<br>[s]+10 to Rage
+itm_kid_john_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_john_mhint=^?^
+itm_kid_john_minfo=^?^
+itm_kid_john_taken=^?^
+
+//==== kid_laura
+itm_kid_laura_name=Laura
+itm_kid_laura_hint=^?^The quiet girl with a real flair for magic.<br>[s]+10% to Mana
+itm_kid_laura_info=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+itm_kid_laura_mhint=^?^
+itm_kid_laura_minfo=^?^
+itm_kid_laura_taken=^?^
+
+//==== kid_neiron
+itm_kid_neiron_name=Neiron
+itm_kid_neiron_hint=^?^An extremely handsome and gifted boy.<br>[s]+5% to Experience in combat
+itm_kid_neiron_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_neiron_mhint=^?^
+itm_kid_neiron_minfo=^?^
+itm_kid_neiron_taken=^?^
+
+//==== kid_richard
+itm_kid_richard_name=Richard
+itm_kid_richard_hint=^?^A sturdy and very fussy child. He is your commanders' favorite, and they give him much attention.<br>[s]+5% to Leadership
+itm_kid_richard_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_richard_mhint=^?^
+itm_kid_richard_minfo=^?^
+itm_kid_richard_taken=^?^
+
+//==== kid_robert
+itm_kid_robert_name=Robert
+itm_kid_robert_hint=^?^A precocious child, sure to be a good commander when he grows up!<br>[s]+5% to Leadership
+itm_kid_robert_info=^?^It's hard to believe that this is your son. but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_robert_mhint=^?^
+itm_kid_robert_minfo=^?^
+itm_kid_robert_taken=^?^
+
+//==== kid_serg
+itm_kid_serg_name=Serj
+itm_kid_serg_hint=^?^Obviously, this boy was born under a lucky star, which protects him from miseries.<br>[s]+20% to Defense
+itm_kid_serg_info=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_serg_mhint=^?^
+itm_kid_serg_minfo=^?^
+itm_kid_serg_taken=^?^

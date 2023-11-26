@@ -1,0 +1,218 @@
+//Children hint templates
+itm_kid_boy_preamble=^?^As your gaze falls upon the countenance of your son, you are wracked by visions of... the future? No! Somehow... it feels like the past! The visage of your son is now of this place and time. As your head spins you hear whispers:
+itm_kid_boy_postamble=^?^As the voices fade and your head clears, you cannot get this image of your son out of your mind...<br><br><color=222,194,94>Bonuses:</color><br>
+itm_kid_girl_preamble=^?^As your gaze falls upon the countenance of your daughter, you are wracked by visions of... the future? No! Somehow... it feels like the past! The visage of your daughter is now of this place and time. As your head spins you hear whispers:
+itm_kid_girl_postamble=^?^As the voices fade and your head clears, you cannot get this image of your daughter out of your mind...<br><br><color=222,194,94>Bonuses:</color><br>
+
+itm_kid_info_boy=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
+itm_kid_info_girl=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
+
+itm_kid_skill_air_magic=^?^Magic Resistance:
+itm_kid_skill_archery=^?^Ranged Damage:
+itm_kid_skill_armor=^?^Unit Defense:
+itm_kid_skill_artillery=^?^Ranged Unit Attack:
+itm_kid_skill_ballistics=^?^Ranged Unit Defense:
+itm_kid_skill_diplomacy=^?^Leadership:
+itm_kid_skill_eagle_eye=^?^Intellect:
+itm_kid_skill_earth_magic=^?^Physical Resistance:
+itm_kid_skill_estates=^?^Combat and Chest Gold:
+itm_kid_skill_fire_magic=^?^Fire Resistance:
+itm_kid_skill_first_aid=^?^Unit Health:
+itm_kid_skill_intelligence=^?^Mana:
+itm_kid_skill_leadership=^?^Morale:
+itm_kid_skill_learning=^?^Combat and Spirit Experience:
+itm_kid_skill_logistics=^?^Speed:
+itm_kid_skill_luck=^?^Critical Hit:
+itm_kid_skill_mysticism=^?^Mana per Turn:
+itm_kid_skill_navigation=^?^Combat at Sea - Unit Initiative / Morale (does not affect undead) / Speed: 
+itm_kid_skill_necromancy=^?^Undead -
+itm_kid_skill_offense=^?^Melee Damage:
+itm_kid_skill_pathfinding=^?^Initiative:
+itm_kid_skill_resistance=^?^Resist All:
+itm_kid_skill_scholar=^?^Spell Power:
+itm_kid_skill_scouting=^?^Rage:
+itm_kid_skill_sorcery=^?^Attacking Spell Power:
+itm_kid_skill_tactics=^?^Attack / Defense:
+itm_kid_skill_water_magic=^?^Poison Resistance:
+itm_kid_skill_wisdom=^?^Intelligence Spell Power:
+
+itm_kid_astral_damage=^?^Astral Damage
+itm_kid_fire_damage=^?^Fire Damage
+itm_kid_magic_damage=^?^Magic Damage
+itm_kid_physical_damage=^?^Physical Damage
+itm_kid_poison_damage=^?^Poison Damage
+
+itm_kid_astral=^?^Astral
+itm_kid_fire=^?^Fire
+itm_kid_magic=^?^Magic
+itm_kid_physical=^?^Physical
+itm_kid_poison=^?^Poison
+
+itm_kid_resist=^?^Resistance
+itm_kid_enemy=^?^Enemy
+
+itm_kid_astral_resist=^?^Astral Resistance
+itm_kid_fire_resist=^?^Fire Resistance
+itm_kid_magic_resist=^?^Magic Resistance
+itm_kid_physical_resist=^?^Physical Resistance
+itm_kid_poison_resist=^?^Poison Resistance
+
+itm_kid_astral_eresist=^?^Enemy Astral Resistance
+itm_kid_fire_eresist=^?^Enemy Fire Resistance
+itm_kid_magic_eresist=^?^Enemy Magic Resistance
+itm_kid_physical_eresist=^?^Enemy Physical Resistance
+itm_kid_poison_eresist=^?^Enemy Poison Resistance
+
+itm_kid_effect=^?^Effect
+itm_kid_effects=^?^Effects
+itm_kid_effect_power=^?^Power:
+itm_kid_effect_bonus=^?^Bonus:
+itm_kid_effect_penalty=^?^Penalty:
+itm_kid_effect_infliction=^?^Percent
+itm_kid_effect_duration=^?^Duration:
+
+itm_kid_effect_weakness=^?^Weakness
+
+itm_kid_spell=^?^Spell
+itm_kid_spells=^?^Spells
+itm_kid_spell_power=^?^Power:
+itm_kid_spell_bonus=^?^Bonus:
+itm_kid_spell_count=^?^Count:
+itm_kid_spell_distance=^?^Distance:
+itm_kid_spell_mana=^?^Mana:
+itm_kid_spell_prc=^?^Friendly Unit Damage:
+itm_kid_spell_penalty=^?^Penalty:
+itm_kid_spell_infliction=^?^Percent
+itm_kid_spell_duration=^?^Duration:
+
+itm_kid_race=^?^Race
+itm_kid_races=^?^Races
+
+itm_kid_unit=^?^Unit
+itm_kid_units=^?^Units
+
+itm_kid_spirit=^?^Spirit
+itm_kid_spirits=^?^Spirits
+
+itm_kid_attack=^?^Attack
+itm_kid_attack_with_abbrev=^?^(A)ttack
+itm_kid_attack_abbrev=^?^A
+itm_kid_base_damage=^?^Base Damage
+itm_kid_base_damage_with_abbrev=^?^Base Damage (BD)
+itm_kid_base_damage_abbrev=^?^BD
+itm_kid_krit=^?^Critical Hit
+itm_kid_krit_with_abbrev=^?^(Crit)ical Hit
+itm_kid_krit_abbrev=^?^Crit
+itm_kid_defense=^?^Defense
+itm_kid_defense_with_abbrev=^?^(D)efense
+itm_kid_defense_abbrev=^?^D
+itm_kid_health=^?^Health
+itm_kid_health_with_abbrev=^?^(H)ealth
+itm_kid_health_abbrev=^?^H
+itm_kid_init=^?^Initiative
+itm_kid_init_with_abbrev=^?^(I)nitiative
+itm_kid_init_abbrev=^?^I
+itm_kid_lr=^?^Leadership Requirement
+itm_kid_lr_with_abbrev=^?^Leadership Requirement (LR)
+itm_kid_lr_abbrev=^?^LR
+itm_kid_morale=^?^Morale
+itm_kid_morale_with_abbrev=^?^(M)orale
+itm_kid_morale_abbrev=^?^M
+itm_kid_speed=^?^Speed
+itm_kid_speed_with_abbrev=^?^(S)peed
+itm_kid_speed_abbrev=^?^S
+itm_kid_ur=^?^Unlimited Retaliation
+itm_kid_ur_with_abbrev=^?^Unlimited Retaliation (UR)
+itm_kid_ur_abbrev=^?^UR
+
+itm_wife_bonuses=^?^<br><color=222,194,94>Bonuses:</color><br>
+itm_wife_orcelyn_preamble=^?^You won Orcelyn's heart by aiding her grandfather and freeing her from the embassy dungeon.<br>
+itm_wife_diana_preamble=^?^The beautiful River Fairy, Diana, she fell for you after you helped a simple brook.<br>
+itm_wife_feanora_preamble=^?^Ex-princess of the swamps and patroness of frogs, she is now your wife.<br>
+itm_wife_frog_feanora_preamble=^?^Former princess of frogs, she is now your wife, and has turned from the beautiful woman into a speaking frog.<br>
+itm_wife_mirabella_preamble=^?^The bellicose and independent woman-pirate. To win her hand you had to defeat the Kraken itself!<br>
+itm_wife_neoka_preamble=^?^The beautiful elven woman from the noble clan of Icy Tears, whom you saved from the Necromancers.<br>
+itm_wife_gerda_preamble=^?^The dwarven woman Gerda's beauty is in her industrious and hardy nature.<br>
+itm_wife_rina_preamble=^?^She is the chieftain Hake's former girlfriend. She has the unpleasant but very useful ability of turning into a zombie.<br>
+itm_wife_rina_zombie_preamble=^?^She is the chieftain Hake's former girlfriend. At this moment, her curse has turned her into a zombie.<br>
+itm_wife_xeona_preamble=^?^The indomitable, passionate and alluring Demoness Xeona.<br>
+
+//NEW!==== wife_orcelyn
+itm_wife_orcelyn_name=Orcelyn
+itm_wife_orcelyn_hint=^?^[preamble_orcelyn][wife_bonus][race_orc1][orcelyn_resist1]
+itm_wife_orcelyn_info=^?^
+itm_wife_orcelyn_mhint=^?^
+itm_wife_orcelyn_minfo=^?^
+itm_wife_orcelyn_taken=^?^
+
+//NEW!==== wife_diana
+itm_wife_diana_name=Diana
+itm_wife_diana_hint=^?^[preamble_diana][wife_bonus][diana_units1][diana_resist1]
+itm_wife_diana_info=^?^
+itm_wife_diana_mhint=^?^
+itm_wife_diana_minfo=^?^
+itm_wife_diana_taken=^?^
+
+//==== wife_feanora
+itm_wife_feanora_name=Feanora
+itm_wife_feanora_hint=^?^[preamble_feanora][wife_bonus][feanora_units1][feanora_resist1]
+itm_wife_feanora_info=^?^
+itm_wife_feanora_mhint=^?^
+itm_wife_feanora_minfo=^?^
+itm_wife_feanora_taken=^?^
+
+//==== wife_frog_feanora
+itm_wife_frog_feanora_name=Frog Feanora
+itm_wife_frog_feanora_hint=^?^[preamble_frog_feanora][wife_bonus][frog_feanora_units1][frog_feanora_eresist1]
+itm_wife_frog_feanora_info=^?^
+itm_wife_frog_feanora_mhint=^?^
+itm_wife_frog_feanora_minfo=^?^
+itm_wife_frog_feanora_taken=^?^
+
+//==== wife_mirabella
+itm_wife_mirabella_name=Mirabella
+itm_wife_mirabella_hint=^?^[preamble_mirabella][wife_bonus][mirabella_units1][earth_magic1]
+itm_wife_mirabella_info=^?^
+itm_wife_mirabella_mhint=^?^
+itm_wife_mirabella_minfo=^?^
+itm_wife_mirabella_taken=^?^
+
+//==== wife_neoka
+itm_wife_neoka_name=Neoka
+itm_wife_neoka_hint=^?^[preamble_neoka][wife_bonus][race_elf1][air_magic1]
+itm_wife_neoka_info=^?^
+itm_wife_neoka_mhint=^?^
+itm_wife_neoka_minfo=^?^
+itm_wife_neoka_taken=^?^
+
+//==== wife_nessy
+itm_wife_nessy_name=Gerda
+itm_wife_nessy_hint=^?^[preamble_gerda][wife_bonus][race_dwarf1][resistance1]
+itm_wife_nessy_info=^?^
+itm_wife_nessy_mhint=^?^
+itm_wife_nessy_minfo=^?^
+itm_wife_nessy_taken=^?^
+
+//==== wife_rina
+itm_wife_rina_name=Rina
+itm_wife_rina_hint=^?^[preamble_rina][wife_bonus][rina_units1][water_magic1]
+itm_wife_rina_info=^?^
+itm_wife_rina_mhint=^?^
+itm_wife_rina_minfo=^?^
+itm_wife_rina_taken=^?^
+
+//==== wife_rina_zombie
+itm_wife_rina_zombie_name=Zombie Rina
+itm_wife_rina_zombie_hint=^?^[preamble_rina_zombie][wife_bonus][race_undead1][rina_zombie_eresist1]
+itm_wife_rina_zombie_info=^?^
+itm_wife_rina_zombie_mhint=^?^
+itm_wife_rina_zombie_minfo=^?^
+itm_wife_rina_zombie_taken=^?^
+
+//==== wife_xeona
+itm_wife_xeona_name=Xeona
+itm_wife_xeona_hint=^?^[preamble_xeona][wife_bonus][race_demon1][fire_magic1]
+itm_wife_xeona_info=^?^
+itm_wife_xeona_mhint=^?^
+itm_wife_xeona_minfo=^?^
+itm_wife_xeona_taken=^?^
