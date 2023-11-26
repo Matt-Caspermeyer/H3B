@@ -1,0 +1,363 @@
+main {
+  class=chesspiece
+  model=necromant.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_necromant_feat
+  features_hints=undead_header/undead_hint,dark_cloud_header/dark_cloud_hint
+  race=undead
+  cost=600
+  level=4
+  leadership=200
+  attack=30
+  defense=30
+  defenseup=5
+  initiative=7
+  speed=2
+  hitpoint=140
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,throw1,stupid,animate_dead,plague
+  posthitmaster=features_curse
+  features=undead,mage
+  resistances {
+    physical=0
+    poison=50
+    magic=10
+    fire=0
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      physical=7,10
+    }
+    custom_params {
+      curse=0
+    }
+  }
+  throw1 {
+    group=1,2
+    showdmg=1
+    device=deadcloud
+    base_attack=1
+    class=throw
+    distance=6
+    mindist=1
+    friendly_fire=1
+    penalty=0.5
+    animation=throw_attack/throw/thtarget
+    throw=deadcloud
+    framekey=x
+    7in1=0.5
+    damage {
+      magic=8,12
+    }
+    custom_params {
+      curse=100
+    }
+  }
+  stupid {
+    class=spell
+    spell=special_stupid
+    hinthead=special_stupid_head
+    hint=special_stupid_hint
+    reload=4
+    nfeatures=magic_immunitet,boss,pawn
+    picture=BA1_MagicBondage_
+    picture_small=BA1_MagicBondage_small.png
+  }
+  animate_dead {
+    class=scripted
+    warning=sw_necro
+    hinthead=special_raise_dead_head
+    hint=special_raise_dead_hint
+    reload=2
+    log_label=null
+    no_hint=1
+    script_attack=special_animate_dead
+    script_calccells=calccells_all_corpse
+    picture=BA1_Turn_Undead_
+    picture_small=BA1_Turn_Undead_small.png
+    attack_cursor=magicstick
+    anim_attack=cast
+    nfeatures=nonecro,golem,plant,demon
+    custom_params {
+      k=60-60
+    }
+  }
+  plague {
+    class=scripted
+    nfeatures=plant,golem,demon,boss,pawn
+    script_attack=special_plague
+    script_calccells=
+    reload=3
+    picture=BA1_Plague_
+    picture_small=BA1_Plague_small.png
+    hinthead=special_plague_head
+    hint=special_plague_hint
+    custom_params {
+      level=2
+      plague=100
+      nfeatures=plant,golem,demon,undead
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      moral=1
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=necromant_idle.bsa/fr:20:40
+  rare=necromant_rare.bsa/fr:25:50
+  attack=necromant_attack.bsa/fr:25:50
+  throw_attack=necromant_attack.bsa/fr:25:50
+  move=necromant_move.bsa/fr:28:56
+  start=necromant_start.bsa/fr:28:56
+  stop=necromant_stop.bsa/fr:28:56
+  clock=necromant_clock.bsa/fr:40:80
+  contra=necromant_contra.bsa/fr:40:80
+  clock2=necromant_2clock.bsa/fr:40:80
+  contra2=necromant_2contra.bsa/fr:40:80
+  lturn=necromant_lturn.bsa/fr:28:56
+  rturn=necromant_rturn.bsa/fr:28:56
+  damage=necromant_damage.bsa/fr:25:50
+  death=necromant_death.bsa/fr:25:50
+  respawn=necromant_respawn.bsa/fr:25:50
+  cast=necromant_cast.bsa/fr:30:60
+  slew=necromant_slew.bsa/fr:25:50
+  cursor=necromant_rare.bsa/fr:25:50
+  teleout=necromant_idle.bsa/fr:25:50/r:50:85
+  telein=necromant_idle.bsa/fr:25:50/r:0:35
+  happy=necromant_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:2:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    12.0?x=
+    0.0=cam
+  }
+  @throw_attack {
+    12.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    21.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=5
+    particle {
+      animation=cast
+      frame=1/27
+      restart=true
+      file=cast_necromant.ptb
+    }
+    particle {
+      trans=0/-0.3704834/-0.3704834/0/-0/0/1
+      animation=cast
+      frame=10/15
+      file=cast_necromant.ptb
+    }
+    particle {
+      trans=0/-0.3704834/0.3704834/0/-0/0/1.5
+      animation=cast
+      frame=11/16
+      restart=true
+      file=cast_necromant.ptb
+    }
+    particle {
+      animation=cast
+      frame=22/30
+      file=cast_necromant_lite.ptb
+    }
+    particle {
+      trans=0/-0/0/0.2
+      animation=throw_attack
+      frame=0/20
+      file=cast_necromant_accum.ptb
+    }
+  }
+  1 {
+    coord=0.3704834/2.09869385/-0.2/0/-0/0/1
+    particle {
+      trans=0/-0/0/0.69999999
+      animation=cast
+      frame=15/22
+      file=cast_necromant_cluster.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=necromant_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=necromant_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=necromant_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=necromant_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=necromant_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=necromant_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=necromant_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=necromant_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=necromant_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=necromant_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=necromant_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=necromant_death
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=necromant_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=necromant_slew
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=necromant_happy
+      fadetime=60
+    }
+    sound {
+      animation=throw_attack
+      frame=0.01
+      file=necromant_throw_attack
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/1.20000005/-1.5/0/-0/0/1
+      animation=throw
+      frame=10/16
+      file=cast_necromant_horiz.ptb
+    }
+  }
+}
+prefetch {
+  necromant_idle.bsa=file
+  necromant_rare.bsa=file
+  necromant_attack.bsa=file
+  necromant_move.bsa=file
+  necromant_start.bsa=file
+  necromant_stop.bsa=file
+  necromant_clock.bsa=file
+  necromant_contra.bsa=file
+  necromant_2clock.bsa=file
+  necromant_2contra.bsa=file
+  necromant_lturn.bsa=file
+  necromant_rturn.bsa=file
+  necromant_damage.bsa=file
+  necromant_death.bsa=file
+  necromant_respawn.bsa=file
+  necromant_cast.bsa=file
+  necromant_slew.bsa=file
+  necromant_victory.bsa=file
+}

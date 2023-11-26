@@ -520,58 +520,58 @@ sp_lead_unit_zombies {
   }
 }
 
-// Special Groups
+// Special Groups - these bonuses are now all commented out
 
 // The bonus remains, however, in order for the individual unit bonuses to work
 // with the leadership skills, each individual bonus must be applied such that
 // the bonus being modified works properly.
 // Races
-sp_lead_demon {
-  cmc=1
+// sp_lead_demon {
+//   cmc=1
 //  params {
 //    units=archdemon,cerberus,demon,demoness,imp,imp2
 //  }
-}
+// }
 
 // The bonus remains, however, in order for the individual unit bonuses to work
 // with the leadership skills, each individual bonus must be applied such that
 // the bonus being modified works properly.
-sp_lead_dwarf {
-  cmc=1
+// sp_lead_dwarf {
+//   cmc=1
 //  params {
 //    units=miner,dwarf,cannoner,alchemist,giant
 //  }
-}
+// }
 
 // The bonus remains, however, in order for the individual unit bonuses to work
 // with the leadership skills, each individual bonus must be applied such that
 // the bonus being modified in SKILLS.LUA works properly.
-sp_lead_archer {
-  cmc=1
+// sp_lead_archer {
+//   cmc=1
 //  params {
 //    units=bowman,archer,elf,elf2
 //  }
-}
+// }
 
 // The bonus remains, however, in order for the individual unit bonuses to work
 // with the leadership skills, each individual bonus must be applied such that
 // the bonus being modified in SKILLS.LUA works properly.
-sp_lead_archmage {
-  cmc=1
+// sp_lead_archmage {
+//   cmc=1
 //  params {
 //    units=priest,priest2,druid,archmage,shaman,necromant
 //  }
-}
+// }
 
 // The bonus remains, however, in order for the individual unit bonuses to work
 // with the leadership skills, each individual bonus must be applied such that
 // the bonus being modified in SKILLS.LUA works properly.
-sp_lead_warrior {
-  cmc=1
+// sp_lead_warrior {
+//   cmc=1
 //  params {
 //    units=horseman,knight,footman,footman2
 //  }
-}
+// }
 
 // Unit Abilities - these are of the form sp_add_ custom_param _ ability name.
 // For example: Alchemist ability - throw1, custom_param - poison is sp_add_poison_throw1
@@ -932,14 +932,16 @@ sp_gain_power_ogre_rage {
   cmc=1
 }
 
+// I'm not sure what's wrong with this bonus, but when I uncomment it, the game crashes when loading a saved game
 //sp_gain_resist_rooted {
 //  cmc=1
 //}
 //
-//sp_gain_shock_battle_mage {
-//  cmc=1
-//}
-//
+sp_gain_shock_battle_mage {
+  cmc=1
+}
+
+// I'm not sure what's wrong with this bonus, but when I uncomment it, the game crashes when loading a saved game
 //sp_gain_rage_holy_rage {
 //  cmc=1
 //}

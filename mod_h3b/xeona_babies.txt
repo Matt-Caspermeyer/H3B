@@ -2112,9 +2112,9 @@ kid_dace {
     sp_lead_unit_wolf=count,10
     sp_lead_unit_blackknight=count,8
     sp_lead_unit_demon=count,8
-    sp_lead_unithorseman=count,8
-    sp_lead_unitknight=count,8
-    sp_lead_unitorc2=count,8
+    sp_lead_unit_horseman=count,8
+    sp_lead_unit_knight=count,8
+    sp_lead_unit_orc2=count,8
   }
   propbits=child,rare
   params {}

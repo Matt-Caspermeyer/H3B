@@ -213,7 +213,7 @@ spell_last_hero {
     level=2,3,4
     type=bonus
     int=1 // if = 1 that intelligence affects the duration of spells
-    mana_cost = 4,8,22  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 5,9,23  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
@@ -252,7 +252,7 @@ spell_dragon_arrow {
   params {
     count=1,2,3 // as given by arrows archers
     holy_rage=1
-    mana_cost = 3,6,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 10,20,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level

@@ -15,7 +15,7 @@
           deps=
           runes=2,1,0
           trade=
-          pars=+1,+2,+15%,2
+          pars=+1,+2,+10%,2
           fight {
             {
               filter {
@@ -44,7 +44,7 @@
                 belligerent=ally
                	level=<3
               }
-              pbonus=krit,0,15,0,-100,0,0
+              pbonus=krit,0,10,0,-100,0,0
               dbonus=
               rbonus=
               attack_on=
@@ -56,7 +56,7 @@
           deps=
           runes=1,1,0
           trade=
-          pars=+2,+3,+30%,3
+          pars=+2,+3,+20%,3
           fight {
             {
               filter {
@@ -85,7 +85,7 @@
                 belligerent=ally
                	level=<4
               }
-              pbonus=krit,0,30,0,-100,0,0
+              pbonus=krit,0,20,0,-100,0,0
               dbonus=
               rbonus=
               attack_on=
@@ -97,7 +97,7 @@
           deps=
           runes=2,2,0
           trade=
-          pars=+3,+4,+45%,4
+          pars=+3,+4,+30%,4
           fight {
             {
               filter {
@@ -126,7 +126,7 @@
                 belligerent=ally
                	level=<5
               }
-              pbonus=krit,0,45,0,-100,0,0
+              pbonus=krit,0,30,0,-100,0,0
               dbonus=
               rbonus=
               attack_on=
@@ -277,7 +277,7 @@
           deps=1
           runes=3,1,0
           trade=
-          pars=-5%,+5%,+10%
+          pars=-2%,+5%,+10%
           fight {
             {
               filter {
@@ -417,7 +417,7 @@
           deps=1
           runes=4,1,0
           trade=
-          pars=-10%,+10%,+20%
+          pars=-5%,+10%,+20%
           fight {
             {
               filter {
@@ -568,7 +568,7 @@
           deps=1
           runes=4,1,0
           trade=
-          pars=-15%,+15%,+30%
+          pars=-10%,+15%,+30%
           fight {
             {
               filter {
@@ -1406,7 +1406,7 @@ dark_commander {
           deps=1
           runes=9,3,2
           trade=
-          pars=+10,+3,+2
+          pars=+8,+1,+1
           fight {
             {
               filter {
@@ -2377,7 +2377,7 @@ megamage {
           deps=1,1
           runes=0,1,2
           trade=
-          pars=-5%,+1,+5%
+          pars=-2%,+1,+5%
           fight {
             {
               filter {
@@ -2462,7 +2462,7 @@ megamage {
           deps=1,1
           runes=1,1,2
           trade=
-          pars=-10%,+2,+10%,+20%
+          pars=-5%,+2,+10%,+20%
           fight {
             {
               filter {
@@ -2558,7 +2558,7 @@ megamage {
           deps=1,1
           runes=1,1,2
           trade=
-          pars=-15%,+3,+15%,+30%
+          pars=-10%,+3,+15%,+30%
           fight {
             {
               filter {
@@ -2678,7 +2678,7 @@ necromancy {
           deps=1
           runes=1,2,3
           trade=
-          pars=10-20%,skeleton,-5%,+5%
+          pars=10-20%,skeleton,-2%,+5%
           fight {
             {
               filter {
@@ -2708,7 +2708,7 @@ necromancy {
           deps=1
           runes=3,1,5
           trade=
-          pars=30-50%,zombie,-10%,+15%
+          pars=30-50%,zombie,-5%,+15%
           fight {
             {
               filter {
@@ -2749,7 +2749,7 @@ necromancy {
           deps=1
           runes=4,2,8
           trade=
-          pars=60-100%,ghost,-15%,+30%
+          pars=60-100%,ghost,-10%,+30%
           fight {
             {
               filter {

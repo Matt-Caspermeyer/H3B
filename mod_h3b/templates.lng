@@ -336,10 +336,9 @@ diana_units1=<gen=gen_itm_kid_hint,unit_dragonfly_fire,1,starts><gen=gen_itm_kid
     navigation1=<gen=gen_itm_kid_hint,skill_navigation,1,8>
     navigation2=<gen=gen_itm_kid_hint,skill_navigation,2,8>
     navigation3=<gen=gen_itm_kid_hint,skill_navigation,3,8>
-    necromancy1=<gen=gen_itm_kid_hint,skill_necromancy,1,0.5,minus_power_percent><gen=gen_itm_kid_hint,spell_necromancy,1,start><gen=gen_itm_kid_hint,spell_necromancy,1,power,1><gen=gen_itm_kid_hint,end>
-    necromancy2=<gen=gen_itm_kid_hint,skill_necromancy,2,0.5,minus_power_percent><gen=gen_itm_kid_hint,spell_necromancy,2,start><gen=gen_itm_kid_hint,spell_necromancy,2,power,1><gen=gen_itm_kid_hint,end>
-    necromancy22=<gen=gen_itm_kid_hint,skill_necromancy,2,0.5,minus_power_percent><gen=gen_itm_kid_hint,spell_necromancy,2,start><gen=gen_itm_kid_hint,spell_necromancy,2,power,2><gen=gen_itm_kid_hint,end>
-    necromancy3=<gen=gen_itm_kid_hint,skill_necromancy,3,0.5,minus_power_percent><gen=gen_itm_kid_hint,spell_necromancy,3,start><gen=gen_itm_kid_hint,spell_necromancy,3,power,1><gen=gen_itm_kid_hint,end>
+    necromancy1=<gen=gen_itm_kid_hint,skill_necromancy,1,0.5,minus_power_percent>
+    necromancy2=<gen=gen_itm_kid_hint,skill_necromancy,2,0.5,minus_power_percent>
+    necromancy3=<gen=gen_itm_kid_hint,skill_necromancy,3,0.5,minus_power_percent>
     offense1=<gen=gen_itm_kid_hint,skill_offense,1,1>
     offense2=<gen=gen_itm_kid_hint,skill_offense,2,1>
     offense3=<gen=gen_itm_kid_hint,skill_offense,3,1>

@@ -7,6 +7,38 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-11-23
+-------------------------
+
+Updates:
+
+* New KFS Organization - *.LNG files are in their own KFS (ZIP)
+  & mod_homm3_babies_eng_lng.kfs - contains the ENG_*.LNG English Language Localization files
+  & mod_homm3_babies_en_lng.kfs - contains the EN_*.LNG English Language Localization files
+  & The files are collectively refered to as mod_homm3_babies_en(g)_lng.kfs.
+* mod_homm3_babies_en(g)_lng.kfs (this refers to both KFS *.LNG files)
+  & EN(G)_SPELLS.LNG - fixed a few spells descriptions that were incorrect
+  & EN(G)_HOMM3_BABIES_RINA.LNG - updated baby descriptors for Vidomina, Lord (Death) Haart, Isra, Thant, and Finneas.
+  & EN(G)_SKILLS.LONG - updated Glory skill description
+* mod_homm3_babies.kfs
+  & NECROMANT.ATOM - experimental change making all 3 of the Necromancer's skills reloadable (kind of more like the Human Archmage).
+  & TEMPLATES.LNG - removed Necro Call bonus for Necromancy Skill Template
+  & SKILLS.LUA - commented out the sp_lead_unit bonuses for all Undead units
+  & SPELLS.LUA - code cleanup
+  & SKILLS.TXT
+    ^ Corrected a few skill values - thanks to Fatt_Shade for the Dark Commander errors!
+    ^ Glory's Leadership Reduction Requirement no longer applies to Undead since it is in the Paladin tree.
+    ^ Ranged Specialist - Leadership Reduction values are now -2, -5, and -10% (was -5, -10, and -15%).
+    ^ Archmage - Leadership Reduction values are now -2, -5, and -10% (was -5, -10, and -15%).
+    ^ Necromancy - Leadership Reduction values are now -2, -5, and -10% (was -5, -10, and -15%)
+  & SPECIAL_PARAMS.TXT - commented out the sp_lead_(group) bonuses since they are now longer used
+  & SPELLS.TXT - updated mana_cost for a few spells for ARENA.LUA - spell_auto_cast function that AI uses
+  & RINA_BABIES.TXT - made some minor tweaks to some of her babies (Vidomina, Lord (Death) Haart, Isra, Thant, and Finneas).
+  & WIFES.TXT - Zombie Rina didn't have Black Knights in her Undead sp_lead_unit bonuses.
+  & XEONA_BABIES.TXT - fixed an error with Dace - thanks to Fatt_Shade for finding this!
+* mod_tougher_eheroes.kfs
+  & 276213879.hero - error in Martin Vodash's attack value (was 5 should have been 8)
+
 Version: Alpha 2011-11-19
 -------------------------
 
@@ -19,7 +51,7 @@ Thanks to erkki (Erkilmarl) for helping find and fix this bug!
 Changes:
 
 * Updated Sleem's Cloud of Poison such that the early levels mana increase is less and for the 2nd upgrade you need Sleem to be higher level to get it.
-  ^ I recently updated Sleem's Cloud of Poison before restarting my new game and as I played the previous values didn't feel right.
+  & I recently updated Sleem's Cloud of Poison before restarting my new game and as I played the previous values didn't feel right.
 
 Additions:
 
@@ -47,17 +79,18 @@ Installation:
   a. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
   b. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
     i. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
-2. Extract the 3 *.KFS files included in this archive to the King's Bounty: The Legend folder.
+2. Extract the 4 *.KFS files included in this archive to the King's Bounty: The Legend folder.
   a. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
   b. If the "mods" folder does not exist, then see note 1ai above.
-  c. The 3 KFS files are:
+  c. The 4 KFS files are:
     i.   mod_homm3_portraits.kfs - stand alone game picture resources containing all *.DAT and *.DDS files that may be used in other mods.
     ii.  mod_tougher_eheroes.kfs - stand alone tougher heroes containing all *.HERO files that may be used in other mods.
-    iii. mod_homm3_babies.kfs ***OR*** en_mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LNG, *.LUA, and *.TXT files modified for this mod.
-      1) Use mod_homm3_babies.kfs for your English localization with eng_*.lng
-      2) Use en_mod_homm3_babies.kfs for your English localization with en_*.lng
+    iii. mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LUA, and *.TXT files modified for this mod.
+    iv.  mod_homm3_babies_eng_lng.kfs ***OR*** mod_homm3_babies_en_lng.kfs - updated *.LNG files
+      1) Use mod_homm3_babies_eng_lng.kfs for your English localization with eng_*.lng
+      2) Use mod_homm3_babies_en_lung.kfs for your English localization with en_*.lng
       3) DO NOT USE BOTH FILES!!! Just one or the other!!!
-  d. All 3 KFS files are needed for the complete HOMM3 babies mod experience!
+  d. All 4 KFS files are needed for the complete HOMM3 babies mod experience!
 3. Run the game
   a. Start a new game to play!
   b. It is not recommended to continue your current game, please restart.

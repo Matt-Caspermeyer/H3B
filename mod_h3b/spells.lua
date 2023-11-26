@@ -1474,7 +1474,6 @@ function spell_fire_arrow_attack( lvl, dmgts )
 
   local min_dmg, max_dmg, burn, duration = pwr_fire_arrow( lvl, ehero_level )
   local dmg_type = Logic.obj_par( "spell_fire_arrow", "typedmg" )
-  local burn_rnd = Game.Random( 100 ) + 1
   Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
   local a = Attack.atom_spawn( target, dmgts, "magic_firearrow", Attack.angleto( target ) + 2.5 )
   local dmgts1 = Attack.aseq_time( a, "x" )
