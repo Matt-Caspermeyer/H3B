@@ -1757,7 +1757,9 @@ function spell_cure_attack( level, target )
     local ehero_level
 
     if Attack.act_belligerent( target ) ~= 1 then
-      ehero_level, level = get_enemy_hero_stuff( level )
+      if not Attack.act_feature( target, "undead" ) then
+        ehero_level, level = get_enemy_hero_stuff( level )
+      end
     end
 
 		  Attack.log_label( "null" )

@@ -95,5 +95,13 @@ TEX334 {
     geom_size=1,1
     mask=935,85
   }
-  texture_size=104,78
+  block {
+    filename=BA1_royal_thorn_entangle_small.png
+    in_tex_pos=0,78
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1020,85
+  }
+  texture_size=104,104
 }

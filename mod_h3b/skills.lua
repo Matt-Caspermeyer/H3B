@@ -246,6 +246,35 @@ function skill_name()
     return "<label=skill_"..Logic.skill_name().."_name>"
 end
 
+
+-- New! Combat round description for mana_rage_gain_k in skills
+function skill_round()
+  local string = ""
+  local roundmrgk1 = tonumber( text_dec( Game.Config( 'difficulty_k/roundmrgk1' ), Game.HSP_difficulty() + 1, '|' ) )
+  local roundehero = tonumber( text_dec( Game.Config( 'difficulty_k/roundehero' ), Game.HSP_difficulty() + 1, '|' ) )
+  local roundboss = tonumber( text_dec( Game.Config( 'difficulty_k/roundboss' ), Game.HSP_difficulty() + 1, '|' ) )
+  local roundtower = tonumber( text_dec( Game.Config( 'difficulty_k/roundtower' ), Game.HSP_difficulty() + 1, '|' ) )
+  local plural = "s"
+
+  if roundmrgk1 == 1 then
+    plural = ""
+  end
+
+  string = tostring( roundmrgk1 ) .. " <label=skill_label_round>" .. plural .. " <label=skill_label_combat>"
+
+  if roundehero == roundboss
+  and roundehero == roundtower
+  and roundehero > 0 then
+    string = string .. " (" .. tostring( roundmrgk1 + roundehero ) .. " <label=skill_label_eherobosstower>" .. ")"
+  elseif ( roundehero + roundboss + roundtower ) > 0 then
+    string = string .. " (" .. tostring( roundmrgk1 + roundehero ) .. " <label=skill_label_ehero>"
+    string = string .. ", " .. tostring( roundmrgk1 + roundboss ) .. " <label=skill_label_boss>"
+    string = string .. ", <label=skill_label_and> " .. tostring( roundmrgk1 + roundtower ) .. " <label=skill_label_tower>" .. ")"
+  end
+
+  return string
+end
+
 --skill [skillname [, level]] Инфа по скилу. Если без указания level'а, то возвратит количество левелов.
 -- Если указать level, то для него вернет строку-параметр. Не указывать имя можно только в gen_text
 

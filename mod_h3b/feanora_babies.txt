@@ -181,7 +181,7 @@ kid_broghild {
     }
   }
   mods {
-    sp_rage_battle_prc=count,28
+    sp_rage_map=count,35
     rage=limit,14%
     sp_lead_unit_snakes=count,22
     sp_lead_unit_snake_royal=count,17
@@ -757,6 +757,16 @@ kid_voy {
       pbonus=speed,2,0,0,-100,0,0
       dbonus=
       rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,7,0,0,-100,0,0
       attack_on=
       attack_off=
     }

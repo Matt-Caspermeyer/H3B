@@ -83,27 +83,50 @@ heroparams {
 hero_warrior { // ******************** Воин ********************
 // стартовые параметры
     start {
-        leadership=210
+        leadership=160
         attack=2
         defense=1
         intellect=0
         mana=10
 //        rage=20
         rage=30
-        gold=2000
+        gold=1500
         rune_might=6
         rune_mind=2
         rune_magic=0
         crystals=3
-        book=3
+        book=5
         // стартовые умения изученные и недоступные
 //        skills_open=rage,traning //order,chaos,dist
         skills_open=rage,traning,rage_control //order,chaos,dist
         skills_off=hi_magic,alchemist,rune_stone,holy_rage
-//        army=bowman|4|footman|6|bear|3
-        army=bowman|4|footman|6|footman2|4
+        // New! Just list the units and a random number within the hero's leadership will be selected
+        army=alchemist,archmage,barbarian,barbarian2,bear,bear_white,bear2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,reddragon,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf
+	// New! Chance of getting a spell if it is set to 0
+	spell_chance=5
+	// New! Chance that a random spell is a scroll
+	scroll_chance=75
+        // New! Set spell = 0 for a random spell / scroll at start based on chance above
         spells {
-          spell_haste=-3
+        	spell_healing=0
+        	spell_defenseless=0
+		spell_stone_skin=0
+		spell_last_hero=0
+		spell_dragon_arrow=0
+		spell_bless=0
+		spell_adrenalin=0
+		spell_pacifism=0
+		spell_accuracy=0
+		spell_haste=0
+        	spell_slow=-1
+		spell_reaction=0
+		spell_berserker=0
+		spell_shroud=0
+		spell_target=0
+		spell_oil_fog=0
+		spell_fire_breath=0
+		spell_weakness=0
+		spell_kamikaze=0
         }
 
         items {
@@ -125,7 +148,7 @@ hero_warrior { // ******************** Воин ********************
     }
 // прокачка
     level_up {
-        leadership=50,70  // this range is scaled by the hero's level for determining leadership levelup
+        leadership=40,60  // this range is scaled by the hero's level for determining leadership levelup
         attack=1,2,30  // attack, defense, intellect, mana, and rage probability should add to 100
         defense=1,1,20
         intellect=1,1,10
@@ -135,7 +158,7 @@ hero_warrior { // ******************** Воин ********************
         rune_might=50
         rune_mind=40
         rune_magic=10
-        book=1,3 // растет на 1 каждый 8 уровень
+        book=1,1 // растет на 1 каждый 8 уровень
     }
    k_spirit_up=1.0 // коэффициент набирания опыта спирита
 }
@@ -143,7 +166,7 @@ hero_warrior { // ******************** Воин ********************
 hero_paladin { // ******************** Паладин ********************
 // стартовые параметры
     start {
-        leadership=160
+        leadership=210
         attack=1
         defense=1
         intellect=1
@@ -151,23 +174,46 @@ hero_paladin { // ******************** Паладин ********************
         mana=20
 //        rage=15
         rage=20
-        gold=1500
+        gold=2000
         rune_might=2
         rune_mind=4
         rune_magic=2
-        book=4
+        book=10
         crystals=10
         // стартовые умения изученные и недоступные
 //        skills_open=explorer,holy_rage //chaos,dist
         skills_open=explorer,holy_rage,glory //chaos,dist
         skills_off=hi_magic,alchemist,rage,iron_fist
-//        army=bowman|3|priest|3|peasant|32
-        army=priest|7|footman2|7|priest2|3
+        // New! Just list the units and a random number within the hero's leadership will be selected
+        army=alchemist,archmage,barbarian,barbarian2,bear,bear_white,bear2,blackdragon,bowman,cannoner,cyclop,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,graywolf,greendragon,griffin,horseman,kingthorn,knight,miner,peasant,priest,priest2,reddragon,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf
 
+	// New! Chance of getting a spell if it is set to 0
+	spell_chance=10
+	// New! Chance that a random spell is a scroll
+	scroll_chance=50
+        // New! Set spell = 0 for a random spell / scroll at start based on chance above
         spells {
-          spell_healing=1 // 1 level
-          spell_bless=-2 // 2 scrolls
-          spell_resurrection=-1
+	        spell_dispel=0
+        	spell_healing=1
+        	spell_defenseless=0
+		spell_stone_skin=0
+		spell_last_hero=0
+		spell_dragon_arrow=0
+		spell_magic_axe=0
+		spell_bless=1
+		spell_adrenalin=0
+		spell_pacifism=0
+		spell_dragon_slayer=0
+		spell_phoenix=0
+		spell_gifts=0
+		spell_demon_slayer=0
+		spell_lightning=0
+		spell_resurrection=1
+		spell_divine_armor=0
+//		spell_holy_rain=0
+		spell_accuracy=0
+		spell_haste=0
+		spell_reaction=0
         }
 
         items {
@@ -189,7 +235,7 @@ hero_paladin { // ******************** Паладин ********************
     }
 // прокачка
     level_up {
-        leadership=40,60  // this range is scaled by the hero's level for determining leadership levelup
+        leadership=50,70  // this range is scaled by the hero's level for determining leadership levelup
         attack=1,1,20  // attack, defense, intellect, mana, and rage probability should add to 100
         defense=1,2,20
         intellect=1,1,20
@@ -199,7 +245,7 @@ hero_paladin { // ******************** Паладин ********************
         rune_might=30 
         rune_mind=40
         rune_magic=30
-        book=2,3 // растет на 1 каждый 7 уровень
+        book=2,1 // растет на 1 каждый 7 уровень
     }
    k_spirit_up=0.8 // коэффициент набирания опыта спирита
 }
@@ -219,21 +265,74 @@ hero_mage { // ******************** Маг ********************
         rune_mind=1
         rune_magic=6
         crystals=20
-        book=5
+        book=15
         // стартовые умения изученные и недоступные
 //        skills_open=wizdom,meditation //chaos, alchemist
         skills_open=wizdom,meditation,alchemist //chaos, alchemist
         skills_off=rune_stone,holy_rage, rage,iron_fist
-//        army=sprite|15|peasant|24|dragonfly_lake|13
-        army=priest|2|priest2|1|archmage|1
+        // New! Just list the units and a random number within the hero's leadership will be selected
+        army=alchemist,archmage,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,peasant,pirat,pirat2,priest,priest2,reddragon,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf
+	// New! Chance of getting a spell if it is set to 0
+	spell_chance=15
+	// New! Chance that a random spell is a scroll
+	scroll_chance=25
+        // New! Set spell = 0 for a random spell / scroll at start based on chance above
         spells {
-        	spell_slow=1
-//        	spell_fire_ball=1
-        	spell_fire_ball=-2
-        	spell_defenseless=1
-//        	spell_fire_arrow=-2
-        	spell_fire_arrow=1
+	        spell_dispel=0
         	spell_healing=-1
+        	spell_defenseless=0
+		spell_stone_skin=0
+		spell_last_hero=0
+		spell_dragon_arrow=0
+		spell_magic_axe=0
+		spell_bless=0
+		spell_adrenalin=0
+		spell_pacifism=0
+//		spell_dragon_slayer=0
+//		spell_phoenix=0
+		spell_gifts=0
+//		spell_demon_slayer=0
+//		spell_lightning=0
+//		spell_resurrection=0
+//		spell_divine_armor=0
+//		spell_holy_rain=0
+		spell_accuracy=0
+		spell_haste=0
+        	spell_slow=0
+		spell_reaction=0
+		spell_berserker=0
+		spell_shroud=0
+		spell_pain_mirror=0
+		spell_target=0
+		spell_magic_source=0
+		spell_trap=0
+//		spell_invisibility=0
+		spell_ghost_sword=0
+//		spell_phantom=0
+//		spell_teleport=0
+//		spell_pygmy=0
+//		spell_blind=0
+//		spell_hypnosis=0
+//		spell_geyser=0
+        	spell_fire_arrow=1
+		spell_smile_skull=0
+		spell_scare=0
+		spell_oil_fog=0
+//		spell_plague=0
+		spell_fire_breath=0
+		spell_magic_bondage=0
+		spell_ice_serpent=0
+        	spell_fire_ball=0
+		spell_sacrifice=0
+		spell_weakness=0
+//		spell_evilbook=0
+		spell_kamikaze=0
+		spell_crue_fate=0
+//		spell_ram=0
+//		spell_demonologist=0
+		spell_fire_rain=0
+//		spell_necromancy=0
+//		spell_armageddon=0
         }
 
         items {
@@ -266,7 +365,7 @@ hero_mage { // ******************** Маг ********************
         rune_might=20
         rune_mind=20
         rune_magic=60
-        book=1,1 // растет на 1 каждый 5 уровень
+        book=3,1 // растет на 1 каждый 5 уровень
     }
    k_spirit_up=0.5 // коэффициент набирания опыта спирита
 }

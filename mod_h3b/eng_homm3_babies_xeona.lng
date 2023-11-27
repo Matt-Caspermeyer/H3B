@@ -8,7 +8,7 @@ itm_kid_rashka_taken=^?^
 
 //==== kid_calh
 itm_kid_calh_name=Calh
-itm_kid_calh_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Archery, Scouting, Marius, Gogs, Magogs...[/s] [postamble_boy][archery1][scouting1][spider_fire1]
+itm_kid_calh_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Archery, Scouting, Marius, Gogs, Magogs...[/s] [postamble_boy][archery1][scouting_rage1][scouting_ragemap1][spider_fire1]
 itm_kid_calh_info=^?^[info_boy]
 itm_kid_calh_mhint=^?^
 itm_kid_calh_minfo=^?^
@@ -16,7 +16,7 @@ itm_kid_calh_taken=^?^
 
 //==== kid_marius
 itm_kid_marius_name=Marius
-itm_kid_marius_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Armorer, Calh, Demon, Horned, Dendroid...[/s] [postamble_girl][armor2][demon1]
+itm_kid_marius_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Armorer, Calh, Demon, Horned, Dendroid...[/s] [postamble_girl][armorer2][demon1]
 itm_kid_marius_info=^?^[info_girl]
 itm_kid_marius_mhint=^?^
 itm_kid_marius_minfo=^?^
@@ -88,7 +88,7 @@ itm_kid_xeron_taken=^?^
 
 //==== kid_fiona
 itm_kid_fiona_name=Fiona
-itm_kid_fiona_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Scouting, Hell, Hound, Cerberi...[/s] [postamble_girl][scouting2][cerberus1]
+itm_kid_fiona_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Scouting, Hell, Hound, Cerberi...[/s] [postamble_girl][scouting_rage1][scouting_rageinflow1][scouting_rageperround1][scouting_ragemap1][cerberus1]
 itm_kid_fiona_info=^?^[info_girl]
 itm_kid_fiona_mhint=^?^
 itm_kid_fiona_minfo=^?^
@@ -152,7 +152,7 @@ itm_kid_inteus_taken=^?^
 
 //==== kid_fiur
 itm_kid_fiur_name=Fiur
-itm_kid_fiur_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Fire, Energy, Elemental...[/s] [postamble_boy][offense2][fire_damage1][fire_energy_elemental1]
+itm_kid_fiur_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Fire, Energy, Elemental...[/s] [postamble_boy][offense2][fire_damage1][energy_elemental]
 itm_kid_fiur_info=^?^[info_boy]
 itm_kid_fiur_mhint=^?^
 itm_kid_fiur_minfo=^?^
@@ -160,7 +160,7 @@ itm_kid_fiur_taken=^?^
 
 //==== kid_ignissa
 itm_kid_ignissa_name=Ignissa
-itm_kid_ignissa_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Fire, Energy, Elemental...[/s] [postamble_girl][offense1][artillery1][fire_energy_elemental1]
+itm_kid_ignissa_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Fire, Energy, Elemental...[/s] [postamble_girl][offense1][artillery1][fire_elemental]
 itm_kid_ignissa_info=^?^[info_girl]
 itm_kid_ignissa_mhint=^?^
 itm_kid_ignissa_minfo=^?^
@@ -191,15 +191,15 @@ itm_kid_darkstorn_minfo=^?^
 itm_kid_darkstorn_taken=^?^
 
 //==== kid_deemer
-itm_kid_deemer_name=deemer
-itm_kid_deemer_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Warlock, Wisdom, Scouting, Meteor, Shower, Control...[/s] [postamble_boy][wisdom1][scouting2][attack_spells1][defense_spells1]
+itm_kid_deemer_name=Deemer
+itm_kid_deemer_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Warlock, Wisdom, Scouting, Meteor, Shower, Control...[/s] [postamble_boy][wisdom1][scouting_rage1][scouting_rageinflow1][scouting_rageperround2][attack_spells1][defense_spells1]
 itm_kid_deemer_info=^?^[info_boy]
 itm_kid_deemer_mhint=^?^
 itm_kid_deemer_minfo=^?^
 itm_kid_deemer_taken=^?^
 
 //==== kid_malekith
-itm_kid_malekith_name=malekith
+itm_kid_malekith_name=Malekith
 itm_kid_malekith_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Warlock, Wisdom, Sorcery, Fury...[/s] [postamble_boy][wisdom1][sorcery2]
 itm_kid_malekith_info=^?^[info_boy]
 itm_kid_malekith_mhint=^?^

@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_ent_feat
-  features_hints=plant_header/plant_hint,wood_header/wood_hint,forest_spirit_header/forest_spirit_hint,entangle_header/entangle_hint
+  features_hints=plant_header/plant_hint,wood_header/wood_hint,forest_spirit_header/forest_spirit_hint,entangle2_header/entangle2_hint
   posthitslave=features_wood_creature
   race=elf
   cost=3600
@@ -37,7 +37,8 @@ arena_params {
       physical=100,140
     }
     custom_params {
-      entangle=50
+      entangle=75
+      level=5
     }    
   }
   throw1 {

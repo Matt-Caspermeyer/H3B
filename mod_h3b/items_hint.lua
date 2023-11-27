@@ -1,87 +1,3 @@
---This function is lame, but I don't know how to get a unit's level without using Attack.unit_level or AU.level
---which aren't available outside the arena. If someone knows how to get a value from the atom, without being
---in the arena, please let me know - thanks!
-function get_unit_level( unit_name )
-  local unit_level = 1
-
-		if unit_name == "barbarian"
-  or unit_name == "barbarian2"
-  or unit_name == "bowman"
-  or unit_name == "dryad"
-  or unit_name == "footman"
-  or unit_name == "goblin"
-  or unit_name == "goblin2"
-  or unit_name == "graywolf"
-  or unit_name == "hyena"
-  or unit_name == "imp"
-  or unit_name == "imp2"
-  or unit_name == "miner"
-  or unit_name == "pirat"
-  or unit_name == "priest"
-  or unit_name == "robber2"
-  or unit_name == "snake"
-  or unit_name == "snake_green"
-  or unit_name == "spider_fire"
-  or unit_name == "zombie"
-  or unit_name == "zombie2" then
-    unit_level = 2
-  elseif unit_name == "bat"
-  or unit_name == "bear"
-  or unit_name == "bear2"
-  or unit_name == "beholder"
-  or unit_name == "catapult"
-  or unit_name == "cerberus"
-  or unit_name == "druid"
-  or unit_name == "dwarf"
-  or unit_name == "elf"
-  or unit_name == "footman2"
-  or unit_name == "ghost"
-  or unit_name == "ghost2"
-  or unit_name == "griffin"
-  or unit_name == "orc"
-  or unit_name == "pirat2"
-  or unit_name == "priest2"
-  or unit_name == "snake_royal"
-  or unit_name == "vampire"
-  or unit_name == "werewolf"
-  or unit_name == "wolf" then
-    unit_level = 3
-  elseif unit_name == "alchemist"
-  or unit_name == "archmage"
-  or unit_name == "bat2"
-  or unit_name == "bear_white"
-  or unit_name == "beholder2"
-  or unit_name == "blackknight"
-  or unit_name == "cannoner"
-  or unit_name == "demon"
-  or unit_name == "demoness"
-  or unit_name == "elf2"
-  or unit_name == "ent"
-  or unit_name == "horseman"
-  or unit_name == "kingthorn"
-  or unit_name == "knight"
-  or unit_name == "necromant"
-  or unit_name == "orc2"
-  or unit_name == "shaman"
-  or unit_name == "unicorn"
-  or unit_name == "unicorn2"
-  or unit_name == "vampire2" then
-    unit_level = 4
-  elseif unit_name == "archdemon"
-  or unit_name == "blackdragon"
-  or unit_name == "bonedragon"
-  or unit_name == "cyclop"
-  or unit_name == "ent2"
-  or unit_name == "giant"
-  or unit_name == "greendragon"
-  or unit_name == "ogre"
-  or unit_name == "reddragon" then
-    unit_level = 5
-  end
-
-  return unit_level
-end
-
 --New! Function for generating children hint
 function gen_itm_kid_hint( par )
   local color = "<color=255,243,179>"
@@ -106,6 +22,7 @@ function gen_itm_kid_hint( par )
   or par == "krit"
   or par == "krit_with_abbrev"
   or par == "krit_abbrev"
+  or par == "damage"
   or par == "defense"
   or par == "defense_with_abbrev"
   or par == "defense_abbrev"
@@ -129,6 +46,7 @@ function gen_itm_kid_hint( par )
   or par == "poison"
 --  or par == "poison_resist"
   or par == "resist"
+  or par == "resistance"
   or par == "speed"
   or par == "speed_with_abbrev"
   or par == "speed_abbrev"
@@ -154,23 +72,24 @@ function gen_itm_kid_hint( par )
 
   local text = ""
 
-  local function get_function_parameters( par )
-    local par_type = text_dec( par, 1 )
+  local function protect_text_dec( arg, i )
+    local new_string, replaces = string.gsub( arg, ",", "" )
 
-    local par_type_level = tonum( text_dec( par, 2 ) )
+    if replaces + 1 < i then
+      return nil
+    else
+      return text_dec( arg, i )
+    end
+  end
+
+  local function get_function_parameters( par )
+    local par_type = protect_text_dec( par, 1 )
+    local par_type_level = tonum( protect_text_dec( par, 2 ) )
     
     return par_type, par_type_level
   end
 
   local function get_gain_type_value( par, par_type_level, parloc1, parloc2, unit_level )
-    local function protect_text_dec( arg, i )
-      local new_string, replaces = string.gsub( arg, ",", "" )
-      if replaces + 1 < i then
-        return nil
-      else
-        return text_dec( arg, i )
-      end
-    end
 
     if parloc1 == nil then
       parloc1 = 3
@@ -219,9 +138,17 @@ function gen_itm_kid_hint( par )
 
   if string.find( par, "preamble" )
   or string.find( par, "postamble" ) then
-    local labelname = text_dec( par, 1 )
-    local gender = text_dec( par, 2 )
+    local labelname = protect_text_dec( par, 1 )
+    local gender = protect_text_dec( par, 2 )
     text = text .. "<label=itm_kid_" .. gender .. "_" .. labelname .. ">"
+
+  elseif string.find( par, "value_only" ) then
+    local dummy, skill_level = get_function_parameters( par )
+    
+    if skill_level ~= nil then
+      local skill_gain_type, value = get_gain_type_value( par, skill_level )
+      text = text .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+    end
 
   elseif string.find( par, "astral_damage" )
   or string.find( par, "fire_damage" )
@@ -256,7 +183,7 @@ function gen_itm_kid_hint( par )
     local effect, effect_level = get_function_parameters( par )
     
     if effect_level ~= nil then
-      local effect_display = text_dec( par, 3 )
+      local effect_display = protect_text_dec( par, 3 )
       local effect_gain_type, value = get_gain_type_value( par, effect_level, 4, 5 )
 
       if effect_display == "start" then
@@ -330,10 +257,14 @@ function gen_itm_kid_hint( par )
       elseif skill == "skill_archery"
       or skill == "skill_offense" then
         text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" )
-      elseif skill == "skill_necromancy" then
-        text = text .. color .. "<label=itm_kid_" .. skill .. "> <label=itm_kid_lr>: </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+
+        if skill_level == 1 then
+          text = text .. ".<br>"
+        end
       elseif skill == "skill_navigation" then
         text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( "plus_power", skill_level, nil, nil, stat_color, "</color>" ) .. ", Critical Hit: " .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+      elseif skill == "skill_necromancy" then
+        text = text .. color .. "<label=itm_kid_" .. skill .. "> <label=itm_kid_lr>: </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
       else
         text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
       end
@@ -343,7 +274,7 @@ function gen_itm_kid_hint( par )
     local spell, spell_level = get_function_parameters( par )
     
     if spell_level ~= nil then
-      local spell_display = text_dec( par, 3 )
+      local spell_display = protect_text_dec( par, 3 )
       local spell_gain_type, value = get_gain_type_value( par, spell_level, 4, 5 )
 
       if spell_display == "start" then
@@ -400,7 +331,7 @@ function gen_itm_kid_hint( par )
     local unit, unit_level = get_function_parameters( par )
     
     if unit_level ~= 0 then
-      local unit_display = text_dec( par, 3 )
+      local unit_display = protect_text_dec( par, 3 )
 
       if unit_display == "start" then
         text = text .. color .. "<label=itm_kid_unit> </color>" .. unit_color .. "<label=" .. string.gsub( unit, "unit_", "cpsn_" ) .. "></color> - "
@@ -419,14 +350,14 @@ function gen_itm_kid_hint( par )
 
       elseif unit_display == "attack"
       or unit_display == "defense" then
-        local value = tonum( text_dec( par, 4 ) )
-        local unit_level = get_unit_level( string.gsub( unit, "unit_", "" ) )
+        local value = tonum( protect_text_dec( par, 4 ) )
+        local unit_level = Logic.cp_level( string.gsub( unit, "unit_", "" ) )
         text = text .. gen_dmg_common_hint( "plus_power", value * unit_level, nil, nil, stat_color, "</color>" )
 
       elseif unit_display == "krit"
       or unit_display == "health"
       or unit_display == "lr" then
-        local unit_gain_type, value = get_gain_type_value( par, unit_level, 4, 5, get_unit_level( string.gsub( unit, "unit_", "" ) ) )
+        local unit_gain_type, value = get_gain_type_value( par, unit_level, 4, 5, Logic.cp_level( string.gsub( unit, "unit_", "" ) ) )
         text = text .. gen_dmg_common_hint( unit_gain_type, value, nil, nil, stat_color, "</color>" )
 
       elseif unit_display == "value" then
@@ -439,7 +370,7 @@ function gen_itm_kid_hint( par )
     local race, race_level = get_function_parameters( par )
     
     if race_level ~= 0 then
-      local race_display = text_dec( par, 3 )
+      local race_display = protect_text_dec( par, 3 )
 
       if race_display == "start" then
         text = text .. color .. "<label=itm_kid_race> </color>" .. race_color .. "<label=inf_" .. race .. "_heads></color> - "
@@ -479,10 +410,10 @@ function gen_itm_kid_hint( par )
     local spirit, spirit_level = get_function_parameters( par )
 
     if spirit_level ~= 0 then
-      local spirit_display = text_dec( par, 3 )
+      local spirit_display = protect_text_dec( par, 3 )
 
       if spirit_display == "start" then
-        local spirit_name = text_dec( par, 4 )
+        local spirit_name = protect_text_dec( par, 4 )
         text = text .. color .. "<label=itm_kid_spirit> </color>" .. spirit_color .. "<label=spirit_" .. spirit_name .. "> <label=" .. string.gsub( spirit, "spirit_", "cpsn_" ) .. "></color> - "
 
       elseif spirit_display == "starts" then

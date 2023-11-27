@@ -1977,6 +1977,16 @@ sp_rage_battle_prc {
   cmc=1
 }
 
+// Regenerates rage during combat
+sp_rage_battle {
+  cmc=1
+}
+
+// Increases rage inflow during combat
+sp_rage_battle_inflow {
+  cmc=1
+}
+
 // Decreases rage drain on map
 sp_rage_map {
   cmc=1

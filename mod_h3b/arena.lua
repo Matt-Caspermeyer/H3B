@@ -162,7 +162,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
   krage = krage * Game.AddRageK()
 
   -- бонус от скилла и предметов
-  local skill_bonus = 1 + skill_power2( "rage", 1 ) / 100 + hero_item_count( "sp_rage_battle_prc" ) / 100
+  local skill_bonus = 1 + skill_power2( "rage", 1 ) / 100 + hero_item_count( "sp_rage_battle_prc" ) / 100 + hero_item_count( "sp_rage_battle_inflow" ) / 100
   local EnemyRage
   local MaxRage = Logic.cur_lu_item( "rage", "limit" )
   local BaseEnemyLeadership, kLeadership = Game.FightParams()
@@ -717,23 +717,24 @@ function on_round_start( round, tend )
     end
 
     -- Сапоги Паломника
-    if hero_item_count("sp_boots_speed")>0 then
-        Attack.log("itm_boots_log")
-        local tormoz
-        local speed,speed2=7,0
-        for a=1, Attack.act_count()-1 do
-            if Attack.act_ally(a) then
-                if Attack.act_get_par(a, "speed")<=speed then
-                    tormoz=a
-                    speed=Attack.act_get_par(a, "speed")
-                end
-            end
+    if hero_item_count( "sp_boots_speed" ) > 0 then
+      Attack.log( "itm_boots_log" )
+      local tormoz
+      local speed, speed2 = 7, 0
+      for a = 1, Attack.act_count() - 1 do
+        if Attack.act_ally( a ) then
+          if Attack.act_get_par( a, "speed" ) <= speed then
+            tormoz = a
+            speed = Attack.act_get_par( a, "speed" )
+          end
         end
-        if tormoz ~= nil then
-          Attack.act_attach_modificator(tormoz, "speed", "palom", 1, 0, 0, -100, false, 0, false)
-          Attack.act_ap( tormoz, speed + 1 )
-          Attack.atom_spawn(tormoz, 0, "magic_reaction", Attack.angleto(tormoz))
-        end
+      end
+
+      if tormoz ~= nil then
+        Attack.act_attach_modificator( tormoz, "speed", "palom", 1, 0, 0, -100, false, 0, false )
+        Attack.act_ap( tormoz, speed + 1 )
+        Attack.atom_spawn( tormoz, 0, "magic_reaction", Attack.angleto( tormoz ) )
+      end
     end
 
     -- Осторожность
@@ -744,6 +745,8 @@ function on_round_start( round, tend )
           Attack.act_attach_modificator_res( a, "physical", "sc", start_defense_p, 0, 0, -100, false, 0, true )
         end
       end
+
+      Attack.log( tend + .01, "start_defense_log", "name", "<label=skill_start_defense_name>", "special", start_defense_p )
     end
 
     -- Натиск
@@ -754,6 +757,8 @@ function on_round_start( round, tend )
           Attack.act_attach_modificator( a, "initiative", "rush_i", rush_i, 0, 0, 1 )
         end
       end
+
+      Attack.log( tend + .01, "rush_i_log", "name", "<label=skill_rush_name>", "special", rush_i )
     end
 
     -- New! Rush also increases speed
@@ -764,13 +769,20 @@ function on_round_start( round, tend )
           Attack.act_attach_modificator( a, "speed", "rush_s", rush_s, 0, 0, 1 )
         end
       end
+
+      Attack.log( tend + .01, "rush_s_log", "name", "<label=skill_rush_name>", "special", rush_s )
     end
 
     -- Высшая магия (начало)
     local t = skill_power2( "hi_magic", 1 )
     Logic.hero_lu_var( "double_book_charges", t )
 
-    if t > 0 then t = 2 else t = 1 end
+    if t > 0 then
+      t = 2
+      Attack.log( tend + .01, "hi_magic_log", "name", "<label=skill_hi_magic_name>", "special", t )
+    else
+      t = 1
+    end
 
     Logic.hero_lu_var( "book_times", t + book_extra_times )
 
@@ -913,14 +925,33 @@ function on_round_start( round, tend )
       end
     end
 
-    -- Концентрация
-    local concentration = math.ceil( ( skill_power2( "concentration" ) + hero_item_count( "sp_mana_battle" ) ) * mana_rage_gain_k )
-    if concentration > 0
-    and Logic.hero_lu_item( "mana", "count" ) < Logic.hero_lu_item( "mana", "limit" ) then
-      local prev = hero_item_count( "mana" )
-      Logic.hero_lu_item( "mana", "count", prev + concentration )
-      Attack.log( tend + .01, "concentration_log", "special", hero_item_count( "mana" ) - prev )
+    local hclass = Game.HSP_class()
+    local mana_class, rage_class = 0, 0
+
+    if hclass == 0 then
+      rage_class = 2
+    elseif hclass == 1 then
+      rage_class = 1
+      mana_class = 1
+    elseif hclass == 2 then
+      mana_class = 2
     end
+
+    local function kind_per_round( skill, item, class_bonus, kind, tend )
+      local skill_bonus = skill_power2( skill )
+      local item_bonus = hero_item_count( item )
+      local bonus_per_round = math.ceil( ( skill_bonus + item_bonus + class_bonus ) * mana_rage_gain_k )
+
+      if bonus_per_round > 0
+      and Logic.hero_lu_item( kind, "count" ) < Logic.hero_lu_item( kind, "limit" ) then
+        local prev = hero_item_count( kind )
+        Logic.hero_lu_item( kind, "count", prev + bonus_per_round )
+        Attack.log( tend + .01, skill .. "_log", "special", hero_item_count( kind ) - prev )
+      end
+    end
+
+    kind_per_round( "concentration", "sp_mana_battle", mana_class, "mana", tend )
+    kind_per_round( "brutality", "sp_rage_battle", rage_class, "rage", tend )
 
     -- Высшая магия (окончание)
     local dbc = Logic.hero_lu_var( "double_book_charges" )
@@ -933,8 +964,12 @@ function on_round_start( round, tend )
         Logic.hero_lu_var( "double_book_charges", dbc )
       end
 
-      if dbc > 0 then Logic.hero_lu_var( "book_times", 2 )
-      else Logic.hero_lu_var( "book_times", 1 + book_extra_times ) end
+      if dbc > 0 then
+        Logic.hero_lu_var( "book_times", 2 )
+        Attack.log( tend + .01, "hi_magic_log", "name", "<label=skill_hi_magic_name>", "special", 2 )
+      else
+        Logic.hero_lu_var( "book_times", 1 + book_extra_times )
+      end
     end
 
     regen_enemy_hero_mana( ehero_mana )
@@ -1973,6 +2008,22 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
 
       elseif name == "haste" then
         if mintours2enemy > 1 then target = mover end
+
+      elseif name == "entangle" then
+        local shortestdistance2enemy = 1000
+
+        for i = 1, atk.targets.n do
+          local act = atk.targets[ i ]
+          local distance2closestenemy = path_len( mover, act )
+
+          if distance2closestenemy < shortestdistance2enemy
+          and not Attack.act_is_spell( act, "effect_entangle" ) then
+            shortestdistance2enemy = distance2closestenemy
+            target = act
+            prob = ( act.leadship * act.units ) / mover_power * 1000 / shortestdistance2enemy
+          end
+        end
+
 
       elseif name == "cast_thorn"
       or name == "cast_bear"

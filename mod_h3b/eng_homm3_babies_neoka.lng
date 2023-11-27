@@ -1,6 +1,6 @@
 //==== kid_aeris
 itm_kid_aeris_name=Aeris
-itm_kid_aeris_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, Scouting, Pegasi, Silver...[/s] [postamble_boy][wisdom1][scouting1][druid1]
+itm_kid_aeris_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Druid, Wisdom, Scouting, Pegasi, Silver...[/s] [postamble_boy][wisdom1][scouting_rage1][scouting_ragemap1][druid1]
 itm_kid_aeris_info=^?^[info_boy]
 itm_kid_aeris_mhint=^?^
 itm_kid_aeris_minfo=^?^
@@ -104,7 +104,7 @@ itm_kid_gem_taken=^?^
 
 //==== kid_mephala
 itm_kid_mephala_name=Mephala
-itm_kid_mephala_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Leadership, Armorer...[/s] [postamble_girl][leadership1][armor2]
+itm_kid_mephala_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Leadership, Armorer...[/s] [postamble_girl][leadership1][armorer2]
 itm_kid_mephala_info=^?^[info_girl]
 itm_kid_mephala_mhint=^?^
 itm_kid_mephala_minfo=^?^
@@ -128,7 +128,7 @@ itm_kid_gelu_taken=^?^
 
 //==== kid_monere
 itm_kid_monere_name=Monere
-itm_kid_monere_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Logistics, Psychic, Magic, Elemental...[/s] [postamble_boy][offense1][logistics1][psychic_magic_elemental1]
+itm_kid_monere_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Logistics, Psychic, Magic, Elemental...[/s] [postamble_boy][offense1][logistics1][magic_elemental]
 itm_kid_monere_info=^?^[info_boy]
 itm_kid_monere_mhint=^?^
 itm_kid_monere_minfo=^?^
@@ -136,7 +136,7 @@ itm_kid_monere_taken=^?^
 
 //==== kid_pasis
 itm_kid_pasis_name=Pasis
-itm_kid_pasis_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Psychic, Magic, Elemental...[/s] [postamble_girl][offense1][artillery1][psychic_magic_elemental1]
+itm_kid_pasis_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Psychic, Magic, Elemental...[/s] [postamble_girl][offense1][artillery1][psychic_elemental]
 itm_kid_pasis_info=^?^[info_girl]
 itm_kid_pasis_mhint=^?^
 itm_kid_pasis_minfo=^?^

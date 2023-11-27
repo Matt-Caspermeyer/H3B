@@ -128,7 +128,8 @@ kid_piquedram {
   }
   mods {
     sp_mana_battle=count,2
-    rage=limit,36%
+    sp_rage_map=count,45
+    rage=limit,18%
     sp_lead_unit_thorn=count,15
     sp_lead_unit_thorn_warrior=count,15
     sp_lead_unit_kingthorn=count,7
@@ -315,7 +316,8 @@ kid_shiva {
   }
   mods {
     sp_lead_unit_greendragon=count,9
-    sp_rage_battle_prc=count,72
+    sp_rage_battle=count,2
+    sp_rage_battle_inflow=count,54
   }
   propbits=child,rare
   params {}
@@ -1362,7 +1364,7 @@ kid_kalt {
         belligerent=ally
       }
       pbonus=
-      dbonus=magic,0,9,0,-100,0,0
+      dbonus=poison,0,9,0,-100,0,0
       rbonus=poison,9,0,0,-100,0,0
       attack_on=
       attack_off=
@@ -1424,18 +1426,8 @@ kid_lacus {
         belligerent=ally
       }
       pbonus=
-      dbonus=physical,0,9,0,-100,0,0
-      rbonus=physical,9,0,0,-100,0,0
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-      }
-      pbonus=
-      dbonus=magic,0,9,0,-100,0,0
-      rbonus=poison,9,0,0,-100,0,0
+      dbonus=poison,0,18,0,-100,0,0
+      rbonus=poison,18,0,0,-100,0,0
       attack_on=
       attack_off=
     }

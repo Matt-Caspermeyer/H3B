@@ -215,7 +215,7 @@ kid_calh {
   }
   mods {
     rage=limit,20%
-    sp_rage_battle_prc=count,40
+    sp_rage_map=count,50
     sp_lead_unit_spider_fire=count,25
   }
   propbits=child,rare
@@ -837,7 +837,10 @@ kid_fiona {
     }
   }
   mods {
-    rage=limit,40%
+    rage=limit,20%
+    sp_rage_map=count,50
+    sp_rage_battle_inflow=count,60
+    sp_rage_battle=count,2
     sp_lead_unit_cerberus=count,20
   }
   propbits=child,rare
@@ -1646,8 +1649,8 @@ kid_fiur {
         belligerent=ally
       }
       pbonus=
-      dbonus=fire,0,20,0,-100,0,0
-      rbonus=fire,5,0,0,-100,0,0
+      dbonus=fire,0,10,0,-100,0,0
+      rbonus=fire,10,0,0,-100,0,0
       attack_on=
       attack_off=
     }
@@ -1656,28 +1659,8 @@ kid_fiur {
         belligerent=ally
       }
       pbonus=
-      dbonus=
-      rbonus=magic,5,0,0,-100,0,0
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-      }
-      pbonus=
-      dbonus=
-      rbonus=physical,5,0,0,-100,0,0
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-      }
-      pbonus=
-      dbonus=
-      rbonus=poison,5,0,0,-100,0,0
+      dbonus=magic,0,10,0,-100,0,0
+      rbonus=magic,10,0,0,-100,0,0
       attack_on=
       attack_off=
     }
@@ -1770,37 +1753,7 @@ kid_ignissa {
       }
       pbonus=
       dbonus=fire,0,20,0,-100,0,0
-      rbonus=fire,5,0,0,-100,0,0
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-      }
-      pbonus=
-      dbonus=
-      rbonus=magic,5,0,0,-100,0,0
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-      }
-      pbonus=
-      dbonus=
-      rbonus=physical,5,0,0,-100,0,0
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-      }
-      pbonus=
-      dbonus=
-      rbonus=poison,5,0,0,-100,0,0
+      rbonus=fire,20,0,0,-100,0,0
       attack_on=
       attack_off=
     }
@@ -2177,7 +2130,9 @@ kid_deemer {
   weight=10
   mods {
     sp_power_int=count,20
-    sp_rage_battle_prc=count,80
+    rage=limit,20%
+    sp_rage_battle_inflow=count,60
+    sp_rage_battle=count,4
     sp_spell_defense=count,10
     sp_spell_attack=count,10
   }

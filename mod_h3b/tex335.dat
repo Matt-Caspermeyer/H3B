@@ -255,5 +255,37 @@ TEX335 {
     geom_size=1,1
     mask=7347,237
   }
-  texture_size=172,352
+  block {
+    filename=BA1_royal_thorn_entangle_normal.png
+    in_tex_pos=0,352
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=7584,237
+  }
+  block {
+    filename=BA1_royal_thorn_entangle_disabled.png
+    in_tex_pos=43,352
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=7821,237
+  }
+  block {
+    filename=BA1_royal_thorn_entangle_onmouse.png
+    in_tex_pos=86,352
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=8058,237
+  }
+  block {
+    filename=BA1_royal_thorn_entangle_onpress.png
+    in_tex_pos=129,352
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=8295,237
+  }
+  texture_size=172,396
 }

@@ -16,7 +16,7 @@ itm_kid_kilgor_taken=^?^
 
 //==== kid_erdamon
 itm_kid_erdamon_name=Erdamon
-itm_kid_erdamon_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Tactics, Estates, Earth, Magma, Elemental...[/s] [postamble_boy][tactics_espeed1][estates1][earth_magma_elemental1]
+itm_kid_erdamon_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Tactics, Estates, Earth, Magma, Elemental...[/s] [postamble_boy][tactics_espeed1][estates1][magma_elemental]
 itm_kid_erdamon_info=^?^[info_boy]
 itm_kid_erdamon_mhint=^?^
 itm_kid_erdamon_minfo=^?^

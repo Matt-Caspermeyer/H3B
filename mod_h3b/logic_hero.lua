@@ -218,31 +218,115 @@ function gen_hero_class()
   return "<label=hero_class_" .. hero .. ">"
 end
 
-function hero_rebirth(par) --ftag:action
-
+function hero_rebirth( par ) --ftag:action
   local hclass = Game.HSP_class()
+
   if hclass == nil or hclass < 0 then
     hclass = 0
   end
 
-  local hero = Game.Config("heroclasses/" .. tostring(hclass) )
-  local hero_cfg="hero_"..hero
-  local army = Game.Config(hero_cfg.."/start/army")
+  local hero = Game.Config( "heroclasses/" .. tostring( hclass ) )
+  local hero_cfg = "hero_" .. hero
+  local location = Game.LocName()
 
-  Logic.hero_lu_army( army )
+  if string.find( location, "training_centre" ) then
+    local starting_army = Game.GVStr( "starting_army" )
+    Logic.hero_lu_army( starting_army )
+  else
+    local current_leadership = Logic.hero_lu_item( "leadership", "count" )
+    local max_leadership = tonumber( text_dec( Game.Config( 'difficulty_k/releadmax' ), Game.HSP_difficulty() + 1, '|' ) )
+    local leadership = math.min( current_leadership, max_leadership )
+    hero_random_army( hero_cfg, leadership, 5 )
+  end
 
   return false
 end
 
-function add_hero_spell(path, spellname, spellparam)
+-- New! Randomly generates the hero's starting army
+function hero_random_army( hero_cfg, leadership, total_slots )
+  local unit_list = Game.Config( hero_cfg .. "/start/army" )
+  local length_unit_list = text_par_count( unit_list )
+  local unit_names = {}
+
+  for i = 1, length_unit_list do
+    local unit_name = text_dec( unit_list, i )
+
+    if Logic.cp_leadship( unit_name ) < leadership then
+      table.insert( unit_names, unit_name )
+    end
+  end
+    
+  local function remove_duplicate_table_entries( table_name )
+    table.sort( table_name )
+
+    local i = 1
+    while i < table.getn( table_name ) do
+      if table_name[ i ] == table_name[ i + 1 ] then
+        table.remove( table_name, i + 1 )
+      else
+        i = i + 1
+      end
+    end
+
+    return table_name
+  end
+
+  unit_names = remove_duplicate_table_entries( unit_names )
+  local army = ""
+
+  for i = 1, total_slots do
+    local index = Game.Random( 1, table.getn( unit_names ) )
+    local number = math.floor( leadership / Logic.cp_leadship( unit_names[ index ] ) )
+
+    if i == 1 then
+      army = army .. unit_names[ index ] .. "|" .. tostring( number )
+    else
+      army = army .. "|" .. unit_names[ index ] .. "|" .. tostring( number )
+    end
+    table.remove( unit_names, index )
+  end
+
+  Logic.hero_lu_army( army )
+
+  if total_slots == 3 then
+    Game.GVStr( "starting_army", army )
+  end
+
+  return true  
+end
+
+
+function add_hero_spell( path, spellname, spellparam )
   if spellparam ~= nil then
     local level = tonumber( spellparam )
-    if level < 0 then
+
+    if level == 0 then
+      local hclass = Logic.hero_lu_var( "class" )
+
+      if hclass == nil then
+        hclass = Game.HSP_class()
+      end
+
+      local hero = Game.Config( "heroclasses/" .. tostring( hclass ) )
+      local hero_cfg = "hero_" .. hero
+      local spell_chance = tonumber( Game.Config( hero_cfg .. "/start/spell_chance" ) )
+      local scroll_chance = tonumber( Game.Config( hero_cfg .. "/start/scroll_chance" ) )
+
+      if Game.Random( 100 ) < spell_chance then
+        if Game.Random( 100 ) < scroll_chance then
+          Logic.hero_add_spell( spellname, 0, Game.Random( 1, 3 ) )
+        else
+          Logic.hero_add_spell( spellname, 1 )
+        end
+      end
+
+    elseif level < 0 then
       Logic.hero_add_spell( spellname, 0, -level )
     else
       Logic.hero_add_spell( spellname, level )
     end
   end
+
   return true
 end
 
@@ -254,95 +338,95 @@ function add_hero_item(path, itemname, countpar)
   return true
 end
 
-function generation_hero(par) --ftag:action
-
+function generation_hero( par ) --ftag:action
   local hclass = Game.HSP_class()
-  if hclass == nil or hclass < 0 then
+
+  if hclass == nil
+  or hclass < 0 then
     hclass = 0
   end
 
-  local hero = Game.Config("heroclasses/" .. tostring(hclass) )
+  local hero = Game.Config( "heroclasses/" .. tostring( hclass ) )
 
-  if par ==nil or par == "" then hero = par end
-  local hero_cfg="hero_"..hero
-  Logic.hero_lu_var("class",hclass)
-  Logic.hi_slots( hero_cfg.."/slots" )
+  if par == nil or par == "" then hero = par end
 
-  local   leadership=tonumber(Game.Config(hero_cfg.."/start/leadership"))
-  local   attack=tonumber(Game.Config(hero_cfg.."/start/attack"))
-  local   defense=tonumber(Game.Config(hero_cfg.."/start/defense"))
-  local   intellect=tonumber(Game.Config(hero_cfg.."/start/intellect"))
-  local   mana=tonumber(Game.Config(hero_cfg.."/start/mana"))
-  local   rage=tonumber(Game.Config(hero_cfg.."/start/rage"))
-  local   gold=tonumber(Game.Config(hero_cfg.."/start/gold"))
-  local   crystals=tonumber(Game.Config(hero_cfg.."/start/crystals"))
-  local   rune_might=tonumber(Game.Config(hero_cfg.."/start/rune_might"))
-  local   rune_mind=tonumber(Game.Config(hero_cfg.."/start/rune_mind"))
-  local   rune_magic=tonumber(Game.Config(hero_cfg.."/start/rune_magic"))
-  local   book=tonumber(Game.Config(hero_cfg.."/start/book"))
+  local hero_cfg = "hero_" .. hero
+  Logic.hero_lu_var( "class", hclass )
+  Logic.hi_slots( hero_cfg .. "/slots" )
+  local leadership = tonumber( Game.Config( hero_cfg .. "/start/leadership" ) )
+  local attack = tonumber( Game.Config( hero_cfg .. "/start/attack" ) )
+  local defense = tonumber( Game.Config( hero_cfg .. "/start/defense" ) )
+  local intellect = tonumber( Game.Config( hero_cfg .. "/start/intellect" ) )
+  local mana = tonumber( Game.Config( hero_cfg .. "/start/mana" ) )
+  local rage = tonumber( Game.Config( hero_cfg .. "/start/rage" ) )
+  local gold = tonumber( Game.Config( hero_cfg .. "/start/gold" ) )
+  local crystals = tonumber( Game.Config( hero_cfg .. "/start/crystals" ) )
+  local rune_might = tonumber( Game.Config( hero_cfg .. "/start/rune_might" ) )
+  local rune_mind = tonumber( Game.Config( hero_cfg .. "/start/rune_mind" ) )
+  local rune_magic = tonumber( Game.Config( hero_cfg .. "/start/rune_magic" ) )
+  local book = tonumber( Game.Config( hero_cfg .. "/start/book" ) )
+  local rindex = Game.Mutate( 6 ) + 1 -- индекс начала выдачи рун
+  local rside = Game.Mutate( 2 )      -- направление отсчета
+  Logic.hero_lu_var( "rindex",rindex )
+  Logic.hero_lu_var( "rside",rside )
+  local diff = Game.HSP_difficulty()
 
-  local rindex=Game.Mutate(6)+1 -- индекс начала выдачи рун
-  local rside=Game.Mutate(2) -- направление отсчета
-    Logic.hero_lu_var("rindex",rindex)
-  Logic.hero_lu_var("rside",rside)
+  if diff == 0 then -- легкий уровень
+      gold = gold * 5
+      crystals = crystals * 5
+      mana = math.ceil( mana * 1.5 )
+      rage = math.ceil( rage * 1.5 )
+      rune_might = rune_might + 8
+      rune_mind = rune_mind + 8
+      rune_magic = rune_magic + 8
+      book = math.ceil( book * 2 )
+  end
 
-    local diff=Game.HSP_difficulty()
-    if diff==0 then -- легкий уровень
-        gold=gold*5
-        crystals=crystals*5
-        mana=math.ceil(mana*1.5)
-        rage=math.ceil(rage*1.5)
-        rune_might=rune_might+8
-        rune_mind=rune_mind+8
-        rune_magic=rune_magic+8
-        book=math.ceil(book*2)
-    end
-    if diff==1 then -- нормальный уровень
-        gold=gold*2
-        crystals=crystals*2
-        mana=math.ceil(mana*1.25)
-        rage=math.ceil(rage*1.25)
-        rune_might=rune_might+2
-        rune_mind=rune_mind+2
-        rune_magic=rune_magic+2
-        book=math.ceil(book*1.3)
-    end
+  if diff == 1 then -- нормальный уровень
+      gold = gold * 2
+      crystals = crystals * 2
+      mana = math.ceil( mana * 1.25 )
+      rage = math.ceil( rage * 1.25 )
+      rune_might = rune_might + 2
+      rune_mind = rune_mind + 2
+      rune_magic = rune_magic + 2
+      book = math.ceil( book * 1.3 )
+  end
 
-  Logic.hero_lu_item("money","count",gold)
-  Logic.hero_lu_item("leadership","count",leadership)
-  Logic.hero_lu_item("attack","count",attack)
-  Logic.hero_lu_item("defense","count",defense)
-  Logic.hero_lu_item("intellect","count",intellect)
-  Logic.hero_lu_item("mana","limit",mana)
-  Logic.hero_lu_item("mana","count",mana)
-  Logic.hero_lu_item("rage","limit",rage)
-  Logic.hero_lu_item("rage","count",0)
-  Logic.hero_lu_item("crystals","count",crystals)
-  Logic.hero_lu_item("rune_mind","count",rune_mind)
-  Logic.hero_lu_item("rune_might","count",rune_might)
-  Logic.hero_lu_item("rune_magic","count",rune_magic)
-  Logic.hero_lu_item("booksize","count",book)
-
-  local army = Game.Config(hero_cfg.."/start/army")
-  Logic.hero_lu_army( army )
-
-  Game.ConfigEnum(hero_cfg.."/start/spells", "add_hero_spell")
-  Game.ConfigEnum(hero_cfg.."/start/items", "add_hero_item")
+  Logic.hero_lu_item( "money", "count", gold )
+  Logic.hero_lu_item( "leadership", "count", leadership )
+  Logic.hero_lu_item( "attack", "count", attack )
+  Logic.hero_lu_item( "defense", "count", defense )
+  Logic.hero_lu_item( "intellect", "count", intellect )
+  Logic.hero_lu_item( "mana", "limit", mana )
+  Logic.hero_lu_item( "mana", "count", mana )
+  Logic.hero_lu_item( "rage", "limit", rage )
+  Logic.hero_lu_item( "rage", "count", 0 )
+  Logic.hero_lu_item( "crystals", "count", crystals )
+  Logic.hero_lu_item( "rune_mind", "count", rune_mind )
+  Logic.hero_lu_item( "rune_might", "count", rune_might )
+  Logic.hero_lu_item( "rune_magic", "count", rune_magic )
+  Logic.hero_lu_item( "booksize", "count", book )
+  Game.ConfigEnum( hero_cfg .. "/start/spells", "add_hero_spell" )
+  Game.ConfigEnum( hero_cfg .. "/start/items", "add_hero_item" )
 
   -- apply skill after! params
-  local skill_off=Game.Config(hero_cfg.."/start/skills_off")
-  local skill_off_count=text_par_count(skill_off)
-  for i=1,skill_off_count do
-      Logic.hero_lu_skill(text_dec(skill_off,i),-1)
+  local skill_off = Game.Config( hero_cfg .. "/start/skills_off" )
+  local skill_off_count = text_par_count( skill_off )
+
+  for i = 1, skill_off_count do
+    Logic.hero_lu_skill( text_dec( skill_off, i ), -1 )
   end
-  local skill_on=Game.Config(hero_cfg.."/start/skills_open")
-  local skill_on_count=text_par_count(skill_on)
-  for i=1,skill_on_count do
-      Logic.hero_lu_skill(text_dec(skill_on,i),1)
+
+  local skill_on = Game.Config( hero_cfg .. "/start/skills_open" )
+  local skill_on_count = text_par_count( skill_on )
+  for i = 1, skill_on_count do
+    Logic.hero_lu_skill( text_dec( skill_on, i ), 1 )
   end
+
+  hero_random_army( hero_cfg, Logic.hero_lu_item( "leadership", "count" ), 3 )
 
   return false
-
 end
 
 -- ѕовышение уровн€ геро€

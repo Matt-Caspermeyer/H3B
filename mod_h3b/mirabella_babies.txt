@@ -427,7 +427,17 @@ kid_edric {
       filter {
         belligerent=ally
       }
-      pbonus=defense,0,16,0,-100,0,0
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=defense,0,8,0,-100,0,0
       dbonus=
       rbonus=
       attack_on=
@@ -542,185 +552,13 @@ kid_orrin {
     {
       filter {
         belligerent=ally
-        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
       }
-      pbonus=
-      dbonus=fire,0,24,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
-      }
-      pbonus=
-      dbonus=magic,0,24,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
-      }
-      pbonus=
-      dbonus=physical,0,24,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
-      }
-      pbonus=
-      dbonus=poison,0,24,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
-      }
-      pbonus=
-      dbonus=physical,2,0,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-  }
-  propbits=child,rare
-  params {}
-  actions {
-    tick=
-    onuse=
-    bfight=
-    @=020000000000008000000000
-  }
-}
-kid_sylvia {
-  category=o
-  image=heroitem_tome_sylvia.png
-  hint_config=object_item
-  label=itm_kid_sylvia_name
-  hint=itm_kid_sylvia_hint
-  information_label=itm_kid_sylvia_info
-  maphint=
-  mapinfo=
-  price=8
-  maxcount=0
-  level=4
-  race=human
-  use {}
-  weight=10
-  fight {
-    {
-      filter {
-        belligerent=ally
-        loctype=forest,sea,winter
-      }
-      pbonus=krit,0,192,0,-100,0,0
+      pbonus=moral,1,0,0,-100,0,0
       dbonus=
       rbonus=
       attack_on=
       attack_off=
     }
-    {
-      filter {
-        belligerent=ally
-        loctype=forest,sea,winter
-      }
-      pbonus=initiative,3,0,0,-100,0,0
-      dbonus=
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        loctype=forest,sea,winter
-        race=demon,dwarf,elf,human,neutral,orc
-      }
-      pbonus=moral,3,0,0,-100,0,0
-      dbonus=
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        loctype=forest,sea,winter
-      }
-      pbonus=speed,3,0,0,-100,0,0
-      dbonus=
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-  }
-  propbits=child,rare
-  params {}
-  actions {
-    tick=
-    onuse=
-    bfight=
-    @=020000000000008000000000
-  }
-}
-kid_haart {
-  category=o
-  image=heroitem_tome_haart.png
-  hint_config=object_item
-  label=itm_kid_haart_name
-  hint=itm_kid_haart_hint
-  information_label=itm_kid_haart_info
-  maphint=
-  mapinfo=
-  price=8
-  maxcount=0
-  level=4
-  race=human
-  use {}
-  weight=10
-  fight {
-  }
-  mods {
-    sp_addgold_battle=count,120
-    sp_addgold_chestt=count,120
-  }
-  propbits=child,rare
-  params {}
-  actions {
-    tick=
-    onuse=
-    bfight=
-    @=020000000000008000000000
-  }
-}
-kid_valeska {
-  category=o
-  image=heroitem_tome_valeska.png
-  hint_config=object_item
-  label=itm_kid_valeska_name
-  hint=itm_kid_valeska_hint
-  information_label=itm_kid_valeska_info
-  maphint=
-  mapinfo=
-  price=8
-  maxcount=0
-  level=4
-  race=human
-  use {}
-  weight=10
-  fight {
     {
       filter {
         belligerent=ally
@@ -772,6 +610,217 @@ kid_valeska {
       }
       pbonus=
       dbonus=physical,1,0,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_sylvia {
+  category=o
+  image=heroitem_tome_sylvia.png
+  hint_config=object_item
+  label=itm_kid_sylvia_name
+  hint=itm_kid_sylvia_hint
+  information_label=itm_kid_sylvia_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=4
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        loctype=forest,sea,winter
+      }
+      pbonus=krit,0,128,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        loctype=forest,sea,winter
+      }
+      pbonus=initiative,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        loctype=forest,sea,winter
+        race=demon,dwarf,elf,human,neutral,orc
+      }
+      pbonus=moral,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        loctype=forest,sea,winter
+      }
+      pbonus=speed,2,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,8,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_haart {
+  category=o
+  image=heroitem_tome_haart.png
+  hint_config=object_item
+  label=itm_kid_haart_name
+  hint=itm_kid_haart_hint
+  information_label=itm_kid_haart_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=4
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+  }
+  mods {
+    sp_addgold_battle=count,80
+    sp_addgold_chestt=count,80
+  }
+  propbits=child,rare
+  params {}
+  actions {
+    tick=
+    onuse=
+    bfight=
+    @=020000000000008000000000
+  }
+}
+kid_valeska {
+  category=o
+  image=heroitem_tome_valeska.png
+  hint_config=object_item
+  label=itm_kid_valeska_name
+  hint=itm_kid_valeska_hint
+  information_label=itm_kid_valeska_info
+  maphint=
+  mapinfo=
+  price=8
+  maxcount=0
+  level=4
+  race=human
+  use {}
+  weight=10
+  fight {
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=fire,0,8,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=magic,0,8,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=physical,0,8,0,-100,0,0
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+      }
+      pbonus=
+      dbonus=poison,0,8,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -985,9 +1034,19 @@ kid_christian {
     {
       filter {
         belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
         unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
       }
-      pbonus=attack,0,32,0,-100,0,0
+      pbonus=attack,0,16,0,-100,0,0
       dbonus=
       rbonus=
       attack_on=
@@ -1181,10 +1240,9 @@ kid_sorsha {
     {
       filter {
         belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
-      pbonus=
-      dbonus=fire,0,16,0,-100,0,0
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
       rbonus=
       attack_on=
       attack_off=
@@ -1195,7 +1253,7 @@ kid_sorsha {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=magic,0,16,0,-100,0,0
+      dbonus=fire,0,8,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1206,7 +1264,7 @@ kid_sorsha {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=physical,0,16,0,-100,0,0
+      dbonus=magic,0,8,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1217,7 +1275,7 @@ kid_sorsha {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=poison,0,16,0,-100,0,0
+      dbonus=physical,0,8,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1228,7 +1286,7 @@ kid_sorsha {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=physical,1,0,0,-100,0,0
+      dbonus=poison,0,8,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1420,6 +1478,16 @@ kid_tyris {
     {
       filter {
         belligerent=ally
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
         unit=horseman
       }
       pbonus=health,0,13,0,-100,0,0
@@ -1463,8 +1531,8 @@ kid_tyris {
     }
   }
   mods {
-    attack=count,16%
-    defense=count,16%
+    attack=count,8%
+    defense=count,8%
     sp_lead_unit_horseman=count,13
   }
   propbits=child,rare

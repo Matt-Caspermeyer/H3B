@@ -851,7 +851,7 @@ kid_ajit {
     @=020000000000008000000000
   }
 }
-kid_lorelei {
+kid_lorelei {
   category=o
   image=heroitem_tome_lorelei.png
   hint_config=object_item
@@ -923,7 +923,7 @@ kid_lorelei {
     }
   }
   mods {
-    sp_rage_battle_prc=count,32
+    sp_rage_map=count,40
     rage=limit,16%
     sp_lead_unit_alchemist=count,13
     sp_lead_unit_cannoner=count,13
@@ -1272,18 +1272,8 @@ kid_thunar {
         belligerent=ally
       }
       pbonus=
-      dbonus=fire,0,8,0,-100,0,0
-      rbonus=fire,8,0,0,-100,0,0
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-      }
-      pbonus=
-      dbonus=physical,0,8,0,-100,0,0
-      rbonus=physical,8,0,0,-100,0,0
+      dbonus=physical,0,16,0,-100,0,0
+      rbonus=physical,16,0,0,-100,0,0
       attack_on=
       attack_off=
     }

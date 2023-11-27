@@ -90,7 +90,7 @@ effect_entangle {
   hint_header=effect_entangle_header
   icon=book_effect_slow.png       // не нужно для эффекта
   
-  nfeatures=golem
+  nfeatures=plant,golem
   scripted {
     script_attack=effect_entangle_attack
     ad_factor=0  // use attack/defense

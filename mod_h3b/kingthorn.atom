@@ -21,7 +21,7 @@ arena_params {
   hitback=1
   hitbackprotect=0
   features=shot,plant,eyeless,mind_immunitet,poison_immunitet
-  attacks=moveattack,cast_thorn,throw1
+  attacks=moveattack,cast_thorn,throw1,entangle
   resistances {
     physical=0
     poison=80
@@ -65,6 +65,25 @@ arena_params {
     framekey=x
     damage {
       physical=20,30
+    }
+  }
+  entangle {
+    class=scripted
+    attack_cursor=magicstick
+    warning=sw_default
+    hinthead=special_entangle_head
+    hint=special_entangle_hint
+    picture=BA1_royal_thorn_entangle_
+    picture_small=BA1_royal_thorn_entangle_small.png
+    moves=1
+    script_attack=effect_entangle_attack
+    script_calccells=calccells_special_all_enemy_level_mt
+    no_hint=1
+    nfeatures=plant,golem
+    anim_attack=cast
+    custom_params {
+      level=4
+      movetype=1
     }
   }
 }

@@ -160,6 +160,109 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Version: Beta 2012-06-12
+* mod_homm3_babies.kfs
+  & *.ATOM
+    ^ ENT.ATOM - added level=4 to custom parameters for its post-entangle effect
+    ^ ENT2.ATOM
+      % Added level=5 to custom parameters for its post-entangle effect
+      % Increased chance of entangle to 75%
+    ^ KINGTHORN.ATOM - added new Entangle ability
+  & TEMPLATES.LNG
+    ^ Updated "Planeswalker" baby templates
+    ^ Added new colors for combat log skill bonuses at the start of the round
+  & *.LUA
+    ^ ARENA.LUA
+      % Added capability for AI to use new Royal Thorn Entangle ability
+      % Frenzy now increases the hero rage every round during combat (similar to Concentration for mana)
+      % Each class now has a base mana and / or rage gain per round bonus
+      % New logs for skill round bonuses
+    ^ ITEMS_HINT.LUA
+      % Fixed issues with "Planeswalker" babies elemental skill generator text
+      % Finally discovered how to get a unit's level outside of combat (i.e. use Logic.cp_level) instead of having it hard coded.
+    ^ LOGIC_HERO.LUA
+      % The starting and rebirth hero army is now randomly generated from a possible list in HERO.TXT
+      % The starting spells and scrolls are now randomly generated from a possible list in HERO.TXT
+    ^ SKILLS.LUA - added new function for showing the combat rounds that the mana (Concentration) and rage (Frenzy) regeneration occur over
+    ^ SPELLS.LUA - fixed bug where the Spell Healing damage to the Undead used the wrong bonus system
+    ^ SPELL_EFFECTS.LUA - updated Entangle so that it also halves a units initiative
+    ^ SPELLS_COMMON.LUA - added new unit selector for Royal Thorn Entangle ability
+    ^ UNIT_FEATURES.LUA - updated Entangle ability not to apply to floating (soaring) units
+  & *.TXT
+    ^ DIANA_BABIES.TXT
+      % Updated "Planeswalker" babies:
+        $ Kalt (Ice Elemental) bonus is now Physical & Poison Damage / Resistance
+        $ Lacus (Water Elemental) bonus is now Poison Damage / Resistance
+      % Updated "Scouting" babies:
+        $ Piquedram's Scouting bonus is now +Rage% and +Slower% Rage Drain on Map
+        $ Shiva's Scouting bonus is now +Rage Inflow% and +Rage per Round
+    ^ EFFECTS.TXT - updated Entangle ability to exclude plants as potential targets
+    ^ FEANORA_BABIES.TXT
+      % Updated "Scouting" babies:
+        $ Broghild's Scouting bonus is now +Rage% and +Slower% Rage Drain on Map
+      % Voy "Navigation" baby - added Poison Resistance
+    ^ GERDA_BABIES.TXT
+      % Updated "Planeswalker" babies:
+        $ Thunar (Earth Elemental) bonus is now Physical Damage / Resistance
+      % Updated "Scouting" babies:
+        $ Lorelei's Scouting bonus is now +Rage% and +Slower% Rage Drain on Map
+    ^ HERO.TXT
+      % Paladin and Warriors starting leadership and level-up values have been swapped such that the Paladin now leads the most troops
+      % Now have a random army generation list for both starting and rebirthing (after they lose a combat)
+      % Now have the cabability to randomly generate spells and scrolls based on percentages you can specify
+      % Starting scroll limits updated
+    ^ LOGIC.TXT - added new parameter for the max leadership to randomly select units when your hero loses in combat
+    ^ MIRABELLA_BABIES.TXT
+      % Leadership babies restored to previous values (i.e. Leadership Morale +1, minus one level to other skill):
+        $ Edric
+	$ Orrin
+	$ Sylvia
+	$ Haart
+	$ Valeska
+	$ Christian
+	$ Sorsha
+	$ Tyris
+      % Sylvia, "Navigation" baby - added poison resistance
+    ^ NEOKA_BABIES.TXT
+      % Updated "Planeswalker" babies
+        $ Monere (Magic Elemental) bonus is now Magic Damage / Resistance
+        $ Pasis (Psychic Elemental) bonus is now Magic & Poison Damage / Resistance
+      % Updated "Scouting" babies:
+        $ Aeris's Scouting bonus is now +Rage% and +Slower% Rage Drain on Map
+    ^ ORCELYN_BABIES.TXT
+      % Updated "Planeswalker" babies
+        $ Erdamon (Magma Elemental) bonus is now Physical & Fire Damage / Resistance
+    ^ RINA_BABIES.TXT - added missing Necro Call bonus to Thant
+    ^ SKILLS.TXT - Frenzy now adds rage per round
+    ^ SPECIAL_PARAMS.TXT - added new rage gain per round item bonus
+    ^ XEONA_BABIES.TXT
+      % Updated "Planeswalker" babies:
+        $ Fiur (Energy Elemental) bonus is now Magic & Fire Damage / Resistance
+        $ Ignissa (Fire Elemental) bonus is now Fire Damage / Resistance
+      % Updated "Scouting" babies:
+        $ Calh's Scouting bonus is now +Rage% and +Slower% Rage Drain on Map
+        $ Fiona's Scouting bonus is now +Rage%, +Slower% Rage Drain on Map, +Rage Inflow%, and +Rage per Round
+        $ Deemer's Scouting bonus is now +Rage%, +Rage Inflow%, and +Rage per Round (level 2)
+* mod_homm3_babies_en(g)_lng.kfs
+  & EN(G)_BATTLE.LNG - new log templates for combat abilities at the start of the round
+  & EN(G)_HOMM3_BABIES_XXX.LNG (where XXX is for each wife)
+    ^ Updated "Planeswalker" baby generator if this wife had one of these babies
+    ^ Updated "Armorer" baby generator to match the word (rather than just armor) so that it is consistent with all other generator names
+    ^ Updated "Scouting" baby templates
+    ^ Fixed lower case names in Xeona's baby file: Deemer, Malekith
+  & EN(G)_SPELLS.LNG - updated Entangle description
+  & EN(G)_UNITS_FEATURES.LNG
+    % Updated Entangle description
+    % Added "Greater Entangle" for Ancient Ent's entangle ability (affects unit levels 1-5 with a 75% chance)
+  & EN(G)_UNITS_SPECIALS.LNG - updated Entangle description
+  & EN(G)_WINDOWS.LNG - each class now has a base mana and / or rage generation rate
+  & EN(G)_WIVES.LNG - added new generator label
+* mod_homm3_portraits.kfs
+  & TEX334.DAT - updated to include new ability small pictures (i.e. Royal Thorn Entangle)
+  & TEX335.DAT - updated to include new ability pictures (i.e. Royal Thorn Entangle)
+  & TEX334.DDS - updated to include new ability small pictures (i.e. Royal Thorn Entangle)
+  & TEX335.DDS - updated to include new ability pictures (i.e. Royal Thorn Entangle)
+
 Version: Beta 2012-04-08
 * mod_homm3_babies.kfs
   & TEMPLATES.LNG

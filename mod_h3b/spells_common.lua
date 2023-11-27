@@ -1320,6 +1320,45 @@ function calccells_enemy_special_amalgamation()
   return true
 end
 
+-- New for level-based specials
+function calccells_special_all_enemy_level()
+  local level = tonumber( Attack.get_custom_param( "level" ) )
+	
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
+		
+    if Attack.act_enemy( i )
+    and Attack.act_level( i ) <= level then
+      if Attack.act_applicable( i ) then      -- can receive this attack
+      	 Attack.marktarget( i )                -- select it
+      end
+    end
+  end
+
+  return true
+end
+
+-- New for level- and movetype-based specials (like Royal Thorn Entangle)
+function calccells_special_all_enemy_level_mt()
+  local level = tonumber( Attack.get_custom_param( "level" ) )
+  local movetype = tonumber( Attack.get_custom_param( "movetype" ) )
+	
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
+    local act_mt = Attack.act_mt( i )
+		
+    if Attack.act_enemy( i )
+    and act_mt ~= movetype
+    and Attack.act_level( i ) <= level then
+      if Attack.act_applicable( i ) then      -- can receive this attack
+      	 Attack.marktarget( i )                -- select it
+      end
+    end
+  end
+
+  return true
+end
+
 function calccells_enemy_beast()
   local level = tonumber( Attack.get_custom_param( "level" ) )
 	 local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) )

@@ -796,6 +796,7 @@ kid_thant {
   fight {
   }
   mods {
+    sp_gain_power_necromancy=count,12
     sp_mana_battle=count,4
   }
   propbits=child,rare

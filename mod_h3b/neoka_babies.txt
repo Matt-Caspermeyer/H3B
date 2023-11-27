@@ -84,7 +84,7 @@ kid_aeris {
   }
   mods {
     sp_power_int=count,20
-    sp_rage_battle_prc=count,40
+    sp_rage_map=count,50
     rage=limit,20%
     sp_lead_unit_druid=count,20
   }
@@ -1752,8 +1752,18 @@ kid_pasis {
         belligerent=ally
       }
       pbonus=
-      dbonus=magic,0,20,0,-100,0,0
-      rbonus=magic,20,0,0,-100,0,0
+      dbonus=magic,0,10,0,-100,0,0
+      rbonus=magic,10,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+      }
+      pbonus=
+      dbonus=poison,0,10,0,-100,0,0
+      rbonus=poison,10,0,0,-100,0,0
       attack_on=
       attack_off=
     }

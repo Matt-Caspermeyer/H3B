@@ -64,8 +64,10 @@ function effect_entangle_attack( target, pause, duration )
 
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_entangle", false )
     local duration_old = tonumber( Attack.act_spell_duration( target, "effect_entangle" ) )
-
+    local current_init, base_init = Attack.act_get_par( target, "initiative" )
+    local penalty = math.floor( math.max( current_init / 2, base_init / 2 ) )
     local message
+
     if duration_old ~=nil
     and duration_old ~= 0 then
       duration = math.max( duration, duration_old ) + 1
@@ -77,6 +79,7 @@ function effect_entangle_attack( target, pause, duration )
     Attack.act_del_spell( target, "effect_entangle" )
     Attack.act_apply_spell_begin( target, "effect_entangle", duration, false )
     Attack.act_apply_par_spell( "dismove", 1, 0, 0, duration, false )
+    Attack.act_apply_par_spell( "initiative", -penalty, 0, 0, duration, false)
     Attack.act_apply_spell_end()
  		 Attack.act_damage_addlog( target, message )
     Attack.atom_spawn( target, pause, "magic_slow", 0, true )

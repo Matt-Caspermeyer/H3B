@@ -729,19 +729,19 @@
         deps=1,1
         runes=4,0,0
         trade=
-        pars=+1
+        pars=+1,+1
       }
       2 {
         deps=1,1
         runes=8,0,0
         trade=
-        pars=+3
+        pars=+3,+3
       }
       3 {
         deps=1,1
         runes=12,0,0
         trade=
-        pars=+6
+        pars=+6,+6
       }
     }
   }

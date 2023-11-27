@@ -276,15 +276,18 @@ end
 function features_entangle( damage, addrage, attacker, receiver, minmax )
   if ( minmax == 0 ) then
     local entangle = tonumber( Attack.get_custom_param( "entangle" ) )
+    local level = tonumber( Attack.get_custom_param( "level" ) )
     entangle = effect_chance( entangle, "effect", "entangle" )
     local rnd = Game.Random( 100 )
   
     if rnd < entangle
     and not Attack.act_feature( receiver, "golem" )
+    and not Attack.act_feature( receiver, "plant" )
     and damage > 0
+    and not Attack.act_mt( receiver ) == 1
     and not Attack.act_feature( receiver, "pawn" )
     and not Attack.act_feature( receiver, "boss" )
-    and Attack.act_level( receiver ) < 5 then
+    and Attack.act_level( receiver ) <= level then
       effect_entangle_attack( receiver, 1, duration )
     end
   end 

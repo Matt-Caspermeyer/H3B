@@ -33,6 +33,8 @@ itm_kid_skill_resistance=^?^Resist All:
 itm_kid_skill_scholar=^?^Spell Power:
 itm_kid_skill_scouting_rage=^?^Rage:
 itm_kid_skill_scouting_rageinflow=^?^Rage Inflow:
+itm_kid_skill_scouting_rageperround=^?^Rage per Turn:
+itm_kid_skill_scouting_ragemap=^?^Slower Rage loss after combat:
 itm_kid_skill_sorcery=^?^Attacking Spell Power:
 itm_kid_skill_tactics=^?^Attack / Defense:
 itm_kid_skill_tactics_einit=^?^Enemy Initiative:
@@ -54,6 +56,9 @@ itm_kid_physical=^?^Physical
 itm_kid_poison=^?^Poison
 
 itm_kid_resist=^?^Resistance
+itm_kid_resistance=^?^Resistance
+itm_kid_damage=^?^Damage
+
 itm_kid_enemy=^?^Enemy
 
 itm_kid_astral_resist=^?^Astral Resistance
