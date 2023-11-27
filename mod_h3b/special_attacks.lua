@@ -756,7 +756,7 @@ function special_bless_attack()
 
   if target~=nil  then
     if Attack.act_race( target ) ~= "undead" then
-      local duration = Logic.obj_par( "special_holy_rage", "duration" )
+      local duration = tonumber( Logic.obj_par( "special_holy_rage", "duration" ) )
 
       if Attack.get_custom_param( "rage" ) == "0" then
         duration = apply_hero_duration_bonus( target, duration, "sp_duration_bless", true )

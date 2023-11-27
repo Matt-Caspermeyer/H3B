@@ -2,7 +2,6 @@ function objuse_spawn_troop() --ftag:action
   local troop = Obj.get_param( "troop" )
   local troopcnt = Obj.get_param( "troopcount" )
   local trand = Obj.get_param( "random" )
-  local rnd = Game.Mutate( 50, Obj.id() )
   local factor = Obj.multiuse()
   local altfactor = Obj.get_param( "altfactor" )
 
@@ -23,6 +22,14 @@ function objuse_spawn_troop() --ftag:action
   end
 
   if text_par_count( troop ) > 1 then
+    local total_prob = 0
+
+    for i = 1, text_par_count( trand ) do
+      total_prob = total_prob + tonumber( text_dec( trand, i ) )
+    end
+
+    local rnd = Game.Random( 1, total_prob )
+    
     local troop_num = diap( trand, 0, rnd )
     troop = text_dec( troop, troop_num )
     troopcnt = text_dec( troopcnt, troop_num )

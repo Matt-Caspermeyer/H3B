@@ -164,6 +164,16 @@ Windows 8 Comments
 * Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
 * So this release is mostly bug fixes, but there are some new features as well.
 
+Version: Beta 2013-01-27 - CRITICAL UPDATE
+*.LOC
+  & ISLAND_1_EMBRYOS.LOC (Western Islands) - ***CRASH TO DESKTOP*** fixed error of Griffin Eggs improperly implemented (thanks to Sir Whiskers for pointing this out!)
+  & KORDAR_2.EMRYOS.LOC (Kordar)
+    ^ Now has a 50% chance to sell Skeleton Graves (30:60)
+    ^ Now has a 25% chance to sell Vampire Coffins (10:25)
+*.LUA
+  & SPECIAL_ATTACKS.LUA
+    ^ ***BUG*** Fixed duration being string in special_bless_attack (thanks Windows 8!)
+
 
 Version: Beta 2013-01-26
 *.ATOM
