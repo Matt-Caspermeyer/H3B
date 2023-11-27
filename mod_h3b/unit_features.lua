@@ -14,14 +14,19 @@ end
 function orc_posthitslave( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
 	 if ( minmax == 0 )
   and damage > 0
-  and not hitbacking then
-    if damage < Attack.act_totalhp( receiver ) then
-      local iskrit = Attack.val_restore( receiver, "critical_hit" )
-  
-      if iskrit == 1 then
+  and not hitbacking
+  and damage < Attack.act_totalhp( receiver ) then
+    local iskrit = Attack.val_restore( receiver, "critical_hit" )
+    local angry = tonumber( Attack.get_custom_param( "angry" ) )
+
+    if angry ~= nil then
+      local rnd = Game.Random( 99 )
+    
+      if iskrit == 1
+      and rnd < angry then
      		 local new_ap
         local message
-  
+    
         if ( Attack.act_again( receiver ) ) then
           Attack.act_again( receiver, true )
           message = "add_blog_orc_posthit_1"
@@ -31,21 +36,21 @@ function orc_posthitslave( damage, addrage, attacker, receiver, minmax, userdata
           Attack.act_set_par( receiver, "initiative", base_init + 1 )
           Attack.act_ap( receiver, new_ap )
           Attack.resort()
-  
+    
           message = "add_blog_orc_posthit_2"
         end
-  
+    
         if Attack.act_size( receiver ) > 1 then
           message = message .. "2"
         else
           message = message .. "1"
         end
-  
+    
         Attack.log( 1, message, "name", blog_side_unit( receiver ) )
         Attack.atom_spawn( receiver, 0, "magic_horn" )
       end
     end
- 	end
+  end
 
   Attack.val_store( receiver, "critical_hit", 0 )
 
@@ -61,7 +66,9 @@ end
 -- New Giant Attack
 function features_giant_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
-  and not hitbacking then
+  and not hitbacking
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
     local sleep = tonumber( Attack.get_custom_param( "sleep" ) )
 
     if sleep ~= nil then
@@ -74,8 +81,7 @@ function features_giant_attack( damage, addrage, attacker, receiver, minmax, use
   
       local rnd = Game.Random( 99 )
     
-      if damage > 0
-      and rnd < sleep_chance
+      if rnd < sleep_chance
       and not Attack.act_feature( receiver, "mind_immunitet" )
       and not Attack.act_feature( receiver, "golem" )
       and not Attack.act_feature( receiver, "pawn" )
@@ -96,19 +102,21 @@ end
 -- New Ogre Attack
 function features_ogre_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
-  and not hitbacking then
+  and not hitbacking
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
     local receiver_level = Attack.act_level( receiver )
     local stun = tonumber( Attack.get_custom_param( "stun" ) )
 
-    if stun ~= nil then
+    if receiver_level ~= nil  -- receiver_level should never be nil, but you never know...
+    and stun ~= nil then
       local stun_inc = tonum( Attack.get_custom_param( "stun_inc" ) )
       local stun_chance = stun + ( receiver_level - 1 ) * stun_inc
       local receiver_res = Attack.act_get_res( receiver, "physical" )
       stun_chance = stun_chance * ( 1 - receiver_res / 100 )
       local rnd = Game.Random( 99 )
     
-      if damage > 0
-      and ( ( rnd < stun_chance
+      if ( ( rnd < stun_chance
       and not Attack.act_feature( receiver, "golem" )
       and not Attack.act_feature( receiver, "pawn" )
       and not Attack.act_feature( receiver, "boss" )
@@ -152,57 +160,60 @@ end
 function features_archdemon_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
   and damage > 0
-  and not hitbacking then
+  and not hitbacking
+  and damage < Attack.act_totalhp( receiver ) then
     local receiver_level = Attack.act_level( receiver )
 
-    if receiver_level < 5
-    and not Attack.act_feature( receiver, "magic_immunitet" )
-    and not Attack.act_feature( receiver, "golem" )
-    and not Attack.act_feature( receiver, "pawn" )
-    and not Attack.act_feature( receiver, "boss" )
-    and not Attack.act_is_spell( receiver, "spell_ram" ) then
-      local tmp_spells = {}
-
-      if takeoff_spells( receiver, "bonus", true ) then
-        table.insert( tmp_spells, spell_dispell_attack )
-      end
+    if receiver_level ~= nil then  -- receiver_level should never be nil, but you never know...
+      if receiver_level < 5
+      and not Attack.act_feature( receiver, "magic_immunitet" )
+      and not Attack.act_feature( receiver, "golem" )
+      and not Attack.act_feature( receiver, "pawn" )
+      and not Attack.act_feature( receiver, "boss" )
+      and not Attack.act_is_spell( receiver, "spell_ram" ) then
+        local tmp_spells = {}
   
-      if not Attack.act_is_spell( receiver, "spell_scare" )
-      and not Attack.act_feature( receiver, "mind_immunitet" )
-      and not Attack.act_feature( receiver, "undead" ) then
-        table.insert( tmp_spells, spell_scare_attack )
-      end
-      
-      if not Attack.act_is_spell( receiver, "spell_defenseless" ) then
-        table.insert( tmp_spells, spell_defenseless_attack )
-      end
+        if takeoff_spells( receiver, "bonus", true ) then
+          table.insert( tmp_spells, spell_dispell_attack )
+        end
+    
+        if not Attack.act_is_spell( receiver, "spell_scare" )
+        and not Attack.act_feature( receiver, "mind_immunitet" )
+        and not Attack.act_feature( receiver, "undead" ) then
+          table.insert( tmp_spells, spell_scare_attack )
+        end
+        
+        if not Attack.act_is_spell( receiver, "spell_defenseless" ) then
+          table.insert( tmp_spells, spell_defenseless_attack )
+        end
+    
+        if not Attack.act_is_spell( receiver, "spell_magic_bondage" )
+        and not Attack.act_feature( receiver, "mind_immunitet" ) then
+          local act = Attack.get_caa( receiver, true )
   
-      if not Attack.act_is_spell( receiver, "spell_magic_bondage" )
-      and not Attack.act_feature( receiver, "mind_immunitet" ) then
-        local act = Attack.get_caa( receiver, true )
-
-        for t in pairs( act.atks ) do
-          if t ~= "base" then
-            table.insert( tmp_spells, spell_magic_bondage_attack )
-            break
+          for t in pairs( act.atks ) do
+            if t ~= "base" then
+              table.insert( tmp_spells, spell_magic_bondage_attack )
+              break
+            end
           end
         end
-      end
-      
-      if table.getn( tmp_spells ) > 0 then
-        Attack.act_aseq( 0, "cast" )
-        local dmgts = Attack.aseq_time( 0, "x" )
-        local cast = Game.Random( 1, table.getn( tmp_spells ) )
-        local spell_level = 3
-      
-        if tmp_spells[ cast ] == spell_dispell_attack
-        or tmp_spells[ cast ] == spell_magic_bondage_attack then
-          tmp_spells[ cast ]( spell_level, receiver )
-        else
-          tmp_spells[ cast ]( spell_level, dmgts, receiver )
+        
+        if table.getn( tmp_spells ) > 0 then
+          Attack.act_aseq( 0, "cast" )
+          local dmgts = Attack.aseq_time( 0, "x" )
+          local cast = Game.Random( 1, table.getn( tmp_spells ) )
+          local spell_level = 3
+        
+          if tmp_spells[ cast ] == spell_dispell_attack
+          or tmp_spells[ cast ] == spell_magic_bondage_attack then
+            tmp_spells[ cast ]( spell_level, receiver )
+          else
+            tmp_spells[ cast ]( spell_level, dmgts, receiver )
+          end
+        
+      		  Attack.log( dmgts + 0.2, "add_blog_archdemon_attack", "name", blog_side_unit( attacker, 1 ), "target", blog_side_unit( receiver, 0 ) )
         end
-      
-    		  Attack.log( dmgts + 0.2, "add_blog_archdemon_attack", "name", blog_side_unit( attacker, 1 ), "target", blog_side_unit( receiver, 0 ) )
       end
     end
   end 
@@ -221,17 +232,19 @@ end
 -- New Bone Dragon Attack
 function features_bonedragon_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
-  and not hitbacking then
+  and not hitbacking
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
     local receiver_level = Attack.act_level( receiver )
     local chance = tonumber( Attack.get_custom_param( "chance" ) )
 
-    if chance ~= nil then
+    if receiver_level ~= nil  -- receiver_level should never be nil, but you never know...
+    and chance ~= nil then
       local receiver_chance = ( 5 - receiver_level ) * chance
       local rnd = Game.Random( 99 )
       local poison = tonum( Attack.get_custom_param( "poison" ) )
     
       if rnd < receiver_chance
-      and damage > 0
       and poison == 0
       and not Attack.act_feature( receiver, "magic_immunitet" )
       and not Attack.act_feature( receiver, "golem" )
@@ -301,7 +314,8 @@ end
 
 -- New Ent Entangle
 function features_entangle( damage, addrage, attacker, receiver, minmax )
-  if ( minmax == 0 ) then
+  if ( minmax == 0 )
+  and damage < Attack.act_totalhp( receiver ) then
     local entangle = tonumber( Attack.get_custom_param( "entangle" ) )
 
     if entangle ~= nil then
@@ -347,20 +361,22 @@ end
 function features_dissipate_energy()
   local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
 
-  if titan_energy > 0 then
-    local power = 80
-    local stored_energy = math.floor( titan_energy * power / 100 )
-    Attack.val_store( 0, "titan_energy", stored_energy )
-    local count = "1"
-
-    if stored_energy > 1 then
-      count = "2"
-    end
-
-    if stored_energy > 0 then
-      Attack.log( 0, "add_blog_rte_" .. count, "name", blog_side_unit( 0, 1 ), "special", stored_energy )
-    else
-      Attack.log( 0, "add_blog_dte", "name", blog_side_unit( 0, 1 ) )
+  if titan_energy ~= nil then  -- This shouldn't be needed since tonum sets nil to 0, but is here anyway
+    if titan_energy > 0 then
+      local power = 80
+      local stored_energy = math.floor( titan_energy * power / 100 )
+      Attack.val_store( 0, "titan_energy", stored_energy )
+      local count = "1"
+  
+      if stored_energy > 1 then
+        count = "2"
+      end
+  
+      if stored_energy > 0 then
+        Attack.log( 0, "add_blog_rte_" .. count, "name", blog_side_unit( 0, 1 ), "special", stored_energy )
+      else
+        Attack.log( 0, "add_blog_dte", "name", blog_side_unit( 0, 1 ) )
+      end
     end
   end
 
@@ -1070,8 +1086,7 @@ function special_bonus_spell( attacker, receiver )
     or tmp_spells[ cast ] == spell_bless_attack then
       tmp_spells[ cast ]( level, dmgts, receiver, belligerent )
     elseif tmp_spells[ cast ] == spell_dispell_attack then
-      Attack.val_store( receiver, "enchanted_hero_dispell", 1 )
-      tmp_spells[ cast ]( level, receiver, belligerent )
+      tmp_spells[ cast ]( level, receiver, belligerent, true )
     else
       tmp_spells[ cast ]( level, receiver, belligerent, heroname )
     end

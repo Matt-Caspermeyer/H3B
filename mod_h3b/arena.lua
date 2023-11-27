@@ -3869,8 +3869,10 @@ function spell_auto_cast( spells, spellattacks )
         if a.atks == nil then a = Attack.get_caa( a, true ) end
 
         for name in pairs( a.atks ) do
-          if name ~= "base" then return true end
+          if name ~= "base"
+          and not Attack.act_is_spell( a, "spell_magic_bondage" ) then return true end
         end
+
         return false
       end,
     spell_defenseless =
@@ -4086,6 +4088,7 @@ function spell_auto_cast( spells, spellattacks )
 
       if avcells.n > 0 then -- есть ли цели для каста
         local max_power, unit_power, target = 0, 0
+
         for i, c in ipairs( avcells ) do -- ищем самого сильного юнита,..
           if not Attack.act_is_spell( c, name )
           and check( c ) then -- ..на котором нет этого спела
@@ -4142,6 +4145,7 @@ function spell_auto_cast( spells, spellattacks )
 
         for i, act in ipairs( array ) do -- считаем лидерство всех юнитов,..
           if not act.spells[ name ]
+          and not Attack.act_is_spell( act, name )
           and applicable( act )
           and check( act ) then -- ..на которых нет этого спела и на которых можно наложить этот спелл
             local power = 0

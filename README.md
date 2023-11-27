@@ -164,6 +164,34 @@ Windows 8 Comments
 * Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
 * So this release is mostly bug fixes, but there are some new features as well.
 
+Version: Beta 2013-03-18
+*.ATOM
+  & ORC.ATOM - Ill-tempered now works only 50% of the time
+  ^ ORC2.ATOM - Ill-tempered now works only 50% of the time
+*.LNG
+  & EN(G)_UNITS_FEATURES.LNG - changed Ill-tempered description to indicate that it works 50% of the time
+*.LUA
+  & ARENA.LUA
+    ^ Added check for spell when they are being mass cast to reduce the AI spamming the same mass spells repeatedly
+  & LOGIC_HERO.LUA - slight tweak to Paladin rune level-ups: now 12, 21, 12 (26.7%, 46.6%, 26.7%) for Might, Mind, and Magic runs (was 11, 23, 11)
+  & SPELLS.LUA
+    ^ Dispel still wasn't working properly if the unit had Enchanted Hero cast on it - now I think I've fixed it for good
+    ^ For Summon Spells (i.e. Phoenix and Evil Book, Resistance increase is Percent Base instead of Absolute). This lowers their overall resistance since they are now getting significant bonuses from Defense and possibly the Tolerance Skill and for Phoenix especially it was too easy to get 95% resist all across the board with items to help.
+  & UNIT_FEATURES.LUA
+    ^ Fixed features_giant_attack such that it ensures the receiving unit did not get killed before it implements its effect
+    ^ Fixed features_ogre_attack such that it ensures the receiving unit did not get killed before it implements its effect
+    ^ Fixed features_bonedragon_attack such that it ensures the receiving unit did not get killed before it implements its effect
+    ^ Fixed features_archdemon_attack such that it ensures the receiving unit did not get killed before it implements its effect
+    ^ Fixed features_entangle such that it ensures the receiving unit did not get killed before it implements its effect
+    ^ Changed Enchanted Hero Dispel call so that hopefully it now works properly...
+    ^ Orc Ill-tempered now works only 50% of the time
+    ^ Fixed orc_posthitslave to check for angry ~= nil (thanks Windows 8!)
+    ^ Fixed features_ogre_attack to check for receiver_level ~= nil
+    ^ Fixed features_archdemon_attack to check for receiver_level ~= nil
+    ^ Fixed features_bonedragon_attack to check for receiver_level ~= nil
+    ^ Fixed features_dissipate_energy to check for titan_energy ~= nil
+
+
 Version: Beta 2013-03-03
 *.ATOM
   & DEATH.ATOM

@@ -36,6 +36,9 @@ arena_params {
     damage {
       physical=15,20
     }
+    custom_params {
+      angry=50
+    }
   }
   run {
     class=scripted

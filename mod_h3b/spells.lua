@@ -74,7 +74,7 @@ function summon_bonus( unit, spell, text, ehero_level )
 
         if spell_res == 1 then
           local resist = Attack.act_get_res( unit, res )
-          Attack.act_attach_modificator_res( unit, res, "summon_bonus_res_" .. res, math.abs( resist * res_bonus / 100 ), 0, 0, duration, false )
+          Attack.act_attach_modificator_res( unit, res, "summon_bonus_res_" .. res, 0, math.abs( resist * res_bonus / 100 ), 0, duration, false )
         end
       end
 
@@ -1450,7 +1450,7 @@ function takeoff_spells( target, type, check_only )
 end
 
 
-function spell_dispell_attack( level, target, belligerent )
+function spell_dispell_attack( level, target, belligerent, enchanted_hero )
   if target == nil then target = Attack.get_target() end
 
  	level = common_get_spell_level( level )
@@ -1466,9 +1466,7 @@ function spell_dispell_attack( level, target, belligerent )
 	   else
      	local type
 
-      local enchanted_hero_dispell = Attack.val_restore( target, "enchanted_hero_dispell" )
-
-      if enchanted_hero_dispell == nil then
+      if enchanted_hero == nil then
   	     if Attack.act_ally( target ) then
           type = "penalty" -- Remove all of their penalty-spell
   	     else
@@ -1480,8 +1478,6 @@ function spell_dispell_attack( level, target, belligerent )
   	     else
           type = "bonus"
         end -- с противника снимаем все bonus-заклинания
-
-        Attack.val_store( target, "enchanted_hero_dispell", nil )
       end
 
 		    if ( Attack.act_is_spell( target, "spell_hypnosis" )
