@@ -162,6 +162,10 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Version: Beta 2012-06-16
+* mod_homm3_babies.kfs
+    ^ GERDA_BABIES.TXT - fixed where I somehow had accidentally introduced a typo into Gerda's Lorelei baby causing the game to crash when Gerda had babies
+
 Version: Beta 2012-06-12
 * mod_homm3_babies.kfs
   & *.ATOM

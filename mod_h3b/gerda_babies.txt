@@ -851,7 +851,7 @@ kid_ajit {
     @=020000000000008000000000
   }
 }
-kid_lorelei {
+kid_lorelei {
   category=o
   image=heroitem_tome_lorelei.png
   hint_config=object_item
