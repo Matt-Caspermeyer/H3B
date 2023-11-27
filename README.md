@@ -101,9 +101,9 @@ Updates:
 --------
 
 1. As this version of the mod is in a beta state, there are still changes that are being done; however:
-  1. The mod is stable enough to play the game completely through - enjoy!
-  2. Every change has been checked at least once, but I'm in the quality assurance phase rechecking the code.
-  3. I'm currently play testing the game with a Paladin.
+    1. The mod is stable enough to play the game completely through - enjoy!
+    2. Every change has been checked at least once, but I'm in the quality assurance phase rechecking the code.
+    3. I'm currently play testing the game with a Paladin.
 2. At this stage, changes should not require you to restart your game - simply install the new files and continue playing.
   1. Changes will be focused on editing data files (i.e. *.ATOM, *.TXT) to improve game balance and user enjoyability.
   2. New features can still be added, but only if they are really good ideas!
