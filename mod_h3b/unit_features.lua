@@ -10,6 +10,40 @@ function effect_chance( value, effect_or_feature, kind )
 end
 
 
+-- New Giant Attack
+function features_giant_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+  if ( minmax == 0 )
+  and not hitbacking then
+    local sleep = tonumber( Attack.get_custom_param( "sleep" ) )
+
+    if sleep ~= nil then
+      local receiver_res = Attack.act_get_res( receiver, "physical" )
+      local sleep_chance = sleep * ( 1 - receiver_res / 100 )
+  
+      if Attack.act_is_spell( receiver, "effect_stun" ) then
+        sleep_chance = sleep_chance * 1.5
+      end
+  
+      local rnd = Game.Random( 100 )
+    
+      if damage > 0
+      and rnd < sleep_chance
+      and not Attack.act_feature( receiver, "golem" )
+      and not Attack.act_feature( receiver, "pawn" )
+      and not Attack.act_feature( receiver, "boss" )
+      and not Attack.act_feature( receiver, "plant" )
+      and not Attack.act_feature( receiver, "undead" ) then
+        local duration = 1
+       	effect_unconscious_attack( receiver, 1, duration )
+       	Attack.act_damage_addlog( receiver, "add_blog_unconscious_" )
+      end
+    end
+  end 
+
+  return damage, addrage
+end
+
+
 -- New Ogre Attack
 function features_ogre_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
@@ -365,6 +399,7 @@ function features_soul_drain( damage, addrage, attacker, receiver, minmax )
   	     	 local special = add_unit
   	 		    Attack.act_damage_addlog( receiver, log_msg, true )
   	 		    Attack.log_special( special ) -- работает  
+          effect_temp_ooc( attacker )
         end
      	end 
    	end 

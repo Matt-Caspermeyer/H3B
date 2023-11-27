@@ -104,7 +104,7 @@ itm_kid_gem_taken=^?^
 
 //==== kid_mephala
 itm_kid_mephala_name=Mephala
-itm_kid_mephala_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Leadership, Armorer...[/s] [postamble_girl][leadership1][armorer2]
+itm_kid_mephala_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Leadership, Armorer...[/s] [postamble_girl][leadership1][armor2]
 itm_kid_mephala_info=^?^[info_girl]
 itm_kid_mephala_mhint=^?^
 itm_kid_mephala_minfo=^?^

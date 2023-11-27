@@ -506,9 +506,9 @@ function unconscious_onremove( caa, duration_end )
     effect_stun_attack( caa, 1, duration )
     
   		if Attack.act_size( caa ) > 1 then 
-  		  Attack.log( caa, 0.002, "add_blog_ogre_nosleep_2", "name", blog_side_unit( caa ) )
+  		  Attack.log( caa, 0.002, "add_blog_nounconscious_2", "name", blog_side_unit( caa ) )
   		else 
-  		  Attack.log( caa, 0.002, "add_blog_ogre_nosleep_1", "name", blog_side_unit( caa ) )
+  		  Attack.log( caa, 0.002, "add_blog_nounconscious_1", "name", blog_side_unit( caa ) )
   		end
 		end 
 
@@ -1017,4 +1017,73 @@ function effect_buc()
 
 	return true
 
+end
+
+function effect_temp_ooc( target, damage )
+ 	local duration = tonumber( Logic.obj_par( "effect_temp_ooc", "duration" ) )
+
+  if duration == nil then duration = -100 end 
+
+  if Attack.act_temporary( target ) then
+    local hero_leadership = Logic.hero_lu_item( "leadership", "count" )
+    local target_leadership = Attack.act_leadership( target )
+    local target_name = Attack.act_name( target )
+    local target_lead_bonus = Logic.hero_lu_item( "sp_lead_unit_" .. target_name, "count" )
+    local total_leadership_units = math.floor( hero_leadership / ( target_leadership * ( 1 - target_lead_bonus / 100 ) ) )
+    local target_size = Attack.act_size( target )
+
+    if damage ~= nil then
+      damage = round( damage )
+      local target_health = Attack.act_get_par( target, "health" )
+      local target_hp = Attack.act_hp( target )
+      local killed = math.floor( damage / target_health )
+      
+      if modulo( damage, target_health ) >= target_hp then
+        killed = killed + 1
+      end
+
+      target_size = target_size - killed
+    end
+  
+    if target_size > total_leadership_units
+    and Attack.act_belligerent( target ) == 1 then
+    		Attack.act_belligerent( target, 16 )
+      Attack.act_attach_modificator( target, "autofight", "temp_ooc", 1, 0, 0, duration, true, 100 )
+		    Attack.atom_spawn( target, 0, "effect_out_of_control", 0 )
+      Attack.act_posthitmaster( target, "posthitmaster_effect_temp_ooc", duration )
+      Attack.act_posthitslave( target, "posthitslave_effect_temp_ooc", duration )
+		    Attack.log( .01, "out_of_control_log", "special", "<label=cpsn_" .. target_name .. ">" )
+    elseif target_size <= total_leadership_units
+    and Attack.act_belligerent( target ) == 16 then
+      Attack.act_belligerent( target, Attack.act_belligerent( target, nil ) )
+      Attack.act_del_modificator( target, "temp_ooc" )
+      Attack.act_posthitmaster( target, "posthitmaster_effect_temp_ooc", 0 )
+      Attack.act_posthitslave( target, "posthitslave_effect_temp_ooc", 0 )
+      Attack.act_attach_modificator( target, "hitback", "temp_ooc_hitback", 0, 0, -100, -100, false, 1000, true )
+		    Attack.atom_spawn( target, 0, "effect_control", 0 )
+		    Attack.log( .01, "return_control_log", "special", "<label=cpsn_" .. target_name .. ">" )
+    end
+  end 
+
+  return true
+end
+
+
+function posthitmaster_effect_temp_ooc( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+  if ( minmax == 0 )
+  and hitbacking then
+    effect_temp_ooc( attacker )
+  end 
+
+  return damage, addrage
+end
+
+
+function posthitslave_effect_temp_ooc( damage, addrage, attacker, receiver, minmax )
+  if ( minmax == 0 )
+  and damage > 0 then
+    effect_temp_ooc( receiver, damage )
+  end 
+
+  return damage, addrage
 end

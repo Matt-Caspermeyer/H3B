@@ -18,42 +18,66 @@ function gen_combat_hint( )
     local hero_leadership = Logic.hero_lu_item( "leadership", "count" )
     local receiver_leadership = Attack.act_leadership( cast_sacrifice_receiver )
     local receiver_name = Attack.act_name( cast_sacrifice_receiver )
-    local receiver_lead_bonus = 0
-    receiver_lead_bonus = Logic.hero_lu_item( "sp_lead_unit_" .. receiver_name, "count" )
+    local receiver_lead_bonus = Logic.hero_lu_item( "sp_lead_unit_" .. receiver_name, "count" )
     local total_leadership_units = math.floor( hero_leadership / ( receiver_leadership * ( 1 - receiver_lead_bonus / 100 ) ) )
     local receiver_size = Attack.act_size( cast_sacrifice_receiver )
     local text_string
 
     if count_diff > 0 then
-      text_string = "<label=dmg_hint_just_raise> " .. tostring( count_diff ) .. "<br>" .. "Total Leadership Units: "
+      text_string = "<label=dmg_hint_just_raise> " .. tostring( count_diff ) .. "<br>" .. "<label=dmg_hint_total_leadership> "
 
       if receiver_size + count_diff == total_leadership_units then
-        text_string = text_string .. "<color=0,192,0>" .. total_leadership_units .. " (Troop will be at max leadership)</color>"
+        text_string = text_string .. "<color=0,192,0>" .. total_leadership_units .. "</color> <label=dmg_hint_at_max_leadership>"
 
       elseif receiver_size + count_diff > total_leadership_units then
         local units_over = ( receiver_size + count_diff ) - total_leadership_units
-        text_string = text_string .. "<color=192,0,0>" .. total_leadership_units .. "  (+" .. units_over .. " over max leadership - troop will be out of control!!!)</color>"
+        text_string = text_string .. "<color=192,0,0>" .. total_leadership_units .. "  (+" .. units_over .. "</color> <label=dmg_hint_over_max_leadership>"
 
       else
         local units_under = total_leadership_units - ( receiver_size + count_diff )
-        text_string = text_string .. "<color=255,255,50>" .. total_leadership_units .. "  (-" .. units_under .. " under max leadership)</color>"
+        text_string = text_string .. "<color=255,255,50>" .. total_leadership_units .. "  (-" .. units_under .. "</color> <label=dmg_hint_under_max_leadership>"
       end
     else
       text_string = "<label=dmg_hint_just_heal> " .. tostring( giver_hp )
     end
 
   		return text_string
+  elseif apars.name == "cure2" then
+    local receiver = Attack.val_restore( 0, "cast_sacrifice_receiver" )
+
+    if Attack.act_race( receiver, "undead" ) then
+      local damage = "<label=dmg_hint_dmg>"
+      local dead = ""
+      local ret = ""
+  
+      if min_dead + max_dead ~= 0 then
+        dead = "<br>" .. "<label=dmg_hint_dead>"
+      end
+
+      return damage .. dead .. ret
+    else
+      local heal = get_add_gain_bonus( common_apply_skill_bonus( tonumber( Attack.get_custom_param( "heal" ) ), "healer" ), "heal_cure" )
+      local count = Attack.act_size( 0 )
+      local dmg_type = Attack.get_custom_param( "typedmg" )
+      local min_dmg, max_dmg = round( heal * count ), round( heal * count )
+ 			  local cure_hp = Game.Random( min_dmg, max_dmg )
+ 			  local real_cure = math.min( cure_hp, Attack.act_get_par( receiver, "health" ) - Attack.act_hp( receiver ) )
+      local effectiveness = math.floor( real_cure / cure_hp * 100 )
+ 			  local res = "<label=dmg_hint_just_heal> " .. real_cure .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.'
+
+  		  return res
+    end
   else -- This is the normal "unhacked" section of code
-    local damage="<label=dmg_hint_dmg>"
-    local dead=""
-    local ret=""
+    local damage = "<label=dmg_hint_dmg>"
+    local dead = ""
+    local ret = ""
   
     if min_dead + max_dead ~= 0 then
-        dead = "<br>" .. "<label=dmg_hint_dead>"
+      dead = "<br>" .. "<label=dmg_hint_dead>"
     end
 
     if reverse_strike > 0 then
-        ret = "<br>" .. "<label=dmg_hint_ret>"
+      ret = "<br>" .. "<label=dmg_hint_ret>"
     end
   
     return damage .. dead .. ret

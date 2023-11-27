@@ -7,6 +7,47 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-12-29
+-------------------------
+
+* mod_homm3_babies.kfs
+  & *.ATOM
+    ^ GIANT.ATOM - added new Thump feature that allows the Giant to knock opponents unconscious
+    ^ PRIEST.ATOM - added new "cure2" ability that allows the priest to heal friendlies and attack the undead
+  & TEMPLATES.LNG - added new "cure2" damage hint template for Priest's new ability
+  & *.LUA
+    ^ ARENA.LUA - added AI for cure2 ability usage
+    ^ COMBAT_LOG.LUA
+      % Moved Gift of Life text messages to EN(G)_BATTLE.LNG to aid future localization efforts
+      % Added custom hint for new Priest "cure2" ability to display damage and healing properly
+    ^ SPECIAL_ATTACKS.LUA
+      % Added check to Gift of Life "cast_sacrifice" to determine if temporary unit goes over hero's Leadership limit
+      % New function "special_heal2" that implements the Priest's new "cure2" ability
+    ^ SPECIAL_HINT.LUA - added new hint for Priest's "cure2" ability
+    ^ SPELL_EFFECTS.LUA
+      % Changed log name indentifier for unconscious since it is used by more than just ogres
+      % New function "effect_temp_ooc" that handles temporary units going over the hero's Leadership limit
+      % New function "posthitmaster_effect_temp_ooc" that aids in returning temporary units to the hero's control
+      % New function "posthitslave_effect_temp_ooc" that aids in returning temporary units to the hero's control
+    ^ SPELLS_COMMON.LUA - added new "caclcells_all_need_cure2_all" function to aid in selecting units for new Priest "cure2" ability
+    ^ UNIT_FEATURES.LUA
+      % New function "features_giant_attack" that implements the Giant's new "Thump" feature
+      % Added check to Ghost "soul_drain" to determine if temporary unit goes over hero's Leadership limit
+  & *.TXT
+    ^ EFFECTS.TXT - new "effect_temp_ooc" for handling temporary units that go out of control due to being over the hero's Leadership limit
+    ^ GERDA_BABIES.TXT - fixed error in Orwald's bonuses (+init to +speed)
+    ^ XEONA_BABIES.TXT - removed duplicate Imp / Imp2 attack bonus from Ignatius
+* mod_homm3_babies_en(g)_lng.kfs
+  & EN(G)_BATTLE.LNG
+    ^ Chance unconscious log label so that it is more generic
+    ^ Added Gift of Life text labels for future localization efforts (English text strings should not be in LUA files)
+  & EN(G)_HOMM3_BABIES_NEOKA.LNG - fixed spelling error for Mephala's Armorer (armor) bonus
+  & EN(G)_UNITS_FEATURES.LNG
+    ^ Added Thump feature to Giants
+    ^ Added Thump feature header and hint
+  & EN(G)_UNITS_SPECIALS.LNG - added new Priect "cure2" ability name, header, and hint
+
+
 Version: Alpha 2011-12-28
 -------------------------
 

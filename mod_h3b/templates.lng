@@ -1040,6 +1040,7 @@ special_t {
     difficulty_level=<gen=gen_special_hint,difficulty_level></color>
     dissipate=<color=252,249,220><gen=gen_special_hint,dissipate></color>
     res=<color=252,249,220><gen=gen_special_hint,res></color>
+    cure2=<color=252,249,220><gen=gen_special_hint,cure2></color>
 }
 
 special_tC=<align=center><font=ft1_14>$<gen=gen_special_name>

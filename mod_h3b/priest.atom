@@ -20,7 +20,7 @@ arena_params {
   krit=5
   hitback=1
   hitbackprotect=0
-  attacks=moveattack,shot,cure,bless
+  attacks=moveattack,shot,cure2,bless
   features=holy,humanoid,mage
   posthitmaster=special_priest
   resistances {
@@ -86,6 +86,27 @@ arena_params {
     moves=2
     custom_params {
       heal=10
+    }
+  }
+  cure2 {
+    class=scripted
+    script_calccells=calccells_all_need_cure2_all
+    script_attack=special_heal2
+    attack_cursor=magicstick
+    nfeatures=demon,magic_immunitet,pawn,boss,plant,golem
+    warning=warning_cure
+    picture=ba1_heal_
+    picture_small=ba1_heal_small.png
+    log_label=cure_
+    hinthead=special_prist_heal2_head
+    hint=special_prist_heal2_hint
+    moves=2
+    damage {
+      magic=2,2  // set to same as heal and then true damage is x2 because of special_priest posthitmaster
+    }
+    custom_params {
+      heal=2
+      typedmg=magic
     }
   }
 }

@@ -1801,10 +1801,41 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         for i = 1, atk.targets.n do
           local act = atk.targets[ i ]
           local profit = math.min( act.par( 'health' ) - act.hp, h ) / h
+
           if profit > maxprofit then maxprofit = profit; target = act; end
         end
 
         if maxprofit > .95 then prob = 1000 else prob = math.floor(50 * maxprofit) end
+
+      elseif name == "cure2" then -- лечение
+        local h = atk.custom_params.heal * mover.units
+        local maxprofit = 0
+        local best_power = 0
+        local undead = false
+
+        for i = 1, atk.targets.n do
+          local act = atk.targets[ i ]
+
+          if Attack.act_race( act, "undead" ) then
+            undead = true
+            local h2 = h * 2
+            local power = math.min( act.totalhp, h2 ) / math.max( act.totalhp, h2 )
+
+            if power > best_power then
+              best_power = power
+              target = act
+              prob = power * 1000
+            end
+          else
+            local profit = math.min( act.par( 'health' ) - act.hp, h ) / h
+
+            if profit > maxprofit then maxprofit = profit; target = act; end
+          end
+        end
+
+        if not undead then
+          if maxprofit > .95 then prob = 1000 else prob = math.floor( 50 * maxprofit ) end
+        end
 
       elseif name == "cast_sacrifice" then
         local min_dist, nearest, nearest_act = 1000
@@ -1816,8 +1847,10 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
           or ( act.level < 4
           and not Attack.act_temporary( act ) ) ) then
             local dist = Attack.cell_dist( mover, act )
+
             if dist < min_dist then
               local path = Attack.calc_path( mover, act )
+
               if path ~= nil then
                 min_dist = dist
                 nearest = path

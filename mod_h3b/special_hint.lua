@@ -44,6 +44,12 @@ function gen_special_hint(unit,par)
     text = tostring( round( unit_count * cure ) )
   end 
 
+  if par == "cure2" then
+    local unit_count = AU.unitcount( unit )
+    local cure = common_apply_skill_bonus( get_add_gain_bonus( tonumber( apars.custom_params.heal ) * 2, apars.script_attack ), "healer" )
+    text = tostring( round( unit_count * cure ) )
+  end 
+
   if par == "duration" then
     local attack_class = apars.class
 

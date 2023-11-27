@@ -10,6 +10,21 @@
 //
 //
 
+// New! Effect for handling temporary units that go over the leadership limit
+effect_temp_ooc {
+  category=s
+  hide=1
+  attack=scripted
+  
+  scripted {
+    script_attack=effect_temp_ooc
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=-100
+  }
+}
+
 // New! Effect Unconscious
 effect_unconscious {
   category=s

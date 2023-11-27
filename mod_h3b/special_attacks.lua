@@ -1162,6 +1162,7 @@ function special_cast_thorn_sacrifice()
   -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
   -- because it has no way of knowing that a unit was resurrected via other means...
   Attack.val_store( target, "gizmo_priority", 0 )
+  effect_temp_ooc( target )
 
   return true
 end
@@ -1298,6 +1299,52 @@ function special_heal()
 
   return true
 end
+
+
+function special_heal2()
+  local target = Attack.get_target()
+  Attack.act_del_spell( target, "effect_poison" )
+		Attack.act_del_spell( target, "spell_weakness" )
+		Attack.act_del_spell( target, "spell_infection" )
+		Attack.act_del_spell( target, "effect_weakness" )
+		Attack.act_del_spell( target, "special_plague" )
+		Attack.act_del_spell( target, "spell_plague" )
+		Attack.act_del_spell( target, "special_disease" )
+		Attack.act_del_spell( target, "effect_infection" )
+  local heal = get_add_gain_bonus( common_apply_skill_bonus( tonumber( Attack.get_custom_param( "heal" ) ), "healer" ), "heal_cure" )
+  local dmg_type = Attack.get_custom_param( "typedmg" )
+		Attack.log_label( "null" )
+  local min_dmg, max_dmg = heal, heal
+  Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
+
+  if ( Attack.act_race( target, "undead" ) ) then
+    common_cell_attack( target, "hll_priest_heal_post" )
+    Attack.log_label( "" )
+  elseif ( Attack.act_need_cure( target ) ) then
+    local count = Attack.act_size( 0 )
+    local cure_hp = round( Game.Random( min_dmg, max_dmg + 0.45 ) * count )
+    local max_hp = Attack.act_get_par( target, "health" )
+    local cur_hp = Attack.act_hp( target )
+
+    if cure_hp > max_hp - cur_hp then
+      cure_hp = max_hp - cur_hp
+      Attack.act_charge( 0, 1, "cure2" )
+    end
+
+    local a = Attack.atom_spawn( target, 0, "hll_priest_heal_post" )
+    local dmgts = Attack.aseq_time( a, "x" )
+    Attack.act_cure( target, cure_hp, dmgts )
+    Attack.log_label( "cure_" ) -- работает
+    Attack.log_special( cure_hp )
+
+    -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
+    -- because it has no way of knowing that a unit was resurrected via other means...
+    Attack.val_store( target, "gizmo_priority", 0 )
+  end
+
+  return true
+end
+
 
 function special_presurrect()
   local target = Attack.get_target()

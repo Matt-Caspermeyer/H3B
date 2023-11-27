@@ -151,30 +151,53 @@ end
 
 
 function calccells_all_need_cure_all()
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
 
---  local acnt = Attack.act_count()
---  for i=1,acnt-1 do
-  for c=0,Attack.cell_count()-1 do
-
-    local i = Attack.cell_get(c)
-
-		if Attack.get_caa(0)~=nil then -- not magic
-	    if (Attack.act_ally(i) and Attack.act_need_cure(i)) then
-  	    if Attack.act_applicable(i) then  -- can receive this attack
-                Attack.marktarget(i)            -- select it
-    	  end
+		  if Attack.get_caa( 0 ) ~= nil then -- not magic
+	     if ( Attack.act_ally( i )
+      and Attack.act_need_cure( i ) ) then
+  	     if Attack.act_applicable( i ) then  -- can receive this attack
+          Attack.marktarget( i )            -- select it
+    	   end
       end
     else
-	    if (Attack.act_ally(i) and Attack.act_need_cure(i)) or ((Attack.act_enemy(i) or Attack.act_ally(i)) and (Attack.act_race(i,"undead"))) then
-  	    if Attack.act_applicable(i) then  -- can receive this attack
-                Attack.marktarget(i)            -- select it
-    	  end
+	     if ( Attack.act_ally( i )
+      and Attack.act_need_cure( i ) )
+      or ( ( Attack.act_enemy( i )
+      or Attack.act_ally( i ) )
+      and ( Attack.act_race( i, "undead" ) ) ) then
+  	     if Attack.act_applicable( i ) then  -- can receive this attack
+          Attack.marktarget( i )            -- select it
+    	   end
       end
     end 
   end
-  return true
 
+  return true
 end
+
+
+function calccells_all_need_cure2_all()
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
+
+		  if Attack.get_caa( 0 ) ~= nil then -- not magic
+	     if ( Attack.act_ally( i )
+      and Attack.act_need_cure( i ) )
+      or ( ( Attack.act_enemy( i )
+      or Attack.act_ally( i ) )
+      and ( Attack.act_race( i, "undead" ) ) ) then
+  	     if Attack.act_applicable( i ) then  -- can receive this attack
+          Attack.marktarget( i )            -- select it
+    	   end
+      end
+    end 
+  end
+
+  return true
+end
+
 
 function calccells_bless()
 

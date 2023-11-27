@@ -921,17 +921,6 @@ kid_ignatius {
         belligerent=ally
         unit=imp,imp2
       }
-      pbonus=attack,2,0,0,-100,0,0
-      dbonus=
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=imp,imp2
-      }
       pbonus=krit,0,50,0,-100,0,0
       dbonus=
       rbonus=

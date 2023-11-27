@@ -1341,7 +1341,7 @@ kid_ordwald {
       filter {
         belligerent=ally
       }
-      pbonus=initiative,1,0,0,-100,0,0
+      pbonus=speed,1,0,0,-100,0,0
       dbonus=
       rbonus=
       attack_on=
