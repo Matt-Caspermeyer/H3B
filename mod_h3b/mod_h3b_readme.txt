@@ -162,6 +162,47 @@ Windows 8 Comments
 * Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
 * So this release is mostly bug fixes, but there are some new features as well.
 
+Version: Beta 2013-02-24
+*.ATOM
+  & DEATH.ATOM
+    ^ Doubled experience for using Time Back since it does not get any damage bonus for experience gain
+    ^ Improved rest pacing for Soul Draining and added new rest level
+    ^ Improved rest pacing for Rage Draining and added new rest level
+    ^ Improved rest pacing for Time Back and added new rest level
+    ^ Improved rest pacing for Black Hole and added new rest level
+  & DEVATRON.ATOM - these changes most likely don't really change anything, but I feel are proper for the thorns
+    ^ Now are Fire, Poison, and Freeze Immnune
+    ^ Resistances:
+      % Physical: 100% (95)
+      % Poison: 100% (95)
+      % Magic: 0% (no change)
+      % Fire: -100%
+  & LINA.ATOM
+    ^ Doubled experience for using Chargers, Ice Orb, and Gizmo since they do not get any damage bonus for experience gain
+    ^ Improved rest pacing for Chargers
+    ^ Improved rest pacing for Ice Orb and added new rest level
+    ^ Improved rest pacing for Ice Thorns and added new rest level
+    ^ Improved rest pacing for Gizmo and added two new rest levels
+  & SLIME.ATOM
+    ^ Doubled experience for using Cloud of Poison and Glot's Armor since they do not get any damage bonus for experience gain
+    ^ Improved rest pacing for Evil Shoal and added new rest level
+    ^ Improved rest pacing for Cloud of Posion and added new rest level
+    ^ Improved rest pacing for Glot's Armor and added two new rest levels
+  & THEROCK.ATOM
+    ^ Doubled experience for using Stone Wall since it does not get any damage bonus for experience gain
+    ^ Improved rest pacing of Stone Wall and added new rest level
+    ^ Improved rest pacing of Rockfall and added new rest level
+    ^ Improved rest pacing of Underground Blades and added two new rest levels
+*.LNG
+  & EN(G)_SPIRITS.LNG - added new spirit ability rest levels
+*.LUA
+  & ARENA.LUA
+    ^ Fixed error with computing of enemy hero attack / defense could be less than 0
+    ^ Fixed error with Arena Spells check for Demon / Dragon Slayer (thanks Windows 8!)
+*.TXT
+  & ARENA.TXT - spirit levels now go to level 51 (only 50 is attainable, since level 51 requires 1,000,000 experience)
+
+
 Version: Beta 2013-02-10.1 - I forgot to include DEVATRON.ATOM in 2013-02-10
 
 Version: Beta 2013-02-10 - CRITICAL UPDATE

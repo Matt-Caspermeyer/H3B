@@ -117,8 +117,9 @@ spirit {
       rage2=rs:1,level:>4,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
       rage3=rs:2,level:>6,rage:>20/rage:-20,rs:3,exp:+20,ragelevel:3
       rest1=rest:0,LV:>7,rest:>1/,rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>18,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>25,rest:>2/rest:-2,exp:+6,restlevel:3
+      rest2=rest:1,LV:>17,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=rest:2,LV:>27,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=rest:3,LV:>37,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
   rage_gain {
@@ -129,9 +130,9 @@ spirit {
     default=level1
     upgrade {
       level1=level:0/damage:astral:50:180,rage_gain:10,rage:1,rest:1,exp:1,level:1,killedunitexp:1
-      level2=level:1/damage:astral:+80:+210,rage_gain:+10,rage:+1,rest:+1,exp:+1,level:2
+      level2=level:1/damage:astral:+80:+210,rage_gain:+10,rage:+1,exp:+1,level:2
       level3=level:2/damage:astral:+110:+240,rage_gain:+10,rage:+2,rest:+1,exp:+2,level:3
-      level4=level:3/damage:astral:+140:+270,rage_gain:+10,rage:+3,rest:+1,exp:+3,level:4
+      level4=level:3/damage:astral:+140:+270,rage_gain:+10,rage:+3,exp:+3,level:4
       level5=level:4,LV:>10/damage:astral:+170:+300,rage_gain:+10,rage:+4,rest:+1,exp:+4,level:5
       level6=level:5,LV:>12/damage:astral:+200:+330,rage_gain:+15,rage:+5,rest:+1,exp:+5,level:6
       level7=level:6,LV:>14/damage:astral:+230:+360,rage_gain:+15,rage:+6,rest:+1,exp:+6,level:7
@@ -140,7 +141,8 @@ spirit {
       rage2=rs:1,level:>7,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
       rest1=rest:0,LV:>8,rest:>1/rest:-1,exp:+2,restlevel:1
       rest2=rest:1,LV:>18,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>30,rest:>2/rest:-2,exp:+6,restlevel:3
+      rest3=rest:2,LV:>28,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=rest:3,LV:>38,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
   time_return {
@@ -151,16 +153,17 @@ spirit {
     level=4
     default=level1
     upgrade {
-      level1=level:0/rage:20,rest:2,exp:20,level:1
-      level2=level:1/rage:+2,rest:+1,exp:+2,level:2
-      level3=level:2/rage:+4,rest:+1,exp:+4,level:3
-      level4=level:3,LV:>7/rage:+8,rest:+1,exp:+8,level:4
-      level5=level:4,LV:>12/rage:+16,rest:+1,exp:+16,level:5
-      rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
-      rage2=rs:1,level:>4,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
-      rest1=rest:0,LV:>9,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>24,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>30,rest:>2/rest:-2,exp:+6,restlevel:3
+      level1=level:0/rage:20,rest:1,exp:40,level:1
+      level2=level:1/rage:+2,rest:+1,exp:+4,level:2
+      level3=level:2/rage:+4,rest:+1,exp:+8,level:3
+      level4=level:3,LV:>7/rage:+8,rest:+1,exp:+16,level:4
+      level5=level:4,LV:>12/rage:+16,rest:+2,exp:+32,level:5
+      rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+20,ragelevel:1
+      rage2=rs:1,level:>4,rage:>15/rage:-15,rs:2,exp:+30,ragelevel:2
+      rest1=rest:0,LV:>9,rest:>1/rest:-1,exp:+4,restlevel:1
+      rest2=rest:1,LV:>19,rest:>1/rest:-1,exp:+8,restlevel:2
+      rest3=rest:2,LV:>29,rest:>1/rest:-1,exp:+12,restlevel:3
+      rest4=rest:3,LV:>39,rest:>1/rest:-1,exp:+16,restlevel:4
     }
   }
   black_hole {
@@ -169,16 +172,17 @@ spirit {
     level=6
     default=level1
     upgrade {
-      level1=level:0/damage:astral:300:700,rage:15,rest:3,exp:15,level_influence:50,level:1,killedunitexp:1
+      level1=level:0/damage:astral:300:700,rage:15,rest:1,exp:15,level_influence:50,level:1,killedunitexp:1
       level2=level:1/damage:astral:+300:+700,rage:+10,rest:+1,exp:+5,level_influence:+5,level:2
-      level3=level:2/damage:astral:+300:+700,rage:+20,rest:+1,exp:+10,level_influence:+5,level:3
-      level4=level:3,LV:>12/damage:astral:+300:+700,rage:+30,rest:+1,exp:+15,level_influence:+5,level:4
+      level3=level:2/damage:astral:+300:+700,rage:+20,rest:+2,exp:+10,level_influence:+5,level:3
+      level4=level:3,LV:>12/damage:astral:+300:+700,rage:+30,rest:+2,exp:+15,level_influence:+5,level:4
       level5=level:4,LV:>15/damage:astral:+300:+700,rage:+40,rest:+2,exp:+20,level_influence:+5,level:5
       rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,level:>4,rage:>10,LV:>15/rage:-15,rs:2,exp:+15,ragelevel:2
       rest1=rest:0,LV:>10,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>23,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>37,rest:>2/rest:-2,exp:+6,restlevel:3
+      rest2=rest:1,LV:>20,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=rest:2,LV:>30,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=rest:3,LV:>40,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
 }

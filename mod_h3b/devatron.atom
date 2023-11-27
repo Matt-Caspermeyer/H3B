@@ -19,15 +19,15 @@ arena_params {
   skipmove=0
   repl_label1=devatron_repl1
   repl_label2=glot_repl2
-  features=barrier,pawn
+  features=barrier,pawn,mind_immunitet,fire_immunitet,poison_immunitet,freeze_immunitet
   attacks=scripted
   ondamage=devatron_thorns
   posthitslave=devatron_posthitslave
   resistances {
-    physical=1
-    poison=1
-    magic=1
-    fire=1
+    physical=100
+    poison=100
+    magic=0
+    fire=-100
   }
   scripted {
     script_attack=devatron_attack

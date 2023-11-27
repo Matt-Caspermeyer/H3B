@@ -77,17 +77,18 @@ spirit {
     level=2
     default=level1
     upgrade {
-      level1=level:0/rage:10,rest:1,exp:10,level:1,health:500,ttl:6,wall_def:20,level:1,res_all:10
-      level2=level:1/rage:+1,exp:+1,level:2,health:+500,wall_def:+20,level:2,res_all:+10
-      level3=level:2/rage:+2,rest:+1,exp:+2,level:3,health:+1000,wall_def:+20,level:3,res_all:+10
-      level4=level:3/rage:+3,exp:+3,level:4,health:+2000,wall_def:+20,level:4,res_all:+10
-      level5=level:4/rage:+4,rest:+1,exp:+4,level:5,health:+4000,wall_def:+20,level:5,res_all:+10
-      rage1=rs:0,level:>2,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
-      rage2=rs:1,level:>4,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
-      rest1=rest:0,LV:>6,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>23,rest:>1/rest:-1,exp:+4,restlevel:2
-      ttl1=ttl:0,LV>:7/ttl:9,rage:+5,rest:+1,exp:+5,ttllevel:1
-      ttl2=ttl:1,LV>:24/ttl:12,rage:+10,rest:+1,exp:+10,ttllevel:2
+      level1=level:0/rage:10,rest:1,exp:20,level:1,health:500,ttl:6,wall_def:20,level:1,res_all:10
+      level2=level:1/rage:+1,exp:+2,level:2,health:+500,wall_def:+20,level:2,res_all:+10
+      level3=level:2/rage:+2,rest:+1,exp:+4,level:3,health:+1000,wall_def:+20,level:3,res_all:+10
+      level4=level:3/rage:+3,exp:+6,level:4,health:+2000,wall_def:+20,level:4,res_all:+10
+      level5=level:4/rage:+4,rest:+1,exp:+8,level:5,health:+4000,wall_def:+20,level:5,res_all:+10
+      rage1=rs:0,level:>2,rage:>5/rage:-5,rs:1,exp:+10,ragelevel:1
+      rage2=rs:1,level:>4,rage:>10/rage:-10,rs:2,exp:+20,ragelevel:2
+      rest1=rest:0,LV:>6,rest:>1/rest:-1,exp:+4,restlevel:1
+      rest2=rest:1,LV:>16,rest:>1/rest:-1,exp:+8,restlevel:2
+      rest3=rest:1,LV:>26,rest:>1/rest:-1,exp:+12,restlevel:3
+      ttl1=ttl:0,LV>:7/ttl:9,rage:+5,rest:+1,exp:+10,ttllevel:1
+      ttl2=ttl:1,LV>:24/ttl:12,rage:+10,rest:+1,exp:+20,ttllevel:2
     }
   }
   rockfall {
@@ -96,19 +97,20 @@ spirit {
     level=4
     default=level1
     upgrade {
-      level1=level:0/damage:physical:100:150,rage:6,rest:2,exp:6,square:3,level:1,stunning:50,killedunitexp:1
+      level1=level:0/damage:physical:100:150,rage:6,rest:1,exp:6,square:3,level:1,stunning:50,killedunitexp:1
       level2=level:1/damage:physical:+100:+150,rage:+2,exp:+2,level:2,stunning:+5
       level3=level:2/damage:physical:+200:+250,rage:+4,exp:+4,level:3,stunning:+5
-      level4=level:3/damage:physical:+400:+450,rage:+6,exp:+6,level:4,stunning:+5
-      level5=level:4,LV:>10/damage:physical:+600:+650,rage:+8,rest:+1,exp:+8,level:5,stunning:+5
+      level4=level:3/damage:physical:+400:+450,rage:+6,exp:+6,rest:+1,level:4,stunning:+5
+      level5=level:4,LV:>10/damage:physical:+600:+650,rage:+8,exp:+8,level:5,stunning:+5
       level6=level:5,LV:>14/damage:physical:+800:+850,rage:+10,exp:+10,level:6,stunning:+5
-      level7=level:6,LV:>18/damage:physical:+1000:+1050,rage:+12,exp:+12,level:7,stunning:+5
+      level7=level:6,LV:>18/damage:physical:+1000:+1050,rage:+12,rest:+1,exp:+12,level:7,stunning:+5
       rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
       rage2=rs:1,level:>5,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
       square1=square:3,LV:>10/rage:+5,square:7,rest:+1,exp:+5,squarelevel:1
       square2=square:7,LV:>15/rage:+10,square:19,rest:+1,exp:+10,squarelevel:2
       rest1=rest:0,LV:>6,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>18,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest2=rest:1,LV:>16,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=rest:2,LV:>26,rest:>1/rest:-1,exp:+6,restlevel:3
     }
   }
   quake {
@@ -119,17 +121,19 @@ spirit {
     level=8
     default=level1
     upgrade {
-      level1=level:0/damage:physical:150:200,rage:9,rest:3,exp:9,level:1,bleeding:5,killedunitexp:1
-      level2=level:1/damage:physical:+150:+200,rage:+3,exp:+2,level:2,bleeding:+5
+      level1=level:0/damage:physical:150:200,rage:9,rest:1,exp:9,level:1,bleeding:5,killedunitexp:1
+      level2=level:1/damage:physical:+150:+200,rage:+3,rest:+1,exp:+2,level:2,bleeding:+5
       level3=level:2/damage:physical:+200:+250,rage:+6,rest:+1,exp:+3,level:3,bleeding:+5
-      level4=level:3,LV:>11/damage:physical:+300:+350,rage:+9,exp:+5,level:4,bleeding:+5
+      level4=level:3,LV:>11/damage:physical:+300:+350,rage:+9,rest:+1,exp:+5,level:4,bleeding:+5
       level5=level:4,LV:>13/damage:physical:+400:+450,rage:+12,rest:+1,exp:+6,level:5,bleeding:+5
-      level6=level:5,LV:>18/damage:physical:+500:+550,rage:+15,exp:+8,level:6,bleeding:+5
-      level7=level:6,LV:>25/damage:physical:+600:+650,rage:+18,rest:+1,exp:+9,level:7,bleeding:+5
+      level6=level:5,LV:>18/damage:physical:+500:+550,rage:+15,rest:+1,exp:+8,level:6,bleeding:+5
+      level7=level:6,LV:>25/damage:physical:+600:+650,rage:+18,rest:+2,exp:+9,level:7,bleeding:+5
       rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
       rage2=rs:1,level:>5,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
       rest1=rest:0,LV:>10,rest:>1/rest:-1,exp:+2,restlevel:1
       rest2=rest:1,LV:>20,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=rest:2,LV:>30,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=rest:3,LV:>40,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
 }

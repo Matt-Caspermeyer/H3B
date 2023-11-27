@@ -619,10 +619,10 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
         local defenseup = math.max( math.floor( ( base_value + value_inc ) / 5 ), min_stat_inc )
         Attack.act_set_par( target, "defenseup", defenseup )
         local new_current_value, new_base_value = Attack.act_get_par( target, parameter )
-        Attack.val_store( target, "enemy_hero_defense", new_current_value - new_base_value )
+        Attack.val_store( target, "enemy_hero_defense", math.max( 0, new_current_value - new_base_value ) )
       elseif parameter == "attack" then
         local new_current_value, new_base_value = Attack.act_get_par( target, parameter )
-        Attack.val_store( target, "enemy_hero_attack", new_current_value - new_base_value )
+        Attack.val_store( target, "enemy_hero_attack", math.max( 0, new_current_value - new_base_value ) )
       end
   
       return true   -- change made
@@ -3795,12 +3795,12 @@ function spell_auto_cast( spells, spellattacks )
         return Attack.act_need_charge_or_reload( a )
       end,
     spell_demon_slayer =
-      function ()
+      function ( a )
         return spell_feature_slayer( "demon" )
         and not Attack.act_is_spell( a, "spell_demon_slayer" )
       end,
     spell_dragon_slayer =
-      function ()
+      function ( a )
         return spell_feature_slayer( "dragon" )
         and not Attack.act_is_spell( a, "spell_dragon_slayer" )
       end
@@ -3836,7 +3836,7 @@ function spell_auto_cast( spells, spellattacks )
         and not Attack.act_is_spell( a, "spell_crue_fate" )
       end,
 		  spell_weakness =
-      function(a)
+      function( a )
      			return ck_canatk( a )
         and Attack.act_leadership( a ) * Attack.act_size( a ) > enemies_power / 4.
         and not Attack.act_is_spell( a, "spell_weakness" )
@@ -3874,7 +3874,7 @@ function spell_auto_cast( spells, spellattacks )
         return false
       end,
     spell_defenseless =
-      function(a)
+      function( a )
         return ck_underatk( a )
         and Attack.act_get_par( a, "defense" ) >= 5
         and not Attack.act_is_spell( a, "spell_defenseless" )
