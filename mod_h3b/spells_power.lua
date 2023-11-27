@@ -80,7 +80,7 @@ function int_pwr( pwr, ehero_level )
 
   if ehero_level == nil then
     mod = math.max( mod_limit, mod - tonumber( Logic.hero_lu_item( "sp_power_mod", "count" ) ) / den_scholar )
-    inc = math.max( inc_limit, inc + tonumber( Logic.hero_lu_item( "sp_power_inc", "count" ) ) )
+    inc = math.max( inc_limit, inc + tonumber( Logic.hero_lu_item( "sp_power_inc", "count" ) ) / den_scholar )
   end
 
   pwr = pwr * ( 1 + math.floor( num / mod ) * inc / 100 )
@@ -116,7 +116,7 @@ function get_sp_bonus( spell, bonus_type, ehero_level )
         spell_bonus = 1 + tonumber( Logic.hero_lu_item( "sp_spell_" .. bonus, "count" ) ) / 100
       elseif bonus_type == "healer" then
         spell_bonus = 1 + tonumber( skill_power2( "healer", 1 ) ) / 100
-      elseif bonus_type == "holy" then
+      elseif bonus_type == "sp_holy" then
         spell_bonus = 1 + tonumber( hero_item_count2( "sp_spell_holy", "count" ) ) / 100
       elseif bonus_type == "glory" then
         spell_bonus = 1 + tonumber( skill_power2( "glory", 3 ) ) / 100
@@ -159,7 +159,7 @@ function get_spell_bonus( spell, text, ehero_level )
   local sp_attack = get_sp_bonus( spell, "attack", ehero_level )
   local sp_defense = get_sp_bonus( spell, "defense", ehero_level )
   local sp_healer = get_sp_bonus( spell, "healer", ehero_level )
-  local sp_holy = get_sp_bonus( spell, "holy", ehero_level )
+  local sp_holy = get_sp_bonus( spell, "sp_holy", ehero_level )
   local sp_glory = get_sp_bonus( spell, "glory", ehero_level )
   local sp_holy_rage = get_sp_bonus( spell, "holy_rage", ehero_level )
   local type_damage = Logic.obj_par( spell, "typedmg" )
@@ -177,7 +177,8 @@ function get_spell_bonus( spell, text, ehero_level )
     sp_damage = get_sp_bonus( spell, "typedmg", ehero_level )
   end
 
-  local int_power = 1 + ( HInt() * int_pwr( 1, ehero_level ) * get_sp_bonus( spell, "int_pwr", ehero_level ) ) / 100
+  local sp_power = get_sp_bonus( spell, "int_pwr", ehero_level )
+  local int_power = ( 1 + HInt() / 100 ) * sp_power * int_pwr( 1, ehero_level )
   local sp_necromancy = get_sp_bonus( spell, "necromancy", ehero_level )
   local spell_bonus = sp_hero * sp_destroyer * sp_attack * sp_defense * sp_healer * sp_holy * sp_glory * sp_holy_rage * sp_damage * int_power * sp_necromancy
 
@@ -220,6 +221,9 @@ function get_spell_bonus( spell, text, ehero_level )
     end
     if sp_astral > 1 then
       bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_astral_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_astral - 1 ) * 100 ) ) )
+    end
+    if sp_power > 1 then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_power_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_power - 1 ) * 100 ) ) )
     end
     if int_power > 1 then
       bonus_string = bonus_string .. "<br>" .. "<label=spell_int_power_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( int_power - 1 ) * 100 ) ) )
@@ -489,7 +493,8 @@ function res_dur( target, spell, duration, res_type )
   local res_spell = Logic.obj_par( spell, "dur_res_" .. res_type )
   local new_duration = duration
 
-  if res_spell == "1" then
+  if res_spell == "1"
+  and target ~= nil then
     local resist = Attack.act_get_res( target, res_type )
     local spell_type = Logic.obj_par( spell, "type" )
 

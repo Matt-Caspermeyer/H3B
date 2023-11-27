@@ -6,7 +6,7 @@ main {
 }
 arena_params {
   features_label=cpi_book1_feat
-  features_hints=spell1_header/spell1_hint,poison_immunity_header/poison_immunity_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint,voidability_header/voidability_hint
+  features_hints=spell1_header/spell1_hint,poison_immunity_header/poison_immunity_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint,voidability_header/voidability_hint,regenerates_mana_header/regenerates_mana_hint
   realdeath=1
   race=neutral
   cost=400
@@ -25,7 +25,8 @@ arena_params {
   hitbackprotect=1
   attacks=moveattack,gulp,attack_spell
   posthitmaster=features_saturation
-  features=poison_immunitet,magic_immunitet,mind_immunitet,eyeless,golem
+  posthitslave=features_mage
+  features=poison_immunitet,magic_immunitet,mind_immunitet,eyeless,golem,mage
   resistances {
     physical=5
     poison=80

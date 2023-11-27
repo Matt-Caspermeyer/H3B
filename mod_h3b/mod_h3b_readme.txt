@@ -147,6 +147,726 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Windows 8 Comments
+* I've had crashes when trying to transfer save games from Windows 7 to Windows 8. I'm not sure what is going on here for certain, but it appears to be related to file credentials.
+* I was able to copy a save game from my Windows 7 install to my Windows 8 install by:
+  ^ Copying it to the root folder of my Windows 8 install (i.e. C:\)
+  ^ Then copying it to my user folder
+* I was able to play for the most part, except that when I try to go to the Western Islands, the game crashes.
+* I also tried a new game with Windows 8 and did not have the same issues and I was also able to make it to the Western Islands without it crashing
+* I have been unable to copy a save game from my Windows 8 install to my Windows 7
+  ^ The file simply doesn't appear in the save game list when I'm trying to load a save game from Windows 7
+  ^ I'm not sure what the problem is here.
+* So it seems best to just stick with playing your games in the Windows you started them with and to just start a new game if you want to switch O/S's.
+* I've noticed that I get more diagnostic error messages when running the game in -dev mode with Windows 8 than with Windows 7
+* Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
+* So this release is mostly bug fixes, but there are some new features as well.
+
+
+Version: Beta 2013-01-26
+*.ATOM
+  & ALCHEMIST.ATOM
+    ^ Holy Water charges changed to a reload of 3
+    ^ Fire Potion Charges changed to a reload of 4
+    ^ Poison Potion Charges changed to a reload of 5
+  & DEATH.ATOM - Rage Gain set to display a damage hint
+  & Demon ATOM's: ARCHDEMON, CERBERUS, DEMON, DEMONESS, IMP, IMP2, SPIDER_FIRE
+    ^ Now generate twice as much rage when attacking / defending
+  & DEVATRON.ATOM - set the isenemy flag to true such that ranged units cannot use their ranged ability when adjacent to an Ice Thorn
+  & EVILBOOK ATOM's: EVILBOOK1 - 3
+    ^ Now are Mages (and subject to Zerock's Attacks)
+    ^ Have the feature other mages have (denoted below) to convert damage to mana
+  & ENT.ATOM
+    ^ Added "special" animation for Summon Plant
+    ^ Added sound for "special" animation
+    ^ Added particle for "special" animation
+  & GOBLIN2.ATOM - Throw Axe now reloads every 3 rounds
+  & Mage ATOM's: ARCHMAGE, BEHOLDER, BEHOLDER2, NECROMANT, PRIEST, PRIEST2, SHAMAN
+    ^ Now have a feature that has a chance of converting damage into mana for their hero
+    ^ The chance is related to the total leadership of the stack
+  & Orc ATOM's: CATAPULT, GOBLIN, GOBLIN2, OGRE, ORC, ORC2, SHAMAN
+    ^ Now generate 1.5 times as much rage when attacking / defending
+  & ROBBER.ATOM - removed from mod and returned to default (the only change here was them having 8 charges on their longattack)
+  & ROBBER2.ATOM - removed from mod and returned to default (the only change here was them having 8 charges on their longattack)
+  & SLIME.ATOM
+    ^ rage1 now has a level 4 requirement (was 3) and a spirit level requirement of 9 (didn't have one before)
+    ^ rage2 now has a level 6 requirement (was 5) and a spirit level requirement of 14 (didn't have one before)
+  & SPIDER_FIRE.ATOM - Added the missing demon feature
+  & THEROCK.ATOM - Added level requirements to Wall TTL upgrades since it was possible to be offered it without even having the ability
+*.CHAT
+  & 1594798170.CHAT - Maria now exchanges 1 dragonfly wing for 3 crystals
+*.DAT
+  & ITEXTURES.DAT - added include for tex338.dat
+  $ TEX338.DAT - new DDS data file for the new Tolerance Skill pictures
+* TEX338.DDS - new pictures for the Tolerance Skill (Level 0 and 1, Levels 2 and 3 are the same)
+*.LNG
+  & EN(G)_ACTORS.LNG - Changed Carl Leonar to Leonard
+  & EN(G)_BATTLE.LNG - added Totem Dispel log label
+  & EN(G)_CHAT_0013319904_1594798170.LNG - Maria now exchanges 1 dragonfly wing for 3 crystals
+  & EN(G)_ITEMS.LNG - added [egg] macro for generating container unit possibilities for certain containers (i.e. eggs, seeds, etc.)
+  & EN(G)_ITEMS_BASE - added new labels for the egg macro for container hints
+  & EN(G)_SKILLS.LNG - added Tolerance Level 3
+  & EN(G)_SPELLS.LNG
+    ^ Clarified Entangle Critical Hit verbiage
+    ^ Added description to Freeze about Shock chance doubling
+    ^ Added description to stun and blind about double chance of being struck critically
+  & EN(G)_UNITS.LNG
+    ^ Death Totem now also randomly removes 1 bonus spell from each target
+    ^ Life Totem now also randomly removes 1 penalty spell from each target
+    ^ Updated Orcs and Demons to include Rage bonuses.
+    ^ Added Critical Hit labels and macro
+    ^ Added Level to the end of the Evil Book unit names
+    ^ Added new Elf / Dwarf Tolerance label
+  & EN(G)_UNITS_FEATURES.LNG
+    ^ Updated Soul Drain description to include units not affected by it
+    ^ Added new regenerates_mana header and hint
+    ^ Changed description of Team Spirit to include changes listed below
+    ^ Updated holy_attack_header to include changes listed below
+  & EN(G)_UNITS_SPECIALS.LNG
+    ^ Web now also doubles the chance of the target being struck critically
+    ^ Death Totem now also randomly removes 1 bonus spell from each target
+    ^ Life Totem now also randomly removes 1 penalty spell from each target
+  & TEMPLATES.LNG
+    ^ Added "egg" macro to generate the unit possibility hints
+    ^ Changed "allmages1" macro to include Beholders, Evil Beholders, and Evil Books since they are Mages (Beholders were given the mage feature a while back)
+    ^ Fixed group macros to use the proper bonuses since they were wrong
+    ^ Added Critical Hit macro definition
+    ^ Added dragonfly_wings macro to show number of Dragon Fly Wings when selling them to Maria
+*.LUA
+  & ARENA.LUA
+    ^ Targets with blind, unconscious, or sleep have their can_attack flag set to false if the duration left is greater than 1
+    ^ Web:
+      % The criteria for the AI deciding to web a unit is now:
+        $ Cannot be webbed, entangled, sleeping, unconscious, blinded, or rooted
+	$ The ratio of the target's speed to the webber's speed
+	$ The ratio of the target's power to the webber's power
+    ^ Entangle - AI now considers targets viable if they can attack an ally, not just the caster
+    ^ Rooted:
+      % AI now just considers whether the caster needs healing or resurrection as entry criteria
+      % Probability is now 5 times higher if the caster is burning
+    ^ Units that have been webbed now have twice the chance of being struck critically
+    ^ Units that have been blinded now have twice the chance of being struck critically
+    ^ Units that have been stunned now have twice the chance of being struck critically
+    ^ Furious Goblin's Throw Axe ability AI improved
+    ^ Spell AI
+      % If a pawn is a valid target then its score is 1/10 (Gremlin Towers liked to target Ice Thorns with Fire Ball / Rain)
+      % Targets with blind, unconscious, or sleep have their can_attack_units flag set to false if the duration left is greater than 1
+    ^ ***BUG*** Fixed error with Frenzy giving too much of an Attack bonus after killing enemy troop
+    ^ ***BUG*** Fixed error with Towers and "book_times" (thanks Windows 8!)
+  & COMBAT_LOG.LUA
+    ^ If you have a split stack, Gift of Life now correctly displays the correct hint for whether or not your stack will cause you to go over your Hero's Leadership
+    ^ Rage Gain now shows the damage tooltip
+  & ITEMS_HINT.LUA
+    ^ Added new "gen_egg_param" function to list the probability and variants of units coming out of certain containers
+    ^ Fixed unit bonus generators to properly compute the unit group bonus macros
+    ^ Scholar is now sp_power_inc / den_scholar
+  & ITEM_USE.LUA
+    ^ Updated "objuse_spawn_troop" to handle an alternate set of units to produce from the object (see ITEMS_MONSTER.TXT)
+  & LOGIC_HERO.LUA
+    ^ Removed Leadership Reduction Limit code since you can't clamp leadership limit bonuses
+    ^ Tweak to Paladin's Rune Level-ups: Now 24.4, 51.2, and 24.4% Might, Mind, and Magic Rune split
+    ^ Tweak to Mage's Rune Level-ups: Now 13.3, 26.7, and 60% Might, Mind, and Magic Rune split
+  & PAWN.LUA
+    ^ Death Totem now removes 1 random bonus spell from each enemy target in the radius
+    ^ Life Totem now removes 1 random penalty spell from each ally target in the radius
+  & SKILLS.LUA
+    ^ Explorer now also increases the Hero's Search Radius
+    ^ Added check to skill_power to set param to 1 if the input value is nil
+  & SPECIAL_ATTACKS.LUA
+    ^ Improved Ent Summon Plant animation for when Ents are summoned
+  & SPELLS.LUA
+    ^ Mass spells now have a random time shift for the mass effect
+    ^ If a unit is frozen, then their chance of shock doubles
+    ^ The intellegence spell power bonuses (int_pwr and sp_power_int) are now multiplicative of total intelligence bonus not simply intelligence (i.e. instead of ( 1 + int * bonuses ) it is ( 1 + int / 100 ) * bonuses. This is so that if you have, for example, 28 intellect then you get +40% intellect power or ( 1 + int / 100  ) * 1.4 rather than a 40% increase in intellect ( 1 + int * 1.4 / 100 ) like how I had it implemented before in which the 40% bonus did not equate to +40% power bonus like the intellect description states.
+    ^ ***BUG*** Fixed bug with spells that were determining if the caster was human or computer (thanks Windows 8!)
+  & SPELLS_COMMON.LUA
+    ^ ***BUG*** Added check for corpse_cell not nil to calccells_all_phoenix_sacrifice (thanks Windows 8!)
+    ^ ***BUG*** Fixed error with Towers and the Necromancy Spell using calccells_all_corpse2 (thanks Windows 8!)
+  & SPELLS_EFFECTS.LUA
+    ^ Bless / Weakness now have a random time shift
+    ^ ***BUG*** Added check for nil target in apply_hero_duration_bonus (thanks Windows 8!)
+    ^ ***BUG*** Fixed error with " defense" in effect_holy_attack (thanks Windows 8!)
+  & SPELLS_POWER.LUA
+    ^ Fixed "holy" bonus to be "sp_holy" to prevent conflict with "holy" affliction chance
+    ^ The sp_power_inc bonus is now divided by den_scholar
+    ^ ***BUG*** Added check to ensure targets are not nil in res_dur (thanks Windows 8!)
+    ^ See the change to intelligence spell power bonuses in SPELLS.LUA
+  & SPIRIT_LINA.LUA
+    ^ Updated Gizmo AI to be a merging of H3B and H3T logic
+    ^ Improved Ice Thorns animation sequence of displaying damage numbers
+  & TEXTGEN.LUA
+    ^ Fixed "int_power" calculation to accurately calculate the bonus with item bonuses
+    ^ The total Scholar spell power increase is now sp_power_inc / den_scholar
+    ^ Added new gen_unit_krit function to generate the unit's Critical Hit chance
+  & UNIT_FEATURES.LUA
+    ^ The Ghost / Cursed Ghost Soul Drain ability no longer works on Holy units
+    ^ If a unit is frozen, then their chance of shock doubles
+    ^ Fixed Orc's Ill-Tempered from executing when the Orc troop is killed
+    ^ ***BUG*** Added check for sleep not nil to features_giant_attack (thanks Windows 8!)
+    ^ ***BUG*** Added check for stun not nil to features_ogre_attack (thanks Windows 8!)
+    ^ ***BUG*** Added check for chance not nil to features_bonedragon_attack (thanks Windows 8!)
+    ^ ***BUG*** Added check for entangle not nil to features_entangle (thanks Windows 8!)
+    ^ ***BUG*** Fixed issues with post_spell_last_hero not returning damage and addrage properly (thanks Windows 8!)
+    ^ ***BUG*** Fixed issues with possibility of nil parameters when getting custom parameters (thanks Windows 8!)
+    ^ Priests and Inquisitors now have a chance to affect the Undead with Holy Power, decreasing their combat ability
+    ^ Peasant's Team Spirit bonus is now a function of the square root of the number of troops and no longer has a restriction on how high the bonus may go.
+    ^ ***BUG*** Fixed error in features_bleeding (target -> receiver) (thanks Windows 8!)
+*.TXT
+  & CONFIG.TXT
+    ^ Leadership Reduction Limit is no longer used since you can't (apparently) clamp the leadership reduction bonus counters
+  & DIANA_BABIES.TXT
+    ^ Added Beholders and Evil Book Level 1 (Level 3), Evil Beholders and Evil Book Level 2 (Level 4), and Evil Book Level 3 (Level 5) to Dracon's Mage bonuses
+    ^ Fixed sp_addgold_chestt misspelling (sp_addgold_chest) for Aine (thanks Windows 8!)
+  & GERDA_BABIES.TXT
+    ^ Fixed sp_addgold_chestt misspelling (sp_addgold_chest) for Grindan, Mutare, and Thunar (thanks Windows 8!)
+  & HERO.TXT - removed wolf from the starting army lists, since I guess you can't technically buy any in that state throughout the game
+  & ITEMS_MONSTER.TXT
+    ^ For all the changes below, you need to collect (or buy) another container for these changes to take affect
+    ^ "snake_egg" now has a chance to generate all snakes
+    ^ "spider_egg" now has a chance to generate all spiders
+    ^ "dfly_egg" now has a chance to generate all dragonflies (equal probability)
+    ^ "skeleton_grave" now has a chance to generate all skeletons (almost equal probability)
+    ^ "vampire_grave" now has a chance to generate all vampires
+    ^ "thorn_seed"
+      % Now has a chance to also generate Thorn Warriors (equal probability between Thorns and Thorn Warrios)
+      % If the number of seeds exceed a certain random range (47-76 seeds) also will produce (always) Royal Thorns for each 47-76 seeds
+    ^ "ent_seed" now always produces Ancient Ents if 4-5 seeds or more are used (1 for each 4-5 seeds)
+    ^ There is now a slight chance of a griffin egg producing twins (but only when used individually)!
+    ^ There is now a slight chance of all dragon eggs producing twins (but only when used individually)!
+  & MIRABELLA_BABIES.TXT
+    ^ Fixed sp_addgold_chestt misspelling (sp_addgold_chest) for Cuthbert, Caitlin, and Haart (thanks Windows 8!)
+  & MORALE.TXT
+    ^ Fixed issue with giving Humans, Dwarves, and Elves +1 Morale for each level of Diplomacy (should be just +1 Morale @Level 1)
+    ^ Fixed issue with giving Neutrals and Orcs +1 Morale for level 2 and 3 Diplomacy (should be just +1 Morale @Level 2)
+    ^ Now Tolerance Level 1 removes the Elf / Dwarf Morale penalty
+    ^ Undead Morale penalty now is removed @ Tolerance Level 2 (was 1)
+    ^ Demon Morale penalty now is removed @ Tolerance Level 3 (was 2)
+  & NEOKA_BABIES.TXT
+    ^ Fixed sp_addgold_chestt misspelling (sp_addgold_chest) for Jenova, Gelare, and Kendal (thanks Windows 8!)
+  & ORCELYN_BABIES.TXT
+    ^ Fixed sp_addgold_chestt misspelling (sp_addgold_chest) for Erdamon (thanks Windows 8!)
+  & RINA_BABIES.TXT
+    ^ Removed sp_lead_unit_bat and sp_lead_unit_bat2 from Isra, Sandro, Xsi, Finneas, Clavius, Vidomina, and Death Haart (these counters don't exist)
+    ^ Changed sp_lead_unit_vampire3 to sp_lead_unit_vampire2 for Sandro, Xsi, Finneas, and Clavius (how'd that get there???)
+    ^ Removed duplicate sp_lead_unit_bonedragon from Vidomina (thanks to Fatt_Shade for pointing this one out!)
+    ^ Fixed sp_addgold_chestt misspelling (sp_addgold_chest) for Nagash and Clavius (thanks Windows 8!)
+  & SKILLS.TXT
+    ^ Explorer now increases the Hero's Search Radius by +1 for each level
+    ^ Tolerance:
+      % Now has 3 levels:
+        $ Elves & Dwarves @ Level 1
+	$ Undead @ Level 2
+	$ Demons @ Level 3
+      % Resist All is now +2, 4, and 6% (was +2 and +5%)
+  & SPELLS.TXT
+    ^ Had not realized that I had doubled up on the "holy" parameter using it for both the holy affliction chance and the sp_spell_holy bonus. Spells affected by sp_spell_holy now have an sp_holy parameter (instead of just holy), reserving holy for the chance of inflicting Holy Power on the Undead.
+    ^ Had not realized that I had weakened Stone Skin when I made it mass - set the values to allow twice as much power as Divine Armor
+  & WIFES.TXT
+    ^ Removed sp_lead_unit_bat, sp_lead_unit_bat2, from Zombie Rina since these counters don't exist (sp_lead_unit_vampire, sp_lead_unit_vampire2 are the valid ones)
+  & XEONA_BABIES.TXT
+    ^ Fixed sp_addgold_chestt misspelling (sp_addgold_chest) for Octavia and Mutare Drake (thanks Windows 8!)
+*.LOC - ***CHANGES TO LOC FILES ONLY AFFECT NEW GAMES***
+  & Increased chance of:
+    ^ Getting rare units
+    ^ Unit generators (i.e. seeds, eggs, etc.)
+    ^ Unit variability here and there.
+  & If not specified then the ranges were not changed.
+  & DARION_1_EMBRYOS.LOC (Greenwort)
+    ^ Ghost Ship:
+      % Now has a 25% chance to sell Skeleton Graves (3:10)
+      % Now has a 10% chance to sell Vampire Coffins (1:3)
+    ^ Pet Shop:
+      % Now has a 50% chance to sell Dragon Fly Eggs (10:25)
+      % Now has a 25% chance to sell Spider Eggs (3:10)
+      % Now has a 10% chance to sell Snake Eggs (1:3)
+      % Now has a 10% chance to sell Griffin Eggs (1:3)
+      % Has the same probabilities of the above generators after finishing quest
+    ^ Royal Thorn Shop:
+      % Now has a chance to sell more (sometimes fewer) Thorn Seeds (100 -> 70:5:140)
+      % Now has a 10% chance to sell Royal Thorns (1:2)
+    ^ Milk Woman Shop now has a 10% chance to sell Royal Thorns (1)
+    ^ Forester Shop:
+      % Now has a 10% chance to sell Thorn Seeds (10:25)
+      % Now has a 10% chance to sell Spider Eggs (5:15)
+      % Now has a 10% chance to sell Druids (5:15)
+      % Now has a 20% chance to sell Thorn Seeds (20:5:50) after finishing quest
+      % Now has a 20% chance to sell Spider Eggs (10:30) after finishing quest
+      % Now has a 20% chance to sell Druids (10:30) after finishing quest
+      % Now has a 20% chance to sell Royal Thorns (1:2) after finishing quest
+    ^ Robber Shop:
+      % Now has a 50% chance to sell Spider Eggs (6:20)
+      % Now has a 25% chance to sell Snake Eggs (2:6)
+      % Now has a 25% chance to sell Griffin Eggs (2:6)
+      % Now has a 50% chance to sell either Pirates (50:100) or Sea Dogs (25:50)
+    ^ Aron's Temple:
+      % Now sells Inquisitors (20:40) after becoming a Baron
+      % Now sells Inquisitors (75:5:150) after becoming an Earl
+      % Now sells Inquisitors (400:50:800) after becoming a Lord
+  & DARION_1_DUNGEON_1.EMBRYOS.LOC - Snake Trader now sells Snake Eggs (10:30)
+  & DARION_2_EMBRYOS.LOC (Verlon Forest)
+    ^ Shop at entrance to Verlon Forest:
+      % Now has a 25% chance to sell Dragon Fly Eggs (50:5:125)
+      % Now has a 20% chance to sell Thorn Seeds (25:5:75)
+      % Now has a 10% chance to sell Griffin Eggs (1:5)
+      % Now has a 10% chance to sell Royal Thorns (1:2)
+      % Now has a chance to sell more Griffins (5:10 -> 10:20)
+    ^ River Farm:
+      % Now has a 50% chance to sell Dragon Fly Eggs (100:10:250)
+      % Now has a 50% chance to sell Thorn Seeds (50:10:150)
+      % Now has a 20% chance to sell Griffin Eggs (2:10)
+      % Now has a 50% chance to sell Thorns and Thorn Warriors
+      % Now has a 25% chance to sell a Level 1 Elf troop (Sprites or Lake Faeries) (75:5:150)
+      % Now has a 20% chance to sell Royal Thorns (was 16.7%)
+      % Now has a chance to sell more Royal Thorns (1 -> 2:4)
+    ^ Dragon's Castle:
+      % Now has a 50% chance to sell Dragon Fly Eggs (50:10:150)
+      % Now has a 50% chance to sell Spider Eggs (20:40)
+      % Now has a 20% chance to sell Griffin Eggs (5:10)
+    ^ Druid's Shop:
+      % Now sells Thorn Seeds (100:10:200)
+      % Now has a 25% Chance to sell Griffin Eggs (5:20)
+      % Has a 10% Chance to sell Ent Seeds (1:3)
+      % Now sells Druids (40:5:100)
+      % Now sells either:
+        $ Sprites: 250:50:500
+        $ Lake Faeries: 250:50:500
+	$ Dryads: 100:25:250
+      % Now has a 40% chance to sell either Griffins (20:5:100) or Royal Thorns (1:5)
+    ^ Robber House:
+      % Now has a 75% chance to sell Spider Eggs (50:5:100)
+      % Now has a 20% Chance to sell Griffin Eggs (5:10)
+      % Now has a 10% chance to sell Skeleton Graves (5:20)
+    ^ Viking Ship:
+      % Now has a 25% Chance to sell Griffin Eggs (5:15)
+      % Now has a 25% chance to sell Griffins (10:5:50)
+      % Now has a 10% chance to sell Druids (10:5:50) or Royal Thorns (2:5)
+  & DARION_3_EMBRYOS.LOC (Marshan Swamp)
+    ^ Tavern - now has a chance to sell more knights (2:5 -> 4:10)
+    ^ Robber House:
+      % Now has a 25% chance to sell Skeleton Graves (15:30)
+      % Now has a 10% chance to sell Vampire Coffins (5:10)
+    ^ Tomb (03):
+      % Now has a 40% chance to sell Skeleton Graves (30:5:60)
+      % Now has a 20% chance to sell Vampire Coffins (10:20)
+      % Now has a 33.3% chance to sell Undead Spiders (250:25:400)
+    ^ Tomb (01):
+      % Now has a 40% chance to sell Skeleton Graves (30:5:60)
+      % Now has a 20% chance to sell Vampire Coffins (10:20)
+      % Now sells more Spider Eggs (10 -> 10:5:50)
+      % Now has a 16.7% chance to sell Undead Spiders (250:25:400)
+      % Now has a 25% chance to sell Cursed Zombies (50:5:100)
+      % Now has a 25% chance to sell Cursed Ghosts (50:5:100)
+    ^ Frogus Castle:
+      % Now has a 10% chance to sell Thorn Seeds (25:5:75)
+      % Now has a 50% chance to sell Spider Eggs (30:5:60)
+      % Now has a 25% chance to sell Snake Eggs (10:30)
+      % Now has a 22.2% chance to sell Royal Thorns (3:10)
+      % Now has a 20% chance to sell Thorn Seeds (50:10:150) after completing quest
+      % Now sells Spider Eggs (60:10:120) after completing quest
+      % Now has a 50% chance to sell Snake Eggs (20:5:60) after completing quest
+    ^ Bagaba Castle:
+      % Now has a 60% chance to sell Spider Eggs (45:5:75)
+      % Now has a 30% chance to sell Snake Eggs (15:5:45)
+      % Now sells Spider Eggs (90:10:150) after completing quest
+      % Now has a 60% chance to sell Snake Eggs (30:5:90) after completing quest
+    ^ Furious Paladin:
+      % Now has an 80% chance to sell Skeleton Graves (50:5:150) when dead
+      % Now has a 40% chance to sell Vampire Coffins (20:40) when dead
+      % Undead Spiders (33% chance) moved to group of Skeleton Archers and Skeletons when dead
+      % Cursed Ghosts (25% chance) added to second group (50:5:100) when dead
+    ^ Witches (Martha's) Hut (01):
+      % Now has a 20% chance to sell Thorn Seeds (50:10:150)
+      % Now has a 10% chance to sell Snake Eggs (10:30)
+      % Now has a 33% chance of selling Royal Thorns (2:4)
+    ^ Emenem's Castle:
+      % Now has a 50% chance to sell Skeleton Graves (10:5:40)
+      % Now has a 25% chance to sell Vampire Coffins (2:10)
+      % Now has a 10% chance to sell a Level 4 Undead Troop (10:20)
+    ^ Witches (Chavakha's) Hut (03):
+      % Now has a 20% chance to sell Spider Eggs (45:5:90)
+      % Now has a 10% chance to sell Snake Eggs (15:5:45)
+  & DARION_4_EMBRYOS.LOC (Arlania)
+    ^ Castle:
+      % Now has a 25% chance to sell Dragon Fly Eggs (40:80)
+      % Now has a 20% chance to sell Thorn Seeds (50:5:100)
+      % Now has a 10% chance to sell Griffin Eggs (2:10)
+      % Now has a 60% chance to sell Dragon Fly Eggs (80:5:160) after finishing quest
+      % Now has a 50% chance to sell Thorn Seeds (100:10:200) after finishing quest
+      % Now has a 25% chance to sell Griffin Eggs (4:15) after finishing quest
+    ^ Tavern:
+      % Now has a 20% chance to sell Griffin Eggs (5:20)
+      % Now has a 25% chance to sell Griffins (20:5:80)
+      % Increased level 4 unit count by 5 times (i.e. 2:4 -> 10:20, 1:2 -> 5:10)
+    ^ Viking Ship:
+      % Now has a 25% chance to sell Griffin Eggs (5:25)
+      % Now has a 30% chance to sell Griffins (25:5:100)
+      % Now has a 25% chance to sell Either Druids (20:50) or Royal Thorns (2:5)
+    ^ Harl:
+      % Now has a 25% chance to sell Dragon Fly Eggs (50:5:250)
+      % Now has a chance to sell more Griffin Eggs (10 -> 10:30)
+      % Now has a 50% chance to sell Dragon Fly Eggs (100:10:500) after finishing quest
+      % Now has a chance to sell more Griffin Eggs (30 -> 30:5:90) after finishing quest
+    ^ Ghost Ship:
+      % Now has a 25% chance to sell Skeleton Graves (25:5:75)
+      % Now has a 10% chance to sell Vampire Coffins (5:10)
+      % Now has a 10% chance to sell Vampires (10:30)
+  & DEMON_1_EMBRYOS.LOC (Demonis)
+    ^ Demon Tower (02) increase max of Level 3, 4 Demons (200 -> 400)
+    ^ Baal's Castle:
+      % Fire Spiders are now available (9999)
+      % Scoffer Imps are now available (9999)
+      % Cerberi and Demonesses are now separated and have a 75% chance of being available
+      % Demons and Archdemons are now separated and have a 75% chance of being available 
+      % There is a 75% chance of getting a Level 2-4 Demon trooop (200:10:500)
+      % There is another 75% chance of getting a Level 2-4 Demon trooop (200:10:500)
+      % There is now a 50% chance of getting 10:30 more Archdemons
+    ^ Building Demon (05)
+      % There is now a 25% chance of getting 2:4 Level 5 Demon troops in the first slot
+      % There is now a 7.7% chance of getting 2:4 Level 5 Demon troops in the second slot
+    ^ Xeona's Castle:
+      % Now has a 50% chance to sell Red Dragons Eggs (1:2)
+      % Now always sells Red Dragons Eggs (2:4) after defeating Xeona
+      % Scoffer Imps, Cerberi, and Demons broken out and have a 75% chance of being available after defeating Xeona
+      % Fire Spiders and Imps have a 75% chance of being available (500:5:1000) after defeating Xeona
+      % Now has a 50% chance to sell an additional Level 2-4 Demon troop (150:5:300) after defeating Xeona
+      % Now has a 50% chance to sell Archdemons (5:15) after defeating Xeona
+      % Now has a 25% chance to sell Red Dragons (5:15) after defeating Xeona
+    ^ Wizard Tower - Priests changed to Inquisitors
+  & ELLINIA_1_EMBRYOS.LOC (Magic Valley)
+    ^ Vermeus's Shop:
+      % Now has a 50% chance to sell Ent Seeds (10:30)
+      % Priests changed to Inquisitors
+      % Now has an 80% chance to sell Druids (200:5:300)
+    ^ Dryad Shop:
+      % Now has a 50% chance to sell Sprites (500:100:2000)
+      % Now has a 50% chance to sell Lake Faeries (500:100:2000)
+      % Griffins changed to Ancient Ents (5:20)
+    ^ Flower (01) Shop:
+      % Increased number of possible Thorn Seeds (30:50 -> 250:125:750)
+      % Always sells Dryads
+      % Has a chance to sell either Druids & Werewolf Elves (instead of Dryads and Werewolf Elves)
+    ^ Snake Trader - increased Snake Eggs (50 -> 50:5:200)
+    ^ Werewolf Shop:
+      % Increased Thorn Seeds (100:200 -> 200:50:500)
+      % Now has a 50% chance to sell Ent Seeds (5:10)
+      % Now has a 50% chance to sell Gray Wolves (2000:500:9000)
+    ^ Mushroom Shop:
+      % Snake Eggs increased (10 -> 25:5:50)
+      % Spider Eggs increased (10 -> 50:10:100)
+      % Thorn Seeds increased (50:100 -> 125:5:250)
+      % Now has a 50% chance to sell Royal Thorns (20:5:60)
+    ^ Unicorn Shop:
+      % Now sells Thorn Seeds (125:25:750)
+      % Now has a 50% chance to sell either Sprites or Lake Faeries (500:100:2000)
+    ^ Water Lily:
+      % Now has a 50% chance to sell Sprites
+      % Now always sells Lake Faeries
+      % Now has a 50% chance to sell either Dragonflies (Lake & Fire), Sprites (both), or Thorns (both) (500:25:1500)
+      % Now has a 50% to sell Dryads and Ents (was a 50% chance to sell either Dryads or Ents)
+    ^ Dragonfly Farm:
+      % Now has a 50% chance to sell Dragon Fly Eggs (150:25:400)
+      % Now has a 50% chance to sell Thorn Seeds (250:25:750)
+      % Now has a 50% chance to sell Ent Seeds (5:10)
+      % Now always sells Lake Dragon Flies
+      % Now always sells Fire Dragon Flies
+      % Alternate slot is now between Sprites and Lake Faeries (removed Lake Dragon Flies)
+      % Now has a 50% chance to sell Royal Thorns (15:5:45)
+      % Now has a 50% chance to sell either Ents (15:5:45) or Ancient Ents (5:10)
+  & ELLINIA_1_LABIRINT_1.EMBRYOS.LOC
+    ^ Werewolf Shop:
+      % Now has a 50% chance to sell Snake Eggs (100:50:400)
+      % Now has a 50% chance to sell Spider Eggs (200:25:1000)
+    ^ Dragon Shop:
+      % Now has a 25% chance to sell Green Dragon Eggs (2:10)
+      % Now has a 25% chance to sell Red Dragon Eggs (2:10)
+      % Now has a 25% chance to sell Black Dragon Eggs (2:10)
+      % Now has a 25% chance to sell Bone Dragon Eggs (2:10)
+  & ELLINIA_1_LABIRINT_2.EMBRYOS.LOC
+    ^ Tomb (03) Shop:
+      % Now has a 75% chance to sell Skeleton Graves (500:50:2500)
+      % Now has a 50% chance to sell Vampire Coffins (100:25:250)
+      % Now sells either Necromancers (100:40:300) or Black Knights (100:40:300)
+    ^ Skaar's Shop:
+      % Now has a 50% chance to sell Green Dragon Eggs (1:5)
+      % Now has a 50% chance to sell Red Dragon Eggs (1:5)
+      % Now has a 50% chance to sell Black Dragon Eggs (1:5)
+    ^ Unicorn Shop:
+      % Now has a 50% change to sell Snake Eggs (400:25:800)
+      % Now has a 50% change to sell Griffin Eggs (100:25:500)
+      % Now has a 25% chance to sell Green Dragon Eggs (2:4)
+    ^ Mushroom Shop:
+      % Now has a 50% chance to sell Thorn Seeds (1000:250:4000)
+      % Now has a 40% chance to sell Spider Eggs (500:50:2500)
+      % Now has a 30% chance to sell Snake Eggs (250:25:1000)
+      % Now has a 25% chance to sell Ent Seeds (25:5:100)
+      % Now always sells Royal Thorns (75:10:300)
+    ^ Pirate Shop:
+      % Footman changed to equal chance of Robbers and Marauders (600:30:1200)
+    ^ Demon Shop:
+      % Now has a 20% chance to sell Fire Spiders (1000:40:2000)
+      % Now has a 20% chance to sell Imps (1000:40:2000)
+      % Now has a 20% chance to sell Scoffer Imps (1000:40:2000)
+      % Now has a 20% chance to sell Cerberi (750:25:1500)
+      % Now has a 75% chance to sell Demons (400:20:1200)
+      % Now has a 75% chance to sell Archdemons (40:5:120)
+    ^ Giant Shop:
+      % Now has a 50% chance to sell Dragon Fly Eggs (500:125:2500)
+      % Now has a 50% chance to sell Green Dragon Eggs (2:5)
+      % Now has a 50% chance to sell Red Dragon Eggs (2:5)
+      % Now has a 50% chance to sell Black Dragon Eggs (2:5)
+  & ELLINIA_1_LABIRINT_3.EMBRYOS.LOC
+    ^ Dragon Shop:
+      % Now has a 25% chance to sell Green Dragon Eggs (1:5)
+      % Now has a 25% chance to sell Red Dragon Eggs (1:5)
+      % Now has a 25% chance to sell Black Dragon Eggs (1:5)
+      % Now has a 25% chance to sell Bone Dragon Eggs (1:5)
+    ^ Dryad Shop:
+      % Now has a 20% chance to sell Green Dragon Eggs (1:2)
+      % Now has a 75% chance to sell Sprites (1200:200:4800)
+      % Now has a 75% chance to sell Lake Faeries (1200:200:4800)
+      % Now always sells Dryads (400:80:800)
+      % Now has a 50% chance of selling another Level 3 to 4 Elf Troop (200:40:400)
+  & ELLINIA_2_EMBRYOS.LOC (Great Forest)
+    ^ Neoka's Castle:
+      % Now has a 50% chance to sell Ent Seeds (5:10)
+      % Now has a 50% chance to sell Ent Seeds (10:25) after marrying Neoka
+      % Now has a 50% chance to sell Sprites (2000:500:5000) after marrying Neoka
+      % Now has a 50% chance to sell Lake Faeries (2000:500:5000) after marrying Neoka
+      % Now has a 50% chance to sell Dryads (500:250:2500) after marrying Neoka
+      % Now has a 50% chance to sell Druids (400:200:2000) after marrying Neoka
+      % Now has a 50% chance to sell Elves (200:100:1000) after marrying Neoka
+      % Now has a 50% chance to sell Hunters (100:50:500) after marrying Neoka
+      % Now has a 50% chance to sell Unicorns (100:50:500) after marrying Neoka
+      % Now has a 50% chance to sell Ents (50:25:250) after marrying Neoka
+      % Now has a 50% chance to sell Ancient Ents (5:25) after marrying Neoka
+    ^ Druid Shop:
+      % Now has a 75% chance to sell Thorn Seeds (500:100:2000)
+      % Now has a 50% chance to sell Ent Seeds (5:20)
+      % Now always sells Druids (100:5:200)
+      % Chance to sell Druids is now chance to sell Dryads (100:5:200)
+      % Now has a 50% chance to sell Royal Thorns (50:5:100)
+    ^ Mushroom Shop:
+      % Now has a 50% chance to sell Thorn Seeds (250:125:1500)
+      % Now has a 25% chance to sell Ent Seeds (10:20)
+      % Increased number of possible Ents (40:60 -> 60:5:120)
+    ^ Werewolf Shop:
+      % Now always sells Gray Wolves (200:5:500), Bears (150:5:400), or Ancient Bears (100:5:300)
+      % Now has a 50% chance to sell Werewolf Elves
+      % Added additional unit slot that has a 50% chance to sell either Druids or Dryads (250:5:500)
+    ^ Dryad Shop:
+      % Now has a 50% chance to sell Ent Seeds (5:20)
+      % Now has a 50% chance to sell Sprites (400:10:800)
+      % Now has a 50% chance to sell Lake Faeries (400:10:800)
+      % Now always sells Dryads (200:5:400)
+      % Chance of Elves replaced with Druids (200:5:400)
+      % Griffins replaced with Ents (10:25)
+  & ELLINIA_3_EMBRYOS.LOC (Valley of a Thousand Rivers)
+    ^ Castle:
+      % Now has a 75% chance to sell Ent Seeds (5:10)
+      % Chance of either Sprites, Lake Faeries, or Dryads is now a 75% chance to sell all 3
+      % Now has a 75% chance to sell Druids (300:50:700)
+      % Now always sells Ent Seeds (50:100) after killing Karador
+      % Now always sells max Sprites, Lake Faeries, and Dryads (9999) after killing Karador
+      % Chance of either Druids or Werewolf Elves is now always sell both after killing Karador
+      % Chance of either Ents, Ancient Ents, or Unicorns is now always sell all 3 after killing Karador
+    ^ Robber Shop - now has a 25% chance to sell Griffin Eggs (50:5:200)
+    ^ Pirate House
+      % Now has a 50% chance to sell Thorn Seeds (500:50:1000)
+      % Replaced Thorn with Royal Thorn (15:5:30)
+    ^ Water Lily Shop:
+      % Now has a 75% chance to sell Thorn Seeds (250:50:1000)
+      % Now has a 25% chance to sell Ent Seeds (5:30)
+      % Now always sells Sprites
+      % Now has a 75% chance to sell Lake Fearies
+      % Now has a 75% chance to sell either Dragonflies (Lake & Fire), Sprites (both), or Thorns (both) (500:25:1500)
+      % Now has a 50% chance to sell Dryads
+      % Chance of Griffin replaced with Ancient Ent
+      % Doubled number of possible Royal Thorns (10:15 -> 20:30)
+      % Added chance of Druids (200:50:500)
+    ^ Dryad Shop:
+      % Now has a 75% chance to sell Thorn Seeds (500:50:1000)
+      % Now has a 25% chance to sell Ent Seeds (10:30)
+      % Now has a 50% chance to sell Sprites
+      % Now has a 50% chance to sell Lake Faeries
+      % Now always sells Dryads
+      % Chance of Dryad replaced with Druid
+      % Chance of Lake Faery replaced with Lake Dragon Fly
+    ^ Flower Shop:
+      % Now has a 75% chance to sell Thorn Seeds (500:50:1000)
+      % Now has a 25% chance to sell Ent Seeds (10:30)
+      % Added additional 50% chance of getting either Royal Thorns (75:5:250), Ents (50:5:200), or Ancient Ents (25:50)
+    ^ Green Dragon Shop now sells Green Dragon Eggs (15:30)
+    ^ Unicorn Shop:
+      % Now has a 50% chance to sell Thorn Seeds (200:40:800)
+      % Now has a 25% chance to sell Ent Seeds (5:20)
+      % Now has a 66.7% chance to sell Druids (300:50:700)
+    ^ Elf Shop:
+      % Now has an 80% chance to sell Thorn Seeds (250:50:1000)
+      % Now has a 40% chance to sell Griffin Eggs (50:100)
+      % Now has a 20% chance to sell Green Dragon Eggs (5:10)
+      % Chance of Bowmen changed to Druids and number halved (1000:50:3000 -> 500:25:1500)
+      % Chance of Footmen changed to Sprites
+      % Chance of Robbers changed to Lake Faeries
+    ^ Druid Shop:
+      % Now always sells Druids
+      % Chance of Druid changed to Dryad (100:10:300)
+      % Added Lake Faeries to chance of unit list (1000:50:3000)
+    ^ Elunium's Unicorn Shop:
+      % Now has a 50% chance to sell Thorn Seeds (200:50:1000)
+      % Now has a 25% chance to sell Ent Seeds (10:40)
+      % Now always sells Unicorns (300:50:1500)
+      % Now has a 50% chance to either sell Dryads or Druids (300:50:1500)
+      % Now has a 50% chance to either sell Ents (30:5:150) or Ancient Ents (5:30)
+    ^ Beaulla's Shop:
+      % Now has a 40% chance to sell Thorn Seeds (200:50:800)
+      % Now has a 20% chance to sell Ent Seeds (5:20)
+      % Now always sells Sprites and Lake Faeries (250:5:500)
+      % Now always sells Dryads (100:25:400)
+      % Now has an 80% chance to sell Thorn Seeds (400:100:1600) after finishing quest
+      % Now has a 40% chance to sell Ent Seeds (10:2:40) after finishing quest
+      % Now always sells Sprites and Lake Faeries (1000:5:2500) after finishing quest
+      % Now always sells Dryads (800:100:1600) after finishing quest
+      % Now has a 25% chance to sell Level 5 Elf (Ancient Ents) troop (5:25) after finishing quest
+  & ISLAND_1_EMBRYOS.LOC (Western Islands)
+    ^ Pirate House Shop - now has a 15% chance to sell Griffin Eggs (5:10)
+    ^ Orc Embassy
+      % Now has a 20% chance to sell Griffin Eggs (20:40)
+      % Now has a 40% chance to sell Griffin Eggs (40:5:80) after finishing quest
+      % Now has a 25% chance to sell Level 5 Orc troops (5:10) after finishing quest
+    ^ Thorny Dog's Shop - now has a 20% chance to sell Griffin Eggs (5:15)
+    ^ Pirate House (3 #1) Shop:
+      % Now has a 20% chance to sell Thorn Seeds (50:25:200)
+      % Now has a 10% chance to sell Griffin Eggs (5:10)
+      % Now has a 22.2% chance to sell Royal Thorns (3:5)
+    ^ Pirate House (3 #2) Shop - now has a 15% chance to sell Griffin Eggs (5:10)
+    ^ Pirate House (3 #3) Shop - now has a 15% chance to sell Griffin Eggs (4:8)
+    ^ Pirate House (3 #4) Shop:
+      % Now has a 10% chance to sell Griffin Eggs (4:12)
+      % Now has a 20% chance to sell Griffin Eggs (5:15) after finishing quest
+    ^ Pirate House (4) Shop:
+      % Now has a 15% chance to sell Griffin Eggs (5:15)
+      % Now has a 30% chance to sell Griffin Eggs (5:20) after finishing quest
+    ^ Pirate House (3 #5) Shop
+      % Now has a 10% chance to sell Griffin Eggs (5:10)
+      % Now has a 20% chance to sell Griffin Eggs (5:20) after finishing quest
+    ^ Pirate House Shop
+      % Increased number of possible Knights (3:5 -> 15:25)
+      % Now has a 20% chance to sell Griffin Eggs (5:20)
+    ^ Governer Thompson's Castle:
+      % Now has a 40% chance to sell Thorn Seeds (100:50:200)
+      % Now has a 20% chance to sell Griffin Eggs (5:25)
+      % Chance for Thorns changed to Royal Thorns (3:10)
+      % Now has a 60% chance to sell Thorn Seeds (100:50:400) after completing quest
+      % Now has a 40% chance to sell Griffin Eggs (10:50) after completing quest
+      % Now sells max Robbers (9999) after completing quest
+      % Now sells max Marauders (9999) after completing quest
+      % Now has a 50% chance to sell Griffins (100:25:300) after completing quest
+    ^ House Shop (03)
+      % Now has a 25% chance to sell Griffin Eggs (5:30)
+      % Increased numbers of Knights (2:4 -> 10:20), Polar Bears (2:5 -> 10:25), and Griffins (15:40 -> 45:120)
+  & ISLAND_2_EMBRYOS.LOC (Eastern Islands)
+    ^ Cursed Pirate Shop - now has a 25% chance to sell Griffin Eggs (5:25)
+    ^ Duke's Castle:
+      % Now has a 20% chance to sell Griffin Eggs (5:20)
+      % Now has a 40% chance to sell Griffin Eggs (10:40) after killing Duke
+      % Now has a 50% chance to sell Griffins (50:5:100) after killing Duke
+    ^ Pirate House (3) Shop - now has a 15% chance to sell Griffin Eggs (5:15)
+    ^ Barbarian Shop - now has a 40% chance to sell Griffins (25:5:150)
+    ^ Ghost Ship:
+      % Now has a 50% chance to sell Skeleton Graves (50:10:150)
+      % Now has a 20% chance to sell Vampire Coffins (10:20)
+      % Now has a chance to sell Undead Spiders (300:50:600)
+      % Now sells an additional Level 2-3 Undead unit (50:10:300)
+    ^ Underwater Ship:
+      % Now has a 75% chance to sell Skeleton Graves (100:10:300)
+      % Now has a 30% chance to sell Vampire Coffins (20:40)
+      % Now has a chance to sell Undead Spiders (100:10:200)
+      % Now sells an additional Level 1 Undead troop (200:20:400)
+      % Now has a 50% chance to sell an additional Level 3-4 Undead troop (25:5:100)
+      % Now has a 50% chance to sell an additional Level 3 Undead troop (50:10:200)
+      % Now has a 50% chance to sell an additional Level 4 Undead troop (25:5:100)
+    ^ Viking Ship (01)
+      % Now has a 30% chance to sell Griffin Eggs (10:25)
+      % Now has a chance to sell Royal Thorns (3:20)
+      % Now has a 75% chance to sell either Druids (100:25:250) or Griffins (100:25:250)
+    ^ Pirate Shop - now has a 15% chance to sell Griffin Eggs (5:15)
+    ^ Pirate Shop (03 #1) - now has a 15% chance to sell Griffin Eggs (6:18)
+    ^ Pirate Shop (03 #2)
+      % Now has a 60% chance to sell Griffin Eggs (10:40)
+      % Increased Knight (2:4 -> 10:20), Unicorn (3:5 -> 15:25), Griffin (30:150 -> 60:300), and Royal Thorns (2:5 -> 4:10)
+  & KORDAR_DEMONROAD.EMBRYOS.LOC (Road to Demonis)
+    ^ Dwarf Shop
+      % Now has a 20% chance to sell Thorn Seeds (200:50:2500)
+      % Added chance of Royal Thorns (20:30)
+  & KORDAR_DUNGEON_1.EMBRYOS.LOC (Lower Hadar)
+    ^ Dwarf Tavern - now has a 50% chance to sell Spider Eggs (100:25:400)
+  & MUROK_1.EMBRYOS.LOC
+    ^ Orc (01) Shop:
+      % Now has a 20% chance to sell Black Dragon Eggs (2:8)
+    ^ Odium Shop:
+      % Now has a 25% chance to sell Green Dragon Eggs (5:10)
+      % Now has a 25% chance to sell Red Dragon Eggs (5:10)
+      % Now has a 25% chance to sell Black Dragon Eggs (5:10)
+  & UNDEAD_1.EMBRYOS.LOC
+    ^ Vampire Shop:
+      % Now has a 75% chance to sell Skeleton Graves (200:20:400)
+      % Now has a 50% chance to sell Vampire Graves (50:10:100)
+      % Now has a 20% chance to sell Bone Dragon Eggs (1:2)
+      % Now has a 66.7% chance to sell either Black Knights or Necromancers (20:10:100)
+    ^ Tomb (03):
+      % Now has a 60% chance to sell Skeleton Graves (250:25:500)
+      % Now has a 40% chance to sell Vampire Graves (20:5:50)
+      % Now has a 20% chance to sell Bone Dragon Eggs (1:2)
+    ^ Tomb (01):
+      % Now has a 50% chance to sell Skeleton Graves (200:50:600)
+      % Now has a 30% chance to sell Vampire Graves (25:5:60)
+      % Now has a 10% chance to sell Bone Dragon Eggs (1:2)
+    ^ Black Tower:
+      % Now has a 90% chance to sell Skeleton Graves (100:50:800)
+      % Now has a 75% chance to sell Vampire Graves (60:5:120)
+      % Now has a 50% chance to sell Bone Dragon Eggs (2:5)
+    ^ Dead House (02):
+      % Now has a 50% chance to sell Skeleton Graves (40:10:160)
+      % Now has a 25% chance to sell Vampire Graves (10:2:40)
+      % Now has a 10% chance to sell Bone Dragon Eggs (1:2)
+    ^ Dead Temple (01):
+      % Now has a 60% chance to sell Skeleton Graves (80:10:200)
+      % Now has a 40% chance to sell Vampire Graves (20:5:50)
+      % Now has a 10% chance to sell Bone Dragon Eggs (1:2)
+    ^ Ghost Ship:
+      % Now has a 50% chance to sell Skeleton Graves (50:5:150)
+      % Now has a 25% chance to sell Vampire Graves (20:2:60)
+      % Now has a 10% chance to sell Bone Dragon Eggs (1:2)
+    ^ Barbarian Shop - now has a 25% chance to sell Skeleton Graves (20:5:100)
+  & UNDEAD_2.EMBRYOS.LOC
+    ^ Karador's Castle:
+      % Now sells Skeleton Graves (400:100:1600)
+      % Now has a 75% chance to sell Vampire Graves (100:10:200)
+      % Now has a 25% chance to sell Bone Dragon Eggs (10:25)
+      % Chance for Skeleton Archers, Cursed Ghosts, and Cursed Zombies is to always sell those troops
+      % Chance for Bone Dragons or Black Knights is to always sell those troops
+      % Now has a 75% chance to sell Skeletons (1000:100:9000)
+      % Now has a 75% chance to sell Undead Spiders (1000:100:9000)
+      % Now has a 75% chance to sell Zombies (1000:100:9000)
+      % Now has a 75% chance to sell Ghosts (1000:100:9000)
+      % Now has a 75% chance to sell Vampires (500:50:2500)
+      % Now has a 75% chance to sell Ancient Vampires (150:30:400)
+      % Now has a 75% chance to sell Necromancers (150:30:400)
+    ^ Werewolf Shop - now has a 66.7% chance to sell Gray Wolves (1000:100:9000)
+    ^ Zelbarra's Shop:
+      % Now has an 80% chance to sell Skeleton Graves (150:50:600)
+      % Now has a 40% chance to sell Vampire Graves (50:5:100)
+      % Now has a 20% chance to sell Bone Dragon Eggs (1:3)
+    ^ Dead House (02):
+      % Now has a 50% chance to sell Skeleton Graves (80:10:160)
+      % Now has a 25% chance to sell Vampire Graves (15:5:80)
+      % Now has a 10% chance to sell Bone Dragon Eggs (1:2)
+    ^ Vampire Shop:
+      % Now has a 90% chance to sell Skeleton Graves (200:50:700)
+      % Now has a 50% chance to sell Vampire Graves (50:10:150)
+      % Now has a 25% chance to sell Bone Dragon Eggs (2:4)
+      % Now has a 66.7% chance to sell Necromancers (40:20:200)
+
 Version: Beta 2012-12-01
 
 * All files have been combined into a single KFS file to make installation / unintstallation easier.

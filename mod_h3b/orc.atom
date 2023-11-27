@@ -22,6 +22,7 @@ arena_params {
   hitbackprotect=0
   attacks=moveattack,run
   features=humanoid
+  posthitmaster=features_orc_creature
   posthitslave=orc_posthitslave
   resistances {
     physical=10

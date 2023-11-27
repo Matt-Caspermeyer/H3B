@@ -21,6 +21,8 @@ arena_params {
   hitbackprotect=0
   attacks=moveattack,longattack,charm,change
   features=demon,beauty
+  posthitmaster=features_demon_creature
+  posthitslave=features_demon_creature
   resistances {
     physical=0
     poison=0
@@ -35,7 +37,6 @@ arena_params {
   }
   longattack {
     class=scripted
-    moves=10
     reload=2
     hinthead=special_demoness_long_head
     hint=special_demoness_long_hint
@@ -58,7 +59,6 @@ arena_params {
     picture_small=BA1_Seduction_small.png
     ad_factor=1
     warning=sw_charm
-    moves=7
     reload=3
     script_attack=special_demoness_charm
     script_calccells=calccells_all_enemy_around2
@@ -75,7 +75,6 @@ arena_params {
   }
   change {
     class=scripted
-    moves=5
     reload=4
     no_hint=1
     log_label=null

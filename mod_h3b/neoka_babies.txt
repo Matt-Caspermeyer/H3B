@@ -466,7 +466,7 @@ kid_jenova {
   }
   mods {
     sp_addgold_battle=count,140
-    sp_addgold_chestt=count,140
+    sp_addgold_chest=count,140
   }
   propbits=child,rare
   params {}
@@ -627,7 +627,7 @@ kid_gelare {
   mods {
     sp_power_int=count,20
     sp_addgold_battle=count,140
-    sp_addgold_chestt=count,140
+    sp_addgold_chest=count,140
   }
   propbits=child,rare
   params {}
@@ -1818,7 +1818,7 @@ kid_kendal {
   }
   mods {
     sp_addgold_battle=count,50
-    sp_addgold_chestt=count,50
+    sp_addgold_chest=count,50
   }
   propbits=child,rare
   params {}

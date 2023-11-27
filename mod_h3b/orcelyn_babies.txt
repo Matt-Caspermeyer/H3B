@@ -246,7 +246,7 @@ kid_erdamon {
   }
   mods {
     sp_addgold_battle=count,45
-    sp_addgold_chestt=count,45
+    sp_addgold_chest=count,45
   }
   propbits=child,rare
   params {}

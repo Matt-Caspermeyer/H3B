@@ -135,6 +135,45 @@ local text=""
 return text
 end]]
 
+-- New! Function for showing unit critical hit
+function gen_unit_krit( data )
+  local text = ""
+  local is_human = AU.is_human( data )
+  local hero_attack
+
+  if not Game.LocIsArena() then
+    hero_attack = Logic.hero_lu_item( "attack", "count" )
+  elseif is_human then
+    hero_attack = Logic.hero_lu_item( "defense", "count" )
+  else
+    hero_attack = Attack.val_restore( data, "enemy_hero_attack" )
+  end
+
+  local current_krit, base_krit = Attack.act_get_par( data, "krit" )
+  local current_color = "<color=252,249,220>"
+  local base_color = "<color=79,172,211>"
+
+  if hero_attack ~= nil
+  and hero_attack > 0 then
+    local krit_inc = Game.Config( "attack_config/krit_inc" )
+    local krit_bonus = math.floor( hero_attack / 7 ) * krit_inc
+    current_krit = current_krit + krit_bonus
+  end
+
+  if current_krit > base_krit then
+    current_color = "<color=0,254,10>"
+    text = current_color .. " +" .. tostring( current_krit ) .. "%</color>" .. base_color .. " (+" .. tostring( base_krit ) .. "%)</color>"
+  elseif current_krit < base_krit then
+    current_color = "<color=255,100,100>"
+    text = current_color .. " +" .. tostring( current_krit ) .. "%</color>" .. base_color .. " (+" .. tostring( base_krit ) .. "%)</color>"
+  else
+    text = current_color .. " +" .. tostring( current_krit ) .. "%</color>"
+  end
+
+  return text
+end
+
+
 function gen_unit_res( data )
   local text = ""
   local res_count = AU.rescount()
@@ -225,7 +264,8 @@ function gen_adi_par( par )
   elseif string.find( par, "dam_dec" ) then
     local hero_defense = Logic.hero_lu_item( "defense", "count" )
     local defense_increase = math.floor( hero_defense / 7 )
-    text = "1/" .. tostring( 3 + defense_increase ) .. " (" .. tostring( math.floor( 1 / ( 3 + defense_increase ) * 1000 ) / 10 ) .. "%)"
+    local den_string = tostring( math.floor( 1 / ( 3 + defense_increase ) * 100 ) ) .. "." .. tostring( round( ( ( 1 / ( 3 + defense_increase ) * 100 ) - math.floor( 1 / ( 3 + defense_increase ) * 100 ) ) * 10 ) )
+    text = "1/" .. tostring( 3 + defense_increase ) .. " (" .. den_string .. "%)"
 
   elseif string.find( par, "int_den" ) then
     local mod = tonumber( Game.Config( "spell_power_config/mod" ) )
@@ -242,7 +282,8 @@ function gen_adi_par( par )
   elseif string.find( par, "power_inc" ) then
     local inc = tonumber( Game.Config( "spell_power_config/inc" ) )
     local inc_limit = tonumber( Game.Config( "spell_power_config/inc_limit" ) )
-    local new_inc = math.max( inc_limit, inc + tonumber( Logic.hero_lu_item( "sp_power_inc", "count" ) ) )
+    local den_scholar = tonumber( Game.Config( "spell_power_config/den_scholar" ) )
+    local new_inc = math.max( inc_limit, inc + tonumber( Logic.hero_lu_item( "sp_power_inc", "count" ) ) / den_scholar )
 
     if new_inc ~= inc then
       text = "+" .. tostring( new_inc ) .. "% (" .. tostring( inc ) .. "%)"
@@ -269,10 +310,11 @@ function gen_adi_par( par )
     local mod = tonumber( Game.Config( "spell_power_config/mod" ) )
     local mod_limit = tonumber( Game.Config( "spell_power_config/mod_limit" ) )
     local den_scholar = tonumber( Game.Config( "spell_power_config/den_scholar" ) )
+    local new_mod = math.max( mod_limit, mod - tonumber( Logic.hero_lu_item( "sp_power_mod", "count" ) ) / den_scholar )
     local inc = tonumber( Game.Config( "spell_power_config/inc" ) )
     local inc_limit = tonumber( Game.Config( "spell_power_config/inc_limit" ) )
-    inc = math.max( inc_limit, inc + tonumber( Logic.hero_lu_item( "sp_power_inc", "count" ) ) )
-    inc = math.floor( num / mod ) * inc
+    local new_inc = math.max( inc_limit, inc + tonumber( Logic.hero_lu_item( "sp_power_inc", "count" ) ) / den_scholar )
+    inc = math.floor( num / new_mod ) * new_inc
     text = "+" .. tostring( inc ) .. "%"
 
   elseif string.find( par, "int_dur" ) then

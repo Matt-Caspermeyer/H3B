@@ -1,0 +1,417 @@
+griffin_egg {
+  category=o
+  image=heroitem_egg_griffin.png
+  hint_config=object_item
+  label=itm_griffin_egg_name
+  hint=itm_griffin_egg_hint
+  information_label=itm_griffin_egg_info
+  maphint=itm_griffin_egg_mhint
+  mapinfo=itm_griffin_egg_minfo
+  atoms {
+    1 {
+      atom=unit_griffin_03
+      lu=template_item_ft
+      label=itm_griffin_egg_taken
+    }
+  }
+  price=350
+  maxcount=0
+  level=1
+  race=neutral
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=griffin,griffin
+    troopcount=1,2
+    random=94,6
+    altfactor=2
+    alttroop=griffin
+    alttroopcount=1
+    altrandom=100
+  }
+  actions {
+    onuse=
+    @=0200000000000080020000000100000001000000020000000E000080455845435554455F53435249505402000000030000000300000005000080666E616D65120000006F626A7573655F737061776E5F74726F6F700300008070617200000000020000000B00008052454D4F56455F4954454D03000000030000000500000003000000030000805441470B0000006772696666696E5F65676703000080434E5400000000030000804F574E05000000246865726F
+  }
+}
+
+snake_egg {
+  category=o
+  image=heroitem_egg_snake.png
+  hint_config=object_item
+  label=itm_snake_egg_name
+  hint=itm_snake_egg_hint
+  information_label=itm_snake_egg_info
+  maphint=itm_snake_egg_mhint
+  mapinfo=itm_snake_egg_minfo
+  atoms {
+    1 {
+      atom=
+      lu=template_item_ft
+      label=itm_snake_egg_taken
+    }
+  }
+  price=180
+  maxcount=0
+  level=1
+  race=human
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=snake,snake_green,snake_royal
+    troopcount=1-3,1-3,1
+    random=39,41,20
+  }
+  actions {
+    onuse=
+    @=0200000000000000020000000100000001000000020000000E000000455845435554455F53435249505402000000030000000300000005000000666E616D65120000006F626A7573655F737061776E5F74726F6F700300000070617200000000020000000B00000052454D4F56455F4954454D030000000300000005000000030000000300000054414709000000736E616B655F65676703000000434E5400000000030000004F574E05000000246865726F
+  }
+}
+bonedragon_egg {
+  category=o
+  image=heroitem_egg_dragon_bone.png
+  hint_config=object_item
+  label=itm_bonedragon_egg_name
+  hint=itm_bonedragon_egg_hint
+  information_label=itm_bonedragon_egg_info
+  maphint=itm_bonedragon_egg_mhint
+  mapinfo=itm_bonedragon_egg_minfo
+  atoms {
+    1 {
+      atom=bonedragon_egg01
+      lu=template_item_ft
+      label=itm_bonedragon_egg_taken
+    }
+  }
+  price=5700
+  maxcount=0
+  level=4
+  race=undead
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=bonedragon,bonedragon
+    troopcount=1,2
+    random=97,3
+    altfactor=2
+    alttroop=bonedragon
+    alttroopcount=1
+    altrandom=100
+  }
+  actions {
+    onuse=
+    @=0200000000000080020000000100000001000000020000000E000080455845435554455F53435249505402000000030000000300000005000080666E616D65120000006F626A7573655F737061776E5F74726F6F700300008070617200000000020000000B00008052454D4F56455F4954454D03000000030000000500000003000000030000805441470E000000626F6E65647261676F6E5F65676703000080434E5400000000030000804F574E05000000246865726F
+  }
+}
+
+spider_egg {
+  category=o
+  image=heroitem_egg_spider.png
+  hint_config=object_item
+  label=itm_spider_egg_name
+  hint=itm_spider_egg_hint
+  information_label=itm_spider_egg_info
+  maphint=itm_spider_egg_mhint
+  mapinfo=itm_spider_egg_minfo
+  atoms {
+    1 {
+      atom=
+      lu=template_item_ft
+      label=itm_spider_egg_taken
+    }
+  }
+  price=85
+  maxcount=0
+  level=1
+  race=human
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=spider,spider_fire,spider_venom,spider_undead
+    troopcount=2-4,1-2,2-4,2-4
+    random=27,16,29,28
+  }
+  actions {
+    onuse=
+    @=0200000000000000020000000100000001000000020000000E000000455845435554455F53435249505402000000030000000300000005000000666E616D65120000006F626A7573655F737061776E5F74726F6F700300000070617200000000020000000B00000052454D4F56455F4954454D03000000030000000500000003000000030000005441470A0000007370696465725F65676703000000434E5400000000030000004F574E05000000246865726F
+  }
+}
+dragon_egg {
+  category=o
+  image=heroitem_egg_dragon_green.png
+  hint_config=object_item
+  label=itm_dragon_egg_name
+  hint=itm_dragon_egg_hint
+  information_label=itm_dragon_egg_info
+  maphint=itm_dragon_egg_mhint
+  mapinfo=itm_dragon_egg_minfo
+  atoms {
+    1 {
+      atom=dragon_egg01
+      lu=template_item_ft
+      label=itm_dragon_egg_taken
+    }
+  }
+  price=12000
+  maxcount=0
+  level=4
+  race=neutral
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=greendragon,greendragon
+    troopcount=1,2
+    random=97,3
+    altfactor=2
+    alttroop=greendragon
+    alttroopcount=1
+    altrandom=100
+  }
+  actions {
+    onuse=
+    @=0200000000000080020000000100000001000000020000000E000080455845435554455F53435249505402000000030000000300000005000080666E616D65120000006F626A7573655F737061776E5F74726F6F700300008070617200000000020000000B00008052454D4F56455F4954454D03000000030000000500000003000000030000805441470A000000647261676F6E5F65676703000080434E5400000000030000804F574E05000000246865726F
+  }
+}
+red_dragon_egg {
+  category=o
+  image=heroitem_egg_red_dragon.png
+  hint_config=object_item
+  label=itm_red_dragon_egg_name
+  hint=itm_red_dragon_egg_hint
+  information_label=itm_red_dragon_egg_info
+  maphint=itm_red_dragon_egg_mhint
+  mapinfo=itm_red_dragon_egg_minfo
+  atoms {
+    1 {
+      atom=red_dragon_egg01
+      lu=template_item_ft
+      label=itm_red_dragon_egg_taken
+    }
+  }
+  price=16000
+  maxcount=0
+  level=4
+  race=neutral
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=reddragon,reddragon
+    troopcount=1,2
+    random=97,3
+    altfactor=2
+    alttroop=reddragon
+    alttroopcount=1
+    altrandom=100
+  }
+  actions {
+    onuse=
+    @=0200000000000080020000000100000001000000020000000E000080455845435554455F53435249505402000000030000000300000005000080666E616D65120000006F626A7573655F737061776E5F74726F6F700300008070617200000000020000000B00008052454D4F56455F4954454D03000000030000000500000003000000030000805441470E0000007265645F647261676F6E5F65676703000080434E5400000000030000804F574E05000000246865726F
+  }
+}
+black_dragon_egg {
+  category=o
+  image=heroitem_egg_black_dragon.png
+  hint_config=object_item
+  label=itm_black_dragon_egg_name
+  hint=itm_black_dragon_egg_hint
+  information_label=itm_black_dragon_egg_info
+  maphint=itm_black_dragon_egg_mhint
+  mapinfo=itm_black_dragon_egg_minfo
+  atoms {
+    1 {
+      atom=blackdragon_egg01
+      lu=template_item_ft
+      label=itm_black_dragon_egg_taken
+    }
+  }
+  price=20000
+  maxcount=0
+  level=5
+  race=neutral
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=blackdragon,blackdragon
+    troopcount=1,2
+    random=97,3
+    altfactor=2
+    alttroop=blackdragon
+    alttroopcount=1
+    altrandom=100
+  }
+  actions {
+    onuse=
+    @=0200000000000080020000000100000001000000020000000E000080455845435554455F53435249505402000000030000000300000005000080666E616D65120000006F626A7573655F737061776E5F74726F6F700300008070617200000000020000000B00008052454D4F56455F4954454D030000000300000005000000030000000300008054414710000000626C61636B5F647261676F6E5F65676703000080434E5400000000030000804F574E05000000246865726F
+  }
+}
+
+dfly_egg {
+  category=o
+  image=heroitem_egg_dragonfly.png
+  hint_config=object_item
+  label=itm_dfly_egg_name
+  hint=itm_dfly_egg_hint
+  information_label=itm_dfly_egg_info
+  maphint=itm_dfly_egg_mhint
+  mapinfo=itm_dfly_egg_minfo
+  atoms {
+    1 {
+      atom=
+      lu=template_item_ft
+      label=itm_dfly_egg_taken
+    }
+  }
+  price=80
+  maxcount=0
+  level=1
+  race=human
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=dragonfly_fire,dragonfly_lake
+    troopcount=2-5,2-5
+    random=50,50
+  }
+  actions {
+    onuse=
+    @=0200000000000000020000000100000001000000020000000E000000455845435554455F53435249505402000000030000000300000005000000666E616D65120000006F626A7573655F737061776E5F74726F6F700300000070617200000000020000000B00000052454D4F56455F4954454D03000000030000000500000003000000030000005441470800000064666C795F65676703000000434E5400000000030000004F574E05000000246865726F
+  }
+}
+
+skeleton_grave {
+  category=o
+  image=heroitem_container_grave01.png
+  hint_config=object_item
+  label=itm_skeleton_grave_name
+  hint=itm_skeleton_grave_hint
+  information_label=itm_skeleton_grave_info
+  maphint=itm_skeleton_grave_mhint
+  mapinfo=itm_skeleton_grave_minfo
+  atoms {
+    1 {
+      atom=unit_grave_skeleton
+      lu=template_item_ft
+      label=itm_skeleton_grave_taken
+    }
+  }
+  price=80
+  maxcount=0
+  level=1
+  race=human
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=archer,skeleton
+    troopcount=3-5,3-6
+    random=48,56
+  }
+  actions {
+    onuse=
+    @=0200000000000000020000000100000001000000020000000E000000455845435554455F53435249505402000000030000000300000005000000666E616D65120000006F626A7573655F737061776E5F74726F6F700300000070617200000000020000000B00000052454D4F56455F4954454D03000000030000000500000003000000030000005441470E000000736B656C65746F6E5F677261766503000000434E5400000000030000004F574E05000000246865726F
+  }
+}
+
+vampire_grave {
+  category=o
+  image=heroitem_container_vgrave01.png
+  hint_config=object_item
+  label=itm_vampire_grave_name
+  hint=itm_vampire_grave_hint
+  information_label=itm_vampire_grave_info
+  maphint=itm_vampire_grave_mhint
+  mapinfo=itm_vampire_grave_minfo
+  atoms {
+    1 {
+      atom=unit_grave_vampire
+      lu=template_item_ft
+      label=itm_vampire_grave_taken
+    }
+  }
+  price=600
+  maxcount=0
+  level=3
+  race=undead
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=vampire,vampire2
+    troopcount=1-3,1
+    random=72,32
+  }
+  actions {
+    onuse=
+    @=0200000000000000020000000100000001000000020000000E000000455845435554455F53435249505402000000030000000300000005000000666E616D65120000006F626A7573655F737061776E5F74726F6F700300000070617200000000020000000B00000052454D4F56455F4954454D03000000030000000500000003000000030000005441470D00000076616D706972655F677261766503000000434E5400000000030000004F574E05000000246865726F
+  }
+}
+thorn_seed {
+  category=o
+  image=heroitem_container_thorn_seed.png
+  hint_config=object_item
+  label=itm_thorn_seed_name
+  hint=itm_thorn_seed_hint
+  information_label=itm_thorn_seed_info
+  maphint=itm_thorn_seed_mhint
+  mapinfo=itm_thorn_seed_minfo
+  atoms {
+    1 {
+      atom=unit_thorn_seed
+      lu=template_item_ft
+      label=itm_thorn_seed_taken
+    }
+  }
+  price=130
+  maxcount=0
+  level=1
+  race=neutral
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=thorn,thorn_warrior
+    troopcount=5-8,5-8
+    random=50,50
+    altfactor=47-76
+    alttroop=kingthorn
+    alttroopcount=1
+    altrandom=100
+  }
+  actions {
+    onuse=
+    @=0200000000000000020000000100000001000000020000000E000000455845435554455F53435249505402000000030000000300000005000000666E616D65120000006F626A7573655F737061776E5F74726F6F700300000070617200000000020000000B00000052454D4F56455F4954454D03000000030000000500000003000000030000005441470A00000074686F726E5F7365656403000000434E5400000000030000004F574E05000000246865726F
+  }
+}
+ent_seed {
+  category=o
+  image=heroitem_egg_small_ent.png
+  hint_config=object_item
+  label=itm_ent_seed_name
+  hint=itm_ent_seed_hint
+  information_label=itm_ent_seed_info
+  maphint=itm_ent_seed_mhint
+  mapinfo=itm_ent_seed_minfo
+  atoms {
+    1 {
+      atom=little_ent
+      lu=template_item_ft
+      label=itm_ent_seed_taken
+    }
+  }
+  price=1300
+  maxcount=0
+  level=4
+  race=elf
+  use {}
+  propbits=multiuse,usable,container
+  params {
+    troop=ent
+    troopcount=1
+    random=100
+    altfactor=4-5
+    alttroop=ent2
+    alttroopcount=1
+    altrandom=100
+  }
+  actions {
+    onuse=
+    @=0200000000000080020000000100000001000000020000000E000080455845435554455F53435249505402000000030000000300000005000080666E616D65120000006F626A7573655F737061776E5F74726F6F700300008070617200000000020000000B00008052454D4F56455F4954454D030000000300000005000000030000000300008054414708000000656E745F7365656403000080434E5400000000030000804F574E05000000246865726F
+  }
+}

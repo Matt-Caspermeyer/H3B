@@ -86,8 +86,8 @@ spirit {
       rage2=rs:1,level:>4,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
       rest1=rest:0,LV:>6,rest:>1/rest:-1,exp:+2,restlevel:1
       rest2=rest:1,LV:>23,rest:>1/rest:-1,exp:+4,restlevel:2
-      ttl1=ttl:0/ttl:9,rage:+5,rest:+1,exp:+5,ttllevel:1
-      ttl2=ttl:1/ttl:12,rage:+10,rest:+1,exp:+10,ttllevel:2
+      ttl1=ttl:0,LV>:7/ttl:9,rage:+5,rest:+1,exp:+5,ttllevel:1
+      ttl2=ttl:1,LV>:24/ttl:12,rage:+10,rest:+1,exp:+10,ttllevel:2
     }
   }
   rockfall {

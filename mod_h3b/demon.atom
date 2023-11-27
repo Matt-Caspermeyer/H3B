@@ -21,6 +21,8 @@ arena_params {
   hitbackprotect=0
   attacks=moveattack,domination,run,blood,cast_demon
   features=demon,humanoid
+  posthitmaster=features_demon_creature
+  posthitslave=features_demon_creature
   resistances {
     physical=10
     poison=0

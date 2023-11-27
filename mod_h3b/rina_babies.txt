@@ -215,10 +215,8 @@ kid_isra {
     sp_lead_unit_skeleton=count,6
     sp_lead_unit_spider_undead=count,6
     sp_lead_unit_zombies=count,6
-    sp_lead_unit_bat=count,6
     sp_lead_unit_ghosts=count,6
     sp_lead_unit_vampire=count,6
-    sp_lead_unit_bat2=count,6
     sp_lead_unit_blackknight=count,6
     sp_lead_unit_nercomant=count,6
     sp_lead_unit_vampire2=count,6
@@ -726,7 +724,7 @@ kid_nagash {
   mods {
     mana=limit,24%
     sp_addgold_battle=count,84
-    sp_addgold_chestt=count,84
+    sp_addgold_chest=count,84
   }
   propbits=child,rare
   params {}
@@ -759,13 +757,11 @@ kid_sandro {
     sp_lead_unit_skeleton=count,3
     sp_lead_unit_spider_undead=count,3
     sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
     sp_lead_unit_ghosts=count,3
     sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
     sp_lead_unit_blackknight=count,3
     sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
+    sp_lead_unit_vampire2=count,3
     sp_lead_unit_bonedragon=count,3
     sp_spell_attack=count,24
   }
@@ -830,13 +826,11 @@ kid_xsi {
     sp_lead_unit_skeleton=count,3
     sp_lead_unit_spider_undead=count,3
     sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
     sp_lead_unit_ghosts=count,3
     sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
     sp_lead_unit_blackknight=count,3
     sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
+    sp_lead_unit_vampire2=count,3
     sp_lead_unit_bonedragon=count,3
     sp_addexp_battle=count,12
     sp_addexp_spirit=count,12
@@ -875,13 +869,11 @@ kid_finneas {
     sp_lead_unit_skeleton=count,3
     sp_lead_unit_spider_undead=count,3
     sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
     sp_lead_unit_ghosts=count,3
     sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
     sp_lead_unit_blackknight=count,3
     sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
+    sp_lead_unit_vampire2=count,3
     sp_lead_unit_bonedragon=count,3
     sp_gain_power_necromancy=count,12
     sp_mana_battle=count,2
@@ -1069,16 +1061,14 @@ kid_clavius {
     sp_lead_unit_skeleton=count,3
     sp_lead_unit_spider_undead=count,3
     sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
     sp_lead_unit_ghosts=count,3
     sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
     sp_lead_unit_blackknight=count,3
     sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
+    sp_lead_unit_vampire2=count,3
     sp_lead_unit_bonedragon=count,3
     sp_addgold_battle=count,84
-    sp_addgold_chestt=count,84
+    sp_addgold_chest=count,84
   }
   propbits=child,rare
   params {}
@@ -1321,14 +1311,11 @@ kid_vidomina {
     sp_lead_unit_skeleton=count,9
     sp_lead_unit_spider_undead=count,9
     sp_lead_unit_zombies=count,9
-    sp_lead_unit_bat=count,9
     sp_lead_unit_ghosts=count,9
     sp_lead_unit_vampire=count,9
-    sp_lead_unit_bat2=count,9
     sp_lead_unit_blackknight=count,9
     sp_lead_unit_nercomant=count,9
     sp_lead_unit_vampire2=count,9
-    sp_lead_unit_bonedragon=count,9
     sp_lead_unit_bonedragon=count,9
   }
   propbits=child,rare
@@ -1395,15 +1382,13 @@ kid_death_haart {
     sp_lead_unit_skeleton=count,6
     sp_lead_unit_spider_undead=count,6
     sp_lead_unit_zombies=count,6
-    sp_lead_unit_bat=count,6
     sp_lead_unit_ghosts=count,6
     sp_lead_unit_vampire=count,6
-    sp_lead_unit_bat2=count,6
     sp_lead_unit_blackknight=count,6
     sp_lead_unit_nercomant=count,6
     sp_lead_unit_vampire2=count,6
-    sp_lead_unit_bonedragon=count,6
-    sp_lead_unit_bonedragon=count,6
+    sp_lead_unit_bonedragon=count,6  // this is for Necromancy Level 2 - 6% for all Undead
+    sp_lead_unit_bonedragon=count,6  // this one's okay - Bone Dragon Bonus, 6% for Level 5
   }
   propbits=child,rare
   params {}

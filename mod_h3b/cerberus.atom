@@ -1,0 +1,485 @@
+main {
+  class=chesspiece
+  model=cerberus.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_cerberus_feat
+  features_hints=demon_header/demon_hint,three_head_header/three_head_hint
+  race=demon
+  cost=210
+  level=3
+  leadership=90
+  attack=18
+  defense=18
+  defenseup=3
+  initiative=5
+  speed=4
+  hitpoint=90
+  movetype=0
+  krit=15
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack
+  features=demon
+  posthitmaster=features_demon_creature
+  posthitslave=features_demon_creature
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=50
+  }
+  moveattack {
+    ad_factor=1
+    options=3in1
+    damage {
+      physical=8,12
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=lava
+      defense=50%
+    }
+    2 {
+      logbits=winter
+      defense=-50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=cerberus_idle.bsa/fr:25:50
+  rare=cerberus_rare.bsa/fr:25:50
+  attack=cerberus_attack.bsa/fr:25:50
+  move=cerberus_move.bsa/fr:29:58
+  start=cerberus_start.bsa/fr:29:58
+  stop=cerberus_stop.bsa/fr:29:58
+  clock=cerberus_clock.bsa/fr:25:50
+  contra=cerberus_contra.bsa/fr:25:50
+  clock2=cerberus_2clock.bsa/fr:25:50
+  contra2=cerberus_2contra.bsa/fr:25:50
+  lturn=cerberus_lturn.bsa/fr:29:58
+  rturn=cerberus_rturn.bsa/fr:29:58
+  damage=cerberus_damage.bsa/fr:25:50
+  death=cerberus_death.bsa/fr:25:50
+  respawn=cerberus_respawn.bsa/fr:25:50
+  slew=cerberus_slew.bsa/fr:25:50
+  rush=cerberus_rush.bsa/fr:29:58
+  teleout=cerberus_idle.bsa/fr:25:50/r:55:90
+  telein=cerberus_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  happy=/fwd:1:rare
+  victory=/t:1:1:rare:1:3:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    14.0?x=
+    0.0=cam
+  }
+  @rush {
+    9.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=1
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=idlemain
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=rare
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=attack
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=move
+      file=cerberus_footflame_fast.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=start
+      file=cerberus_footflame_fast.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=stop
+      file=cerberus_footflame_fast.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=lturn
+      file=cerberus_footflame_fast.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      compass=true
+      animation=rturn
+      file=cerberus_footflame_fast.ptb
+    }
+  }
+  0 {
+    slot=0
+    particle {
+      trans=0/-0/0/1
+      file=cerberus_footflame.ptb
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=0/-0/0/1
+      file=cerberus_footflame.ptb
+    }
+  }
+  0 {
+    slot=6
+    particle {
+      trans=0/-0/0/1
+      file=cerberus_footflame.ptb
+    }
+  }
+  0 {
+    slot=7
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=idlemain
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=rare
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=start
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=move
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=stop
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=attack
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=lturn
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.18000001/0.05/0/-0/0/1
+      animation=rturn
+      file=cerberus_footflame.ptb
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=idlemain
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=rare
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=attack
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=start
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=move
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=stop
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=damage
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=rturn
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+    omni {
+      trans=0/0.2/0.30000001/0/-0/0/1
+      animation=lturn
+      lightland=true
+      key=0.04/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+      key=0.08/FFFFB34A/3/1
+      key=0.04/FFFFC06A/3/1
+    }
+  }
+  0 {
+    slot=8
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=idlemain
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=rare
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=start
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=move
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=stop
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=lturn
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=rturn
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=damage
+      file=cerberus_footflame.ptb
+    }
+    particle {
+      trans=0/-0.1/0.1/0/-0/0/0.5
+      animation=attack
+      file=cerberus_footflame.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=move
+      frame=0.01
+      file=cerberus_move
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=cerberus_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=cerberus_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=cerberus_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=cerberus_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=cerberus_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=cerberus_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=cerberus_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=cerberus_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=cerberus_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=cerberus_lturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=cerberus_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=cerberus_death
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=cerberus_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=cerberus_rush
+      fadetime=60
+    }
+    sound {
+      animation=idlemain
+      frame=0.01
+      file=cerberus_idlemain
+      fadetime=60
+    }
+    sound {
+      frame=0.01
+      file=
+    }
+  }
+}
+prefetch {
+  cerberus_idle.bsa=file
+  cerberus_rare.bsa=file
+  cerberus_attack.bsa=file
+  cerberus_move.bsa=file
+  cerberus_start.bsa=file
+  cerberus_stop.bsa=file
+  cerberus_clock.bsa=file
+  cerberus_contra.bsa=file
+  cerberus_2clock.bsa=file
+  cerberus_2contra.bsa=file
+  cerberus_lturn.bsa=file
+  cerberus_rturn.bsa=file
+  cerberus_damage.bsa=file
+  cerberus_death.bsa=file
+  cerberus_respawn.bsa=file
+  cerberus_victory.bsa=file
+  cerberus_rush.bsa=file
+}

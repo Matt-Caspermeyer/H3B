@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_priest_feat
-  features_hints=holy_attack_header/holy_attack_hint,holy_aura_header/holy_aura_hint,no_melee_header/no_melee_hint
+  features_hints=holy_attack_header/holy_attack_hint,holy_aura_header/holy_aura_hint,no_melee_header/no_melee_hint,regenerates_mana_header/regenerates_mana_hint
   race=human
   cost=100
   level=2
@@ -23,6 +23,7 @@ arena_params {
   attacks=moveattack,shot,cure2,bless
   features=holy,humanoid,mage
   posthitmaster=special_priest
+  posthitslave=features_mage
   resistances {
     physical=0
     poison=0
@@ -35,6 +36,8 @@ arena_params {
     ad_factor=1
     damage {
       magic=2,4
+      holy=40
+      duration=3
     }
   }
   shot {
@@ -51,6 +54,8 @@ arena_params {
     framekey=x
     damage {
       magic=2,4
+      holy=20
+      duration=2
     }
   }
   bless {

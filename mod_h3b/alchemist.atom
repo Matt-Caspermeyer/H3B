@@ -67,7 +67,7 @@ arena_params {
     hinthead=special_alch_poison_head
     picture=BA1_Poison_Water_
     picture_small=BA1_Poison_Water_small.png
-    moves=1
+    reload=5
     distance=7
     device=poisoncloud
     up=1
@@ -94,7 +94,7 @@ arena_params {
     picture=ba1_fieryflask_
     picture_small=ba1_fieryflask_small.png
     distance=7
-    moves=1
+    reload=4
     up=1
     mindist=1
     penalty=0.8
@@ -116,7 +116,7 @@ arena_params {
     picture_small=BA1_Holy_Water_small.png
     hinthead=special_alch_holy_head
     hint=special_alch_holy_hint
-    moves=1
+    reload=3
     warning=sw_holywater
     distance=7
     up=1

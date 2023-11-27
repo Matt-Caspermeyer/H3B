@@ -1,3 +1,160 @@
+-- New! For generating the amount of dragonfly wings you have
+function gen_dragonfly_wings()
+  local count = Logic.hero_lu_item( "wing_dragonfly", "count" )
+
+  return tostring( count )
+end
+
+-- New! Hint generator for containers (i.e. seeds, eggs, etc.)
+function gen_egg_param()
+  local effect_color = "<color=230,232,250>"
+  local variant_color = "<color=0,187,232>"
+  local stat_color = "<color=253,248,255>"
+  local unit_color = "<color=240,168,4>"
+  local troop = Obj.get_param( "troop" )
+  local troopcnt = Obj.get_param( "troopcount" )
+  local trand = Obj.get_param( "random" )
+  local factor = Logic.cur_lu_item( Obj.name(), "count" )
+  local altfactor = Obj.get_param( "altfactor" )
+
+  local function fill_tables( troop, troopcnt, trand )
+    local troops, troopcnts, trands = {}, {}, {}
+    local numberoftroops = text_par_count( troop )
+  
+    for i = 1, numberoftroops do
+      local substring = text_dec( troop, i )
+      table.insert( troops, substring )
+      local substring = text_dec( troopcnt, i )
+      table.insert( troopcnts, substring )
+      local substring = text_dec( trand, i )
+      table.insert( trands, substring )
+    end
+
+    return troops, troopcnts, trands
+  end
+
+  local troops, troopcnts, trands = fill_tables( troop, troopcnt, trand )
+
+  local function get_weight( trands )
+    local totalweight = 0
+  
+    for i = 1, table.getn( trands ) do
+      totalweight = totalweight + tonumber( trands[ i ] )
+    end
+
+    return totalweight
+  end
+
+  local totalweight = get_weight( trands )
+  local text = ""
+
+  local function gen_poss_text( troops, troopcnts, trands, totalweight, altfactor, indent )
+    local text = ""
+
+    for i = 1, table.getn( troops ) do
+      local poss = round( tonumber( trands[ i ] ) / totalweight * 100 )
+      local indentstring = ""
+
+      if indent ~= nil then
+        indentstring = "  "
+      end
+
+      if poss == 100 then
+        text = text .. "<br>" .. indentstring .. "<label=itm_egg_produces> " .. stat_color .. troopcnts[ i ] .. "</color>"
+      else
+        text = text .. "<br>" .. indentstring .. effect_color .. tostring( poss ) .. "%</color> <label=itm_egg_produce> " .. stat_color .. troopcnts[ i ] .. "</color>"
+      end
+    
+      if tonumber( troopcnts[ i ] ) == 1 then
+        text = text .. unit_color .. " <label=cpn_" .. troops[ i ] .. "></color>"
+      else
+        text = text .. unit_color .. " <label=cpsn_" .. troops[ i ] .. "></color>"
+      end
+
+      local container = ""
+
+      if string.find( Obj.name(), "egg" ) then
+        container = "egg"
+      elseif string.find( Obj.name(), "grave" ) then
+        container = "grave"
+      elseif string.find( Obj.name(), "seed" ) then
+        container = "seed"
+      else
+        container = "container"
+      end
+
+      if altfactor == nil then
+        text = text .. " <label=itm_egg_per> <label=itm_egg_" .. container .. ">"
+      else
+        text = text .. " <label=itm_egg_per> " .. stat_color .. altfactor .. "</color> <label=itm_egg_" .. container .. "s>"
+      end
+    end
+
+    return text
+  end
+
+  local function get_alt_data()
+    local troop = Obj.get_param( "alttroop" )
+    local troopcnt = Obj.get_param( "alttroopcount" )
+    local trand = Obj.get_param( "altrandom" )
+
+    return troop, troopcnt, trand
+  end
+
+  if altfactor ~= nil
+  and altfactor ~= "" then
+    local altfactormin, altfactormax = text_range_dec( altfactor )
+
+    if factor < altfactormin then
+      if table.getn( troops ) > 1 then
+        text = " <label=itm_egg_uncertain><br>"
+      else
+        text = "<br>"
+      end
+
+      text = text .. gen_poss_text( troops, troopcnts, trands, totalweight )
+    elseif factor >= altfactormax then
+      troop, troopcnt, trand = get_alt_data()
+      troops, troopcnts, trands = fill_tables( troop, troopcnt, trand )
+      totalweight = get_weight( trands )
+      if table.getn( troops ) > 1 then
+        text = " <label=itm_egg_uncertain><br>"
+      else
+        text = "<br>"
+      end
+
+      text = text .. gen_poss_text( troops, troopcnts, trands, totalweight, altfactor )
+    else
+      local num = factor - altfactormin + 1
+      local den = altfactormax - altfactormin + 1
+      local poss = round( num / den * 100 )
+
+      if table.getn( troops ) > 1 then
+        text = " <label=itm_egg_uncertain>"
+      end
+
+      text = text .. "<br>" .. variant_color .. tostring( 100 - poss ) .. "%</color> <label=itm_egg_variant1>"
+      text = text .. gen_poss_text( troops, troopcnts, trands, totalweight, nil, true )
+      troop, troopcnt, trand = get_alt_data()
+      troops, troopcnts, trands = fill_tables( troop, troopcnt, trand )
+      totalweight = get_weight( trands )
+      text = text .. "<br>" .. variant_color .. tostring( poss ) .. "%</color> <label=itm_egg_variant2>"
+      text = text .. gen_poss_text( troops, troopcnts, trands, totalweight, altfactor, true )
+    end
+  else
+    if table.getn( troops ) > 1 then
+      text = " <label=itm_egg_uncertain><br>"
+    else
+      text = "<br>"
+    end
+
+    text = text .. gen_poss_text( troops, troopcnts, trands, totalweight )
+  end
+
+  return text
+end
+
+
 --New! Function for generating children hint
 function gen_itm_kid_hint( par )
   local color = "<color=255,243,179>"
@@ -253,6 +410,7 @@ function gen_itm_kid_hint( par )
         local mod = Game.Config( "spell_power_config/mod" )
         local den_scholar = Game.Config( "spell_power_config/den_scholar" )
         local intellect = tostring( mod - skill_level / den_scholar )
+        value = value / den_scholar
         text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. " for every " .. stat_color .. intellect .. "</color> Intelligence.<br>"
       elseif skill == "skill_archery"
       or skill == "skill_offense" then
@@ -328,10 +486,16 @@ function gen_itm_kid_hint( par )
     end
 
   elseif string.find( par, "unit_" ) then
-    local unit, unit_level = get_function_parameters( par )
+    local unit, bonus_level = get_function_parameters( par )
     
-    if unit_level ~= 0 then
+    if bonus_level ~= 0 then
       local unit_display = protect_text_dec( par, 3 )
+      local level_inc = 0
+
+      if string.find( par, "level+" ) then
+        local level_inc_string = protect_text_dec( par, 6 )
+        level_inc = tonumber( string.sub( level_inc_string, 7 ) )
+      end
 
       if unit_display == "start" then
         text = text .. color .. "<label=itm_kid_unit> </color>" .. unit_color .. "<label=" .. string.gsub( unit, "unit_", "cpsn_" ) .. "></color> - "
@@ -351,17 +515,20 @@ function gen_itm_kid_hint( par )
       elseif unit_display == "attack"
       or unit_display == "defense" then
         local value = tonum( protect_text_dec( par, 4 ) )
-        local unit_level = Logic.cp_level( string.gsub( unit, "unit_", "" ) )
-        text = text .. gen_dmg_common_hint( "plus_power", value * unit_level, nil, nil, stat_color, "</color>" )
+        unit = string.gsub( unit, "unit_", "" )
+        local unit_level = Logic.cp_level( unit ) + level_inc
+        text = text .. gen_dmg_common_hint( "plus_power", value * bonus_level * unit_level, nil, nil, stat_color, "</color>" )
 
       elseif unit_display == "krit"
       or unit_display == "health"
       or unit_display == "lr" then
-        local unit_gain_type, value = get_gain_type_value( par, unit_level, 4, 5, Logic.cp_level( string.gsub( unit, "unit_", "" ) ) )
+        unit = string.gsub( unit, "unit_", "" )
+        local unit_level = Logic.cp_level( unit ) + level_inc
+        local unit_gain_type, value = get_gain_type_value( par, bonus_level, 4, 5, unit_level )
         text = text .. gen_dmg_common_hint( unit_gain_type, value, nil, nil, stat_color, "</color>" )
 
       elseif unit_display == "value" then
-        local unit_gain_type, value = get_gain_type_value( par, unit_level, 4, 5 )
+        local unit_gain_type, value = get_gain_type_value( par, bonus_level, 4, 5 )
         text = text .. gen_dmg_common_hint( unit_gain_type, value, nil, nil, stat_color, "</color>" )
       end
     end

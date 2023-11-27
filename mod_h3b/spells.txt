@@ -76,7 +76,7 @@ spell_healing {
     hero=1
     destroyer=1
     healer=1
-    holy=1
+    sp_holy=1
     holy_rage=1
     attack=1
     magic=1
@@ -166,7 +166,7 @@ spell_stone_skin {
   params {
     duration=2,3,3
     type=bonus
-    power=5,10,10
+    power=10,20,20
     int=1 //  If = 1 then the intelligence affects the duration of spells
     dur_res_magic=1  // New! Target's magic resistance effects spell duration
     penalty=1,1,1		// How many drops Initiative
@@ -705,7 +705,7 @@ spell_resurrection {
     hero=1
     destroyer=0
     healer=1
-    holy=1
+    sp_holy=1
     holy_rage=1
     attack=0
     mana_cost = 12,24,36  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
@@ -752,7 +752,7 @@ spell_divine_armor {
     hero=1
     destroyer=0
     healer=1
-    holy=1
+    sp_holy=1
     holy_rage=1
     attack=0
     defense=1
@@ -805,7 +805,7 @@ spell_holy_rain {
     hero=1
     destroyer=1
     healer=1
-    holy=1
+    sp_holy=1
     holy_rage=1
     attack=1
     magic=1

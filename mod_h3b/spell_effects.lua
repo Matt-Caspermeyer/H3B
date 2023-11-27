@@ -4,24 +4,26 @@ function apply_hero_duration_bonus( target, duration, bonus, to_ally )
     target = Attack.get_target()
   end
 
-  local ally = 2
-  local enemy = 4
-  local belligerent_base = Attack.act_belligerent()
-  local belligerent_target = Attack.act_belligerent( target )
-  local enemy_base = Attack.act_enemy( target, belligerent_base )
-  local enemy_target = Attack.act_enemy( target, belligerent_target )
-  local ally_base = Attack.act_ally( target, belligerent_base )
-  local ally_target = Attack.act_ally( target, belligerent_target )
-
-  if to_ally then
-    if ( not ( belligerent_target == enemy ) and ally_target )
-    or ( belligerent_target == ally ) then
-      duration = duration + Logic.hero_lu_item( bonus, "count" )
-    end
-  else
-    if ( not ( belligerent_base == enemy ) and enemy_target )
-    or ( belligerent_target == enemy ) then
-      duration = duration + Logic.hero_lu_item( bonus, "count" )
+  if target ~= nil then
+    local ally = 2
+    local enemy = 4
+    local belligerent_base = Attack.act_belligerent()
+    local belligerent_target = Attack.act_belligerent( target )
+    local enemy_base = Attack.act_enemy( target, belligerent_base )
+    local enemy_target = Attack.act_enemy( target, belligerent_target )
+    local ally_base = Attack.act_ally( target, belligerent_base )
+    local ally_target = Attack.act_ally( target, belligerent_target )
+  
+    if to_ally then
+      if ( not ( belligerent_target == enemy ) and ally_target )
+      or ( belligerent_target == ally ) then
+        duration = duration + Logic.hero_lu_item( bonus, "count" )
+      end
+    else
+      if ( not ( belligerent_base == enemy ) and enemy_target )
+      or ( belligerent_target == enemy ) then
+        duration = duration + Logic.hero_lu_item( bonus, "count" )
+      end
     end
   end
 
@@ -164,6 +166,7 @@ function effect_bless_weakness_attack( target, spell, duration, dmgts, spawn_typ
   Attack.act_apply_spell_end()
 
   if spawn then
+    dmgts = dmgts + Game.Random() / 10
     Attack.atom_spawn( target, dmgts, spawn_type, Attack.angleto( target ) )
   end
 
@@ -179,6 +182,7 @@ function apply_effect_damage( target, min_dmg, max_dmg, effect_type, log_damname
   
   if target ~= nil then
     local dmg_min, dmg_max
+
     if min_dmg == nil then
     		dmg_min = tonumber( Attack.act_spell_param( target, effect_type, "dmg_min" ) )
     else
@@ -191,46 +195,52 @@ function apply_effect_damage( target, min_dmg, max_dmg, effect_type, log_damname
       dmg_max = max_dmg
     end
   
-    local typedmg = Logic.obj_par( effect_type, "typedmg" )
-  		-- при получении юнитов урона огнем спадает Очарование 
-   	Attack.act_del_spell( target, "effect_charm" )
-  		Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
-    -- Each successive burn causes half damage
-   	Attack.act_spell_param( target, effect_type, "dmg_min", dmg_min / 2, "dmg_max", dmg_max / 2 )
-  		Attack.atom_spawn( target, 0, effect_type, 0 ,true )
-  		common_cell_apply_damage( target, 1 )
-    -- New! The unit's resistance allows it to potentially remove the effect
-    local effect_resist_chance = Attack.act_get_res( target, res_type )
-    local effect_rnd = Game.Random( 100 ) + 1
-    if effect_rnd <= effect_resist_chance then
-      Attack.act_del_spell( target, effect_type )
-      unit_resist_log = true
-    end
-  end
-
-  local count = Attack.act_size( target )
-  local damage, dead = Attack.act_damage_results( target )
+    if dmg_min ~= nil
+    and dmg_max ~= nil then
+      local typedmg = Logic.obj_par( effect_type, "typedmg" )
+    		-- при получении юнитов урона огнем спадает Очарование 
+     	Attack.act_del_spell( target, "effect_charm" )
+    		Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+      -- Each successive burn causes half damage
+     	Attack.act_spell_param( target, effect_type, "dmg_min", dmg_min / 2, "dmg_max", dmg_max / 2 )
+    		Attack.atom_spawn( target, 0, effect_type, 0 ,true )
+    		common_cell_apply_damage( target, 1 )
+      -- New! The unit's resistance allows it to potentially remove the effect
+      local effect_resist_chance = Attack.act_get_res( target, res_type )
+      local effect_rnd = Game.Random( 100 ) + 1
   
-  if dead == nil then dead = 0 end
-  
-  local td = ""
-  if damage ~= nil then
-    if dead > 0 then
-   	  if count == dead then td = "<label=troop_defeated>" end
-  
-   	  Attack.log( "add_blog_" .. log_damname .. "_2", "damage", damage, "dead", dead, "name", blog_side_unit( target, -1 ), "troopdef", td )
-    else
-      local duration = tonumber( Attack.act_spell_duration( target, effect_type ) )
-      if duration ~= nil and duration > 3 then
-    				Attack.log( "add_blog_" .. log_damname .. "_3", "damage", damage, "dead", dead, "name", blog_side_unit( target, -1 ), "troopdef", td )
-      else
-    				Attack.log( "add_blog_" .. log_damname .. "_1", "damage", damage, "dead", dead, "name", blog_side_unit( target, -1 ), "troopdef", td )
+      if effect_rnd <= effect_resist_chance then
+        Attack.act_del_spell( target, effect_type )
+        unit_resist_log = true
       end
-   	end 
-  end 
-
-  if unit_resist_log then
-    show_unit_resist_log( count, target, log_resname )
+  
+      local count = Attack.act_size( target )
+      local damage, dead = Attack.act_damage_results( target )
+      
+      if dead == nil then dead = 0 end
+      
+      local td = ""
+  
+      if damage ~= nil then
+        if dead > 0 then
+       	  if count == dead then td = "<label=troop_defeated>" end
+      
+       	  Attack.log( "add_blog_" .. log_damname .. "_2", "damage", damage, "dead", dead, "name", blog_side_unit( target, -1 ), "troopdef", td )
+        else
+          local duration = tonumber( Attack.act_spell_duration( target, effect_type ) )
+  
+          if duration ~= nil and duration > 3 then
+        				Attack.log( "add_blog_" .. log_damname .. "_3", "damage", damage, "dead", dead, "name", blog_side_unit( target, -1 ), "troopdef", td )
+          else
+        				Attack.log( "add_blog_" .. log_damname .. "_1", "damage", damage, "dead", dead, "name", blog_side_unit( target, -1 ), "troopdef", td )
+          end
+       	end 
+      end 
+    
+      if unit_resist_log then
+        show_unit_resist_log( count, target, log_resname )
+      end
+    end
   end
 
   return true
@@ -378,7 +388,7 @@ function effect_holy_attack( target, pause, duration, power )
 		Attack.act_del_spell( target, "effect_holy" )
   Attack.act_apply_spell_begin( target, "effect_holy", duration, false )
 		Attack.act_apply_par_spell( "attack", 0, -power, 0, duration, false )
-		Attack.act_apply_par_spell(" defense", 0, -power, 0, duration, false )
+		Attack.act_apply_par_spell( "defense", 0, -power, 0, duration, false )
   Attack.act_apply_spell_end()
   Attack.act_damage_addlog( target, message )
 		Attack.atom_spawn( target, pause, "effect_hard_bless", 0, true )

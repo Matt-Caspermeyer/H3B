@@ -11,29 +11,29 @@ onerace {
 // Наличие представителей одной расы изменяет мораль другой расы
 race2race {
     undead {
-        human=-2,hint_morale_undead,tolerance<1 //Присутствие нежити в армии. Мораль -2
-        elf=-3,hint_morale_undead,tolerance<1   //Присутствие нежити в армии. Мораль -3
-        dwarf=-2,hint_morale_undead,tolerance<1 //Присутствие нежити в армии. Мораль -2
-        orc=-1,hint_morale_undead,tolerance<1   //Присутствие нежити в армии. Мораль -1
+        human=-2,hint_morale_undead,tolerance<2 //Присутствие нежити в армии. Мораль -2
+        elf=-3,hint_morale_undead,tolerance<2   //Присутствие нежити в армии. Мораль -3
+        dwarf=-2,hint_morale_undead,tolerance<2 //Присутствие нежити в армии. Мораль -2
+        orc=-1,hint_morale_undead,tolerance<2   //Присутствие нежити в армии. Мораль -1
     }
     demon {
-        human=-2,hint_morale_demon,tolerance<2  //Присутствие демонов в армии. Мораль -2
-        elf=-2,hint_morale_demon,tolerance<2  	//Присутствие демонов в армии. Мораль -2
-        dwarf=-3,hint_morale_demon,tolerance<2	//Присутствие демонов в армии. Мораль -3
+        human=-2,hint_morale_demon,tolerance<3  //Присутствие демонов в армии. Мораль -2
+        elf=-2,hint_morale_demon,tolerance<3  	//Присутствие демонов в армии. Мораль -2
+        dwarf=-3,hint_morale_demon,tolerance<3	//Присутствие демонов в армии. Мораль -3
     }
     elf {
-        dwarf=-1,hint_morale_elf			//Присутствие гномов в армии. Мораль -1
+        dwarf=-1,hint_morale_elf,tolerance<1    	//Присутствие гномов в армии. Мораль -1
     }
     dwarf {
-        elf=-1,hint_morale_dwarf			//Присутствие эльфов в армии. Мораль -1
+        elf=-1,hint_morale_dwarf,tolerance<1    	//Присутствие эльфов в армии. Мораль -1
     }
 }
 
 // Наличие представителей одной расы изменяет мораль конкретного юнита
 race2unit {
     undead {
-        priest,priest2=+2,hint_morale_undead1,tolerance<1   //Терпимость к нежити.
-        unicorn2,werewolf,wolf=+3,hint_morale_undead1,tolerance<1    	//Терпимость к нежити.
+        priest,priest2=+2,hint_morale_undead1,tolerance<2   //Терпимость к нежити.
+        unicorn2,werewolf,wolf=+3,hint_morale_undead1,tolerance<2    	//Терпимость к нежити.
     }
 }
 
@@ -97,11 +97,11 @@ unit2unit {
     alchemist,archmage,bowman,cannoner,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,horseman,knight,miner,peasant,priest,priest2,robber,robber2,sprite,sprite_lake,unicorn,unicorn2,werewolf,wolf {
         alchemist,archmage,bowman,cannoner,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,horseman,knight,miner,peasant,priest,priest2,robber,robber2,sprite,sprite_lake,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_diplomacy1,diplomacy>0
     }
-    alchemist,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf {
-        alchemist,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_diplomacy2,diplomacy>1
+    barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,goblin,goblin2,graywolf,greendragon,griffin,hyena,kingthorn,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,thorn,thorn_warrior {
+        barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,goblin,goblin2,graywolf,greendragon,griffin,hyena,kingthorn,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,thorn,thorn_warrior=+1,hint_morale_diplomacy2,diplomacy>1
     }
-    alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf {
-        alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_diplomacy3,diplomacy>2
+    archdemon,cerberus,demon,demoness,imp,imp2,spider_fire {
+        archdemon,cerberus,demon,demoness,imp,imp2,spider_fire=+1,hint_morale_diplomacy3,diplomacy>2
     }
 
 }

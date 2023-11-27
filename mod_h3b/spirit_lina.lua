@@ -604,11 +604,7 @@ function gizmo_attack()
       local level = Attack.act_level( i )
       local health = Attack.act_get_par( i, "health" )
       local total_initial_hp =  health * Attack.act_initsize( i )
-      local unit_priority = Attack.val_restore( i, "gizmo_priority" )
-
-      if unit_priority == nil then
-        unit_priority = 0
-      end
+      local unit_priority = 0
 
       priority = tonumber( unit_priority ) / 2
       if Attack.cell_need_resurrect( i ) then
@@ -688,8 +684,6 @@ function gizmo_attack()
         priority = priority * 2
       end
 
-      Attack.val_store( i, "gizmo_priority", priority )
-
       return true
     else
       priority = 0
@@ -701,11 +695,7 @@ function gizmo_attack()
     if check_charmed( i, false ) then
       local att_eff = Attack.act_totalhp( i ) / damavg
       local level = Attack.act_level( i )
-      local unit_priority = Attack.val_restore( i, "gizmo_priority" )
-
-      if unit_priority == nil then
-        unit_priority = 0
-      end
+      local unit_priority = 0
 
       priority = ( tonumber( unit_priority ) / 2 ) + att_eff * level
 
@@ -756,8 +746,6 @@ function gizmo_attack()
         priority = priority + ( best_eff * ap_eff * enemy_power / ally_power )
       end
 
-      Attack.val_store( i, "gizmo_priority", priority )
-
       return true
     else
       priority = 0
@@ -782,24 +770,44 @@ function gizmo_attack()
     end
   end
 
-  for a = 1, Attack.act_count() - 1 do
-    local i = Attack.get_cell( a )
-    if ( under == nil
-    or not Attack.act_equal( under, i ) )
-    and ( enemy_check( i )
-    or ally_check( i ) )
-    and ( priority ~= 0 ) then
-      local d = Attack.cell_mdist( 0, i )
-      priority = priority * ap / d
+  local chance_attack_enemy = Game.Random( 1, 100 )
+  local enemy2ally_power = math.ceil( enemy_power / ( enemy_power + ally_power ) * 100 )
+  local repeat_counter = 0
 
-      if gizmo_ids[ Attack.cell_id( Attack.get_cell( i ) ) ] ~= true then -- вторая проверка нужна, чтобы гизмо 
-        if priority >= max_priority then
-          max_priority = priority
-          target = i
+ 	repeat
+
+    for a = 1, Attack.act_count() - 1 do
+      local i = Attack.get_cell( a )
+  
+      if ( under == nil
+      or not Attack.act_equal( under, i ) ) then
+        if chance_attack_enemy <= enemy2ally_power then
+          enemy_check( i )
+        else
+          ally_check( i )
+        end
+        
+        if priority ~= 0 then
+          local d = Attack.cell_mdist( 0, i )
+          priority = priority * math.min( 1, ap / ( d / 1.8 ) )
+  
+          if gizmo_ids[ Attack.cell_id( Attack.get_cell( i ) ) ] ~= true then -- вторая проверка нужна, чтобы гизмо 
+            if priority >= max_priority then
+              max_priority = priority
+              target = i
+            end
+          end
         end
       end
     end
-  end
+
+    if target == nil then
+      chance_attack_enemy = 0
+      enemy2ally_power = 1
+      repeat_counter = repeat_counter + 1
+    end
+
+  until target ~= nil or repeat_counter > 1
 
   if under ~= nil then
     if ( enemy_check( under )
@@ -813,6 +821,7 @@ function gizmo_attack()
 
   if target ~= nil then
     local d = Attack.cell_mdist( 0, target ) / 1.8
+
     if d > ap + 1 then -- запас +1 нужен, чтобы не было так, что гизмо встал на клетку с врагом и при этом ничего не сделал
       for i = ap, 1, -1 do
         local dist = 1.8 * i
@@ -822,6 +831,7 @@ function gizmo_attack()
         local len = math.sqrt( dx * dx + dy * dy )
         dx = dx * dist / len; dy = dy * dist / len
         local dest = Attack.find_nearest_cell( x + dx, y + dy )
+
         if gizmo_ids[ Attack.cell_id( dest ) ] ~= true then
           Attack.act_move( 0, i, 0, dest )
           break
@@ -830,7 +840,7 @@ function gizmo_attack()
 
     else
       Attack.act_move( 0, d, 0, target )
---      if Attack.act_ally( target, bel ) then
+
       if check_charmed( target, true ) then
         local cast_value = gizmo_animation_from_charges( charges )
 		      Attack.act_aseq( 0, "cast" .. cast_value )
@@ -984,7 +994,6 @@ function gizmo_attack()
 	       end
       end
       Attack.aseq_timeshift( 0, d )
-      Attack.val_store( target, "gizmo_priority", 0 )
     end
   end
 
@@ -1169,12 +1178,14 @@ function lina_devatron()
       Attack.val_store( atom, "min_dmg", min_dmg )
       Attack.val_store( atom, "max_dmg", max_dmg )
       Attack.val_store( atom, "dmg_type", "physical" )
-    else
-      local atom = Attack.atom_spawn( c, t, "devatron_throw" )
-      local hit_time = start + deviation / 10
-      Attack.dmg_timeshift( c, hit_time )
+    elseif Attack.act_enemy( c )
+    and Attack.act_takesdmg( c ) then
+      local a = Attack.atom_spawn( c, start + deviation / 10, "devatron_throw" )
+      Attack.act_aseq( a, "idle" )
+      local hit_time = Attack.aseq_time( a, "x" ) + start + deviation / 10
       local hit_x = Attack.aseq_time( c, "x" )
       Attack.aseq_timeshift( c, hit_time - hit_x )
+      Attack.dmg_timeshift( c, hit_time )
       local dead = Attack.act_damage( c )
 
       if not dead
@@ -1188,7 +1199,7 @@ function lina_devatron()
         local freeze_chance = math.max( 0, freeze - freeze_res )
 
         if rnd < freeze_chance then
-          effect_freeze_attack( c, hit_time, 3 )
+          effect_freeze_attack( c, hit_time + 2, 3 )
         end
       end
     end

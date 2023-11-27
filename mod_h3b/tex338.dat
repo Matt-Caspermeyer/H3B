@@ -1,0 +1,35 @@
+TEX338 {
+  block {
+    filename=skillicon_new2_12_0.png
+    in_tex_pos=0,0
+    in_tex_size=50,50
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,313
+  }
+  block {
+    filename=skillicon_new2_12_1.png
+    in_tex_pos=50,0
+    in_tex_size=50,50
+    geom_pos=0,0
+    geom_size=1,1
+    mask=313,313
+  }
+  block {
+    filename=skillicon_new2_12_2.png
+    in_tex_pos=100,0
+    in_tex_size=50,50
+    geom_pos=0,0
+    geom_size=1,1
+    mask=626,313
+  }
+  block {
+    filename=skillicon_new2_12_3.png
+    in_tex_pos=150,0
+    in_tex_size=50,50
+    geom_pos=0,0
+    geom_size=1,1
+    mask=939,313
+  }
+  texture_size=200,50
+}

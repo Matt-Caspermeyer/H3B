@@ -5,6 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_shaman_feat
+  features_hints=regenerates_mana_header/regenerates_mana_hint
   race=orc
   cost=600
   level=4
@@ -22,6 +23,8 @@ arena_params {
   attacks=moveattack,badabum,protective_totem,ice_totem
   features=mage
   each_turn_script=features_dissipate_energy
+  posthitmaster=features_orc_creature
+  posthitslave=shaman_posthitslave
   resistances {
     physical=10
     poison=10

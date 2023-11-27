@@ -1135,7 +1135,7 @@ function special_cast_thorn_sacrifice()
     N = '1'
   end
 
-  Attack.act_kill( 0, true, false )
+  Attack.act_kill( 0, false, false )
   Attack.act_remove( 0, 4 )
   Attack.log_label( "null" )
 
@@ -1145,9 +1145,6 @@ function special_cast_thorn_sacrifice()
     Attack.log( "thorn_gift_cure_" .. M .. N, "name", blog_side_unit( 0, 1, nil, giver_size ), "saname", blog_side_unit( 0, 3 ) .. "<label=special_thorn3_name></color>", "targets", blog_side_unit( target, 1, nil, receiver_size ), "special", giver_heal, "name", blog_side_unit( 0, -1, nil, giver_size ) )
   end
 
-  -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
-  -- because it has no way of knowing that a unit was resurrected via other means...
-  Attack.val_store( target, "gizmo_priority", 0 )
   effect_temp_ooc( target )
 
   return true
@@ -1279,10 +1276,6 @@ function special_heal()
   Attack.log_label( "cure_" ) -- работает
   Attack.log_special( heal )
 
-  -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
-  -- because it has no way of knowing that a unit was resurrected via other means...
-  Attack.val_store( target, "gizmo_priority", 0 )
-
   return true
 end
 
@@ -1323,9 +1316,6 @@ function special_heal2()
     Attack.log_label( "cure_" ) -- работает
     Attack.log_special( cure_hp )
 
-    -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
-    -- because it has no way of knowing that a unit was resurrected via other means...
-    Attack.val_store( target, "gizmo_priority", 0 )
   end
 
   return true
@@ -1361,10 +1351,6 @@ function special_presurrect()
     Attack.act_damage_addlog( target, "cur_" )
     Attack.log_special( hp_2 - hp_1 )
   end
-
-  -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
-  -- because it has no way of knowing that a unit was resurrected via other means...
-  Attack.val_store( target, "gizmo_priority", 0 )
 
   return true
 end
@@ -1408,10 +1394,6 @@ function special_phoenix_sacrifice()
   else
     Attack.log( "phoenix_sacrifice_cure_" .. N, "name", blog_side_unit( 0, 1, nil, 1 ), "saname", blog_side_unit( 0, 3 ) .. "<label=special_phoenix_sacrifice_name></color>", "targets", blog_side_unit( target, 1, nil, count_before ), "special", heal, "name", blog_side_unit( 0, -1, nil, 1 ) )
   end
-
-  -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
-  -- because it has no way of knowing that a unit was resurrected via other means...
-  Attack.val_store( target, "gizmo_priority", 0 )
 
   return true
 end
@@ -1727,10 +1709,6 @@ function special_animate_dead()
       Attack.log_special( hp_2 - hp_1 )
     end
 
-    -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
-    -- because it has no way of knowing that a unit was resurrected via other means...
-    Attack.val_store( target, "gizmo_priority", 0 )
-
     return true
   else
     Attack.aseq_rotate( 0, cell )
@@ -1970,14 +1948,17 @@ function special_summonplant()
   local summon_count = math.max( 1, math.floor( plant_lead * plant_count / summon_lead * k / 100 ) )
   Attack.act_spawn( target, 0, summon_unit, ang_to_enemy, summon_count )
   Attack.act_nodraw( target, true )
+  local t = Attack.aseq_time( 0 ) - dmgts
 
-  local anim_name = "summon"
   if string.find( summon_unit, "thorn" ) then
-    anim_name = "grow"
+    Attack.act_animate( target, "grow", t )
+  else
+    local a = Attack.aseq_time( target )
+    Attack.act_aseq( target, "teleout" )
+    Attack.atom_spawn( target, a, "hll_teleout", Attack.angleto( target ) )
+	   t = t + a
   end
 
-  local t = Attack.aseq_time( 0 ) - 0.3
-  Attack.act_animate( target, anim_name, t )
   Attack.act_nodraw( target, false, t )
   fix_hitback( target )
   Attack.log_label( "add_blog_summon_" )

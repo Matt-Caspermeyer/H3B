@@ -148,6 +148,7 @@ animations {
   summon=ent_idle.bsa/fr:25:50
   happy=ent_victory.bsa/fr:25:50
   victory=/t:1:2:happy:1:2:idlemain
+  special=ent_special.bsa/fr:25:50
   @teleout {
     10.0=alpha/1/25
   }
@@ -318,6 +319,12 @@ attachments {
       file=ent_victory
       fadetime=60
     }
+    sound {
+      animation=special
+      frame=0.01
+      file=ent2_special
+      fadetime=60
+    }
   }
   0 {
     slot=2
@@ -326,6 +333,12 @@ attachments {
       animation=cast
       frame=17/24
       file=cast_ent_wasps_jet.ptb
+    }
+    particle {
+      trans=0/-0.1/0/-3.1415925/-0/0/0.80000001
+      animation=special
+      frame=2/39
+      file=cast_ent_sucks.ptb
     }
   }
   1 {

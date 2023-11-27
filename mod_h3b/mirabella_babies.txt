@@ -47,7 +47,7 @@ kid_cuthbert {
   mods {
     sp_power_int=count,16
     sp_addgold_battle=count,40
-    sp_addgold_chestt=count,40
+    sp_addgold_chest=count,40
     sp_duration_weakness=count,1
     sp_add_damage_weakness=count,1
     sp_duration_effect_weakness=count,1
@@ -82,7 +82,7 @@ kid_caitlin {
     sp_power_int=count,16
     mana=limit,16%
     sp_addgold_battle=count,112
-    sp_addgold_chestt=count,112
+    sp_addgold_chest=count,112
   }
   propbits=child,rare
   params {}
@@ -744,7 +744,7 @@ kid_haart {
   }
   mods {
     sp_addgold_battle=count,80
-    sp_addgold_chestt=count,80
+    sp_addgold_chest=count,80
   }
   propbits=child,rare
   params {}

@@ -101,7 +101,7 @@ hero_warrior { // ******************** Воин ********************
         skills_open=rage,traning,rage_control //order,chaos,dist
         skills_off=hi_magic,alchemist,rune_stone,holy_rage
         // New! Just list the units and a random number within the hero's leadership will be selected
-        army=alchemist,archmage,barbarian,barbarian2,bear,bear_white,bear2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,reddragon,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf
+        army=alchemist,archmage,barbarian,barbarian2,bear,bear_white,bear2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,reddragon,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf
 	// New! Chance of getting a spell if it is set to 0
 	spell_chance=5
 	// New! Chance that a random spell is a scroll
@@ -185,7 +185,7 @@ hero_paladin { // ******************** Паладин ********************
         skills_open=explorer,holy_rage,glory //chaos,dist
         skills_off=hi_magic,alchemist,rage,iron_fist
         // New! Just list the units and a random number within the hero's leadership will be selected
-        army=alchemist,archmage,barbarian,barbarian2,bear,bear_white,bear2,blackdragon,bowman,cannoner,cyclop,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,graywolf,greendragon,griffin,horseman,kingthorn,knight,miner,peasant,priest,priest2,reddragon,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf
+        army=alchemist,archmage,barbarian,barbarian2,bear,bear_white,bear2,blackdragon,bowman,cannoner,cyclop,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,graywolf,greendragon,griffin,horseman,kingthorn,knight,miner,peasant,priest,priest2,reddragon,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf
 
 	// New! Chance of getting a spell if it is set to 0
 	spell_chance=10
@@ -271,7 +271,7 @@ hero_mage { // ******************** Маг ********************
         skills_open=wizdom,meditation,alchemist //chaos, alchemist
         skills_off=rune_stone,holy_rage, rage,iron_fist
         // New! Just list the units and a random number within the hero's leadership will be selected
-        army=alchemist,archmage,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,peasant,pirat,pirat2,priest,priest2,reddragon,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf
+        army=alchemist,archmage,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,peasant,pirat,pirat2,priest,priest2,reddragon,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf
 	// New! Chance of getting a spell if it is set to 0
 	spell_chance=15
 	// New! Chance that a random spell is a scroll

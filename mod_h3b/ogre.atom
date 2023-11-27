@@ -23,6 +23,7 @@ arena_params {
   movetype=0
   features=humanoid
   posthitmaster=features_ogre_attack
+  posthitslave=features_orc_creature
   resistances {
     physical=20
     poison=20

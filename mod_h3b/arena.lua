@@ -12,74 +12,40 @@ MISS        = 1e6
 KRIT_MISS   = 2e6
 CHARM       = 3e6
 
-function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --ftag:damage
-
-  local beauty_k=30
-
-  if dfactor < 0 then dfactor = 0 end
-
-  dfactor = dfactor / 100
-  local sdmg = 0
-  local iskrit
+-- New common function for computing the attacker / receiver information / bonuses
+function att_rec_stuff( attacker, receiver )
   local receiver_human = AU.is_human( receiver )
   local attacker_human = AU.is_human( attacker )
   local hero_attack = 0
 
   if attacker_human then
-    hero_attack = Logic.hero_lu_item( "attack", "count" )
+    hero_attack = tonum( Logic.hero_lu_item( "attack", "count" ) )
   else
-    hero_attack = Attack.val_restore( attacker, "enemy_hero_attack" )
+    hero_attack = tonum( Attack.val_restore( attacker, "enemy_hero_attack" ) )
   end
 
-  if hero_attack ~= nil
-  and hero_attack > 0 then
-    local krit_inc = Game.Config( "attack_config/krit_inc" )
-    kritProb = limit_value( kritProb + math.floor( hero_attack / 7 ) * krit_inc, 0, 100 )
-  end
-
+  local krit_inc = tonum( Game.Config( "attack_config/krit_inc" ) )
+  local krit_bonus = math.floor( hero_attack / 7 ) * krit_inc
   local res_inc = 0
   local hero_defense = 0
 
   if receiver_human then
-    hero_defense = Logic.hero_lu_item( "defense", "count" )
+    hero_defense = tonum( Logic.hero_lu_item( "defense", "count" ) )
   else
-    hero_defense = Attack.val_restore( receiver, "enemy_hero_defense" )
+    hero_defense = tonum( Attack.val_restore( receiver, "enemy_hero_defense" ) )
   end
 
-  if hero_defense ~= nil
-  and hero_defense > 0 then
-    local res_inc_config = Game.Config( "defense_config/res_inc" )
-    res_inc = math.floor( hero_defense / 7 ) * res_inc_config
-  end
-
-  if Attack.act_is_spell( receiver, "effect_entangle" ) then kritProb = 2 * kritProb end
-
-  if Attack.act_is_spell( receiver, "spell_slow" ) then
-    local kritslow = Attack.val_restore( receiver, "krit_slow" )
-
-    if kritslow ~= nil then
-      kritProb = kritProb + kritslow
-    end
-  end
-
-  if minmax ~= 0
-  or krit == 0 then iskrit = false -- в подсказках критический урон никогда не учитываем (а также когда krit=0)
-  elseif Attack.act_is_spell( attacker, "special_preparation" )
-  or Attack.act_is_spell( receiver, "spell_crue_fate" )
-  or Attack.act_is_spell( receiver, "effect_unconscious" )
-  or Attack.act_is_spell( receiver, "effect_sleep" ) then iskrit = true
-  else iskrit = ( Game.CurLocRand( 99 ) < kritProb ) end
-
---  local k = AU.attack( attacker ) / AU.defence( receiver )
+  local res_inc_config = tonum( Game.Config( "defense_config/res_inc" ) )
+  res_inc = math.floor( hero_defense / 7 ) * res_inc_config
 
 -- «десь усиливает атака по нежити от скилла —в€той √нев
   --holy_rage
-  local holy_rage_skill = tonumber( skill_power2( "holy_rage", 1 ) )
+  local holy_rage_skill = tonum( skill_power2( "holy_rage", 1 ) )
   local holy_rage_bonus = 0
 
   if ( AU.race( receiver ) == "undead"
   or AU.feature( receiver, "undead" ) )
-  and ( AU.is_human( attacker )
+  and ( attacker_human
   and AU.race( attacker ) ~= "undead"
   and AU.race( attacker ) ~= "demon" ) then
     holy_rage_bonus = holy_rage_bonus + holy_rage_skill
@@ -89,7 +55,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
 
   if ( AU.race( receiver ) == "demon"
   or AU.feature( receiver, "demon" ) )
-  and ( AU.is_human( attacker )
+  and ( attacker_human
   and AU.race( attacker ) ~= "demon"
   and AU.race( attacker ) ~= "undead" ) then
     holy_rage_bonus = holy_rage_bonus + holy_rage_skill
@@ -97,26 +63,29 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     if holy_rage_bonus < 0 then holy_rage_bonus = 0 end
   end
 
--- усиливаем атаку по нежити от предметов:
+  -- усиливаем атаку по нежити от предметов:
   local attack_undead_bonus = 0
+
   if ( AU.race( receiver ) == "undead"
   or AU.feature( receiver, "undead" ) )
-  and AU.is_human( attacker ) then
+  and attacker_human then
     attack_undead_bonus = hero_item_count( "sp_attack_undead" )
   end
 
--- усиливаем атаку по демонам от предметов:
+  -- усиливаем атаку по демонам от предметов:
   local attack_demon_bonus = 0
+
   if ( AU.race( receiver ) == "demon"
   or AU.feature( receiver, "demon" ) )
-  and AU.is_human( attacker ) then
+  and attacker_human then
     attack_demon_bonus = hero_item_count( "sp_attack_demon" )
   end
 
--- усиливаем атаку по драконам от предметов:
+  -- усиливаем атаку по драконам от предметов:
   local attack_dragon_bonus = 0
+
   if AU.feature( receiver, "dragon" )
-  and AU.is_human( attacker ) then
+  and attacker_human then
     attack_dragon_bonus = hero_item_count( "sp_attack_dragon" )
   end
 
@@ -124,6 +93,65 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
   local total_attack_bonus = 1 + attack_undead_bonus / 100 + attack_demon_bonus / 100 + attack_dragon_bonus / 100
   local receiver_defense = AU.defence( receiver )
   local k = ( attacker_attack * total_attack_bonus + holy_rage_bonus ) - receiver_defense
+  local cap_inc = tonum( Game.Config( "attack_config/cap_inc" ) )
+  local attack_kmax = math.floor( hero_attack / 7 ) * cap_inc / 100
+  local kmax = 3 + attack_kmax
+  local defense_kmin = math.floor( hero_defense / 7 )
+  local kmin = 3 + defense_kmin
+
+  local function sign( x )
+    return x > 0 and 1 or x < 0 and -1 or 0
+  end
+  
+  local kdmg = limit_value( ( 1 + math.abs( k ) / 30 )^( sign( k ) ), 1 / kmin, kmax )
+
+  return kdmg, receiver_human, attacker_human, krit_bonus, res_inc
+end
+
+
+function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --ftag:damage
+
+  local beauty_k=30
+
+  if dfactor < 0 then dfactor = 0 end
+
+  dfactor = dfactor / 100
+  local sdmg = 0
+  local iskrit
+  local kdmg, receiver_human, attacker_human, krit_bonus, res_inc = att_rec_stuff( attacker, receiver )
+
+  if minmax ~= 0
+  or krit == 0 then
+    iskrit = false -- в подсказках критический урон никогда не учитываем (а также когда krit=0)
+  elseif Attack.act_is_spell( attacker, "special_preparation" )
+  or Attack.act_is_spell( receiver, "spell_crue_fate" )
+  or Attack.act_is_spell( receiver, "effect_unconscious" )
+  or Attack.act_is_spell( receiver, "effect_sleep" ) then
+    iskrit = true
+  else
+    kritProb = kritProb + krit_bonus
+  
+    if Attack.act_is_spell( receiver, "effect_entangle" )
+    or Attack.act_is_spell( receiver, "special_spider_web" )
+    or Attack.act_is_spell( receiver, "effect_stun" )
+    or Attack.act_is_spell( receiver, "spell_blind" ) then
+      kritProb = 2 * kritProb
+    end
+  
+    if Attack.act_is_spell( receiver, "spell_slow" ) then
+      local kritslow = Attack.val_restore( receiver, "krit_slow" )
+  
+      if kritslow ~= nil then
+        kritProb = kritProb + kritslow
+      end
+    end
+
+    kritProb = limit_value( kritProb, 0, 100 )
+    iskrit = ( Game.CurLocRand( 99 ) < kritProb )
+  end
+
+--  local k = AU.attack( attacker ) / AU.defence( receiver )
+
   local uc = math.max( 1, AU.unitcount( attacker ) ); -- max на случай, когда атакует мертвый юнит (count = 0)
   local dcnt = AU.rescount();
   local i
@@ -160,51 +188,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     end
   end
 
-  local kmin = 3
-  local kmax = 3
-  
-  if hero_attack ~= nil
-  and hero_attack > 0 then
-    local cap_inc = Game.Config( "attack_config/cap_inc" )
-    local attack_kmax = math.floor( hero_attack / 7 ) * cap_inc / 100
-    kmax = 3 + attack_kmax
-  end
-
-  if hero_defense ~= nil
-  and hero_defense > 0 then
-    local defense_kmin = math.floor( hero_defense / 7 )
-    kmin = 3 + defense_kmin
-  end
-
-  local function sign( x )
-    return x > 0 and 1 or x < 0 and -1 or 0
-  end
-  
-  sdmg = limit_value( sdmg * ( ( 1 + math.abs( k ) / 30 )^( sign( k ) ) ), sdmg / kmin, sdmg * kmax )
-
---[[  if k >= 0
-  and k < 60 then
-    sdmg = sdmg * ( 1 + k * 0.0333 )
-  end
-
-  if k >= 60 then
-    sdmg = sdmg * 3
-  end
-
-  if k < 0
-  and k >= -60 then
-    sdmg = sdmg / ( 1 - k * 0.0333 )
-  end
-
-  if k < -60 then
-    sdmg = sdmg / 3
-  end
-
-  if sdmg < 0 then
-    sdmg = 0
-  end]]
-
-  sdmg = sdmg * dfactor
+  sdmg = sdmg * kdmg * dfactor
 
   -- calc rage for hero [begin] ====================================================================================
 
@@ -243,14 +227,15 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
   local add_hero_rage = DeadLeadership / BaseEnemyLeadership * EnemyRage * skill_bonus * krage
 
   -- ≈сли удар от спирита или книги магии, то приход €рости занижен
-  if Attack.get_caa(attacker) == nil then add_hero_rage = add_hero_rage*0.5 end
+  if Attack.get_caa( attacker ) == nil then add_hero_rage = add_hero_rage * 0.5 end
 
   -- ≈сли игрок потер€л хоть одного  юнита, то он получает +1 €рости
   if receiver_human and killed >= 1 then add_hero_rage = add_hero_rage + 1 end
 
   add_hero_rage = add_hero_rage * mana_rage_gain_k
 
-  if add_hero_rage<1 and add_hero_rage>0.2 then
+  if add_hero_rage < 1
+  and add_hero_rage > 0.2 then
     add_hero_rage = 1
   end
 
@@ -259,8 +244,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
   if iskrit then sdmg = -sdmg * krit end
 
   if minmax == 0 then -- только когда реально наносим урон
-
--- выпили зелье уклонени€ и висит спелл
+    -- выпили зелье уклонени€ и висит спелл
     if Attack.act_is_spell( receiver, "feat_potion_evasion" )
     and ( Attack.act_chesspiece( attacker )
     or Attack.act_pawn( attacker ) ) then
@@ -1058,7 +1042,7 @@ end
 
 function on_knockout( koN, caa ) -- koN - кол-во убитых отр€дов
   -- Ќеистовство
-  local attack_bonus = skill_power2( "brutality" )
+  local attack_bonus = skill_power2( "brutality", 1 )
 
   if caa == nil then caa = 0 end
 
@@ -1394,6 +1378,19 @@ function is_tactics_offencive(enemies, actors)
 end
 
 
+function duration_effect( act, effect, max_duration )
+  local duration_effect = Attack.act_spell_duration( act, effect )
+
+  if duration_effect ~= nil then
+    if duration_effect > max_duration then
+      max_duration = duration_effect
+    end
+  end
+
+  return max_duration
+end
+
+
 -- AI Back End
 function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров, значение остальных аргументов описано выше
   --[[ ¬ыбор тактики »» (наступающа€ или оборонительна€).
@@ -1441,8 +1438,11 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
   local can_attack = {}
 
   for k, act in ipairs( enemies ) do
-    if act.spells.spell_blind
-    or act.spells.effect_sleep then
+    local max_duration = duration_effect( act, "spell_blind", 0 )
+    max_duration = duration_effect( act, "effect_unconscious", max_duration )
+    max_duration = duration_effect( act, "effect_sleep", max_duration )
+
+    if max_duration > 1 then
       can_attack[ act.cell ] = false
     else
       can_attack[ act.cell ] = true
@@ -1553,6 +1553,27 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
   local can_attack_enemy = false
   local mover_atks, target = mover.atks
   local mover_power = mover.leadship * mover.units
+
+  -- I didn't know any other way to do this, since the Throw Axe ability doesn't show when the Furious Goblin
+  -- is adjacent to an enemy. So by disabling their Run ability (and then re-enabling later) I can then see (by
+  -- inference) if their Throw Axe ability is available. If so, then set the thrower flag true so that the
+  -- "thrower" logic can move the Goblin away to use its Throw Axe ability.
+  if mover.name == "goblin2" then
+    if not Attack.act_is_spell( mover, "effect_stun" )
+    and mover.ap > 0 then
+      if Attack.act_need_charge_or_reload( mover ) then
+        Attack.act_enable_attack( mover, "run", false )
+  
+        if not Attack.act_need_charge_or_reload( mover ) then
+          mover.thrower = true
+        end
+  
+        Attack.act_enable_attack( mover, "run", true )
+      else  -- if here then Throw Axe is available so set true to use "thrower" logic
+        mover.thrower = true
+      end
+    end
+  end
 
   local function mego_check( c )
     return c ~= nil
@@ -2071,32 +2092,69 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         end
 
       elseif name == "web" then
+        local possible_targets = {}
+        local mover_speed = math.max( 1, mover.par( 'speed' ) )
+
         for i = 1, atk.targets.n do
           local act = atk.targets[ i ]
+          local act_speed = act.par( 'speed' )
+          local act_power = act.leadship * act.units
+          local chance = Game.Random( 99 )
 
           if not act.spells.special_spider_web
-          and Game.Random( 99 ) < ( .5 - mover_power / ( mover_power + act.leadship * act.units ) ) * 200 then
-            target = act
-            break
+          and not act.spells.spell_blind
+          and not act.spells.special_rooted
+          and not act.spells.effect_entangle
+          and not act.spells.effect_sleep
+          and not act.spells.effect_unconscious
+          and chance < ( act_speed / mover_speed * 50 )
+          and chance < ( act_power / mover_power * 50 ) then
+            local pr = ( act_speed / mover_speed + act_power / mover_power ) * 1000
+            table.insert( possible_targets, { target = act, prob = pr } )
           end
+        end
+
+        if table.getn( possible_targets ) > 0 then
+          local choice = random_choice( possible_targets )
+          target = choice.target
+          prob = choice.prob
         end
 
       elseif name == "haste" then
         if mintours2enemy > 1 then target = mover end
 
       elseif name == "entangle" then
-        local shortestdistance2enemy = 1000
+        local possible_targets = {}
 
         for i = 1, atk.targets.n do
           local act = atk.targets[ i ]
-          local distance2closestenemy = path_len( mover, act )
 
-          if distance2closestenemy < shortestdistance2enemy
-          and not Attack.act_is_spell( act, "effect_entangle" ) then
-            shortestdistance2enemy = distance2closestenemy
-            target = act
-            prob = ( act.leadship * act.units ) / mover_power * 1000 / shortestdistance2enemy
+          for j, act2 in ipairs( actors ) do
+            if Attack.act_ally( act2 ) then
+              local distance2closestenemy = path_len( act2, act )
+              local shortestdistance2enemy = act.par( 'speed' )
+    
+              if distance2closestenemy < shortestdistance2enemy then
+                local max_duration = duration_effect( act, "spell_blind", 0 )
+                max_duration = duration_effect( act, "special_rooted", max_duration )
+                max_duration = duration_effect( act, "effect_entangle", max_duration )
+                max_duration = duration_effect( act, "effect_unconscious", max_duration )
+                max_duration = duration_effect( act, "effect_sleep", max_duration )
+                max_duration = duration_effect( act, "effect_spider_web", max_duration )
+
+                if max_duration <= 1 then
+                  local pr = ( act.leadship * act.units ) / mover_power * 1000 / shortestdistance2enemy
+                  table.insert( possible_targets, { target = act, prob = pr } )
+                end
+              end
+            end
           end
+        end
+
+        if table.getn( possible_targets ) > 0 then
+          local choice = random_choice( possible_targets )
+          target = choice.target
+          prob = choice.prob
         end
 
 
@@ -2292,28 +2350,39 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
           elseif name == "amalgamation" then -- дрессировка
             if Attack.act_enemy( act )
             and act.level <= tonumber( atk.custom_params.level )
-            and ( ( not Attack.act_is_spell( act, "spell_ram" )
-            and not Attack.act_feature( act, "plant" )
-            and not Attack.act_feature( act, "golem" )
-            and not Attack.act_feature( act, "undead" ) )
-            or ( not Attack.act_is_spell( act, "spell_blind" )
-            and not Attack.act_feature( act, "eyeless" ) )
-            or not Attack.act_is_spell( act, "spell_pygmy" ) ) then
+            and not Attack.act_feature( act, "golem" ) then
               power = power + act.leadship * act.units / 1e3
+              threshold = 0
 
               if Attack.act_is_spell( act, "spell_ram" ) then
                 power = power / 3
+                threshold = threshold + 10
               end
 
               if Attack.act_is_spell( act, "spell_blind" ) then
                 power = power / 3
+                threshold = threshold + 10
               end
 
               if Attack.act_is_spell( act, "spell_pygmy" ) then
-                power = power / 3
+                threshold = threshold + 10
+
+                if Attack.act_feature( act, "eyeless" ) then
+                  power = 0
+                  threshold = 100
+                else
+                  power = power / 3
+                end
               end
 
-              threshold = 0
+              if Attack.act_is_spell( act, "spell_blind" )
+              and Attack.act_is_spell( act, "spell_pygmy" ) then
+                if Attack.act_feature( act, "plant" )
+                or Attack.act_feature( act, "undead" ) then
+                  power = 0
+                  threshold = 100
+                end
+              end
             end
 
           elseif name == "stupid" then
@@ -2442,13 +2511,16 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         end
 
       elseif name == "rooted" then -- у ента
-        if ( not can_attack_enemy
-        and Attack.act_need_cure( mover ) )
-        or Attack.cell_need_resurrect( mover )
-        or enemies_power < allies_power then
+        if Attack.act_need_cure( mover )
+        or Attack.cell_need_resurrect( mover ) then
           target = mover
-          prob = 2000 * allies_power / enemies_power
+          prob = 1000 * allies_power / enemies_power
+
+          if Attack.act_is_spell( mover, "effect_burn" ) then
+            prob = prob * 5
+          end
         end
+
 
       elseif name == "protective_totem"
       or name == "ice_totem"
@@ -2744,6 +2816,73 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         end
 
         offencive_attack = true
+
+      elseif name == "throw_axe" then
+        local possible_targets = {}
+
+        for i, act in ipairs( enemies ) do
+          if atk.applicable( act ) then
+            local dist = Attack.cell_dist( mover, act )
+
+            if dist <= atk.distance then
+              local act_power = act.leadship * act.units
+              local pr = act_power / mover_power * 1000
+              table.insert( possible_targets, { target = act, prob = pr } )
+            end
+          end
+        end
+
+        if table.getn( possible_targets ) > 0 then
+          local choice = random_choice( possible_targets )
+          target = choice.target
+          prob = choice.prob
+          offencive_attack = true
+        else
+          local possible_cells = {}
+
+          for i, act in ipairs( enemies ) do
+            if atk.applicable( act ) then
+              local dist = Attack.cell_dist( mover, act )
+        
+              if dist - mover.ap < atk.distance then
+                local path = Attack.calc_path( mover, act )
+
+                if path ~= nil then
+                  local cell = path[ atk.distance - ( dist - mover.ap ) ].cell
+
+                  if cell ~= nil then
+                    local act_power = act.leadship * act.units
+                    local pr = act_power / mover_power * 1000
+                    table.insert( possible_cells, { target = cell, prob = pr, act = act } )
+                  end
+                end
+              end
+            end
+          end
+          
+          if table.getn( possible_cells ) > 0 then
+            local choice = random_choice( possible_cells )
+            local cell = choice.target
+            local pr = choice.prob
+            local act = choice.act
+            table.insert( actions, { target = { cell = Attack.cell_id( cell ) }, next = { target = act, attack = name }, prob = pr } )
+          else
+            for i, act in ipairs( enemies ) do
+              if atk.applicable( act ) then
+                local act_power = act.leadship * act.units
+                local pr = act_power / mover_power * 500
+                table.insert( possible_targets, { target = act, prob = pr } )
+              end
+            end
+
+            if table.getn( possible_targets ) > 0 then
+              local choice = random_choice( possible_targets )
+              target = choice.target
+              prob = choice.prob
+              offencive_attack = true
+            end
+          end
+        end
 
       elseif atk.dmgmax > 0 then -- эта атака - боева€
         offencive_attack = true
@@ -3053,7 +3192,7 @@ function spell_auto_cast( spells, spellattacks )
         enemy_hero_name = "Your enemy"
       end
 
-      local enemy_hero_book_times = tonumber( Logic.enemy_lu_var( "book_times" ) )
+      local enemy_hero_book_times = tonum( Logic.enemy_lu_var( "book_times" ) )
       
       if enemy_hero_book_times ~= nil
       and enemy_hero_book_times > 1 then
@@ -3117,8 +3256,11 @@ function spell_auto_cast( spells, spellattacks )
 
       if base ~= nil then
         if base.targets.n > 0 then
-          if act.spells.spell_blind
-          or act.spells.effect_sleep then
+          local max_duration = duration_effect( act, "spell_blind", 0 )
+          max_duration = duration_effect( act, "effect_unconscious", max_duration )
+          max_duration = duration_effect( act, "effect_sleep", max_duration )
+       
+          if max_duration > 1 then
             can_attack_units[ act.cell ] = false
           else
             can_attack_units[ act.cell ] = true
@@ -3247,6 +3389,11 @@ function spell_auto_cast( spells, spellattacks )
         local score = common_damage_score( k, res, act, e2a )
         local effect_score = k2 * common_score( act, e2a ) * ( chance - ( 100 - res * 100 ) ) / 100 * duration
         score = score + effect_score
+
+        if Attack.act_feature( act, "pawn" ) then
+          score = score / 10;
+        end
+
         cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
       end
 
@@ -3277,6 +3424,11 @@ function spell_auto_cast( spells, spellattacks )
           local score = common_damage_score( k, res, act, e2a )
           local effect_score = k2 * common_score( act, e2a ) * ( chance - ( 100 - res * 100 ) ) / 100 * duration
           score = score + effect_score
+
+          if Attack.act_feature( act, "pawn" ) then
+            score = score / 10;
+          end
+
           cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
         end
       end
@@ -3380,6 +3532,11 @@ function spell_auto_cast( spells, spellattacks )
         local spell_power = common_damage_score( avg_dmg, res, act, e2a )
         local effect_score = common_score( act, e2a ) * ( shock - ( 100 - res * 100 ) ) / 100 * duration
         local score = spell_power + effect_score
+
+        if Attack.act_feature( act, "pawn" ) then
+          score = score / 10;
+        end
+
         local count = hits
       	 local attacked_ids = {}
        	attacked_ids[ act.cell ] = true
@@ -3424,8 +3581,13 @@ function spell_auto_cast( spells, spellattacks )
               end
 
               effect_score = common_score( unit, e2a ) * ( shock - ( 100 - res * 100 ) ) / 100 * duration
-              score = score + spell_power + effect_score
 
+              if Attack.act_feature( unit, "pawn" ) then
+                effect_score = effect_score / 10;
+                spell_power = spell_power / 10;
+              end
+
+              score = score + spell_power + effect_score
           				attacked_ids[ unit.cell ] = true
         		  		-- Form the next front
           				table.insert( new_front, unit )
@@ -3935,6 +4097,10 @@ function spell_auto_cast( spells, spellattacks )
 
     score = spell_power + effect_score
 
+    if Attack.act_feature( act, "pawn" ) then
+      score = score / 10;
+    end
+
     return score
   end
 
@@ -4084,11 +4250,15 @@ function spell_auto_cast( spells, spellattacks )
 
         if Attack.act_enemy( act ) then
           act_score = common_damage_score( spell_power, res, act, e2a ) + effect_score
-          score = score + act_score
         else
-          act_score = common_damage_score( spell_power * prc / 100, res, act, e2a ) + effect_score
-          score = score - act_score
+          act_score = -( common_damage_score( spell_power * prc / 100, res, act, e2a ) + effect_score )
         end
+
+        if Attack.act_feature( act, "pawn" ) then
+          act_score = act_score / 10;
+        end
+
+        score = score + act_score
       end
     end
 
@@ -4113,6 +4283,12 @@ function spell_auto_cast( spells, spellattacks )
         local res = ( 100 - Attack.act_get_res( act, "physical" ) ) / 100
         local spell_power = common_damage_score( avg_dmg, res, act, e2a )
         local effect_score = common_score( act, e2a ) * ( stun - ( 100 - res * 100 ) ) / 100 * duration
+
+        if Attack.act_feature( act, "pawn" ) then
+          effect_score = effect_score / 10;
+          spell_power = spell_power / 10;
+        end
+
         score = score + spell_power + effect_score
 
         if hits == 0 then

@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_beholder_feat
-  features_hints=soars_header/soars_hint,shot_header/shot_hint,paralyse_header/paralyse_hint,underground_header/underground_hint,mind_immunity_header/mind_immunity_hint
+  features_hints=soars_header/soars_hint,shot_header/shot_hint,paralyse_header/paralyse_hint,underground_header/underground_hint,mind_immunity_header/mind_immunity_hint,regenerates_mana_header/regenerates_mana_hint
   race=neutral
   cost=620
   level=4
@@ -23,6 +23,7 @@ arena_params {
   attacks=moveattack,ray,dominator
   features=shot,mind_immunitet,nonecro,mage
   posthitmaster=features_sleep
+  posthitslave=features_mage
   resistances {
     physical=0
     poison=0

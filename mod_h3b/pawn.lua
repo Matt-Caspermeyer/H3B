@@ -309,6 +309,37 @@ function totem_time()
 end
 
 
+function totem_remove_spells( target, kind )
+  local spell_list = {}
+
+  for i = 1, Attack.act_spell_count( target ) - 1 do
+    local spell_name = Attack.act_spell_name( target, i )
+    local spell_type = Logic.obj_par( spell_name, "type" )
+
+    if string.find( spell_name, "^totem_" ) == nil
+    and not string.find( spell_name, "special_difficulty" )
+    and not string.find( spell_name, "special_summon_bonus" ) then
+      if spell_type == kind then
+        table.insert( spell_list, spell_name )
+      end
+    end
+  end
+
+  if table.getn( spell_list ) > 0 then
+    local spell_name = spell_list[ Game.Random( 1, table.getn( spell_list ) ) ]
+    Attack.act_del_spell( target, spell_name )
+	   Attack.atom_spawn( target, 0, "magic_dispel" )
+    local color = "<color=134,220,250>"
+
+    if kind == "penalty" then
+      color = "<color=255,140,140>"
+    end
+
+  	 Attack.log( "add_blog_totem_dispel", "name", blog_side_unit( 0, 1 ), "saname", color .. "<label=" .. spell_name .. "_name>", "targets", blog_side_unit( target, 0 ) )
+  end
+end
+
+
 function totem_cure()
   local cure = tonumber( Attack.get_custom_param( "cure" ) )
   local dist = tonumber( Attack.val_restore( "dist" ) )
@@ -349,7 +380,9 @@ function totem_cure()
     and not Attack.act_pawn( i )
     and Attack.act_ally( i, bel ) then
   	   if Attack.act_applicable( i )
-      and totem_applicable( i ) then 
+      and totem_applicable( i ) then
+        totem_remove_spells( i, "penalty" )
+
     	   if Attack.act_need_cure( i ) then
     		    local cure_hp = cure * power
           local cur_hp = Attack.act_hp( i )
@@ -565,6 +598,7 @@ function totem_attack()
   			       end 
   		      end
 
+          totem_remove_spells( i, "bonus" )
           common_cell_apply_damage(i, dmgts+dmgts1)
           Attack.log_label('')
 		      end

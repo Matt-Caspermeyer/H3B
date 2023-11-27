@@ -522,7 +522,7 @@ kid_grindan {
   mods {
     sp_power_int=count,16
     sp_addgold_battle=count,112
-    sp_addgold_chestt=count,112
+    sp_addgold_chest=count,112
   }
   propbits=child,rare
   params {}
@@ -1236,7 +1236,7 @@ kid_mutare {
   }
   mods {
     sp_addgold_battle=count,40
-    sp_addgold_chestt=count,40
+    sp_addgold_chest=count,40
     sp_lead_unit_blackdragon=count,4
     sp_lead_unit_bonedragon=count,4
     sp_lead_unit_greendragon=count,4
@@ -1290,7 +1290,7 @@ kid_thunar {
   }
   mods {
     sp_addgold_battle=count,40
-    sp_addgold_chestt=count,40
+    sp_addgold_chest=count,40
   }
   propbits=child,rare
   params {}

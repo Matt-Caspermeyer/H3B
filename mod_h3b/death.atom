@@ -122,7 +122,6 @@ spirit {
     }
   }
   rage_gain {
-	no_hint=1
     script_attack=death_rage_gain
     script_highlight=death_rage_gain_highlight
     script_calccells=calccells_mass_all_19
@@ -145,7 +144,7 @@ spirit {
     }
   }
   time_return {
-	no_hint=1
+    no_hint=1
     script_attack=death_time_return
     script_calccells=calccells_time_return
     log_label=null
@@ -165,7 +164,7 @@ spirit {
     }
   }
   black_hole {
-	no_hint=1
+    no_hint=1
     script_attack=death_blackhole
     level=6
     default=level1

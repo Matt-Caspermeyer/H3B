@@ -154,7 +154,10 @@ function calccells_all_phoenix_sacrifice()
     local cell = Attack.cell_get( i )
 
     if ( Attack.cell_is_empty( cell ) ) then        -- is empty (has no live object)
-      if not Attack.act_equal( 0, Attack.cell_get_corpse( cell ) ) then
+      local corpse_cell = Attack.cell_get_corpse( cell )
+
+      if corpse_cell ~= nil
+      and not Attack.act_equal( 0, corpse_cell ) then
         if ( Attack.cell_has_ally_corpse( cell ) ) then   -- contains ally corpse
           if ( Attack.cell_need_resurrect( cell ) )       -- needs resurrection
           and ( Attack.act_level( Attack.cell_get_corpse( cell ) ) <= lvl ) then
@@ -1411,7 +1414,8 @@ end
 function calccells_all_corpse2()
   local lvl
 
-		if Attack.get_caa( 0 ) == nil then -- magic
+		if Attack.get_caa( 0 ) == nil
+  or string.find( Attack.act_name( 0 ), "tower" ) then -- magic
     local level
   	 level = Obj.spell_level()
  	  -- если заклинание читаем из свитка (уровень = 0) то кастуем с силой 1

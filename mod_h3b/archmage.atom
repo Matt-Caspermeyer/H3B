@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_archmage_feat
-  features_hints=mage_header/mage_hint,magic_protection_header/magic_protection_hint,mind_immunity_header/mind_immunity_hint
+  features_hints=mage_header/mage_hint,magic_protection_header/magic_protection_hint,mind_immunity_header/mind_immunity_hint,regenerates_mana_header/regenerates_mana_hint
   race=human
   cost=900
   level=4
@@ -23,6 +23,7 @@ arena_params {
   attacks=moveattack,lightning,magic_shield,battle_mage,telekines
   features=mage,mind_immunitet,humanoid
   posthitmaster=features_shock
+  posthitslave=features_mage
   resistances {
     physical=0
     poison=0
@@ -44,7 +45,6 @@ arena_params {
     class=spell
     spell=special_magic_shield
     nfeatures=magic_immunitet,boss,pawn
-    moves=10
     reload=2
     picture=BA1_MagicShield_
     picture_small=BA1_MagicShield_small.png
@@ -65,15 +65,14 @@ arena_params {
     nfeatures=magic_immunitet,boss,pawn
   }
   battle_mage {
-    class=scripted
-    script_calccells=
+  	class=scripted
+  	script_calccells=
     //class=spell
     script_attack=special_battle_mage_attack
     //spell=special_battle_mage
     endmove=0
     picture=BA1_Battle_Mage_
     picture_small=BA1_Battle_Mage_small.png
-    moves=7
     reload=3
     hinthead=special_battle_mage_head
     hint=special_battle_mage_hint

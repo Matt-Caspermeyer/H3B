@@ -21,7 +21,9 @@ arena_params {
   hitback=1
   hitbackprotect=0
   attacks=moveattack,web
-  features=mind_immunitet
+  features=mind_immunitet,demon
+  posthitmaster=features_demon_creature
+  posthitslave=features_demon_creature
   resistances {
     physical=0
     poison=25

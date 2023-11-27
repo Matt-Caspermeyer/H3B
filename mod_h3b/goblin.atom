@@ -24,6 +24,8 @@ arena_params {
   hitbackprotect=0
   attacks=moveattack,throw
   features=shot,humanoid
+  posthitmaster=features_orc_creature
+  posthitslave=features_orc_creature
   resistances {
     physical=5
     poison=5

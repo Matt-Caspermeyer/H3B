@@ -22,8 +22,10 @@ arena_params {
   immove=0
   hitback=2
   hitbackprotect=0
-  attacks=moveattack,run,throw1
+  attacks=moveattack,run,throw_axe
   features=humanoid
+  posthitmaster=features_orc_creature
+  posthitslave=features_orc_creature
   resistances {
     physical=5
     poison=5
@@ -32,20 +34,20 @@ arena_params {
   }
   moveattack {
     group=1,1
-    nonextifenemy=1
+//    nonextifenemy=1
     ad_factor=1
     damage {
       physical=3,8
     }
   }
-  throw1 {
+  throw_axe {
     dontusenearenemy=1
     class=throw
     picture=BA1_throw_axe_
     picture_small=BA1_throw_axe_small.png
     hinthead=special_throw_axe_head
     hint=special_throw_axe_hint
-    moves=1
+    reload=3
     showdmg=1
     distance=6
     ad_factor=1

@@ -2,7 +2,7 @@ function gen_combat_hint( )
   local min_damage, max_damage, min_dead, max_dead, reverse_strike = Logic.dmg_params()
 
   -- Hack to get the new Thorn cast_sacrifice to show the hint properly - I didn't
-  -- know how to get it to work "properly" as certain hints seem hardcoded.
+  -- know how to get it to work "properly" as certain hints seem hardcoded...
   local apars = Logic.attack_params()
 
   if apars.name == "cast_sacrifice" then
@@ -18,6 +18,18 @@ function gen_combat_hint( )
     local hero_leadership = Logic.hero_lu_item( "leadership", "count" )
     local receiver_leadership = Attack.act_leadership( cast_sacrifice_receiver )
     local receiver_name = Attack.act_name( cast_sacrifice_receiver )
+    local additional_units = 0
+
+    if not Attack.act_temporary( cast_sacrifice_receiver ) then
+      for a = 1, Attack.act_count() - 1 do
+        if Attack.act_name( a ) == receiver_name
+        and not Attack.act_temporary( a )
+        and Attack.act_uid( a ) ~= Attack.act_uid( cast_sacrifice_receiver ) then
+          additional_units = additional_units + Attack.act_size( a )
+        end
+      end
+    end
+
     local receiver_lead_bonus = Logic.hero_lu_item( "sp_lead_unit_" .. receiver_name, "count" )
     local total_leadership_units = math.floor( hero_leadership / ( receiver_leadership * ( 1 - receiver_lead_bonus / 100 ) ) )
     local receiver_size = Attack.act_size( cast_sacrifice_receiver )
@@ -26,15 +38,15 @@ function gen_combat_hint( )
     if count_diff > 0 then
       text_string = "<label=dmg_hint_just_raise> " .. tostring( count_diff ) .. "<br>" .. "<label=dmg_hint_total_leadership> "
 
-      if receiver_size + count_diff == total_leadership_units then
+      if receiver_size + additional_units + count_diff == total_leadership_units then
         text_string = text_string .. "<color=0,192,0>" .. total_leadership_units .. "</color> <label=dmg_hint_at_max_leadership>"
 
-      elseif receiver_size + count_diff > total_leadership_units then
-        local units_over = ( receiver_size + count_diff ) - total_leadership_units
+      elseif receiver_size + additional_units + count_diff > total_leadership_units then
+        local units_over = ( receiver_size + additional_units + count_diff ) - total_leadership_units
         text_string = text_string .. "<color=192,0,0>" .. total_leadership_units .. "  (+" .. units_over .. "</color> <label=dmg_hint_over_max_leadership>"
 
       else
-        local units_under = total_leadership_units - ( receiver_size + count_diff )
+        local units_under = total_leadership_units - ( receiver_size + additional_units + count_diff )
         text_string = text_string .. "<color=255,255,50>" .. total_leadership_units .. "  (-" .. units_under .. "</color> <label=dmg_hint_under_max_leadership>"
       end
     else
@@ -518,17 +530,63 @@ function spirit_attack_hint_gen()
 	local added_target_ids = {}
 
 	if Attack.atk_name() == "rockfall" then
+	  for i = 0, Attack.get_targets_count() - 1 do
+	    local target = Attack.get_target( i )
 
-	  for i=0,Attack.get_targets_count()-1 do
-	    local target = Attack.get_target(i)
 	    if target ~= nil then
-	      if not Attack.cell_is_empty(target) and rockfall_check_target(target) then
+	      if not Attack.cell_is_empty( target )
+       and rockfall_check_target( target ) then
 	        res = add_target( target, res, added_target_ids )
 	      end
 	    end
 	  end
-	  return res
 
+	  return res
+	elseif Attack.atk_name() == "rage_gain" then
+	  for i = 0, Attack.get_targets_count() - 1 do
+	    local target = Attack.get_target( i )
+
+	    if target ~= nil then
+       if Attack.act_enemy( target )
+       and Attack.act_takesdmg( target )
+       and not Attack.act_feature( target, "pawn" ) then
+	        res = add_target( target, res, added_target_ids )
+	      end
+	    end
+	  end
+
+	  return res
+	elseif Attack.atk_name() == "fishes" then
+
+			local function add_fish_target( cell )
+				 if cell ~= nil
+     and Attack.cell_present( cell )
+     and ( Attack.cell_is_pass( cell )
+     or Attack.act_pawn( cell ) ) then
+					  if ( not Attack.cell_is_empty( cell ) )
+       and Attack.act_takesdmg( cell )
+       and Attack.act_applicable( cell ) then
+						   res = add_target( cell, res, added_target_ids)
+					  end
+				 end
+			end
+
+			local function spawn_fishes( cell, dir )
+				 local len = Attack.trace( cell, dir )
+
+				 for i = 0, len - 1 do
+					  local c = Attack.trace( i )
+
+					  if slime_fishes_attack_cell( c ) then add_fish_target( c ) end
+				 end
+			end
+
+			local dir = Attack.val_restore( "direction" )
+			local cell = Attack.get_target()
+			add_fish_target( cell )
+			fishes_routine( spawn_fishes, cell, dir, 0, 0 )
+
+	  return res
 	end
 
 	local target = Attack.get_target()

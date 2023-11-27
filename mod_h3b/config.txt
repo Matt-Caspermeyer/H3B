@@ -384,7 +384,7 @@ defense_config {
 
 // New! For Leadership Reduction, this is the limit
 hero_leadership_reduction {
-     lr_limit=50
+     lr_limit=75
 }
 
 // New! For levelup, the level at which the min stat and min limit increase - see LOGIC_HERO.LUA

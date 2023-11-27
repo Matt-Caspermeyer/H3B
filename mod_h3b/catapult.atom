@@ -24,6 +24,7 @@ arena_params {
   attacks=moveattack,throw,siegegun,firethrow,boiling_oil
   features=shot,humanoid
   posthitmaster=features_burn
+  posthitslave=features_orc_creature
   resistances {
     physical=20
     poison=20

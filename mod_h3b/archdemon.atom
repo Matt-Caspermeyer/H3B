@@ -24,6 +24,7 @@ arena_params {
   attacks=moveattack,amalgamation //,change,cast_demon
   each_turn_script=features_auto_dispell
   posthitmaster=features_archdemon_attack
+  posthitslave=features_demon_creature
   features=fire_immunitet,demon
   resistances {
     physical=10

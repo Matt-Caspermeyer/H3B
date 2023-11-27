@@ -463,7 +463,7 @@ kid_dracon {
     {
       filter {
         belligerent=ally
-        unit=druid,priest2
+        unit=beholder,druid,evilbook1,priest2
       }
       pbonus=health,0,14,0,-100,0,0
       dbonus=
@@ -474,7 +474,7 @@ kid_dracon {
     {
       filter {
         belligerent=ally
-        unit=druid,priest2
+        unit=beholder,druid,evilbook1,priest2
       }
       pbonus=initiative,1,0,0,-100,0,0
       dbonus=
@@ -485,7 +485,7 @@ kid_dracon {
     {
       filter {
         belligerent=ally
-        unit=druid,priest2
+        unit=beholder,druid,evilbook1,priest2
       }
       pbonus=moral,1,0,0,-100,0,0
       dbonus=
@@ -496,7 +496,7 @@ kid_dracon {
     {
       filter {
         belligerent=ally
-        unit=archmage,shaman
+        unit=archmage,beholder2,evilbook2,shaman
       }
       pbonus=health,0,9,0,-100,0,0
       dbonus=
@@ -507,7 +507,7 @@ kid_dracon {
     {
       filter {
         belligerent=ally
-        unit=archmage,shaman
+        unit=archmage,beholder2,evilbook2,shaman
       }
       pbonus=moral,1,0,0,-100,0,0
       dbonus=
@@ -537,10 +537,23 @@ kid_dracon {
       attack_on=
       attack_off=
     }
+    {
+      filter {
+        belligerent=ally
+        unit=evilbook3
+      }
+      pbonus=health,0,5,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
   }
   mods {
     sp_power_int=count,36
     sp_lead_unit_archmage=count,9
+    sp_lead_unit_beholder=count,14
+    sp_lead_unit_beholder2=count,9
     sp_lead_unit_druid=count,14
     sp_lead_unit_necromant=count,9
     sp_lead_unit_priest=count,19
@@ -1137,7 +1150,7 @@ kid_aine {
     sp_power_inc=count,4
     sp_power_mod=count,1
     sp_addgold_battle=count,126
-    sp_addgold_chestt=count,126
+    sp_addgold_chest=count,126
   }
   propbits=child,rare
   params {}

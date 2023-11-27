@@ -8,8 +8,10 @@ function apply_skill_bonus_to_hero( name, level, param, bonus_name, bonus_type, 
     bonus = bonus * bonus_gain
   end
 
-  local cur_bonus = Logic.hero_lu_item( bonus_name, bonus_type )
-  Logic.hero_lu_item( bonus_name, bonus_type, cur_bonus + bonus )
+  if bonus ~= 0 then
+    local cur_bonus = Logic.hero_lu_item( bonus_name, bonus_type )
+    Logic.hero_lu_item( bonus_name, bonus_type, cur_bonus + bonus )
+  end
 
   return true
 end
@@ -315,6 +317,10 @@ function skill_power( skillname, param, level )
   if level < 0 then return 0 end
   --local skillname=Logic.skill_name()
 
+  if param == nil then
+    param = 1
+  end
+
   local par_end = 0
   local par_string = Logic.skill( skillname, level )
   local par = ""
@@ -322,11 +328,15 @@ function skill_power( skillname, param, level )
   if par_string ~= ""
   and par_string ~= nil then
     par_string = string.gsub( par_string, "/", "" )
-    par = text_dec( par_string, param )
-    if par ~= ""
-    and par ~= nil then
-      local par_e = string.gsub( par, "%D", "" )
-      par_end = tonumber( par_e )
+    local new_string, replaces = string.gsub( par_string, ",", "" )
+
+    if replaces + 1 >= param then
+      par = text_dec( par_string, param )
+      if par ~= ""
+      and par ~= nil then
+        local par_e = string.gsub( par, "%D", "" )
+        par_end = tonumber( par_e )
+      end
     end
   end
 
@@ -510,7 +520,8 @@ end
 
 
 function skill_explorer( name, level )
-  apply_skill_bonus_to_hero( name, level, 1, "intellect", "count" )
+  apply_skill_bonus_to_hero( name, level, 1, "search_radius", "count" )
+  apply_skill_bonus_to_hero( name, level, 2, "intellect", "count" )
 
   return true
 end

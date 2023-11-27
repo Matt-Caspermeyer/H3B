@@ -2076,17 +2076,15 @@ wife_rina_zombie {
   }
   mods {
     sp_lead_unit_archer=count,6
-    sp_lead_unit_bat=count,6
-    sp_lead_unit_bat2=count,6
-    sp_lead_unit_vampire=count,6
-    sp_lead_unit_vampire2=count,6
-    sp_lead_unit_blackknight=count,6
-    sp_lead_unit_bonedragon=count,6
-    sp_lead_unit_ghosts=count,6
-    sp_lead_unit_necromant=count,6
     sp_lead_unit_skeleton=count,6
     sp_lead_unit_spider_undead=count,6
     sp_lead_unit_zombies=count,6
+    sp_lead_unit_ghosts=count,6
+    sp_lead_unit_vampire=count,6
+    sp_lead_unit_vampire2=count,6
+    sp_lead_unit_blackknight=count,6
+    sp_lead_unit_necromant=count,6
+    sp_lead_unit_bonedragon=count,6
   }
   propbits=usable,wife
   params {}
