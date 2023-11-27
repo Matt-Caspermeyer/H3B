@@ -135,7 +135,10 @@ end
 function features_archdemon_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
   and not hitbacking then
+    local receiver_level = Attack.act_level( receiver )
+
     if damage > 0
+    and receiver_level < 5
     and not Attack.act_feature( receiver, "magic_immunitet" )
     and not Attack.act_feature( receiver, "golem" )
     and not Attack.act_feature( receiver, "pawn" )
@@ -257,7 +260,7 @@ function features_bonedragon_attack( damage, addrage, attacker, receiver, minmax
         elseif tmp_spells[ cast ] == effect_curse_attack then
           tmp_spells[ cast ]( receiver, 1, 3 )
         else
-          tmp_spells[ cast ]( spell_level, dmgts, receiver )
+          tmp_spells[ cast ]( spell_level, dmgts, receiver, true )
         end
   
   				  Attack.log( dmgts + 0.2, "add_blog_bonedragon_attack", "name", blog_side_unit( attacker, 1 ), "target", blog_side_unit( receiver, 0 ) )
@@ -796,7 +799,8 @@ function post_spell_last_hero( damage, addrage, attacker, receiver, minmax )
 			   end
 			   return thp - 1
 		  end]]
-   	if minmax == 0 then
+   	if minmax == 0
+    and damage > 0 then
   		  if deadA
       and Attack.act_size( receiver ) > 0 then
         Attack.act_aseq( 0, "cast" )
@@ -804,19 +808,29 @@ function post_spell_last_hero( damage, addrage, attacker, receiver, minmax )
         local level = tonumber( Attack.val_restore( receiver, "spell_last_hero_cast_level" ) )
         local tmp_spells = {}
         table.insert( tmp_spells, spell_resurrection_attack )
+       	local cell = Attack.cell_get_corpse( receiver )
         tmp_spells[ 1 ]( level, receiver )
       else
         special_bonus_spell( attacker, receiver )
       end
+
   			 local dur = Attack.act_spell_duration( receiver, spell )
+
   			 if dur <= 1 then
   				  Attack.act_posthitslave( receiver, "post_spell_last_hero", 0 )
   				  Attack.act_del_spell( receiver, spell )
   				else
   				  Attack.act_spell_duration( receiver, spell, dur - 1 )
   				end
+
   				Attack.log( 0.001, "add_blog_last_hero", "target", blog_side_unit( receiver, -1 ), "special", "<label=spell_last_hero_name></color>" )
-  		  return damage, addrage
+  		  
+  		  if deadA
+      and Attack.act_size( receiver ) > 0 then
+        return thp - 1, addrage * ( thp - 1 ) / damage
+      else
+        return damage, addrage
+      end
     end
 	 else       	
 		  Attack.act_posthitslave( receiver, "post_spell_last_hero", 0 )
@@ -953,15 +967,15 @@ function special_bonus_spell( attacker, receiver )
   end
 
   if table.getn( tmp_spells ) > 0 then
+    Attack.log_label( '' )
+  
     local cast = Game.Random( 1, table.getn( tmp_spells ) )
     if tmp_spells[ cast ] == spell_haste_attack
     or tmp_spells[ cast ] == spell_bless_attack then
-      tmp_spells[ cast ]( level, dmgts, receiver )
+      tmp_spells[ cast ]( level, dmgts, receiver, belligerent )
     else
       tmp_spells[ cast ]( level, receiver, belligerent, heroname )
     end
-  
-    Attack.log_label( '' )
   
     return true
   else

@@ -256,14 +256,18 @@ end
 -- * Dragon Arrow
 -- ***********************************************
 
-function spell_dragon_arrow_attack( level, target )
+function spell_dragon_arrow_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
-  if (target ~= nil) then
+  if ( target ~= nil ) then
     level = common_get_spell_level( level )
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if belligerent == nil then
+      belligerent = Attack.act_belligerent( target )
+    end
+
+    if belligerent ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -290,10 +294,13 @@ function necro_get_unit( name, count, power )
   -- Note that this table is ordered in descending hitpoints so that the best choice is used if power is below count * hp
   local unit_array = { "bonedragon", "blackknight", "necromant", "vampire2", "bat2", "ghost2", "vampire", "bat", "ghost", "zombie2", "zombie", "spider_undead", "skeleton", "archer",  }
   local max_efficiency = 0
+  local lookup_name = ',' .. name .. ','
 
  	-- iterates through the array and draw up a list of possible forms
 	 for i, mas in ipairs( unit_array ) do
-		  if string.find( Logic.obj_par( "spell_necromancy", mas ), ',' .. name .. ',', 1, true ) then
+    local unit_list = Logic.obj_par( "spell_necromancy", mas )
+
+		  if string.find( unit_list, lookup_name, 1, true ) then
       local undead_HP = Attack.atom_getpar( mas, "hitpoint" )
       local efficiency = undead_HP * count / power
 
@@ -309,6 +316,10 @@ function necro_get_unit( name, count, power )
       end
 		  end
 	 end
+
+  if table.getn( pas_unit ) == 0 then
+    table.insert( pas_unit, unit_array[ Game.Random( 1, table.getn( unit_array ) ) ] )
+  end
 
 	 return pas_unit[ Game.Random( 1, table.getn( pas_unit ) ) ] --select the unit from the list of forms
 end
@@ -591,7 +602,7 @@ function common_slayer_attack( target, spell, duration, script, level, effect )
   duration = res_dur( target, spell, duration, "magic" )
   Attack.act_del_spell( target, spell )
   Attack.act_apply_spell_begin( target, spell, duration, false )
-  Attack.act_posthitmaster( target, script ,duration, level )
+  Attack.act_posthitmaster( target, script, duration, level )
   Attack.act_apply_spell_end()
   Attack.atom_spawn( target, 0, effect, Attack.angleto( target ) )
 
@@ -603,28 +614,42 @@ end
 -- * Demon Slayer
 -- ***********************************************
 
-function spell_demon_slayer_attack( level, target )
+function spell_demon_slayer_attack( level, target, belligerent )
   level = common_get_spell_level( level )
 
   if target == nil then target = Attack.get_target() end
 
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
-  local duration = int_dur( "spell_demon_slayer", level, "sp_duration_demon_slayer" )
-  local script = Logic.obj_par( "spell_demon_slayer", "script" )
+  local spell = "spell_demon_slayer"
+  local duration
+  
+  if target ~= nil then
+    duration = Attack.val_restore( target, "spell_last_hero_demon_slayer_duration" )
+  end
+
+  if duration == nil then
+    duration = int_dur( spell, level, "sp_duration_demon_slayer" )
+  end
+
+  local script = Logic.obj_par( spell, "script" )
 
   if ( target ~= nil ) then
-    common_slayer_attack( target, "spell_demon_slayer", duration, script, tostring( level ), "effect_demonslayer" )
+    common_slayer_attack( target, spell, duration, script, tostring( level ), "effect_demonslayer" )
   else
     local acnt = Attack.act_count()
     for i = 1, acnt - 1 do
       if Attack.act_ally( i )
       and Attack.act_applicable( i ) then
-        common_slayer_attack( i, "spell_demon_slayer", duration, script, tostring( level ), "effect_demonslayer" )
+        common_slayer_attack( i, spell, duration, script, tostring( level ), "effect_demonslayer" )
       end
     end
   end
@@ -636,28 +661,42 @@ end
 -- * Dragon Slayer
 -- ***********************************************
 
-function spell_dragon_slayer_attack( level, target )
+function spell_dragon_slayer_attack( level, target, belligerent )
   level = common_get_spell_level( level )
 
   if target == nil then target = Attack.get_target() end
 
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
-  local duration = int_dur( "spell_dragon_slayer", level, "sp_duration_dragon_slayer" )
-  local script = Logic.obj_par( "spell_dragon_slayer", "script" )
+  local spell = "spell_dragon_slayer"
+  local duration
+  
+  if target ~= nil then
+    duration = Attack.val_restore( target, "spell_last_hero_dragon_slayer_duration" )
+  end
+
+  if duration == nil then
+    duration = int_dur( spell, level, "sp_duration_dragon_slayer" )
+  end
+
+  local script = Logic.obj_par( spell, "script" )
 
   if ( target ~= nil ) then
-    common_slayer_attack( target, "spell_dragon_slayer", duration, script, tostring( level ), "effect_dragonslayer" )
+    common_slayer_attack( target, spell, duration, script, tostring( level ), "effect_dragonslayer" )
   else
     local acnt = Attack.act_count()
     for i = 1, acnt - 1 do
       if Attack.act_ally( i )
       and Attack.act_applicable( i ) then
-        common_slayer_attack( i, "spell_dragon_slayer", duration, script, tostring( level ), "effect_dragonslayer" )
+        common_slayer_attack( i, spell, duration, script, tostring( level ), "effect_dragonslayer" )
       end
     end
   end
@@ -671,14 +710,18 @@ end
 -- * Resurrection
 -- ***********************************************
 
-function spell_resurrection_attack( level, target )
+function spell_resurrection_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
     level = common_get_spell_level( level )
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if belligerent == nil then
+      belligerent = Attack.act_belligerent( target )
+    end
+
+    if belligerent ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -686,7 +729,11 @@ function spell_resurrection_attack( level, target )
 
 	   if Attack.get_caa( target ) == nil then count_1 = 0 end
 
-    local rephits = pwr_resurrection( level, ehero_level )
+    local rephits = Attack.val_restore( target, "spell_last_hero_resurrection_rephits" )
+
+    if rephits == nil then
+      rephits = pwr_resurrection( level, ehero_level )
+    end
 
     Attack.atom_spawn( target, 0, "hll_priest_resur_cast" )
     Attack.cell_resurrect( target, rephits )
@@ -897,9 +944,10 @@ function spell_last_hero_attack( level, target )
   if ( target ~= nil ) then
    	level = common_get_spell_level( level )
     local ehero_level
-    local belligerent = Attack.act_belligerent()
 
-    if belligerent == 4 then
+    local belligerent = Attack.act_belligerent( target )
+
+    if belligerent ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -910,6 +958,7 @@ function spell_last_hero_attack( level, target )
     local hit = 1;
     Attack.act_del_spell( target, spell )
 			 Attack.val_store( target, "spell_last_hero_cast_level", level )
+    store_power_on_target( target, level, ehero_level )
     Attack.act_apply_spell_begin( target, spell, duration, false )
 			 Attack.act_spell_param( target, spell, "heroname", Attack.hero_name() )
 			 Attack.act_spell_param( target, spell, "belligerent", belligerent )
@@ -929,6 +978,78 @@ function spell_last_hero_onremove(caa,duration_end)
 end
 
 
+function store_power_on_target( target, level, ehero_level )
+  local power, penalty = pwr_stone_skin( level, ehero_level )
+  local spell = "spell_stone_skin"
+  local duration = int_dur( spell, level, "sp_duration_stone_skin" )
+		Attack.val_store( target, "spell_last_hero_stone_skin_power", power )
+		Attack.val_store( target, "spell_last_hero_stone_skin_penalty", penalty )
+		Attack.val_store( target, "spell_last_hero_stone_skin_duration", duration )
+
+  spell = "spell_bless"
+  duration = int_dur( spell, level, "sp_duration_bless" )
+		Attack.val_store( target, "spell_last_hero_bless_duration", duration )
+
+  spell = "spell_accuracy"
+  duration = int_dur( spell, level, "sp_duration_accuracy" )
+  local bonus = pwr_accuracy( level, ehero_level )
+		Attack.val_store( target, "spell_last_hero_accuracy_duration", duration )
+		Attack.val_store( target, "spell_last_hero_accuracy_bonus", bonus )
+
+  spell = "spell_adrenalin"
+  power = tonumber( pwr_adrenalin( level, ehero_level ) )
+  duration = int_dur( spell, level, "sp_duration_adrenalin" )
+		Attack.val_store( target, "spell_last_hero_adrenalin_power", power )
+		Attack.val_store( target, "spell_last_hero_adrenalin_duration", duration )
+
+  spell = "spell_demon_slayer"
+  duration = int_dur( spell, level, "sp_duration_demon_slayer" )
+		Attack.val_store( target, "spell_last_hero_demon_slayer_duration", duration )
+
+  spell = "spell_dragon_slayer"
+  duration = int_dur( spell, level, "sp_duration_dragon_slayer" )
+		Attack.val_store( target, "spell_last_hero_dragon_slayer_duration", duration )
+
+  power = pwr_fire_breath( level, ehero_level )
+  spell = "spell_fire_breath"
+  duration = int_dur( spell, level, "sp_duration_fire_breath" )
+		Attack.val_store( target, "spell_last_hero_fire_breath_power", power )
+		Attack.val_store( target, "spell_last_hero_fire_breath_duration", duration )
+
+  spell = "spell_haste"
+  duration = int_dur( spell, level, "sp_duration_haste" )
+  local speedbonus = pwr_haste( level, ehero_level )
+		Attack.val_store( target, "spell_last_hero_haste_duration", duration )
+		Attack.val_store( target, "spell_last_hero_haste_speedbonus", speedbonus )
+
+  spell = "spell_reaction"
+  duration = int_dur( spell, level, "sp_duration_reaction" )
+  local initiativebonus = pwr_warcry( level, ehero_level )
+		Attack.val_store( target, "spell_last_hero_reaction_duration", duration )
+		Attack.val_store( target, "spell_last_hero_reaction_initiativebonus", initiativebonus )
+
+  local rephits = pwr_resurrection( level, ehero_level )
+		Attack.val_store( target, "spell_last_hero_resurrection_rephits", rephits )
+
+  spell = "spell_magic_source"
+  duration = int_dur( spell, level, "sp_duration_magic_source" )
+  local penalty, mana = pwr_magic_source( level, ehero_level )
+		Attack.val_store( target, "spell_last_hero_magic_source_duration", duration )
+		Attack.val_store( target, "spell_last_hero_magic_source_penalty", penalty )
+		Attack.val_store( target, "spell_last_hero_magic_source_mana", mana )
+
+  spell = "spell_divine_armor"
+  duration = int_dur( spell, level, "sp_duration_divine_armor" )
+  local resistbonus = pwr_divine_armor( level, ehero_level )
+		Attack.val_store( target, "spell_last_hero_divine_armor_duration", duration )
+		Attack.val_store( target, "spell_last_hero_divine_armor_resistbonus", resistbonus )
+
+  spell = "spell_invisibility"
+  duration = int_dur( spell, level, "sp_duration_invisibility" )
+		Attack.val_store( target, "spell_last_hero_invisibility_duration", duration )
+
+  return true
+end
 -- ***********************************************
 -- * Magic Source
 -- ***********************************************
@@ -941,10 +1062,10 @@ function spell_magic_source_attack( level, target, belligerent, heroname )
     local ehero_level
 
     if belligerent == nil then
-      belligerent = Attack.act_belligerent()
+      belligerent = Attack.act_belligerent( target )
     end
 
-    if belligerent == 4 then
+    if belligerent ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -957,10 +1078,19 @@ function spell_magic_source_attack( level, target, belligerent, heroname )
     end
 
     local spell = "spell_magic_source"
-    local duration = int_dur( spell, level, "sp_duration_magic_source" )
+    local duration = Attack.val_restore( target, "spell_last_hero_magic_source_duration" )
+		  local penalty = Attack.val_restore( target, "spell_last_hero_magic_source_penalty" )
+		  local mana = Attack.val_restore( target, "spell_last_hero_magic_source_mana" )
+
+    if duration == nil
+    or penalty == nil
+    or mana == nil then
+      duration = int_dur( spell, level, "sp_duration_magic_source" )
+      penalty, mana = pwr_magic_source( level, ehero_level )
+    end
+
     duration = res_dur( target, spell, duration, "magic" )
     local script = Logic.obj_par( spell, "script" )
-    local penalty, mana = pwr_magic_source( level, ehero_level )
     local defense, basedefense = Attack.act_get_par( target, "defense" )
     Attack.val_store( target, "spell_magic_source_mana_gain", mana )
     Attack.val_store( target, "spell_magic_source_mana_rage_gain_k", mana_rage_gain_k )
@@ -1008,7 +1138,7 @@ function spell_berserker_attack( level, target )
    	level = common_get_spell_level( level )
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if Attack.act_belligerent( target ) ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -1050,36 +1180,52 @@ end
 -- * Adrenalin
 -- ***********************************************
 
-function spell_adrenalin_attack( level, target )
+function spell_adrenalin_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
   if (target ~= nil) then
    	level = common_get_spell_level( level )
     local ehero_level
+    local loggg = 0
 
-    if Attack.act_belligerent() ~= 1 then
+    if belligerent == nil then
+      belligerent = Attack.act_belligerent( target )
+    else
+      loggg = 2
+    end
+
+    if belligerent ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
-    local power = tonumber( pwr_adrenalin( level, ehero_level ) )
+    local spell = "spell_adrenalin"
+    local power = Attack.val_restore( target, "spell_last_hero_adrenalin_power" )
+    local duration = Attack.val_restore( target, "spell_last_hero_adrenalin_duration" )
+
+    if power == nil
+    or duration == nil then
+      power = tonumber( pwr_adrenalin( level, ehero_level ) )
+      duration = int_dur( spell, level, "sp_duration_adrenalin" )
+    end
+
     local cur_ap = Attack.act_ap( target )
-    local loggg = 0
 
    	local new_ap;
 	   if ( Attack.act_again( target ) ) then
       new_ap = power -- meaning unit was added to the list - just set him right number of points instead of adding them to the current
-  		  loggg = 1
+
+      if loggg == 0 then
+    		  loggg = 1
+      end
 	   else
       new_ap = power + cur_ap
     end
 
     Attack.act_ap( target, new_ap ) -- вынес функцию сюда, т.к. act_apply_spell_end() восстанавливает разность ОД, т.е. по сути аннулирует эффект от вызова этой функции двумя строками ниже
 
-    --New! Adds unlimited retaliation to the unit for the duration specified in SPELLS.TXT
-    local spell = "spell_adrenalin"
-    local duration = int_dur( spell, level, "sp_duration_adrenalin" )
     duration = res_dur( target, spell, duration, "magic" )
 
+    --New! Adds unlimited retaliation to the unit for the duration specified in SPELLS.TXT
     if duration > 0 then
       local current_hitback, base_hitback = Attack.act_get_par( target, "hitback" )
   
@@ -1154,20 +1300,31 @@ end
 -- ***********************************************
 -- * Fire Breath
 -- ***********************************************
-function spell_fire_breath_attack( level, target )
+function spell_fire_breath_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
-  if (target ~= nil) then
+  if ( target ~= nil ) then
    	level = common_get_spell_level( level )
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if belligerent == nil then
+      belligerent = Attack.act_belligerent( target )
+    end
+
+    if belligerent ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
-    local power = pwr_fire_breath( level, ehero_level )
     local spell = "spell_fire_breath"
-    local duration = int_dur( spell, level, "sp_duration_fire_breath" )
+		  local power = Attack.val_restore( target, "spell_last_hero_fire_breath_power" )
+		  local duration = Attack.val_restore( target, "spell_last_hero_fire_breath_duration" )
+
+    if power == nil
+    or duration == nil then
+      power = pwr_fire_breath( level, ehero_level )
+      duration = int_dur( spell, level, "sp_duration_fire_breath" )
+    end
+
     duration = res_dur( target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     local mindfire = Attack.act_get_dmg_min( target, "fire" )
@@ -1215,21 +1372,34 @@ end
 -- ***********************************************
 -- * Stone Skin
 -- ***********************************************
-function spell_stone_skin_attack( level, target )
- 	level = common_get_spell_level( level )
-  local ehero_level
-
-  if Attack.act_belligerent() ~= 1 then
-    ehero_level, level = get_enemy_hero_stuff( level )
-  end
-
-  local power, penalty = pwr_stone_skin( level, ehero_level )
-  local spell = "spell_stone_skin"
-  local duration = int_dur( spell, level, "sp_duration_stone_skin" )
-  duration = res_dur( target, spell, duration, "magic" )
+function spell_stone_skin_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
+   	level = common_get_spell_level( level )
+    local spell = "spell_stone_skin"
+    local ehero_level
+
+    if belligerent == nil then
+      belligerent = Attack.act_belligerent( target )
+    end
+
+    if belligerent ~= 1 then
+      ehero_level, level = get_enemy_hero_stuff( level )
+    end
+    
+  		local power = Attack.val_restore( target, "spell_last_hero_stone_skin_power" )
+		  local penalty = Attack.val_restore( target, "spell_last_hero_stone_skin_penalty" )
+  		local duration = Attack.val_restore( target, "spell_last_hero_stone_skin_duration" )
+    
+    if power == nil
+    or penalty == nil
+    or duration == nil then
+      power, penalty = pwr_stone_skin( level, ehero_level )
+      duration = int_dur( spell, level, "sp_duration_stone_skin" )
+    end
+
+    duration = res_dur( target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     local initiative, initiativebase = Attack.act_get_par( target, "initiative" )
 
@@ -1289,13 +1459,17 @@ function takeoff_spells( target, type, check_only )
 end
 
 
-function spell_dispell_attack( level, target )
+function spell_dispell_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
  	level = common_get_spell_level( level )
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
@@ -1386,7 +1560,7 @@ function spell_poison_resist_attack( level, target )
   if (target ~= nil) then
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if Attack.act_belligerent( target ) ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -1434,19 +1608,33 @@ end
 -- ***********************************************
 -- * Haste
 -- ***********************************************
-function spell_haste_attack( level, dmgts, target )
+function spell_haste_attack( level, dmgts, target, belligerent )
  	level = common_get_spell_level( level )
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
   if dmgts == nil then dmgts = 0 end
 
   local spell = "spell_haste"
-  local duration = int_dur( spell, level, "sp_duration_haste" )
-  local speedbonus = pwr_haste( level, ehero_level )
+  local duration, speedbonus
+
+  if target ~= nil then
+  		duration = Attack.val_restore( target, "spell_last_hero_haste_duration" )
+		  speedbonus = Attack.val_restore( target, "spell_last_hero_haste_speedbonus" )
+  end
+
+  if duration == nil
+  or speedbonus == nil then
+    duration = int_dur( spell, level, "sp_duration_haste" )
+    speedbonus = pwr_haste( level, ehero_level )
+  end
 
   if target == nil then target = Attack.get_target() end
 
@@ -1568,7 +1756,7 @@ function spell_cure_attack( level, target )
    	level = common_get_spell_level( level )
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if Attack.act_belligerent( target ) ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -2032,14 +2220,18 @@ end
 -- * Bless
 -- ***********************************************
 
-function spell_bless_attack( level, dmgts, target )
+function spell_bless_attack( level, dmgts, target, belligerent )
  	level = common_get_spell_level( level )
 
   if target == nil then target = Attack.get_target() end
 
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
@@ -2050,7 +2242,15 @@ function spell_bless_attack( level, dmgts, target )
 --		if healer_bonus > 0 then healer_bonus = 1 end
 
   local spell = "spell_bless"
-  local duration = int_dur( spell, level, "sp_duration_bless" )-- + healer_bonus
+  local duration
+  
+  if target ~= nil then
+  		duration = Attack.val_restore( target, "spell_last_hero_bless_duration" )
+  end
+
+  if duration == nil then
+    duration = int_dur( spell, level, "sp_duration_bless" )-- + healer_bonus
+  end
 
   if target ~= nil  then
     effect_bless_weakness_attack( target, spell, duration, dmgts, "magic_bless", true )
@@ -2105,7 +2305,7 @@ function spell_pacifism_attack( level, target )
    	level = common_get_spell_level( level )
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if Attack.act_belligerent( target ) ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
@@ -2176,21 +2376,32 @@ end
 -- * Divine Armor
 -- ***********************************************
 
-function spell_divine_armor_attack( level, target )
+function spell_divine_armor_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
   if (target ~= nil) then
    	level = common_get_spell_level( level )
     local ehero_level
 
-    if Attack.act_belligerent() ~= 1 then
+    if belligerent == nil then
+      belligerent = Attack.act_belligerent( target )
+    end
+
+    if belligerent ~= 1 then
       ehero_level, level = get_enemy_hero_stuff( level )
     end
 
     local spell = "spell_divine_armor"
-    local duration = int_dur( spell, level, "sp_duration_divine_armor" )
+    local duration = Attack.val_restore( target, "spell_last_hero_divine_armor_duration" )
+		  local resistbonus = Attack.val_restore( target, "spell_last_hero_divine_armor_resistbonus" )
+
+    if duration == nil
+    or resistbonus == nil then
+      duration = int_dur( spell, level, "sp_duration_divine_armor" )
+      resistbonus = pwr_divine_armor( level, ehero_level )
+    end
+
     duration = res_dur( target, spell, duration, "magic" )
-    local resistbonus = pwr_divine_armor( level, ehero_level )
     Attack.act_del_spell( target, spell )
     local curfire, firebase = Attack.act_get_res( target, "fire" )
     local curphysical, physicalbase = Attack.act_get_res( target, "physical" )
@@ -2273,20 +2484,34 @@ end
 -- ***********************************************
 -- * Accuracy
 -- ***********************************************
-function spell_accuracy_attack( level, target )
+function spell_accuracy_attack( level, target, belligerent )
  	level = common_get_spell_level( level )
 
   if target == nil then target = Attack.get_target() end
 
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
   local spell = "spell_accuracy"
-  local duration = int_dur( spell, level, "sp_duration_accuracy" )
-  local bonus = pwr_accuracy( level, ehero_level )
+  local duration, bonus
+
+  if target ~= nil then
+  		duration = Attack.val_restore( target, "spell_last_hero_accuracy_duration" )
+		  bonus = Attack.val_restore( target, "spell_last_hero_accuracy_bonus" )
+  end
+
+  if duration == nil
+  or bonus == nil then
+    duration = int_dur( spell, level, "sp_duration_accuracy" )
+    bonus = pwr_accuracy( level, ehero_level )
+  end
 
   local function common_accuracy_attack( target, spell, duration, bonus, spawn )
     duration = res_dur( target, spell, duration, "magic" )
@@ -2406,19 +2631,33 @@ end
 -- ***********************************************
 -- * Reaction
 -- ***********************************************
-function spell_reaction_attack( level, target )
+function spell_reaction_attack( level, target, belligerent )
   if target == nil then target = Attack.get_target() end
 
  	level = common_get_spell_level( level )
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
   local spell = "spell_reaction"
-  local duration = int_dur( spell, level, "sp_duration_reaction" )
-  local initiativebonus = pwr_warcry( level, ehero_level )
+  local duration, initiativebonus
+  
+  if target ~= nil then
+		  duration = Attack.val_restore( target, "spell_last_hero_reaction_duration" )
+		  initiativebonus = Attack.val_restore( target, "spell_last_hero_reaction_initiativebonus" )
+  end
+
+  if duration == nil
+  or initiativebonus == nil then
+    duration = int_dur( spell, level, "sp_duration_reaction" )
+    initiativebonus = pwr_warcry( level, ehero_level )
+  end
 
   local function common_reaction_attack( target, spell, duration, bonus, spawn )
     duration = res_dur( target, spell, duration, "magic" )
@@ -3428,13 +3667,21 @@ end
 -- * Invisibility
 -- ***********************************************
 
-function spell_invisibility( level, target )
+function spell_invisibility( level, target, belligerent )
  	if target == nil then target = Attack.get_target() end
 
  	level = common_get_spell_level( level )
   local ehero_level
 
-  if Attack.act_belligerent() ~= 1 then
+  local loggg = 1
+
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  else
+    loggg = 0
+  end
+
+  if belligerent ~= 1 then
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
@@ -3445,7 +3692,12 @@ function spell_invisibility( level, target )
  	end
 
   local spell = "spell_invisibility"
-  local duration = int_dur( spell, level, "sp_duration_invisibility" )
+  local duration = Attack.val_restore( target, "spell_last_hero_invisibility_duration" )
+
+  if duration == nil then
+    duration = int_dur( spell, level, "sp_duration_invisibility" )
+  end
+
   duration = res_dur( target, spell, duration, "magic" )
   Attack.act_apply_spell_begin( target, spell, duration, false )
   Attack.act_apply_spell_end()
@@ -3453,10 +3705,12 @@ function spell_invisibility( level, target )
  	Attack.atom_spawn( target, 0, "magic_invisi" )
  	Attack.act_onattack( target, "spell_invisibility_onatack" )
 
-  if Attack.act_size( target ) > 1 then
-  		Attack.log_label( "add_blog_sinvis_2" )
-  else
-  		Attack.log_label( "add_blog_sinvis_1" )
+  if loggg == 1 then
+    if Attack.act_size( target ) > 1 then
+    		Attack.log_label( "add_blog_sinvis_2" )
+    else
+    		Attack.log_label( "add_blog_sinvis_1" )
+    end
   end
 
 	 return true

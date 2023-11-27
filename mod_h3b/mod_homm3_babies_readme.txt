@@ -160,6 +160,18 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Version: Beta 2012-02-25
+-------------------------
+
+* mod_homm3_babies.kfs
+  & SPELLS.LUA
+    ^ If somehow a unit is not selected from Necro Call (or Animate Dead) one will be selected at random (this is to prevent crashing in case a unit is not in the raise list)
+    ^ Changed some of the function lists for spells associated with Enchanted Hero
+    ^ Added new function to work with Enchanted Hero to properly apply the correct hero bonuses to the spells autocast on the unit
+  & UNIT_FEATURES.LUA - fixed issues with Enchanted Hero not working correctly
+  & SPELLS.TXT - CRITICAL: fixed missing units from necromancy which would cause the came to crash when cast on those units that were missing for the list
+
+
 Version: Beta 2012-02-09
 -------------------------
 

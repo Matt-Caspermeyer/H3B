@@ -2435,21 +2435,21 @@ spell_necromancy {
     attack_cursor=magicstick
   }
   params {
-    // someone who rises from (note that I've reduced the set of units, because it is using string.find (i.e. sprite is always found in sprite_lake)
+    // someone who rises from
     skeleton=,skeleton,sprite_lake,peasant,robber,
-    archer=,archer,bowman,elf2,goblin,peasant,
-    spider_undead=,spider_undead,spider_venom,spider_fire,
-    zombie=,zombie,barbarian2,dryad,footman,goblin2,miner,sprite_lake,peasant,pirat,robber2,
-    zombie2=,zombie2,barbarian2,dryad,footman,goblin2,miner,sprite_lake,peasant,pirat,robber2,
-    ghost=,ghost,barbarian2,catapult,druid,dryad,dwarf,elf,footman2,goblin2,miner,orc,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
-    ghost2=,ghost2,barbarian2,catapult,druid,dryad,dwarf,elf,footman2,goblin2,miner,orc,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
-    bat=,bat,bear2,graywolf,griffin,hyena,
-    bat2=,bat2,bear2,bear_white,graywolf,griffin,horseman,hyena,unicorn2,wolf,
-    vampire=,vampire,barbarian2,bowman,catapult,druid,dryad,dwarf,elf,footman2,goblin2,miner,orc,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
-    vampire2=,vampire2,alchemist,barbarian2,cannoner,catapult,druid,dryad,dwarf,elf2,footman2,goblin2,horseman,knight,miner,orc2,shaman,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
-    blackknight=,blackknight,barbarian2,dwarf,footman2,goblin2,horseman,knight,orc2,shaman,werewolf,
-    necromant=,necromant,alchemist,archmage,cannoner,catapult,druid,dryad,elf2,priest2,
-    bonedragon=,bonedragon,blackdragon,greendragon,reddragon,giant,ogre,bear2,bear_white,griffin,horseman,unicorn2,  // horseman is here because of the horse + the man
+    archer=,archer,bowman,elf,elf2,goblin,peasant,
+    spider_undead=,spider_undead,spider,spider_venom,spider_fire,
+    zombie=,zombie,barbarian2,dryad,footman,goblin,goblin2,miner,sprite,sprite_lake,peasant,pirat,robber,robber2,
+    zombie2=,zombie2,barbarian2,dryad,footman,goblin,goblin2,miner,sprite,sprite_lake,peasant,pirat,robber,robber2,
+    ghost=,ghost,barbarian2,catapult,druid,dryad,dwarf,elf,footman,footman2,goblin,goblin2,miner,orc,sprite,sprite_lake,peasant,pirat,pirat2,priest,priest2,robber,robber2,werewolf,
+    ghost2=,ghost2,barbarian2,catapult,druid,dryad,dwarf,elf,footman,footman2,goblin,goblin2,miner,orc,sprite,sprite_lake,peasant,pirat,pirat2,priest,priest2,robber,robber2,werewolf,
+    bat=,bat,bear,bear2,graywolf,griffin,hyena,wolf,
+    bat2=,bat2,bear,bear2,bear_white,graywolf,griffin,horseman,hyena,unicorn,unicorn2,wolf,
+    vampire=,vampire,barbarian2,bowman,catapult,druid,dryad,dwarf,elf,footman,footman2,goblin,goblin2,miner,orc,sprite,sprite_lake,peasant,pirat,pirat2,priest,priest2,robber,robber2,werewolf,
+    vampire2=,vampire2,alchemist,barbarian2,cannoner,catapult,druid,dryad,dwarf,elf,elf2,footman,footman2,goblin,goblin2,horseman,knight,miner,orc,orc2,shaman,sprite,sprite_lake,peasant,pirat,pirat2,priest,priest2,robber,robber2,werewolf,
+    blackknight=,blackknight,barbarian2,dwarf,footman,footman2,goblin,goblin2,horseman,knight,orc,orc2,shaman,werewolf,
+    necromant=,necromant,alchemist,archmage,cannoner,catapult,druid,dryad,elf,elf2,priest,priest2,
+    bonedragon=,bonedragon,blackdragon,greendragon,reddragon,giant,ogre,bear,bear2,bear_white,griffin,horseman,unicorn,unicorn2,  // horseman is here because of the horse + the man
     power=400,800,1600 // суммарный хитпоинт
     level=2,3,4
     int_pwr=1  // if = 1 then the intelligence effects spell power
