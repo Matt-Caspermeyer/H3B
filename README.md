@@ -162,6 +162,27 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Version: Beta 2012-04-08
+* mod_homm3_babies.kfs
+  & TEMPLATES.LNG
+    ^ The "scouting" skill template was named incorrectly.
+    ^ This could cause the game to lockup when cursoring over a baby that used this template.
+    ^ The following babies were affected:
+      % Feanora
+        $ Broghild
+      % Gerda
+        $ Lorelei
+      % Diana
+        $ Piquedram
+	$ Shiva
+      % Neoka
+        $ Aeris
+      % Xeona
+        $ Calh
+	$ Fiona
+	$ Deemer
+
+
 Version: Beta 2012-02-25
 -------------------------
 

@@ -355,9 +355,9 @@ diana_units1=<gen=gen_itm_kid_hint,unit_dragonfly_fire,1,starts><gen=gen_itm_kid
     scholar1=<gen=gen_itm_kid_hint,skill_scholar,1,0.5>
     scholar2=<gen=gen_itm_kid_hint,skill_scholar,2,0.5>
     scholar3=<gen=gen_itm_kid_hint,skill_scholar,3,0.5>
-    scouting_1=<gen=gen_itm_kid_hint,skill_scouting_rage,1,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,1,4>
-    scouting_2=<gen=gen_itm_kid_hint,skill_scouting_rage,2,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,2,4>
-    scouting_3=<gen=gen_itm_kid_hint,skill_scouting_rage,3,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,3,4>
+    scouting1=<gen=gen_itm_kid_hint,skill_scouting_rage,1,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,1,4>
+    scouting2=<gen=gen_itm_kid_hint,skill_scouting_rage,2,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,2,4>
+    scouting3=<gen=gen_itm_kid_hint,skill_scouting_rage,3,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,3,4>
     scouting_rage1=<gen=gen_itm_kid_hint,skill_scouting_rage,1,4>
     scouting_rage2=<gen=gen_itm_kid_hint,skill_scouting_rage,2,4>
     scouting_rage3=<gen=gen_itm_kid_hint,skill_scouting_rage,3,4>
