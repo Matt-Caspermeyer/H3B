@@ -13,19 +13,19 @@ Installation:
 -------------
 
 1. This mod is not compatible with any other mods since I've most likely modified a file that another mod uses.
-  a.  You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
-  b.  Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
-  c.  If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
+    1. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
+    1. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+    1. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
 2. Extract mod_h3b.kfs included in this archive to the King's Bounty: The Legend mods folder.
-  a.  This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
-  b.  If the "mods" folder does not exist, then see note 1bi above.
+    1. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+    1. If the "mods" folder does not exist, then see note 1bi above.
 3. Run the game
-  a.  Start a new game to play!
-  b.  It is not recommended to continue your current game, please restart.
-  c.  For your first play through:
-    i. Please do not use any cheats (i.e. Save Game Scanner, etc.)
-    ii. Please do not use with any other mods (probably won't work anyway)
-    iii. You'll be able to experience the mod as I intended it to be played.
+    1. Start a new game to play!
+    1. It is not recommended to continue your current game, please restart.
+    1. For your first play through:
+        1. Please do not use any cheats (i.e. Save Game Scanner, etc.)
+        1. Please do not use with any other mods (probably won't work anyway)
+        1. You'll be able to experience the mod as I intended it to be played.
 
 
 Uninstallation:
