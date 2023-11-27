@@ -972,35 +972,23 @@ sp_add_damage_weakness {
 
 // sp_add_infliction is an additive bonus to the percent chance of an infliction (i.e. burning, poison, etc.)
 
-sp_add_infliction_armageddon {
+sp_add_infliction_burn {
   cmc=1
 }
 
-sp_add_infliction_fire_arrow {
+sp_add_infliction_freeze {
   cmc=1
 }
 
-sp_add_infliction_fire_ball {
+sp_add_infliction_poison {
   cmc=1
 }
 
-sp_add_infliction_fire_rain {
+sp_add_infliction_shock {
   cmc=1
 }
 
-sp_add_infliction_geyser {
-  cmc=1
-}
-
-sp_add_infliction_ice_serpent {
-  cmc=1
-}
-
-sp_add_infliction_lightning {
-  cmc=1
-}
-
-sp_add_infliction_smile_skull {
+sp_add_infliction_stun {
   cmc=1
 }
 
@@ -1569,35 +1557,23 @@ sp_duration_special_wolf_cry {
 
 // sp_gain_infliction is a multiplicative bonus to the percent chance of an infliction (i.e. burning, poison, etc.)
 
-sp_gain_infliction_armageddon {
+sp_gain_infliction_burn {
   cmc=1
 }
 
-sp_gain_infliction_fire_arrow {
+sp_gain_infliction_freeze {
   cmc=1
 }
 
-sp_gain_infliction_fire_ball {
+sp_gain_infliction_poison {
   cmc=1
 }
 
-sp_gain_infliction_fire_rain {
+sp_gain_infliction_shock {
   cmc=1
 }
 
-sp_gain_infliction_geyser {
-  cmc=1
-}
-
-sp_gain_infliction_ice_serpent {
-  cmc=1
-}
-
-sp_gain_infliction_lightning {
-  cmc=1
-}
-
-sp_gain_infliction_smile_skull {
+sp_gain_infliction_stun {
   cmc=1
 }
 

@@ -623,14 +623,12 @@ kid_xyron {
     sp_power_mod=count,1
     sp_duration_fire_arrow=count,1
     sp_gain_power_fire_arrow=count,10
-    sp_add_infliction_fire_arrow=count,10
     sp_duration_fire_ball=count,1
     sp_gain_power_fire_ball=count,10
     sp_gain_periphery_damage_fire_ball=count,10
-    sp_add_infliction_fire_ball=count,10
     sp_duration_fire_rain=count,1
     sp_gain_power_fire_rain=count,10
-    sp_add_infliction_fire_rain=count,10
+    sp_gain_infliction_burn=count,10
   }
   propbits=child,rare
   params {}
@@ -1403,7 +1401,7 @@ kid_xarfax {
     sp_duration_fire_ball=count,1
     sp_gain_power_fire_ball=count,20
     sp_gain_periphery_damage_fire_ball=count,20
-    sp_add_infliction_fire_ball=count,20
+    sp_gain_infliction_burn=count,20
   }
   propbits=child,rare
   params {}
@@ -1562,7 +1560,7 @@ kid_inteus {
     sp_power_int=count,20
     sp_duration_fire_rain=count,1
     sp_gain_power_fire_rain=count,20
-    sp_add_infliction_fire_rain=count,20
+    sp_gain_infliction_burn=count,20
   }
   propbits=child,rare
   params {}
@@ -2102,7 +2100,7 @@ kid_darkstorn {
     sp_addexp_spirit=count,20
     sp_duration_lightning=count,1
     sp_gain_power_lightning=count,20
-    sp_gain_infliction_lightning=count,20
+    sp_gain_infliction_shock=count,20
   }
   propbits=child,rare
   params {}

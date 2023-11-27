@@ -14,18 +14,9 @@ Installation:
   a. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
   b. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
     i. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
-2. Extract 4 of the 5 *.KFS files included in this archive to the King's Bounty: The Legend mods folder.
+2. Extract mod_h3b.kfs included in this archive to the King's Bounty: The Legend mods folder.
   a. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
   b. If the "mods" folder does not exist, then see note 1bi above.
-  c. The 4 KFS files are:
-    i.   mod_homm3_portraits.kfs - stand alone game picture resources containing all *.DAT and *.DDS files that may be used in other mods.
-    ii.  mod_tougher_eheroes.kfs - stand alone tougher heroes containing all *.HERO files that may be used in other mods.
-    iii. mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LUA, and *.TXT files modified for this mod. This also contains TEMPLATES.LNG, the universal language template file (all other *.LNG files are in a different KFS).
-    iv.  mod_homm3_babies_eng_lng.kfs ***OR*** mod_homm3_babies_en_lng.kfs - updated *.LNG files
-      1) Use mod_homm3_babies_eng_lng.kfs for your English localization with eng_*.lng
-      2) Use mod_homm3_babies_en_lng.kfs for your English localization with en_*.lng
-      3) DO NOT USE BOTH FILES!!! Just one or the other!!!
-  d. All 4 KFS files are needed for the complete HOMM3 babies mod experience and the game will not load without them!
 3. Run the game
   a. Start a new game to play!
   b. It is not recommended to continue your current game, please restart.
@@ -38,11 +29,7 @@ Installation:
 Uninstallation:
 ---------------
 
-1. Simply delete the 4 KFS files from your "mods" folder:
-  a. mod_homm3_portraits.kfs
-  b. mod_tougher_eheroes.kfs
-  c. mod_homm3_babies.kfs
-  d. mod_homm3_babies_eng_lng.kfs OR mod_homm3_babies_en_lng.kfs depending on your English localization variant
+1. Simply delete mod_h3b.kfs from your "mods" folder.
 2. Done!
 
 
@@ -159,6 +146,273 @@ Change List
 -----------
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
+
+Version: Beta 2012-12-01
+
+* All files have been combined into a single KFS file to make installation / unintstallation easier.
+* mod_h3b.kfs
+  *.ATOM
+    & BONEDRAGON.ATOM
+      ^ Bone Dragon's now have the Dread feature, which decreases enemy morale based on level.
+        % Level 1-2: -3 Morale
+	% Level 3-4: -2 Morale
+	% Level 5: -1 Morale
+    & CYCLOP.ATOM
+      ^ Ranged attack now stuns and knocks units unconscious
+    & DEATH.ATOM - Ability rest values now start low and increase as the ability gets more powerful
+    & DEVATRON.ATOM - Ice thorns now have a thorns ability that damages attackers and units surrounding the thorn when it explodes
+    & DEVATRON_THROW.ATOM - A variant of the devatron atom for attack purposes
+    & LINA.ATOM
+      ^ Ability rest values now start low and increase as the ability gets more powerful
+      ^ Ice Thorns
+        % Now damage enemies where a thorn would go
+	% Now have a random life from 1 to duration turns, after which the thorn explodes doing area of effect damage around the thorn
+	% Damage attackers
+	% Thorn returned damage is now a certain percentage of the thorn damage and applies to both attackers and area of effect damage
+    & SHAMAN.ATOM
+      ^ Death Totem health is now percent of Shaman health (40%)
+      ^ Life Totem health is now percent of Shaman health (50%)
+      ^ New parameter, init_den (for both totems), increases the totem's initiative by it's health divided by this parameter
+    & SLIME.ATOM - Ability rest values now start low and increase as the ability gets more powerful
+    & SPIDER_FIRE.ATOM - added the Demon arena_bonuses section since I changed them to Demons and forgot to do this previously
+    & THEROCK.ATOM - Ability rest values now start low and increase as the ability gets more powerful
+    & TOTEM_DEATH.ATOM
+      ^ Totem damage doubled
+    & TOTEM_LIFE.ATOM
+      ^ Totem cure doubled
+      ^ Removed nfeatures: plant, golem, undead - cure now affects these creatures as well
+    & Dwarf ATOMs: ALCHEMIST, CANNONER, DWARF, GIANT, MINER
+      ^ +25% Attack (except Giants and Miners) in Dungeon environments, note that Miners receive +50% Attack in Dungeons due to their Night Sight
+      ^ -2 Morale (except Cannoneers and Giants) at Sea
+      ^ Added the appropriate headers / hints
+    & Elf ATOMs: DRUID, DRYAD, ELF, ELF2, ENT, ENT2, SPRITE, SPRITE_LAKE, UNICORN, UNICORN2, WEREWOLF, WOLF
+      ^ +50% Attack in Forest environments
+      ^ -1 Morale (except Black Unicorn, Werewolf, and Werewolf Elf) in Dungeon environments
+      ^ Added the appropriate headers / hints
+    & ATOMs that like the forest: BEAR, BEAR2, GRAYWOLF
+      ^ +25% Attack in Forest environments
+    & Resistant to Cold ATOMs: BEAR2, GIANT
+      ^ GIANTS now have the Resistant to Cold feature
+      ^ BEAR2 had Resistanct to Cold arena bonuses (the bonus hint did not mention this), but I think that was a mistake so it has been removed
+    & Thorn ATOMs: KINGTHORN, THORN, THORN_WARRIOR
+      ^ Tasty Soil: +25% Health in Forest environments
+    & Undead ATOMs: ARCHER, BAT, BAT2, BLACKKNIGHT, BONEDRAGON, NECROMANT, SKELETON, VAMPIRE, VAMPIRE2, ZOMBIE, ZOMBIE2
+      ^ +50% Defense in cemeteries (was +1 morale, but I changed it since morale does not affect the computer controlled units)
+    & Underground ATOMs: SPIDER_FIRE, SPIDER_VENOM
+      ^ SPIDER_FIRE and SPIDER_VENOM now have the Underground feature (Undead Spiders get this bonus from being Undead)
+  *.LNG
+    & EN(G)_BATTLE.LNG - Added new battle log labels for when spell duration is increased / decreased due to unit's resistance
+    & EN(G)_HERO.LNG
+      ^ Changed Attack hint to include:
+        $ Amount of attack needed to increase max damage cap and critical hit
+        $ Critical Hit increase per attack
+        $ Max Damage Cap increase per attack
+        $ Total Critical Hit increase
+        $ Max Damage Cap
+      ^ Changed Defense hint to include:
+        $ Amount of defense needed to decrease min damage cap and increase resist all
+        $ Resist all increase per defense
+        $ Min Damage Cap decrease per defense
+        $ Total Resist all increase 
+      ^ Changed Intellect hint to include:
+        $ Amount of intellect needed to increase spell power and duration
+        $ Amount of power increase per intellect
+        $ Amount of duration increase per intellect
+        $ Total power increase
+        $ Total duration increase
+    & EN(G)_HOMM3_BABIES_ORCELYN.LNG
+      ^ Changed Tyraxor's bonuses to include Shamans
+      ^ Fixed lower case "zubin"
+    & EN(G)_SKILLS.LNG - Destoyer now also increases chance of infliction (i.e. burn, poison, etc.)
+    & EN(G)_SPELLS.LNG
+      ^ Sleeping and Unconscious units always receive critical damage
+      ^ Entangled units chance to receive a critical hit is doubled
+      ^ Battle Cry now increases unit's morale instead of initiative
+      ^ Haste now also increases a unit's initiative and chance to critically strike its target
+      ^ Slow now also decreases a unit's initiative and increase its susceptibility to critical strikes
+      ^ Stone Skin is now mass at level 3
+      ^ Added new infliction bonus labels
+      ^ Geyser hint now includes freeze chance
+    & EN(G)_SPIRITS.LNG
+      ^ Updated Ice Thorns description to include its new abilities
+      ^ Added rest increases to spirit abilities where appropriate
+      ^ Added new labels for Ice Thorns new features
+      ^ Removed abbreviations for Orb level-up since UI now has more room
+      ^ Added new Ice Thorn labels
+      ^ Changed Ice Thorn levelups
+    & EN(G)_UNITS.LNG
+      ^ Updated Ice Thorns arena description
+      ^ Updated Elf Race description
+      ^ Updated Dwarf Race description
+      ^ Updated Undead Race description
+      ^ Updated Demon Race description
+      ^ Updated Ice Thorn right-click hint to include Thorns damage and new hint
+      ^ Added new Bone Dragon Dread morale penalty hint
+    & EN(G)_UNITS_FEATURES.LNG
+      ^ Updated Ancient Vampire's Death's Deception so that it only works 50% of the time
+      ^ Added new Cyclops features
+      ^ Updated Dwarf units so that they include the "Likes Dungeons" feature (with a few exceptions)
+      ^ Updated Dwarf units so that they include the "Sea Sick" feature (with a few exceptions)
+      ^ Updated Elf units so that they include the "Loves Forests" feature
+      ^ Updated Elf units so that they include the "Dislikes Dungeons" feature (with a few exceptions)
+      ^ Updated Bone Dragon to include new Dread feature
+      ^ Removed Night Sight from Undead Spider feature list since it was redundant with their Undead feature
+      ^ Added Underground feature to Fire Spiders and Venomous Spiders
+      ^ Added "Likes the Forest" feature to Graywolves, Bears, and Ancient Bears
+      ^ Added the "Tasty Soil" feature to Royal Thorns, Thorns, and Thorn Warriors
+      ^ Added the "Throws Stones" feature to Cyclopses
+      ^ Updated Giant Attack hint
+      ^ Updated Ogre Attack hint
+      ^ Added new Bone Dragon Dread hint
+      ^ Updated Undead hint so that they gain +50% Defense in cemeteries instead of +1 Morale (since it didn't effect AI units anyway)
+      ^ Updated Marine hint to include exact Morale increase
+      ^ Added new Tasty Soil hint
+      ^ Added new Likes Dungeons hint
+      ^ Added new Likes the Forest hint
+      ^ Added new Loves the Forest hint
+      ^ Added new Dislikes Dungeons hint
+      ^ Added new Sea Sick hint
+    & EN(G)_UNITS_SPECIALS.LNG
+      ^ Updated Shaman Totem hints to include Titan Energy for health and new initative parameter
+      ^ Added new Titan Energy labels
+    & EN(G)_WINDOWS.LNG - updated version number
+    & TEMPLATES.LNG
+      ^ Added new "damage" macro to hint_t0 template for displaying the Ice Thorns' "thorns" damage to attackers and for area of effect damage
+      ^ Added the following macros to the left_t macro for displaying the new attack, defense, and intellect bonuses to the hero screen:
+        % att_den - this is the amount of attack needed to increase maximum damage and unit critical hit
+	% krit_inc - this is the critical hit increase per att_den attack
+	% att_cap_inc - this is the maximum damage increase per att_den attack
+	% att_krit - this is the total critical hit increase per hero attack
+	% def_den - this is the amount of defense needed to decrease unit damage and increase unit resistance to all
+	% res_inc - this is the resist all increase per def_den defense
+	% def_res - this is the the actual resist all increase based on the hero's defense
+	% def_dec - this is the actual damage decrease based on the hero's defense
+	% int_den - this is the amount of intellect needed to increase the power of spells
+	% power_inc - this is the increase in spell power per int_den
+	% dur_den - this is the amount of intellect needed to increase the duration of spells
+	% dur_inc - this is the increase in spell duration per dur_den
+	% int_power - this is the total spell power increase based on the hero's intellect
+	% int_dur - this is the total spell duration increase based on the hero's intellect
+      ^ Added the following macros to the special_t template:
+        % health_totem - lists the health of the totem, including the increase due to Titan Energy
+	% health% - lists the percent of totem health based on the Shaman's health
+	% titan_energy - lists how much Titan Energy is being used to increase the health of the unit
+	% init_totem - lists the totem's initiative
+      ^ Added the following macros to the int_spr_Lvlup_tAD template:
+        % freeze - for the new Ice Thorns' freeze chance
+	% thorns - for the new Ice Thorns' "thorns" damage
+	% duration - for the new Ice Thorns' max random duration
+	% freezeOld, freezeNew - for leveling up the ability
+	% thornsOld, thornsNew - for leveling up the ability
+      ^ Added the following macros to the int_spr_th0 template:
+        % freeze - the freeze chance
+	% thorns - the thorns percentage
+      ^ Added the following macros to the blog_td0 template:
+        % durold, durnew - new macros for the label that states when a spell / effect duration has been increased / decreased due to the target's resistance
+	% restype - new macro that displays the resistance that caused the spell / effect duration to increase / decrease
+      ^ Added the following macros to the spells_tSpell template:
+        % DS04_Krit - new critical Hit increase for Haste spell
+	% DS05_Krit - new Critical Hit susceptibility for Slow spell
+	% DS18_Freeze - new Geyser freeze chance
+  *.LUA
+    & Fixed Game.Random( 100 ) errors so that the proper probability is used, files effected:
+      ARENA.LUA, BOSS.LUA, PAWN.LUA, SPECIAL_ATTACKS.LUA, SPELLS.LUA, SPIRIT_LINA.LUA, UNIT_FEATURES.LUA
+    & ARENA.LUA
+      ^ Sleeping and Unconscious units always receive critical damage
+      ^ Entangled units chance to receive a critical hit is doubled
+      ^ Ancient Vampire's Death's Deception now only works 50% of the time
+      ^ Slow now increases the chance of a unit receiving a critical strike from its attacker
+      ^ The hero's attack now affects the attacker's critical hit
+      ^ The hero's defense now affects the receiver's resistance
+      ^ The hero's attack and defense now affect the maximum and minimum damage caps (i.e. 300% and 1/3) scaled by the attack-defence difference
+      ^ For enemy units:
+        $ Since there appears to be no way of getting the enemy hero attack / defense, the enemy hero's attack / defense is computed at the beginning of combat based on the unit's current and base attack / defense after the difficulty bonus is applied.
+	$ If anyone knows how to get the enemy hero's attack / defense then let me know (there is a way to get the hero's intellect, but that is a special Logic library function).
+	$ This means that enemy units not led by an enemy hero can still potentially get:
+	  # Increased Critical Hit
+	  # Increased Maximum Damage Cap
+	  # Decreased Minimum Damage Cap
+	  # Increased Resistances
+	  # Even if the unit is led by an enemy hero, the computed enemy hero attack / defense values can be quite a bit greater than the enemy hero's actual attack / defense
+	  # This makes the game harder at the harder difficulty levels as the enemy units get better bonuses
+      ^ Updated spell AI to accommodate changes to Battle Cry, Haste, and Slow
+    & LOGIC_HERO.LUA
+      ^ Leadership Reduction counters are now limited to the lr_limit value specified in CONFIG.TXT when starting a new game
+    & SPECIAL_ATTACKS.LUA
+      ^ Shaman Totem health is now a percent of the Shaman's total health
+      ^ Shaman Totem initiative is now the same as the Shaman's base initiative + the Totem's health divided by its init_den (specified in SHAMAN.ATOM)
+      ^ Giant Quake no longer damages Archdemons and Demonesses since they have wings (their "special" / "avoid" animations are played, respectively, instead). Note that since Giants are male humanoids that the Demoness's Beauty feature used to come into play, but now it is not needed.
+    & SPECIAL_HINT.LUA
+      ^ Updated Shaman Totem Health hint to include the Titan Energy stored on the Shaman
+      ^ Added Shaman Totem Initiative hint
+    & SPELLS.LUA
+      ^ Freeze Immune units now have a greater possible chance of not being frozen with the Ice Snake and Geyser spells
+      ^ Fire Immune and Demon units now have a greater possible chance of being frozen with the Ice Snake and Geyser spells
+      ^ Ice Snake and Geyser now use a common function for determining whether units are frozen
+      ^ Battle Cry (spell_reaction) now increases unit morale instead of initiative
+      ^ Haste now also increases a unit's initiative and chance to critically strike its target
+      ^ Slow now also decreases a unit's initiative and increases its susceptibility to critical strikes
+      ^ Stone Skin is now mass at level 3
+    & SPELLS_HINT.LUA
+      ^ Updated Slow hint to include initiative reduction and increased susceptibility to critical hits
+      ^ Updated Haste hint to include initiative increase and increased chance of critical hits
+      ^ Added Geyser Freeze probably to hint
+    & SPELLS_POWER.LUA
+      ^ Added new dur_inc parameter
+      ^ Added capability to show the spell / effect duration log due to the target's resistance
+      ^ Power Slow now returns critical hit susceptibility value
+      ^ Power Haste now returns critical hit increase value
+      ^ Power Geyser now returns freeze chance
+      ^ Changed how I was computing the infliction increase
+    & SPIRIT_LINA.LUA
+      ^ Implemented new functions for the Ice Thorn
+    & TEXTGEN.LUA
+      ^ Added new function to provide number descriptions to the attack, defense, and intellect tips
+    & UNIT_FEATURES.LUA
+      ^ Mind Immune createres cannot be knocked unconscious by the Giant's attack
+      ^ The Undead can be stunned by the Ogre's attack and the Undead and Mind Immune creatures cannot be knocked unconscious
+      ^ The Cyclop's throw attack can now stun and knock units unconscious
+      ^ The Bone Dragon now decreases morale based on unit level
+  *.PNG
+    & LEVELUP_BG2_EXTENDED.PNG - New picture that allows for more room in the spirit upgrade description boxes
+    & SPIRIT_LEVELUP_BUTTON_NORMAL_EXTENDED.PNG - New picture for the larger spirit upgrade description
+    & SPIRIT_LEVELUP_BUTTON_ONMOUSE_EXTENDED.PNG - New picture for the larger spirit upgrade description
+    & SPIRIT_LEVELUP_BUTTON_ONPRESS_EXTENDED.PNG - New picture for the larger spirit upgrade description
+  *.TXT
+    & CONFIG.TXT
+      ^ New attack_config parameters
+        % den - this is the hero attack divisor for computing max damage cap increase and critical hit increase
+	% krit_inc - this is the amount of critical hit increase per den
+	% cap_inc - this is the amount of max damage cap increase per den
+      ^ New defense_config parameters
+        % den - this is the hero defense divsor for computing min damage cap increase and resistance increase
+	% res_inc - this is the increase in resist all per den
+      ^ New hero_leadership_reduction parameter: lr_limit - this is the maximum leadership reduction counter for all units
+    & HERO.TXT
+      ^ Fixed misspelling of "spell_dispell" for Paladin and Mage heroes
+    & ITEMS.TXT
+      ^ Added sp_gain_infliction_burn to "flame_necklace" and "storm_necklace"
+      ^ Added sp_gain_infliction_shock to "adept_staff" and "arhmage_staff" (note that it is really spelled that way)
+    & ORCELYN_BABIES.TXT
+      ^ Added Shamans to Tyraxor's bonuses
+      ^ CRITICAL - Fixed error in Gretchen's bonus list that was causing the game to crash when Orcelyn was having babies
+    & SPECIAL_PARAMS.TXT
+      ^ Changed individual add and gain spell infliction bonuses to general effect bonuses (i.e. ..infliction_fire_arrow -> ..infliction_burn)
+      ^ This effects bonuses in ITEMS.TXT, DIANA_BABIES.TXT, MIRABELLA_BABIES.TXT, NEOKA_BABIES.TXT, RINA_BABIES.TXT, XEONA_BABIES.TXT
+    & SPELL.TXT
+      ^ Necromancy - Added missing Sprites to Skeleton reanimate list
+      ^ Battle Cry (spell_reaction) now increases unit morale instead of initiative
+      ^ Haste now also increases a unit's initiative and chance to critically strike its target
+      ^ Slow now also decreases a unit's initiative and increase its susceptibility to critical strikes
+      ^ Stone Skin is now mass at level 3 (mana, crystals, etc. adjusted accordingly)
+      ^ Reduced Trap base poison infliction percent to 25 (was 35)
+      ^ Geyser now has a specified freeze chance, and increased stun chance from 10 to 15
+      ^ Fire Arrow now has a burn chance of 20 (was 25)
+      ^ Poison Skull now has a poison chance of 20 (was 25)
+    & WIFES.TXT - Added Shaman to Orcelyn's Leadership Requirement bonus
+  *.UI
+    SP_LEVEL_UP.UI - Increases the size of the spirit levelup dialog to handle more text
+  
 
 Version: Beta 2012-06-21
 * mod_homm3_babies.kfs

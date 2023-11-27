@@ -1,0 +1,147 @@
+main {
+  class=pawn
+  nodimming=1
+  model=devatron.bma
+  blend=1
+  apass=2
+  spawnscale=1.0
+  infobox {
+    msgbox=cpn_hint_ice_thorn
+  }
+
+}
+arena_params {
+  hitpoint=1
+  takedmg=1
+  defense=3
+  realdeath=1
+  chessboard_aligned=1
+  skipmove=0
+  repl_label1=devatron_repl1
+  repl_label2=glot_repl2
+  features=barrier,pawn
+  attacks=scripted
+  ondamage=devatron_thorns
+  posthitslave=devatron_posthitslave
+  resistances {
+    physical=1
+    poison=1
+    magic=1
+    fire=1
+  }
+  scripted {
+    script_attack=devatron_attack
+    log_label=null
+  }
+}
+animations {
+  appear=devatron_appear.bsa/fr:25:50
+  idle=devatron_idle.bsa/fr:25:50
+  death=devatron_death.bsa/fr:15:30
+  @death {
+    1.0?x=
+    4.0=alpha/0/5
+  }
+}
+scripts {
+  idle=default_idle
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  logicunit {
+    typeflags=vars
+    name=metalgate
+    vars {}
+  }
+}
+collisions {
+  ground=0.7
+}
+attachments {
+  1 {
+    particle {
+      trans=0/-0/0/0.80000001
+      animation=appear
+      frame=0/22
+      file=lina_snow_pillar.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/0.69999999
+      animation=appear
+      frame=8/22
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=1.78411555/-0/0/2.5
+      animation=appear
+      frame=10/24
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0/0/-0.60000002/0/-0/0/1.5
+      animation=appear
+      frame=19/24
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.3704834/0/0.60000002/2.48226857/-0/0/1.50000012
+      animation=appear
+      frame=21/24
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=0.61737061/0/0/-1.6289922/-0/0/1.50000012
+      animation=appear
+      frame=22/25
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      trans=-0.61737061/0/-0.30000001/1.16352415/-0/0/1.49999988
+      animation=appear
+      frame=19/24
+      file=lina_icy_burst.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0/0/1.5
+      animation=death
+      frame=0/5
+      file=lina_icy_burst.ptb
+    }
+    particle {
+      animation=death
+      frame=1/5
+      file=lina_memi.ptb
+      meshemission=true
+    }
+    particle {
+      animation=death
+      frame=1/5
+      file=lina_still_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/1/0/0/-0/0/2
+      animation=death
+      frame=0/2
+      file=attack_sprite_beams.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=appear
+      frame=0.01
+      file=devatron_appear.wav
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=devatron_death.wav
+      fadetime=60
+    }
+  }
+}

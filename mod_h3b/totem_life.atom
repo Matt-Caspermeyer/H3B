@@ -1,0 +1,212 @@
+main {
+  class=pawn
+  model=totem_life.bma
+  apass=2
+  infobox {
+    msgbox=cpn_hint_totem_life
+  }
+}
+arena_params {
+  hitpoint=5
+  takedmg=1
+  defense=10
+  initiative=3
+  realdeath=1
+  totradius=2
+  tottype=0
+  skipmove=0
+  chessboard_aligned=1
+  ondamage=totem_ondamage
+  attacks=scripted
+  features=pawn,barrier
+  resistances {
+    physical=25
+    poison=80
+    magic=0
+    fire=-50
+  }
+  scripted {
+    script_calccells=calccells_totem
+    nfeatures=
+    script_attack=totem_cure
+    log_label=null
+    ad_factor=0
+    custom_params {
+      cure=14
+      effect=effect_total_cure,1
+      animation=animation,attack
+    }
+  }
+  script_data {
+    param=defense
+    race=
+    features=
+    nfeatures=
+    level=4
+    change=0
+    change_=20
+    dist=2
+    ally=1
+    bonus=1
+  }
+}
+scripts {
+  idle=default_idle
+  subturn_modificators=totem_modificators
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  logicunit {
+    typeflags=vars
+    name=lightning_altar
+    vars {}
+    capture {}
+  }
+}
+animations {
+  idle=totem_life_idle.bsa/fr:25:50
+  attack=totem_life_attack.bsa/fr:25:50
+  damage=totem_life_damage.bsa/fr:25:50
+  appear=totem_life_appear.bsa/fr:25:50
+  death=totem_life_death.bsa/fr:25:50
+  teleout=totem_life_idle.bsa/fr:25:50/r:45:80
+  telein=totem_life_idle.bsa/fr:25:50/r:0:35
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    12.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    20.0=alpha/0/18
+    2.0?x=
+    0.0=cam
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/0.5/0/0/-0/0/0.69999999
+      animation=appear
+      frame=4/11
+      file=pawn_totem_life_puff.ptb
+    }
+    particle {
+      animation=appear
+      frame=8/11
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0/1.70000005/0/0/-0/0/1
+      animation=idle
+      file=pawn_totem_life_startwirl.ptb
+    }
+    particle {
+      trans=0/0.05/0/0/-0/0/1.79999995
+      animation=idle
+      file=pawn_totem_life_outline.ptb
+    }
+    particle {
+      trans=0/1.70000005/0/0/-0/0/1
+      animation=attack
+      file=pawn_totem_life_startwirl.ptb
+    }
+    particle {
+      trans=0/1.60000002/0/0/-0/0/1.70000005
+      animation=attack
+      frame=0/12
+      file=pawn_totem_life_accum.ptb
+    }
+    particle {
+      trans=0/1.79999995/0/0/-0/0/1
+      animation=attack
+      frame=10/22
+      file=pawn_totem_life_attack_bang.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/0.80000001
+      animation=attack
+      frame=14/19
+      file=pawn_totem_life_rays.ptb
+    }
+    particle {
+      animation=damage
+      frame=1/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      animation=death
+      frame=1/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.5
+      animation=death
+      frame=0/22
+      file=cast_circlepuff.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/0.2
+      animation=death
+      frame=15/22
+      file=pawn_totem_life_bullets.ptb
+    }
+    particle {
+      trans=0/-0/0/1.5
+      animation=death
+      frame=0/15
+      file=pawn_totem_life_stars_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/1.79999995/0/-3.1415925/-0/0/1
+      animation=attack
+      frame=10/22
+      file=pawn_totem_life_attack_bang.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=totem_life_attack
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=totem_life_damage
+      fadetime=60
+    }
+    sound {
+      animation=appear
+      frame=0.01
+      file=totem_life_appear
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=totem_death_death
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/2/0/0/-0/0/0.30000001
+      animation=attack
+      frame=2/22
+      file=pawn_totem_life_bullets.ptb
+    }
+  }
+}

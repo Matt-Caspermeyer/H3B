@@ -8,7 +8,7 @@ main {
 }
 arena_params {
   features_label=cpi_cyclop_feat
-  features_hints=shot_header/shot_hint,sniper_header/sniper_hint,stone_header/stone_hint,no_melee_header/no_melee_hint
+  features_hints=shot_header/shot_hint,sniper_header/sniper_hint,stone_header/stone_hint,no_melee_header/no_melee_hint,bash_header/bash_hint,stone_thrower_header/stone_thrower_hint
   posthitslave=features_stone_creature
   race=neutral
   cost=5000
@@ -101,8 +101,9 @@ arena_params {
       physical=50,60
     }
     custom_params {
-      stun=0
+      stun=50
       push=0
+      sleep=25
     }
   }
 }

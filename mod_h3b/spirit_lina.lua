@@ -1010,87 +1010,98 @@ end
 -----------------
 
 function devatron_calccells()
+  Attack.multiselect( 3 )
 
-  Attack.multiselect(3)
-
-  for i=0, Attack.cell_count()-1 do
-    local cell = Attack.cell_get(i)
-    Attack.marktarget(cell)
+  for i = 0, Attack.cell_count() - 1 do
+    local cell = Attack.cell_get( i )
+    Attack.marktarget( cell )
   end
 
   return true
-
 end
 
 function get_devatron_cells()
+  local ids = {}
 
-    local ids = {}
+  -- запоминаем всех соседей для 3-х выбранных клеток
+  for tar = 0, 2 do
+    local t = Attack.get_target( tar )
 
-    -- запоминаем всех соседей для 3-х выбранных клеток
-    for tar=0,2 do
-        local t = Attack.get_target(tar)
-        if t ~= nil then
-            for i=0,5 do
-                local c = Attack.cell_adjacent(t, i)
-                if c ~= nil and Attack.cell_present(c) then
-                    ids[Attack.cell_id(c)] = true
-                end
-            end
+    if t ~= nil then
+      for i = 0, 5 do
+        local c = Attack.cell_adjacent( t, i )
+
+        if c ~= nil
+        and Attack.cell_present( c ) then
+          ids[ Attack.cell_id( c ) ] = true
         end
+      end
     end
+  end
 
-    -- исключаем сами выбранные клетки
-    for tar=0,2 do
-        local t = Attack.get_target(tar)
-        if t ~= nil then
-            ids[Attack.cell_id(t)] = nil
-        end
+  -- исключаем сами выбранные клетки
+  for tar = 0, 2 do
+    local t = Attack.get_target( tar )
+
+    if t ~= nil then
+      ids[ Attack.cell_id( t ) ] = nil
     end
+  end
 
-    local cells = {}
-    for id in pairs(ids) do
-        local c = Attack.cell_id(id)
-        if c~=nil and Attack.cell_is_empty(c) and Attack.cell_is_pass(c) then
-            table.insert(cells, c)
-        end
+  local cells = {}
+
+  for id in pairs( ids ) do
+    local c = Attack.cell_id( id )
+
+    if c ~= nil
+    and ( ( Attack.act_enemy( c )
+    or Attack.act_takesdmg( c )
+    and not Attack.act_name( c ) == "devatron" )
+    or ( Attack.cell_is_empty( c )
+    and Attack.cell_is_pass( c ) ) ) then
+      table.insert( cells, c )
     end
+  end
 
-    return cells
-
+  return cells
 end
 
 function devatron_highlight()
-
-    for i,c in ipairs(get_devatron_cells()) do
-        Attack.cell_select(c, "destination")
+  for i, c in ipairs( get_devatron_cells() ) do
+    if Attack.act_enemy( c )
+    and Attack.act_takesdmg( c ) then
+      Attack.cell_select( c, "avenemy" )
+    else
+      Attack.cell_select( c, "destination" )
     end
+  end
 
-    return true
-
+  return true
 end
 
 function lina_devatron()
-    local r = Game.Random()
-    local target = Attack.get_target()
+  local r = Game.Random()
+  local target = Attack.get_target()
 
   if Attack.is_short_spirit_seq() then
-    Attack.act_aseq(0, "2cast")
-    Attack.act_fadeout(0, 0, 1./25., 0., 0.)
+    Attack.act_aseq( 0, "2cast" )
+    Attack.act_fadeout( 0, 0, 1./25., 0., 0. )
     Attack.act_rotate( 0, .1, 0, target )
-    Attack.cam_track_duration(7.6)
+    Attack.cam_track_duration( 7.6 )
+
     if Game.ArenaShape() == 4 then
-        if r <0.7 then
-			Attack.cam_track(0, 0, "spirit_cam_short_ships.track" )
-		else
-            Attack.cam_track(0, 0, "spirit_cam_short_2left.track" )
-		end
+      if r <0.7 then
+			     Attack.cam_track( 0, 0, "spirit_cam_short_ships.track" )
+		    else
+        Attack.cam_track( 0, 0, "spirit_cam_short_2left.track" )
+		    end
     else
       if r <= 0.44 then
-        Attack.cam_track(0, 0, "spirit_cam_short_centre.track" )
+        Attack.cam_track( 0, 0, "spirit_cam_short_centre.track" )
       elseif r <= 0.88 then
-        Attack.cam_track(0, 0, "spirit_cam_short_2left.track" )
+        Attack.cam_track( 0, 0, "spirit_cam_short_2left.track" )
       else
-        Attack.cam_track(0, 0, "spirit_cam_short_2right.track" )
+        Attack.cam_track( 0, 0, "spirit_cam_short_2right.track" )
       end
     end
   else
@@ -1098,57 +1109,167 @@ function lina_devatron()
 
     --******************************** camera control
     if Game.ArenaShape() == 4 then --  ships
-    	Attack.cam_track_duration(14.8)
-        if r <0.7 then
-			Attack.cam_track(0, 0, "spirit_cam_ships.track" )
-		else
-            Attack.cam_track(0, 0, "spirit_cam_2left.track" )
-		end
+     	Attack.cam_track_duration( 14.8 )
+
+      if r <0.7 then
+			     Attack.cam_track( 0, 0, "spirit_cam_ships.track" )
+		    else
+        Attack.cam_track( 0, 0, "spirit_cam_2left.track" )
+		    end
     elseif Game.ArenaShape() == 1 then --  castle
-         if r <= 0.35 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_still2r_castle.track" )
-         elseif r <= 0.7 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_still2l_castle.track" )
-         elseif r <= 0.9 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_r_castle.track" )
-         elseif r <= 1.0 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_closeup_castle.track" )
-         end
+      if r <= 0.35 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_still2r_castle.track" )
+      elseif r <= 0.7 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_still2l_castle.track" )
+      elseif r <= 0.9 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_r_castle.track" )
+      elseif r <= 1.0 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_closeup_castle.track" )
+      end
     elseif Game.ArenaShape() == 5 then --  water
-         if r <= 0.5 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_still2r_castle.track" )
-         else
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_still2l_castle.track" )
-         end
+      if r <= 0.5 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_still2r_castle.track" )
+      else
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_still2l_castle.track" )
+      end
     else
-         if r <= 0.2 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_still2r.track" )
-         elseif r <= 0.4 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_still2l.track" )
-         elseif r <= 0.6 then
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_r.track" )
-         else
-             Attack.cam_track(0, 0, "cam_lina_rare_devatron_closeup.track" )
-         end
+      if r <= 0.2 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_still2r.track" )
+      elseif r <= 0.4 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_still2l.track" )
+      elseif r <= 0.6 then
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_r.track" )
+      else
+        Attack.cam_track( 0, 0, "cam_lina_rare_devatron_closeup.track" )
+      end
     end
     --********************************* End of camera control
 
-    Attack.act_rotate( Attack.aseq_time(0, "x"), Attack.aseq_time(0, "y"), 0, target )
-
-    Attack.act_aseq(0, "cast")
+    Attack.act_rotate( Attack.aseq_time( 0, "x" ), Attack.aseq_time( 0, "y" ), 0, target )
+    Attack.act_aseq( 0, "cast" )
   end
 
-    local start = Attack.aseq_time( 0, "z" );
+  local start = Attack.aseq_time( 0, "z" );
+  local duration = tonumber( Attack.get_custom_param( "duration" ) )
+  local freeze = tonumber( Attack.get_custom_param( "freeze" ) )
+  local thorns = tonumber( Attack.get_custom_param( "thorns" ) )
+  local min_dmg = tonumber( Attack.get_custom_param( "damage.physical.0" ) ) * thorns / 100
+  local max_dmg = tonumber( Attack.get_custom_param( "damage.physical.1" ) ) * thorns / 100
 
-    for i,c in ipairs(get_devatron_cells()) do
-        local t = start + Game.Random(000,600)/1000.
-        local atom = Attack.atom_spawn(c, t, "devatron")
-        Attack.act_animate(atom, "appear", t)
+  for i,c in ipairs( get_devatron_cells() ) do
+    local deviation = Game.Random( 000,600 )/1000.
+    local t = start + deviation
+
+    if Attack.cell_is_empty( c )
+    and Attack.cell_is_pass( c ) then
+      local atom = Attack.atom_spawn( c, t, "devatron" )
+      Attack.act_animate( atom, "appear", t )
+      local random_dur = Game.Random( 1, duration )
+      Attack.val_store( atom, "duration", random_dur )
+      Attack.val_store( atom, "min_dmg", min_dmg )
+      Attack.val_store( atom, "max_dmg", max_dmg )
+      Attack.val_store( atom, "dmg_type", "physical" )
+    else
+      local atom = Attack.atom_spawn( c, t, "devatron_throw" )
+      local hit_time = start + deviation / 10
+      Attack.dmg_timeshift( c, hit_time )
+      local hit_x = Attack.aseq_time( c, "x" )
+      Attack.aseq_timeshift( c, hit_time - hit_x )
+      local dead = Attack.act_damage( c )
+
+      if not dead
+      and not Attack.act_pawn( c )
+      and not Attack.act_feature( c, "golem" )
+      and not Attack.act_feature( c, "plant" )
+      and not Attack.act_feature( c, "undead" )
+      and not Attack.act_feature( c, "boss" ) then
+        local rnd = Game.Random( 99 )
+       	local freeze_res = Attack.act_get_res( c, "physical" )
+        local freeze_chance = math.max( 0, freeze - freeze_res )
+
+        if rnd < freeze_chance then
+          effect_freeze_attack( c, hit_time, 3 )
+        end
+      end
     end
+  end
 
-    spirit_after_hit()
-    Attack.log("slime_fog", "name", "<label=cpn_lina>", "target", "<label=cpsn_devatron>")
+  spirit_after_hit()
+  Attack.log( "slime_fog", "name", "<label=cpn_lina>", "target", "<label=cpsn_devatron>" )
 
-    return true
-
+  return true
 end
+
+function devatron_attack()
+  local duration = Attack.val_restore( 0, "duration" )
+  duration = duration - 1
+
+  if duration == 0 then
+		  local dmgts = Attack.aseq_time( 0, "x" )
+    local min_dmg = Attack.val_restore( 0, "min_dmg" )
+    local max_dmg = Attack.val_restore( 0, "max_dmg" )
+    local dmg_type = Attack.val_restore( 0, "dmg_type" )
+
+  		for dir = 0, 5 do
+		    local c = Attack.cell_adjacent( 0, dir )
+
+		    if c ~= nil
+      and Attack.cell_present( c )
+      and Attack.act_takesdmg( c )
+      and not ( Attack.act_name( c ) == "devatron" ) then
+        Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
+		    	 common_cell_apply_damage( c, dmgts + Game.Random() )
+    				Attack.log_label( '' )
+		    end
+		  end
+
+    Attack.act_kill()
+  else
+    Attack.val_store( 0, "duration", duration )
+  end
+
+  return true
+end
+
+function devatron_thorns( wnm, ts, dead )
+ 	if dead then
+    local min_dmg = Attack.val_restore( 0, "min_dmg" )
+    local max_dmg = Attack.val_restore( 0, "max_dmg" )
+    local dmg_type = Attack.val_restore( 0, "dmg_type" )
+	   local target = Attack.val_restore( 0, "target" )
+
+    if target ~= nil then
+      Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
+      common_cell_apply_damage( target, ts + 0.5 )
+  				Attack.log_label( '' )
+    end
+  end
+
+	 return true
+end
+
+function devatron_posthitslave( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+	 if ( minmax == 0 )
+  and damage > 0 then
+    local dist = Attack.cell_dist( receiver, attacker )
+
+    if dist <= 1
+    and Attack.act_takesdmg( attacker )
+    and not Attack.act_pawn( attacker )
+    and not Attack.act_feature( attacker, "pawn" )
+    and not Attack.act_feature( attacker, "boss" ) then
+      Attack.val_store( receiver, "target", attacker )
+    end
+  end
+
+	 return damage, addrage
+end
+
+function gen_devatron_par()
+  local min_dmg = Attack.val_restore( 0, "min_dmg" )
+  local max_dmg = Attack.val_restore( 0, "max_dmg" )
+
+  return tostring( min_dmg ) .. "-" .. tostring( max_dmg )
+end
+
+

@@ -70,16 +70,16 @@ spirit {
     level=0
     default=level1
     upgrade {
-      level1=level:0/rage:1,rest:5,exp:1,manabonus:2:4,ragebonus:2:4,count:4,level:1
+      level1=level:0/rage:1,rest:1,exp:1,manabonus:2:4,ragebonus:2:4,count:4,level:1
       level2=level:1/count:+1,rage:+1,exp:+1,level:2
-      level3=level:2/count:+1,rage:+2,exp:+2,level:3
+      level3=level:2/count:+1,rage:+2,rest:+1,exp:+2,level:3
       level4=level:3,LV:>10/count:+1,rage:+3,exp:+3,level:4
-      level5=level:4,LV:>20/count:+1,rage:+4,exp:+4,level:5
-      rage1=rs:0,level:>1/rage:+2,rs:1,exp:+2,manabonus:4:8,ragebonus:4:8,ragelevel:1
-      rage2=rs:1,LV:>10/rage:+3,rs:2,exp:+3,manabonus:8:16,ragebonus:8:16,ragelevel:2
-      rage3=rs:2,LV:>20/rage:+4,rs:3,exp:+4,manabonus:16:32,ragebonus:16:32,ragelevel:3
-      rest1=rest:5,LV:>5/rest:-1,exp:+2,restlevel:1
-      rest2=rest:4,LV:>15/rest:-1,exp:+4,restlevel:2
+      level5=level:4,LV:>20/count:+1,rage:+4,rest:+1,exp:+4,level:5
+      rage1=rs:0,level:>1/rage:+2,rest:+1,rs:1,exp:+2,manabonus:4:8,ragebonus:4:8,ragelevel:1
+      rage2=rs:1,LV:>10/rage:+3,rest:+1,rs:2,exp:+3,manabonus:8:16,ragebonus:8:16,ragelevel:2
+      rage3=rs:2,LV:>20/rage:+4,rest:+1,rs:3,exp:+4,manabonus:16:32,ragebonus:16:32,ragelevel:3
+      rest1=rest:0,LV:>5,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=rest:1,LV:>15,rest:>1/rest:-1,exp:+4,restlevel:2
     }
   }
   orb {
@@ -89,19 +89,19 @@ spirit {
     level=2
     default=level1
     upgrade {
-      level1=level:0/damage:physical:110:130,health:200,init:1,rage:15,rest:6,exp:15,level:1
-      attack1=attack:0,level:>0/damage:physical:+110:+130,health:+100,init:+2,rage:+5,exp:+5,atk:+10,attack:1
-      attack2=attack:1/damage:physical:+110:+130,health:+100,init:+2,rage:+10,exp:+10,atk:+15,attack:2
-      attack3=attack:2,LV:>29/damage:physical:+110:+130,health:+100,init:+2,rage:+15,exp:+15,atk:+25,attack:3
-      defense1=defense:0,level:>0/damage:physical:+55:+65,health:+200,init:+1,rage:+5,exp:+5,def:+10,defense:1
-      defense2=defense:1/damage:physical:+55:+65,health:+200,init:+1,rage:+10,exp:+10,def:+15,defense:2
-      defense3=defense:2,LV:>28/damage:physical:+55:+65,health:+200,init:+1,rage:+15,exp:+15,def:+25,defense:3
+      level1=level:0/damage:physical:110:130,health:200,init:1,rage:15,rest:1,exp:15,level:1
+      attack1=attack:0,level:>0/damage:physical:+110:+130,health:+100,init:+2,rage:+5,rest:+1,exp:+5,atk:+10,attack:1
+      attack2=attack:1/damage:physical:+110:+130,health:+100,init:+2,rage:+10,rest:+1,exp:+10,atk:+15,attack:2
+      attack3=attack:2,LV:>29/damage:physical:+110:+130,health:+100,init:+2,rage:+15,rest:+1,exp:+15,atk:+25,attack:3
+      defense1=defense:0,level:>0/damage:physical:+55:+65,health:+200,init:+1,rage:+5,rest:+1,exp:+5,def:+10,defense:1
+      defense2=defense:1/damage:physical:+55:+65,health:+200,init:+1,rage:+10,rest:+1,exp:+10,def:+15,defense:2
+      defense3=defense:2,LV:>28/damage:physical:+55:+65,health:+200,init:+1,rage:+15,rest:+1,exp:+15,def:+25,defense:3
       rage1=rs:0,level:>0,rage:>10,LV:>6/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,LV:>10,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
       rage3=rs:2,LV:>35,rage:>20/rage:-20,rs:3,exp:+20,ragelevel:3
-      rest1=rest:6,LV:>9/rest:-1,exp:+2,restlevel:1
-      rest2=rest:5,LV:>19/rest:-1,exp:+4,restlevel:2
-      rest3=rest:4,LV:>34/rest:-1,exp:+6,restlevel:3
+      rest1=rest:0,LV:>9,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=rest:1,LV:>19,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=rest:2,LV:>34,rest:>2/rest:-2,exp:+6,restlevel:3
     }
   }
   devatron {
@@ -109,19 +109,18 @@ spirit {
     script_attack=lina_devatron
     script_calccells=devatron_calccells
     script_highlight=devatron_highlight
-    log_label=null
     level=4
     default=level1
     upgrade {
-      level1=level:0/rage:30,rest:6,exp:30,level:1
-      rage1=rs:0,level:>0,LV:>6,rage:>2/rage:-2,rs:1:exp:+2,ragelevel:1
-      rage2=rs:1,LV:>15,rage:>3/rage:-3,rs:2,exp:+3,ragelevel:2
-      rage3=rs:2,LV:>25,rage:>4/rage:-4,rs:3,exp:+4,ragelevel:3
-      rage4=rs:3,LV:>35,rage:>5/rage:-5,rs:4,exp:+5,ragelevel:4
-      rest1=rest:6,LV:>5/rest:-1,exp:+2,restlevel:1
-      rest2=rest:5,LV:>16/rest:-1,exp:+4,restlevel:2
-      rest3=rest:4,LV:>27/rest:-1,exp:+6,restlevel:3
-      rest4=rest:3,LV:>38/rest:-1,exp:+8,restlevel:4
+      level1=level:0/damage:physical:150:250,rage:7,rest:2,exp:7,level:1,freeze:20,duration:2,thorns:10
+      level2=level:1/damage:physical:+150:+250,rage:+3,rest:+1,exp:+3,level:2,freeze:+20,duration:+1,thorns:+10
+      level3=level:2/damage:physical:+300:+500,rage:+6,rest:+1,exp:+6,level:3,freeze:+20,duration:+1,thorns:+10
+      level4=level:3/damage:physical:+600:+1000,rage:+12,rest:+1,exp:+12,level:4,freeze:+20,duration:+1,thorns:+10
+      level5=level:4/damage:physical:+1200:+2000,rage:+24,rest:+1,exp:+24,level:5,freeze:+20,duration:+1,thorns:+10
+      rage1=rs:0,level:>2,LV:>16,rage:>10/rage:-10,rs:1:exp:+10,ragelevel:1
+      rage2=rs:1,level:>4,LV:>25,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
+      rest1=rest:0,level:>2,LV:>5,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=rest:1,level:>4,LV:>16,rest:>2/rest:-2,exp:+4,restlevel:2
     }
   }
   gizmo {
@@ -131,20 +130,20 @@ spirit {
     level=6
     default=level1
     upgrade {
-      level1=level:0/dmg:250:750,charges:1,ap:2,init:1,heal:500,rage:15,rest:6,exp:15,dispellgood:0,dispellbad:0,apally:0,apenemy:0,level:1
-      attack1=attack:0,level:>0/dmg:+250:+750,charges:+1,init:+2,heal:+250,rage:+5,exp:+5,dispellgood:1,attack:1
-      attack2=attack:1/dmg:+250:+750,charges:+1,ap:+2,heal:+250,rage:+10,exp:+10,apenemy:1,attack:2
-      attack3=attack:2/dmg:+250:+750,charges:+1,init:+2,heal:+250,rage:+15,exp:+15,attack:3
-      attack4=attack:3,LV:>28/dmg:+250:+750,charges:+1,ap:+2,heal:+250,rage:+20,exp:+20,attack:4
-      healing1=healing:0,level:>0/dmg:+125:+375,charges:+1,ap:+2,heal:+500,rage:+5,exp:+5,dispellbad:1,healing:1
-      healing2=healing:1/dmg:+125:+375,charges:+1,init:+2,heal:+500,rage:+10,exp:+10,apally:1,healing:2
-      healing3=healing:2/dmg:+125:+375,charges:+1,ap:+2,heal:+500,rage:+15,exp:+15,healing:3
-      healing4=healing:3,LV:>29/dmg:+125:+375,charges:+1,init:+2,heal:+500,rage:+20,exp:+20,healing:4
+      level1=level:0/dmg:250:750,charges:1,ap:2,init:1,heal:500,rage:15,rest:1,exp:15,dispellgood:0,dispellbad:0,apally:0,apenemy:0,level:1
+      attack1=attack:0,level:>0/dmg:+250:+750,charges:+1,init:+2,heal:+250,rage:+5,rest:+1,exp:+5,dispellgood:1,attack:1
+      attack2=attack:1/dmg:+250:+750,charges:+1,ap:+2,heal:+250,rage:+10,rest:+1,exp:+10,apenemy:1,attack:2
+      attack3=attack:2/dmg:+250:+750,charges:+1,init:+2,heal:+250,rage:+15,rest:+1,exp:+15,attack:3
+      attack4=attack:3,LV:>28/dmg:+250:+750,charges:+1,ap:+2,heal:+250,rage:+20,rest:+1,exp:+20,attack:4
+      healing1=healing:0,level:>0/dmg:+125:+375,charges:+1,ap:+2,heal:+500,rage:+5,rest:+1,exp:+5,dispellbad:1,healing:1
+      healing2=healing:1/dmg:+125:+375,charges:+1,init:+2,heal:+500,rage:+10,rest:+1,exp:+10,apally:1,healing:2
+      healing3=healing:2/dmg:+125:+375,charges:+1,ap:+2,heal:+500,rage:+15,rest:+1,exp:+15,healing:3
+      healing4=healing:3,LV:>29/dmg:+125:+375,charges:+1,init:+2,heal:+500,rest:+1,rage:+20,exp:+20,healing:4
       rage1=rs:0,level:>0,rage:>10,LV:>12/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,LV:>18,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
-      rest1=rest:6,LV:>10/rest:-1,exp:+2,restlevel:1
-      rest2=rest:5,LV:>25/rest:-1,exp:+4,restlevel:2
-      rest3=rest:4,LV:>35/rest:-1,exp:+6,restlevel:3
+      rest1=rest:0,LV:>10,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=rest:1,LV:>25,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=rest:2,LV:>35,rest:>2/rest:-2,exp:+6,restlevel:3
     }
   }
 }

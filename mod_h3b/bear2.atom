@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_bear_feat
-  features_hints=critical_damage_header/critical_damage_hint,spiteful_header/spiteful_hint,drowsiness_header/drowsiness_hint,noble_beast_header/noble_beast_hint
+  features_hints=critical_damage_header/critical_damage_hint,spiteful_header/spiteful_hint,drowsiness_header/drowsiness_hint,noble_beast_header/noble_beast_hint,forest_liker_header/forest_liker_hint
   race=neutral
   cost=240
   level=3
@@ -51,8 +51,8 @@ arena_params {
   }
   arena_bonuses {
     1 {
-      logbits=winter
-      defense=50%
+      logbits=forest
+      attack=25%
     }
   }
 }

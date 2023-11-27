@@ -193,7 +193,7 @@ hero_paladin { // ******************** Паладин ********************
 	scroll_chance=50
         // New! Set spell = 0 for a random spell / scroll at start based on chance above
         spells {
-	        spell_dispel=0
+	        spell_dispell=0
         	spell_healing=1
         	spell_defenseless=0
 		spell_stone_skin=0
@@ -278,7 +278,7 @@ hero_mage { // ******************** Маг ********************
 	scroll_chance=25
         // New! Set spell = 0 for a random spell / scroll at start based on chance above
         spells {
-	        spell_dispel=0
+	        spell_dispell=0
         	spell_healing=-1
         	spell_defenseless=0
 		spell_stone_skin=0

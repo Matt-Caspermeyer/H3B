@@ -1,0 +1,416 @@
+main {
+  class=chesspiece
+  model=unicorn.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_unicorn_feat
+  features_hints=magic_resistance_header/magic_resistance_hint,light_horn_header/light_horn_hint,defender_beauty_header/defender_beauty_hint,forest_lover_header/forest_lover_hint,dungeon_disliker_header/dungeon_disliker_hint
+  race=elf
+  cost=750
+  level=4
+  leadership=130
+  attack=23
+  defense=20
+  defenseup=4
+  initiative=4
+  speed=5
+  hitpoint=120
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  features=beast
+  attacks=moveattack,demonhell
+  resistances {
+    physical=0
+    poison=0
+    magic=25
+    fire=0
+  }
+  moveattack {
+    group=1,1
+    base_attack=1
+    ad_factor=1
+    conditions {
+      ~race=demon,undead
+    }
+    damage {
+      physical=10,17
+    }
+  }
+  demonhell {
+    group=1,2
+    base_attack=1
+    class=moveattack
+    ad_factor=1
+    options=disablerush
+    anim_attack=power
+    conditions {
+      race=demon,undead
+    }
+    damage {
+      physical=10,17
+      magic=3,6
+    }
+  }
+  lighthorn {
+    class=moveattack
+    hinthead=special_unicorn_head
+    hint=special_unicorn_hint
+    picture=ba1_lighthorn_
+    picture_small=ba1_lighthorn_small.png
+    reload=5
+    options=disablerush,used_if_damaged
+    base_attack=0
+    ad_factor=1
+    anim_attack=power
+    damage {
+      physical=1,1
+      magic=1,1
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=forest
+      attack=50%
+    }
+    2 {
+      logbits=dungeon
+      moral=-1
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=unicorn_idle.bsa/fr:25:50
+  rare=unicorn_rare.bsa/fr:25:50
+  attack=unicorn_attack.bsa/fr:25:50
+  move=unicorn_move.bsa/fr:40:80
+  start=unicorn_start.bsa/fr:40:80
+  stop=unicorn_stop.bsa/fr:40:80
+  clock=unicorn_clock.bsa/fr:40:80
+  contra=unicorn_contra.bsa/fr:40:80
+  clock2=unicorn_2clock.bsa/fr:40:80
+  contra2=unicorn_2contra.bsa/fr:40:80
+  lturn=unicorn_lturn.bsa/fr:40:80
+  rturn=unicorn_rturn.bsa/fr:40:80
+  damage=unicorn_damage.bsa/fr:20:40
+  death=unicorn_death.bsa/fr:25:50
+  respawn=unicorn_respawn.bsa/fr:25:50
+  slew=unicorn_slew.bsa/fr:40:80
+  rush=unicorn_rush.bsa/fr:35:70
+  teleout=unicorn_idle.bsa/fr:25:50/r:50:85
+  telein=unicorn_idle.bsa/fr:25:50/r:0:35
+  power=unicorn_attack.bsa/fr:25:50
+  cursor=unicorn_rare.bsa/fr:25:50
+  happy=unicorn_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:rare:1:1:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    22.0?x=
+    0.0=cam
+  }
+  @power {
+    22.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    12.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/1.11114502/0/0/-0/0/0.69999999
+      animation=idlemain
+      file=env_yellow_butterfly.ptb
+    }
+    particle {
+      trans=0/1.11114502/0/0/-0/0/0.69999999
+      animation=rare
+      file=env_yellow_butterfly.ptb
+    }
+  }
+  0 {
+    slot=2
+    particle {
+      trans=0/-0/0/0.64999998
+      animation=idlemain
+      file=env_stars_screw.ptb
+    }
+    particle {
+      trans=0/-0/0/0.75
+      animation=attack
+      frame=0/31
+      file=attack_unicorn.ptb
+    }
+    particle {
+      trans=0/-0/0/0.75
+      animation=rush
+      frame=0/31
+      file=attack_unicorn.ptb
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/0.75
+      animation=rare
+      frame=1/38
+      file=attack_unicorn.ptb
+    }
+    particle {
+      trans=0/-0.86425781/0.61737061/0/-0/0/0.80000001
+      compass=true
+      animation=move
+      frame=0/15
+      file=move_yellow_butterfly.ptb
+    }
+    particle {
+      trans=0/-0.86425781/0.61737061/0/-0/0/0.80000001
+      compass=true
+      animation=start
+      frame=0/15
+      file=move_yellow_butterfly.ptb
+    }
+    particle {
+      trans=0/-0.86425781/0.61737061/0/-0/0/0.80000001
+      compass=true
+      animation=stop
+      frame=0/15
+      file=move_yellow_butterfly.ptb
+    }
+    particle {
+      trans=0/-0.86425781/0.61737061/0/-0/0/0.80000001
+      compass=true
+      animation=rush
+      frame=0/15
+      file=move_yellow_butterfly.ptb
+    }
+    particle {
+      trans=0/-0.86425781/0.61737061/0/-0/0/0.80000001
+      compass=true
+      animation=lturn
+      frame=0/15
+      file=move_yellow_butterfly.ptb
+    }
+    particle {
+      trans=0/-0.86425781/0.61737061/0/-0/0/0.80000001
+      compass=true
+      animation=rturn
+      frame=0/15
+      file=move_yellow_butterfly.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0.18000001/0.088/-0.61737061/0/-0.00000409/0/0.5
+      animation=rare
+      frame=18/20
+      restart=true
+      file=env_stars_puff.ptb
+    }
+    particle {
+      trans=0.2/0.034/-0.61737061/0/-0.00408591/0/0.80000001
+      animation=rare
+      frame=30/32
+      file=env_stars_puff.ptb
+    }
+  }
+  1 {
+    particle {
+      animation=death
+      frame=0/30
+      file=move_butterfly_away.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/3.20000005/1.11114502/1.57000029/0/-0.65932417/0.99999976
+      animation=power
+      frame=8/39
+      restart=true
+      file=attack_unicorn_horn.ptb
+    }
+    particle {
+      trans=0/3/1.60491943/1.57000005/0/-0.50420058/0.50000024
+      animation=power
+      frame=16/33
+      file=attack_unicorn_beam.ptb
+    }
+    particle {
+      trans=0/0.94999999/-1.60491943/0/-0/0/0.69999999
+      animation=power
+      frame=22/39
+      file=attack_unicorn_blast.ptb
+    }
+    camshaker {
+      animation=power
+      frame=22/39
+      envelope=quake_small.envlp
+      attenuation=0.01
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=unicorn_cursor
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=unicorn_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=unicorn_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=unicorn_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=unicorn_damage
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=unicorn_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=unicorn_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=unicorn_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=unicorn_contra
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=unicorn_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=unicorn_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=unicorn_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=unicorn_death
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=unicorn_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=unicorn_rush
+      fadetime=60
+    }
+    sound {
+      animation=power
+      frame=0.01
+      file=unicorn_power
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=unicorn_cursor
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=unicorn_victory
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  unicorn_idle.bsa=file
+  unicorn_rare.bsa=file
+  unicorn_attack.bsa=file
+  unicorn_move.bsa=file
+  unicorn_start.bsa=file
+  unicorn_stop.bsa=file
+  unicorn_clock.bsa=file
+  unicorn_contra.bsa=file
+  unicorn_2clock.bsa=file
+  unicorn_2contra.bsa=file
+  unicorn_lturn.bsa=file
+  unicorn_rturn.bsa=file
+  unicorn_damage.bsa=file
+  unicorn_death.bsa=file
+  unicorn_respawn.bsa=file
+  unicorn_victory.bsa=file
+  unicorn_rush.bsa=file
+}

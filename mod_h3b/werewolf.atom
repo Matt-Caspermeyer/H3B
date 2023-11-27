@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_werewolf_feat
-  features_hints=blade_header/blade_hint,night_sight_header/night_sight_hint,regeneration_header/regeneration_hint,tolerance_header/tolerance_hint,pack_leader_header/pack_leader_hint
+  features_hints=blade_header/blade_hint,night_sight_header/night_sight_hint,regeneration_header/regeneration_hint,tolerance_header/tolerance_hint,pack_leader_header/pack_leader_hint,forest_lover_header/forest_lover_hint
   race=elf
   cost=160
   level=3
@@ -51,6 +51,10 @@ arena_params {
     1 {
       logbits=dungeon
       daytime=8
+      attack=50%
+    }
+    2 {
+      logbits=forest
       attack=50%
     }
   }

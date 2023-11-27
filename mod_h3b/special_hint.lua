@@ -111,6 +111,12 @@ function gen_special_hint(unit,par)
     if par == "health_count" then 
     	 text = tonumber( text ) * Attack.act_size( 0 ) .. "" 
     end 
+
+    if par == "health_totem" then 
+      local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
+      local total_hp = tonumber( text ) / 100 * Attack.act_totalhp( 0 )
+    	 text = tostring( math.ceil( total_hp + titan_energy ) ) .. "" 
+    end 
   end 
 
   if string.find( par, "penalty" )
@@ -290,6 +296,29 @@ function gen_special_hint(unit,par)
 
     text = color .. tostring( diff_k ) .. "%"
   end
+
+  -- New Titan Energy
+  if string.find( par, "titan_energy" ) then
+    local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
+
+    if titan_energy > 2 then
+      text = " <color=0,245,255>" .. "+" .. tostring( titan_energy ) .. "</color> <label=special_titan_energy2>"
+    elseif titan_energy > 1 then
+      text = " <color=0,245,255>" .. "+" .. tostring( titan_energy ) .. "</color> <label=special_titan_energy1>"
+    end
+  end 
+
+  -- New Titan Energy
+  if string.find( par, "init_totem" ) then
+    local health = apars.custom_params.health
+    local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
+    local total_hp = tonumber( health ) / 100 * Attack.act_totalhp( 0 )
+    local hp = math.ceil( total_hp + titan_energy )
+    local init, init_base = Attack.act_get_par( 0, "initiative" )
+    local init_den = apars.custom_params.init_den
+    local totem_init = init_base + math.floor( hp / init_den )
+    text = tostring( totem_init )
+  end 
 
   return text
 end

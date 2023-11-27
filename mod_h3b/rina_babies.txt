@@ -1288,7 +1288,7 @@ kid_septienna {
     sp_gain_power_plague=count,12
     sp_duration_smile_skull=count,1
     sp_gain_power_smile_skull=count,12
-    sp_gain_infliction_smile_skull=count,12
+    sp_gain_infliction_poison=count,12
   }
   propbits=child,rare
   params {}

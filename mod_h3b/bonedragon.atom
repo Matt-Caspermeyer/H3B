@@ -10,7 +10,7 @@ main {
 }
 arena_params {
   features_label=cpi_bonedragon_feat
-  features_hints=undead_header/undead_hint,bone_header/bone_hint,flies_header/flies_hint,bonedragon_attack_header/bonedragon_attack_hint
+  features_hints=undead_header/undead_hint,bone_header/bone_hint,flies_header/flies_hint,bonedragon_attack_header/bonedragon_attack_hint,dread_header/dread_hint
   posthitslave=features_bone_creature
   race=undead
   cost=3200
@@ -28,6 +28,7 @@ arena_params {
   movetype=2
   attacks=moveattack,poison_cloud
   features=bone,undead,dragon
+  ondamage=bone_dragon_ondamage
   posthitmaster=features_bonedragon_attack
   resistances {
     physical=0
@@ -66,7 +67,7 @@ arena_params {
   arena_bonuses {
     1 {
       logbits=cemetery
-      moral=1
+      defense=50%
     }
     2 {
       logbits=dungeon
@@ -78,6 +79,7 @@ arena_params {
 scripts {
   scenario=default_scenario
   idle=default_idle
+  subturn_modificators=features_morale_penalty
 }
 animations {
   idle=/t:1:4:idlemain:1:1:rarelist

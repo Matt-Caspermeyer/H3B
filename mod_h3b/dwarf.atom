@@ -5,6 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_dwarf_feat
+  features_hints=dungeon_liker_header/dungeon_liker_hint,sea_sick_header/sea_sick_hint
   race=dwarf
   cost=220
   level=3
@@ -45,6 +46,16 @@ arena_params {
     picture=BA1_Run_
     custom_params {
       ap=2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=dungeon
+      attack=25%
+    }
+    2 {
+      logbits=sea
+      moral=-2
     }
   }
 }

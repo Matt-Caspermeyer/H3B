@@ -220,6 +220,7 @@ wife_orcelyn {
     sp_lead_unit_catapult=count,9
     sp_lead_unit_orc=count,9
     sp_lead_unit_orc2=count,9
+    sp_lead_unit_shaman=count,9
     sp_lead_unit_ogre=count,9
   }
   propbits=usable,wife

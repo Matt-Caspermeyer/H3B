@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_alchemist_feat
-  features_hints=poison_resistance_header/poison_resistance_hint,acid_sprays_header/acid_sprays_hint,no_melee_header/no_melee_hint
+  features_hints=poison_resistance_header/poison_resistance_hint,acid_sprays_header/acid_sprays_hint,no_melee_header/no_melee_hint,dungeon_liker_header/dungeon_liker_hint,sea_sick_header/sea_sick_hint
   race=dwarf
   cost=920
   level=4
@@ -134,6 +134,16 @@ arena_params {
       burn=0
       poison=0
       holy=100
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=dungeon
+      attack=25%
+    }
+    2 {
+      logbits=sea
+      moral=-2
     }
   }
 }

@@ -142,7 +142,7 @@ spell_defenseless {
 spell_stone_skin {
   category=s
   profit=1
-  price=3965
+  price=7930
   hide=0
   image=book_spell_stone_skin.png
   icon=s_overtime_stone_skin.png
@@ -158,31 +158,32 @@ spell_stone_skin {
     no_hint=1
     ai_ignore=1
     script_attack=spell_stone_skin_attack
-    script_calccells=calccells_all_ally
+    script_calccells=calccells_complex_ally
     attack_cursor=magicstick
     ad_factor=0  // use attack/defense
     nfeatures=magic_immunitet,pawn,boss
   }
   params {
-    duration=2,3,4
+    duration=2,3,3
     type=bonus
-    power=5,10,20
+    power=5,10,10
     int=1 //  If = 1 then the intelligence affects the duration of spells
     dur_res_magic=1  // New! Target's magic resistance effects spell duration
     penalty=1,1,1		// How many drops Initiative
     int_pwr=1  // if = 1 then the intelligence effects spell power
+    unit_count=one,one,all
     hero=1
     destroyer=0
     healer=1
     attack=0
     defense=1
-    mana_cost = 4,7,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 4,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=4,2
     2=7,3
-    3=12,6
+    3=35,17
   }
 }
 
@@ -873,7 +874,7 @@ spell_accuracy {
 spell_haste {
   category=s
   profit=1
-  price=3465
+  price=10235
   image=book_spell_haste.png
   button_image=book_scroll_haste.png
   icon=s_overtime_haste.png
@@ -893,19 +894,20 @@ spell_haste {
     nfeatures=magic_immunitet,pawn,boss
   }
   params {
-    duration=2,3,3
+    duration=1,2,2
     bonus=1,2,2
+    krit=3,6,6       // New! Increases the likelihood of hitting critically
     int=1 // если =1 то интеллект влияет на длительность заклинания
     dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,all
     type=bonus
-    mana_cost = 3,5,25  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 5,10,50  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=3,1
-    2=5,2
-    3=25,12
+    1=5,2
+    2=10,5
+    3=50,25
   }
 }
 
@@ -913,7 +915,7 @@ spell_haste {
 spell_slow {
   category=s
   profit=1
-  price=4910
+  price=12350
   image=book_spell_slow.png
   button_image=book_scroll_slow.png
   icon=s_overtime_slow.png
@@ -933,19 +935,20 @@ spell_slow {
     nfeatures=magic_immunitet,pawn,boss
   }
   params {
-    duration=2,3,3
+    duration=1,2,2
     int=1 // если =1 то интеллект влияет на длительность заклинания
     dur_res_magic=1  // New! Target's magic resistance effects spell duration
     penalty=1,2,2
+    krit=3,6,6       // New! Increases the likelihood of being critically struck
     unit_count=one,one,all
     type=penalty
-    mana_cost = 4,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 6,12,60  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=4,2
-    2=7,3
-    3=35,17
+    1=6,3
+    2=12,6
+    3=60,30
   }
 }
 
@@ -953,7 +956,7 @@ spell_slow {
 spell_reaction {
   category=s
   profit=1
-  price=2090
+  price=4910
   image=book_spell_reaction.png
   button_image=book_scroll_reaction.png
   icon=s_overtime_reaction.png
@@ -972,7 +975,7 @@ spell_reaction {
     unit_count=one,one,all
     attack_cursor=magicstick
     ad_factor=0  // use attack/defense
-    nfeatures=magic_immunitet,pawn,boss
+    nfeatures=magic_immunitet,pawn,boss,undead
   }
   params {
     duration=2,3,3
@@ -982,13 +985,13 @@ spell_reaction {
     bonus=1,2,2
     holy_rage=1
     type=bonus
-    mana_cost = 2,3,15  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 4,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=2,1
-    2=3,1
-    3=15,7
+    1=4,2
+    2=7,3
+    3=35,17
   }
 }
 
@@ -1263,7 +1266,7 @@ spell_trap {
     typedmg=physical
     damage=250-300	// damage
     lvl_inc=150	// increase the damage level in%
-    poison=35
+    poison=25
     count=1,1,1	// not used
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
@@ -1613,8 +1616,9 @@ spell_geyser {
     damage=75-150
     lvl_inc=125
     count=4,6,8	// Maximum number of the targeted goals
-    stun=10     // New parameter, stun targets
-    int_pwr=1  // if = 1 then the intelligence effects spell power
+    freeze=10   // New parameter, freeze targets (not automatic for fire immune units any more)
+    stun=15     // New parameter, stun targets
+    int_pwr=1   // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=1
     healer=0
@@ -1658,14 +1662,14 @@ spell_fire_arrow {
     
   }
   params {
-    damage=150               // урон в формате min-max
-    typedmg=fire    // тип урона
+    damage=150              // урон в формате min-max
+    typedmg=fire            // тип урона
     lvl_inc=150             // прирост урона с уровнем в %
     duration=2              // длительность
-    int=1            //  If = 1 then the intelligence affects the duration of spells
-    dur_res_fire=1  // New! Target's fire resistance effects spell duration
-    burn=25                     // вероятность поджога в зависимости от уровня
-    int_pwr=1  // if = 1 then the intelligence effects spell power
+    int=1                   //  If = 1 then the intelligence affects the duration of spells
+    dur_res_fire=1          // New! Target's fire resistance effects spell duration
+    burn=20                 // вероятность поджога в зависимости от уровня
+    int_pwr=1               // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=1
     healer=0
@@ -1706,7 +1710,7 @@ spell_smile_skull {
     damage=125-175
     lvl_inc=150
     typedmg=poison
-    poison=25
+    poison=20
     int=1            //  If = 1 then the intelligence affects the duration of spells
     dur_res_poison=1  // New! Target's poison resistance effects spell duration
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -2436,7 +2440,7 @@ spell_necromancy {
   }
   params {
     // someone who rises from
-    skeleton=,skeleton,sprite_lake,peasant,robber,
+    skeleton=,skeleton,sprite,sprite_lake,peasant,robber,
     archer=,archer,bowman,elf,elf2,goblin,peasant,
     spider_undead=,spider_undead,spider,spider_venom,spider_fire,
     zombie=,zombie,barbarian2,dryad,footman,goblin,goblin2,miner,sprite,sprite_lake,peasant,pirat,robber,robber2,

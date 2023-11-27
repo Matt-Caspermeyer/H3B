@@ -415,6 +415,7 @@ kid_gretchen {
       attack_on=
       attack_off=
     }
+  }
   mods {
     sp_lead_unit_goblin=count,24
     sp_lead_unit_goblin2=count,24
@@ -1262,11 +1263,56 @@ kid_tyraxor {
       attack_on=
       attack_off=
     }
+    {
+      filter {
+        belligerent=ally
+        unit=shaman
+      }
+      pbonus=health,0,14,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=shaman
+      }
+      pbonus=hitback,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=shaman
+      }
+      pbonus=initiative,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=ally
+        unit=shaman
+      }
+      pbonus=moral,1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
   }
   mods {
     attack=limit,9%
     defense=limit,9%
     sp_lead_unit_catapult=count,19
+    sp_lead_unit_shaman=count,14
   }
   propbits=child,rare
   params {}

@@ -367,9 +367,27 @@ spell_power_config {
      spell_level_min_limit = 1
      spell_level_max_limit = 3
      level_inc_elevel = 10
+     dur_inc=1
 }
 
-//New! For levelup, the level at which the min stat and min limit increase - see LOGIC_HERO.LUA
+// New! Attack / Defense increase parameters
+attack_config {
+     den=7
+     krit_inc=2
+     cap_inc=50
+}
+
+defense_config {
+     den=7
+     res_inc=2
+}
+
+// New! For Leadership Reduction, this is the limit
+hero_leadership_reduction {
+     lr_limit=50
+}
+
+// New! For levelup, the level at which the min stat and min limit increase - see LOGIC_HERO.LUA
 hero_level_up_den {
      stat_den = 15
      limit_den = 10

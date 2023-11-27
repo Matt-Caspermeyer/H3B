@@ -1,0 +1,260 @@
+main {
+  class=chesspiece
+  model=zombie.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_zombie_feat
+  features_hints=undead_header/undead_hint
+  race=undead
+  cost=60
+  level=2
+  leadership=30
+  attack=9
+  defense=13
+  defenseup=3
+  initiative=2
+  speed=2
+  hitpoint=30
+  hitback=1
+  krit=10
+  hitbackprotect=0
+  attacks=moveattack,run
+  movetype=0
+  features=undead
+  resistances {
+    physical=0
+    poison=50
+    magic=0
+    fire=-10
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=3,5
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      defense=50%
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=zombie_idle.bsa/fr:25:50
+  rare=zombie_rare.bsa/fr:25:50
+  attack=zombie_attack.bsa/fr:30:60
+  move=zombie_move.bsa/fr:36:72
+  start=zombie_start.bsa/fr:36:72
+  stop=zombie_stop.bsa/fr:40:80
+  clock=zombie_clock.bsa/fr:40:80
+  contra=zombie_contra.bsa/fr:40:80
+  clock2=zombie_2clock.bsa/fr:40:80
+  contra2=zombie_2contra.bsa/fr:40:80
+  lturn=zombie_lturn.bsa/fr:36:72
+  rturn=zombie_rturn.bsa/fr:36:72
+  damage=zombie_damage.bsa/fr:30:60
+  slew=zombie_slew.bsa/fr:35:70
+  rush=zombie_rush.bsa/fr:25:50
+  death=zombie_death.bsa/fr:25:50
+  respawn=zombie_respawn.bsa/fr:25:50
+  cursor=zombie_rare.bsa/fr:25:50
+  teleout=zombie_idle.bsa/fr:25:50/r:60:95
+  telein=zombie_idle.bsa/fr:25:50/r:0:35
+  happy=zombie_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:rare:1:1:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    28.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    18.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      animation=idlemain
+      frame=1
+      file=env_fly.ptb
+    }
+    particle {
+      animation=rare
+      file=env_fly.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=zombie_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=zombie_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=zombie_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=zombie_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=zombie_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=zombie_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=zombie_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=zombie_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=zombie_contra2
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=zombie_rturn
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=zombie_lturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=zombie_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=zombie_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=zombie_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=zombie_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=zombie_rare
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  zombie_idle.bsa=file
+  zombie_rare.bsa=file
+  zombie_attack.bsa=file
+  zombie_move.bsa=file
+  zombie_start.bsa=file
+  zombie_stop.bsa=file
+  zombie_clock.bsa=file
+  zombie_contra.bsa=file
+  zombie_2clock.bsa=file
+  zombie_2contra.bsa=file
+  zombie_lturn.bsa=file
+  zombie_rturn.bsa=file
+  zombie_damage.bsa=file
+  zombie_death.bsa=file
+  zombie_respawn.bsa=file
+  zombie_victory.bsa=file
+  zombie_rush.bsa=file
+}

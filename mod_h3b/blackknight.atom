@@ -1,0 +1,255 @@
+main {
+  class=chesspiece
+  model=blackknight.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_blackknight_feat
+  features_hints=undead_header/undead_hint,steel_armor_header/steel_armor_hint,dark_commander_header/dark_commander_hint,increasing_anger_header/increasing_anger_hint
+  race=undead
+  cost=1000
+  level=4
+  leadership=150
+  attack=25
+  defense=25
+  defenseup=5
+  initiative=3
+  speed=2
+  hitpoint=160
+  movetype=0
+  krit=15
+  hitback=1
+  hitbackprotect=0
+  posthitmaster=features_increase_anger
+  attacks=moveattack,run
+  features=armor,undead
+  resistances {
+    physical=30
+    poison=50
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=12,16
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      defense=50%
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=blackknight_idle.bsa/fr:25:50
+  rare=blackknight_rare.bsa/fr:25:50
+  attack=blackknight_attack.bsa/fr:25:50
+  move=blackknight_move.bsa/fr:25:50
+  start=blackknight_start.bsa/fr:25:50
+  stop=blackknight_stop.bsa/fr:25:50
+  clock=blackknight_clock.bsa/fr:25:50
+  contra=blackknight_contra.bsa/fr:25:50
+  clock2=blackknight_2clock.bsa/fr:20:40
+  contra2=blackknight_2contra.bsa/fr:20:40
+  lturn=blackknight_lturn.bsa/fr:25:50
+  rturn=blackknight_rturn.bsa/fr:25:50
+  damage=blackknight_damage.bsa/fr:25:50
+  rush=blackknight_rush.bsa/fr:25:50
+  slew=blackknight_slew.bsa/fr:25:50
+  death=blackknight_death.bsa/fr:25:50
+  respawn=blackknight_respawn.bsa/fr:25:50
+  cursor=blackknight_rare.bsa/fr:25:50
+  teleout=blackknight_idle.bsa/fr:25:50/r:55:90
+  telein=blackknight_idle.bsa/fr:25:50/r:0:35
+  happy=blackknight_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:idlemain:1:1:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    20.0?x=
+    0.0=cam
+  }
+  @rush {
+    12.0?x=
+    0.0=cam
+  }
+  @damage {
+    1.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=blackknight_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=blackknight_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=blackknight_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=blackknight_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      file=blackknight_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=blackknight_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=blackknight_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=blackknight_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=blackknight_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=blackknight_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=blackknight_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=blackknight_damage
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=blackknight_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=blackknight_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=blackknight_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=blackknight_happy
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=blackknight_slew
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  blackknight_idle.bsa=file
+  blackknight_rare.bsa=file
+  blackknight_attack.bsa=file
+  blackknight_move.bsa=file
+  blackknight_start.bsa=file
+  blackknight_stop.bsa=file
+  blackknight_clock.bsa=file
+  blackknight_contra.bsa=file
+  blackknight_2clock.bsa=file
+  blackknight_2contra.bsa=file
+  blackknight_lturn.bsa=file
+  blackknight_rturn.bsa=file
+  blackknight_damage.bsa=file
+  blackknight_death.bsa=file
+  blackknight_respawn.bsa=file
+  blackknight_victory.bsa=file
+  blackknight_rush.bsa=file
+}

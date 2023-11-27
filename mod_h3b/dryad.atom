@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_dryad_feat
-  features_hints=soars_header/soars_hint,no_retaliation_header/no_retaliation_hint,beauty_header/beauty_hint,charm_header/charm_hint,wood_fairy_header/wood_fairy_hint
+  features_hints=soars_header/soars_hint,no_retaliation_header/no_retaliation_hint,beauty_header/beauty_hint,charm_header/charm_hint,wood_fairy_header/wood_fairy_hint,forest_lover_header/forest_lover_hint,dungeon_disliker_header/dungeon_disliker_hint
   race=elf
   cost=50
   level=2
@@ -81,6 +81,16 @@ arena_params {
     picture_small=BA1_ElfSong_small.png
   }
 }
+  arena_bonuses {
+    1 {
+      logbits=forest
+      attack=50%
+    }
+    2 {
+      logbits=dungeon
+      moral=-1
+    }
+  }
 scripts {
   scenario=default_scenario
   idle=default_idle

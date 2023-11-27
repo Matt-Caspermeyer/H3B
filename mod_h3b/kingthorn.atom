@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_kingthorn_feat
-  features_hints=shot_header/shot_hint,plant_header/plant_hint,eyeless_header/eyeless_hint,thorn_commander_header/thorn_commander_hint
+  features_hints=shot_header/shot_hint,plant_header/plant_hint,eyeless_header/eyeless_hint,thorn_commander_header/thorn_commander_hint,tasty_soil_header/tasty_soil_hint
   race=neutral
   cost=600
   level=4
@@ -84,6 +84,12 @@ arena_params {
     custom_params {
       level=4
       movetype=1
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=forest
+      health=25%
     }
   }
 }

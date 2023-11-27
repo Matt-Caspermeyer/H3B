@@ -123,6 +123,7 @@ hint_t0 {
     f14=<font=ft1_14>
     f12=<font=ft1_12>
     health=<color=252,249,220><gen=gen_pawn_health></color>
+    damage=<color=255,128,0><gen=gen_devatron_par,damage></color>
 }
 
 
@@ -134,6 +135,21 @@ left_t=<shadow=on><align=left>$ //<color=235,223,179>
 left_t {
     header=<align=center>
     /header=<align=left>
+    att_den=<color=230,232,250><gen=gen_adi_par,att_den></color>
+    krit_inc=<color=240,168,4><gen=gen_adi_par,att_krit_inc></color>
+    att_cap_inc=<color=238,99,99><gen=gen_adi_par,att_cap_inc></color>
+    att_inc=<color=238,99,99><gen=gen_adi_par,att_inc></color>
+    att_krit=<color=240,168,4><gen=gen_adi_par,att_krit></color>
+    def_den=<color=230,232,250><gen=gen_adi_par,def_den></color>
+    res_inc=<color=219,230,224><gen=gen_adi_par,def_res_inc></color>
+    def_res=<color=219,230,224><gen=gen_adi_par,def_res></color>
+    def_dec=<color=144,254,251><gen=gen_adi_par,dam_dec></color>
+    int_den=<color=230,232,250><gen=gen_adi_par,int_den></color>
+    power_inc=<color=255,240,245><gen=gen_adi_par,power_inc></color>
+    dur_den=<color=110,255,112><gen=gen_adi_par,dur_den></color>
+    dur_inc=<color=110,255,112><gen=gen_adi_par,dur_inc></color>
+    int_power=<color=255,240,245><gen=gen_adi_par,int_power></color>
+    int_dur=<color=110,255,112><gen=gen_adi_par,int_dur></color>
 }
 
 // подбор всего и вся на карте
@@ -1057,6 +1073,10 @@ special_t {
     nlsummon=<color=252,249,220><gen=gen_special_hint,nlsummon></color>
     Necromancy=<gen=gen_special_hint,necromancy_hint>
     sacrifice=<color=252,249,220><gen=gen_special_hint,sacrifice></color>
+    health_totem=<color=252,249,220><gen=gen_special_hint,health_totem></color>
+    health%=<color=252,249,220><gen=gen_special_hint,health%></color>
+    titan_energy=<gen=gen_special_hint,titan_energy>
+    init_totem=<color=252,249,220><gen=gen_special_hint,init_totem></color>
 }
 
 special_tt=<shadow=on><align=left><font=ft1_14><color=255,243,179>$<color=222,194,94>
@@ -1187,6 +1207,9 @@ int_spr_LvlUp_tAD {
     rage_capture=<label=spirit_hint_rage_capture>
     ap=<label=spirit_hint_ap>
     init=<label=spirit_hint_init>
+    freeze=<label=spirit_hint_freeze>
+    thorns=<label=spirit_hint_thorns>
+    duration=<label=spirit_hint_duration>
 
     dispellgood=[br]<label=spirit_dispellgood>
     dispellbad=[br]<label=spirit_dispellbad>
@@ -1274,6 +1297,10 @@ int_spr_LvlUp_tAD {
     res_allNew=<lvu=new.res_all>
     durationOld=<lvu=old.duration>
     durationNew=<lvu=new.duration>
+    freezeOld=<lvu=old.freeze>
+    freezeNew=<lvu=new.freeze>
+    thornsOld=<lvu=old.thorns>
+    thornsNew=<lvu=new.thorns>
 
 
 }
@@ -1317,6 +1344,8 @@ int_spr_tH0 {
     defense=<gen=gen_spirit_param,wall_def>
     res_all=<gen=gen_spirit_param,res_all>
     duration=<gen=gen_spirit_param,duration>
+    freeze=<gen=gen_spirit_param,freeze>
+    thorns=<gen=gen_spirit_param,thorns>
 
 }
 
@@ -1722,6 +1751,9 @@ blog_td0 {
     drudge=<label=battle_drudge>
     skc=<color=240,168,4>
     stc=<color=0,187,232>
+    durold=<durold>
+    durnew=<durnew>
+    restype=<restype>
 }
 
 
@@ -1874,7 +1906,9 @@ spells_tSpell {
     DS03_Resist=<gen=gen_dmg_stone_skin,#,power>                //камнекожа
     DS03_Penalty=<gen=gen_dmg_stone_skin,#>
     DS04_Speed=<gen=gen_dmg_haste,#>                                    // ускорение
+    DS04_Krit=<gen=gen_dmg_haste,#,krit>
     DS05_Speed=<gen=gen_dmg_slow,#>                                 // замеделение
+    DS05_Krit=<gen=gen_dmg_slow,#,krit>
     DS06_Radius=<gen=gen_dmg_teleport,#>                                    // телепорт
     DS07_Damage=<gen=gen_dmg_accuracy,#>                            // точность
     DS08_Penalty=<gen=gen_dmg_pygmy,#>                          // карлик
@@ -1897,6 +1931,7 @@ spells_tSpell {
     DS18_Damage=<gen=gen_dmg_geyser,#>                            // камикадзе
     DS18_Count=<gen=gen_dmg_geyser,#,count>                            // камикадзе
     DS18_Stun=<gen=gen_dmg_geyser,#,stun>                            // камикадзе
+    DS18_Freeze=<gen=gen_dmg_geyser,#,freeze>
     DS19_Level=<gen=gen_dmg_invisibility,#>                                    // берс
 
     CS01_Damage=<gen=gen_dmg_smile_skull,#>                     //череп

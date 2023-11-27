@@ -5040,6 +5040,7 @@ flame_necklace {
   }
   mods {
     sp_spell_fire=count,15
+    sp_gain_infliction_burn=count,15
   }
   propbits=artefact
   arena=aitem_demon01
@@ -5128,6 +5129,7 @@ storm_necklace {
   use {}
   mods {
     sp_spell_fire=count,30
+    sp_gain_infliction_burn=count,30
   }
   propbits=artefact
   params {
@@ -6477,6 +6479,7 @@ adept_staff {
   mods {
     intellect=count,2
     sp_gain_power_lightning=count,10
+    sp_gain_infliction_shock=count,10
   }
   propbits=weapon,rare
   arena=aitem_human_03
@@ -6581,6 +6584,7 @@ arhmage_staff {
   mods {
     intellect=count,5
     sp_gain_power_lightning=count,20
+    sp_gain_infliction_shock=count,20
   }
   propbits=weapon,rare,moral
   arena=aitem_human_02

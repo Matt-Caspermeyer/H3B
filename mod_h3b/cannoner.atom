@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_cannoner_feat
-  features_hints=shot_header/shot_hint,siege_weapon_header/siege_weapon_hint,no_melee_header/no_melee_hint
+  features_hints=shot_header/shot_hint,siege_weapon_header/siege_weapon_hint,no_melee_header/no_melee_hint,dungeon_liker_header/dungeon_liker_hint
   race=dwarf
   cost=800
   level=4
@@ -85,6 +85,12 @@ arena_params {
     framekey=x
     damage {
       physical=18,30
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=dungeon
+      moral=1
     }
   }
 }

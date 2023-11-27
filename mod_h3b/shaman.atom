@@ -68,7 +68,8 @@ arena_params {
     attack_cursor=magicstick
     custom_params {
       atomname=totem_life
-      health=7
+      health=50     // percent of shaman health
+      init_den=2e3  // initiative increase per this health
     }
   }
   ice_totem {
@@ -84,7 +85,8 @@ arena_params {
     attack_cursor=magicstick
     custom_params {
       atomname=totem_death
-      health=10
+      health=40     // percent of shaman health
+      init_den=2e3  // initiative increase per this health
     }
   }
 }

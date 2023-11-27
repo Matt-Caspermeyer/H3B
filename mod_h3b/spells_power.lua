@@ -23,9 +23,9 @@ end
 -- NEW! Gets the enemy hero level if function inputs are nil
 function get_enemy_hero_stuff( level )
   local ehero_level = Logic.enemy_hero_level()
-  local spell_level_min_limit = Game.Config( "spell_power_config/spell_level_min_limit" )
-  local spell_level_max_limit = Game.Config( "spell_power_config/spell_level_max_limit" )
-  local level_inc_elevel = Game.Config( "spell_power_config/level_inc_elevel" )
+  local spell_level_min_limit = tonumber( Game.Config( "spell_power_config/spell_level_min_limit" ) )
+  local spell_level_max_limit = tonumber( Game.Config( "spell_power_config/spell_level_max_limit" ) )
+  local level_inc_elevel = tonumber( Game.Config( "spell_power_config/level_inc_elevel" ) )
 
   if ehero_level ~= nil then
     if ehero_level ~= 0 then
@@ -72,11 +72,11 @@ end
 -- New common function for computing power increase as a function of intelligence
 function int_pwr( pwr, ehero_level )
   local num = HInt()
-  local mod = Game.Config( "spell_power_config/mod" )
-  local mod_limit = Game.Config( "spell_power_config/mod_limit" )
-  local den_scholar = Game.Config( "spell_power_config/den_scholar" )
-  local inc = Game.Config( "spell_power_config/inc" )
-  local inc_limit = Game.Config( "spell_power_config/inc_limit" )
+  local mod = tonumber( Game.Config( "spell_power_config/mod" ) )
+  local mod_limit = tonumber( Game.Config( "spell_power_config/mod_limit" ) )
+  local den_scholar = tonumber( Game.Config( "spell_power_config/den_scholar" ) )
+  local inc = tonumber( Game.Config( "spell_power_config/inc" ) )
+  local inc_limit = tonumber( Game.Config( "spell_power_config/inc_limit" ) )
 
   if ehero_level == nil then
     mod = math.max( mod_limit, mod - tonumber( Logic.hero_lu_item( "sp_power_mod", "count" ) ) / den_scholar )
@@ -358,18 +358,43 @@ end
 
 
 -- New common function for computing the percent of an infliction
-function get_infliction( spell, level, kind, text )
-  local infliction = tonumber( Logic.obj_par( spell, kind ) )
+function get_infliction( spell, level, kind, ehero_level, text )
+  local infliction = tonum( Logic.obj_par( spell, kind ) )
+  local base_infliction = infliction * level
   local bonus_string = ""
-  infliction, bonus_string = get_add_bonus( spell, infliction, "sp_add_infliction_", text )
-  local sp_gain_infliction = 1 + tonumber( Logic.hero_lu_item( string.gsub( spell, "spell_", "sp_gain_infliction_" ), "count" ) ) / 100
+  local sp_add_infliction = tonum( Logic.hero_lu_item( "sp_add_infliction_" .. kind, "count" ) )
+  infliction = infliction + sp_add_infliction
+  local sp_gain_infliction = 1 + tonum( Logic.hero_lu_item( "sp_gain_infliction_" .. kind, "count" ) ) / 100
   infliction = infliction * sp_gain_infliction
-  infliction = infliction * level + HInt()
+  local sp_attack_infliction = get_sp_bonus( spell, "attack", ehero_level )
+  local sp_destroyer_infliction = get_sp_bonus( spell, "destroyer", ehero_level )
+  local sp_int_infliction = 1 + HInt() / 100
+  infliction = infliction * level * sp_int_infliction * sp_attack_infliction * sp_destroyer_infliction
   infliction = round( infliction )
 
   if text ~= nil then
+    if infliction > base_infliction then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_base_infliction_" .. kind .. "> " .. gen_dmg_common_hint( kind, tostring( base_infliction ) )
+    end
+
+    if sp_int_infliction > 0 then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_int_infliction_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_int_infliction - 1 ) * 100 ) ) )
+    end
+
+    if sp_add_infliction > 0 then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_add_infliction_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( sp_add_infliction ) )
+    end
+
     if sp_gain_infliction > 1 then
       bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_gain_infliction_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_gain_infliction - 1 ) * 100 ) ) )
+    end
+
+    if sp_attack_infliction > 1 then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_attack_infliction_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_attack_infliction - 1 ) * 100 ) ) )
+    end
+
+    if sp_destroyer_infliction > 1 then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_destroyer_infliction_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_destroyer_infliction - 1 ) * 100 ) ) )
     end
   end
 
@@ -411,7 +436,8 @@ function int_dur( spell, level, bonus, text )
     local dur_int_bonus = 0
     if Logic.obj_par( spell, "int" ) == "1" then
       local mod = math.max( 1, tonumber( Game.Config( "spell_power_config/int_duration" ) ) - tonumber( Logic.hero_lu_item( "sp_dur_mod", "count" ) ) )
-      dur_int_bonus = math.floor( num / mod )
+      local dur_inc = tonumber( Game.Config( "spell_power_config/dur_inc" ) )
+      dur_int_bonus = math.floor( num / mod ) * dur_inc
       dur = dur + dur_int_bonus
     end
 
@@ -461,19 +487,32 @@ end
 -- New common function for computing duration as a function of target's resistance
 function res_dur( target, spell, duration, res_type )
   local res_spell = Logic.obj_par( spell, "dur_res_" .. res_type )
+  local new_duration = duration
 
   if res_spell == "1" then
     local resist = Attack.act_get_res( target, res_type )
     local spell_type = Logic.obj_par( spell, "type" )
 
     if spell_type == "bonus" then
-      duration = math.max( math.ceil( duration * ( 1 + resist / 100 ) ), 1 )
+      new_duration = math.max( math.ceil( duration * ( 1 + resist / 100 ) ), 1 )
+
+      if new_duration > duration then
+        Attack.log( "add_blog_resdur_bon_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+      elseif new_duration < duration then
+        Attack.log( "add_blog_resdur_bon_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+      end
     else
-      duration = math.max( math.ceil( duration * ( 1 - resist / 100 ) ), 1 )
+      new_duration = math.max( math.ceil( duration * ( 1 - resist / 100 ) ), 1 )
+
+      if new_duration > duration then
+        Attack.log( "add_blog_resdur_pen_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+      elseif new_duration < duration then
+        Attack.log( "add_blog_resdur_pen_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+      end
     end
   end
-  
-  return duration
+
+  return new_duration
 end
 
 
@@ -535,7 +574,7 @@ end
 
 function pwr_trap( level, ehero_level )
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_trap", level, nil, ehero_level )
-  local poison = get_infliction( "spell_trap", level, "poison" )
+  local poison = get_infliction( "spell_trap", level, "poison", ehero_level )
 
   return min_dmg, max_dmg, duration, poison
 end
@@ -847,8 +886,9 @@ function pwr_slow( level, ehero_level )
 
   local power = round( get_power_bonus( "spell_slow", "penalty", level, ehero_level ) )
   power = power + hero_item_count2( "sp_spell_speed", "count" )
+  local krit = round( get_power_bonus( "spell_slow", "krit", level, ehero_level ) )
 
-  return power
+  return power, krit
 end
 
 function pwr_haste( level, ehero_level )
@@ -860,8 +900,9 @@ function pwr_haste( level, ehero_level )
 
   local power = round( get_power_bonus( "spell_haste", "bonus", level, ehero_level ) )
   power = power + hero_item_count2( "sp_spell_speed", "count" )
+  local krit = round( get_power_bonus( "spell_haste", "krit", level, ehero_level ) )
 
-  return power
+  return power, krit
 end
 
 function pwr_divine_armor( level, ehero_level )
@@ -938,14 +979,14 @@ end
 
 function pwr_fire_ball( par, level, ehero_level )
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_fire_ball", level, par, ehero_level )
-  local burn = get_infliction( "spell_fire_ball", level, "burn" )
+  local burn = get_infliction( "spell_fire_ball", level, "burn", ehero_level )
 
   return min_dmg, max_dmg, burn, duration
 end
 
 function pwr_ice_serpent( par, level, ehero_level )
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_ice_serpent", level, par, ehero_level )
-  local freeze = get_infliction( "spell_ice_serpent", level, "freeze" )
+  local freeze = get_infliction( "spell_ice_serpent", level, "freeze", ehero_level )
 
   return min_dmg, max_dmg, freeze, duration
 end
@@ -959,14 +1000,14 @@ end
 
 function pwr_fire_rain( level, ehero_level )
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_fire_rain", level, nil, ehero_level )
-  local burn = get_infliction( "spell_fire_rain", level, "burn" )
+  local burn = get_infliction( "spell_fire_rain", level, "burn", ehero_level )
 
   return min_dmg, max_dmg, burn, duration
 end
 
 function pwr_lightning( level, ehero_level )
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_lightning", level, nil, ehero_level )
-  local shock = get_infliction( "spell_lightning", level, "shock" )
+  local shock = get_infliction( "spell_lightning", level, "shock", ehero_level )
   local count = tonumber( text_dec(Logic.obj_par( "spell_lightning", "count" ), level ) )
 
   return min_dmg, max_dmg, shock, count, duration
@@ -974,14 +1015,14 @@ end
 
 function pwr_fire_arrow( level, ehero_level ) -- returns the result as a minimum
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_fire_arrow", level, nil, ehero_level )
-  local burn = get_infliction( "spell_fire_arrow", level, "burn" )
+  local burn = get_infliction( "spell_fire_arrow", level, "burn", ehero_level )
 
   return min_dmg, max_dmg, burn, duration
 end
 
 function pwr_smile_skull( level, ehero_level ) -- returns the result as a minimum
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_smile_skull", level, nil, ehero_level )
-  local poison = get_infliction( "spell_smile_skull", level, "poison" )
+  local poison = get_infliction( "spell_smile_skull", level, "poison", ehero_level )
 
   return min_dmg, max_dmg, poison, duration
 end
@@ -994,10 +1035,11 @@ end
 
 function pwr_geyser( level, ehero_level )
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_geyser", level, nil, ehero_level )
-  local stun = get_infliction( "spell_geyser", level, "stun" )
+  local freeze = get_infliction( "spell_geyser", level, "freeze", ehero_level )
+  local stun = get_infliction( "spell_geyser", level, "stun", ehero_level )
   local count = tonumber( text_dec( Logic.obj_par( "spell_geyser", "count" ), level ) )
 
-  return min_dmg, max_dmg, count, stun, duration
+  return min_dmg, max_dmg, count, freeze, stun, duration
 end
 
 function pwr_armageddon( level, ehero_level )
@@ -1009,7 +1051,7 @@ function pwr_armageddon( level, ehero_level )
   prc = math.ceil( prc * sp_prc )
   prc = limit_value( prc, 0, 95 )
 
-  local burn = get_infliction( "spell_armageddon", level, "burn" )
+  local burn = get_infliction( "spell_armageddon", level, "burn", ehero_level )
 
   return min_dmg, max_dmg, burn, duration, prc
 end

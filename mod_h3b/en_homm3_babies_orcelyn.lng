@@ -56,7 +56,7 @@ itm_kid_krellion_taken=^?^
 
 //==== kid_tyraxor
 itm_kid_tyraxor_name=Tyraxor
-itm_kid_tyraxor_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Tactics, Wolf, Rider, Raider, Captain, Tatalian...[/s] [postamble_boy][offense1][tactics1][catapult1]
+itm_kid_tyraxor_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Tactics, Wolf, Rider, Raider, Captain, Tatalian...[/s] [postamble_boy][offense1][tactics1][catapult1][shaman1]
 itm_kid_tyraxor_info=^?^[info_boy]
 itm_kid_tyraxor_mhint=^?^
 itm_kid_tyraxor_minfo=^?^
@@ -95,7 +95,7 @@ itm_kid_vey_minfo=^?^
 itm_kid_vey_taken=^?^
 
 //==== kid_zubin
-itm_kid_zubin_name=zubin
+itm_kid_zubin_name=Zubin
 itm_kid_zubin_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Battle, Mage, Wisdom, Artillery, Precision, Duke, Boragus...[/s] [postamble_boy][wisdom1][artillery1][accuracy1]
 itm_kid_zubin_info=^?^[info_boy]
 itm_kid_zubin_mhint=^?^

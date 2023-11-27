@@ -1240,7 +1240,7 @@ kid_solmyr {
     sp_spell_attack=count,18
     sp_duration_lightning=count,1
     sp_gain_power_lightning=count,18
-    sp_gain_infliction_lightning=count,18
+    sp_gain_infliction_shock=count,18
   }
   propbits=child,rare
   params {}

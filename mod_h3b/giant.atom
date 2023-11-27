@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_giant_feat
-  features_hints=hates_green_header/hates_green_hint,giant_attack_header/giant_attack_hint
+  features_hints=northerner_header/northerner_hint,hates_green_header/hates_green_hint,giant_attack_header/giant_attack_hint
   race=dwarf
   cost=7000
   level=5
@@ -69,6 +69,12 @@ arena_params {
     picture=BA1_Run_
     custom_params {
       ap=2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=winter
+      defense=50%
     }
   }
 }

@@ -1,0 +1,295 @@
+main {
+  class=chesspiece
+  model=spider_venom.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_spider_venom_feat
+  features_hints=underground_header/underground_hint,poisonous_header/poisonous_hint,poison_immunity_header/poison_immunity_hint
+  race=neutral
+  cost=20
+  level=1
+  leadership=12
+  attack=5
+  defense=1
+  defenseup=1
+  initiative=4
+  speed=3
+  hitpoint=10
+  movetype=0
+  krit=12
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack
+  posthitmaster=features_poison
+  features=poison_immunitet
+  resistances {
+    physical=0
+    poison=80
+    magic=0
+    fire=-10
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      poison=2,3
+    }
+    custom_params {
+      poison=50
+    }
+  }
+  web {
+    class=spell
+    spell=special_spider_web
+    moves=1
+    warning=sw_near
+    picture=BA1_Web_
+    picture_small=BA1_Web_small.png
+    hinthead=special_spider_web_head
+    hint=special_spider_web_hint
+  }
+  arena_bonuses {
+    1 {
+      logbits=dungeon
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:3:rare:1:spare
+  idlemain=spider_idle.bsa/fr:25:50
+  rare=spider_rare.bsa/fr:25:50
+  spare=spider_spare.bsa/fr:25:50
+  attack=spider_attack.bsa/fr:25:50
+  move=spider_move.bsa/fr:25:50
+  start=spider_start.bsa/fr:25:50
+  stop=spider_stop.bsa/fr:25:50
+  descend=spider_descend.bsa/fr:12:24
+  clock=spider_clock.bsa/fr:50:100
+  contra=spider_contra.bsa/fr:50:100
+  clock2=spider_clock.bsa/fr:100:200/twofold
+  contra2=spider_contra.bsa/fr:100:200/twofold
+  lturn=spider_lturn.bsa/fr:25:50
+  rturn=spider_rturn.bsa/fr:25:50
+  damage=spider_damage.bsa/fr:25:50
+  cast=spider_cast.bsa/fr:25:25
+  slew=spider_slew.bsa/fr:35:70
+  rush=spider_rush.bsa/fr:25:50
+  death=spider_death.bsa/fr:25:50
+  respawn=spider_respawn.bsa/fr:25:50
+  cursor=spider_rare.bsa/fr:25:50
+  teleout=spider_idle.bsa/fr:25:50/r:65:100
+  telein=spider_idle.bsa/fr:25:50/r:0:35
+  happy=/fwd:1:spare
+  victory=/t:1:2:spare:1:2:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    17.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    12.0?x=
+    0.0=cam
+  }
+  @cast {
+    16.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      animation=respawn
+      frame=1
+      file=undead_respawn.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=spider_rare
+      fadetime=60
+    }
+    sound {
+      animation=spare
+      frame=0.01
+      file=spider_victory
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=spider_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=spider_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=spider_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=spider_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=spider_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=spider_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=spider_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=spider_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=spider_turn
+      fadetime=60
+    }
+    sound {
+      frame=0.01
+      file=
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=spider_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=spider_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=spider_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=spider_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=spider_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=spider_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=spider_victory
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=spider_rare
+      fadetime=60
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=0/0.2/0.5/0/-0/0/1
+      animation=descend
+      frame=0/35
+      file=spider_thread.ptb
+    }
+    sound {
+      animation=descend
+      frame=0.01
+      file=spider_venom_descend
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  spider_idle.bsa=file
+  spider_rare.bsa=file
+  spider_attack.bsa=file
+  spider_move.bsa=file
+  spider_start.bsa=file
+  spider_stop.bsa=file
+  spider_clock.bsa=file
+  spider_contra.bsa=file
+  spider_2clock.bsa=file
+  spider_2contra.bsa=file
+  spider_lturn.bsa=file
+  spider_rturn.bsa=file
+  spider_damage.bsa=file
+  spider_death.bsa=file
+  spider_respawn.bsa=file
+  spider_cast.bsa=file
+  spider_rush.bsa=file
+}

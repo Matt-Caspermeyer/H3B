@@ -97,8 +97,8 @@ function gen_spell_bonus_hint()
     for i, infliction in pairs( kinds ) do
       local kind = tonumber( Logic.obj_par( name, infliction ) )
       if kind ~= nil then
-        dummy, text6 = get_infliction( name, level, infliction, true )
-        break
+        local dummy, temp = get_infliction( name, level, infliction, nil, true )
+        text6 = text6 .. temp
       end
     end
   end
@@ -624,7 +624,7 @@ function gen_dmg_hypnosis( par )
 end
 
 function gen_dmg_pygmy( par )
-	 local level=tonumber( text_dec( par, 1 ) )
+	 local level = tonumber( text_dec( par, 1 ) )
   local bonus = pwr_pygmy( tonumber( level ) )
   local text
 
@@ -645,16 +645,30 @@ function gen_dmg_accuracy( level )
   return text
 end
 
-function gen_dmg_slow( level )
-  local bonus = pwr_slow( tonumber( level ) )
-  local text = gen_dmg_common_hint( "minus_power", bonus )
+function gen_dmg_slow( par )
+	 local level = tonumber( text_dec( par, 1 ) )
+  local bonus, krit = pwr_slow( tonumber( level ) )
+  local text = ""
+
+  if string.find( par, "krit" ) then
+    text = gen_dmg_common_hint( "plus_power_percent", krit )
+  else
+    text = gen_dmg_common_hint( "minus_power", bonus )
+  end
 
   return text
 end
 
-function gen_dmg_haste( level )
-  local bonus = pwr_haste( tonumber( level ) )
-  local text = gen_dmg_common_hint( "plus_power", bonus )
+function gen_dmg_haste( par )
+	 local level = tonumber( text_dec( par, 1 ) )
+  local bonus, krit = pwr_haste( tonumber( level ) )
+  local text = ""
+
+  if string.find( par, "krit" ) then
+    text = gen_dmg_common_hint( "plus_power_percent", krit )
+  else
+    text = gen_dmg_common_hint( "plus_power", bonus )
+  end
 
   return text
 end
@@ -786,13 +800,17 @@ end
 
 function gen_dmg_geyser( par )
   local level = tonumber( text_dec( par, 1 ) )
-  local min_dmg, max_dmg, count, stun = pwr_geyser( level )
+  local min_dmg, max_dmg, count, freeze, stun = pwr_geyser( level )
   local text
 
   if string.find( par, "count" ) then
     text = gen_dmg_common_hint( par, count )
   else
-    text = gen_dmg_common_hint( par, stun, min_dmg, max_dmg )
+    if string.find( par, "freeze" ) then
+      text = gen_dmg_common_hint( par, freeze, min_dmg, max_dmg )
+    else
+      text = gen_dmg_common_hint( par, stun, min_dmg, max_dmg )
+    end
   end
 
   return text

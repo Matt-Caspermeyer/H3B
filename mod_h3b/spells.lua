@@ -503,8 +503,8 @@ function spell_plague_attack( target, level, dmgts )
       and Attack.act_level( trg ) < 5
       and Attack.act_applicable( trg ) then
         if not Attack.act_is_spell( trg, "spell_plague" ) then
-          local rnd = Game.Random( 0, 100 ) + 1     -- ели он не заражен
-          if rnd <= 50 then
+          local rnd = Game.Random( 99 )     -- ели он не заражен
+          if rnd < 50 then
             common_plague_attack( trg, duration, power, level, dmgts )
     				  end
         end
@@ -583,9 +583,9 @@ function spell_plague_attack1( target, level, dmgts )
       and Attack.act_level( trg ) < 5
       and Attack.act_applicable( trg ) then
         if not Attack.act_is_spell( trg, "spell_plague" ) then
-          local rnd = Game.Random( 0, 100 ) + 1     -- ели он не заражен
+          local rnd = Game.Random( 99 )     -- ели он не заражен
 
-          if rnd <= 50 then
+          if rnd < 50 then
             common_plague_attack( trg, duration, power, level, dmgts )
     				  end
         end
@@ -1018,15 +1018,16 @@ function store_power_on_target( target, level, ehero_level )
 
   spell = "spell_haste"
   duration = int_dur( spell, level, "sp_duration_haste" )
-  local speedbonus = pwr_haste( level, ehero_level )
+  local speedbonus, kritbonus = pwr_haste( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_haste_duration", duration )
 		Attack.val_store( target, "spell_last_hero_haste_speedbonus", speedbonus )
+		Attack.val_store( target, "spell_last_hero_haste_kritbonus", kritbonus )
 
   spell = "spell_reaction"
   duration = int_dur( spell, level, "sp_duration_reaction" )
-  local initiativebonus = pwr_warcry( level, ehero_level )
+  local moralbonus = pwr_warcry( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_reaction_duration", duration )
-		Attack.val_store( target, "spell_last_hero_reaction_initiativebonus", initiativebonus )
+		Attack.val_store( target, "spell_last_hero_reaction_moralbonus", moralbonus )
 
   local rephits = pwr_resurrection( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_resurrection_rephits", rephits )
@@ -1373,41 +1374,42 @@ end
 -- * Stone Skin
 -- ***********************************************
 function spell_stone_skin_attack( level, target, belligerent )
-  if target == nil then target = Attack.get_target() end
+  level = common_get_spell_level( level )
+  local spell = "spell_stone_skin"
+  local ehero_level
 
-  if ( target ~= nil ) then
-   	level = common_get_spell_level( level )
-    local spell = "spell_stone_skin"
-    local ehero_level
+  if belligerent == nil then
+    belligerent = Attack.act_belligerent( target )
+  end
 
-    if belligerent == nil then
-      belligerent = Attack.act_belligerent( target )
-    end
+  if belligerent ~= 1 then
+    ehero_level, level = get_enemy_hero_stuff( level )
+  end
+  
+  local power, penalty, duration
 
-    if belligerent ~= 1 then
-      ehero_level, level = get_enemy_hero_stuff( level )
-    end
-    
-  		local power = Attack.val_restore( target, "spell_last_hero_stone_skin_power" )
-		  local penalty = Attack.val_restore( target, "spell_last_hero_stone_skin_penalty" )
-  		local duration = Attack.val_restore( target, "spell_last_hero_stone_skin_duration" )
-    
-    if power == nil
-    or penalty == nil
-    or duration == nil then
-      power, penalty = pwr_stone_skin( level, ehero_level )
-      duration = int_dur( spell, level, "sp_duration_stone_skin" )
-    end
+  if target ~= nil then
+    power = Attack.val_restore( target, "spell_last_hero_stone_skin_power" )
+  		penalty = Attack.val_restore( target, "spell_last_hero_stone_skin_penalty" )
+    duration = Attack.val_restore( target, "spell_last_hero_stone_skin_duration" )
+  end
+  
+  if power == nil
+  or penalty == nil
+  or duration == nil then
+    power, penalty = pwr_stone_skin( level, ehero_level )
+    duration = int_dur( spell, level, "sp_duration_stone_skin" )
+  end
 
+  local function common_stone_skin( target, spell, power, penalty, duration )
     duration = res_dur( target, spell, duration, "magic" )
-    Attack.act_del_spell( target, spell )
     local initiative, initiativebase = Attack.act_get_par( target, "initiative" )
-
+  
     if initiative < 2 then
       penalty = 0
     end
 
---    attackbonus = attackbase*attacklow/100
+    Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
     Attack.act_apply_res_spell( "physical", power, 0, 0, duration, false)
     Attack.act_apply_par_spell( "initiative", -penalty, 0, 0, duration, false)
@@ -1418,6 +1420,20 @@ function spell_stone_skin_attack( level, target, belligerent )
     local dmgts2 = Attack.aseq_time( a, "y" )
     Attack.act_set_diff_tex( target, "stone_skin.dds", dmgts )
     Attack.act_set_diff_tex( target, "", dmgts2 )
+  end
+
+  if target == nil then target = Attack.get_target() end
+
+  if target ~= nil  then
+    common_stone_skin( target, spell, power, penalty, duration )
+  else
+    local acnt = Attack.act_count()
+    for i = 1, acnt - 1 do
+      if Attack.act_ally( i )
+      and Attack.act_applicable( i ) then
+        common_stone_skin( i, spell, power, penalty, duration )
+      end
+    end
   end
 
   return true
@@ -1589,16 +1605,23 @@ function spell_poison_resist_attack( level, target )
 end
 
 --New! Common function for Haste / Slow spells
-function common_haste_slow_attack( target, spell1, spell2, duration, value, dmgts, spawn )
+function common_haste_slow_attack( target, spell1, spell2, duration, value, dmgts, spawn, krit )
   duration = res_dur( target, spell1, duration, "magic" )
   Attack.act_del_spell( target, spell1 )
   Attack.act_del_spell( target, spell2 )
   Attack.act_apply_spell_begin( target, spell1, duration, false )
   Attack.act_apply_par_spell( "speed", value, 0, 0, duration, false)
+  Attack.act_apply_par_spell( "initiative", value, 0, 0, duration, false)
+
+  if spell1 == "spell_haste" then
+    Attack.act_apply_par_spell( "krit", krit, 0, 0, duration, false)
+  end
+
   Attack.act_apply_spell_end()
   if spell1 == "spell_haste" then
     Attack.atom_spawn( target, dmgts, spawn, Attack.angleto( target ) )
   else
+    Attack.val_store( target, "krit_slow", krit )
     Attack.atom_spawn( target, dmgts, spawn )
   end
 
@@ -1623,29 +1646,64 @@ function spell_haste_attack( level, dmgts, target, belligerent )
   if dmgts == nil then dmgts = 0 end
 
   local spell = "spell_haste"
-  local duration, speedbonus
+  local duration, speedbonus, kritbonus
 
   if target ~= nil then
   		duration = Attack.val_restore( target, "spell_last_hero_haste_duration" )
 		  speedbonus = Attack.val_restore( target, "spell_last_hero_haste_speedbonus" )
+		  kritbonus = Attack.val_restore( target, "spell_last_hero_haste_kritbonus" )
   end
 
   if duration == nil
-  or speedbonus == nil then
+  or speedbonus == nil
+  or kritbonus == nil then
     duration = int_dur( spell, level, "sp_duration_haste" )
-    speedbonus = pwr_haste( level, ehero_level )
+    speedbonus, kritbonus = pwr_haste( level, ehero_level )
   end
 
   if target == nil then target = Attack.get_target() end
 
   if target ~= nil  then
-    common_haste_slow_attack( target, spell, "spell_slow", duration, speedbonus, dmgts, "magic_reaction" )
+    common_haste_slow_attack( target, spell, "spell_slow", duration, speedbonus, dmgts, "magic_reaction", kritbonus )
   else
     local acnt = Attack.act_count()
     for i = 1, acnt - 1 do
       if Attack.act_ally( i )
       and Attack.act_applicable( i ) then
-        common_haste_slow_attack( i, spell, "spell_slow", duration, speedbonus, dmgts, "magic_reaction" )
+        common_haste_slow_attack( i, spell, "spell_slow", duration, speedbonus, dmgts, "magic_reaction", kritbonus )
+      end
+    end
+  end
+
+  return true
+end
+
+-- ***********************************************
+-- * Slow
+-- ***********************************************
+function spell_slow_attack( lvl, dmgts )
+ 	if dmgts == nil then dmgts = 0 end
+
+	 local level = common_get_spell_level( lvl )
+  local target = Attack.get_target()
+  local ehero_level
+
+  if Attack.act_belligerent() ~= 1 then
+    ehero_level, level = get_enemy_hero_stuff( level )
+  end
+
+  local spell = "spell_slow"
+  local duration = int_dur( spell, level, "sp_duration_slow" )
+  local speedlow, kritlow = pwr_slow( level, ehero_level )
+
+  if ( target ~= nil ) then
+    common_haste_slow_attack( target, spell, "spell_haste", duration, -speedlow, dmgts, "magic_slow", kritlow )
+  else
+    local acnt = Attack.act_count()
+    for i = 1, acnt - 1 do
+      if Attack.act_enemy( i )
+      and Attack.act_applicable( i ) then
+        common_haste_slow_attack( i, spell, "spell_haste", duration, -speedlow, dmgts, "magic_slow", kritlow )
       end
     end
   end
@@ -1688,7 +1746,7 @@ end
 --New! Common function for applying burn attack
 function common_fire_burn_attack( target, burn, dmgts, duration, damage, label, spell )
   local burn_res = Attack.act_get_res( target, "fire" )
-  local burn_rnd = Game.Random( 100 ) + 1
+  local burn_rnd = Game.Random( 99 )
   local burn_chance = math.min( 100, burn * ( 1 - burn_res / 100 ) )
   local dmg
 
@@ -1700,7 +1758,7 @@ function common_fire_burn_attack( target, burn, dmgts, duration, damage, label, 
 
   local burn_damage = dmg * burn_chance / 200
 
-  if burn_rnd <= burn_chance
+  if burn_rnd < burn_chance
   and not Attack.act_feature( target, "golem" )
   and not Attack.act_feature( target, "fire_immunitet" ) then
     if spell ~= nil then
@@ -1859,7 +1917,7 @@ function spell_smile_skull_attack( lvl, dmgts )
     local spell = "spell_smile_skull"
     local min_dmg, max_dmg, poison, duration = pwr_smile_skull( lvl, ehero_level )
     local dmg_type = Logic.obj_par( spell, "typedmg" )
-    local poison_rnd = Game.Random( 100 ) + 1
+    local poison_rnd = Game.Random( 99 )
     Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
     local a = Attack.atom_spawn( target, dmgts, "magic_skull", Attack.angleto( target ) )
     local dmgts1 = Attack.aseq_time( a, "x" )
@@ -1870,7 +1928,7 @@ function spell_smile_skull_attack( lvl, dmgts )
     local dmg = tonum( Attack.val_restore( target, "sdmg" ) )
     local poison_damage = dmg * poison_chance / 200
 
-    if poison_rnd <= poison_chance
+    if poison_rnd < poison_chance
     and not Attack.act_feature( target, "golem" ) then
       duration = res_dur( target, spell, duration, "poison" )
       effect_poison_attack( target, dmgts1 + 1 + dmgts, duration, poison_damage, poison_damage )
@@ -1991,32 +2049,38 @@ end
 
 freeze_im=0.75 --25%
 
+function common_freeze_attack( target, spell, freeze, dmgts, duration )
+  local freeze_rnd = 0
+
+  if Attack.act_feature( target, "freeze_immunitet" ) then
+    freeze_rnd = freeze + Game.Random( 10, 50 )
+  else
+    freeze_rnd = Game.Random( 99 )
+  end
+
+  local cold_fear = Attack.act_get_res( target, "fire" )
+
+  if Attack.act_feature( target, "fire_immunitet" )
+  or Attack.act_race( target, "demon" ) then
+    cold_fear = cold_fear + Game.Random( 10, 50 )
+  end
+
+  local freeze_res = Attack.act_get_res( target, "physical" )
+
+  if ( freeze_rnd < ( freeze - freeze_res + cold_fear )
+  or cold_fear >= 50 )
+  and not Attack.act_feature( target, "golem" ) then
+    duration = res_dur( target, spell, duration, "physical" )
+    effect_freeze_attack( target, dmgts, duration )
+  end
+
+  return true
+end
+
 function spell_ice_serpent_attack( level, dmgt, target )
   if dmgt == nil then dmgt = 0 end
 
   if target == nil then target = Attack.get_target() end                                -- epicentre
-
-  local function common_ice_serpent_attack( target, spell, freeze, dmgts, duration )
-    local freeze_rnd
-
-    if Attack.act_feature( target, "freeze_immunitet" ) then
-      freeze_rnd = freeze + Game.Random( 10 )
-    else
-      freeze_rnd = Game.Random( 100 ) + 1
-    end
-
-    local cold_fear = Attack.act_get_res( target, "fire" )
-    local freeze_res = Attack.act_get_res( target, "physical" )
-
-    if ( freeze_rnd <= ( freeze - freeze_res + cold_fear )
-    or cold_fear >= 50 )
-    and not Attack.act_feature( target, "golem" ) then
-      duration = res_dur( target, spell, duration, "physical" )
-      effect_freeze_attack( target, dmgts, duration )
-    end
-
-    return true
-  end
 
   if ( target ~= nil ) then
     local ehero_level
@@ -2039,7 +2103,7 @@ function spell_ice_serpent_attack( level, dmgt, target )
     local dmg_type = Logic.obj_par( spell, "typedmg" )
     Attack.atk_set_damage( dmg_type, min_e_dmg, max_e_dmg )
     common_cell_apply_damage(target, dmgts)                       -- apply damage in epicentre
-    common_ice_serpent_attack( target, spell, freeze, dmgts + 1, duration )
+    common_freeze_attack( target, spell, freeze, dmgts + 1, duration )
  	  local epicenter = target
 
   	 for i = 0, 5 do
@@ -2056,7 +2120,7 @@ function spell_ice_serpent_attack( level, dmgt, target )
         end
 
         common_cell_apply_damage( target, dmgts )       -- apply damage
-        common_ice_serpent_attack( target, spell, freeze_p, dmgts + 1, duration_p )
+        common_freeze_attack( target, spell, freeze_p, dmgts + 1, duration_p )
       end
     end
   end
@@ -2110,11 +2174,11 @@ function spell_lightning_attack( lvl, dmgts )
 	 if dmgts == nil then dmgts = 0 end
 
   local function common_shock( target, spell, dmgts, duration, shock )
-   	local shock_rnd = Game.Random( 100 ) + 1
+   	local shock_rnd = Game.Random( 99 )
     local shock_res = Attack.act_get_res( target, "magic" )
     local shock_chance = math.min( 100, shock * ( 1 - shock_res / 100 ) )
 
-   	if shock_rnd <= shock_chance
+   	if shock_rnd < shock_chance
     and not Attack.act_feature( target, "golem" ) then
       duration = res_dur( target, spell, duration, "magic" )
 	  	  effect_shock_attack( target, dmgts, duration )
@@ -2451,39 +2515,6 @@ function spell_divine_armor_attack( level, target, belligerent )
 end
 
 -- ***********************************************
--- * Slow
--- ***********************************************
-function spell_slow_attack( lvl, dmgts )
- 	if dmgts == nil then dmgts = 0 end
-
-	 local level = common_get_spell_level( lvl )
-  local target = Attack.get_target()
-  local ehero_level
-
-  if Attack.act_belligerent() ~= 1 then
-    ehero_level, level = get_enemy_hero_stuff( level )
-  end
-
-  local spell = "spell_slow"
-  local duration = int_dur( spell, level, "sp_duration_slow" )
-  local speedlow = pwr_slow( level, ehero_level )
-
-  if ( target ~= nil ) then
-    common_haste_slow_attack( target, spell, "spell_haste", duration, -speedlow, dmgts, "magic_slow" )
-  else
-    local acnt = Attack.act_count()
-    for i = 1, acnt - 1 do
-      if Attack.act_enemy( i )
-      and Attack.act_applicable( i ) then
-        common_haste_slow_attack( i, spell, "spell_haste", duration, -speedlow, dmgts, "magic_slow" )
-      end
-    end
-  end
-
-  return true
-end
-
--- ***********************************************
 -- * Accuracy
 -- ***********************************************
 function spell_accuracy_attack( level, target, belligerent )
@@ -2648,39 +2679,39 @@ function spell_reaction_attack( level, target, belligerent )
   end
 
   local spell = "spell_reaction"
-  local duration, initiativebonus
+  local duration, moralbonus
   
   if target ~= nil then
 		  duration = Attack.val_restore( target, "spell_last_hero_reaction_duration" )
-		  initiativebonus = Attack.val_restore( target, "spell_last_hero_reaction_initiativebonus" )
+		  moralbonus = Attack.val_restore( target, "spell_last_hero_reaction_moralbonus" )
   end
 
   if duration == nil
-  or initiativebonus == nil then
+  or moralbonus == nil then
     duration = int_dur( spell, level, "sp_duration_reaction" )
-    initiativebonus = pwr_warcry( level, ehero_level )
+    moralbonus = pwr_warcry( level, ehero_level )
   end
 
   local function common_reaction_attack( target, spell, duration, bonus, spawn )
     duration = res_dur( target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
-    Attack.act_apply_par_spell( "initiative", bonus, 0, 0, duration, false)
+    Attack.act_apply_par_spell( "moral", bonus, 0, 0, duration, false)
     Attack.act_apply_spell_end()
-    Attack.resort()
+--    Attack.resort()
     Attack.atom_spawn( target, 0, spawn, Attack.angleto( target ) )
 
     return true
   end
 
   if ( target ~= nil ) then
-    common_reaction_attack( target, spell, duration, initiativebonus, "magic_warcry" )
+    common_reaction_attack( target, spell, duration, moralbonus, "magic_warcry" )
   else
     local acnt = Attack.act_count()
     for i = 1, acnt - 1 do
       if Attack.act_ally( i )
       and Attack.act_applicable( i ) then
-        common_reaction_attack( i, spell, duration, initiativebonus, "magic_warcry" )
+        common_reaction_attack( i, spell, duration, moralbonus, "magic_warcry" )
     	 end
     end
  	end
@@ -2762,7 +2793,7 @@ function spell_geyser_attack( level, dmgts, target )
   local spell = "spell_geyser"
  	local a = Attack.atom_spawn( Attack.cell_get(), dmgts, "magic_armageddon_spawn" )
 	 local spawn_shift = Attack.aseq_time( a, "x" ) + dmgts
- 	local min_dmg, max_dmg, count, stun, duration = pwr_geyser( level, ehero_level )
+ 	local min_dmg, max_dmg, count, freeze, stun, duration = pwr_geyser( level, ehero_level )
 	 local dmg_type = Logic.obj_par( spell, "typedmg" )
  	--Attack.atk_set_damage(dmg_type,min_dmg,max_dmg)
 	 local start_up = Attack.aseq_time( "magic_armageddon", "w" )
@@ -2778,7 +2809,7 @@ function spell_geyser_attack( level, dmgts, target )
     or ( Attack.act_takesdmg( i )
     and Attack.act_applicable( i )
     and Attack.act_enemy( i ) ) then
-		    local t = dmgts + Game.Random( 100 ) / 100. -1.
+		    local t = dmgts + Game.Random( 100 ) / 100. - 1.
 		   	Attack.atom_spawn( i, t, "magic_armageddon" )
 			   local hit_time = t + end_down
 
@@ -2797,8 +2828,6 @@ function spell_geyser_attack( level, dmgts, target )
     				Attack.act_falldown( t + start_down, hit_time, i, tz ) -- Returns to where he was
    			end
 
-   			local cold_fear = Attack.act_get_res( i, "fire" )
-
    			if Attack.act_feature( i, "freeze_immunitet" ) then
     				Attack.atk_set_damage( dmg_type, min_dmg * freeze_im, max_dmg * freeze_im )
       else
@@ -2810,12 +2839,11 @@ function spell_geyser_attack( level, dmgts, target )
    			if not Attack.act_pawn( i ) then
         local dead = Attack.act_damage( i )
         if dead ~= nil then
-       			if not dead and cold_fear >= 50
-          and not Attack.act_feature( i, "golem" ) then
-    			    	effect_freeze_attack( i, hit_time + 1, res_dur( target, spell, duration, "physical" ) )
+       			if not dead then
+            common_freeze_attack( i, spell, freeze, hit_time + 1, duration )
        			end
     
-          local rnd = Game.Random( 100 )
+          local rnd = Game.Random( 99 )
        			local stun_res = Attack.act_get_res( i, "physical" )
           if not dead
           and not Attack.act_feature( i, "plant" )
@@ -3378,7 +3406,7 @@ function special_trap()
   --Attack.act_kill()
  	Attack.cell_set_trap( cell, nil, start )
   local poison_res = Attack.act_get_res( cell, "poison" )
-  local poison_rnd = Game.Random( 100 ) + 1
+  local poison_rnd = Game.Random( 99 )
   local poison_chance = math.min( 100, poison * ( 1 - poison_res / 100 ) )
   local dmg = tonum( Attack.val_restore( cell, "sdmg" ) )
   local poison_damage = dmg * poison_chance / 200

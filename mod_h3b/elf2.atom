@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_elf2_feat
-  features_hints=shot_header/shot_hint,sniper_header/sniper_hint,no_melee_header/no_melee_hint,beast_killer_header/beast_killer_hint
+  features_hints=shot_header/shot_hint,sniper_header/sniper_hint,no_melee_header/no_melee_hint,beast_killer_header/beast_killer_hint,forest_lover_header/forest_lover_hint,dungeon_disliker_header/dungeon_disliker_hint
   race=elf
   cost=700
   level=4
@@ -104,6 +104,16 @@ arena_params {
     custom_params {
       dragon=1
       arrows=1
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=forest
+      attack=50%
+    }
+    2 {
+      logbits=dungeon
+      moral=-1
     }
   }
 }

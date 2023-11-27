@@ -441,9 +441,14 @@ function special_shaman_totem()
   end
 
   local count = Attack.act_size( 0 )
-  local hp = health * count + titan_energy
+  local total_hp = Attack.act_totalhp( 0 )
+  local hp = math.ceil( health / 100 * total_hp + titan_energy )
   Attack.act_hp( totem, hp )
   Attack.act_set_par( totem, "health", hp )
+  local init, init_base = Attack.act_get_par( 0, "initiative" )
+  local init_den = tonumber( Attack.get_custom_param( "init_den" ) )
+  local totem_init = init_base + math.floor( hp / init_den )
+  Attack.act_set_par( totem, "initiative", totem_init )
 
   local edg = 1
 
@@ -851,7 +856,7 @@ function special_wolf_cry_attack()
 
   for i = 1, acnt - 1 do
     if check_wolf_cry( i ) then
-      local rnd = Game.Random( 100 )
+      local rnd = Game.Random( 99 )
       duration = apply_hero_duration_bonus( i, duration, "sp_duration_special_wolf_cry", false )
       Attack.act_apply_spell_begin( i, "effect_fear", duration, false )
       Attack.act_apply_par_spell( "autofight", 1, 0, 0, duration, false )
@@ -1036,7 +1041,7 @@ function special_cast_thorn()
   local summoner_count = Attack.act_size( 0 )
   local summoner_name = Attack.act_name( 0 )
   local summoner_lead = Attack.atom_getpar( summoner_name, "leadership" )
-  local type_thorn = Game.Random( 100 )
+  local type_thorn = Game.Random( 99 )
   local count_summon = 0
   local unit_summon = ""
 
@@ -1046,7 +1051,7 @@ function special_cast_thorn()
     unit_summon = "thorn_warrior"
   end
 
-  local chance = Game.Random( 100 )
+  local chance = Game.Random( 99 )
   local chance_kingthorn = math.min( 20, math.floor( summoner_lead * summoner_count / Attack.atom_getpar( "kingthorn", "leadership" ) ) )
 
   if chance < chance_kingthorn then
@@ -1180,7 +1185,7 @@ function special_suicide()
     if ( Attack.act_enemy( i ) or Attack.act_ally( i ) )
     and Attack.cell_dist( 0, i ) == 1 then      -- contains enemy and level
       if Attack.act_applicable(i) then      -- can receive this attack
-        local rnd = Game.Random( 100 )
+        local rnd = Game.Random( 99 )
         common_cell_apply_damage( i, dmgts )
         local burn_res = Attack.act_get_res( i, "fire" )
         local burn_chance = math.min( 100, burn * ( 1 - burn_res / 100 ) )
@@ -1222,7 +1227,7 @@ function special_cast_bear()
   local summoner_count = Attack.act_size( 0 )
   local summoner_name = Attack.act_name( 0 )
   local summoner_lead = Attack.atom_getpar( summoner_name, "leadership" )
-  local type_bear = Game.Random( 100 )
+  local type_bear = Game.Random( 99 )
   local count_summon = 0
   local unit_summon = ""
 
@@ -1232,7 +1237,7 @@ function special_cast_bear()
     unit_summon = "bear"
   end
 
-  local chance = Game.Random( 100 )
+  local chance = Game.Random( 99 )
   local chance_bear_white = math.min( 20, math.floor( summoner_lead * summoner_count / Attack.atom_getpar( "bear_white", "leadership" ) ) )
 
   if chance < chance_bear_white then
@@ -1571,27 +1576,41 @@ end
 -- ***********************************************
 
 function special_giant_quake()
-
---  local target = Attack.get_target()
-  --local dmg_min,dmg_max = text_range_dec(Attack.get_custom_param("damage"))
-  --local power=tonumber(Attack.get_custom_param("power"))
-
   Attack.act_aseq( 0, "special" )
-  local dmgts = Attack.aseq_time(0, "x")
-  local dmg_min,dmg_max = text_range_dec(Attack.get_custom_param("damage"))
-  local k=tonumber(Attack.get_custom_param("k"))
-  local typedmg=Attack.get_custom_param("typedmg")
-
+  local dmgts = Attack.aseq_time( 0, "x" )
+  local dmg_min,dmg_max = text_range_dec( Attack.get_custom_param( "damage" ) )
+  local k = tonumber( Attack.get_custom_param( "k" ) )
+  local typedmg = Attack.get_custom_param( "typedmg" )
   local acnt = Attack.act_count()
-  for i=1,acnt-1 do
-    if Attack.act_enemy(i) and Attack.act_mt(i)==0 and Attack.act_applicable(i) then
-      local dist = Attack.cell_dist(0,i)-1
-      Attack.atk_set_damage(typedmg,dmg_min*(1-k*dist/100),dmg_max*(1-k*dist/100))
-      common_cell_apply_damage(i, dmgts)
+
+  for i = 1, acnt - 1 do
+    if Attack.act_enemy( i )
+    and Attack.act_mt( i ) == 0
+    and Attack.act_applicable( i )
+    and Attack.act_name( i ) ~= "archdemon"
+    and Attack.act_name( i ) ~= "demoness" then
+      local dist = Attack.cell_dist( 0, i ) - 1
+      Attack.atk_set_damage( typedmg, dmg_min * ( 1 - k * dist / 100 ), dmg_max * ( 1 - k * dist / 100 ) )
+      common_cell_apply_damage( i, dmgts )
     end
-    if Attack.act_enemy(i) and Attack.act_mt(i)==2 and Attack.act_applicable(i) then
+
+    if Attack.act_enemy( i )
+    and Attack.act_mt( i ) == 2
+    and Attack.act_applicable( i ) then
       Attack.act_aseq( i, "takeoff" )
       Attack.act_aseq( i, "descent" )
+    end
+
+    if Attack.act_enemy( i )
+    and Attack.act_name( i ) == "demoness"
+    and Attack.act_applicable( i ) then
+      Attack.act_aseq( i, "avoid" )
+    end
+
+    if Attack.act_enemy( i )
+    and Attack.act_name( i ) == "archdemon"
+    and Attack.act_applicable( i ) then
+      Attack.act_aseq( i, "special" )
     end
   end
 
@@ -1616,7 +1635,7 @@ function special_poison_cloud()
     if ( Attack.act_enemy( i ) or Attack.act_ally( i ) )
     and Attack.cell_dist( 0, i ) == 1 then      -- contains enemy and level
       if Attack.act_applicable( i ) then      -- can receive this attack
-        local rnd = Game.Random( 100 )
+        local rnd = Game.Random( 99 )
         common_cell_apply_damage( i, dmgts )
         local dmg = tonum( Attack.val_restore( 0, "last_dmg" ) )
         local poison_res = Attack.act_get_res( i, "poison" )
@@ -2180,7 +2199,7 @@ function special_dragon_rail()
     local cell_found = Attack.trace(i)
     if Attack.cell_present( cell_found ) then
       if --[[(Attack.act_enemy(cell_found) or Attack.act_ally(cell_found))]]Attack.get_caa( cell_found ) ~= nil and Attack.act_applicable( cell_found ) then
-        local burn_rnd = Game.Random( 100 )
+        local burn_rnd = Game.Random( 99 )
         common_cell_apply_damage( cell_found, dmgts )
         local burn_res = Attack.act_get_res( cell_found, "fire" )
         local dmg = tonum( Attack.val_restore( 0, "last_dmg" ) )
@@ -2409,7 +2428,7 @@ function special_plague()
     if Attack.act_applicable( i )
     and ( Attack.act_enemy( i )
     or Attack.act_ally( i ) ) then                  -- can receive this attack
-      local rnd = Game.Random( 100 )
+      local rnd = Game.Random( 99 )
 
       if rnd < var
       and not Attack.act_feature( i, "golem" ) then
@@ -2531,7 +2550,7 @@ function special_blackdragon_firepower()
     end
 
     common_cell_apply_damage( path[i].cell, Attack.aseq_time( 0, "x" ) )
-    local burn_rnd = Game.Random( 100 )
+    local burn_rnd = Game.Random( 99 )
     local burn_res = Attack.act_get_res( path[i].cell, "fire" )
     local dmg = tonum( Attack.val_restore( 0, "last_dmg" ) )
     local burn_chance = math.min( 100, burn * ( 1 - burn_res / 100 ) )

@@ -50,7 +50,7 @@ arena_params {
   arena_bonuses {
     1 {
       logbits=cemetery
-      moral=1
+      defense=50%
     }
     2 {
       logbits=dungeon

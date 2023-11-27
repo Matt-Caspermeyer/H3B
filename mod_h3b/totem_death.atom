@@ -32,7 +32,7 @@ arena_params {
     script_attack=totem_attack
     ad_factor=0
     custom_params {
-      damage=5-8
+      damage=10-16
       dmgtype=magic
       effect=effect_totem_death,1
       animation=animation,attack

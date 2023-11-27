@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_thorn2_feat
-  features_hints=plant_header/plant_hint,eyeless_header/eyeless_hint
+  features_hints=plant_header/plant_hint,eyeless_header/eyeless_hint,tasty_soil_header/tasty_soil_hint
   race=neutral
   cost=10
   level=1
@@ -65,6 +65,12 @@ arena_params {
     disabled=1
     custom_params {
       heal=40  // percent of unit health
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=forest
+      health=25%
     }
   }
 }

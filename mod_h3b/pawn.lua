@@ -991,7 +991,7 @@ function item_tower_attack()
 
  	if r ~= nil
   and ( freecell == nil
-  or Game.Random( 100 ) < 70 ) then
+  or Game.Random( 99 ) < 70 ) then
  		 Attack.atom_spawn( 0, 0, "effect_unit_turn", 0 )
  	  -- Кастим магию
  	  Attack.cast_spell( r.spell, spells[ r.spell ], 4, r.target, r.target2, start + Attack.aseq_time( 0, "cast", "x" ) - 0.5 )
@@ -1387,26 +1387,25 @@ function pawn_caster_attack()
 end
 
 function altar_ice_attack()
+ 	Attack.log_label( 'null' )
+	 local targets = pawn_get_targets()
 
-	Attack.log_label('null')
-	local targets = pawn_get_targets()
-	if table.getn(targets) > 0 then
-		local target = targets[Game.Random(1,table.getn(targets))]
+ 	if table.getn( targets ) > 0 then
+		  local target = targets[ Game.Random( 1, table.getn( targets ) ) ]
+  		Attack.act_aseq( 0, "cast" )
+		  local start = Attack.aseq_time( 0, "x" )
+  		local spell_lv = get_pawn_level()
 
-		Attack.act_aseq(0, "cast")
-		local start = Attack.aseq_time(0, "x")
-		local spell_lv = get_pawn_level()
+  		if Attack.act_race( target ) == "dwarf" then
+			   if Game.Random(  99  ) < 50 then spell_haste_attack( spell_lv, start, target )
+			   else spell_bless_attack( spell_lv, start, target ) end
+		  else
+			   if Game.Random(  99  ) < 50 then spell_ice_serpent_attack( spell_lv, start, target )
+			   else spell_geyser_attack( spell_lv, start, target ) end
 
-		if Attack.act_race(target) == "dwarf" then
-			if Game.Random(100) < 50 then spell_haste_attack(spell_lv,start,target)
-			else                          spell_bless_attack(spell_lv,start,target) end
-		else
-			if Game.Random(100) < 50 then spell_ice_serpent_attack(spell_lv,start,target)
-			else                          spell_geyser_attack(spell_lv,start,target) end
-			Attack.log_label('')
-		end
-	end
+   			Attack.log_label( '' )
+		  end
+	 end
 
-	return true
-
+ 	return true
 end

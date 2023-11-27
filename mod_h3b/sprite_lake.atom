@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_sprite2_feat
-  features_hints=soars_header/soars_hint,no_retaliation_header/no_retaliation_hint,magic_resistance_header/magic_resistance_hint,faery_dust_header/weakness_hint,cute_header/cute_hint
+  features_hints=soars_header/soars_hint,no_retaliation_header/no_retaliation_hint,magic_resistance_header/magic_resistance_hint,faery_dust_header/weakness_hint,cute_header/cute_hint,forest_lover_header/forest_lover_hint,dungeon_disliker_header/dungeon_disliker_hint
   race=elf
   cost=16
   level=1
@@ -47,6 +47,16 @@ arena_params {
     custom_params {
       heal=1-2
       spell=effect_poison,spell_weakness,spell_infection,effect_infection,effect_weakness
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=forest
+      attack=50%
+    }
+    2 {
+      logbits=dungeon
+      moral=-1
     }
   }
 }

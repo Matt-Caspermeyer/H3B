@@ -21,12 +21,54 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
   dfactor = dfactor / 100
   local sdmg = 0
   local iskrit
+  local receiver_human = AU.is_human( receiver )
+  local attacker_human = AU.is_human( attacker )
+  local hero_attack = 0
+
+  if attacker_human then
+    hero_attack = Logic.hero_lu_item( "attack", "count" )
+  else
+    hero_attack = Attack.val_restore( attacker, "enemy_hero_attack" )
+  end
+
+  if hero_attack ~= nil
+  and hero_attack > 0 then
+    local krit_inc = Game.Config( "attack_config/krit_inc" )
+    kritProb = limit_value( kritProb + math.floor( hero_attack / 7 ) * krit_inc, 0, 100 )
+  end
+
+  local res_inc = 0
+  local hero_defense = 0
+
+  if receiver_human then
+    hero_defense = Logic.hero_lu_item( "defense", "count" )
+  else
+    hero_defense = Attack.val_restore( receiver, "enemy_hero_defense" )
+  end
+
+  if hero_defense ~= nil
+  and hero_defense > 0 then
+    local res_inc_config = Game.Config( "defense_config/res_inc" )
+    res_inc = math.floor( hero_defense / 7 ) * res_inc_config
+  end
+
+  if Attack.act_is_spell( receiver, "effect_entangle" ) then kritProb = 2 * kritProb end
+
+  if Attack.act_is_spell( receiver, "spell_slow" ) then
+    local kritslow = Attack.val_restore( receiver, "krit_slow" )
+
+    if kritslow ~= nil then
+      kritProb = kritProb + kritslow
+    end
+  end
 
   if minmax ~= 0
   or krit == 0 then iskrit = false -- в подсказках критический урон никогда не учитываем (а также когда krit=0)
   elseif Attack.act_is_spell( attacker, "special_preparation" )
-  or Attack.act_is_spell( receiver, "spell_crue_fate" ) then iskrit = true
-  else iskrit = ( Game.CurLocRand( 100 ) < kritProb ) end
+  or Attack.act_is_spell( receiver, "spell_crue_fate" )
+  or Attack.act_is_spell( receiver, "effect_unconscious" )
+  or Attack.act_is_spell( receiver, "effect_sleep" ) then iskrit = true
+  else iskrit = ( Game.CurLocRand( 99 ) < kritProb ) end
 
 --  local k = AU.attack( attacker ) / AU.defence( receiver )
 
@@ -105,7 +147,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     -- ВНИМАНИЕ! Крит берется не из диапазона а по максимуму!
     if iskrit then dmg = max_ end
 
-    local resi = AU.resistance( receiver, i )
+    local resi = AU.resistance( receiver, i ) + res_inc
 
     if resi > 95 then resi = 95 end
 
@@ -118,7 +160,29 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     end
   end
 
-  if k >= 0
+  local kmin = 3
+  local kmax = 3
+  
+  if hero_attack ~= nil
+  and hero_attack > 0 then
+    local cap_inc = Game.Config( "attack_config/cap_inc" )
+    local attack_kmax = math.floor( hero_attack / 7 ) * cap_inc / 100
+    kmax = 3 + attack_kmax
+  end
+
+  if hero_defense ~= nil
+  and hero_defense > 0 then
+    local defense_kmin = math.floor( hero_defense / 7 )
+    kmin = 3 + defense_kmin
+  end
+
+  local function sign( x )
+    return x > 0 and 1 or x < 0 and -1 or 0
+  end
+  
+  sdmg = limit_value( sdmg * ( ( 1 + math.abs( k ) / 30 )^( sign( k ) ) ), sdmg / kmin, sdmg * kmax )
+
+--[[  if k >= 0
   and k < 60 then
     sdmg = sdmg * ( 1 + k * 0.0333 )
   end
@@ -138,7 +202,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
 
   if sdmg < 0 then
     sdmg = 0
-  end
+  end]]
 
   sdmg = sdmg * dfactor
 
@@ -146,9 +210,6 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
 
   local krage = 0.5
   -- in future it will be like    skill = Logic.cur_lu_counter_converted( "skill_rage" )
-
-  local receiver_human = AU.is_human( receiver )
-  local attacker_human = AU.is_human( attacker )
 
   if not ( receiver_human
   or attacker_human )  then
@@ -204,7 +265,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     and ( Attack.act_chesspiece( attacker )
     or Attack.act_pawn( attacker ) ) then
       local evasion = tonumber( Attack.act_spell_param( receiver, "feat_potion_evasion", "param" ) )
-      local rnd = Game.Random( 100 )
+      local rnd = Game.Random( 99 )
 
       if rnd < evasion then
         return MISS, 0, "damage", ""
@@ -215,7 +276,16 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     -- или в miss, тогда нужно делать damage не -0,1 а 0
     if iskrit then
       if Attack.act_name( receiver ) == "vampire2" then
-        return MISS, 0, "special", ""
+        local rnd = Game.Random( 99 )
+        local kritslow = Attack.val_restore( receiver, "krit_slow" )
+
+        if kritslow ~= nil then
+          rnd = rnd + kritslow
+        end
+
+        if rnd < 50 then
+          return MISS, 0, "special", ""
+        end
       elseif Attack.act_name( receiver ) == "orc"
       or Attack.act_name( receiver ) == "orc2" then
         Attack.val_store( receiver, "critical_hit", 1 )
@@ -226,7 +296,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     if ( AU.feature( receiver, "beauty" )
     and Attack.act_name( receiver ) ~= "ram"
     and AU.feature( attacker, "humanoid" ) ) then
-      local rnd = Game.Random( 100 )
+      local rnd = Game.Random( 99 )
 
       if rnd < 30 then
         return MISS, 0, "avoid", ""
@@ -234,7 +304,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     elseif ( AU.feature( receiver, "cute" )
     and Attack.act_name( receiver ) ~= "ram"
     and AU.feature( attacker, "humanoid" ) ) then
-      local rnd = Game.Random( 100 )
+      local rnd = Game.Random( 99 )
 
       if rnd < 20 then
         return MISS, 0, "avoid", ""
@@ -529,6 +599,11 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
       if parameter == "defense" then
         local defenseup = math.max( math.floor( ( base_value + value_inc ) / 5 ), min_stat_inc )
         Attack.act_set_par( target, "defenseup", defenseup )
+        local new_current_value, new_base_value = Attack.act_get_par( target, parameter )
+        Attack.val_store( target, "enemy_hero_defense", new_current_value - new_base_value )
+      elseif parameter == "attack" then
+        local new_current_value, new_base_value = Attack.act_get_par( target, parameter )
+        Attack.val_store( target, "enemy_hero_attack", new_current_value - new_base_value )
       end
   
       return true   -- change made
@@ -1080,7 +1155,7 @@ function ai_choose_target( mover--[[, attacks]], enemies, ecells ) --выбирает це
 
   if table.getn(enemies) == 0 then return {target = 0} end
 
-  if Attack.act_ooc(mover) and Attack.act_human(mover) and Game.Random(100) < 90 then -- в 90% случаев вышедшие из под контроля юниты ведут себя как стадо баранов
+  if Attack.act_ooc(mover) and Attack.act_human(mover) and Game.Random(99) < 90 then -- в 90% случаев вышедшие из под контроля юниты ведут себя как стадо баранов
     if ecells.n == 0 then return {target = 0} end
     return {target = ecells[Game.Random(1,ecells.n)]}
   end
@@ -1246,7 +1321,7 @@ function random_choice(actions)
         total_prob = total_prob + v.prob
     end
 
-    local rnd = Game.Random(total_prob)
+    local rnd = Game.Random( total_prob - 1 )
     for k,v in ipairs(actions) do
         if rnd < v.prob then return v end
         rnd = rnd - v.prob
@@ -1506,7 +1581,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
 
   local wait_or_not = 1
 
-  if enemies_power / allies_power < 0.8 or Game.Random( 100 ) < 60 then wait_or_not = 0 end -- враг слабее - не ждем
+  if enemies_power / allies_power < 0.8 or Game.Random( 99 ) < 60 then wait_or_not = 0 end -- враг слабее - не ждем
 
   if offence then
     if mover_atks.base ~= nil then
@@ -1839,7 +1914,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
 
     local pr = ( .5 - mover_power / ( mover_power + power ) ) * 200
 
-    if Game.Random( 100 ) < pr then return mover end
+    if Game.Random( 99 ) < pr then return mover end
   end
 
   --[[ Доп. действия. Всегда добавляем к основным:
@@ -2000,7 +2075,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
           local act = atk.targets[ i ]
 
           if not act.spells.special_spider_web
-          and Game.Random(100) < ( .5 - mover_power / ( mover_power + act.leadship * act.units ) ) * 200 then
+          and Game.Random( 99 ) < ( .5 - mover_power / ( mover_power + act.leadship * act.units ) ) * 200 then
             target = act
             break
           end
@@ -2050,7 +2125,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         end
 
         if atk.cells.n >= 1 then
-          if Game.Random( 100 ) < pr then
+          if Game.Random( 99 ) < pr then
             if string.find( mover.name, "ent" )
             or string.find( mover.name, "thorn" ) then
               prob = 100000
@@ -2349,7 +2424,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
 
       elseif name == "battle_mage" then -- транс
         if can_attack_enemy
-        and Game.Random( 100 ) < 70 then
+        and Game.Random( 99 ) < 70 then
           target = mover
         end
 
@@ -2462,7 +2537,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
 
         local pr = ( .5 - mover_power / ( mover_power + enemy_rank ) ) * 200
 
-        if Game.Random( 100 ) < pr then target = mover end
+        if Game.Random( 99 ) < pr then target = mover end
 
       elseif name == "poison_cloud"
       or name == "gain_mana" then -- bone/green dragon
@@ -2901,7 +2976,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
       local path = Attack.calc_path( mover, res.target )
 
       if path == nil then -- идти некуда
-        if Game.Random( 100 ) < 70 then
+        if Game.Random( 99 ) < 70 then
           return { target = boxes[ Game.Random( 1, table.getn( boxes ) ) ], attack = "base" }
         end
       else
@@ -2917,7 +2992,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         end
 
         if nearest_b ~= nil
-        and Game.Random( 100 ) < ( 100 - mindist * 20 ) then
+        and Game.Random( 99 ) < ( 100 - mindist * 20 ) then
           return { target = nearest_b, attack = "base" }
         end
       end
@@ -3416,7 +3491,8 @@ function spell_auto_cast( spells, spellattacks )
   end
 
   local goodSpells = { 
-    spell_haste = ck_cantatk, 
+    -- Haste now increases initiative and chance to krit
+    spell_haste = function( a ) return ( Attack.act_get_par( a, "initiative" ) < avg_enemy_init or ck_cantatk or ( Game.Random( 99 ) < 20 ) ) end, 
     spell_divine_armor = ck_underatk, 
     spell_stone_skin = ck_underatk, 
     spell_pacifism = ck_underatk, 
@@ -3464,7 +3540,9 @@ function spell_auto_cast( spells, spellattacks )
           and bonus_spells )
         end
       end,
-    spell_reaction = function( a ) return Attack.act_get_par( a, "initiative" ) < avg_enemy_init end,
+    -- spell_reaction now increases morale - AI does not use morale
+    spell_reaction = function( a ) return false end,
+--    spell_reaction = function( a ) return Attack.act_get_par( a, "initiative" ) < avg_enemy_init end,
     spell_dragon_arrow =
       function ( a )
         return ck_canatk( a )
@@ -3491,7 +3569,8 @@ function spell_auto_cast( spells, spellattacks )
   }
 
   local badSpells  = {
-    spell_slow = ck_cantatk,
+    -- Slow now decreases initiative and susceptibility to krit
+    spell_slow = function( a ) return ( Attack.act_get_par( a, "initiative" ) > avg_enemy_init or ck_canatk or ( Game.Random( 99 ) < 20 ) ) end,
     spell_shroud = ck_canatk_thrower,
     spell_pygmy = ck_canatk,
     spell_hypnosis = ck_none,

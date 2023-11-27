@@ -112,7 +112,7 @@ kid_adelaide {
     sp_power_int=count,32
     sp_duration_geyser=count,1
     sp_gain_power_geyser=count,16
-    sp_add_infliction_geyser=count,16
+    sp_add_infliction_freeze=count,16
   }
   propbits=child,rare
   params {}

@@ -1,0 +1,159 @@
+gui_begin 0 0
+gui_object_begin simple_text
+gui_object_position 291 34 362 82
+gui_object_name "text_0"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_level_num" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 333 258 471 290
+gui_object_name "name_right_brect"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 117 258 255 290
+gui_object_name "name_left_brect"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 284 297 474 420
+gui_object_name "right_info"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_right_strike_info" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 67 297 257 420
+gui_object_name "left_info"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_left_strike_info" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 181 123 469 194
+gui_object_name "lvu_spirit_get"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_get" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 284 297 474 420
+gui_object_name "lvu_right_b_rect"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 68 297 258 420
+gui_object_name "lvu_left_brect"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 333 258 471 340
+gui_object_name "name_right"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_right_strike" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 117 258 255 340
+gui_object_name "name_left"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_left_strike" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin picture
+gui_object_picture "unknown_picture.png"
+gui_object_picture_angle 0.000000 0
+gui_object_position 296 260 326 290
+gui_object_name "lvu_sp_attack_2"
+gui_object_frigid 1
+gui_object_end
+gui_object_begin picture
+gui_object_picture "unknown_picture.png"
+gui_object_picture_angle 0.000000 0
+gui_object_position 80 260 110 290
+gui_object_name "lvu_sp_attack_1"
+gui_object_frigid 1
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 63 217 478 246
+gui_object_name "text_2"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_impr" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 202 126 468 192
+gui_object_name "spirit_oblast"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin picture
+gui_object_picture "unknown_picture.png"
+gui_object_picture_angle 0.000000 0
+gui_object_position 90 105 176 206
+gui_object_name "lvu_sp_face"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin button
+gui_object_position 205 460 335 498
+gui_object_name "b_ok"
+gui_object_frigid 0
+gui_object_button_normal "victory_buttonok_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "victory_buttonok_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "victory_buttonok_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "victory_buttonok_disabled.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 272 241 487 433
+gui_object_name "b_2"
+gui_object_frigid 0
+gui_object_button_normal "spirit_levelup_button_normal_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "spirit_levelup_button_onmouse_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "spirit_levelup_button_onpress_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "spirit_levelup_button_normal_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 56 241 271 433
+gui_object_name "b_1"
+gui_object_frigid 0
+gui_object_button_normal "spirit_levelup_button_normal_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "spirit_levelup_button_onmouse_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "spirit_levelup_button_onpress_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "spirit_levelup_button_normal_extended.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 168 40 293 72
+gui_object_name "text_0"
+gui_object_frigid 1
+gui_object_text "" "lvu_spirit_level" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin picture
+gui_object_picture "spirit_levelup_bg.png"
+gui_object_picture_angle 0.000000 0
+gui_object_position 49 106 491 250
+gui_object_name "picture_2"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin picture
+gui_object_picture "levelup_bg2_extended.png"
+gui_object_picture_angle 0.000000 0
+gui_object_position 0 0 526 528
+gui_object_name "lvubg"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 284 300 474 328
+gui_object_name "text_3"
+gui_object_frigid 1
+gui_object_text "" "" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 68 300 258 328
+gui_object_name "text_2"
+gui_object_frigid 1
+gui_object_text "" "" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_end

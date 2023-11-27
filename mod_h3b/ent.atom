@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_ent_feat
-  features_hints=plant_header/plant_hint,wood_header/wood_hint,forest_spirit_header/forest_spirit_hint,entangle_header/entangle_hint
+  features_hints=plant_header/plant_hint,wood_header/wood_hint,forest_spirit_header/forest_spirit_hint,entangle_header/entangle_hint,forest_lover_header/forest_lover_hint,dungeon_disliker_header/dungeon_disliker_hint
   posthitslave=features_wood_creature
   race=elf
   cost=800
@@ -104,6 +104,16 @@ arena_params {
     disabled=1
     custom_params {
       ap=2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=forest
+      attack=50%
+    }
+    2 {
+      logbits=dungeon
+      moral=-1
     }
   }
 }

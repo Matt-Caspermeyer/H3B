@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_miner_feat
-  features_hints=night_sight_header/night_sight_hint
+  features_hints=night_sight_header/night_sight_hint,sea_sick_header/sea_sick_hint
   race=dwarf
   cost=40
   level=2
@@ -51,7 +51,12 @@ arena_params {
   arena_bonuses {
     1 {
       logbits=dungeon
+      daytime=8
       attack=50%
+    }
+    2 {
+      logbits=sea
+      moral=-2
     }
   }
 }

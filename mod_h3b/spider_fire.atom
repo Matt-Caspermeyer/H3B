@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_spider_fire_feat
-  features_hints=demon_header/demon_hint,poison_resistance_header/poison_resistance_hint,mind_immunity_header/mind_immunity_hint
+  features_hints=underground_header/underground_hint,demon_header/demon_hint,poison_resistance_header/poison_resistance_hint,mind_immunity_header/mind_immunity_hint
   race=demon
   cost=60
   level=2
@@ -43,6 +43,20 @@ arena_params {
     picture_small=BA1_Web_small.png
     hinthead=special_spider_web_head
     hint=special_spider_web_hint
+  }
+  arena_bonuses {
+    1 {
+      logbits=lava
+      defense=50%
+    }
+    2 {
+      logbits=winter
+      defense=-50%
+    }
+    3 {
+      logbits=dungeon
+      attack=50%
+    }
   }
 }
 scripts {
