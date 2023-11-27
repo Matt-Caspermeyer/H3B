@@ -39,11 +39,13 @@ Notes:
 ------
 
 1. This mod was developed using the Gamer's Gate V1.7 (Build 35,396) version of King's Bounty: The Legend.
-  a.  If you have a different version of the game, then it is possible that not all features of the mod will work.
-  b.  For example, I also have the GoG version of the game and it is V1.7 (Build 35,234) and:
+<ol type="a">
+  <li> If you have a different version of the game, then it is possible that not all features of the mod will work.</li>
+  <li> For example, I also have the GoG version of the game and it is V1.7 (Build 35,234) and:</li>
     i. There is a bug with the Game.LocType LUA Library function that causes LUA execution stop due to some internal error. All features that use LUA scripts to implement location logic has been commented out to prevent the game from crashing / having problems.
     ii. It does not support the damage hint displays for the Spirit abilities that I added in Beta 2013-12-25 and later versions of this mod.
     iii. Please email the company you got Build 35,234 from and request they update to Build 35,396.
+</ol>
 2. I have not tried it with other versions.
 3. This mod uses the English localizations using both the "eng_" and "en_" prefixes for the localization files.
   a.  As mentioned above, only one of those files is needed to play the game.
