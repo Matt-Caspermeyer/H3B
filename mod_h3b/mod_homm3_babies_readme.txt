@@ -7,6 +7,21 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-11-26
+-------------------------
+
+* mod_homm3_babies.kfs
+  & UNIT_FEATURES.LUA
+    ^ Ghosts Soul Drain now increases units by the amount of units killed instead of damage
+    ^ Thanks to Fatt_Shade for suggesting this!
+  For all the wife_babies text files thanks to both Fatt_Shade and Erkilamrl!
+  & FEANORA_BABIES.TXT - fixed some child bonus errors
+  & GERDA_BABIES.TXT - fixed some child bonus errors
+  & MIRABELLA_BABIES.TXT - fixed some child bonus errors
+  & XEONA_BABIES.TXT - fixed some child bonus errors
+
+Updates:
+
 Version: Alpha 2011-11-25
 -------------------------
 

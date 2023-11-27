@@ -150,34 +150,24 @@ function features_soul_drain( damage, addrage, attacker, receiver, minmax )
       local k = tonumber( Attack.get_custom_param( "k" ) )
   
       if k > 0 then 
-        --local receiver=Attack.get_target(1)  -- кого?
-        --local attacker=Attack.get_target(0)  -- кто?
-        --local count_1 = Attack.act_size(attacker)
-     
-        local killed = math.min( AU.unitcount( receiver ) ,damage/ AU.health( receiver ) ) -- сколько закилято
-        local drain = damage --выпито силы
-        local real_max_hp = Attack.act_totalhp( receiver )
-  
-        if real_max_hp < drain then drain = real_max_hp end
-  
-        drain = math.floor( drain * k / 100 )
-        local attacker_count = AU.unitcount( attacker )
-        local add_unit = math.floor( drain / AU.health( attacker ) ) --на скролько прибавлений душ хватит
-        local heal_unit = drain - add_unit * AU.health( attacker )  -- на сколько лечения осталось
-      		Attack.act_size( attacker, attacker_count + add_unit )
-	 	     Attack.act_cure( attacker, heal_unit, 1 )
-  	     --local count_2 = Attack.act_size(attacker)
-     	  Attack.atom_spawn( attacker, 0, "effect_total_cure" )
-     	  local log_msg = "add_blog_vamp_0"
-	       local special = heal_unit
-	     
-     	  if add_unit > 0 then 
-     		   log_msg = "add_blog_soul_"
-	     	   special = add_unit
-	    	  end 
-  
-	 		    Attack.act_damage_addlog( receiver, log_msg, true )
-	 		    Attack.log_special( special ) -- работает  
+        local health = AU.health( receiver )
+        local unit_count = AU.unitcount( receiver )
+        local total_hp = Attack.act_totalhp( receiver )
+        local remaining_hp = total_hp - round( damage )
+        local remaining_count = remaining_hp / health
+        local add_unit = math.min( unit_count, math.floor( unit_count - remaining_count ) ) -- сколько закилято
+
+        if add_unit > 0 then
+          local attacker_count = AU.unitcount( attacker )
+          local heal_unit = add_unit * AU.health( attacker )  -- на сколько лечения осталось
+        		Attack.act_size( attacker, attacker_count + add_unit )
+  	 	     Attack.act_cure( attacker, heal_unit, 1 )
+       	  Attack.atom_spawn( attacker, 0, "effect_total_cure" )
+       		 local log_msg = "add_blog_soul_"
+  	     	 local special = add_unit
+  	 		    Attack.act_damage_addlog( receiver, log_msg, true )
+  	 		    Attack.log_special( special ) -- работает  
+        end
      	end 
    	end 
 	 end 
@@ -186,40 +176,37 @@ function features_soul_drain( damage, addrage, attacker, receiver, minmax )
 end
 
 
-function features_vampirism( damage,addrage,attacker,receiver,minmax ) -- minmax, равный 1 или 2 означает, что функция вызывается только для определения мин/макс урона во всп.подсказке
-
-    if (minmax==0) and damage>0 then
-
+function features_vampirism( damage, addrage, attacker, receiver, minmax ) -- minmax, равный 1 или 2 означает, что функция вызывается только для определения мин/макс урона во всп.подсказке
+  if minmax == 0
+  and damage > 0 then
     -- сколько хитов у вампов
-	   if --[[Attack.act_need_cure(attacker) or ]]Attack.cell_need_resurrect(attacker) then
-	   if Attack.act_enemy(receiver) and not (Attack.act_feature(receiver,"undead")) and not  (Attack.act_feature(receiver,"plant")) and not (Attack.act_feature(receiver,"golem")) and not (Attack.act_feature(receiver,"pawn")) then
-			local count_1 = Attack.act_size(attacker)
-
-	   	local vamp = math.min(Attack.act_totalhp(receiver), damage)
-	   	local hp1 = Attack.act_totalhp(attacker)
- 	    Attack.act_resurrect(attacker, math.floor(vamp+.5))
-
- 	    local count_2 = Attack.act_size(attacker)
-
-    	Attack.atom_spawn(attacker, 0, "effect_total_cure")
-    	local log_msg="add_blog_vamp_"
-
-		local special=count_2-count_1
-
-    	if count_2==count_1  then
-    		log_msg=log_msg.."0"
-    		special = Attack.act_totalhp(attacker) - hp1
-    	end
-
-	  Attack.act_damage_addlog(receiver,log_msg,true)
-	  Attack.log_special(special) -- работает  
- 				   	
-    end 
+  	 if --[[Attack.act_need_cure(attacker) or ]]Attack.cell_need_resurrect( attacker ) then
+    	 if Attack.act_enemy( receiver )
+      and not ( Attack.act_feature( receiver,"undead" ) )
+      and not ( Attack.act_feature( receiver, "plant" ) )
+      and not ( Attack.act_feature( receiver, "golem" ) )
+      and not ( Attack.act_feature( receiver, "pawn" ) ) then
+    			 local count_1 = Attack.act_size( attacker )
+    	   local vamp = math.min( Attack.act_totalhp( receiver ), damage )
+    	   local hp1 = Attack.act_totalhp( attacker )
+     	  Attack.act_resurrect( attacker, math.floor( vamp +.5 ) )
+     	  local count_2 = Attack.act_size( attacker )
+       	Attack.atom_spawn( attacker, 0, "effect_total_cure" )
+        local log_msg = "add_blog_vamp_"
+      		local special = count_2 - count_1
+    
+        if count_2 == count_1  then
+          log_msg = log_msg .. "0"
+          special = Attack.act_totalhp( attacker ) - hp1
+        end
+    
+    	   Attack.act_damage_addlog( receiver, log_msg, true )
+    	   Attack.log_special( special ) -- работает  
+      end 
     end
+  end
 
-   end
-
-    return damage,addrage
+  return damage,addrage
 end
 
 
@@ -670,7 +657,7 @@ function special_bonus_spell( attacker, receiver )
   end
 
   if table.getn( tmp_spells ) > 0 then
-    cast = Game.Random( 1, table.getn( tmp_spells ) )
+    local cast = Game.Random( 1, table.getn( tmp_spells ) )
     if tmp_spells[ cast ] == spell_haste_attack
     or tmp_spells[ cast ] == spell_bless_attack then
       tmp_spells[ cast ]( level, dmgts, receiver )

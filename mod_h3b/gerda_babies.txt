@@ -1415,7 +1415,7 @@ kid_ordwald {
     sp_lead_unit_miner=count,12
     sp_lead_unit_dwarf=count,9
     sp_lead_unit_alchemist=count,7
-    sp_lead_unitcannoner=count,7
+    sp_lead_unit_cannoner=count,7
     sp_lead_unit_giant=count,4
   }
   propbits=child,rare

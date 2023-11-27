@@ -1701,7 +1701,7 @@ kid_damacon {
   }
   mods {
     sp_addgold_battle=count,98
-    sp_addgold_chestt=count,98
+    sp_addgold_chest=count,98
   }
   propbits=child,rare
   params {}

@@ -492,17 +492,6 @@ kid_edric {
         belligerent=ally
         unit=griffin
       }
-      pbonus=hitback,1,0,0,-100,0,0
-      dbonus=
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=griffin
-      }
       pbonus=initiative,1,0,0,-100,0,0
       dbonus=
       rbonus=

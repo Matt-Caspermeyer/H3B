@@ -290,17 +290,6 @@ kid_marius {
         belligerent=ally
         unit=demon
       }
-      pbonus=hitback,1,0,0,-100,0,0
-      dbonus=
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=demon
-      }
       pbonus=speed,1,0,0,-100,0,0
       dbonus=
       rbonus=
