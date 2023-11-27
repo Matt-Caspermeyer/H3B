@@ -592,7 +592,7 @@ function update_enemy_units_based_on_difficulty( target )
   local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/eunit' ), Game.HSP_difficulty() + 1, '|' ) ) - 1
   local maplocden = tonumber( text_dec( Game.Config( 'difficulty_k/maplocden' ), Game.HSP_difficulty() + 1, '|' ) )
   local maplocdiff = Game.MapLocDifficulty() + 1
-  diff_k = diff_k + math.floor( maplocdiff / maplocden )
+  diff_k = diff_k + maplocdiff / maplocden / 100
   local min_stat_inc = tonumber( text_dec( Game.Config( 'difficulty_k/minstatinc' ), Game.HSP_difficulty() + 1, '|' ) )
   local difficulty_value = Game.HSP_difficulty()
   local desc = "difficulty_normal"

@@ -162,6 +162,13 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Version: Beta 2012-01-16
+-------------------------
+
+* mod_homm3_babies.kfs
+  & ARENA.LUA - fixed error in implementation of map location bonus where I forgot to match the units with it and the difficulty bonus (the bonus was off by a factor of 100!)
+
+
 Version: Beta 2012-01-14
 -------------------------
 
