@@ -1,0 +1,238 @@
+main {
+  class=chesspiece
+  model=orc.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_orc_feat
+  race=orc
+  cost=90
+  level=3
+  leadership=60
+  attack=16
+  defense=17
+  defenseup=4
+  initiative=4
+  speed=2
+  hitpoint=65
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,run
+  features=humanoid
+  resistances {
+    physical=10
+    poison=10
+    magic=0
+    fire=10
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=7,10
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=orc_idle.bsa/fr:25:50
+  rare=orc_rare.bsa/fr:25:50
+  attack=orc_attack.bsa/fr:25:50
+  move=orc_move.bsa/fr:25:50
+  start=orc_start.bsa/fr:25:50
+  stop=orc_stop.bsa/fr:25:50
+  clock=orc_clock.bsa/fr:25:50
+  contra=orc_contra.bsa/fr:25:50
+  clock2=orc_2clock.bsa/fr:17:34
+  contra2=orc_2contra.bsa/fr:17:34
+  lturn=orc_lturn.bsa/fr:25:50
+  rturn=orc_rturn.bsa/fr:25:50
+  damage=orc_damage.bsa/fr:25:50
+  slew=orc_slew.bsa/fr:18:36
+  rush=orc_rush.bsa/fr:25:50
+  death=orc_death.bsa/fr:25:50
+  respawn=orc_respawn.bsa/fr:25:50
+  cursor=orc_rare.bsa/fr:25:50
+  teleout=orc_idle.bsa/fr:25:50/r:55:90
+  telein=orc_idle.bsa/fr:25:50/r:0:35
+  happy=orc_happy.bsa/fr:25:50
+  victorymain=orc_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:1:idlemain:1:2:rare:1:1:victorymain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    9.0?x=
+    0.0=cam
+  }
+  @damage {
+    7.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    10.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=orc_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=orc_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=orc_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=orc_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=orc_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=orc_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=orc_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=orc_clocont2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=orc_clocont2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=orc_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=orc_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=orc_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=orc_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=orc_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=orc_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=orc_rare
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  orc_idle.bsa=file
+  orc_rare.bsa=file
+  orc_attack.bsa=file
+  orc_move.bsa=file
+  orc_start.bsa=file
+  orc_stop.bsa=file
+  orc_clock.bsa=file
+  orc_contra.bsa=file
+  orc_2clock.bsa=file
+  orc_2contra.bsa=file
+  orc_lturn.bsa=file
+  orc_rturn.bsa=file
+  orc_damage.bsa=file
+  orc_death.bsa=file
+  orc_respawn.bsa=file
+  orc_victory.bsa=file
+  orc_rush.bsa=file
+}

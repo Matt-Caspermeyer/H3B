@@ -270,84 +270,147 @@ end
 -- ***********************************************
 
 function special_shaman_spirit_dance_attack()
-
   local target = Attack.get_target()                            -- epicentre
-  local text=""
+  local text = ""
+  Attack.aseq_remove( 0 )
+  Attack.act_aseq( 0, "cast" )
+  local dmgts1 = Attack.aseq_time( 0, "x" )                   -- x time of attacker
+  local dmgts2 = Attack.aseq_time( "oldaxe", "x" )            -- x time of effect atom
+  Attack.atom_spawn( target, dmgts1 - dmgts2, "oldaxe" )      -- summon atom at x time
+  local dmgts3 = Attack.aseq_time( "oldaxe", "y" )
+  local count = Attack.act_size( 0 )
+  local dmg_min, dmg_max = text_range_dec( Attack.get_custom_param( "damage" ) )
+  local power = tonumber( Attack.get_custom_param( "power" ) )
+  local damage = Game.Random( dmg_min, dmg_max )
+  local typedmg = Attack.get_custom_param( "typedmg" )
+  Attack.atk_set_damage( typedmg, damage, damage )
+  local dmgt = dmgts1 - dmgts2 + dmgts3
+  common_cell_apply_damage( target, dmgt )
+  damage = math.min( Attack.act_totalhp( target ), ( Attack.act_damage_results( target ) ) )
+  local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
+  damage = damage + titan_energy
 
-  Attack.aseq_remove(0)
-  Attack.act_aseq(0,"cast")
+  if not Attack.act_feature( target, "pawn" ) then --здоровье пьем только из живых
+    local function check_cure( i )
+  	   return Attack.act_ally( i )
+      and Attack.act_need_cure( i )
+      and not Attack.act_feature( i,"pawn" )
+      and not Attack.act_temporary( i )
+      and not Attack.act_race( i ) == "orc"
+    end
 
-  local dmgts1 = Attack.aseq_time(0, "x")                   -- x time of attacker
-  local dmgts2 = Attack.aseq_time("oldaxe", "x")   -- x time of effect atom
-  Attack.atom_spawn(target, dmgts1-dmgts2, "oldaxe" )      -- summon atom at x time
-  local dmgts3 = Attack.aseq_time("oldaxe", "y")
+    local function check_res( i )
+  	   return Attack.act_ally( i )
+      and Attack.cell_need_resurrect( i )
+      and not Attack.act_feature( i,"pawn" )
+      and not Attack.act_temporary( i )
+      and Attack.act_race( i ) == "orc"
+    end
 
-  local count=Attack.act_size(0)
-  local dmg_min,dmg_max = text_range_dec(Attack.get_custom_param("damage"))
-  local power=tonumber(Attack.get_custom_param("power"))
+    local function check_dam( i, t )
+  	   return Attack.act_enemy( i )
+      and not Attack.act_feature( i,"pawn" )
+      and not Attack.act_equal( i, t )
+    end
 
-  local damage=Game.Random(dmg_min,dmg_max)
-  local typedmg=Attack.get_custom_param("typedmg")
-  Attack.atk_set_damage(typedmg,damage,damage)
+    -- считаем сколько юнитов нужно лечить
+    local acnt = Attack.act_count()
+    local need_cure, need_res = 0, 0
 
-  local dmgt = dmgts1-dmgts2+dmgts3
-  common_cell_apply_damage(target , dmgt)
-  damage = math.min(Attack.act_totalhp(target), (Attack.act_damage_results(target)))
-
-  if not Attack.act_feature(target,"undead,plant,pawn,golem") then --здоровье пьем только из живых
-
-  local function check_cure(i)
-  	return (Attack.act_ally(i)) and (Attack.act_need_cure(i)) and not Attack.act_feature(i,"plant,undead,pawn,golem") and not Attack.act_temporary(i) 
-  end
-  -- считаем сколько юнитов нужно лечить
-  local acnt = Attack.act_count()
-    local need_cure=0
-      for i=1,acnt-1 do
-        if check_cure(i) then need_cure=need_cure+1 end
+    for i = 1, acnt - 1 do
+      if check_res( i ) then
+        need_res = need_res + 1
       end
-  -- пересчитываем урон в лечилку
-  local cure=math.ceil(damage/need_cure*power/100)
+    end
 
-  --лечим
-    for i=1,acnt-1 do
-      if check_cure(i) then
-      --and (Attack.act_name(i)=="shaman")
-        --local name=Attack.act_name(i)
-        --  срезаем величину лечения до необходимого для конкретного юнита
-        --local max_hp = Attack.act_getpar(i,"hitpoint")
-        local max_hp = Attack.act_get_par(i,"health")
-
-        local cure_hp=cure
-        local cur_hp = Attack.act_hp(i)
-        if cure_hp > max_hp - cur_hp then cure_hp = max_hp - cur_hp end
-
-        local a = Attack.atom_spawn(i, dmgt, "effect_total_cure")
-        local dmgts = Attack.aseq_time(a, "x")
-        Attack.act_cure(i, cure_hp, dmgt+dmgts)
-
-        local name,tcure="",""
-        if Attack.act_size(i)>1 then
-          name="<label=cpsn_"..Attack.act_name(i)..">"
-          tcure="<label=add_blog_healtext_22>"
-        else
-          name="<label=cpn_"..Attack.act_name(i)..">"
-          tcure="<label=add_blog_healtext_21>"
+    if need_res > 0 then
+      local res = math.ceil( damage / need_res * power / 100 )
+      damage = 0
+  
+      for i = 1, acnt - 1 do
+        if check_res( i ) then
+          local initsize = Attack.act_initsize( i )
+          local health = Attack.act_get_par( i, "health" )
+          local inithp = initsize * health
+          local totalhp = Attack.act_totalhp( i )
+          local newhp = totalhp + res
+          local excess_hp = newhp - inithp
+          local oldsize = Attack.act_size( i )
+      
+          if excess_hp > 0 then
+            damage = damage + excess_hp
+          end
+      
+          local a = Attack.atom_spawn( i, dmgt, "hll_priest_resur_cast" )
+          local dmgts = Attack.aseq_time( a, "x" )
+          Attack.cell_resurrect( i, res, dmgt + dmgts )
+          local newsize = Attack.act_size( i )
+          local res_units = newsize - oldsize
+      
+          if res_units > 1 then
+            Attack.log( dmgt + 0.1, "add_blog_res_2", "target", blog_side_unit( i, 0 ), "special", res_units )
+          elseif res_units > 0 then
+            Attack.log( dmgt + 0.1, "add_blog_res_1", "target", blog_side_unit( i, 0 ), "special", res_units )
+          else
+            if oldsize > 1 then
+              Attack.log( dmgt + 0.1, "add_blog_cure_2", "target", blog_side_unit( i, 0 ), "special", res )
+            else
+              Attack.log( dmgt + 0.1, "add_blog_cure_1", "target", blog_side_unit( i, 0 ), "special", res )
+            end
+          end
         end
+      end
+    end
 
-         if Attack.act_size(i)>1 then
-            Attack.log(dmgt,"add_blog_cure_2","target",blog_side_unit(i,0),"special",cure_hp)
-         else
-            Attack.log(dmgt,"add_blog_cure_1","target",blog_side_unit(i,0),"special",cure_hp)
-         end
+    if damage > 0 then
+      for i = 1, acnt - 1 do
+        if check_cure( i ) then need_cure = need_cure + 1 end
+      end
+  
+      if need_cure > 0 then
+        -- пересчитываем урон в лечилку
+        local cure = math.ceil( damage / need_cure * power / 100 )
+        damage = 0
+    
+        --лечим
+        for i = 1, acnt - 1 do
+          if check_cure( i ) then
+            local max_hp = Attack.act_get_par( i, "health" )
+            local cure_hp = cure
+            local cur_hp = Attack.act_hp( i )
+            local need_cure_hp = max_hp - cur_hp
+    
+            if cure_hp > need_cure_hp then
+              damage = damage + ( cure_hp - need_cure_hp )
+              cure_hp = max_hp - cur_hp
+            end
+    
+            local a = Attack.atom_spawn( i, dmgt, "effect_total_cure" )
+            local dmgts = Attack.aseq_time( a, "x" )
+            Attack.act_cure( i, cure_hp, dmgt + dmgts )
+    
+            if Attack.act_size( i ) > 1 then
+              Attack.log( dmgt + 0.2, "add_blog_cure_2", "target", blog_side_unit( i, 0 ), "special", cure_hp )
+            else
+              Attack.log( dmgt + 0.2, "add_blog_cure_1", "target", blog_side_unit( i, 0 ), "special", cure_hp )
+            end
+          end
+        end
+      end
+    end
 
-  --      text=text.."<label=add_blog_healtext_1>"..name..tcure..cure_hp.."<label=add_blog_healtext_3>"
+    if damage > 0 then
+      local stored_energy = math.floor( damage * power / 100 )
+      Attack.val_store( 0, "titan_energy", stored_energy )
+      local count = "1"
 
-       end
+      if stored_energy > 1 then
+        count = "2"
+      end
+
+      Attack.log( dmgt + 0.3, "add_blog_ste_" .. count, "name", blog_side_unit( 0, 1 ), "special", stored_energy )
     end
   end
-
---  Attack.act_damage_addlog(target,"add_blog_heal_",true)
---  Attack.log_special(text) -- работает
 
   return true
 end
@@ -362,8 +425,25 @@ function special_shaman_totem()
   local totem = Attack.atom_spawn( target, 0, name )
   Attack.act_aseq( totem, "appear" )
 
+  local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
+  local power = 80
+  local stored_energy = math.floor( titan_energy * power / 100 )
+  local count2 = "1"
+
+  if stored_energy > 0 then
+    Attack.val_store( 0, "titan_energy", stored_energy )
+    count2 = "2"
+  end
+
+  if titan_energy > 0
+  and stored_energy > 0 then
+    Attack.log( 0, "add_blog_ate_" .. count2, "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( totem, 0 ), "special2", titan_energy, "special", stored_energy )
+  elseif titan_energy > 0 then
+    Attack.log( 0, "add_blog_ate_d", "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( totem, 0 ), "special2", titan_energy )
+  end
+
   local count = Attack.act_size( 0 )
-  local hp = health * count
+  local hp = health * count + titan_energy
   Attack.act_hp( totem, hp )
   Attack.act_set_par( totem, "health", hp )
 
@@ -2407,7 +2487,7 @@ function special_spell()
     end
   end
 
-  cast = Game.Random( 1, table.getn( tmp_spells ) )
+  local cast = Game.Random( 1, table.getn( tmp_spells ) )
 
   if tmp_spells[ cast ] ~= effect_curse_attack
   and tmp_spells[ cast ] ~= effect_sleep_attack then

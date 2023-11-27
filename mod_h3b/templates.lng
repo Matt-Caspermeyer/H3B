@@ -273,6 +273,7 @@ diana_units1=<gen=gen_itm_kid_hint,unit_dragonfly_fire,1,starts><gen=gen_itm_kid
     feanora_resist1=<gen=gen_itm_kid_hint,magic><gen=gen_itm_kid_hint,space_and_space><gen=gen_itm_kid_hint,poison_resist,1,1>
     frog_feanora_units1=<gen=gen_itm_kid_hint,unit_devilfish,1,starts><gen=gen_itm_kid_hint,unit_dragonfly_fire,1,comma_space><gen=gen_itm_kid_hint,unit_dragonfly_lake,1,comma_space><gen=gen_itm_kid_hint,unit_spider,1,comma_space><gen=gen_itm_kid_hint,unit_spider_undead,1,comma_space><gen=gen_itm_kid_hint,unit_spider_venom,1,comma_space><gen=gen_itm_kid_hint,unit_thorn,1,comma_space><gen=gen_itm_kid_hint,unit_thorn_warrior,1,comma_space><gen=gen_itm_kid_hint,unit_snake,1,comma_space><gen=gen_itm_kid_hint,unit_snake_green,1,comma_space><gen=gen_itm_kid_hint,unit_spider_fire,1,comma_space><gen=gen_itm_kid_hint,unit_beholder,1,comma_space><gen=gen_itm_kid_hint,unit_snake_royal,1,comma_space><gen=gen_itm_kid_hint,unit_beholder2,1,comma_space><gen=gen_itm_kid_hint,unit_kingthorn,1,and_name_end><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,value,10><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,krit><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,krit,20><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,lr,1,minus_power_percent><gen=gen_itm_kid_hint,end>
     frog_feanora_eresist1=<gen=gen_itm_kid_hint,enemy><gen=gen_itm_kid_hint,space><gen=gen_itm_kid_hint,magic><gen=gen_itm_kid_hint,space_and_space><gen=gen_itm_kid_hint,poison_resist,1,1,minus_power_percent>
+    frog_feanora_eresist2=<gen=gen_itm_kid_hint,enemy><gen=gen_itm_kid_hint,space><gen=gen_itm_kid_hint,magic><gen=gen_itm_kid_hint,space_and_space><gen=gen_itm_kid_hint,poison_resist,2,1,minus_power_percent>
     mirabella_units1=<gen=gen_itm_kid_hint,human_race,1,start_with_units><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,unit_pirat,1,starts><gen=gen_itm_kid_hint,unit_pirat2,1,comma_space><gen=gen_itm_kid_hint,unit_griffin,1,comma_and_name_end><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,human_race,1,attack><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,init><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,morale><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,speed><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,human_race,1,value,1,plus_power><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,health><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,human_race,1,health,1><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,human_race,1,lr,1,minus_power_percent><gen=gen_itm_kid_hint,end>
     rina_units1=<gen=gen_itm_kid_hint,unit_robber,1,starts><gen=gen_itm_kid_hint,unit_robber2,1,comma_space><gen=gen_itm_kid_hint,unit_barbarian,1,comma_space><gen=gen_itm_kid_hint,unit_barbarian2,1,and_name_end><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,attack><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,init><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,morale><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,speed><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,value,1,plus_power><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,krit><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,krit,2><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,health><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,health,1><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,lr,2,minus_power_percent><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,ur><gen=gen_itm_kid_hint,end>
     rina_zombie_eresist1=<gen=gen_itm_kid_hint,poison_eresist,1,1,minus_power_percent>
@@ -303,6 +304,9 @@ diana_units1=<gen=gen_itm_kid_hint,unit_dragonfly_fire,1,starts><gen=gen_itm_kid
     eagle_eye1=<gen=gen_itm_kid_hint,skill_eagle_eye,1,1>
     eagle_eye2=<gen=gen_itm_kid_hint,skill_eagle_eye,2,1>
     eagle_eye3=<gen=gen_itm_kid_hint,skill_eagle_eye,3,1>
+    eagle_eye_eresist_all1=<gen=gen_itm_kid_hint,skill_eagle_eye_eresist_all,1,0.5,minus_power_percent>
+    eagle_eye_eresist_all2=<gen=gen_itm_kid_hint,skill_eagle_eye_eresist_all,2,0.5,minus_power_percent>
+    eagle_eye_eresist_all3=<gen=gen_itm_kid_hint,skill_eagle_eye_eresist_all,3,0.5,minus_power_percent>
     earth_magic1=<gen=gen_itm_kid_hint,skill_earth_magic,1,2>
     earth_magic2=<gen=gen_itm_kid_hint,skill_earth_magic,2,2>
     earth_magic3=<gen=gen_itm_kid_hint,skill_earth_magic,3,2>
@@ -330,9 +334,9 @@ diana_units1=<gen=gen_itm_kid_hint,unit_dragonfly_fire,1,starts><gen=gen_itm_kid
     luck1=<gen=gen_itm_kid_hint,skill_luck,1,5>
     luck2=<gen=gen_itm_kid_hint,skill_luck,2,5>
     luck3=<gen=gen_itm_kid_hint,skill_luck,3,5>
-    mysticism1=<gen=gen_itm_kid_hint,skill_mysticism,1,1,plus_power>
-    mysticism2=<gen=gen_itm_kid_hint,skill_mysticism,2,1,plus_power>
-    mysticism3=<gen=gen_itm_kid_hint,skill_mysticism,3,1,plus_power>
+    mysticism1=<gen=gen_itm_kid_hint,skill_mysticism,1,2,plus_power>
+    mysticism2=<gen=gen_itm_kid_hint,skill_mysticism,2,2,plus_power>
+    mysticism3=<gen=gen_itm_kid_hint,skill_mysticism,3,2,plus_power>
     navigation1=<gen=gen_itm_kid_hint,skill_navigation,1,8>
     navigation2=<gen=gen_itm_kid_hint,skill_navigation,2,8>
     navigation3=<gen=gen_itm_kid_hint,skill_navigation,3,8>
@@ -348,18 +352,27 @@ diana_units1=<gen=gen_itm_kid_hint,unit_dragonfly_fire,1,starts><gen=gen_itm_kid
     resistance1=<gen=gen_itm_kid_hint,skill_resistance,1,0.5>
     resistance2=<gen=gen_itm_kid_hint,skill_resistance,2,0.5>
     resistance3=<gen=gen_itm_kid_hint,skill_resistance,3,0.5>
-    scholar1=<gen=gen_itm_kid_hint,skill_scholar,1,1>
-    scholar2=<gen=gen_itm_kid_hint,skill_scholar,2,1>
-    scholar3=<gen=gen_itm_kid_hint,skill_scholar,3,1>
-    scouting1=<gen=gen_itm_kid_hint,skill_scouting,1,2>
-    scouting2=<gen=gen_itm_kid_hint,skill_scouting,2,2>
-    scouting3=<gen=gen_itm_kid_hint,skill_scouting,3,2>
+    scholar1=<gen=gen_itm_kid_hint,skill_scholar,1,0.5>
+    scholar2=<gen=gen_itm_kid_hint,skill_scholar,2,0.5>
+    scholar3=<gen=gen_itm_kid_hint,skill_scholar,3,0.5>
+    scouting_1=<gen=gen_itm_kid_hint,skill_scouting_rage,1,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,1,4>
+    scouting_2=<gen=gen_itm_kid_hint,skill_scouting_rage,2,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,2,4>
+    scouting_3=<gen=gen_itm_kid_hint,skill_scouting_rage,3,2><gen=gen_itm_kid_hint,skill_scouting_rageinflow,3,4>
+    scouting_rage1=<gen=gen_itm_kid_hint,skill_scouting_rage,1,4>
+    scouting_rage2=<gen=gen_itm_kid_hint,skill_scouting_rage,2,4>
+    scouting_rage3=<gen=gen_itm_kid_hint,skill_scouting_rage,3,4>
+    scouting_rageinflow1=<gen=gen_itm_kid_hint,skill_scouting_rageinflow,1,8>
+    scouting_rageinflow2=<gen=gen_itm_kid_hint,skill_scouting_rageinflow,2,8>
+    scouting_rageinflow3=<gen=gen_itm_kid_hint,skill_scouting_rageinflow,3,8>
     sorcery1=<gen=gen_itm_kid_hint,skill_sorcery,1,2>
     sorcery2=<gen=gen_itm_kid_hint,skill_sorcery,2,2>
     sorcery3=<gen=gen_itm_kid_hint,skill_sorcery,3,2>
     tactics1=<gen=gen_itm_kid_hint,skill_tactics,1,1>
     tactics2=<gen=gen_itm_kid_hint,skill_tactics,2,1>
     tactics3=<gen=gen_itm_kid_hint,skill_tactics,3,1>
+    tactics_einit1=<gen=gen_itm_kid_hint,skill_tactics_einit,1,1,minus_power>
+    tactics_espeed1=<gen=gen_itm_kid_hint,skill_tactics_espeed,1,1,minus_power>
+    tactics_e2=<gen=gen_itm_kid_hint,skill_tactics_e2,1,1,minus_power>
     water_magic1=<gen=gen_itm_kid_hint,skill_water_magic,1,2>
     water_magic2=<gen=gen_itm_kid_hint,skill_water_magic,2,2>
     water_magic3=<gen=gen_itm_kid_hint,skill_water_magic,3,2>
@@ -461,9 +474,9 @@ psychic_magic_elemental1=<gen=gen_itm_kid_hint,magic_damage,1,2><gen=gen_itm_kid
     fire_arrow_ball1=<gen=gen_itm_kid_hint,spell_fire_arrow,1,starts><gen=gen_itm_kid_hint,spell_fire_ball,1,and_name_end><gen=gen_itm_kid_hint,spell_fire_ball,1,power,2><gen=gen_itm_kid_hint,spell_fire_arrow,1,burn,2><gen=gen_itm_kid_hint,spell_fire_ball,1,comma_and_duration><gen=gen_itm_kid_hint,end>
     fire_arrow_rain1=<gen=gen_itm_kid_hint,spell_fire_arrow,1,starts><gen=gen_itm_kid_hint,spell_fire_rain,1,and_name_end><gen=gen_itm_kid_hint,spell_fire_rain,1,power,2><gen=gen_itm_kid_hint,spell_fire_arrow,1,burn,2><gen=gen_itm_kid_hint,spell_fire_rain,1,comma_and_duration><gen=gen_itm_kid_hint,end>
 
-attack_spells1=<gen=gen_itm_kid_hint,spell_lightning,1,starts><gen=gen_itm_kid_hint,spell_smile_skull,1,comma_space><gen=gen_itm_kid_hint,spell_ice_serpent,1,comma_space><gen=gen_itm_kid_hint,spell_fire_arrow,1,comma_space><gen=gen_itm_kid_hint,spell_geyser,1,comma_space><gen=gen_itm_kid_hint,spell_fire_ball,1,comma_space><gen=gen_itm_kid_hint,spell_fire_rain,1,comma_space><gen=gen_itm_kid_hint,spell_armageddon,1,comma_space><gen=gen_itm_kid_hint,spell_magic_axe,1,comma_space><gen=gen_itm_kid_hint,spell_ghost_sword,1,comma_space><gen=gen_itm_kid_hint,spell_healing,1,comma_space><gen=gen_itm_kid_hint,spell_dragon_slayer,1,comma_space><gen=gen_itm_kid_hint,spell_demon_slayer,1,comma_space><gen=gen_itm_kid_hint,spell_phoenix,1,comma_space><gen=gen_itm_kid_hint,spell_holy_rain,1,comma_space><gen=gen_itm_kid_hint,spell_accuracy,1,comma_space><gen=gen_itm_kid_hint,spell_berserker,1,comma_space><gen=gen_itm_kid_hint,spell_pain_mirror,1,comma_space><gen=gen_itm_kid_hint,spell_trap,1,comma_space><gen=gen_itm_kid_hint,spell_fire_breath,1,comma_space><gen=gen_itm_kid_hint,spell_evil_book,1,comma_space><gen=gen_itm_kid_hint,spell_kamikaze,1,comma_space><gen=gen_itm_kid_hint,spell_oil_fog,1,and_name_end><gen=gen_itm_kid_hint,spell_lightning,1,power,0.5><gen=gen_itm_kid_hint,end>
+attack_spells1=<gen=gen_itm_kid_hint,spell_lightning,1,starts><gen=gen_itm_kid_hint,spell_smile_skull,1,comma_space><gen=gen_itm_kid_hint,spell_ice_serpent,1,comma_space><gen=gen_itm_kid_hint,spell_fire_arrow,1,comma_space><gen=gen_itm_kid_hint,spell_geyser,1,comma_space><gen=gen_itm_kid_hint,spell_fire_ball,1,comma_space><gen=gen_itm_kid_hint,spell_fire_rain,1,comma_space><gen=gen_itm_kid_hint,spell_armageddon,1,comma_space><gen=gen_itm_kid_hint,spell_magic_axe,1,comma_space><gen=gen_itm_kid_hint,spell_ghost_sword,1,comma_space><gen=gen_itm_kid_hint,spell_healing,1,comma_space><gen=gen_itm_kid_hint,spell_dragon_slayer,1,comma_space><gen=gen_itm_kid_hint,spell_demon_slayer,1,comma_space><gen=gen_itm_kid_hint,spell_phoenix,1,comma_space><gen=gen_itm_kid_hint,spell_holy_rain,1,comma_space><gen=gen_itm_kid_hint,spell_accuracy,1,comma_space><gen=gen_itm_kid_hint,spell_berserker,1,comma_space><gen=gen_itm_kid_hint,spell_pain_mirror,1,comma_space><gen=gen_itm_kid_hint,spell_trap,1,comma_space><gen=gen_itm_kid_hint,spell_fire_breath,1,comma_space><gen=gen_itm_kid_hint,spell_evil_book,1,comma_space><gen=gen_itm_kid_hint,spell_kamikaze,1,comma_space><gen=gen_itm_kid_hint,spell_oil_fog,1,and_name_end><gen=gen_itm_kid_hint,spell_lightning,1,power,1><gen=gen_itm_kid_hint,end>
 
-defense_spells1=<gen=gen_itm_kid_hint,stone_skin,1,starts><gen=gen_itm_kid_hint,spell_phoenix,1,comma_space><gen=gen_itm_kid_hint,spell_divine_armor,1,comma_space><gen=gen_itm_kid_hint,spell_magic_source,1,comma_space><gen=gen_itm_kid_hint,spell_evilbook,1,and_name_end><gen=gen_itm_kid_hint,spell_stone_skin,1,power,0.5><gen=gen_itm_kid_hint,end>
+defense_spells1=<gen=gen_itm_kid_hint,stone_skin,1,starts><gen=gen_itm_kid_hint,spell_phoenix,1,comma_space><gen=gen_itm_kid_hint,spell_divine_armor,1,comma_space><gen=gen_itm_kid_hint,spell_magic_source,1,comma_space><gen=gen_itm_kid_hint,spell_evilbook,1,and_name_end><gen=gen_itm_kid_hint,spell_stone_skin,1,power,1><gen=gen_itm_kid_hint,end>
 // Baby unit bonuses
 // Level 1
     devilfish1=<gen=gen_itm_kid_hint,unit_devilfish,1,start><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,unit_devilfish,1,attack,2,plus_power><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,init><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,morale><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,speed><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,unit_devilfish,1,value,1,plus_power><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,krit><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,unit_devilfish,1,krit,2><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,health><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,unit_devilfish,1,health,1><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,unit_devilfish,1,lr,1,minus_power_percent><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,ur><gen=gen_itm_kid_hint,end>
@@ -1002,6 +1015,7 @@ special_t {
     holy_rage=<color=252,249,220><gen=gen_special_hint,holy_rage></color>
     gulp=<color=252,249,220><gen=gen_special_hint,gulp></color>
     difficulty_level=<gen=gen_special_hint,difficulty_level></color>
+    dissipate=<color=252,249,220><gen=gen_special_hint,dissipate></color>
 }
 
 special_tC=<align=center><font=ft1_14>$<gen=gen_special_name>

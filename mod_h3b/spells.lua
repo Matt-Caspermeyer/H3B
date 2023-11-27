@@ -758,10 +758,10 @@ end
 -- * Scare
 -- ***********************************************
 
-function spell_scare_attack( lvl, dmgts )
+function spell_scare_attack( lvl, dmgts, target )
  	if dmgts == nil then dmgts = 0 end
 
-  local target = Attack.get_target()
+  if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
    	local level = common_get_spell_level( lvl )
@@ -787,10 +787,10 @@ end
 -- * Cruel Fate
 -- ***********************************************
 
-function spell_crue_fate_attack( lvl, dmgts )
+function spell_crue_fate_attack( lvl, dmgts, target )
 	 if dmgts == nil then dmgts = 0 end
 
-  local target = Attack.get_target()
+  if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
    	local level = common_get_spell_level( lvl )
@@ -1910,11 +1910,13 @@ end
 -- * Weakness
 -- ***********************************************
 
-function spell_weakness_attack( lvl, dmgts )
+function spell_weakness_attack( lvl, dmgts, target )
  	if dmgts == nil then dmgts = 0 end
 
  	local level = common_get_spell_level( lvl )
-  local target = Attack.get_target()
+
+  if target == nil then target = Attack.get_target() end
+
   local ehero_level
 
   if Attack.act_belligerent() == 4 then
@@ -2815,10 +2817,10 @@ end
 -- * Ram
 -- ***********************************************
 
-function spell_ram_attack( lvl, dmgts )
+function spell_ram_attack( lvl, dmgts, target )
  	if dmgts == nil then dmgts = 0 end
 
-  local target = Attack.get_target()
+  if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
    	local level = common_get_spell_level( lvl )

@@ -10,6 +10,82 @@ function effect_chance( value, effect_or_feature, kind )
 end
 
 
+-- New Bone Dragon Attack
+function features_bonedragon_attack( damage, addrage, attacker, receiver, minmax )
+  if ( minmax == 0 ) then
+    local receiver_level = Attack.act_level( receiver )
+    local chance = tonumber( Attack.get_custom_param( "chance" ) )
+    local receiver_chance = ( 5 - receiver_level ) * chance
+    local rnd = Game.Random( 100 )
+    local poison = tonumber( Attack.get_custom_param( "poison" ) )
+  
+    if rnd < receiver_chance
+    and damage > 0
+    and poison == 0
+    and not Attack.act_feature( receiver, "magic_immunitet" )
+    and not Attack.act_feature( receiver, "golem" )
+    and not Attack.act_feature( receiver, "pawn" )
+    and not Attack.act_feature( receiver, "boss" ) then
+      local tmp_spells = {}
+
+      if not Attack.act_is_spell( receiver, "spell_scare" )
+      and not Attack.act_feature( receiver, "mind_immunitet" )
+      and not Attack.act_feature( receiver, "undead" ) then
+        table.insert( tmp_spells, spell_scare_attack )
+      end
+
+      if not Attack.act_is_spell( receiver, "spell_plague" )
+      and not Attack.act_feature( receiver, "demon" )
+      and not Attack.act_feature( receiver, "plant" ) then
+        table.insert( tmp_spells, spell_plague_attack )
+      end
+
+      if not Attack.act_is_spell( receiver, "spell_weakness" )
+      and not Attack.act_feature( receiver, "plant" )
+      and not Attack.act_feature( receiver, "undead" ) then
+        table.insert( tmp_spells, spell_weakness_attack )
+      end
+
+      if not Attack.act_is_spell( receiver, "spell_crue_fate" )
+      and Attack.act_name( receiver ) ~= "vampire2" then
+        table.insert( tmp_spells, spell_crue_fate_attack )
+      end
+
+      if not Attack.act_is_spell( receiver, "spell_ram" )
+      and not Attack.act_feature( receiver, "plant" )
+      and not Attack.act_feature( receiver, "undead" ) then
+        table.insert( tmp_spells, spell_ram_attack )
+      end
+
+      if not Attack.act_is_spell( receiver, "effect_curse" )
+      and not Attack.act_feature( receiver, "plant" )
+      and not Attack.act_feature( receiver, "undead" ) then
+        table.insert( tmp_spells, effect_curse_attack )
+      end
+
+      if table.getn( tmp_spells ) > 0 then
+        Attack.act_aseq( 0, "cast" )
+        local dmgts = Attack.aseq_time( 0, "x" )
+        local cast = Game.Random( 1, table.getn( tmp_spells ) )
+        local spell_level = 3
+  
+        if tmp_spells[ cast ] == spell_plague_attack then
+          tmp_spells[ cast ]( receiver, spell_level, dmgts )
+        elseif tmp_spells[ cast ] == effect_curse_attack then
+          tmp_spells[ cast ]( receiver, 1, 3 )
+        else
+          tmp_spells[ cast ]( spell_level, dmgts, receiver )
+        end
+  
+  				  Attack.log( dmgts + 0.2, "add_blog_bonedragon_attack", "name", blog_side_unit( attacker, 1 ), "target", blog_side_unit( receiver, 0 ) )
+      end
+    end
+  end 
+
+  return damage, addrage
+end
+
+
 -- New Ent Entangle
 function features_entangle( damage, addrage, attacker, receiver, minmax )
   if ( minmax == 0 ) then
@@ -46,6 +122,32 @@ function features_treeoflifetap()
 
   return false
 end
+
+
+-- New Shaman Dancing Axes Titan Energy Dissapation
+function features_dissipate_energy()
+  local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
+
+  if titan_energy > 0 then
+    local power = 80
+    local stored_energy = math.floor( titan_energy * power / 100 )
+    Attack.val_store( 0, "titan_energy", stored_energy )
+    local count = "1"
+
+    if stored_energy > 1 then
+      count = "2"
+    end
+
+    if stored_energy > 0 then
+      Attack.log( 0, "add_blog_rte_" .. count, "name", blog_side_unit( 0, 1 ), "special", stored_energy )
+    else
+      Attack.log( 0, "add_blog_dte", "name", blog_side_unit( 0, 1 ) )
+    end
+  end
+
+  return true
+end
+
 
 -- New on remove of Tree of Life Tap, enable running
 function features_rooted_onremove( caa )
@@ -541,16 +643,14 @@ function special_bonus_spell( attacker, receiver )
                     spell_adrenalin_attack, 
                     spell_haste_attack, 
                     spell_reaction_attack, 
-                    spell_magic_source_attack, 
-                    spell_fire_breath_attack, }
+                    spell_magic_source_attack }
 
   local spelln1 = { "spell_stone_skin",
                     "spell_bless",
                     "spell_adrenalin",
                     "spell_haste",
                     "spell_reaction",
-                    "spell_magic_source",
-                    "spell_fire_breath" }
+                    "spell_magic_source" }
 
   local spellf2 = { spell_stone_skin_attack, 
                     spell_bless_attack, 
@@ -558,7 +658,6 @@ function special_bonus_spell( attacker, receiver )
                     spell_haste_attack, 
                     spell_reaction_attack, 
                     spell_magic_source_attack, 
-                    spell_fire_breath_attack,
                     spell_divine_armor_attack }
 
   local spelln2 = { "spell_stone_skin",
@@ -567,7 +666,6 @@ function special_bonus_spell( attacker, receiver )
                     "spell_haste",
                     "spell_reaction",
                     "spell_magic_source",
-                    "spell_fire_breath",
                     "spell_divine_armor" }
 
   local spellf3 = { spell_stone_skin_attack, 
@@ -576,7 +674,6 @@ function special_bonus_spell( attacker, receiver )
                     spell_haste_attack, 
                     spell_reaction_attack, 
                     spell_magic_source_attack, 
-                    spell_fire_breath_attack,
                     spell_divine_armor_attack,
                     spell_invisibility }
 
@@ -586,7 +683,6 @@ function special_bonus_spell( attacker, receiver )
                     "spell_haste",
                     "spell_reaction",
                     "spell_magic_source",
-                    "spell_fire_breath",
                     "spell_divine_armor",
                     "spell_invisibility" }
 
@@ -620,6 +716,11 @@ function special_bonus_spell( attacker, receiver )
   if Attack.act_feature( attacker, "demon" )
   and not Attack.act_is_spell( receiver, "spell_demon_slayer" ) then
     table.insert( tmp_spells, spell_demon_slayer_attack )
+  end
+
+  if not Attack.act_feature( receiver, "demon" )
+  and not Attack.act_is_spell( receiver, "spell_fire_breath" ) then
+    table.insert( tmp_spells, spell_fire_breath_attack )
   end
 
   for ii = 0, Attack.act_spell_count( receiver ) - 1 do

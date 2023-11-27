@@ -1,0 +1,329 @@
+main {
+  class=chesspiece
+  model=catapult.bma
+  hitdist=10
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_catapult_feat
+  features_hints=shot_header/shot_hint,siege_weapon_header/siege_weapon_hint,fire_weakness_header/fire_weakness_hint
+  race=orc
+  cost=180
+  level=3
+  leadership=120
+  attack=23
+  defense=15
+  defenseup=3
+  initiative=4
+  speed=2
+  hitpoint=80
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,throw,siegegun,firethrow
+  features=shot,humanoid
+  posthitmaster=features_burn
+  resistances {
+    physical=20
+    poison=20
+    magic=0
+    fire=-50
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      physical=3,5
+    }
+    custom_params {
+      burn=0
+    }
+  }
+  throw {
+    nfeatures=barrier
+    group=1,2
+    device=catapult
+    showdmg=1
+    distance=100
+    mindist=2
+    base_attack=1
+    ad_factor=1
+    penalty=0.8
+    animation=cast/throw/thtarget
+    throw=catapultball
+    framekey=x
+    damage {
+      physical=5,9
+    }
+    custom_params {
+      burn=0
+    }
+  }
+  siegegun {
+    features=barrier
+    class=throw
+    group=1,3
+    device=catapult
+    showdmg=1
+    distance=6
+    mindist=2
+    base_attack=1
+    ad_factor=1
+    penalty=0.8
+    animation=cast/throw/thtarget
+    throw=catapultball
+    framekey=x
+    damage {
+      physical=10,18
+    }
+    custom_params {
+      burn=0
+    }
+  }
+  firethrow {
+    dontusenearenemy=1
+    device=firecatapult
+    class=throw
+    picture=BA1_CatapultFire_
+    picture_small=BA1_CatapultFire_small.png
+    distance=50
+    ad_factor=1
+    base_attack=0
+    mindist=2
+    reload=3
+    penalty=0.5
+    animation=firecast/throw/thtarget
+    throw=catapultfireball
+    hinthead=special_fire_catapult_head
+    hint=special_fire_catapult_hint
+    framekey=x
+    7in1=0.5
+    friendly_fire=1
+    damage {
+      fire=6,10
+    }
+    custom_params {
+      burn=50
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:2:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=catapult_idle.bsa/fr:25:50
+  rare=catapult_rare.bsa/fr:25:50
+  attack=catapult_attack.bsa/fr:25:50
+  move=catapult_move.bsa/fr:25:50
+  start=catapult_start.bsa/fr:30:60
+  stop=catapult_stop.bsa/fr:30:60
+  clock=catapult_clock.bsa/fr:40:80
+  contra=catapult_contra.bsa/fr:40:80
+  clock2=catapult_2clock.bsa/fr:40:80
+  contra2=catapult_2contra.bsa/fr:40:80
+  lturn=catapult_lturn.bsa/fr:25:50
+  rturn=catapult_rturn.bsa/fr:25:50
+  damage=catapult_damage.bsa/fr:25:50
+  cast=catapult_cast.bsa/fr:25:50
+  slew=catapult_slew.bsa/fr:35:70
+  respawn=catapult_respawn.bsa/fr:25:50
+  death=catapult_death.bsa/fr:25:50
+  cursor=catapult_rare.bsa/fr:25:50
+  teleout=catapult_idle.bsa/fr:25:50/r:45:80
+  telein=catapult_idle.bsa/fr:25:50/r:0:35
+  happy=catapult_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:3:idlemain
+  firecast=catapult_cast.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    16.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    59.0?x=
+    0.0=cam
+  }
+  @firecast {
+    59.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    dummy {
+      tag=throw
+      trans=0/2/-1.79999995/0/-0/0/1
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=0/-0/0/1
+      animation=firecast
+      frame=46/58
+      file=attack_bulbfire.ptb
+    }
+    omni {
+      trans=0/0.12359619/0/0/-0/0/1
+      animation=firecast
+      frame=45/70
+      restart=true
+      lightland=true
+      key=0.2/FFFFC559/2/1
+      key=0.40000001/FFFFC559/2/1
+      key=0.1/FF000000/2/1
+      key=6/FF000000/2/1
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=catapult_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=catapult_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=catapult_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=catapult_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=catapult_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=catapult_clock
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=catapult_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=catapult_clock
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=catapult_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=catapult_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=catapult_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=catapult_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=catapult_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=catapult_death
+      fadetime=60
+    }
+    sound {
+      animation=firecast
+      frame=0.01
+      file=catapult_firecast
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=catapult_happy
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  catapult_idle.bsa=file
+  catapult_rare.bsa=file
+  catapult_attack.bsa=file
+  catapult_move.bsa=file
+  catapult_start.bsa=file
+  catapult_stop.bsa=file
+  catapult_clock.bsa=file
+  catapult_contra.bsa=file
+  catapult_2clock.bsa=file
+  catapult_2contra.bsa=file
+  catapult_lturn.bsa=file
+  catapult_rturn.bsa=file
+  catapult_damage.bsa=file
+  catapult_death.bsa=file
+  catapult_respawn.bsa=file
+  catapult_victory.bsa=file
+  catapult_cast.bsa=file
+}

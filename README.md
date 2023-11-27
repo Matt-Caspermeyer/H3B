@@ -9,6 +9,124 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-12-10
+-------------------------
+
+* mod_homm3_babies.kfs
+  & BONEDRAGON.ATOM
+    ^ Added new header and hint for Bone Dragon's new attack
+    ^ Added new posthitmaster script for the Bone Dragon's new attack
+  & CATAPULT.ATOM
+    ^ Ranged attack ranged penalty removed
+    ^ Increase to resistances:
+      % Physical: +20 (now is 20)
+      % Poison: +20 (now is 20)
+  & GOBLIN.ATOM - increase to resistances:
+    ^ Fire: +5 (now is 5)
+    ^ Physical: +5 (now is 5)
+    ^ Poison: +5 (now is 5)
+  & GOBLIN2.ATOM - increase to resistances:
+    ^ Fire: +5 (now is 5)
+    ^ Physical: +5 (now is 5)
+    ^ Poison: +5 (now is 5)
+  & OGRE.ATOM - increase to resistances:
+    ^ Fire: +10 (now is 20)
+    ^ Physical: +10 (now is 20)
+    ^ Poison: +10 (now is 20)
+  & ORC.ATOM - increase to resistances:
+    ^ Fire: +10 (now is 10)
+    ^ Poison: +10 (now is 10)
+  & ORC2.ATOM - increase to resistances:
+    ^ Fire: +15 (now is 15)
+    ^ Physical: +5 (now is 15)
+    ^ Poison: +15 (now is 15)
+  & SHAMAN.ATOM - increase to resistances:
+    ^ Fire: +10 (now is 10)
+    ^ Physical: +10 (now is 10)
+    ^ Poison: +10 (now is 10)
+  & TOTEM_DEATH.ATOM - description describes that damage is magic, but damage was physical.
+    ^ Damage type changed to magic
+  & TEMPLATES.LNG
+    ^ Added new templates for Shaman's Dancing Axes attack
+  & PAWN.LUA - no changes, just beautified the code a little bit
+  & SPECIAL_ATTACKS.LUA
+    ^ Changed how Shaman's Dancing Axes works:
+      % 80% of damage becomes "Titan Energy" that resurrects friendly Orc troops
+      % 80% of the remaining Titan Energy not used by resurrecting friendly Orc troops heals other friendly troops
+      % 80% of the remaining Titan Energy not used by healing friendly troops is stored on the Shaman for use later
+      % The 20% dissipation only occurs if the energy is used at that step:
+        $ I.e. if there are no friendly Orc troops to heal then 20% of the energy is not lost
+	$ I.e. if there are no friendly troops to heal then 20% of the energy is not lost
+	$ I.e. at the beginning of combat no one is typically hurt yet, so 80% of the damage is stored on the Shaman as Titan Energy in this case
+      % The Titan Energy stored on the Shaman dissipates 20% each round until one of its abilities is used again
+      % If the Shaman casts one of its Totems, then 80% of the energy is used to increase the health of the totem with 20% dissipating and being stored on the Shaman.
+    ^ This change is HIGHLY experimental and may make Orcs too powerful - we'll have to playtest to see...
+  & SPECIAL_HINT.LUA - updated the Shaman's Dancing Axes hint
+  & SPELLS.LUA - needed to change the following function's argument lists (due to Bone Dragon's new attack):
+    ^ spell_scare_attack - added target
+    ^ spell_weakness_attack - added target
+    ^ spell_crue_fate_attack - added target
+    ^ spell_ram_attack - added target
+  & UNIT_FEATURES.LUA
+    ^ New function features_bonedragon_attack that implements the new Bone Dragon posthit attack
+    ^ New function features_dissipate_energy that implements the new Shaman Titan Energy dissipation
+  & SKILLS.TXT
+    ^ Training - the Defense increase has been moved to Combat Readiness
+    ^ Combat Readiness - see above
+  & WIFE_NAME_BABIES.TXT - this refers to all the wife baby files:
+    ^ Babies with the HOMM3 Scouting Ability:
+      % Now get these variants:
+        % +Rage% and +Rage Inflow% (if only 1 child from wife they get this one)
+	% +Rage% (x2 above) (if mother has more than 1 child)
+	% +Rage Inflow% (x2 above) (if mother has more than 1 child)
+    ^ Babies with the HOMM3 Tactics Skill now have these variants:
+      % +Attack / Defense (same as before)
+      % -Enemy Speed or -Enemy Initiative (depends on number of babies under wife)
+      % -Enemy Speed and -Initiative (if baby had Advanced Tactics - Lacus is the only one)
+    ^ Babies with Necromancy (pretty much all Rina's babies)
+      % If the baby had a bonus to an undead unit, the Necromany Skill was changed to increase the level of their other skill by 1
+      % Some other babies with Necromancy left alone
+      % I.e. Charna had Necromancy, Tactics, and Wights (Wights -> Ghosts) and so her Necromancy became Advanced Tactics
+      % I.e. Sandro (Rina) stays the same
+      % I.e. Young Sandro (Feanora) gets Expert Sorcery (only baby with Expert Sorcery)!
+      % This makes Rina's children a little bit more varied:
+        $ Babies are more useful if you want to use other units with her
+	$ Lessens the focus on her for getting so many undead units
+    ^ Babies with HOMM3 Leadership (a lot of Mirabella's babies)
+      % Similar to Necromancy, to prevent so many morale bonuses, the babies other skill increased a level
+      % Helps give fewer morale bonuses from Mirabella's babies so that you can't get as much +morale (but get other bonuses instead)
+      % Gives a bit more variety to her children
+      % Sylvia's Leadership to Expert Navigation
+      % Haart's Leadership to Expert Estates
+    ^ Babies with HOMM3 Mysticism now get +2 or +4 mana per round instead of +1 or +2 per round (2x)
+    ^ Babies with HOMM3 Navigation:
+      % Bonus now applies to Forest and Snow combat as well (babies affected: Voy and Sylvia)
+    ^ Babies with HOMM3 Eagle Eye now have the varients:
+      % Intellect: +%
+      % Enemy Resistance: -% (based on mother's resistance, i.e. Gerda would be -Resist All)
+    ^ Babies with HOMM3 Offense or Archery:
+      % Now they need at least Advanced skill level for +1 to damage type
+      % Now they need Expert level for +2 to damage type
+      % +Damage bonus stays the same
+    ^ Babies with HOMM3 Scholar - bonus has been halved
+  & WIFES.TXT - fixed misspelling in Mirabella's footman Leadership Reduction bonus
+* mod_homm3_babies_en(g)_lng.kfs
+  & EN(G)_BATTLE.LNG
+    ^ Added new logs:
+      % Bone Dragon's new attack
+      % Modified logs related to Shaman's Dancing Axes attack
+  & EN(G)_SKILLS.LNG
+    ^ Updated Training description
+    ^ Updated Combat Readiness description
+  & EN(G)_UNITS_FEATURES.LNG
+    ^ Added Bone Dragon's Chaos feature
+  & EN(G)_UNITS_SEPCIALS.LNG
+    ^ Changed Shaman's Dancing Axes description
+  & EN(G)_HOMM3_BABIES_WIFE.LNG - refers to all the wife babies *.LNG files
+    ^ Skill templates changed to match changes to skills
+    ^ New skill templates used for skill variants
+  & EN(G)_WIVES.LNG - added new variants for the child alternate HOMM3 skill bonuses
+
 Version: Alpha 2011-12-01
 -------------------------
 

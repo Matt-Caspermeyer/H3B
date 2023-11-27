@@ -1,0 +1,301 @@
+main {
+  class=chesspiece
+  model=shaman.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_shaman_feat
+  race=orc
+  cost=600
+  level=4
+  leadership=200
+  attack=24
+  defense=32
+  defenseup=5
+  initiative=5
+  speed=3
+  hitpoint=160
+  krit=10
+  movetype=0
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,badabum,protective_totem,ice_totem
+  features=mage
+  each_turn_script=features_dissipate_energy
+  resistances {
+    physical=10
+    poison=10
+    magic=0
+    fire=10
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=15,18
+    }
+  }
+  badabum {
+    class=scripted
+    picture_small=BA1_Axes_small.png
+    picture=BA1_Axes_
+    hinthead=special_sham_dance_head
+    hint=special_sham_dance_hint
+    ad_factor=0
+    reload=4
+    script_attack=special_shaman_spirit_dance_attack
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    attack_cursor=magicstick
+    damage {
+      magic=20,25
+    }
+    custom_params {
+      damage=20-25
+      typedmg=magic
+      power=80
+      dissipate=20
+    }
+  }
+  protective_totem {
+    class=scripted
+    picture_small=BA1_Totem_Life_small.png
+    picture=BA1_Totem_Life_
+    hinthead=special_life_totem_head
+    hint=special_life_totem_hint
+    ad_factor=0
+    reload=4
+    script_attack=special_shaman_totem
+    script_calccells=calccells_all_empty
+    attack_cursor=magicstick
+    custom_params {
+      atomname=totem_life
+      health=7
+    }
+  }
+  ice_totem {
+    class=scripted
+    picture_small=BA1_Totem_Death_small.png
+    picture=BA1_Totem_Death_
+    hinthead=special_dead_totem_head
+    hint=special_dead_totem_hint
+    ad_factor=0
+    reload=4
+    script_attack=special_shaman_totem
+    script_calccells=calccells_all_empty
+    attack_cursor=magicstick
+    custom_params {
+      atomname=totem_death
+      health=10
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:4:6:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=shaman_idle.bsa/fr:25:50
+  rare=shaman_rare.bsa/fr:25:50
+  attack=shaman_attack.bsa/fr:36:72
+  move=shaman_move.bsa/fr:36:72
+  start=shaman_start.bsa/fr:36:72
+  stop=shaman_stop.bsa/fr:36:72
+  clock=shaman_clock.bsa/fr:40:80
+  contra=shaman_contra.bsa/fr:40:80
+  clock2=shaman_2clock.bsa/fr:40:80
+  contra2=shaman_2contra.bsa/fr:40:80
+  lturn=shaman_lturn.bsa/fr:36:72
+  rturn=shaman_rturn.bsa/fr:36:72
+  damage=shaman_damage.bsa/fr:36:72
+  cast=shaman_cast.bsa/fr:36:72
+  slew=shaman_slew.bsa/fr:35:70
+  death=shaman_death.bsa/fr:25:50
+  respawn=shaman_respawn.bsa/fr:25:50
+  cursor=shaman_rare.bsa/fr:25:50
+  teleout=shaman_idle.bsa/fr:25:50/r:35:70
+  telein=shaman_idle.bsa/fr:25:50/r:0:35
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  happy=/fwd:1:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    17.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @cast {
+    52.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=5
+    particle {
+      trans=0/-0/0/2
+      animation=cast
+      frame=2/66
+      restart=true
+      file=cast_shaman_sparks.ptb
+    }
+  }
+  0 {
+    slot=0
+    particle {
+      trans=0/-0/0/0.40000001
+      compass=true
+      animation=cast
+      frame=48/66
+      restart=true
+      file=dynam_axeblast.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=cast
+      frame=0.01
+      file=shaman_cast
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=shaman_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=shaman_death
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=shaman_rare
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=shaman_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=shaman_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=shaman_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=shaman_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=shaman_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=shaman_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=shaman_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=shaman_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=shaman_contra
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=shaman_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=shaman_turn
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=shaman_slew
+      fadetime=60
+    }
+    sound {
+      frame=0.01
+      file=
+    }
+  }
+}
+prefetch {
+  shaman_idle.bsa=file
+  shaman_rare.bsa=file
+  shaman_attack.bsa=file
+  shaman_move.bsa=file
+  shaman_start.bsa=file
+  shaman_stop.bsa=file
+  shaman_clock.bsa=file
+  shaman_contra.bsa=file
+  shaman_2clock.bsa=file
+  shaman_2contra.bsa=file
+  shaman_lturn.bsa=file
+  shaman_rturn.bsa=file
+  shaman_damage.bsa=file
+  shaman_death.bsa=file
+  shaman_respawn.bsa=file
+  shaman_cast.bsa=file
+}

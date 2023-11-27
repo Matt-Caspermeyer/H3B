@@ -19,7 +19,7 @@ kid_galthran {
       filter {
         belligerent=ally
       }
-      pbonus=defense,0,6,0,-100,0,0
+      pbonus=defense,0,12,0,-100,0,0
       dbonus=
       rbonus=
       attack_on=
@@ -104,18 +104,6 @@ kid_galthran {
     }
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
     sp_lead_unit_archer=count,26
     sp_lead_unit_skeleton=count,26
   }
@@ -308,20 +296,8 @@ kid_moandor {
     }
   }
   mods {
-    sp_addexp_battle=count,12
-    sp_addexp_spirit=count,12
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
+    sp_addexp_battle=count,24
+    sp_addexp_spirit=count,24
     sp_lead_unit_necromant=count,11
   }
   propbits=child,rare
@@ -450,18 +426,6 @@ kid_tamika {
     }
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
     sp_lead_unit_blackknight=count,11
   }
   propbits=child,rare
@@ -494,7 +458,7 @@ kid_vokial {
         belligerent=ally
         unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
       }
-      pbonus=attack,0,12,0,-100,0,0
+      pbonus=attack,0,24,0,-100,0,0
       dbonus=
       rbonus=
       attack_on=
@@ -623,18 +587,6 @@ kid_vokial {
     }
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
     sp_lead_unit_vampire=count,16
     sp_lead_unit_vampire2=count,11
   }
@@ -742,19 +694,7 @@ kid_aislinn {
     }
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
-    sp_power_int=count,12
+    sp_power_int=count,24
     sp_kid_aislinn=count,1
   }
   propbits=child,rare
@@ -784,19 +724,7 @@ kid_nagash {
   fight {
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
-    mana=limit,12%
+    mana=limit,24%
     sp_addgold_battle=count,84
     sp_addgold_chestt=count,84
   }
@@ -868,20 +796,7 @@ kid_thant {
   fight {
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
-    sp_gain_power_necromancy=count,12
-    sp_mana_battle=count,1
+    sp_mana_battle=count,4
   }
   propbits=child,rare
   params {}
@@ -968,7 +883,7 @@ kid_finneas {
     sp_lead_unit_vampire3=count,3
     sp_lead_unit_bonedragon=count,3
     sp_gain_power_necromancy=count,12
-    sp_mana_battle=count,1
+    sp_mana_battle=count,2
   }
   propbits=child,rare
   params {}
@@ -1074,21 +989,9 @@ kid_charna {
     }
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
     sp_lead_unit_ghosts=count,16
-    attack=count,6%
-    defense=count,6%
+    attack=count,12%
+    defense=count,12%
   }
   propbits=child,rare
   params {}
@@ -1121,7 +1024,7 @@ kid_clavius {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=fire,0,6,0,-100,0,0
+      dbonus=fire,0,12,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1132,7 +1035,7 @@ kid_clavius {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=magic,0,6,0,-100,0,0
+      dbonus=magic,0,12,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1143,7 +1046,7 @@ kid_clavius {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=physical,0,6,0,-100,0,0
+      dbonus=physical,0,12,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1154,18 +1057,7 @@ kid_clavius {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=poison,0,6,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=poison,1,0,0,-100,0,0
+      dbonus=poison,0,12,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1218,7 +1110,7 @@ kid_straker {
       }
       pbonus=
       dbonus=
-      rbonus=fire,3,0,0,-100,0,0
+      rbonus=fire,6,0,0,-100,0,0
       attack_on=
       attack_off=
     }
@@ -1228,7 +1120,7 @@ kid_straker {
       }
       pbonus=
       dbonus=
-      rbonus=magic,3,0,0,-100,0,0
+      rbonus=magic,6,0,0,-100,0,0
       attack_on=
       attack_off=
     }
@@ -1238,7 +1130,7 @@ kid_straker {
       }
       pbonus=
       dbonus=
-      rbonus=physical,3,0,0,-100,0,0
+      rbonus=physical,6,0,0,-100,0,0
       attack_on=
       attack_off=
     }
@@ -1248,7 +1140,7 @@ kid_straker {
       }
       pbonus=
       dbonus=
-      rbonus=poison,3,0,0,-100,0,0
+      rbonus=poison,6,0,0,-100,0,0
       attack_on=
       attack_off=
     }
@@ -1331,18 +1223,6 @@ kid_straker {
     }
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
     sp_lead_unit_zombies=count,21
   }
   propbits=child,rare
@@ -1372,19 +1252,7 @@ kid_nimbus {
   fight {
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
-    intellect=count,12%
+    intellect=count,18%
   }
   propbits=child,rare
   params {}
@@ -1413,20 +1281,8 @@ kid_septienna {
   fight {
   }
   mods {
-    sp_lead_unit_archer=count,3
-    sp_lead_unit_skeleton=count,3
-    sp_lead_unit_spider_undead=count,3
-    sp_lead_unit_zombies=count,3
-    sp_lead_unit_bat=count,3
-    sp_lead_unit_ghosts=count,3
-    sp_lead_unit_vampire=count,3
-    sp_lead_unit_bat3=count,3
-    sp_lead_unit_blackknight=count,3
-    sp_lead_unit_nercomant=count,3
-    sp_lead_unit_vampire3=count,3
-    sp_lead_unit_bonedragon=count,3
     sp_power_inc=count,6
-    sp_power_mod=count,1
+    sp_power_mod=count,2
     sp_duration_plague=count,1
     sp_gain_power_plague=count,12
     sp_duration_smile_skull=count,1

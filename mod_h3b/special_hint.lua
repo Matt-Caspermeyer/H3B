@@ -222,6 +222,12 @@ function gen_special_hint(unit,par)
     text = "+" .. tostring( level )
   end
 
+  -- New for Shaman's Energy Dissipation
+  if par == "dissipate" then
+    local dissipate = tonumber( apars.custom_params.dissipate )
+    text = tostring( dissipate ) .. "%"
+  end
+
   -- New hint for difficulty level
   if par == "difficulty_level" then
     local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/eunit' ), Game.HSP_difficulty() + 1, '|' ) ) * 100

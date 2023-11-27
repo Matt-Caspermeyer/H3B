@@ -8,7 +8,7 @@ itm_kid_rashka_taken=^?^
 
 //==== kid_calh
 itm_kid_calh_name=Calh
-itm_kid_calh_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Archery, Scouting, Marius, Gogs, Magogs...[/s] [postamble_boy][archery1][fire_damage1][scouting1][spider_fire1]
+itm_kid_calh_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Archery, Scouting, Marius, Gogs, Magogs...[/s] [postamble_boy][archery1][scouting1][spider_fire1]
 itm_kid_calh_info=^?^[info_boy]
 itm_kid_calh_mhint=^?^
 itm_kid_calh_minfo=^?^
@@ -24,7 +24,7 @@ itm_kid_marius_taken=^?^
 
 //==== kid_nymus
 itm_kid_nymus_name=Nymus
-itm_kid_nymus_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Offense, Pit, Fiends, Lords...[/s] [postamble_girl][offense2][fire_damage2][demoness1]
+itm_kid_nymus_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Offense, Pit, Fiends, Lords...[/s] [postamble_girl][offense2][fire_damage1][demoness1]
 itm_kid_nymus_info=^?^[info_girl]
 itm_kid_nymus_mhint=^?^
 itm_kid_nymus_minfo=^?^
@@ -32,7 +32,7 @@ itm_kid_nymus_taken=^?^
 
 //==== kid_octavia
 itm_kid_octavia_name=Octavia
-itm_kid_octavia_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Efreet, Scholar, Offense, Gold...[/s] [postamble_girl][scholar1][offense1][fire_damage1][gold350]
+itm_kid_octavia_hint=^?^[preamble_girl] [s]Antagarich, Kreegan, Eeofol, Inferno, Demoniac, Efreet, Scholar, Offense, Gold...[/s] [postamble_girl][scholar1][offense1][gold350]
 itm_kid_octavia_info=^?^[info_girl]
 itm_kid_octavia_mhint=^?^
 itm_kid_octavia_minfo=^?^
@@ -80,7 +80,7 @@ itm_kid_zydar_taken=^?^
 
 //==== kid_xeron
 itm_kid_xeron_name=Xeron
-itm_kid_xeron_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Efreet, Leadership, Tactics, Devil, Arch, Xenofex, Lucifer...[/s] [postamble_boy][leadership1][tactics1][archdemon1]
+itm_kid_xeron_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Efreet, Leadership, Tactics, Devil, Arch, Xenofex, Lucifer...[/s] [postamble_boy][leadership1][tactics_espeed1][archdemon1]
 itm_kid_xeron_info=^?^[info_boy]
 itm_kid_xeron_mhint=^?^
 itm_kid_xeron_minfo=^?^
@@ -152,7 +152,7 @@ itm_kid_inteus_taken=^?^
 
 //==== kid_fiur
 itm_kid_fiur_name=Fiur
-itm_kid_fiur_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Fire, Energy, Elemental...[/s] [postamble_boy][offense2][fire_damage2][fire_energy_elemental1]
+itm_kid_fiur_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Fire, Energy, Elemental...[/s] [postamble_boy][offense2][fire_damage1][fire_energy_elemental1]
 itm_kid_fiur_info=^?^[info_boy]
 itm_kid_fiur_mhint=^?^
 itm_kid_fiur_minfo=^?^
@@ -160,7 +160,7 @@ itm_kid_fiur_taken=^?^
 
 //==== kid_ignissa
 itm_kid_ignissa_name=Ignissa
-itm_kid_ignissa_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Fire, Energy, Elemental...[/s] [postamble_girl][offense1][fire_damage1][artillery1][fire_energy_elemental1]
+itm_kid_ignissa_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Fire, Energy, Elemental...[/s] [postamble_girl][offense1][artillery1][fire_energy_elemental1]
 itm_kid_ignissa_info=^?^[info_girl]
 itm_kid_ignissa_mhint=^?^
 itm_kid_ignissa_minfo=^?^
@@ -168,7 +168,7 @@ itm_kid_ignissa_taken=^?^
 
 //==== kid_dace
 itm_kid_dace_name=Dace
-itm_kid_dace_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Overlord, Tactics, Offense, Minotaur, King, Scout, Guide, Bodyguard...[/s] [postamble_boy][tactics1][offense1][physical_damage1][allwarriors1]
+itm_kid_dace_hint=^?^[preamble_boy] [s]Nighon, Dungeon, Overlord, Tactics, Offense, Minotaur, King, Scout, Guide, Bodyguard...[/s] [postamble_boy][tactics1][offense1][allwarriors1]
 itm_kid_dace_info=^?^[info_boy]
 itm_kid_dace_mhint=^?^
 itm_kid_dace_minfo=^?^
@@ -208,7 +208,7 @@ itm_kid_malekith_taken=^?^
 
 //==== kid_mutare_drake
 itm_kid_mutare_drake_name=Mutare Drake
-itm_kid_mutare_drake_hint=^?^[preamble_girl] [s]Antagarich, Nighon, Dungeon, Overlord, Estates, Tactics, Drake, Vial, Blood, Father...[/s] [postamble_girl][estates1][tactics1][alldragons1]
+itm_kid_mutare_drake_hint=^?^[preamble_girl] [s]Antagarich, Nighon, Dungeon, Overlord, Estates, Tactics, Drake, Vial, Blood, Father...[/s] [postamble_girl][estates1][tactics_einit1][alldragons1]
 itm_kid_mutare_drake_info=^?^[info_girl]
 itm_kid_mutare_drake_mhint=^?^
 itm_kid_mutare_drake_minfo=^?^

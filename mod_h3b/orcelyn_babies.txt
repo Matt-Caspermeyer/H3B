@@ -65,7 +65,7 @@ kid_crag_hack {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=physical,3,0,0,-100,0,0
+      dbonus=physical,2,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -146,7 +146,7 @@ kid_kilgor {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=physical,2,0,0,-100,0,0
+      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -215,6 +215,16 @@ kid_erdamon {
   fight {
     {
       filter {
+        belligerent=enemy
+      }
+      pbonus=speed,-1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
         belligerent=ally
       }
       pbonus=
@@ -235,8 +245,6 @@ kid_erdamon {
     }
   }
   mods {
-    attack=limit,9%
-    defense=limit,9%
     sp_addgold_battle=count,45
     sp_addgold_chestt=count,45
   }
@@ -312,17 +320,6 @@ kid_gretchen {
     {
       filter {
         belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
       }
       pbonus=initiative,1,0,0,-100,0,0
       dbonus=
@@ -330,7 +327,6 @@ kid_gretchen {
       attack_on=
       attack_off=
     }
-  }
     {
       filter {
         belligerent=ally
@@ -488,17 +484,6 @@ kid_gurnisson {
       }
       pbonus=
       dbonus=poison,0,9,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -749,17 +734,6 @@ kid_jabarkas {
     {
       filter {
         belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
         unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
       }
       pbonus=
@@ -797,17 +771,6 @@ kid_jabarkas {
       }
       pbonus=
       dbonus=poison,0,9,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -992,17 +955,6 @@ kid_krellion {
       }
       pbonus=
       dbonus=poison,0,9,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1247,17 +1199,6 @@ kid_tyraxor {
     {
       filter {
         belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
         unit=catapult
       }
       pbonus=krit,0,38,0,-100,0,0
@@ -1441,7 +1382,7 @@ kid_gundula {
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
       pbonus=
-      dbonus=physical,2,0,0,-100,0,0
+      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1731,17 +1672,6 @@ kid_alkin {
       }
       pbonus=
       dbonus=poison,0,9,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -2117,6 +2047,16 @@ kid_boragus {
   fight {
     {
       filter {
+        belligerent=enemy
+      }
+      pbonus=speed,-1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
         belligerent=ally
         unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
       }
@@ -2162,17 +2102,6 @@ kid_boragus {
     {
       filter {
         belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
         unit=ogre
       }
       pbonus=health,0,9,0,-100,0,0
@@ -2205,8 +2134,6 @@ kid_boragus {
     }
   }
   mods {
-    attack=limit,9%
-    defense=limit,9%
     sp_lead_unit_ogre=count,9
   }
   propbits=child,rare
@@ -2274,17 +2201,6 @@ kid_young_yog {
       }
       pbonus=
       dbonus=poison,0,9,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=

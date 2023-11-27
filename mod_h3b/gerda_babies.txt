@@ -576,9 +576,50 @@ kid_oris {
   race=human
   use {}
   weight=10
+  fight {
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=
+      dbonus=
+      rbonus=fire,-8,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=
+      dbonus=
+      rbonus=magic,-8,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=
+      dbonus=
+      rbonus=physical,-8,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=
+      dbonus=
+      rbonus=poison,-8,0,0,-100,0,0
+      attack_on=
+      attack_off=
+    }
+  }
   mods {
     sp_power_int=count,16
-    intellect=count,16%
   }
   propbits=child,rare
   params {}
@@ -882,6 +923,7 @@ kid_lorelei {
     }
   }
   mods {
+    sp_rage_battle_prc=count,32
     rage=limit,16%
     sp_lead_unit_alchemist=count,13
     sp_lead_unit_cannoner=count,13
@@ -956,7 +998,7 @@ kid_synca {
     }
   }
   mods {
-    sp_power_inc=count,8
+    sp_power_inc=count,4
     sp_power_mod=count,1
     sp_lead_unit_giant=count,8
   }
@@ -986,7 +1028,7 @@ kid_alamar {
   weight=10
   mods {
     sp_power_int=count,16
-    sp_power_inc=count,8
+    sp_power_inc=count,4
     sp_power_mod=count,1
     sp_gain_power_resurrection=count,16
   }
@@ -1181,12 +1223,20 @@ kid_mutare {
       attack_on=
       attack_off=
     }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=initiative,-1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
   }
   mods {
     sp_addgold_battle=count,40
     sp_addgold_chestt=count,40
-    attack=limit,8%
-    defense=limit,8%
     sp_lead_unit_blackdragon=count,4
     sp_lead_unit_bonedragon=count,4
     sp_lead_unit_greendragon=count,4
@@ -1237,12 +1287,20 @@ kid_thunar {
       attack_on=
       attack_off=
     }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=speed,-1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
   }
   mods {
     sp_addgold_battle=count,40
     sp_addgold_chestt=count,40
-    attack=count,8%
-    defense=count,8%
   }
   propbits=child,rare
   params {}

@@ -721,7 +721,7 @@ wife_mirabella {
   mods {
     sp_lead_unit_archmage=count,8
     sp_lead_unit_bowman=count,8
-    sp_lead_unit_footmn=count,8
+    sp_lead_unit_footman=count,8
     sp_lead_unit_footman2=count,8
     sp_lead_unit_horseman=count,8
     sp_lead_unit_knight=count,8

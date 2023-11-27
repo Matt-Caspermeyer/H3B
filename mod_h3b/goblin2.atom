@@ -1,0 +1,274 @@
+main {
+  class=chesspiece
+  model=goblin2.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_goblin2_feat
+  race=orc
+  cost=60
+  level=2
+  leadership=40
+  attack=14
+  defense=14
+  defenseup=3
+  initiative=6
+  speed=3
+  hitpoint=38
+  krit=20
+  movetype=0
+  realdeath=0
+  immove=0
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,run
+  features=humanoid
+  resistances {
+    physical=5
+    poison=5
+    magic=0
+    fire=5
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      physical=3,8
+    }
+  }
+  throw {
+    group=1,2
+    showdmg=1
+    base_attack=1
+    distance=4
+    mindist=1
+    penalty=0.5
+    animation=cast/throw/thtarget
+    throw=goblinaxe
+    framekey=x
+    damage {
+      physical=1,1
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=goblin_idle.bsa/fr:25:50
+  rare=goblin_rare.bsa/fr:25:50
+  attack=goblin_attack.bsa/fr:30:60
+  cast=goblin_cast.bsa/fr:25:50
+  rush=goblin_rush.bsa/fr:30:60
+  move=goblin_move.bsa/fr:30:60
+  start=goblin_start.bsa/fr:30:60
+  stop=goblin_stop.bsa/fr:30:60
+  slew=goblin_slew.bsa/fr:35:70
+  clock=goblin_clock.bsa/fr:40:80
+  contra=goblin_contra.bsa/fr:40:80
+  clock2=goblin_2clock.bsa/fr:30:60
+  contra2=goblin_2contra.bsa/fr:30:60
+  lturn=goblin_lturn.bsa/fr:30:50
+  rturn=goblin_rturn.bsa/fr:30:50
+  damage=goblin_damage.bsa/fr:25:50
+  death=goblin_death.bsa/fr:25:50
+  dead=goblin_death.bsa/fr:25:50/r:34:35
+  respawn=goblin_respawn.bsa/fr:25:50
+  cursor=goblin_rare.bsa/fr:25:50
+  teleout=goblin_idle.bsa/fr:25:50/r:65:100
+  telein=goblin_idle.bsa/fr:25:50/r:0:35
+  happy=goblin_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:4:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    16.0?x=
+    0.0=cam
+  }
+  @rush {
+    10.0?x=
+    0.0=cam
+  }
+  @cast {
+    12.0?x=
+    0.0=cam
+  }
+  @damage {
+    1.0?x=
+    0.0=cam
+  }
+  @death {
+    1.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    dummy {
+      tag=throw
+      trans=0/0.898/-2/0/-0/0/1
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=goblin_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=goblin_attack
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=goblin_cast
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=goblin_rush
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=goblin_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=goblin_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=goblin_stop
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=goblin_slew
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=goblin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=goblin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=goblin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=goblin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=goblin_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=goblin_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=goblin_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=goblin_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=goblin_rare
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  goblin_idle.bsa=file
+  goblin_rare.bsa=file
+  goblin_attack.bsa=file
+  goblin_move.bsa=file
+  goblin_start.bsa=file
+  goblin_stop.bsa=file
+  goblin_clock.bsa=file
+  goblin_contra.bsa=file
+  goblin_2clock.bsa=file
+  goblin_2contra.bsa=file
+  goblin_lturn.bsa=file
+  goblin_rturn.bsa=file
+  goblin_damage.bsa=file
+  goblin_death.bsa=file
+  goblin_respawn.bsa=file
+  goblin_victory.bsa=file
+  goblin_cast.bsa=file
+  goblin_rush.bsa=file
+}

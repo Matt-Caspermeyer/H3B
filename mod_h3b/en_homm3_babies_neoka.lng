@@ -24,7 +24,7 @@ itm_kid_melodia_taken=^?^
 
 //==== kid_ivor
 itm_kid_ivor_name=Ivor
-itm_kid_ivor_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Offense, Wood, Elves, Grand, Silence...[/s] [postamble_boy][archery1][magic_damage1][offense1][magic_damage1][elf1][elf21]
+itm_kid_ivor_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Offense, Wood, Elves, Grand, Silence...[/s] [postamble_boy][archery1][offense1][elf1][elf21]
 itm_kid_ivor_info=^?^[info_boy]
 itm_kid_ivor_mhint=^?^
 itm_kid_ivor_minfo=^?^
@@ -32,7 +32,7 @@ itm_kid_ivor_taken=^?^
 
 //==== kid_jenova
 itm_kid_jenova_name=Jenova
-itm_kid_jenova_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Gold...[/s] [postamble_girl][archery2][magic_damage2][gold350]
+itm_kid_jenova_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Gold...[/s] [postamble_girl][archery2][magic_damage1][gold350]
 itm_kid_jenova_info=^?^[info_girl]
 itm_kid_jenova_mhint=^?^
 itm_kid_jenova_minfo=^?^
@@ -40,7 +40,7 @@ itm_kid_jenova_taken=^?^
 
 //==== kid_kyrre
 itm_kid_kyrre_name=Kyrre
-itm_kid_kyrre_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Logistics, Kreegan...[/s] [postamble_girl][archery1][magic_damage1][logistics2]
+itm_kid_kyrre_hint=^?^[preamble_girl] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Logistics, Kreegan...[/s] [postamble_girl][archery1][logistics2]
 itm_kid_kyrre_info=^?^[info_girl]
 itm_kid_kyrre_mhint=^?^
 itm_kid_kyrre_minfo=^?^
@@ -120,7 +120,7 @@ itm_kid_ryland_taken=^?^
 
 //==== kid_gelu
 itm_kid_gelu_name=Gelu
-itm_kid_gelu_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Leadership, Sharpshooter, Morgan, Kendal, Catherine, Ironfist, Vori...[/s] [postamble_boy][archery1][magic_damage1][leadership1][allgoodarchers1]
+itm_kid_gelu_hint=^?^[preamble_boy] [s]Antagarich, AvLee, Rampart, Ranger, Archery, Leadership, Sharpshooter, Morgan, Kendal, Catherine, Ironfist, Vori...[/s] [postamble_boy][archery1][leadership1][allgoodarchers1]
 itm_kid_gelu_info=^?^[info_boy]
 itm_kid_gelu_mhint=^?^
 itm_kid_gelu_minfo=^?^
@@ -128,7 +128,7 @@ itm_kid_gelu_taken=^?^
 
 //==== kid_monere
 itm_kid_monere_name=Monere
-itm_kid_monere_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Logistics, Psychic, Magic, Elemental...[/s] [postamble_boy][offense1][magic_damage1][logistics1][psychic_magic_elemental1]
+itm_kid_monere_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Offense, Logistics, Psychic, Magic, Elemental...[/s] [postamble_boy][offense1][logistics1][psychic_magic_elemental1]
 itm_kid_monere_info=^?^[info_boy]
 itm_kid_monere_mhint=^?^
 itm_kid_monere_minfo=^?^
@@ -136,7 +136,7 @@ itm_kid_monere_taken=^?^
 
 //==== kid_pasis
 itm_kid_pasis_name=Pasis
-itm_kid_pasis_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Psychic, Magic, Elemental...[/s] [postamble_girl][offense1][magic_damage1][artillery1][psychic_magic_elemental1]
+itm_kid_pasis_hint=^?^[preamble_girl] [s]Erathia, Conflux, Planeswalker, Offense, Artillery, Psychic, Magic, Elemental...[/s] [postamble_girl][offense1][artillery1][psychic_magic_elemental1]
 itm_kid_pasis_info=^?^[info_girl]
 itm_kid_pasis_mhint=^?^
 itm_kid_pasis_minfo=^?^

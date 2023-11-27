@@ -1,0 +1,262 @@
+main {
+  class=chesspiece
+  model=ogre.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_ogre_feat
+  features_hints=orks_commander_header/orks_commander_hint
+  race=orc
+  cost=3000
+  level=5
+  leadership=900
+  attack=41
+  defense=41
+  defenseup=7
+  initiative=3
+  speed=2
+  hitpoint=580
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,ogre_rage
+  krit=15
+  movetype=0
+  features=humanoid
+  resistances {
+    physical=20
+    poison=20
+    magic=0
+    fire=20
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=50,70
+    }
+  }
+  ogre_rage {
+    class=scripted
+    script_attack=special_ogre_rage_attack
+    script_calccells=
+    endmove=0
+    reload=4
+    picture=BA1_OgreRage_
+    picture_small=BA1_OgreRage_small.png
+    hinthead=special_ogre_rage_head
+    hint=special_ogre_rage_hint
+    custom_params {
+      duration=2
+      ap=2
+      power=100
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=ogre_idle.bsa/fr:25:50
+  rare=ogre_rare.bsa/fr:25:50
+  attack=ogre_attack.bsa/fr:25:50
+  move=ogre_move.bsa/fr:36:72
+  start=ogre_start.bsa/fr:36:72
+  stop=ogre_stop.bsa/fr:36:72
+  clock=ogre_clock.bsa/fr:35:70
+  contra=ogre_contra.bsa/fr:35:70
+  clock2=ogre_2clock.bsa/fr:35:70
+  contra2=ogre_2contra.bsa/fr:35:70
+  lturn=ogre_lturn.bsa/fr:36:72
+  rturn=ogre_rturn.bsa/fr:36:72
+  cast=ogre_special.bsa/fr:25:50
+  slew=ogre_slew.bsa/fr:35:70
+  rush=ogre_rush.bsa/fr:30:60
+  damage=ogre_damage.bsa/fr:25:50
+  death=ogre_death.bsa/fr:25:50
+  respawn=ogre_respawn.bsa/fr:25:50
+  cursor=ogre_rare.bsa/fr:25:50
+  teleout=ogre_idle.bsa/fr:25:50/r:45:80
+  telein=ogre_idle.bsa/fr:25:50/r:0:35
+  happy=ogre_victory.bsa/fr:25:50
+  victory=/t:1:1:happy:1:3:idlemain:1:2:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    20.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    15.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=ogre_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=ogre_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=ogre_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=ogre_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=ogre_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=ogre_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=ogre_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=ogre_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=ogre_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=ogre_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=ogre_turn
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=ogre_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=ogre_rush
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=ogre_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=ogre_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=ogre_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=ogre_victory
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=ogre_cast
+      fadetime=60
+    }
+  }
+  1 {
+    camshaker {
+      animation=attack
+      frame=19/50
+      restart=true
+      envelope=quake_boom.envlp
+      attenuation=0.1
+    }
+  }
+}
+prefetch {
+  ogre_idle.bsa=file
+  ogre_rare.bsa=file
+  ogre_attack.bsa=file
+  ogre_move.bsa=file
+  ogre_start.bsa=file
+  ogre_stop.bsa=file
+  ogre_clock.bsa=file
+  ogre_contra.bsa=file
+  ogre_2clock.bsa=file
+  ogre_2contra.bsa=file
+  ogre_lturn.bsa=file
+  ogre_rturn.bsa=file
+  ogre_damage.bsa=file
+  ogre_death.bsa=file
+  ogre_respawn.bsa=file
+  ogre_victory.bsa=file
+  ogre_rush.bsa=file
+}

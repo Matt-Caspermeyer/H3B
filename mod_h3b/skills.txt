@@ -33,17 +33,6 @@
                 belligerent=ally
                	level=<3
               }
-              pbonus=defense,2,0,0,-100,0,0
-              dbonus=
-              rbonus=
-              attack_on=
-              attack_off=
-            }
-            {
-              filter {
-                belligerent=ally
-               	level=<3
-              }
               pbonus=krit,0,10,0,-100,0,0
               dbonus=
               rbonus=
@@ -74,17 +63,6 @@
                 belligerent=ally
                	level=<4
               }
-              pbonus=defense,3,0,0,-100,0,0
-              dbonus=
-              rbonus=
-              attack_on=
-              attack_off=
-            }
-            {
-              filter {
-                belligerent=ally
-               	level=<4
-              }
               pbonus=krit,0,20,0,-100,0,0
               dbonus=
               rbonus=
@@ -105,17 +83,6 @@
                	level=<5
               }
               pbonus=attack,4,0,0,-100,0,0
-              dbonus=
-              rbonus=
-              attack_on=
-              attack_off=
-            }
-            {
-              filter {
-                belligerent=ally
-               	level=<5
-              }
-              pbonus=defense,4,0,0,-100,0,0
               dbonus=
               rbonus=
               attack_on=
@@ -212,19 +179,58 @@
           deps=1
           runes=2,2,0
           trade=
-          pars=10%,+1
+          pars=10%,+1,+2,2
+          fight {
+            {
+              filter {
+                belligerent=ally
+               	level=<3
+              }
+              pbonus=defense,2,0,0,-100,0,0
+              dbonus=
+              rbonus=
+              attack_on=
+              attack_off=
+            }
+	  }
         }
       2 {
           deps=1
           runes=2,2,0
           trade=
-          pars=20%,+2
+          pars=20%,+2,+3,3
+          fight {
+            {
+              filter {
+                belligerent=ally
+               	level=<4
+              }
+              pbonus=defense,3,0,0,-100,0,0
+              dbonus=
+              rbonus=
+              attack_on=
+              attack_off=
+            }
+	  }
         }
       3 {
           deps=1
           runes=4,4,0
           trade=
-          pars=40%,+3
+          pars=40%,+3,+4,4
+          fight {
+            {
+              filter {
+                belligerent=ally
+               	level=<5
+              }
+              pbonus=defense,4,0,0,-100,0,0
+              dbonus=
+              rbonus=
+              attack_on=
+              attack_off=
+            }
+	  }
         }
     }
   }

@@ -1,0 +1,230 @@
+main {
+  class=pawn
+  model=totem_death.bma
+  apass=2
+  infobox {
+    msgbox=cpn_hint_totem_death
+  }
+}
+arena_params {
+  hitpoint=5
+  takedmg=1
+  attack=7
+  defense=5
+  initiative=3
+  realdeath=1
+  totradius=2
+  tottype=1
+  skipmove=0
+  chessboard_aligned=1
+  ondamage=totem_ondamage
+  attacks=scripted
+  features=pawn
+  resistances {
+    physical=25
+    poison=80
+    magic=0
+    fire=-50
+  }
+  scripted {
+    log_label=null
+    script_calccells=calccells_totem
+    script_attack=totem_attack
+    ad_factor=0
+    custom_params {
+      damage=5-8
+      dmgtype=magic
+      effect=effect_totem_death,1
+      animation=animation,attack
+      target=all
+    }
+  }
+  script_data {
+    race=all
+    features=
+    nfeatures=
+    level=4
+    param=speed
+    change=-1
+    change_=0
+    dist=2
+    ally=0
+    bonus=0
+  }
+}
+scripts {
+  idle=default_idle
+  subturn_modificators=totem_modificators
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  logicunit {
+    typeflags=vars
+    name=lightning_altar
+    vars {}
+    capture {}
+  }
+}
+animations {
+  idle=totem_death_idle.bsa/fr:25:50
+  attack=totem_death_attack.bsa/fr:25:50
+  damage=totem_death_damage.bsa/fr:25:50
+  appear=totem_death_appear.bsa/fr:25:50
+  death=totem_death_death.bsa/fr:25:50
+  teleout=totem_death_idle.bsa/fr:25:50/r:45:80
+  telein=totem_death_idle.bsa/fr:25:50/r:0:35
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    12.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    20.0=alpha/0/18
+    2.0?x=
+    0.0=cam
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/0.5/0/0/-0/0/0.69999999
+      animation=appear
+      frame=18/33
+      file=pawn_totem_life_puff.ptb
+    }
+    particle {
+      animation=appear
+      frame=18/33
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0/1.10000002/0/0/-0/0/1.10000002
+      animation=idle
+      file=pawn_totem_death_startwirl.ptb
+    }
+    particle {
+      trans=0/0.05/0/0/-0/0/1.5
+      animation=idle
+      file=pawn_totem_death_outline.ptb
+    }
+    particle {
+      trans=0/1.10000002/0/0/-0/0/1.10000002
+      animation=attack
+      file=pawn_totem_death_startwirl.ptb
+    }
+    particle {
+      trans=0/1.60000002/0/0/-0/0/1
+      animation=attack
+      frame=0/12
+      file=pawn_totem_death_accum.ptb
+    }
+    particle {
+      trans=0/1.79999995/0/0/-0/0/1
+      animation=attack
+      frame=10/22
+      file=pawn_totem_death_attack_bang.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/1
+      animation=attack
+      frame=14/19
+      file=pawn_totem_death_rays.ptb
+    }
+    particle {
+      animation=damage
+      frame=1/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      animation=death
+      frame=1/5
+      file=pawn_totem_life_burst.ptb
+    }
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.5
+      animation=death
+      frame=0/22
+      file=cast_circlepuff.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/0.2
+      animation=death
+      frame=11/22
+      file=pawn_totem_death_bullets.ptb
+    }
+    particle {
+      trans=0/-0/0/1.5
+      animation=death
+      frame=0/15
+      file=pawn_totem_death_stars_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/1.79999995/0/-3.1415925/-0/0/1
+      animation=attack
+      frame=10/22
+      file=pawn_totem_death_attack_bang.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      iina=true
+      file=totem_death_attack
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      iina=true
+      file=totem_death_damage
+      fadetime=60
+    }
+    sound {
+      animation=appear
+      frame=0.01
+      iina=true
+      file=totem_death_appear
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      iina=true
+      file=totem_death_death
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0/0/0.5
+      animation=attack
+      frame=2/22
+      file=pawn_totem_death_sparkpillar.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/1
+      animation=attack
+      frame=2/22
+      file=pawn_totem_death_sparkpuff.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/0.2
+      animation=attack
+      frame=0/22
+      file=pawn_totem_death_bullets.ptb
+    }
+  }
+}

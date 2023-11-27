@@ -119,132 +119,168 @@ function lightning_attack()
 end
 
 
-function totem_update(i, name, totems)
-
-  Attack.val_store(i, name, totems)
+function totem_update( i, name, totems )
+  Attack.val_store( i, name, totems )
 
   if totems == "" then
-    Attack.act_del_modificator(i, name, true)
-    Attack.act_del_spell(i, "totem_"..name)
+    Attack.act_del_modificator( i, name, true )
+    Attack.act_del_spell( i, "totem_" .. name )
   else
-  
     local max = 0
-    for m in string.gfind(totems, "<%d+,(%d+)>") do
-      if tonumber(m) > max then max = tonumber(m) end
+    for m in string.gfind( totems, "<%d+,(%d+)>" ) do
+      if tonumber( m ) > max then max = tonumber( m ) end
     end
     --Attack.act_attach_modificator(i, Attack.val_restore("param"), name, max/10)
     
-    local param=Attack.val_restore("param")
-    local count_par = text_par_count(param)
-    for j=1,count_par do 
-    	local p = text_dec(param,j)
-    	if p == "throw" then
-			local penalty = Attack.val_restore("penalty")
-			for r=0,Logic.resistance()-1 do
-    			Attack.act_attach_dmg_modificator_to_throw_attacks(i, Logic.resistance(r), name..j..'_'..r, 0, -penalty)
-			end
-    	else
-	    	local c1 = tonumber(text_dec(Attack.val_restore("change"),j))
-	    	local c2 = tonumber(text_dec(Attack.val_restore("change_"),j))
-	    	Attack.act_attach_modificator(i, p, name..j, c1,c2)
-		end
-    end 
-    Attack.act_apply_spell_begin(i, "totem_"..name, -100, false)
-    Attack.act_apply_spell_end()
+    local param = Attack.val_restore( "param" )
+    local count_par = text_par_count( param )
 
+    for j = 1, count_par do 
+    	 local p = text_dec( param, j )
+
+    	 if p == "throw" then
+			     local penalty = Attack.val_restore( "penalty" )
+
+			     for r = 0, Logic.resistance() - 1 do
+    			   Attack.act_attach_dmg_modificator_to_throw_attacks( i, Logic.resistance( r ), name .. j .. '_' .. r, 0, -penalty )
+			     end
+    	 else
+  	    	local c1 = tonumber( text_dec( Attack.val_restore( "change" ), j ) )
+	    	  local c2 = tonumber( text_dec( Attack.val_restore( "change_" ), j ) )
+	    	  Attack.act_attach_modificator( i, p, name .. j, c1, c2 )
+		    end
+    end 
+
+    Attack.act_apply_spell_begin( i, "totem_" .. name, -100, false )
+    Attack.act_apply_spell_end()
+  end
+end
+
+
+function totem_applicable( unit, self )
+	 local val
+
+	 if self == nil then
+    val = Attack.val_restore
+	 else
+    val = function ( par ) return Attack.val_restore( self, par ) end
   end
 
+ 	local applicable = 0
+ 	local level = val( "level" )
+ 	local race = val( "race" )
+	 local features = val( "features" )
+	 local nfeatures = val( "nfeatures" )
+
+ 	-- если уровень юнита больше -- неприменимо
+ 	if level ~= nil
+  and level ~= ""
+  and Attack.act_level( unit ) > tonumber( level ) then
+    return false
+  end
+	
+ 	-- если не все расы и не найдена раса юнита - неприменимо
+	 if not ( race == nil
+  or race == "all"
+  or race == ""
+  or string.find( race, Attack.act_race( unit ) ) ) then
+    return false
+  end
+
+ 	-- перебираем features из списка и ищем если не нашли ни одного - неприменимо
+ 	local feat_found=0
+
+ 	for i = 1, text_par_count( features ) do 
+		  local ff = text_dec( features, i )
+		  local f = Attack.act_feature( unit, ff )
+
+		  if Attack.act_feature( unit, ff ) then feat_found = feat_found + 1 end 
+	 end 
+
+ 	if feat_found == 0
+  and features ~= "" then
+    return false
+  end
+
+ 	-- перебираем nfeatures из списка и если нашли хоть один - неприменимо
+ 	for i = 1, text_par_count( nfeatures ) do
+		  local ff = text_dec( nfeatures, i )
+		  local f = Attack.act_feature( unit, ff )
+
+		  if Attack.act_feature( unit, ff )
+    and nfeatures ~= "" then
+      return false
+    end 
+ 	end 
+	
+ 	return true
 end
 
-function totem_applicable(unit,self)
-
-	local val
-	if self == nil then val = Attack.val_restore
-	else val = function (par) return Attack.val_restore(self, par) end end
-
-	local applicable = 0
-	local  level = val("level")
-	local  race = val("race")
-	local  features = val("features")
-	local  nfeatures = val("nfeatures")
-	-- если уровень юнита больше -- неприменимо
-	if level~=nil and level~="" and Attack.act_level(unit)>tonumber(level) then return false end
-	
-	-- если не все расы и не найдена раса юнита - неприменимо
-	if not (race==nil or race=="all" or race=="" or string.find(race,Attack.act_race(unit))) then return false end
-
-	-- перебираем features из списка и ищем если не нашли ни одного - неприменимо
-	local feat_found=0
-	for i=1,text_par_count(features) do 
-		local ff=text_dec(features,i)
-		local f=Attack.act_feature(unit,ff)
-		if Attack.act_feature(unit,ff) then feat_found=feat_found+1 end 
-	end 
-	if feat_found==0 and features~="" then return false end
-
-	-- перебираем nfeatures из списка и если нашли хоть один - неприменимо
-	for i=1,text_par_count(nfeatures) do
-		local ff=text_dec(nfeatures,i)
-		local f=Attack.act_feature(unit,ff)
-		if Attack.act_feature(unit,ff) and nfeatures~="" then return false end 
-	end 
-	
-	return true
- 
-end
 
 function totem_modificators()
+  local uid = "<" .. Attack.act_uid( 0 ) .. "," .. Attack.val_restore( "power" ) .. ">"
+  local name = Attack.act_name( 0 )
+  local max_health = Attack.val_restore( "max_health" )
 
-  local uid = "<"..Attack.act_uid(0)..","..Attack.val_restore("power")..">"
-  local name = Attack.act_name(0)
+  if max_health ~= nil then
+    Attack.act_set_par( 0, "health", tonumber( max_health ) * tonumber( Attack.val_restore( "power" ) ) )
+  end
 
-  local max_health=Attack.val_restore("max_health")
-  if max_health~=nil then Attack.act_set_par( 0, "health", tonumber(max_health)*tonumber(Attack.val_restore("power")) )  end 
-  local bel = Attack.val_restore("belligerent")
+  local bel = Attack.val_restore( "belligerent" )
   --if bel==nil then bel = Attack.val_restore("ally") end
   local check
-  if Attack.val_restore("ally")=="1" then check = Attack.act_ally end 
-  if Attack.val_restore("ally")=="0" then check = Attack.act_enemy end 
-  if Attack.val_restore("ally")=="-1" then check = Attack.act_chesspiece end 
+
+  if Attack.val_restore( "ally" ) == "1" then check = Attack.act_ally end 
+
+  if Attack.val_restore( "ally" ) == "0" then check = Attack.act_enemy end 
+
+  if Attack.val_restore( "ally" ) == "-1" then check = Attack.act_chesspiece end 
   
-  local  dist = tonumber(Attack.val_restore("dist"))
-  for i=1,Attack.act_count()-1 do
+  local dist = tonumber( Attack.val_restore( "dist" ) )
+
+  for i = 1, Attack.act_count() - 1 do
     --if check(i, bel) then --or bel=="-1" then
-      local totems = Attack.val_restore(i, name)
-      if totems == nil then totems = "" end
-      local affect, new_affect = false, true
-      if string.find(totems, uid) then affect = true end
+    local totems = Attack.val_restore( i, name )
 
-      if not check(i, bel) or Attack.cell_dist(0,i) > dist then -- вне радиуса действия - снимаем эффект с этого юнита
-        new_affect = false
-      end
+    if totems == nil then totems = "" end
 
-      if new_affect ~= affect then
-        if new_affect then
-          totems = totems .. uid
-        else
-          totems = string.gsub(totems, uid, "")
-        end
-			
-        if totem_applicable(i) then totem_update(i, name, totems) end
+    local affect, new_affect = false, true
+
+    if string.find( totems, uid ) then affect = true end
+
+    if not check( i, bel )
+    or Attack.cell_dist( 0, i ) > dist then -- вне радиуса действия - снимаем эффект с этого юнита
+      new_affect = false
+    end
+
+    if new_affect ~= affect then
+      if new_affect then
+        totems = totems .. uid
+      else
+        totems = string.gsub( totems, uid, "" )
       end
+			 
+      if totem_applicable( i ) then totem_update( i, name, totems ) end
+    end
     --end
   end
 
-    return true
+  return true
 end
 
-function totem_ondamage(wnm,ts,dead)
 
+function totem_ondamage( wnm, ts, dead )
   if dead then
-    local uid = "<"..Attack.act_uid(0)..","..Attack.val_restore("power")..">"
-      local name = Attack.act_name(0)
+    local uid = "<" .. Attack.act_uid( 0 ) .. "," .. Attack.val_restore( "power" ) .. ">"
+    local name = Attack.act_name( 0 )
 
-    for i=1,Attack.act_count()-1 do
-      local totems = Attack.val_restore(i, name)
+    for i = 1, Attack.act_count() - 1 do
+      local totems = Attack.val_restore( i, name )
+
       if totems == nil then totems = "" end
-      if string.find(totems, uid) then
-        if totem_applicable(i) then totem_update(i, name, string.gsub(totems, uid, "")) end 
+
+      if string.find( totems, uid ) then
+        if totem_applicable( i ) then totem_update( i, name, string.gsub( totems, uid, "" ) ) end 
       end
     end
   end
@@ -252,151 +288,183 @@ function totem_ondamage(wnm,ts,dead)
   return true
 end
 
-function totem_time()
 
-  local  time = tonumber(Attack.val_restore("time_last"))-1
-	  if time <= 0 then 
-	  	local name=Attack.act_name(0)
-	  	if name~="trap" then
-	  		totem_ondamage(0,0,true)
+function totem_time()
+  local time = tonumber( Attack.val_restore( "time_last" ) ) - 1
+
+  if time <= 0 then 
+	  	local name = Attack.act_name( 0 )
+
+	  	if name ~= "trap" then
+	  		 totem_ondamage( 0, 0, true )
 	  	end
-	  	Attack.log("add_blog_remove_totem","spell",blog_side_unit(0,1))
+
+	  	Attack.log( "add_blog_remove_totem", "spell", blog_side_unit( 0, 1 ) )
 	  	Attack.act_kill()
-  	else
-  	  Attack.val_store( 0, "time_last", time)
-  	end 
+  else
+    Attack.val_store( 0, "time_last", time )
+  end 
 
   return true
 end
 
-function totem_cure()
-  local cure = tonumber(Attack.get_custom_param("cure"))
-  local  dist = tonumber(Attack.val_restore("dist"))
-  local  power = tonumber(Attack.val_restore("power"))
-  local  bel = Attack.val_restore("belligerent")
 
-	local count_cure,dmgts,dmgts1 =0,0,0
-	local  animation,effect = Attack.get_custom_param("animation"),Attack.get_custom_param("effect")
+function totem_cure()
+  local cure = tonumber( Attack.get_custom_param( "cure" ) )
+  local dist = tonumber( Attack.val_restore( "dist" ) )
+  local power = tonumber( Attack.val_restore( "power" ) )
+  local bel = Attack.val_restore( "belligerent" )
+ 	local count_cure, dmgts, dmgts1 = 0, 0, 0
+	 local animation, effect = Attack.get_custom_param( "animation" ), Attack.get_custom_param( "effect" )
 
 	--считаем количество жертв
-		for i=1,Attack.act_count()-1 do
-		if Attack.cell_dist(0,i) <= dist and not Attack.act_pawn(i) and Attack.act_ally(i,bel) then
-  		if Attack.act_applicable(i) and totem_applicable(i) and Attack.act_need_cure(i) then 
-				count_cure=count_cure+1
-			end 
-		end
+		for i = 1, Attack.act_count() - 1 do
+		  if Attack.cell_dist( 0, i ) <= dist
+    and not Attack.act_pawn( i )
+    and Attack.act_ally( i, bel ) then
+  		  if Attack.act_applicable( i )
+      and totem_applicable( i )
+      and Attack.act_need_cure( i ) then 
+				    count_cure = count_cure + 1
+			   end 
+		  end
 		end
 
-  	if animation~="" and animation~=nil and count_cure>0 then 
-  		if text_dec(animation,1)=="effect" then 
-  			local a = Attack.atom_spawn(0, 0, text_dec(animation,2))
-  			dmgts = Attack.aseq_time(a, "x")	
+  if animation ~= ""
+  and animation ~= nil
+  and count_cure > 0 then 
+  		if text_dec( animation, 1 ) == "effect" then 
+  			 local a = Attack.atom_spawn( 0, 0, text_dec( animation, 2 ) )
+  			 dmgts = Attack.aseq_time( a, "x" )	
   		else
- 			  Attack.act_aseq( 0, text_dec(animation,2))
-			  dmgts = Attack.aseq_time(0, "x")
+ 			  Attack.act_aseq( 0, text_dec( animation, 2 ) )
+			   dmgts = Attack.aseq_time( 0, "x" )
   		end
-  	Attack.log("add_blog_totem_life","name",blog_side_unit(0,1))
-  	end 
 
-	for i=1,Attack.act_count()-1 do
-	if Attack.cell_dist(0,i) <= dist and not Attack.act_pawn(i) and Attack.act_ally(i,bel) then
-  	if Attack.act_applicable(i) and totem_applicable(i) then 
-    	if Attack.act_need_cure(i) then
-    		local cure_hp = cure*power
-        local cur_hp = Attack.act_hp(i)
-        --local name=Attack.act_name(i)
-        local max_hp = Attack.act_get_par(i,"health")
-        local need_hp = max_hp - cur_hp
-        if cure_hp >= need_hp then cure_hp = need_hp end 
-        
-   	  	if effect~="" and effect~=nil then
-	  			local d = Attack.atom_spawn(i, dmgts+dmgts1, text_dec(effect,1))
-  				if text_dec(effect,2)=="true" or text_dec(effect,2)=="1" then 
-  					dmgts1 = Attack.aseq_time(d, "x")+dmgts1
-  				else
-  					dmgts1 = Attack.aseq_time(d, "x")
-  				end 
-  			end
-          Attack.act_cure(i, cure_hp, dmgts+dmgts1)
-         if Attack.act_size(i)>1 then 
-         		Attack.log(0.001,"add_blog_cure_2","target",blog_side_unit(i,0,1),"special",cure_hp)
-         else 
-         		Attack.log(0.001,"add_blog_cure_1","target",blog_side_unit(i,0,1),"special",cure_hp)
-         end 
-
-     	end 
-  	end 
-  end
+  	 Attack.log( "add_blog_totem_life", "name", blog_side_unit( 0, 1 ) )
   end 
+
+ 	for i = 1, Attack.act_count() - 1 do
+	   if Attack.cell_dist( 0, i ) <= dist
+    and not Attack.act_pawn( i )
+    and Attack.act_ally( i, bel ) then
+  	   if Attack.act_applicable( i )
+      and totem_applicable( i ) then 
+    	   if Attack.act_need_cure( i ) then
+    		    local cure_hp = cure * power
+          local cur_hp = Attack.act_hp( i )
+          local max_hp = Attack.act_get_par( i, "health" )
+          local need_hp = max_hp - cur_hp
+
+          if cure_hp >= need_hp then cure_hp = need_hp end 
+        
+   	  	   if effect ~= ""
+          and effect ~= nil then
+	  			      local d = Attack.atom_spawn( i, dmgts + dmgts1, text_dec( effect, 1 ) )
+
+  				      if text_dec( effect, 2 ) == "true"
+            or text_dec( effect, 2 ) == "1" then 
+  					       dmgts1 = Attack.aseq_time( d, "x" ) + dmgts1
+  				      else
+  					       dmgts1 = Attack.aseq_time( d, "x" )
+  				      end 
+  			     end
+
+          Attack.act_cure( i, cure_hp, dmgts + dmgts1 )
+
+          if Attack.act_size( i ) > 1 then 
+         		 Attack.log( 0.001, "add_blog_cure_2", "target", blog_side_unit( i, 0, 1 ), "special", cure_hp )
+          else 
+         		 Attack.log( 0.001, "add_blog_cure_1", "target", blog_side_unit( i, 0, 1 ), "special", cure_hp )
+          end 
+     	  end 
+    	 end 
+    end
+  end 
+
   return true 
 end
+
 
 function totem_vampire()
-  local min_dmg,max_dmg = text_range_dec(Attack.get_custom_param("damage"))
-  local dmg_type = Attack.get_custom_param("dmgtype")
-
-  local  dist = tonumber(Attack.val_restore("dist"))
-  local  power = tonumber(Attack.val_restore("power"))
-  local  max_health = tonumber(Attack.val_restore("max_health"))*power
-  local  bel = Attack.val_restore("belligerent")
-	local vamp,dmgts,dmgts1 =0,0,0
-	local  animation,effect = Attack.get_custom_param("animation"),Attack.get_custom_param("effect")
-	local count_target=0
+  local min_dmg, max_dmg = text_range_dec( Attack.get_custom_param( "damage" ) )
+  local dmg_type = Attack.get_custom_param( "dmgtype" )
+  local dist = tonumber( Attack.val_restore( "dist" ) )
+  local power = tonumber( Attack.val_restore( "power" ) )
+  local max_health = tonumber( Attack.val_restore( "max_health" ) ) * power
+  local bel = Attack.val_restore( "belligerent" )
+	 local vamp, dmgts, dmgts1 = 0, 0, 0
+	 local animation, effect = Attack.get_custom_param( "animation" ), Attack.get_custom_param( "effect" )
+	 local count_target = 0
 	
-	--считаем количество жертв
-		for i=1,Attack.act_count()-1 do
-		if Attack.cell_dist(0,i) <= dist and not Attack.act_pawn(i) then
-  		if Attack.act_applicable(i) then 
-				count_target=count_target+1
-			end 
+	 --считаем количество жертв
+		for i = 1, Attack.act_count() - 1 do
+		  if Attack.cell_dist( 0, i ) <= dist
+    and not Attack.act_pawn( i ) then
+  		  if Attack.act_applicable( i ) then 
+				    count_target = count_target + 1
+			   end 
+		  end
 		end
-		end
-	-- если есть анимация вампиризма и жертвы - запускаем
-  	if animation~="" and animation~=nil and count_target>0 then 
-  		if text_dec(animation,1)=="effect" then 
-  			local a = Attack.atom_spawn(0, 0, text_dec(animation,2))
-  			dmgts = Attack.aseq_time(a, "x")	
+
+ 	-- если есть анимация вампиризма и жертвы - запускаем
+ 	if animation ~= ""
+  and animation ~= nil
+  and count_target > 0 then 
+  		if text_dec( animation, 1 ) == "effect" then 
+  			 local a = Attack.atom_spawn( 0, 0, text_dec( animation, 2 ) )
+  			 dmgts = Attack.aseq_time( a, "x" )
   		else
- 			  Attack.act_aseq( 0, text_dec(animation,2))
-			  dmgts = Attack.aseq_time(0, "x")
+ 			  Attack.act_aseq( 0, text_dec( animation, 2 ) )
+			   dmgts = Attack.aseq_time( 0, "x" )
   		end
-  	end 
--- теперь атакуем все жертвы...
-	for i=1,Attack.act_count()-1 do
-		if Attack.cell_dist(0,i) <= dist and not Attack.act_pawn(i) then
-  		if Attack.act_applicable(i) then 
-  			local damage=Game.Random(min_dmg*tonumber(power),max_dmg*tonumber(power))
-				Attack.atk_set_damage(dmg_type,damage,damage)
-			
-			--и кастим на них эффект вампиризма
-	  	if effect~="" and effect~=nil then
-  			local d = Attack.atom_spawn(i, dmgts+dmgts1, text_dec(effect,1))
-  			if text_dec(effect,2)=="true" or text_dec(effect,2)=="1" then 
-  				dmgts1 = Attack.aseq_time(d, "x")+dmgts1
-  			else
-  				dmgts1 = Attack.aseq_time(d, "x")
-  			end 
-  		end
-      	
-      	common_cell_apply_damage(i, dmgts+dmgts1)
-      	vamp=vamp+damage
-  		end 
-  	end
   end 
 
- -- клампим высосанное здоровье  
-  local cur_hp=Attack.act_hp(0)
-  if cur_hp + vamp >= max_health then
-  	vamp = max_health - cur_hp
-	end   
-	-- и восстанавливаем его вампиру
-	if cure_h~=max_health and vamp~=0 then 
-  	Attack.act_cure( 0, vamp, dmgts+dmgts1)
-  	--Attack.act_set_par( 0, "health", max_health )
-   	local a = Attack.atom_spawn(0, dmgts+dmgts1, "effect_total_cure")
+  -- теперь атакуем все жертвы...
+ 	for i = 1, Attack.act_count() - 1 do
+		  if Attack.cell_dist( 0, i ) <= dist
+    and not Attack.act_pawn( i ) then
+  		  if Attack.act_applicable( i ) then 
+  			   local damage = Game.Random( min_dmg * tonumber( power ), max_dmg * tonumber( power ) )
+				    Attack.atk_set_damage( dmg_type, damage, damage )
+			
+			     --и кастим на них эффект вампиризма
+	  	    if effect ~= ""
+        and effect ~= nil then
+  			     local d = Attack.atom_spawn( i, dmgts + dmgts1, text_dec( effect, 1 ) )
+
+  			     if text_dec( effect, 2 ) == "true"
+          or text_dec( effect, 2 ) == "1" then 
+  				      dmgts1 = Attack.aseq_time( d, "x" ) + dmgts1
+  			     else
+  				      dmgts1 = Attack.aseq_time( d, "x" )
+  			     end 
+  		    end
+      	
+      	 common_cell_apply_damage( i, dmgts + dmgts1 )
+      	 vamp = vamp + damage
+  		  end 
+  	 end
   end 
+
+  -- клампим высосанное здоровье  
+  local cur_hp = Attack.act_hp( 0 )
+
+  if cur_hp + vamp >= max_health then
+  	 vamp = max_health - cur_hp
+	 end   
+
+ 	-- и восстанавливаем его вампиру
+	 if cure_h ~= max_health
+  and vamp ~= 0 then 
+  	 Attack.act_cure( 0, vamp, dmgts + dmgts1 )
+  	 --Attack.act_set_par( 0, "health", max_health )
+    local a = Attack.atom_spawn( 0, dmgts + dmgts1, "effect_total_cure" )
+  end 
+
   return true 
 end
+
 
 function totem_attack()
 -- скрипт наносит урон 1 цели или нескольким, по врагу или по всем, с анимацией/эффектом и постэффектом. постэффект синхронный или последовательный
@@ -405,138 +473,176 @@ function totem_attack()
 --  local freeze_im=0.75 --25%
   --local freeze = tonumber(text_dec(attack,3))
   Attack.log_label('null')
-  local min_dmg,max_dmg = text_range_dec(Attack.get_custom_param("damage"))
-  local dmg_type = Attack.get_custom_param("dmgtype")
-  local  target = Attack.get_custom_param("target")
-  local  animation,effect = Attack.get_custom_param("animation"),Attack.get_custom_param("effect")
-		  
-  local  dist = tonumber(Attack.val_restore("dist"))
-  local  power = tonumber(Attack.val_restore("power"))
-  local ally = Attack.val_restore("ally")
-  local  bel = Attack.val_restore("belligerent")
-  if bel==nil then bel=1000 end
+  local min_dmg, max_dmg = text_range_dec( Attack.get_custom_param( "damage" ) )
+  local dmg_type = Attack.get_custom_param( "dmgtype" )
+  local target = Attack.get_custom_param( "target" )
+  local animation, effect = Attack.get_custom_param( "animation" ), Attack.get_custom_param( "effect" )
+  local dist = tonumber( Attack.val_restore( "dist" ) )
+  local power = tonumber( Attack.val_restore( "power" ) )
+  local ally = Attack.val_restore( "ally" )
+  local bel = Attack.val_restore( "belligerent" )
+
+  if bel == nil then bel = 1000 end
   
   --local  attack = Attack.val_restore("attack")
-  Attack.atk_set_damage(dmg_type,min_dmg*tonumber(power),max_dmg*tonumber(power))      
-  local dmgts,dmgts1=0,0
+  Attack.atk_set_damage( dmg_type, min_dmg * tonumber( power ), max_dmg * tonumber( power ) )      
+  local dmgts, dmgts1 = 0, 0
   local trg = Attack.get_target()
   
-  if target == "attacker" and trg~=nil then 
+  if target == "attacker"
+  and trg ~= nil then 
   -- цель нам подходит по применимости атаки и стороне врага  
-  if Attack.act_applicable(trg) and ((Attack.act_enemy(trg,bel) and ally=="0") or ally=="-1") then
-   	if animation~="" and animation~=nil then
-  		if text_dec(animation,1)=="effect" then 
-  			local a = Attack.atom_spawn(0, 0, text_dec(animation,2))
-  			dmgts = Attack.aseq_time(a, "x")	
-  		else
- 			  Attack.act_aseq( 0, text_dec(animation,2))
-			  dmgts = Attack.aseq_time(0, "x")
-  		end
-  	end 
-   	if effect~="" and effect~=nil then
-  			local b = Attack.atom_spawn(trg, dmgts, text_dec(effect,1))
-  			dmgts1 = Attack.aseq_time(b, "x") 	
-  	end
-  	common_cell_apply_damage(trg,dmgts+dmgts1)
-  end 
-  end 
-  if target == "all" then 
-  local count_target=0
-  -- считаем количесвто целей
-  for i=1,Attack.act_count()-1 do
-  --  local d = Attack.cell_dist(0,i)
-    if Attack.cell_dist(0,i) <= dist and not Attack.act_pawn(i) and Attack.act_applicable(i) then
-			if (Attack.act_enemy(i,bel) and ally=="0") or ally=="-1" then
-				count_target=count_target+1
-			end 
-		end 
-  end 
-  -- если есть хоть одна - запускаем эффект атаки
-	 	if animation~="" and animation~=nil and count_target> 0 then
-  		if text_dec(animation,1)=="effect" then 
-  			local a = Attack.atom_spawn(0, 0, text_dec(animation,2))
-  			dmgts = Attack.aseq_time(a, "x")	
-  		else
- 			  Attack.act_aseq( 0, text_dec(animation,2))
-			  dmgts = Attack.aseq_time(0, "x")
-  		end
-  	end 
+    if Attack.act_applicable( trg )
+    and ( ( Attack.act_enemy( trg, bel )
+    and ally == "0" )
+    or ally == "-1" ) then
+   	  if animation ~= ""
+      and animation ~= nil then
+  		    if text_dec( animation, 1 ) == "effect" then 
+  			     local a = Attack.atom_spawn( 0, 0, text_dec( animation, 2 ) )
+  			     dmgts = Attack.aseq_time( a, "x" )	
+  		    else
+ 			      Attack.act_aseq( 0, text_dec( animation, 2 ) )
+			       dmgts = Attack.aseq_time( 0, "x" )
+  		    end
+  	   end 
 
-  for i=1,Attack.act_count()-1 do
-  --  local d = Attack.cell_dist(0,i)
-    if Attack.cell_dist(0,i) <= dist and not Attack.act_pawn(i) and Attack.act_applicable(i) then
-		if (Attack.act_enemy(i,bel) and ally=="0") or ally=="-1" then
-	  	if effect~="" and effect~=nil then
-  			local d = Attack.atom_spawn(i, dmgts+dmgts1, text_dec(effect,1))
-  			if text_dec(effect,2)=="true" or text_dec(effect,2)=="1" then 
-  				dmgts1 = Attack.aseq_time(d, "x")+dmgts1
-  			else
-  				dmgts1 = Attack.aseq_time(d, "x")
-  			end 
-  		end
-      common_cell_apply_damage(i, dmgts+dmgts1)
-      Attack.log_label('')
-		end
-    end
-  end
+   	  if effect ~= ""
+      and effect ~= nil then
+  			   local b = Attack.atom_spawn( trg, dmgts, text_dec( effect, 1 ) )
+  			   dmgts1 = Attack.aseq_time( b, "x" )
+  	   end
+
+  	   common_cell_apply_damage(trg,dmgts+dmgts1)
+    end 
   end 
+
+  if target == "all" then 
+    local count_target = 0
+
+    -- считаем количесвто целей
+    for i = 1, Attack.act_count() - 1 do
+      if Attack.cell_dist( 0, i ) <= dist
+      and not Attack.act_pawn( i )
+      and Attack.act_applicable( i ) then
+			     if ( Attack.act_enemy( i, bel )
+        and ally == "0" )
+        or ally == "-1" then
+				      count_target = count_target + 1
+			     end 
+    		end 
+    end 
+
+    -- если есть хоть одна - запускаем эффект атаки
+	  	if animation ~= ""
+    and animation ~= nil
+    and count_target > 0 then
+  		  if text_dec( animation, 1 ) == "effect" then 
+  			   local a = Attack.atom_spawn( 0, 0, text_dec( animation, 2 ) )
+  			   dmgts = Attack.aseq_time( a, "x" )	
+  		  else
+ 			    Attack.act_aseq( 0, text_dec( animation, 2 ) )
+			     dmgts = Attack.aseq_time( 0, "x" )
+  		  end
+  	 end 
+
+    for i = 1, Attack.act_count() - 1 do
+      if Attack.cell_dist( 0, i ) <= dist
+      and not Attack.act_pawn( i )
+      and Attack.act_applicable( i ) then
+		      if ( Attack.act_enemy( i, bel )
+        and ally == "0" )
+        or ally == "-1" then
+	  	      if effect ~= ""
+          and effect ~= nil then
+  			       local d = Attack.atom_spawn( i, dmgts + dmgts1, text_dec( effect, 1 ) )
+
+  			       if text_dec( effect, 2 ) == "true"
+            or text_dec( effect, 2 ) == "1" then 
+          				dmgts1 = Attack.aseq_time( d, "x" ) + dmgts1
+         			else
+  				        dmgts1 = Attack.aseq_time( d, "x" )
+  			       end 
+  		      end
+
+          common_cell_apply_damage(i, dmgts+dmgts1)
+          Attack.log_label('')
+		      end
+      end
+    end
+  end 
+
   -- если цель 1
   if target == "one" then 
-  local possible_target={}
-  local count_target=0
-  -- перебираем все юниты и запоминаем доступные для атаки
-	  for i=1,Attack.act_count()-1 do
-  --  local d = Attack.cell_dist(0,i)
-    	if Attack.cell_dist(0,i) <= dist and not Attack.act_pawn(i) and Attack.act_applicable(i) then
-				if (Attack.act_enemy(i,bel) and ally=="0") or ally=="-1" then
-					table.insert(possible_target,i)
-					count_target=count_target+1
-				end 
-			end
-		end 
-		if count_target>0 then
-		-- запускаем эффект атаки
-	 	if animation~="" and animation~=nil and count_target> 0 then
-  		if text_dec(animation,1)=="effect" then 
-  			local a = Attack.atom_spawn(0, 0, text_dec(animation,2))
-  			dmgts = Attack.aseq_time(a, "x")	
-  		else
- 			  Attack.act_aseq( 0, text_dec(animation,2))
-			  dmgts = Attack.aseq_time(0, "x")
-  		end
-  	end 
-		-- выбираем и атакуем случайную цель из списка доступных
-			trg=possible_target[Game.Random(1,count_target)]
-	  	if effect~="" and effect~=nil then
-  			local d = Attack.atom_spawn(trg, dmgts, text_dec(effect,1))
- 				dmgts1 = Attack.aseq_time(d, "x")
-  		end
+    local possible_target = {}
+    local count_target = 0
+
+    -- перебираем все юниты и запоминаем доступные для атаки
+	   for i = 1, Attack.act_count() - 1 do
+    	 if Attack.cell_dist( 0, i ) <= dist
+      and not Attack.act_pawn( i )
+      and Attack.act_applicable( i ) then
+				    if ( Attack.act_enemy( i, bel )
+        and ally == "0" )
+        or ally == "-1" then
+					     table.insert( possible_target, i )
+					     count_target = count_target + 1
+				    end 
+			   end
+		  end 
+
+  		if count_target > 0 then
+		    -- запускаем эффект атаки
+	 	   if animation ~= ""
+      and animation ~= nil
+      and count_target > 0 then
+   		   if text_dec( animation, 1 ) == "effect" then 
+   			    local a = Attack.atom_spawn( 0, 0, text_dec( animation, 2 ) )
+  	 		    dmgts = Attack.aseq_time( a, "x" )	
+  		    else
+ 			      Attack.act_aseq( 0, text_dec( animation, 2 ) )
+			       dmgts = Attack.aseq_time( 0, "x" )
+  		    end
+   	  end 
+
+    		-- выбираем и атакуем случайную цель из списка доступных
+		 	  trg = possible_target[ Game.Random( 1, count_target ) ]
+
+	   	 if effect ~= ""
+      and effect ~= nil then
+   			  local d = Attack.atom_spawn( trg, dmgts, text_dec( effect, 1 ) )
+ 	 			  dmgts1 = Attack.aseq_time( d, "x" )
+  	 	 end
+
       common_cell_apply_damage(trg, dmgts+dmgts1)
       Attack.log_label('')
     end
-  end 
-  
+  end
+
   return true 
 end
 
+
 -- не используется! но позырыить полезно
 function shaman_totem_turn()
+  local bel, script = Attack.val_restore( "belligerent" ), Attack.val_restore( "script" )
+  local power, check = Attack.val_restore( "power" )
 
-  local bel, script = Attack.val_restore("belligerent"), Attack.val_restore("script")
-    local power, check = Attack.val_restore("power")
-  if Attack.val_restore("ally")=="1" then check = Attack.act_ally else check = Attack.act_enemy end
+  if Attack.val_restore( "ally" ) == "1" then check = Attack.act_ally else check = Attack.act_enemy end
   
-  local  dist = tonumber(Attack.val_restore("dist"))
-  local  attack = Attack.val_restore("attack")
-  for i=1,Attack.act_count()-1 do
-    if check(i, bel) and Attack.cell_dist(0,i) <= dist then
-      _G[script](i, power, attack)
+  local dist = tonumber( Attack.val_restore( "dist" ) )
+  local attack = Attack.val_restore( "attack" )
+
+  for i = 1, Attack.act_count() - 1 do
+    if check( i, bel )
+    and Attack.cell_dist( 0, i ) <= dist then
+      _G[ script ]( i, power, attack )
     end
   end
 
   return true
-
 end
+
 
 function explode_attack()
 	local target=Attack.get_target()

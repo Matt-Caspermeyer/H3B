@@ -1,6 +1,6 @@
 //==== kid_crag_hack
 itm_kid_crag_hack_name=Crag Hack
-itm_kid_crag_hack_hint=^?^[preamble_boy] [s]Antagarich, Krewlod, Stronghold, Barbarian, Offense, Enroth...[/s] [postamble_boy][offense3][physical_damage3]
+itm_kid_crag_hack_hint=^?^[preamble_boy] [s]Antagarich, Krewlod, Stronghold, Barbarian, Offense, Enroth...[/s] [postamble_boy][offense3][physical_damage2]
 itm_kid_crag_hack_info=^?^[info_boy]
 itm_kid_crag_hack_mhint=^?^
 itm_kid_crag_hack_minfo=^?^
@@ -8,7 +8,7 @@ itm_kid_crag_hack_taken=^?^
 
 //==== kid_kilgor
 itm_kid_kilgor_name=Kilgor
-itm_kid_kilgor_hint=^?^[preamble_boy] [s]Antagarich, Krewlod, Stronghold, Barbarian, Offense, Behemoth, Ancient...[/s] [postamble_boy][offense2][physical_damage2][blackdragon1]
+itm_kid_kilgor_hint=^?^[preamble_boy] [s]Antagarich, Krewlod, Stronghold, Barbarian, Offense, Behemoth, Ancient...[/s] [postamble_boy][offense2][physical_damage1][blackdragon1]
 itm_kid_kilgor_info=^?^[info_boy]
 itm_kid_kilgor_mhint=^?^
 itm_kid_kilgor_minfo=^?^
@@ -16,7 +16,7 @@ itm_kid_kilgor_taken=^?^
 
 //==== kid_erdamon
 itm_kid_erdamon_name=Erdamon
-itm_kid_erdamon_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Tactics, Estates, Earth, Magma, Elemental...[/s] [postamble_boy][tactics1][estates1][earth_magma_elemental1]
+itm_kid_erdamon_hint=^?^[preamble_boy] [s]Erathia, Conflux, Planeswalker, Tactics, Estates, Earth, Magma, Elemental...[/s] [postamble_boy][tactics_espeed1][estates1][earth_magma_elemental1]
 itm_kid_erdamon_info=^?^[info_boy]
 itm_kid_erdamon_mhint=^?^
 itm_kid_erdamon_minfo=^?^
@@ -24,7 +24,7 @@ itm_kid_erdamon_taken=^?^
 
 //==== kid_gretchin
 itm_kid_gretchin_name=Gretchin
-itm_kid_gretchin_hint=^?^[preamble_girl] [s]Krewlod, Stronghold, Barbarian, Offense, Pathfinding, Goblin, Hobgoblin, Leader, Mom...[/s] [postamble_girl][offense1][physical_damage1][pathfinding1][goblin1][goblin21]
+itm_kid_gretchin_hint=^?^[preamble_girl] [s]Krewlod, Stronghold, Barbarian, Offense, Pathfinding, Goblin, Hobgoblin, Leader, Mom...[/s] [postamble_girl][offense1][pathfinding1][goblin1][goblin21]
 itm_kid_gretchin_info=^?^[info_girl]
 itm_kid_gretchin_mhint=^?^
 itm_kid_gretchin_minfo=^?^
@@ -32,7 +32,7 @@ itm_kid_gretchin_taken=^?^
 
 //==== kid_gurnisson
 itm_kid_gurnisson_name=Gurnisson
-itm_kid_gurnisson_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Artillery, Ballista...[/s] [postamble_boy][offense1][physical_damage1][artillery1][allorcs1]
+itm_kid_gurnisson_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Artillery, Ballista...[/s] [postamble_boy][offense1][artillery1][allorcs1]
 itm_kid_gurnisson_info=^?^[info_boy]
 itm_kid_gurnisson_mhint=^?^
 itm_kid_gurnisson_minfo=^?^
@@ -40,7 +40,7 @@ itm_kid_gurnisson_taken=^?^
 
 //==== kid_jabarkas
 itm_kid_jabarkas_name=Jabarkas
-itm_kid_jabarkas_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Archery, Orc, Chieftan, Duke, Boragus...[/s] [postamble_boy][offense1][physical_damage1][archery1][physical_damage1][orc1][orc21]
+itm_kid_jabarkas_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Archery, Orc, Chieftan, Duke, Boragus...[/s] [postamble_boy][offense1][archery1][orc1][orc21]
 itm_kid_jabarkas_info=^?^[info_boy]
 itm_kid_jabarkas_mhint=^?^
 itm_kid_jabarkas_minfo=^?^
@@ -48,7 +48,7 @@ itm_kid_jabarkas_taken=^?^
 
 //==== kid_krellion
 itm_kid_krellion_name=Krellion
-itm_kid_krellion_hint=^?^[preamble_girl] [s]Krewlod, Stronghold, Barbarian, Offense, Resistance, Ogre, Magi...[/s] [postamble_girl][offense1][physical_damage1][resistance1][allmeleeorcs1]
+itm_kid_krellion_hint=^?^[preamble_girl] [s]Krewlod, Stronghold, Barbarian, Offense, Resistance, Ogre, Magi...[/s] [postamble_girl][offense1][resistance1][allmeleeorcs1]
 itm_kid_krellion_info=^?^[info_girl]
 itm_kid_krellion_mhint=^?^
 itm_kid_krellion_minfo=^?^
@@ -56,7 +56,7 @@ itm_kid_krellion_taken=^?^
 
 //==== kid_tyraxor
 itm_kid_tyraxor_name=Tyraxor
-itm_kid_tyraxor_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Tactics, Wolf, Rider, Raider, Captain, Tatalian...[/s] [postamble_boy][offense1][physical_damage1][tactics1][catapult1]
+itm_kid_tyraxor_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Tactics, Wolf, Rider, Raider, Captain, Tatalian...[/s] [postamble_boy][offense1][tactics1][catapult1]
 itm_kid_tyraxor_info=^?^[info_boy]
 itm_kid_tyraxor_mhint=^?^
 itm_kid_tyraxor_minfo=^?^
@@ -72,7 +72,7 @@ itm_kid_dessa_taken=^?^
 
 //==== kid_gundula
 itm_kid_gundula_name=Gundula
-itm_kid_gundula_hint=^?^[preamble_girl] [s]Krewlod, Stronghold, Battle, Mage, Wisdom, Offense, Duke, Boragus...[/s] [postamble_girl][wisdom1][offense2][physical_damage2]
+itm_kid_gundula_hint=^?^[preamble_girl] [s]Krewlod, Stronghold, Battle, Mage, Wisdom, Offense, Duke, Boragus...[/s] [postamble_girl][wisdom1][offense2][physical_damage1]
 itm_kid_gundula_info=^?^[info_girl]
 itm_kid_gundula_mhint=^?^
 itm_kid_gundula_minfo=^?^
@@ -104,7 +104,7 @@ itm_kid_zubin_taken=^?^
 
 //==== kid_alkin
 itm_kid_alkin_name=Alkin
-itm_kid_alkin_hint=^?^[preamble_boy] [s]Tatalia, Fortress, Beastmaster, Armorer, Offense, Gorgon, Mighty, Tralossk...[/s] [postamble_boy][armorer1][offense1][physical_damage1][allbears1]
+itm_kid_alkin_hint=^?^[preamble_boy] [s]Tatalia, Fortress, Beastmaster, Armorer, Offense, Gorgon, Mighty, Tralossk...[/s] [postamble_boy][armorer1][offense1][allbears1]
 itm_kid_alkin_info=^?^[info_boy]
 itm_kid_alkin_mhint=^?^
 itm_kid_alkin_minfo=^?^
@@ -144,7 +144,7 @@ itm_kid_tiva_taken=^?^
 
 //==== kid_boragus
 itm_kid_boragus_name=Boragus
-itm_kid_boragus_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Tactics, Offense, Ogre...[/s] [postamble_boy][tactics1][offense1][physical_damage1][ogre1]
+itm_kid_boragus_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Tactics, Offense, Ogre...[/s] [postamble_boy][tactics_einit1][offense1][ogre1]
 itm_kid_boragus_info=^?^[info_boy]
 itm_kid_boragus_mhint=^?^
 itm_kid_boragus_minfo=^?^
@@ -152,7 +152,7 @@ itm_kid_boragus_taken=^?^
 
 //==== kid_young_yog
 itm_kid_young_yog_name=Yog
-itm_kid_young_yog_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Ballistics, Cyclopses...[/s] [postamble_boy][offense1][magic_damage1][cyclop1]
+itm_kid_young_yog_hint=^?^[preamble_boy] [s]Krewlod, Stronghold, Barbarian, Offense, Ballistics, Cyclopses...[/s] [postamble_boy][offense1][cyclop1]
 itm_kid_young_yog_info=^?^[info_boy]
 itm_kid_young_yog_mhint=^?^
 itm_kid_young_yog_minfo=^?^

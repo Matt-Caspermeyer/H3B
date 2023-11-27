@@ -127,8 +127,8 @@ kid_piquedram {
     }
   }
   mods {
-    sp_mana_battle=count,1
-    rage=limit,18%
+    sp_mana_battle=count,2
+    rage=limit,36%
     sp_lead_unit_thorn=count,15
     sp_lead_unit_thorn_warrior=count,15
     sp_lead_unit_kingthorn=count,7
@@ -200,17 +200,6 @@ kid_rissa {
       }
       pbonus=
       dbonus=poison,0,9,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=magic,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -293,17 +282,6 @@ kid_shiva {
     {
       filter {
         belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=magic,1,0,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
         unit=greendragon
       }
       pbonus=health,0,9,0,-100,0,0
@@ -337,7 +315,7 @@ kid_shiva {
   }
   mods {
     sp_lead_unit_greendragon=count,9
-    rage=limit,18%
+    sp_rage_battle_prc=count,72
   }
   propbits=child,rare
   params {}
@@ -724,7 +702,7 @@ kid_fafner {
     }
   }
   mods {
-    sp_power_inc=count,9
+    sp_power_inc=count,4
     sp_power_mod=count,1
     sp_lead_unit_dragonflies=count,29
   }
@@ -800,7 +778,7 @@ kid_iona {
   }
   mods {
     mana=limit,18%
-    sp_power_inc=count,9
+    sp_power_inc=count,4
     sp_power_mod=count,1
     sp_lead_unit_unicorns=count,14
   }
@@ -841,7 +819,7 @@ kid_neela {
     }
   }
   mods {
-    sp_power_inc=count,9
+    sp_power_inc=count,4
     sp_power_mod=count,1
   }
   propbits=child,rare
@@ -1003,7 +981,7 @@ kid_thane {
     }
   }
   mods {
-    sp_power_inc=count,18
+    sp_power_inc=count,9
     sp_power_mod=count,2
     sp_lead_unit_thorn=count,29
     sp_lead_unit_thorn_warrior=count,29
@@ -1074,17 +1052,6 @@ kid_yog {
       }
       pbonus=
       dbonus=poison,0,9,0,-100,0,0
-      rbonus=
-      attack_on=
-      attack_off=
-    }
-    {
-      filter {
-        belligerent=ally
-        unit=archdemon,barbarian,barbarian2,bat,bat2,bear,bear_white,bear2,blackdragon,blackknight,bonedragon,cerberus,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,dryad,dwarf,ent,ent2,footman,footman2,ghost,ghost2,giant,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,sprite,sprite_lake,thorn_warrior,unicorn,unicorn2,vampire,vampire2,werewolf,wolf,zombie,zombie2
-      }
-      pbonus=
-      dbonus=physical,1,0,0,-100,0,0
       rbonus=
       attack_on=
       attack_off=
@@ -1165,7 +1132,7 @@ kid_aine {
   }
   mods {
     sp_power_int=count,18
-    sp_power_inc=count,9
+    sp_power_inc=count,4
     sp_power_mod=count,1
     sp_addgold_battle=count,126
     sp_addgold_chestt=count,126
@@ -1434,6 +1401,26 @@ kid_lacus {
   fight {
     {
       filter {
+        belligerent=enemy
+      }
+      pbonus=initiative,-1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
+        belligerent=enemy
+      }
+      pbonus=speed,-1,0,0,-100,0,0
+      dbonus=
+      rbonus=
+      attack_on=
+      attack_off=
+    }
+    {
+      filter {
         belligerent=ally
       }
       pbonus=
@@ -1454,8 +1441,6 @@ kid_lacus {
     }
   }
   mods {
-    attack=count,18%
-    defense=count,18%
   }
   propbits=child,rare
   params {}
