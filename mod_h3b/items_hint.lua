@@ -353,7 +353,7 @@ function gen_itm_kid_hint( par )
         text = text .. color .. "<label=itm_kid_spells> </color>" .. spell_color .. "<label=" .. spell .. "_name></color>"
 
       elseif spell_display == "comma_space" then
-        text = text .. spell_color .. ", <label=" .. spell .. "_name></color> - "
+        text = text .. spell_color .. ", <label=" .. spell .. "_name></color>"
 
       elseif spell_display == "and_name_end" then
         text = text .. spell_color .. " and <label=" .. spell .. "_name></color> - "

@@ -162,6 +162,14 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Version: Beta 2012-02-09
+-------------------------
+
+* mod_homm3_babies.kfs
+  & ITEMS_HINT.LUA - fixed template generator for Xyron's spell bonus description so that it displays the spell list properly
+  & SPELLS.LUA - fixed issue with the Phoenix getting its bonus to its resistances applied a second time when it resurrected itself
+
+
 Version: Beta 2012-01-16
 -------------------------
 

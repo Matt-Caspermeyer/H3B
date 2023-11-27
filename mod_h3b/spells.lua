@@ -43,65 +43,57 @@ function summon_bonus( unit, spell, text, ehero_level )
   local start_defense_p = skill_power2( "start_defense", 1 )
 
   if unit ~= nil then
-    local current_hp = Attack.act_hp( unit )
-    local new_hp = current_hp * ( hitpoint_bonus / 100 + 1 )
-    local additional_hp = new_hp - current_hp
     Attack.act_apply_spell_begin( unit, "special_summon_bonus", duration, false )
-
+    
     local damage_type = {}
-  
+    
     for i, v in ipairs( resistances ) do
       local min_damage_current = Attack.act_get_dmg_min( unit, v )
-  
+    
       if min_damage_current > 0 then
         table.insert( damage_type, v )
       end
     end
-
+    
     for i, v in ipairs( damage_type ) do
       local sp_damage = get_sp_bonus( spell, v, ehero_level )
       Attack.act_apply_dmg_spell( v, 0, 0, damage_bonus * sp_damage, duration, false )
     end
-
+  
     if unit ~= 0 then
+      local current_hp = Attack.act_hp( unit )
+      local new_hp = current_hp * ( hitpoint_bonus / 100 + 1 )
+      local additional_hp = new_hp - current_hp
       Attack.act_attach_modificator( unit, "health", "summon_bonus_health", additional_hp, 0, 0, duration, false )
       Attack.act_hp( unit, new_hp )
-    end
-
-    Attack.act_attach_modificator( unit, "defense", "summon_bonus_defense", 0, 0, defense_bonus, duration, false )
-    Attack.act_attach_modificator( unit, "attack", "summon_bonus_attack", 0, 0, attack_bonus, duration, false )
-
-    local res_fire = tonumber( Logic.obj_par( spell, "res_fire" ) )
-    if res_fire == 1 then
-      local resist = Attack.act_get_res( unit,"fire" )
-      Attack.act_attach_modificator_res( unit, "fire", "summon_bonus_res_fire", math.abs( resist * res_bonus / 100 ), 0, 0, duration, false )
-    end
+      Attack.act_attach_modificator( unit, "defense", "summon_bonus_defense", 0, 0, defense_bonus, duration, false )
+      Attack.act_attach_modificator( unit, "attack", "summon_bonus_attack", 0, 0, attack_bonus, duration, false )
   
-    local res_physical = tonumber( Logic.obj_par( spell, "res_physical" ) )
-    if res_physical == 1 then
-      local resist = Attack.act_get_res( unit,"physical" )
-      Attack.act_attach_modificator_res( unit, "physical", "summon_bonus_res_physical", math.abs( resist * res_bonus / 100 ), 0, 0, duration, false )
-      resist = Attack.act_get_res( unit,"physical" )
+      local function common_apply_res_bonus( unit, spell, res, res_bonus, duration )
+        local spell_res = tonumber( Logic.obj_par( spell, "res_" .. res ) )
 
-      if start_defense_p > 0 then
-        Attack.act_attach_modificator_res( unit, "physical", "sc", start_defense_p, 0, 0, -100, false, 0, true )
+        if spell_res == 1 then
+          local resist = Attack.act_get_res( unit, res )
+          Attack.act_attach_modificator_res( unit, res, "summon_bonus_res_" .. res, math.abs( resist * res_bonus / 100 ), 0, 0, duration, false )
+        end
       end
-    end
+
+      for i, v in ipairs( resistances ) do
+        common_apply_res_bonus( unit, spell, v, res_bonus, duration )
+      end
   
-    local res_magic = tonumber( Logic.obj_par( spell, "res_magic" ) )
-    if res_magic == 1 then
-      local resist = Attack.act_get_res( unit,"magic" )
-      Attack.act_attach_modificator_res( unit, "magic", "summon_bonus_res_magic", math.abs( resist * res_bonus / 100 ), 0, 0, duration, false )
     end
-  
-    local res_poison = tonumber( Logic.obj_par( spell, "res_poison" ) )
-    if res_poison == 1 then
-      local resist = Attack.act_get_res( unit,"poison" )
-      Attack.act_attach_modificator_res( unit, "poison", "summon_bonus_res_poison", math.abs( resist * res_bonus / 100 ), 0, 0, duration, false )
+
+    local res_physical = tonumber( Logic.obj_par( spell, "res_physical" ) )
+
+    if res_physical == 1
+    and start_defense_p > 0 then
+      local resist = Attack.act_get_res( unit, "physical" )
+      Attack.act_attach_modificator_res( unit, "physical", "sc", start_defense_p, 0, 0, -100, false, 0, true )
     end
-  
+
     Attack.act_apply_spell_end()
-  
+    
     return true
   else
     local sp_kid, sp_kid_speed, sp_kid_init, sp_kid_ur = 1, 0, 0, false
