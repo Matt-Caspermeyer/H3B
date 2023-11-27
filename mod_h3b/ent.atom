@@ -39,6 +39,7 @@ arena_params {
     custom_params {
       entangle=50
       level=4
+      movetype=1,-2
     }    
   }
   throw1 {

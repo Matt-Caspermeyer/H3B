@@ -36,7 +36,7 @@ function therock_quake()
       local dead = Attack.act_damage( i )
       if not dead then
         local power = tonumber( "0" .. Attack.get_custom_param( "bleeding" ) ) -- назначаем бонус
-        local duration = math.max( tonumber( Logic.obj_par( "feat_lump_bleeding", "duration" ) ) - 1 + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" ), 1 )
+        local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" )
         if Game.Random( 99 ) < power then
           therock_bleeding( i, power, duration )
         end
@@ -187,7 +187,7 @@ function therock_lump()
   local photo = Attack.photogenic( target )
   Attack.act_damage( target )
   local power = tonumber( "0" .. Attack.get_custom_param( "bleeding" ) ) -- назначаем бонус
-  local duration = tonumber( Logic.obj_par( "feat_lump_bleeding", "duration" ) ) + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" )
+  local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" )
 		
   therock_bleeding( target, power, duration )
 
@@ -439,18 +439,20 @@ function therock_rockfall()
           Attack.aseq_timeshift( target, hit_time - hit_x )
           Attack.dmg_timeshift( target, hit_time )
           local dead = Attack.act_damage( target )
+
           if not dead
           and not Attack.act_pawn( target )
           and not Attack.act_feature( target, "golem" )
           and not Attack.act_feature( target, "plant" )
           and not Attack.act_feature( target, "undead" )
           and not Attack.act_feature( target, "boss" ) then
-            local stunning_prob = tonumber( "0" .. Attack.get_custom_param("stunning") )
+            local stunning_prob = tonumber( "0" .. Attack.get_custom_param( "stunning" ) )
             local rnd = Game.Random( 99 )
          			local stun_res = Attack.act_get_res( target, "physical" )
             local stun_chance = math.max( 0, stunning_prob - stun_res )
             if rnd < stun_chance then
-              effect_stun_attack( target, hit_time + 2, 3 )
+              local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) )
+              effect_stun_attack( target, hit_time + 2, duration )
             end
           end
         end

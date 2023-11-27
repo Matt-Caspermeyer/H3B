@@ -193,30 +193,30 @@ end
 
 
 function add_target( target, res, added_target_ids )
-	local id = Attack.cell_id( Attack.get_cell( Attack.get_caa( target ) ) )
-
-	if added_target_ids[ id ] then return res end
-	--if next(added_target_ids) ~= nil then res = res..'<br>' end
-	added_target_ids[ id ] = true
-
-	if Attack.act_ally( target ) then res = res .. "<label=dmg_hint_format_ally>" else res = res .. "<label=dmg_hint_format_enemy>" end
-
- local min_dmg, min_dead = Attack.damage_results( target, 1 )
- local max_dmg, max_dead = Attack.damage_results( target, 2 )
-
- if Attack.act_size( target ) > 1 then
- 	 res = res .. "<label=cpsn_"..Attack.act_name( target ) .. ">" .. ". "
- else
- 	 res = res .. "<label=cpn_" .. Attack.act_name( target ) .. ">" .. ". "
- end
-
- res = res .. "</color><label=dmg_hint_simple_dmg> " .. range_to_text( min_dmg, max_dmg ) .. '.'
-
- if max_dead > 0 then
-   res = res .. "<br><label=dmg_hint_simple_dead> " .. range_to_text( min_dead, max_dead ) .. '.'
-	end
-
-	return res .. '<br>'
+ 	local id = Attack.cell_id( Attack.get_cell( Attack.get_caa( target ) ) )
+ 
+ 	if added_target_ids[ id ] then return res end
+ 	--if next(added_target_ids) ~= nil then res = res..'<br>' end
+ 	added_target_ids[ id ] = true
+ 
+ 	if Attack.act_ally( target ) then res = res .. "<label=dmg_hint_format_ally>" else res = res .. "<label=dmg_hint_format_enemy>" end
+ 
+  local min_dmg, min_dead = Attack.damage_results( target, 1 )
+  local max_dmg, max_dead = Attack.damage_results( target, 2 )
+ 
+  if Attack.act_size( target ) > 1 then
+  	 res = res .. "<label=cpsn_"..Attack.act_name( target ) .. ">" .. ". "
+  else
+  	 res = res .. "<label=cpn_" .. Attack.act_name( target ) .. ">" .. ". "
+  end
+ 
+  res = res .. "</color><label=dmg_hint_simple_dmg> " .. range_to_text( min_dmg, max_dmg ) .. '.'
+ 
+  if max_dead > 0 then
+    res = res .. "<br><label=dmg_hint_simple_dead> " .. range_to_text( min_dead, max_dead ) .. '.'
+ 	end
+ 
+ 	return res .. '<br>'
 end
 
 
@@ -526,75 +526,145 @@ end
 
 function spirit_attack_hint_gen()
 
-	local res = ""
-	local added_target_ids = {}
+	 local res = ""
+	 local added_target_ids = {}
+  
+	 if Attack.atk_name() == "rockfall" then
+	   for i = 0, Attack.get_targets_count() - 1 do
+	     local target = Attack.get_target( i )
+  
+	     if target ~= nil then
+	       if not Attack.cell_is_empty( target )
+        and rockfall_check_target( target ) then
+	         res = add_target( target, res, added_target_ids )
+	       end
+	     end
+	   end
+  
+	   return res
+  
+	 elseif Attack.atk_name() == "devatron" then
+    local dmg_min, dmg_max = text_range_dec( Attack.get_custom_param( "damage.physical.0" ) .. '-' .. Attack.get_custom_param( "damage.physical.1" ) )
+    local typedmg = "physical"
 
-	if Attack.atk_name() == "rockfall" then
-	  for i = 0, Attack.get_targets_count() - 1 do
-	    local target = Attack.get_target( i )
+    for i, c in ipairs( get_devatron_cells() ) do
+      if Attack.act_enemy( c )
+      and Attack.act_takesdmg( c ) then
+        Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+						  res = add_target( c, res, added_target_ids )
+      end
+    end
 
-	    if target ~= nil then
-	      if not Attack.cell_is_empty( target )
-       and rockfall_check_target( target ) then
-	        res = add_target( target, res, added_target_ids )
-	      end
-	    end
-	  end
+	   return res
 
-	  return res
-	elseif Attack.atk_name() == "rage_gain" then
-	  for i = 0, Attack.get_targets_count() - 1 do
-	    local target = Attack.get_target( i )
+	 elseif Attack.atk_name() == "fog" then
+	   for i = 0, Attack.get_targets_count() - 1 do
+	     local target = Attack.get_target( i )
+  
+	     if target ~= nil then
+	       if not Attack.cell_is_empty( target )
+        and Attack.act_takesdmg( target ) then
+	         res = add_target( target, res, added_target_ids )
+	       end
+	     end
+	   end
+  
+	   return res
+  
+	 elseif Attack.atk_name() == "orb" then
+    local dmg_min, dmg_max = text_range_dec( Attack.get_custom_param( "damage.physical.0" ) .. '-' .. Attack.get_custom_param( "damage.physical.1" ) )
+    local k_dec = Attack.get_custom_param( "k_dec" )
+    local typedmg = "physical"
+    local target = Attack.get_target()
+    dmg_min = 2 * dmg_min
+    dmg_max = 2 * dmg_max
+    local acnt = Attack.act_count()
 
-	    if target ~= nil then
-       if Attack.act_enemy( target )
-       and Attack.act_takesdmg( target )
-       and not Attack.act_feature( target, "pawn" ) then
-	        res = add_target( target, res, added_target_ids )
-	      end
-	    end
-	  end
+    for i = 1, acnt-1 do
+      if Attack.act_enemy( i )
+      and Attack.act_mt( i ) == 0
+      and Attack.act_applicable( i )
+      and Attack.act_takesdmg( i )
+      and Attack.act_hp( i ) > 0
+      and Attack.act_name( i ) ~= "archdemon"
+      and Attack.act_name( i ) ~= "demoness" then
+        local dist = Attack.cell_dist( target, i ) - 1
+        local k = ( 1 - k_dec * dist / 100 )
+  
+        if k > 0 then
+          if Attack.act_feature( i, "barrier" ) then
+            Attack.atk_set_damage( typedmg, 2 * dmg_min * k, 2 * dmg_max * k )
+          else
+            Attack.atk_set_damage( typedmg, dmg_min * k, dmg_max * k )
+          end
+  
+          res = add_target( i, res, added_target_ids )
+        end
+      end
+    end
 
-	  return res
-	elseif Attack.atk_name() == "fishes" then
+    dmg_min, dmg_max = text_range_dec( Attack.get_custom_param( "damage.physical.0" ) .. '-' .. Attack.get_custom_param( "damage.physical.1" ) )
+    Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+  
+	   return res
+  
+	 elseif Attack.atk_name() == "rage_gain" then
+	   for i = 0, Attack.get_targets_count() - 1 do
+	     local target = Attack.get_target( i )
+  
+	     if target ~= nil then
+        if Attack.act_enemy( target )
+        and Attack.act_takesdmg( target )
+        and not Attack.act_feature( target, "pawn" ) then
+	         res = add_target( target, res, added_target_ids )
+	       end
+	     end
+	   end
+  
+	   return res
+  
+	 elseif Attack.atk_name() == "fishes" then
+    local dmg_min, dmg_max = text_range_dec( Attack.get_custom_param( "damage.physical.0" ) .. '-' .. Attack.get_custom_param( "damage.physical.1" ) )
+    local typedmg = "physical"
 
-			local function add_fish_target( cell )
-				 if cell ~= nil
-     and Attack.cell_present( cell )
-     and ( Attack.cell_is_pass( cell )
-     or Attack.act_pawn( cell ) ) then
-					  if ( not Attack.cell_is_empty( cell ) )
-       and Attack.act_takesdmg( cell )
-       and Attack.act_applicable( cell ) then
-						   res = add_target( cell, res, added_target_ids)
-					  end
-				 end
-			end
+ 			local function add_fish_target( cell )
+				  if cell ~= nil
+      and Attack.cell_present( cell )
+      and ( Attack.cell_is_pass( cell )
+      or Attack.act_pawn( cell ) ) then
+					   if ( not Attack.cell_is_empty( cell ) ) 
+        and Attack.act_takesdmg( cell )
+        and Attack.act_applicable( cell ) then
+          Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+						    res = add_target( cell, res, added_target_ids )
+					   end
+				  end
+			 end
 
-			local function spawn_fishes( cell, dir )
-				 local len = Attack.trace( cell, dir )
+			 local function spawn_fishes( cell, dir )
+				  local len = Attack.trace( cell, dir )
 
-				 for i = 0, len - 1 do
-					  local c = Attack.trace( i )
+				  for i = 0, len - 1 do
+					   local c = Attack.trace( i )
 
-					  if slime_fishes_attack_cell( c ) then add_fish_target( c ) end
-				 end
-			end
+					   if slime_fishes_attack_cell( c ) then add_fish_target( c ) end
+				  end
+			 end
 
-			local dir = Attack.val_restore( "direction" )
-			local cell = Attack.get_target()
-			add_fish_target( cell )
-			fishes_routine( spawn_fishes, cell, dir, 0, 0 )
+	 		local cell = Attack.get_target()
+		 	add_fish_target( cell )
+			 fishes_routine( spawn_fishes, cell, DIRECTION, 0, 0 )
 
-	  return res
-	end
+	   return res
 
-	local target = Attack.get_target()
-
-	if Attack.atk_name() == "reaping" then
-		Attack.atk_set_damage( "astral", tonumber(Attack.get_custom_param("kill"))*Attack.act_totalhp(target)/100.0 )
-	end
-
-	return (main_target_hint(target))
+	 end
+  
+	 local target = Attack.get_target()
+  
+	 if Attack.atk_name() == "reaping" then
+	  	Attack.atk_set_damage( "astral", tonumber(Attack.get_custom_param("kill"))*Attack.act_totalhp(target)/100.0 )
+	 end
+  
+	 return (main_target_hint(target))
 
 end

@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_cannoner_feat
-  features_hints=shot_header/shot_hint,siege_weapon_header/siege_weapon_hint,no_melee_header/no_melee_hint,dungeon_liker_header/dungeon_liker_hint
+  features_hints=shot_header/shot_hint,siege_weapon_header2/siege_weapon_hint2,no_melee_header/no_melee_hint,dungeon_liker_header/dungeon_liker_hint
   race=dwarf
   cost=800
   level=4
@@ -40,11 +40,13 @@ arena_params {
     nfeatures=barrier
     group=1,2
     class=throw
-    distance=7
+    distance=100
     base_attack=1
     mindist=2
     showdmg=1
-    penalty=0.8
+    penalty=1.0
+    7in1=0.5
+    friendly_fire=1
     animation=attack/throw/thtarget
     throw=cannonball
     framekey=x
@@ -56,11 +58,13 @@ arena_params {
     features=barrier
     group=1,3
     class=throw
-    distance=7
+    distance=100
     base_attack=1
     mindist=2
     showdmg=1
-    penalty=0.5
+    penalty=1.0
+    7in1=0.5
+    friendly_fire=1
     animation=attack/throw/thtarget
     throw=cannonball
     framekey=x
@@ -70,12 +74,15 @@ arena_params {
   }
   megathrow {
     dontusenearenemy=1
+    showdmg=1
     class=throw
-    distance=7
+    distance=100
     reload=3
     base_attack=0
     mindist=2
-    penalty=0.5
+    penalty=1.0
+    7in1=0.5
+    friendly_fire=1
     animation=power/megatag/thtarget
     picture=BA1_CannoneerFire_
     picture_small=BA1_CannoneerFire_small.png
@@ -182,6 +189,12 @@ attachments {
       frame=80/82
       file=cast_cannon_bang.ptb
     }
+    camshaker {
+      animation=attack
+      frame=81/82
+      envelope=quake_small.envlp
+      attenuation=0.1
+    }
     particle {
       trans=0/0.76999998/-0.80000001/0/-0.7654106/0/0.80000001
       animation=attack
@@ -213,6 +226,12 @@ attachments {
       animation=power
       frame=86/90
       file=cast_canpower_bang.ptb
+    }
+    camshaker {
+      animation=power
+      frame=87/90
+      envelope=quake_small.envlp
+      attenuation=0.03333
     }
     particle {
       trans=0/-0/0.29670563/1

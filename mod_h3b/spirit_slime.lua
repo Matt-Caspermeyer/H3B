@@ -151,78 +151,114 @@ function rotodir( dir, adddir )
 end
 
 function slime_fishes() --////////////////////////////////
-
   local dir = Attack.direction()
   local cell = Attack.get_target()
-  local photo = Attack.photogenic(cell)
+  local photo = Attack.photogenic( cell )
   local r = Game.Random()
-
-  local function dmg_fishes( cell, dir )
-	  for i=0, Attack.trace(cell,dir)-1 do
-	    local c = Attack.trace(i)
-        if slime_fishes_attack_cell(c) then Attack.act_damage(c) end
-	  end
-  end
-
-  fishes_routine(dmg_fishes, cell, dir, 0, 0)
   local start_time_r, end_time_r = 0, .1
 
 --/////////////// Camera block
   if Attack.is_short_spirit_seq() then
-  	  Attack.act_aseq( 0, "2attack1" )
-    Attack.cam_track_duration(4.0)
+  	 Attack.act_aseq( 0, "2attack1" )
+    Attack.cam_track_duration( 4.0 )
+
     if Game.ArenaShape() == 4 then
-        if r <0.7 then
-			Attack.cam_track(0, 0, "spirit_cam_short_ships.track" )
-		else
-            Attack.cam_track(0, 0, "spirit_cam_short_2left.track" )
-		end
+      if r < 0.7 then
+			     Attack.cam_track( 0, 0, "spirit_cam_short_ships.track" )
+		    else
+        Attack.cam_track( 0, 0, "spirit_cam_short_2left.track" )
+		    end
     else
       if r <= 0.44 then
-        Attack.cam_track(0, 0, "spirit_cam_short_centre.track" )
+        Attack.cam_track( 0, 0, "spirit_cam_short_centre.track" )
       elseif r <= 0.88 then
-        Attack.cam_track(0, 0, "spirit_cam_short_2left.track" )
+        Attack.cam_track( 0, 0, "spirit_cam_short_2left.track" )
       else
-        Attack.cam_track(0, 0, "spirit_cam_short_2right.track" )
+        Attack.cam_track( 0, 0, "spirit_cam_short_2right.track" )
       end
     end  	  
   else
-	Attack.act_aseq( 0, "appear" )
-	start_time_r = Attack.aseq_time(0)
-	slime_idle()
-	end_time_r = Attack.aseq_time(0)
-  	Attack.act_aseq( 0, "attack1" )
+   	Attack.act_aseq( 0, "appear" )
+   	start_time_r = Attack.aseq_time( 0 )
+   	slime_idle()
+   	end_time_r = Attack.aseq_time( 0 )
+   	Attack.act_aseq( 0, "attack1" )
+
     if Game.ArenaShape() == 4 then
-    	Attack.cam_track_duration(13.2)
-        if r <0.7 then
-			Attack.cam_track(0, 0, "spirit_cam_ships.track" )
-		else
-            Attack.cam_track(0, 0, "spirit_cam_2left.track" )
-		end
+    	 Attack.cam_track_duration( 13.2 )
+
+      if r < 0.7 then
+			     Attack.cam_track( 0, 0, "spirit_cam_ships.track" )
+		    else
+        Attack.cam_track( 0, 0, "spirit_cam_2left.track" )
+		    end
     else
-		if (photo == 0) then
-	  		Attack.cam_track(0, 255, 300, 0, cell, "slime_appear_extra_slimefish_2forest.track" )
-		else
-		    Attack.cam_track_duration(13.2)
-		    if r <= 0.44 then
-        		Attack.cam_track(0, 0, "spirit_cam_centre.track" )
+		    if ( photo == 0 ) then
+	  		   Attack.cam_track( 0, 255, 300, 0, cell, "slime_appear_extra_slimefish_2forest.track" )
+		    else
+		      Attack.cam_track_duration( 13.2 )
+
+		      if r <= 0.44 then
+        		Attack.cam_track( 0, 0, "spirit_cam_centre.track" )
       		elseif r <= 0.88 then
-        		Attack.cam_track(0, 0, "spirit_cam_2left.track" )
+        		Attack.cam_track( 0, 0, "spirit_cam_2left.track" )
       		else
-        		Attack.cam_track(0, 0, "spirit_cam_2right.track" )
+        		Attack.cam_track( 0, 0, "spirit_cam_2right.track" )
       		end
-      	end
+      end
     end
   end
 --/////////////// End of camera block
 
+  -- Not a big fan of using GLOBALS, but getting it into dmg_fishes would require a lot of extra work, so...
+  START_TIME_R = start_time_r
+
+  local function dmg_fishes( cell, dir )
+	   for i = 0, Attack.trace( cell, dir ) - 1 do
+	     local c = Attack.trace( i )
+
+      if slime_fishes_attack_cell( c ) then
+        local dead = Attack.act_damage( c )
+
+        if not dead
+        and not Attack.act_pawn( c )
+        and not Attack.act_feature( c, "golem" )
+        and not Attack.act_feature( c, "plant" )
+        and not Attack.act_feature( c, "undead" )
+        and not Attack.act_feature( c, "mind_immunitet" )
+        and not ( Attack.act_level( c ) > 4 )
+        and not Attack.act_feature( c, "boss" ) then
+          local fear_prob = tonumber( "0" .. Attack.get_custom_param( "fear" ) )
+          local rnd = Game.Random( 99 )
+         	local fear_res = 0
+          local fear_chance = math.max( 0, fear_prob - fear_res )
+
+          if rnd < fear_chance then
+            local spell = "spell_scare"
+
+            if Attack.act_is_spell( c, spell ) then
+              Attack.act_spell_duration( c, spell, Attack.act_spell_duration( c, spell ) + 1 )
+              Attack.act_damage_addlog( c, "add_blog_frightened_" )
+            else
+              local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) )
+              Attack.act_apply_spell_begin( c, "effect_fear", duration, false )
+              Attack.act_apply_par_spell( "autofight", 1, 0, 0, duration, false )
+              Attack.act_apply_spell_end()
+              Attack.atom_spawn( c, START_TIME_R + 3.0 + Attack.cell_dist( cell, c ) * 0.3, "magic_scare", Attack.angleto( c ) )
+              Attack.act_damage_addlog( c, "add_blog_fear_" )
+            end
+          end
+        end
+      end
+	   end
+  end
+
+  fishes_routine( dmg_fishes, cell, dir, 0, 0 )
   local fish_time = Attack.aseq_time( 0, "fish" )
   local start_time = Attack.aseq_time( 0, "start" )
   local end_time = Attack.aseq_time( 0, "end" )
-
   Attack.act_move( start_time, end_time, 0, cell )
   Attack.act_rotate( start_time_r, end_time_r, 0, cell )
-
   g_attackx = Attack.aseq_time( "slimefish", "attack", "x" )
   g_jumpx = Attack.aseq_time( "slimefish", "jumpa", "x" )
   g_hidex = Attack.aseq_time( "slimefish", "hidea", "x" )
@@ -232,15 +268,13 @@ function slime_fishes() --////////////////////////////////
   --g_hide = Attack.aseq_time( "slimefish", "hide", "" )
   --g_appearattack = Attack.aseq_time( "slimefish", "appeara", "" )
   --g_hideattack = Attack.aseq_time( "slimefish", "hidea", "" )
-
-  fishes_routine(spawn_fishes, cell, dir, fish_time, g_move)
-
+  fishes_routine( spawn_fishes, cell, dir, fish_time, g_move )
   spirit_after_hit()
 
   return true
 end
 
-function fishes_routine(spawn_fishes, cell, dir, fish_time, g_move)
+function fishes_routine( spawn_fishes, cell, dir, fish_time, g_move )
 
   spawn_fishes( cell, dir, fish_time )
 
@@ -289,7 +323,8 @@ function slime_fishes_highlight()
 
   local dir = Attack.direction()
   local cell = Attack.get_target()
-
+  -- Had to use a global since val_store didn't seem to work
+  DIRECTION = dir
   Attack.cell_select( cell, "fishbig"..dir )
   fishes_routine(spawn_fishes, cell, dir, 0, 0)
 
@@ -395,18 +430,56 @@ function slimefog_hackmove()
   -- proceed damage here
 
   local min_dmg,max_dmg = text_range_dec(Attack.val_restore("damage"))
+  local poison_prob = Attack.val_restore( "poison" )
+  local duration = Attack.val_restore( "duration" )
   local dmg_type, was_damage = "poison"--Attack.get_custom_param("typedmg")
   Attack.atk_set_damage(dmg_type,min_dmg,max_dmg)
 
   for dir=0,5 do
     local c = Attack.cell_adjacent( mypos, dir )
       if --[[Attack.act_nonhuman(c) and]] Attack.act_takesdmg(c) then
-        common_cell_apply_damage(c, movetime)
+        local dummy, dead = common_cell_apply_damage(c, movetime)
+
+        if dead ~= nil
+        and not dead
+        and not Attack.act_pawn( c )
+        and not Attack.act_feature( c, "golem" )
+        and not Attack.act_feature( c, "plant" )
+        and not Attack.act_feature( c, "undead" )
+        and not Attack.act_feature( c, "boss" ) then
+          local rnd = Game.Random( 99 )
+         	local poison_res = Attack.act_get_res( c, "poison" )
+          local poison_chance = math.max( 0, poison_prob - poison_res )
+
+          if rnd < poison_chance then
+            local dmg = tonum( Attack.val_restore( c, "sdmg" ) )
+            effect_poison_attack( c, movetime + 2, duration, dmg, dmg )
+          end
+        end
+
         was_damage = true
      end
   end
-  if --[[Attack.act_nonhuman(mypos) and]] Attack.act_takesdmg(mypos) then
-    common_cell_apply_damage(mypos, movetime)
+  if --[[Attack.act_nonhuman(mypos) and]] Attack.act_takesdmg( mypos ) then
+    local dummy, dead = common_cell_apply_damage( mypos, movetime )
+
+    if dead ~= nil
+    and not dead
+    and not Attack.act_pawn( mypos )
+    and not Attack.act_feature( mypos, "golem" )
+    and not Attack.act_feature( mypos, "plant" )
+    and not Attack.act_feature( mypos, "undead" )
+    and not Attack.act_feature( mypos, "boss" ) then
+      local rnd = Game.Random( 99 )
+     	local poison_res = Attack.act_get_res( mypos, "poison" )
+      local poison_chance = math.max( 0, poison_prob - poison_res )
+
+      if rnd < poison_chance then
+        local dmg = tonum( Attack.val_restore( mypos, "sdmg" ) )
+        effect_poison_attack( mypos, movetime + 2, duration, dmg, dmg )
+      end
+    end
+
     was_damage = true
   end
 
@@ -458,72 +531,76 @@ function spawn_splashes( fog, where, tshift )
 end
 --/////////////////////////////////////////////////////
 function slime_fog() --////////////////////////////////
-
   local cell = Attack.get_target()
-  local photo = Attack.photogenic(cell)
+  local photo = Attack.photogenic( cell )
   local r = Game.Random()
 
   local start_time_r, end_time_r = 0, .1
 
   if Attack.is_short_spirit_seq() then
-		Attack.act_aseq( 0, "2attack2" )
-		Attack.cam_track_duration(4.0)
-    	if Game.ArenaShape() == 4 then
-        	if r <0.7 then
-				Attack.cam_track(0, 0, "spirit_cam_short_ships.track" )
-			else
-            	Attack.cam_track(0, 0, "spirit_cam_short_2left.track" )
-			end
-    	else
-      		if r <= 0.44 then
-      			  Attack.cam_track(0, 0, "spirit_cam_short_centre.track" )
-      		elseif r <= 0.88 then
-      			  Attack.cam_track(0, 0, "spirit_cam_short_2left.track" )
-      		else
-      			  Attack.cam_track(0, 0, "spirit_cam_short_2right.track" )
-     		 end
+  		Attack.act_aseq( 0, "2attack2" )
+		  Attack.cam_track_duration( 4.0 )
+
+    if Game.ArenaShape() == 4 then
+      if r < 0.7 then
+				    Attack.cam_track( 0, 0, "spirit_cam_short_ships.track" )
+			   else
+        Attack.cam_track( 0, 0, "spirit_cam_short_2left.track" )
+			   end
+    else
+      if r <= 0.44 then
+        Attack.cam_track( 0, 0, "spirit_cam_short_centre.track" )
+      elseif r <= 0.88 then
+        Attack.cam_track( 0, 0, "spirit_cam_short_2left.track" )
+      else
+        Attack.cam_track( 0, 0, "spirit_cam_short_2right.track" )
+     	end
   		end
   else
-		Attack.act_aseq( 0, "appear" )
-		start_time_r = Attack.aseq_time(0)
-		slime_idle()
-		end_time_r = Attack.aseq_time(0)
-		Attack.act_aseq( 0, "attack2" )
-    	if Game.ArenaShape() == 4 then
-    		Attack.cam_track_duration(13.2)
-        	if r <0.7 then
-				Attack.cam_track(0, 0, "spirit_cam_ships.track" )
-			else
-            	Attack.cam_track(0, 0, "spirit_cam_2left.track" )
-			end
-    	else
-			if (photo == 0) then
-	  			Attack.cam_track(0, 255, 320, 0, cell, "slime_appear_extra_fog_forest.track" )
-			else
-		    	Attack.cam_track_duration(13.2)
-		    	if r <= 0.44 then
-        			Attack.cam_track(0, 0, "spirit_cam_centre.track" )
-      			elseif r <= 0.88 then
-        			Attack.cam_track(0, 0, "spirit_cam_2left.track" )
-      			else
-        			Attack.cam_track(0, 0, "spirit_cam_2right.track" )
-      			end
-      		end
-    	end	
+  		Attack.act_aseq( 0, "appear" )
+  		start_time_r = Attack.aseq_time( 0 )
+		  slime_idle()
+  		end_time_r = Attack.aseq_time( 0 )
+  		Attack.act_aseq( 0, "attack2" )
 
+    if Game.ArenaShape() == 4 then
+    		Attack.cam_track_duration( 13.2 )
+
+      if r < 0.7 then
+				    Attack.cam_track( 0, 0, "spirit_cam_ships.track" )
+			   else
+        Attack.cam_track( 0, 0, "spirit_cam_2left.track" )
+			   end
+    	else
+			    if ( photo == 0 ) then
+	  			   Attack.cam_track( 0, 255, 320, 0, cell, "slime_appear_extra_fog_forest.track" )
+			    else
+		    	  Attack.cam_track_duration( 13.2 )
+
+		    	  if r <= 0.44 then
+        			Attack.cam_track( 0, 0, "spirit_cam_centre.track" )
+      			elseif r <= 0.88 then
+        			Attack.cam_track( 0, 0, "spirit_cam_2left.track" )
+      			else
+        			Attack.cam_track( 0, 0, "spirit_cam_2right.track" )
+      			end
+      	end
+    	end	
 --/////////////// End of camera block
   end
 
   -- remove an existent cloud
   for act=1, Attack.act_count()-1 do
-  	if Attack.act_name(act) == "slimefog" then
-	    local acnt = Attack.act_attach( act )
-	    for i=0,acnt-1 do
-	      Attack.act_remove( Attack.act_attach( act, i ), 0 )
-	    end
-	    Attack.act_remove( act, 0 )
-	    break
-	end
+  	 if Attack.act_name( act ) == "slimefog" then
+	     local acnt = Attack.act_attach( act )
+
+	     for i = 0, acnt - 1 do
+	       Attack.act_remove( Attack.act_attach( act, i ), 0 )
+	     end
+
+	     Attack.act_remove( act, 0 )
+	     break
+	   end
   end
 
 
@@ -534,18 +611,57 @@ function slime_fog() --////////////////////////////////
 
   Attack.act_move( start_time, end_time, 0, cell )
   Attack.act_rotate( start_time_r, end_time_r, 0, cell )
-  local fog = Attack.atom_spawn(cell,fog_time,"slimefog")
-  Attack.val_store(fog, "damage", Attack.get_custom_param("dmg.0")..'-'..Attack.get_custom_param("dmg.1"))
-  Attack.val_store(fog, "time", Attack.get_custom_param("time"))
+  local fog = Attack.atom_spawn( cell, fog_time, "slimefog" )
+  Attack.val_store( fog, "damage", Attack.get_custom_param( "damage.poison.0" )..'-'..Attack.get_custom_param( "damage.poison.1" ) )
+  Attack.val_store( fog, "poison", Attack.get_custom_param( "poison" ) )
+  Attack.val_store( fog, "time", Attack.get_custom_param( "time" ) )
+  local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) )
+  Attack.val_store( fog, "duration", duration )
 -- запускаем счетчик ходов
-
   spawn_splashes( fog, cell, fog_time + 0.5 )
 
-  spirit_after_hit()
-  
-  Attack.log(fog_time, "slime_fog", "name", "<label=cpn_slime>", "target", "<label=cpn_slimefog>")
-  return true
+  for i = 0, 7 - 1 do
+    local target = Attack.get_target( i )
 
+    if target ~= nil then
+      local cempt = Attack.cell_is_empty( target )
+
+      if cempt
+      or Attack.act_takesdmg( target ) then
+        local deviation = Game.Random()
+        local hit_time = Attack.aseq_time( fog, "bumc" ) + fog_time + deviation
+
+        if not cempt then
+          local hit_x = Attack.aseq_time( target, "x" )
+          Attack.aseq_timeshift( target, hit_time - hit_x )
+          Attack.dmg_timeshift( target, hit_time )
+          local dead = Attack.act_damage( target )
+
+          if not dead
+          and not Attack.act_pawn( target )
+          and not Attack.act_feature( target, "golem" )
+          and not Attack.act_feature( target, "plant" )
+          and not Attack.act_feature( target, "undead" )
+          and not Attack.act_feature( target, "boss" ) then
+            local poison_prob = tonumber( "0" .. Attack.get_custom_param("poison") )
+            local rnd = Game.Random( 99 )
+         			local poison_res = Attack.act_get_res( target, "poison" )
+            local poison_chance = math.max( 0, poison_prob - poison_res )
+
+            if rnd < poison_chance then
+              local dmg = tonum( Attack.val_restore( target, "sdmg" ) )
+              effect_poison_attack( target, hit_time + 2, duration, dmg, dmg )
+            end
+          end
+        end
+      end
+    end
+  end
+
+  spirit_after_hit()
+  Attack.log( fog_time, "slime_fog", "name", "<label=cpn_slime>", "target", "<label=cpn_slimefog>" )
+
+  return true
 end
 
 function slime_fog_calc_cells()
@@ -683,8 +799,9 @@ function slime_spittle()
     local dmg_min = tonumber( Attack.get_custom_param( "poison_min" ) )
     local dmg_min2 = tonumber( Attack.get_custom_param( "damage.poison.0" ) )
     local dmg_max = tonumber( Attack.get_custom_param( "poison_max" ) )
-    local duration = 3 + Logic.hero_lu_item( "sp_duration_effect_poison", "count" )
-    if poisonresist<80 then
+    local duration = tonumber( Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_effect_poison", "count" )
+
+    if poisonresist < 80 then
       local dmg_min_old, dmg_max_old, duration_old
       dmg_min_old = tonumber( Attack.act_spell_param( target, "spirit_slime_poison", "dmg_min" ) )
       dmg_max_old = tonumber( Attack.act_spell_param( target, "spirit_slime_poison", "dmg_max" ) )

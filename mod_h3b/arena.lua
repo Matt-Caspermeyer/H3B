@@ -599,7 +599,13 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
   
   local function apply_bonus( target, diff_k, sign_diff_k, parameter, min_stat_inc )
     local current_value, base_value = Attack.act_get_par( target, parameter )
-    local value_inc = math.max( math.floor( math.abs( base_value * diff_k ) ), min_stat_inc ) * sign_diff_k
+    local value_inc = 0
+
+    if parameter == "krit" then
+      value_inc = math.max( math.floor( math.abs( diff_k * 100 ) ), min_stat_inc ) * sign_diff_k
+    else
+      value_inc = math.max( math.floor( math.abs( base_value * diff_k ) ), min_stat_inc ) * sign_diff_k
+    end
 
     if base_value + value_inc < 1
     or current_value + value_inc < 1 then
@@ -749,6 +755,31 @@ function regen_enemy_hero_mana( ehero_mana_limit )
         Attack.log( "enemy_hero_mana_regen_log", "hero_name", enemy_hero_name, "special", mana_now - current_mana, "special2", mana_now )
       end
     end
+  end
+
+  return true
+end
+
+
+--New! Function that reloads enemy attacks
+function recharge_enemy_attacks()
+  local recharge = false
+
+  for a = 1, Attack.act_count() - 1 do
+    if Attack.act_enemy( a )
+    and Attack.act_need_charge_or_reload( a )
+    and not Attack.act_is_spell( a, "spell_magic_bondage" )
+    and not Attack.act_pawn( a )
+    and not Attack.act_feature( a, "pawn" )
+    and not Attack.act_feature( a, "boss" ) then
+      Attack.act_charge( a, 0 )
+      Attack.atom_spawn( a, 0, "magic_cornucopia", Attack.angleto( a ) )
+      recharge = true
+    end
+  end
+
+  if recharge then
+    Attack.log( "recharge_enemy_attacks_log" )
   end
 
   return true
@@ -1069,6 +1100,11 @@ function on_round_start( round, tend )
     end
 
     regen_enemy_hero_mana( ehero_mana )
+    local round_recharge = tonumber( text_dec( Game.Config( 'difficulty_k/rndrecharge' ), Game.HSP_difficulty() + 1, '|' ) ) + ROUND_MANA_RAGE_GAIN
+  
+    if math.mod( round, round_recharge ) == 0 then
+      recharge_enemy_attacks()
+    end
   end
 
   if addon_on_round_start ~= nil then addon_on_round_start( round, tend ) end
@@ -3317,7 +3353,8 @@ function spell_auto_cast( spells, spellattacks )
   avg_enemy_init = avg_enemy_init / table.getn( enemies )
   local a2e = limit_value( allies_power / enemies_power, 0.1, 10 )
   local e2a = limit_value( enemies_power / allies_power, 0.1, 10 )
-  local min_score = math.ceil( math.max( allies_power, enemies_power ) / 100 )
+--  local min_score = math.ceil( math.max( allies_power, enemies_power ) / 100 )
+  local min_score = 0
 
   -- Рандомно выбираем 7 спелов для использования
   local spellsToUse = {}
@@ -3501,31 +3538,31 @@ function spell_auto_cast( spells, spellattacks )
 
   -- Проверка однотипных спелов (огн.шар и огн.дождь)
   if spells.spell_fire_rain then
-    local tid, max_rating = common_spell_7_in_1( spellattacks.spell_fire_rain.applicable, "spell_fire_rain", spell_level, ehero_level, "fire" )
+    local tid, max_rating = common_spell_7_in_1( spellattacks.spell_fire_rain.applicable, "spell_fire_rain", spells.spell_fire_rain, ehero_level, "fire" )
 
     if tid ~= nil
     and max_rating > min_score then
-      max_rating = common_spell_mana( "spell_fire_rain", spell_level, ignore_mana, max_rating )
+      max_rating = common_spell_mana( "spell_fire_rain", spells.spell_fire_rain, ignore_mana, max_rating )
       table.insert( cast, { spell = "spell_fire_rain", target = { cell = tid }, prob = max_rating } )
     end
   end
 
   if spells.spell_fire_ball then
-    local tid, max_rating = common_spell_7_in_1( spellattacks.spell_fire_ball.applicable, "spell_fire_ball", spell_level, ehero_level, "fire" )
+    local tid, max_rating = common_spell_7_in_1( spellattacks.spell_fire_ball.applicable, "spell_fire_ball", spells.spell_fire_ball, ehero_level, "fire" )
 
     if tid ~= nil
     and max_rating > min_score then
-      max_rating = common_spell_mana( "spell_fire_ball", spell_level, ignore_mana, max_rating )
+      max_rating = common_spell_mana( "spell_fire_ball", spells.spell_fire_ball, ignore_mana, max_rating )
       table.insert( cast, { spell = "spell_fire_ball", target = { cell = tid }, prob = max_rating } )
     end
   end
 
   if spells.spell_ice_serpent then
-    local tid, max_rating = common_spell_7_in_1( spellattacks.spell_ice_serpent.applicable, "spell_ice_serpent", spell_level, ehero_level, "physical" )
+    local tid, max_rating = common_spell_7_in_1( spellattacks.spell_ice_serpent.applicable, "spell_ice_serpent", spells.spell_ice_serpent, ehero_level, "physical" )
 
     if tid ~= nil
     and max_rating > min_score then
-      max_rating = common_spell_mana( "spell_ice_serpent", spell_level, ignore_mana, max_rating )
+      max_rating = common_spell_mana( "spell_ice_serpent", spells.spell_ice_serpent, ignore_mana, max_rating )
       table.insert( cast, { spell = "spell_ice_serpent", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -3552,8 +3589,8 @@ function spell_auto_cast( spells, spellattacks )
           if ck_canatk_thrower( act )
           and not Attack.act_is_spell( act, "totem_shroud" ) then
             local unit_power = common_score( act, e2a )
-            local spell_power = pwr_shroud( spell_level, ehero_level )
-            local duration = int_dur( "spell_shroud", spell_level )
+            local spell_power = pwr_shroud( spells.spell_shroud, ehero_level )
+            local duration = int_dur( "spell_shroud", spells.spell_shroud )
             local score = unit_power * ( spell_power + 100 ) / 100 * duration
             cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
           end
@@ -3571,8 +3608,8 @@ function spell_auto_cast( spells, spellattacks )
             if ck_canatk_thrower( act )
             and not Attack.act_is_spell( act, "totem_shroud" ) then
               local unit_power = common_score( act, e2a )
-              local spell_power = pwr_shroud( spell_level, ehero_level )
-              local duration = int_dur( "spell_shroud", spell_level )
+              local spell_power = pwr_shroud( spells.spell_shroud, ehero_level )
+              local duration = int_dur( "spell_shroud", spells.spell_shroud )
               local score = unit_power * ( spell_power + 100 ) / 100 * duration
               cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
             end
@@ -3590,7 +3627,7 @@ function spell_auto_cast( spells, spellattacks )
 
     if tid ~= nil
     and max_rating > min_score then
-      max_rating = common_spell_mana( "spell_shroud", spell_level, ignore_mana, max_rating )
+      max_rating = common_spell_mana( "spell_shroud", spells.spell_shroud, ignore_mana, max_rating )
       table.insert( cast, { spell = "spell_shroud", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -3602,7 +3639,7 @@ function spell_auto_cast( spells, spellattacks )
     for i, act in ipairs( actors ) do
       if applicable( act )
       and Attack.act_enemy( act ) then
-        local last_dmg = tonum( Attack.val_restore( act, "last_dmg" ) ) * pwr_pain_mirror( spell_level, ehero_level ) / 100
+        local last_dmg = tonum( Attack.val_restore( act, "last_dmg" ) ) * pwr_pain_mirror( spells.spell_pain_mirror, ehero_level ) / 100
 
         if last_dmg > 0 then
           local dt_index = Attack.val_restore( act, "damage_type_index" )
@@ -3624,14 +3661,14 @@ function spell_auto_cast( spells, spellattacks )
 
     if max_score > min_score
     and tid ~= nil then
-      max_score = common_spell_mana( "spell_pain_mirror", spell_level, ignore_mana, max_score )
+      max_score = common_spell_mana( "spell_pain_mirror", spells.spell_pain_mirror, ignore_mana, max_score )
       table.insert( cast, { spell = "spell_pain_mirror", target = { cell = tid }, prob = max_score } )
     end
   end
 
   if spells.spell_lightning then
     local applicable = spellattacks.spell_lightning.applicable
- 	  local min_dmg, max_dmg, shock, hits, duration = pwr_lightning( spell_level, ehero_level )
+ 	  local min_dmg, max_dmg, shock, hits, duration = pwr_lightning( spells.spell_lightning, ehero_level )
     local max_score = min_score
     local tid
 
@@ -3715,7 +3752,7 @@ function spell_auto_cast( spells, spellattacks )
       end
     end
 
-    max_score = common_spell_mana( "spell_lightning", spell_level, ignore_mana, max_score )
+    max_score = common_spell_mana( "spell_lightning", spells.spell_lightning, ignore_mana, max_score )
 
     if tid ~= nil then
       table.insert( cast, { spell = "spell_lightning", target = { cell = tid }, prob = max_score } )
@@ -4177,10 +4214,10 @@ function spell_auto_cast( spells, spellattacks )
           local spell_power = no_power_value
 
           if powerSpells[ name ] then
-            spell_power = powerSpells[ name ]( name, Attack.get_caa( target, true ), spell_level, ehero_level )
+            spell_power = powerSpells[ name ]( name, Attack.get_caa( target, true ), level, ehero_level )
           end
 
-          local duration = int_dur( name, spell_level )
+          local duration = int_dur( name, level )
 
           if duration == 0 then
             duration = 1
@@ -4189,7 +4226,7 @@ function spell_auto_cast( spells, spellattacks )
           local prob = unit_power * ( spell_power + 100 ) / 100 * duration
 
           if prob > min_score then
-            prob = common_spell_mana( name, spell_level, ignore_mana, prob )
+            prob = common_spell_mana( name, level, ignore_mana, prob )
             table.insert( cast, { spell = name, target = target, prob = prob } )
           end
         end
@@ -4220,18 +4257,18 @@ function spell_auto_cast( spells, spellattacks )
             local spell_power = no_power_value
 
             if powerSpells[ name ] then
-              spell_power = powerSpells[ name ]( name, act, spell_level, ehero_level )
+              spell_power = powerSpells[ name ]( name, act, level, ehero_level )
             end
 
             k = k + power * ( spell_power + 100 ) / 100
           end
         end
 
-        local duration = int_dur( name, spell_level )
+        local duration = int_dur( name, level )
         local prob = k * duration
 
         if prob > min_score then
-          prob = common_spell_mana( name, spell_level, ignore_mana, prob )
+          prob = common_spell_mana( name, level, ignore_mana, prob )
           table.insert( cast, { spell = name, prob = prob } )
         end
       end
@@ -4302,7 +4339,7 @@ function spell_auto_cast( spells, spellattacks )
       end
 
       if tid ~= nil then
-        max_prob = common_spell_mana( name, spell_level, ignore_mana, max_prob )
+        max_prob = common_spell_mana( name, level, ignore_mana, max_prob )
         table.insert( cast, { spell = name, target = tid, prob = max_prob } )
       end
     end
@@ -4344,7 +4381,7 @@ function spell_auto_cast( spells, spellattacks )
         local prob = 0
 
         if name == "spell_demonologist" then
-          local lead = pwr_demonologist( spell_level, ehero_level )
+          local lead = pwr_demonologist( level, ehero_level )
           prob = lead
 
         else
@@ -4353,22 +4390,22 @@ function spell_auto_cast( spells, spellattacks )
 
           -- This is kind of lame, but I don't know how to get their hp from the ATOM
           if name == "spell_phoenix" then
-            hp = 200 * spell_level
+            hp = 200 * level
 
-            if spell_level == 3 then
+            if level == 3 then
               hp = hp + 200
             end
           elseif name == "spell_evilbook" then
-            hp = 200 * spell_level
+            hp = 200 * level
           end
 
-          prob = math.ceil( hp * ( spell_level + 2 ) * ( 1 + hitpoint_bonus / 100 ) )
+          prob = math.ceil( hp * ( level + 2 ) * ( 1 + hitpoint_bonus / 100 ) )
         end
 
         prob = prob * e2a
 
         if prob > min_score then
-          prob = common_spell_mana( name, spell_level, ignore_mana, prob )
+          prob = common_spell_mana( name, level, ignore_mana, prob )
           table.insert( cast, { spell = name, target = nearest, prob = prob } )
         end
       end
@@ -4387,7 +4424,7 @@ function spell_auto_cast( spells, spellattacks )
     end
 
     local prob = math.ceil( maxprofit^2 * 500 * a2e )
-    prob = common_spell_mana( "spell_healing", spell_level, ignore_mana, prob )
+    prob = common_spell_mana( "spell_healing", spells.spell_healing, ignore_mana, prob )
 
     if maxprofit > .90 then table.insert( cast, { spell = "spell_healing", target = target, prob = prob } ) end
   end
@@ -4403,14 +4440,14 @@ function spell_auto_cast( spells, spellattacks )
     end
 
     local prob = math.ceil( maxprofit^2 * 1000 * a2e )
-    prob = common_spell_mana( "spell_resurrection", spell_level, ignore_mana, prob )
+    prob = common_spell_mana( "spell_resurrection", spells.spell_resurrection, ignore_mana, prob )
 
     if maxprofit > .90 then table.insert( cast, { spell = "spell_resurrection", target = target, prob = prob } ) end
   end
 
   if spells.spell_armageddon then
     local applicable = spellattacks.spell_armageddon.applicable
-   	local min_dmg, max_dmg, burn, duration, prc = pwr_armageddon( spell_level, ehero_level )
+   	local min_dmg, max_dmg, burn, duration, prc = pwr_armageddon( spells.spell_armageddon, ehero_level )
     local avg_dmg = ( min_dmg + max_dmg ) / 2
     local score = 0
 
@@ -4439,14 +4476,14 @@ function spell_auto_cast( spells, spellattacks )
     local prob = score
 
     if prob > min_score then
-      prob = common_spell_mana( "spell_armageddon", spell_level, ignore_mana, prob )
+      prob = common_spell_mana( "spell_armageddon", spells.spell_armageddon, ignore_mana, prob )
       table.insert( cast, { spell = 'spell_armageddon', prob = prob } )
     end
   end
 
   if spells.spell_geyser then
     local applicable = spellattacks.spell_geyser.applicable
-   	local min_dmg, max_dmg, count, stun, duration = pwr_geyser( spell_level, ehero_level )
+   	local min_dmg, max_dmg, count, stun, duration = pwr_geyser( spells.spell_geyser, ehero_level )
     local avg_dmg = ( min_dmg + max_dmg ) / 2
     local hits = count
     local score = 0
@@ -4476,7 +4513,7 @@ function spell_auto_cast( spells, spellattacks )
     local prob = score
 
     if prob > min_score then
-      prob = common_spell_mana( "spell_geyser", spell_level, ignore_mana, prob )
+      prob = common_spell_mana( "spell_geyser", spells.spell_geyser, ignore_mana, prob )
       table.insert( cast, { spell = 'spell_geyser', prob = prob } )
     end
   end
@@ -4496,12 +4533,12 @@ function spell_auto_cast( spells, spellattacks )
 
     if target ~= nil then
       local av = spellattacks.spell_phantom.avcells( target ) -- место появления - рандомно
-      local power = pwr_phantom( spell_level, ehero_level )
-      local duration = int_dur( "spell_phantom", spell_level )
+      local power = pwr_phantom( spells.spell_phantom, ehero_level )
+      local duration = int_dur( "spell_phantom", spells.spell_phantom )
       local prob = unit_power * power / 100 * duration
 
       if prob > min_score then
-        prob = common_spell_mana( "spell_phantom", spell_level, ignore_mana, prob )
+        prob = common_spell_mana( "spell_phantom", spells.spell_phantom, ignore_mana, prob )
         table.insert( cast, { spell = 'spell_phantom', target = target, target2 = av[ Game.Random( 1, av.n ) ], prob = prob } )
       end
     end
@@ -4521,7 +4558,7 @@ function spell_auto_cast( spells, spellattacks )
 
       if benefit > .9 then -- воскрешаем первый попавшийся подходящий труп
         prob = math.ceil( math.min( 2000, benefit * 1000 ) * e2a )
-        prob = common_spell_mana( "spell_necromancy", spell_level, ignore_mana, prob )
+        prob = common_spell_mana( "spell_necromancy", spells.spell_necromancy, ignore_mana, prob )
         table.insert( cast, { spell = 'spell_necromancy', target = c, prob = prob } )
         break
       end

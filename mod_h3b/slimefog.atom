@@ -1,0 +1,71 @@
+main {
+  class=pawn
+  model=polyemit.bma
+  apass=3
+  cullcat=0
+}
+animations {
+  idle=/mo
+  attack=/mo/r:0:10
+}
+arena_params {
+  initiative=2
+  speed=2
+  hitpoint=5
+  skipmove=-1
+  level=1
+  takedmg=0
+  attack=15
+  attacks=hackmove,move
+  resistances {
+    physical=1
+    poison=1
+    magic=1
+    fire=1
+  }
+  hackmove {
+    ad_factor=0
+    class=scripted
+    script_attack=slimefog_hackmove
+  }
+  move {
+    class=scripted
+    script_attack=slimefog_move
+  }
+}
+scripts {
+  idle=default_idle
+  pawn_change_attack=slimefog_selmove
+  pl_aftermove=slimefog_selmove_h
+}
+editor {
+  align=chessboard
+  angle=30,90,150,210,270,330
+  scale=1
+  logicunit {
+    typeflags=vars
+    name=slimefog
+    vars {}
+    capture {}
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/3.5/0/0/-0/0/1
+      file=slime_fog_cloud.ptb
+    }
+    particle {
+      trans=0.86425781/0/0/0/-0/0/1
+      file=slime_fog_rain.ptb
+    }
+    particle {
+      trans=-0.61737061/0/0.61737061/0/-0/0/1
+      file=slime_fog_rain.ptb
+    }
+    particle {
+      trans=-0.61737061/0/-0.86425781/0/-0/0/1
+      file=slime_fog_rain.ptb
+    }
+  }
+}

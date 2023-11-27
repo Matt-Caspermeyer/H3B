@@ -428,17 +428,19 @@ function common_cell_apply_damage( cell, dmgts, ignore_posthitmaster )
     if ( not Attack.cell_is_empty( cell ) ) then        -- not empty
       if ( Attack.act_takesdmg( cell ) )--[[ and Attack.cell_is_pass(cell)]] then       -- takes damage
         if ( Attack.act_applicable( cell ) ) then       -- can receive this attack
+          local dead = false
+
 		        if ignore_posthitmaster ~= 0 then -- 0 означает, что act_damage вызывать не нужно
 	           if ignore_posthitmaster == nil then ignore_posthitmaster = false end
 
-	           Attack.act_damage( cell, ignore_posthitmaster )
+	           dead = Attack.act_damage( cell, ignore_posthitmaster )
 		        end
 
           local hit_x = Attack.aseq_time( cell, "x" )
           Attack.aseq_timeshift( cell, dmgts - hit_x )
           Attack.dmg_timeshift( cell, dmgts )
 
-          return true
+          return true, dead
         end
       end
     end
@@ -1344,17 +1346,26 @@ end
 -- New for level- and movetype-based specials (like Royal Thorn Entangle)
 function calccells_special_all_enemy_level_mt()
   local level = tonumber( Attack.get_custom_param( "level" ) )
-  local movetype = tonumber( Attack.get_custom_param( "movetype" ) )
+  local movetype = Attack.get_custom_param( "movetype" )
 	
   for c = 0, Attack.cell_count() - 1 do
     local i = Attack.cell_get( c )
     local act_mt = Attack.act_mt( i )
+    local app_mt = true
 		
-    if Attack.act_enemy( i )
-    and act_mt ~= movetype
-    and Attack.act_level( i ) <= level then
-      if Attack.act_applicable( i ) then      -- can receive this attack
-      	 Attack.marktarget( i )                -- select it
+    for mt = 1, text_par_count( movetype ) do
+      if act_mt == tonumber( text_dec( movetype, mt ) ) then
+        app_mt = false
+        break
+      end
+    end
+      
+    if app_mt then
+      if Attack.act_enemy( i )
+      and Attack.act_level( i ) <= level then
+        if Attack.act_applicable( i ) then      -- can receive this attack
+        	 Attack.marktarget( i )                -- select it
+        end
       end
     end
   end

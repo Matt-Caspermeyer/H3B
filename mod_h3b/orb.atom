@@ -7,7 +7,7 @@ main {
 }
 arena_params {
   features_label=cpi_orb_feat
-  features_hints=ice_header/ice_hint,orb_header/orb_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint
+  features_hints=ice_header/ice_hint,orb_header/orb_hint,knockback_header/knockback_hint,magic_immunity_header/magic_immunity_hint,mind_immunity_header/mind_immunity_hint
   race=neutral
   cost=10
   level=5
@@ -144,6 +144,48 @@ attachments {
       animation=appear
       frame=76/82
       file=lina_icicle_tail.ptb
+    }
+    particle {
+      trans=0/-0.2/0/0/-0/0/0.55000001
+      animation=appear
+      frame=82
+      file=therock_dustwave.ptb
+    }
+    camshaker {
+      animation=appear
+      frame=82
+      envelope=quake_boom.envlp
+      attenuation=0.05
+    }
+    particle {
+      trans=0/0/-0.5/0/-0.15512419/0/0.44999999
+      animation=appear
+      frame=81
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=0.3704834/0/-0.1/-0/-0.15512419/-0.27925301/0.5
+      animation=appear
+      frame=82
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=-0.61737061/0/-0.1/-0/-0.15512419/0.3102476/0.40000001
+      animation=appear
+      frame=81
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=0.3704834/0/0.2/0/0.23268571/-0.15512419/0.5
+      animation=appear
+      frame=82
+      file=therock_puff.ptb
+    }
+    particle {
+      trans=-0.30000001/0/0.30000001/0/0.23268573/0/0.40000001
+      animation=appear
+      frame=82
+      file=therock_puff.ptb
     }
     particle {
       trans=0/0.69999999/-1.70000005/0/0.46546739/0/0.80000001

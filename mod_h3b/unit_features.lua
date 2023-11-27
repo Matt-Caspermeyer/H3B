@@ -315,23 +315,38 @@ end
 -- New Ent Entangle
 function features_entangle( damage, addrage, attacker, receiver, minmax )
   if ( minmax == 0 )
+  and damage > 0
   and damage < Attack.act_totalhp( receiver ) then
-    local entangle = tonumber( Attack.get_custom_param( "entangle" ) )
-
-    if entangle ~= nil then
-      local level = tonum( Attack.get_custom_param( "level" ) )
-      entangle = effect_chance( entangle, "effect", "entangle" )
-      local rnd = Game.Random( 99 )
-    
-      if rnd < entangle
-      and not Attack.act_feature( receiver, "golem" )
-      and not Attack.act_feature( receiver, "plant" )
-      and damage > 0
-      and not Attack.act_mt( receiver ) == 1
-      and not Attack.act_feature( receiver, "pawn" )
-      and not Attack.act_feature( receiver, "boss" )
-      and Attack.act_level( receiver ) <= level then
-        effect_entangle_attack( receiver, 1, duration )
+    if not Attack.act_feature( receiver, "golem" )
+    and not Attack.act_feature( receiver, "plant" )
+    and not Attack.act_feature( receiver, "pawn" )
+    and not Attack.act_feature( receiver, "boss" ) then
+      local entangle = tonumber( Attack.get_custom_param( "entangle" ) )
+      
+      if entangle ~= nil then
+        local level = tonum( Attack.get_custom_param( "level" ) )
+  
+        if Attack.act_level( receiver ) <= level then
+          local movetype = Attack.get_custom_param( "movetype" )
+          local act_mt = Attack.act_mt( receiver )
+          local app_mt = true
+      
+          for mt = 1, text_par_count( movetype ) do
+            if act_mt == tonumber( text_dec( movetype, mt ) ) then
+              app_mt = false
+              break
+            end
+          end
+      
+          if app_mt then
+            entangle = effect_chance( entangle, "effect", "entangle" )
+            local rnd = Game.Random( 99 )
+        
+            if rnd < entangle then
+              effect_entangle_attack( receiver, 1, duration )
+            end
+          end
+        end
       end
     end
   end 
@@ -791,14 +806,17 @@ function special_priest( damage, addrage, attacker, receiver, minmax, userdata )
   		damage = damage * 2
   		addrage = addrage * 2
 
-  		local holy = tonum( Attack.get_custom_param( "holy" ) )
-
-    if holy ~= nil then
-      local rnd = Game.Random( 99 )
+    if ( minmax == 0 )
+    and damage > 0 then
+    		local holy = tonum( Attack.get_custom_param( "holy" ) )
   
-      if rnd <= holy then
-        local duration = tonum( Attack.get_custom_param( "duration" ) )
-        effect_holy_attack( receiver, 0, duration )
+      if holy ~= nil then
+        local rnd = Game.Random( 99 )
+    
+        if rnd <= holy then
+          local duration = tonum( Attack.get_custom_param( "duration" ) )
+          effect_holy_attack( receiver, 0, duration )
+        end
       end
     end
  	end

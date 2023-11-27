@@ -59,6 +59,7 @@ difficulty_k {
   emanaregen=0.0|0.0|5.0|10.0   // New! Enemy hero mana regen (percent of max mana, i.e. /100, per turn)
     ehlvldbc=30|30|28|25        // New! Enemy hero level at which they can cast an extra spell per turn
    ehmanadbc=350|300|250|200	// New! Enemy hero mana (limit) at which they can cast an extra spell per turn
+ rndrecharge=20|15|10|5         // New! Rounds for when enemy unit special abilities are automatically recharged
 
   roundmrgk1=20|15|10|5         // New! Round at which mana_rage_gain_k goes to 1/2 and morale is -1
   roundmrgk2=30|25|15|10        // New! Round at which mana_rage_gain_k goes to 1/4 and morale and initiative are -1

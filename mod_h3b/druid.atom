@@ -20,7 +20,7 @@ arena_params {
   krit=5
   hitback=1
   hitbackprotect=0
-  attacks=moveattack,cast_bear,throw1,beast_training
+  attacks=moveattack,cast_bear,throw1,beast_training,respawn
   features=humanoid,mage
   posthitslave=features_mage
   resistances {
@@ -98,6 +98,23 @@ arena_params {
       level=3
       duration=2
       k=80-80
+    }
+  }
+  respawn {
+    class=scripted
+    attack_cursor=magicstick
+    warning=warning_revive
+    picture=ba1_resurection_
+    picture_small=ba1_resurection_small.png
+    hinthead=special_beast_resurrection_head
+    hint=special_beast_resurrection_hint
+    nfeatures=undead
+    features=beast
+    moves=2
+    script_calccells=calccells_all_need_resurrect_ally_simple
+    script_attack=special_presurrect
+    custom_params {
+      heal=10
     }
   }
   arena_bonuses {

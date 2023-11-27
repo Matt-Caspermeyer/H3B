@@ -135,6 +135,20 @@ local text=""
 return text
 end]]
 
+-- New! Function for showing Ice Ball Roll Damage increase
+function gen_unit_roll( data )
+  local text = ""
+
+  if Game.LocIsArena() then
+    text = tostring( Attack.val_restore( data, "k_dam" ) )
+  else
+    text = "100"
+  end
+
+  return text
+end
+
+
 -- New! Function for showing unit critical hit
 function gen_unit_krit( data )
   local text = ""

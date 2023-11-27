@@ -83,7 +83,7 @@ arena_params {
     anim_attack=cast
     custom_params {
       level=4
-      movetype=1
+      movetype=1,-2
     }
   }
   arena_bonuses {

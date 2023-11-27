@@ -709,6 +709,11 @@ function gen_itm_param(par)
         local wifelabel = "<br><color=138,138,132>(<label=itm_" .. objname .. "_name> <label=itm_wife_baby> "
         local victories = 10 - tonumber( returnval )
         local victorylabel = " <label=itm_wife_baby_victories>)."
+
+        if kid == "" then
+          kid = 0
+        end
+
         local kidlabel = "<label=itm_wife_expecting" .. kid .. "> "
 
         if victories == 1 then

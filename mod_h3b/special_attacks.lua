@@ -1572,7 +1572,13 @@ function special_giant_quake()
     and Attack.act_name( i ) ~= "archdemon"
     and Attack.act_name( i ) ~= "demoness" then
       local dist = Attack.cell_dist( 0, i ) - 1
-      Attack.atk_set_damage( typedmg, dmg_min * ( 1 - k * dist / 100 ), dmg_max * ( 1 - k * dist / 100 ) )
+
+      if Attack.act_feature( i, "barrier" ) then
+        Attack.atk_set_damage( typedmg, 2 * dmg_min * ( 1 - k * dist / 100 ), 2 * dmg_max * ( 1 - k * dist / 100 ) )
+      else
+        Attack.atk_set_damage( typedmg, dmg_min * ( 1 - k * dist / 100 ), dmg_max * ( 1 - k * dist / 100 ) )
+      end
+
       common_cell_apply_damage( i, dmgts )
     end
 

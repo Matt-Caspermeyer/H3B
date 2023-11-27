@@ -1963,7 +1963,7 @@ spell_ice_serpent {
   button_image=book_scroll_ice_serpent.png
   label=SN_ice_serpent
   attack=scripted
-  school=3
+  school=1
   hint_config=object_spell
   hint=spell_ice_serpent_hint
   hint_header=spell_ice_serpent_header
@@ -1989,6 +1989,7 @@ spell_ice_serpent {
     hero=1
     destroyer=1
     healer=0
+    holy_rage=1
     attack=1
     physical=1
     mana_cost = 10,21,31  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below

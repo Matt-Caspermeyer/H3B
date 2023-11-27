@@ -287,7 +287,7 @@ items_tM {
 
 diana_units1=<gen=gen_itm_kid_hint,unit_dragonfly_fire,1,starts><gen=gen_itm_kid_hint,unit_dragonfly_lake,1,comma_space><gen=gen_itm_kid_hint,unit_sprite,1,comma_space><gen=gen_itm_kid_hint,unit_sprite_lake,1,comma_space><gen=gen_itm_kid_hint,unit_thorn,1,comma_space><gen=gen_itm_kid_hint,unit_thorn_warrior,1,comma_space><gen=gen_itm_kid_hint,unit_dryad,1,comma_space><gen=gen_itm_kid_hint,unit_ent,1,comma_space><gen=gen_itm_kid_hint,unit_kingthorn,1,comma_space><gen=gen_itm_kid_hint,unit_unicorn,1,comma_space><gen=gen_itm_kid_hint,unit_unicorn2,1,comma_space><gen=gen_itm_kid_hint,unit_ent2,1,comma_and_name_end><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,attack><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,init><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,morale><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,speed><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,value,1,plus_power><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,health><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,health,1><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,lr,1,minus_power_percent><gen=gen_itm_kid_hint,end>
     diana_resist1=<gen=gen_itm_kid_hint,fire><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,magic><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,poison_resist,1,0.67>
-    feanora_units1=<gen=gen_itm_kid_hint,unit_hyena,1,starts><gen=gen_itm_kid_hint,unit_snake,1,comma_space><gen=gen_itm_kid_hint,unit_snake_green,1,comma_space><gen=gen_itm_kid_hint,unit_wolf,1,comma_space><gen=gen_itm_kid_hint,unit_bear,1,comma_space><gen=gen_itm_kid_hint,unit_bear2,1,comma_space><gen=gen_itm_kid_hint,unit_snake_royal,1,comma_space><gen=gen_itm_kid_hint,unit_bear_white,1,and_name_end><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,attack><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,init><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,morale><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,speed><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,value,1,plus_power><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,health><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,health,1><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,lr,1,minus_power_percent><gen=gen_itm_kid_hint,end>
+    feanora_units1=<gen=gen_itm_kid_hint,unit_hyena,1,starts><gen=gen_itm_kid_hint,unit_snake,1,comma_space><gen=gen_itm_kid_hint,unit_snake_green,1,comma_space><gen=gen_itm_kid_hint,unit_graywolf,1,comma_space><gen=gen_itm_kid_hint,unit_bear,1,comma_space><gen=gen_itm_kid_hint,unit_bear2,1,comma_space><gen=gen_itm_kid_hint,unit_snake_royal,1,comma_space><gen=gen_itm_kid_hint,unit_bear_white,1,and_name_end><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,attack><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,init><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,morale><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,speed><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,value,1,plus_power><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,health><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,health,1><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,lr,1,minus_power_percent><gen=gen_itm_kid_hint,end>
     feanora_resist1=<gen=gen_itm_kid_hint,magic><gen=gen_itm_kid_hint,space_and_space><gen=gen_itm_kid_hint,poison_resist,1,1>
     frog_feanora_units1=<gen=gen_itm_kid_hint,unit_devilfish,1,starts><gen=gen_itm_kid_hint,unit_dragonfly_fire,1,comma_space><gen=gen_itm_kid_hint,unit_dragonfly_lake,1,comma_space><gen=gen_itm_kid_hint,unit_spider,1,comma_space><gen=gen_itm_kid_hint,unit_spider_undead,1,comma_space><gen=gen_itm_kid_hint,unit_spider_venom,1,comma_space><gen=gen_itm_kid_hint,unit_thorn,1,comma_space><gen=gen_itm_kid_hint,unit_thorn_warrior,1,comma_space><gen=gen_itm_kid_hint,unit_snake,1,comma_space><gen=gen_itm_kid_hint,unit_snake_green,1,comma_space><gen=gen_itm_kid_hint,unit_spider_fire,1,comma_space><gen=gen_itm_kid_hint,unit_beholder,1,comma_space><gen=gen_itm_kid_hint,unit_snake_royal,1,comma_space><gen=gen_itm_kid_hint,unit_beholder2,1,comma_space><gen=gen_itm_kid_hint,unit_kingthorn,1,and_name_end><gen=gen_itm_kid_hint,attack><gen=gen_itm_kid_hint,space_slash_space><gen=gen_itm_kid_hint,defense><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,value,10><gen=gen_itm_kid_hint,comma_space><gen=gen_itm_kid_hint,krit><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,krit,20><gen=gen_itm_kid_hint,comma_space_and_space><gen=gen_itm_kid_hint,lr><gen=gen_itm_kid_hint,colon_space><gen=gen_itm_kid_hint,neutral_race,1,lr,1,minus_power_percent><gen=gen_itm_kid_hint,end>
     frog_feanora_eresist1=<gen=gen_itm_kid_hint,enemy><gen=gen_itm_kid_hint,space><gen=gen_itm_kid_hint,magic><gen=gen_itm_kid_hint,space_and_space><gen=gen_itm_kid_hint,poison_resist,1,1,minus_power_percent>
@@ -1204,6 +1204,7 @@ int_spr_LvlUp_tAD {
     disease=<label=spirit_hint_disease>
     capture=<label=spirit_hint_rage_capture>
     level=<label=spirit_hint_unit_level>
+    bleeding=<label=spirit_hint_bleeding>
     stunning=<label=spirit_hint_stunning>
     kill=<label=spirit_hint_kill>
     rage_capture=<label=spirit_hint_rage_capture>
@@ -1212,6 +1213,8 @@ int_spr_LvlUp_tAD {
     freeze=<label=spirit_hint_freeze>
     thorns=<label=spirit_hint_thorns>
     duration=<label=spirit_hint_duration>
+    fear=<label=spirit_hint_fear>
+    poisonC=<label=spirit_hint_poisonC>
 
     dispellgood=[br]<label=spirit_dispellgood>
     dispellbad=[br]<label=spirit_dispellbad>
@@ -1255,10 +1258,10 @@ int_spr_LvlUp_tAD {
     dmgMMaxOld=<lvu=old.damage.magic.1>
     dmgMMinNew=<lvu=new.damage.magic.0>
     dmgMMaxNew=<lvu=new.damage.magic.1>
-    dmgFogMinOld=<lvu=old.dmg.0>
-    dmgFogMaxOld=<lvu=old.dmg.1>
-    dmgFogMinNew=<lvu=new.dmg.0>
-    dmgFogMaxNew=<lvu=new.dmg.1>
+    dmgFogMinOld=<lvu=old.damage.poison.0>
+    dmgFogMaxOld=<lvu=old.damage.poison.1>
+    dmgFogMinNew=<lvu=new.damage.poison.0>
+    dmgFogMaxNew=<lvu=new.damage.poison.1>
     pMinOld=<lvu=old.poison_min>
     pMaxOld=<lvu=old.poison_max>
     pMinNew=<lvu=new.poison_min>
@@ -1303,7 +1306,14 @@ int_spr_LvlUp_tAD {
     freezeNew=<lvu=new.freeze>
     thornsOld=<lvu=old.thorns>
     thornsNew=<lvu=new.thorns>
-
+    fearOld=<lvu=old.fear>
+    fearNew=<lvu=new.fear>
+    poisonOld=<lvu=old.poison>
+    poisonNew=<lvu=new.poison>
+    k_decOld=<lvu=old.k_dec>
+    k_decNew=<lvu=new.k_dec>
+    k_damOld=<lvu=old.k_dam>
+    k_damNew=<lvu=new.k_dam>
 
 }
 int_spr_tH0=<shadow=on><align=left><font=ft1_14><color=255,243,179>$
@@ -1349,6 +1359,11 @@ int_spr_tH0 {
     duration=<gen=gen_spirit_param,duration>
     freeze=<gen=gen_spirit_param,freeze>
     thorns=<gen=gen_spirit_param,thorns>
+    poison=<gen=gen_spirit_param,poison>
+    fear=<gen=gen_spirit_param,fear>
+    damageorbquake=<gen=gen_orbquake_damage>
+    k_dec=<gen=gen_spirit_param,k_dec>
+    k_dam=<gen=gen_spirit_param,k_dam>
 
 }
 
@@ -1782,6 +1797,7 @@ def_hint_t1 {
   unit_max_count=<color=250,250,240><gen=gen_lead_count,max></color>
   allhp=<gen=gen_max_hp>
   krit=<br><color=222,194,94><label=cpi_attack_krit></color><gen=gen_unit_krit>
+  roll=<gen=gen_unit_roll>
 }
 
 def_hint_t0=<shadow=off><align=center><font=ft1_14><color=255,243,179>$

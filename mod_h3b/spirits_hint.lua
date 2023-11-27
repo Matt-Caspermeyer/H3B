@@ -190,6 +190,33 @@ function gen_spirit_damage()
 end
 
 
+-- This is a new function for generating the orb quake damage (damage is 2x)
+function gen_orbquake_damage()
+	 local min, max = 0, 0
+
+	 for i = 0, Logic.resistance() - 1 do
+	   local r = Logic.resistance( i )
+	   local m = Attack.get_custom_param( "damage." .. r .. ".0" )
+	   if m ~= "" then
+	     min = min + 2 * m
+	     max = max + 2 * Attack.get_custom_param( "damage." .. r .. ".1" )
+	   end
+	end
+
+	if min == 0 then
+		 min = Attack.get_custom_param( "dmg.0" )
+ 		max = Attack.get_custom_param( "dmg.1" )
+	end 
+	
+	if min == max then 
+		 return min 
+	else
+		 return min .. '-' .. max
+	end
+
+end
+
+
 function gen_spirit_energo( data, par )
 	 local min, max, text = 0, 0
 

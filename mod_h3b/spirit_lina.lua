@@ -249,11 +249,15 @@ function lina_orb()
   Attack.act_nodraw( c, true )
   Attack.act_animate( c, "appear", start )
   Attack.act_nodraw( c, false, start )
-  Attack.act_move( Attack.aseq_time( "orb", "appear", "x" ) + start, Attack.aseq_time( "orb", "appear", "y" ) + start, c, target )
+  local ts_x = Attack.aseq_time( "orb", "appear", "x" )
+  local ts_y = Attack.aseq_time( "orb", "appear", "y" )
+  Attack.act_move( ts_x + start, ts_y + start, c, target )
   local health = tonumber( Attack.get_custom_param( "health" ) )
   local atk = tonumber( Attack.get_custom_param( "atk" ) )
   local def = tonumber( Attack.get_custom_param( "def" ) )
   local init = tonumber( Attack.get_custom_param( "init" ) )
+  local k_dam = tonumber( Attack.get_custom_param( "k_dam" ) )
+  Attack.val_store( c, "k_dam", k_dam )
   Attack.act_hp( c, health )
   Attack.act_set_par( c, "health", health )
 
@@ -280,6 +284,61 @@ function lina_orb()
   if init ~= nil then
     local current_init, base_init = Attack.act_get_par( c, "initiative" )
     Attack.act_set_par( c, "initiative", init + base_init )
+  end
+
+  local dmg_min, dmg_max = text_range_dec( Attack.get_custom_param( "damage.physical.0" ) .. '-' .. Attack.get_custom_param( "damage.physical.1" ) )
+  local typedmg = "physical"
+  Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+  -- Impact damage is 2x roll damage
+  dmg_min = 2 * dmg_min
+  dmg_max = 2 * dmg_max
+--  dmg_min = dmg_min + health
+--  dmg_max = dmg_max + health
+  local k_dec = tonumber( Attack.get_custom_param( "k_dec" ) )
+  local acnt = Attack.act_count()
+
+  for i = 1, acnt - 1 do
+    if Attack.act_enemy( i )
+    and Attack.act_mt( i ) == 0
+    and Attack.act_applicable( i )
+    and Attack.act_takesdmg( i )
+    and Attack.act_hp( i ) > 0
+    and Attack.act_name( i ) ~= "archdemon"
+    and Attack.act_name( i ) ~= "demoness" then
+      local dist = Attack.cell_dist( target, i ) - 1
+      local k = ( 1 - k_dec * dist / 100 )
+
+      if k > 0 then
+        if Attack.act_feature( i, "barrier" ) then
+          Attack.atk_set_damage( typedmg, 2 * dmg_min * k, 2 * dmg_max * k )
+        else
+          Attack.atk_set_damage( typedmg, dmg_min * k, dmg_max * k )
+        end
+
+        common_cell_apply_damage( i, start + ts_y )
+      end
+    end
+
+    if Attack.act_enemy( i )
+    and Attack.act_mt( i ) == 2
+    and Attack.act_applicable( i ) then
+      local dragon_ts = start + ( ts_x + ts_y ) / 2
+      Attack.act_aseq( i, "takeoff" )
+      Attack.aseq_timeshift( i, dragon_ts )
+      Attack.act_aseq( i, "descent" )
+    end
+
+    if Attack.act_enemy( i )
+    and Attack.act_name( i ) == "demoness"
+    and Attack.act_applicable( i ) then
+      Attack.act_animate( i, "avoid", start + ts_y )
+    end
+
+    if Attack.act_enemy( i )
+    and Attack.act_name( i ) == "archdemon"
+    and Attack.act_applicable( i ) then
+      Attack.act_animate( i, "special", start + ts_y )
+    end
   end
 
   Attack.resort( c )
@@ -322,13 +381,26 @@ function orb_calccells()
 
 end
 
-function orb_posthit(damage,addrage,attacker,receiver,minmax,userdata,hitbacking)
+function orb_posthit( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+		local dmg_k = tonumber( Attack.val_restore( attacker, "k_dam" ) ) -- %увеличения урона за каждую клетку которую прокатился орб
+  local c = Attack.cell_id( Attack.val_restore( attacker, "cell_id" ) ) -- восстановить клетку, где стоял шар, можно только так, т.к. положение шара на момент вызова постхита - уже после перемещения
+  local k = Attack.cell_dist( c, receiver ) - 1
+  local dir = Game.Ang2Dir( Attack.angleto( attacker, receiver ) )
+  local cell = Attack.cell_adjacent( receiver, dir )
 
-		local dmg_k=100 -- %увеличения урона за каждую клетку которую прокатился орб
-    local c = Attack.cell_id(Attack.val_restore(attacker, "cell_id")) -- восстановить клетку, где стоял шар, можно только так, т.к. положение шара на момент вызова постхита - уже после перемещения
-    local k = Attack.cell_dist(c, receiver)-1
-    return damage*(1+k*dmg_k/100), addrage*(1+k*dmg_k/100)
+	 if ( minmax == 0 )
+  and damage > 0 then
+	   if not Attack.act_feature( receiver, "boss, pawn" )
+    and Attack.cell_present( cell )
+    and Attack.cell_is_empty( cell )
+    and Attack.cell_is_pass( cell )
+    and Attack.act_get_par( receiver, "dismove" ) == 0 then
+      local dmgts = ( k * 0.5 ) + 0.5
+      Attack.act_move( dmgts, dmgts + 0.5, receiver, cell )
+    end
+  end
 
+  return damage * ( 1 + k * dmg_k / 100 ), addrage * ( 1 + k * dmg_k / 100 )
 end
 
 function orb_highlight()
@@ -1165,7 +1237,7 @@ function lina_devatron()
   local min_dmg = tonumber( Attack.get_custom_param( "damage.physical.0" ) ) * thorns / 100
   local max_dmg = tonumber( Attack.get_custom_param( "damage.physical.1" ) ) * thorns / 100
 
-  for i,c in ipairs( get_devatron_cells() ) do
+  for i, c in ipairs( get_devatron_cells() ) do
     local deviation = Game.Random( 000,600 )/1000.
     local t = start + deviation
 
@@ -1184,7 +1256,7 @@ function lina_devatron()
       Attack.act_aseq( a, "idle" )
       local hit_time = Attack.aseq_time( a, "x" ) + start + deviation / 10
       local hit_x = Attack.aseq_time( c, "x" )
-      Attack.aseq_timeshift( c, hit_time - hit_x )
+      Attack.aseq_timeshift( c, hit_time )
       Attack.dmg_timeshift( c, hit_time )
       local dead = Attack.act_damage( c )
 
@@ -1192,15 +1264,9 @@ function lina_devatron()
       and not Attack.act_pawn( c )
       and not Attack.act_feature( c, "golem" )
       and not Attack.act_feature( c, "plant" )
-      and not Attack.act_feature( c, "undead" )
+      and not Attack.act_feature( c, "freeze_immunitet" )
       and not Attack.act_feature( c, "boss" ) then
-        local rnd = Game.Random( 99 )
-       	local freeze_res = Attack.act_get_res( c, "physical" )
-        local freeze_chance = math.max( 0, freeze - freeze_res )
-
-        if rnd < freeze_chance then
-          effect_freeze_attack( c, hit_time + 2, 3 )
-        end
+        common_freeze_attack( c, "devatron", freeze, hit_time + 2, duration )
       end
     end
   end

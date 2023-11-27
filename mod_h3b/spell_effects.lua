@@ -49,7 +49,7 @@ end
 -- ***********************************************
 function effect_entangle_attack( target, pause, duration )
   if pause == nil then
-    pause = 1
+    pause = 0.5
   end
 
   if target == nil then
