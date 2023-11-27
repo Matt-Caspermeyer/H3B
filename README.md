@@ -13,19 +13,19 @@ Installation:
 -------------
 
 1. This mod is not compatible with any other mods since I've most likely modified a file that another mod uses.
-  a. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
-  b. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
-    i. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
+  1. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
+  1. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+    1. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
 2. Extract mod_h3b.kfs included in this archive to the King's Bounty: The Legend mods folder.
-  a. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
-  b. If the "mods" folder does not exist, then see note 1bi above.
+  1. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+  1. If the "mods" folder does not exist, then see note 1bi above.
 3. Run the game
-  a. Start a new game to play!
-  b. It is not recommended to continue your current game, please restart.
-  c. For your first play through:
-    i.   Please do not use any cheats (i.e. Save Game Scanner, etc.)
-    ii.  Please do not use with any other mods (probably won't work anyway)
-    iii. You'll be able to experience the mod as I intended it to be played.
+  1. Start a new game to play!
+  1. It is not recommended to continue your current game, please restart.
+  1. For your first play through:
+    1.   Please do not use any cheats (i.e. Save Game Scanner, etc.)
+    1.  Please do not use with any other mods (probably won't work anyway)
+    1. You'll be able to experience the mod as I intended it to be played.
 
 
 Uninstallation:
@@ -39,18 +39,18 @@ Notes:
 ------
 
 1. This mod was developed using the Gamer's Gate V1.7 (Build 35,396) version of King's Bounty: The Legend.
-  a. If you have a different version of the game, then it is possible that not all features of the mod will work.
-  b. For example, I also have the GoG version of the game and it is V1.7 (Build 35,234) and:
-    i.   There is a bug with the Game.LocType LUA Library function that causes LUA execution stop due to some internal error. All features that use LUA scripts to implement location logic has been commented out to prevent the game from crashing / having problems.
-    ii.  It does not support the damage hint displays for the Spirit abilities that I added in Beta 2013-12-25 and later versions of this mod.
-    iii. Please email the company you got Build 35,234 from and request they update to Build 35,396.
+  1. If you have a different version of the game, then it is possible that not all features of the mod will work.
+  1. For example, I also have the GoG version of the game and it is V1.7 (Build 35,234) and:
+    1.   There is a bug with the Game.LocType LUA Library function that causes LUA execution stop due to some internal error. All features that use LUA scripts to implement location logic has been commented out to prevent the game from crashing / having problems.
+    1.  It does not support the damage hint displays for the Spirit abilities that I added in Beta 2013-12-25 and later versions of this mod.
+    2. Please email the company you got Build 35,234 from and request they update to Build 35,396.
 2. I have not tried it with other versions.
 3. This mod uses the English localizations using both the "eng_" and "en_" prefixes for the localization files.
   a. As mentioned above, only one of those files is needed to play the game.
   b. Other versions may have other prefixes and so you may be able to get this mod to work with your localization version by changing the prefixes of the *.LNG localization files.
-    i.   The *.LNG files are located inside mod_homm3_babies_en_lng.kfs or mod_homm3_babies_eng_lng.kfs both file sets are identical so either may be used as a baseline.
-    ii.  Simply rename *.kfs to *.zip and extract files if you wish to attempt this.
-    iii. Currently, you're on your own if you want to get it to work with a different localization, but if you'd like to help with localizations in your country then please let me know.
+    1.   The *.LNG files are located inside mod_homm3_babies_en_lng.kfs or mod_homm3_babies_eng_lng.kfs both file sets are identical so either may be used as a baseline.
+    2.  Simply rename *.kfs to *.zip and extract files if you wish to attempt this.
+    3. Currently, you're on your own if you want to get it to work with a different localization, but if you'd like to help with localizations in your country then please let me know.
 
 
 Issues / Bugs:
@@ -62,35 +62,35 @@ If you have any problems during play, here are some pointers:
 
 1. If it is a game crash, note which action caused the crash.
 2. If the game appears to lock up, ALT-TAB back to Windows to see if there is a pop-up.
-  a. If there is a pop-up window, note the message and then click OK to proceed.
-  b. After you click OK, the game will most likely crash exit to Windows.
-  c. If the game does not crash after you click OK, it is highly recommended to quit your game rather than continue since behavior may be strange.
+  1. If there is a pop-up window, note the message and then click OK to proceed.
+  2. After you click OK, the game will most likely crash exit to Windows.
+  3. If the game does not crash after you click OK, it is highly recommended to quit your game rather than continue since behavior may be strange.
 3. Save your game often just in case!
 4. If the game locks up when you cursor over a child or item, there is a misspelling in one of the templates:
-  a. Note which child it is when this happens
-  b. Contact me and let me know which child it is and I'll correct the error
-  c. I hope we've found all these errors!
+  1. Note which child it is when this happens
+  2. Contact me and let me know which child it is and I'll correct the error
+  3. I hope we've found all these errors!
 5. Try to load from a save game and see if it still crashes in the same spot. If it crashes in the same spot, the only hope I have of resolving the issue is for:
-  a. You to provide me a savegame.
-  b. Provide me the exact steps to repeat the crash.
-  c. Without these, my chance of resolving this issue is probably very slim.
+  1. You to provide me a savegame.
+  2. Provide me the exact steps to repeat the crash.
+  3. Without these, my chance of resolving this issue is probably very slim.
 
 Crash List
 ----------
 
 1. I've had crashes with a failure to allocate more memory a couple of times.
-  a. The solution is to reload your most recent save game and simply continue.
-  b. Let me know if you see this problem, but currently I have no idea how to resolve it (I probably would need 1CC or Katauri Interactive's help with this one).
-  c. This problem seems to exhibit itself after you've been playing a long gaming session (it seems like I run into this after playing for several hours).
+  1. The solution is to reload your most recent save game and simply continue.
+  2. Let me know if you see this problem, but currently I have no idea how to resolve it (I probably would need 1CC or Katauri Interactive's help with this one).
+  3. This problem seems to exhibit itself after you've been playing a long gaming session (it seems like I run into this after playing for several hours).
 
 Bug List:
 ---------
 
 1. Damage causing effects (i.e. burning and poison):
-  a. If an AI unit is killed by a damage causing effect and if the next unit to move is another AI unit, then their damage causing effect is skipped if they have one.
-  b. I worked and worked trying to fix this bug, but to no avail.
-    i.  I'm pretty sure that it is a bug with the game itself as I don't think they intended for damaging effects to kill units.
-    ii. As such, I don't know how to fix this bug, but if you have any ideas then please let me know!
+  1. If an AI unit is killed by a damage causing effect and if the next unit to move is another AI unit, then their damage causing effect is skipped if they have one.
+  2. I worked and worked trying to fix this bug, but to no avail.
+    1.  I'm pretty sure that it is a bug with the game itself as I don't think they intended for damaging effects to kill units.
+    2. As such, I don't know how to fix this bug, but if you have any ideas then please let me know!
 
 If you notice any other problems or issues, then please let me know!
 
@@ -101,12 +101,12 @@ Updates:
 --------
 
 1. As this version of the mod is in a beta state, there are still changes that are being done; however:
-  a. The mod is stable enough to play the game completely through - enjoy!
-  b. Every change has been checked at least once, but I'm in the quality assurance phase rechecking the code.
-  c. I'm currently play testing the game with a Paladin.
+  1. The mod is stable enough to play the game completely through - enjoy!
+  2. Every change has been checked at least once, but I'm in the quality assurance phase rechecking the code.
+  3. I'm currently play testing the game with a Paladin.
 2. At this stage, changes should not require you to restart your game - simply install the new files and continue playing.
-  a. Changes will be focused on editing data files (i.e. *.ATOM, *.TXT) to improve game balance and user enjoyability.
-  b. New features can still be added, but only if they are really good ideas!
+  1. Changes will be focused on editing data files (i.e. *.ATOM, *.TXT) to improve game balance and user enjoyability.
+  2. New features can still be added, but only if they are really good ideas!
 3. Updates will most likely occur on a monthly basis depending on severity and other factors.
 4. Once the quality assurance phase is completed and sufficient feedback is garnered, the project will transition to the release phase.
 5. The release phase will have all features properly implemented and all controllable bugs fixed.
@@ -117,12 +117,12 @@ Modders:
 
 1. I've made many changes under the hood that only modders or code aficionados would notice.
 2. I've added comments where warranted to the areas in the game that I've changed, but not everywhere.
-  a. Feel free to look at these comments and provide me feedback if you know of a better way to implement something.
-  b. Certain comments have the word "HACK" where I did not know how to do it a better way - once again if you know a better way to implement this feature then please let me know!
+  1. Feel free to look at these comments and provide me feedback if you know of a better way to implement something.
+  2. Certain comments have the word "HACK" where I did not know how to do it a better way - once again if you know a better way to implement this feature then please let me know!
 3. I've unified many *.LUA functions (i.e. like SPELLS_POWER.LUA) so that they all use the same bonus system, etc.
 4. I've made common functions for dealing with redundant code.
-  a. The original *.LUA files had lots and lots of redundant code.
-  b. I've replaced most of the redundant code in the *.LUA functions I've edited to reduce error and provide code consistency.
+  1. The original *.LUA files had lots and lots of redundant code.
+  2. I've replaced most of the redundant code in the *.LUA functions I've edited to reduce error and provide code consistency.
 5. I've beautified the sections of the *.LUA files I've changed to make reading the code much, much easier.
 6. The changes I've made really form the basis of a new code base from which you can create new mods.
 
@@ -132,11 +132,11 @@ Copyright Issues:
 
 1. This work contains images from the Heroes of Might and Magic 3 game and those images are copyrighted.
 2. The picture for Orcelyn Ordy I found via the web, but I have not been able to find out who created that source image.
-  a. If you have any information about who created this picture please let me know and I'll give credit to the author.
+  1. If you have any information about who created this picture please let me know and I'll give credit to the author.
 3. I created all the new ability icons.
 4. All of my effort is being freely distributed to the public domain.
-  a. Please give me credit if you use any portion of my work in your projects - thanks! :-)
-  b. Feel free to use this code base as a starting point for your own mod!
+  1. Please give me credit if you use any portion of my work in your projects - thanks! :-)
+  2. Feel free to use this code base as a starting point for your own mod!
 
 
 THANK YOU!!!
@@ -3087,6 +3087,6 @@ Version: Alpha 2011-11-11
 
 This archive contains all the files for the HOMM3 Babies mod / micro / mini expansion pack for King's Bounty: The Legend. This work will be referred to loosely as the mod in the rest of this document.
 
-There are many changes to the game, but at this time I do not have them listed here. In the future, this file will list those changes. In the mean time, visit the YouTube video page: http://youtu.be/JE0VbSnfYkM and the King's Bounty: The Legend Mod forum for more information: http://forum.1cpublishing.eu/showthread.php?p=360731#post360731.
+There are many changes to the game, but at this time I do not have them listed here. In the future, this file will list those changes. In the mean time, visit the YouTube video page: http://youtu.be/JE0VbSnfYkM and ***NOTE: This Forum is No Longer Available*** the King's Bounty: The Legend Mod forum for more information: http://forum.1cpublishing.eu/showthread.php?p=360731#post360731.
 
 
