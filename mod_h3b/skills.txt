@@ -2696,8 +2696,19 @@ necromancy {
                 belligerent=ally
                	race=undead
               }
+              pbonus=health,0,5,0,-100,0,0
+              dbonus=
+              rbonus=
+              attack_on=
+              attack_off=
+            }
+            {
+              filter {
+                belligerent=ally
+               	race=undead
+              }
               pbonus=
-              dbonus=magic,1,0,0,-100,0,0
+              dbonus=
               rbonus=magic,5,0,0,-100,0,0
               attack_on=
               attack_off=
@@ -2708,7 +2719,48 @@ necromancy {
           deps=1
           runes=3,1,5
           trade=
-          pars=30-50%,zombie,-5%,+15%
+          pars=30-50%,zombie,-5%,+10%
+          fight {
+            {
+              filter {
+                belligerent=ally
+               	race=undead
+              }
+              pbonus=defense,0,10,0,-100,0,0
+              dbonus=
+              rbonus=
+              attack_on=
+              attack_off=
+            }
+            {
+              filter {
+                belligerent=ally
+               	race=undead
+              }
+              pbonus=health,0,10,0,-100,0,0
+              dbonus=
+              rbonus=
+              attack_on=
+              attack_off=
+            }
+            {
+              filter {
+                belligerent=ally
+               	race=undead
+              }
+              pbonus=
+              dbonus=
+              rbonus=magic,10,0,0,-100,0,0
+              attack_on=
+              attack_off=
+            }
+	  }
+        }
+      3 {
+          deps=1
+          runes=4,2,8
+          trade=
+          pars=60-100%,ghost,-10%,+15%
           fight {
             {
               filter {
@@ -2738,60 +2790,8 @@ necromancy {
                	race=undead
               }
               pbonus=
-              dbonus=magic,2,0,0,-100,0,0
+              dbonus=
               rbonus=magic,15,0,0,-100,0,0
-              attack_on=
-              attack_off=
-            }
-	  }
-        }
-      3 {
-          deps=1
-          runes=4,2,8
-          trade=
-          pars=60-100%,ghost,-10%,+30%
-          fight {
-            {
-              filter {
-                belligerent=ally
-               	race=undead
-              }
-              pbonus=defense,0,30,0,-100,0,0
-              dbonus=
-              rbonus=
-              attack_on=
-              attack_off=
-            }
-            {
-              filter {
-                belligerent=ally
-               	race=undead
-              }
-              pbonus=krit,0,30,0,-100,0,0
-              dbonus=
-              rbonus=
-              attack_on=
-              attack_off=
-            }
-            {
-              filter {
-                belligerent=ally
-               	race=undead
-              }
-              pbonus=health,0,30,0,-100,0,0
-              dbonus=
-              rbonus=
-              attack_on=
-              attack_off=
-            }
-            {
-              filter {
-                belligerent=ally
-               	race=undead
-              }
-              pbonus=
-              dbonus=magic,3,0,0,-100,0,0
-              rbonus=magic,30,0,0,-100,0,0
               attack_on=
               attack_off=
             }

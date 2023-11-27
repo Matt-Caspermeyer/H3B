@@ -11,6 +11,19 @@ Version: Alpha 2011-11-26
 -------------------------
 
 * mod_homm3_babies.kfs
+  & GHOST.ATOM - percent drain restored to 30% (was 100%)
+  & GHOST2.ATOM - percent drain restored to 50% (was 100%)
+  & UNIT_FEATURES.LUA - Soul Drain now increases units by the lower of amount killed and Ghost health divided into damage
+  & SKILLS.TXT - updated the Necromancy Skill
+    ^ Adds to Defense / Health / Magic Resistance @ values of 5, 10, and 15% for Levels 1, 2, 3
+    ^ Everything else remains the same
+* mod_homm3_babies_en(g)_lng.kfs (this refers to both KFS *.LNG files)
+  & EN(G)_SKILLS.LNG - updated the Necromancy Skill text
+
+Version: Alpha 2011-11-26
+-------------------------
+
+* mod_homm3_babies.kfs
   & UNIT_FEATURES.LUA
     ^ Ghosts Soul Drain now increases units by the amount of units killed instead of damage
     ^ Thanks to Fatt_Shade for suggesting this!
@@ -116,7 +129,7 @@ Installation:
     iii. mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LUA, and *.TXT files modified for this mod.
     iv.  mod_homm3_babies_eng_lng.kfs ***OR*** mod_homm3_babies_en_lng.kfs - updated *.LNG files
       1) Use mod_homm3_babies_eng_lng.kfs for your English localization with eng_*.lng
-      2) Use mod_homm3_babies_en_lung.kfs for your English localization with en_*.lng
+      2) Use mod_homm3_babies_en_lng.kfs for your English localization with en_*.lng
       3) DO NOT USE BOTH FILES!!! Just one or the other!!!
   d. All 4 KFS files are needed for the complete HOMM3 babies mod experience!
 3. Run the game
@@ -143,12 +156,12 @@ Notes:
 
 1. This mod was developed using the Gamer's Gate V1.7 version of King's Bounty: The Legend.
 2. I have not tried it with other versions.
-3. This mod uses the English localizations using the "eng_" prefix for the localization files.
-  a. Other versions may have other prefixes and so you may be able to get this mod to work with your localization version by changing the prefixes of the *.LNG localization files.
-    i.   The *.LNG files are located inside mod_homm3_babies.kfs.
-    ii.  Simply rename mod_homm3_babies.kfs to mod_homm3_babies.zip and extract files if you wish to attempt this.
+3. This mod uses the English localizations using both the "eng_" and "en_" prefixes for the localization files.
+  a. As mentioned above, only one of those files is needed to play the game.
+  b. Other versions may have other prefixes and so you may be able to get this mod to work with your localization version by changing the prefixes of the *.LNG localization files.
+    i.   The *.LNG files are located inside mod_homm3_babies_en_lng.kfs or mod_homm3_babies_eng_lng.kfs both file sets are identical so either may be used as a baseline.
+    ii.  Simply rename *.kfs to *.zip and extract files if you wish to attempt this.
     iii. Currently, you're on your own if you want to get it to work with a different localization, but if you'd like to help with localizations in your country then please let me know.
-  b. In the future I hope to be able to have feedback from users to help me with the different English localization variants.
 
 
 Issues / Bugs:

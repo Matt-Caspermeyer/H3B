@@ -36,7 +36,7 @@ arena_params {
       magic=6,9
     }
     custom_params {
-      k=100
+      k=50
     }
   }
   gcry {

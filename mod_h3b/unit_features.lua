@@ -155,7 +155,7 @@ function features_soul_drain( damage, addrage, attacker, receiver, minmax )
         local total_hp = Attack.act_totalhp( receiver )
         local remaining_hp = total_hp - round( damage )
         local remaining_count = remaining_hp / health
-        local add_unit = math.min( unit_count, math.floor( unit_count - remaining_count ) ) -- сколько закилято
+        local add_unit = math.min( unit_count, math.floor( unit_count - remaining_count ), math.floor( damage * k / 100 / AU.health( attacker ) ) ) -- сколько закилято
 
         if add_unit > 0 then
           local attacker_count = AU.unitcount( attacker )

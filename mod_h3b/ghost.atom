@@ -36,7 +36,7 @@ arena_params {
       magic=4,8
     }
     custom_params {
-      k=100
+      k=30
     }
   }
   arena_bonuses {
