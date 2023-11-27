@@ -67,6 +67,7 @@ arena_params {
     hinthead=special_cyclop_push_head
     hint=special_cyclop_push_hint
     nfeatures=boss,pawn
+    moves=8
     reload=3
     warning=sw_near
     base_attack=0

@@ -7,6 +7,130 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-12-28
+-------------------------
+
+* mod_homm3_babies.kfs
+  & *.ATOM - for virtually all reloadable abilities, they now have charges such that the abilities run out about round 15 for levels 1-3, 20 for level 4, and 25 for level 5
+    ^ ARCHDEMON.ATOM
+      % Added post-hit Odium effect
+      % Added ability Amalgamation
+    ^ CATAPULT.ATOM - new boiling_oil attack
+    ^ DEATH.ATOM - Time Back now starts with Rest = 6
+    ^ GOBLIN2.ATOM
+      % Unit now is Furious
+      % Unit now has new throw axe ability
+    ^ OGRE.ATOM - unit has new post-hit function for "Clobbering" units
+    ^ THEROCK.ATOM
+      % Wall now has starting rest = 6
+      % Quake now has starting rest = 5
+  & TEMPLATES.LNG - new templates
+  & *.LUA
+    ^ ARENA.LUA
+      % New function apply_long_combat_penalties - applies penalties to unit moral, then init, then speed during long combats
+      % Added capability for AI Thorns to use Gift of Life on starting Thorns (instead of just level 4 and higher plants)
+      % Added capability for AI to cast new Archdemon Amalgamation ability
+      % Level 1-3 units with abilities should be able to go about 15 rounds before running out
+      % Level 4 units should be able to go about 20 rounds before running out
+      % Level 5 units should be able to go about 25 rounds before running out
+    ^ PAWN.LUA - added difficulty leadership parameter to scale animates for Dark Crystal attack (more changes coming here later)
+    ^ SKILLS.LUA - added Beholders / Evil Beholders Leadership Reduction to Mega Mage
+    ^ SPECIAL_ATTACKS.LUA
+      % Fixed issues with Shaman Dancing Axes
+      % Added Glory scaler for leadership-based abilities
+      % Fixed issue with Thorn Gift of Life and cell passability after its use
+      % New Archdemon special_amalgamation function for its new ability
+    ^ SPECIAL_HINT.LUA
+      % Added "res" to parameter list for Catapult Boiling Oil attack
+      % Added Glory bonus for leadership-based abilities
+      % Updated Charge / Reload label so that it works with combined Charged-Reloadable abilities
+    ^ SPELL_EFFECTS.LUA
+      % Added new effect_unconscious_attack function for new Ogre Clobber feature
+      % Added new unconscious_onremove function for new Ogre Clobber feature
+    ^ SPELLS.LUA
+      % Updated baby Phoenix and Evil Book bonuses so that fewer parameters are hard coded
+      % Updated spell_defenseless to handle Archdemon's post-hit effect
+      % Updated spell_pygmy to handle Archdemon's Amalgamation ability
+      % Updated spell_blind to handle Archdemon's Amalgamation ability
+      % Updated spell_ram to handle Archdemon's Amalgamation ability
+    ^ SPELLS_COMMON.LUA
+      % Fixed calccells_hypnosis so that it uses its power function properly during unit selection
+      % New calccells_enemy_special_amalgamation for selecting targets for Archdemon's new ability
+      % Added Glory leadership-based ability bonus during unit selection
+    ^ SPELLS_HINT.LUA - removed hard-coded values for kid bonuses to Phoenix and Evil Book
+    ^ SPELLS_POWER.LUA
+      % New "Holy" bonus description
+      % New Glory bonus description
+    ^ UNIT_FEATURES.LUA
+      % New features_ogre_attack for Ogre's new post-hit Clobber ability
+      % New features_archdemon_attack for Archdemon's new post-hit Odium ability
+      % Update to features_burn to added Catapult's new Boiling Oil ability
+      % Added reset for Gizmo's priority for regeneration ability
+  & *.TXT
+    ^ *_BABIES.TXT - babies with HOMM3 Myticism now have double mana regeneration during combat (i.e. 1->2 and 2->4)
+    ^ EFFECTS.TXT - new effects:
+      % Unconscious
+      % Burning Oil
+    ^ LOGIC.TXT - comment updated
+    ^ NEOKA_BABIES.TXT - missed Ice Serpent duration bonus
+    ^ SKILLS.TXT
+      % Dark Commander - Added Dragons
+      % Glory - Added increase to Leadership-based Spells and Abilities
+      % Mega Mage - Added Beholders / Evil Beholders
+    ^ SPELLS.TXT - various spells updated to include their damage type keyword for future items that increase a specific damage type
+      % spell_last_hero updated mana cost / crystals due to other spell changes
+      % spell_gifts - increased price, mana, and crystals
+      % spell_hypnosis - updated spell power, price, and mana / crystals to account for error in power calculation during selection
+    ^ WIFES.TXT - added missing Fire spider Leadership Bonus to Xeona
+    ^ XEONA_BABIES.TXT
+      % Xyron now gives bonuses to Fire Arrow / Ball / Rain
+      % Xarfax now gives bonuses to Fire Ball
+      % Inteus now gives bonuses to Fire Rain
+* mod_homm3_babies_en(g)_lng.kfs
+  & EN(G)_BATTLE.LNG
+    ^ Added plural of Sheep to add missing label
+    ^ Added Archdemon new ability / feature labels
+    ^ Added Ogre new feature labels
+    ^ Added new long combat labels
+  & EN(G)_HOMM3_BABIES_NEOKA.LNG - fixed spelling error in Josephine's label that caused game lockup
+  & EN(G)_HOMM3_BABIES_XEONA.LNG
+    ^ Xyron now gives bonuses to Fire Arrow / Ball / Rain
+    ^ Xarfax now gives bonuses to Fire Ball
+    ^ Inteus now gives bonuses to Fire Rain
+  & EN(G)_SKILLS.LNG
+    ^ Dark Commander - updated text to include Dragons
+    ^ Glory - updated text to include leadership-based spells and abilities
+    ^ Healer - updated text so that Phantom is now included in the list
+    ^ Mega Mage - updated text to include Beholders / Evil Beholders
+    ^ Necromancy - updated text to improve readability.
+  & EN(G)_SPELLS.LNG
+    ^ New Holy Spell bonus label
+    ^ New Glory Spell bonus label
+    ^ New effect Burning Oil label and description
+    ^ New effect Unconscious label and description
+  & EN(G)_SPIRITS.LNG - adding missing Rage Cost for Rage Gain upgrades
+  & EN(G)_UNIT_FEATURES
+    ^ Updated Furious Goblin features
+    ^ Updated Ogre features
+    ^ Fixed spelling error in Vampire / Vampire2 Regeneration feature
+    ^ Updated Archdemon features
+    ^ Added new Clobber feature
+    ^ Updated Chaos description
+    ^ Added new Odium feature
+  & EN(G)_UNIT_SPECIALS.LNG
+    ^ Updated Shaman Dancing Axes description
+    ^ Added new Boiling Oil label and description
+    ^ Added new Throw Axe label and description
+    ^ Added new Amalgamation label and description
+    ^ Added new Amalgamation warning
+* mod_homm3_portraits.kfs
+  & TEX334.DAT - updated to include new ability small pictures
+  & TEX335.DAT - updated to include new ability pictures
+  & TEX334.DDS - updated to include new ability small pictures
+  & TEX335.DDS - updated to include new ability pictures
+* mod_tougher_heroes.kfs
+  & 978705779.hero - fixed errors in hero parameters for Tiberius
+
 Version: Alpha 2011-12-10
 -------------------------
 

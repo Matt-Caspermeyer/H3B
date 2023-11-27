@@ -58,9 +58,9 @@ difficulty_k {
     ehlvldbc=30|30|28|25        // New! Enemy hero level at which they can cast an extra spell per turn
    ehmanadbc=350|300|250|200	// New! Enemy hero mana (limit) at which they can cast an extra spell per turn
 
-  roundmrgk1=20|15|10|5         // New! Round at which mana_rage_gain_k goes to 1/2
-  roundmrgk2=30|25|15|10        // New! Round at which mana_rage_gain_k goes to 1/4
-  roundmrgk3=40|35|20|15        // New! Round at which mana_rage_gain_k goes to 0
+  roundmrgk1=20|15|10|5         // New! Round at which mana_rage_gain_k goes to 1/2 and morale is -1
+  roundmrgk2=30|25|15|10        // New! Round at which mana_rage_gain_k goes to 1/4 and morale and initiative are -1
+  roundmrgk3=40|35|20|15        // New! Round at which mana_rage_gain_k goes to 0 and morale, initiative, and speed are -1
   roundehero=20|15|10|5         // New! Rounds to add to when mana_rage_gain_k is implemented when fighting enemy heroes
   roundtower=20|15|10|5         // New! Rounds to add to when mana_rage_gain_k is implemented when fighting towers
    roundboss=20|15|10|5         // New! Rounds to add to when mana_rage_gain_k is implemented when fighting bosses

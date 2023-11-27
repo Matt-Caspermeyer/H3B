@@ -36,6 +36,7 @@ arena_params {
   }
   quake {
     class=scripted
+    moves=12
     reload=2
     hinthead=special_quake_head
     hint=special_quake_hint

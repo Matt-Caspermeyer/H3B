@@ -313,8 +313,7 @@ function effect_shock_attack( target, pause, duration )
     end
 
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_shock", false )
-    local duration_old
-    duration_old = tonumber( Attack.act_spell_duration( target, "effect_shock" ) )
+    local duration_old = tonumber( Attack.act_spell_duration( target, "effect_shock" ) )
   
     local message
     if duration_old ~=nil and duration_old ~= 0 then
@@ -361,8 +360,7 @@ function effect_holy_attack( target, pause, duration, power )
     target = Attack.get_target()
   end
 		
-  local duration_old
-  duration_old = tonumber( Attack.act_spell_duration( target, "effect_holy" ) )
+  local duration_old = tonumber( Attack.act_spell_duration( target, "effect_holy" ) )
 
   local message
   if duration_old ~=nil and duration_old ~= 0 then
@@ -388,7 +386,6 @@ end
 -- * Sleep
 -- ***********************************************
 function effect_sleep_attack( target, pause, duration, dod )
-  --local target = Attack.get_target()
   if pause == nil then
     pause = 1
   end
@@ -409,19 +406,18 @@ function effect_sleep_attack( target, pause, duration, dod )
       Attack.act_apply_spell_begin( target, "effect_sleep", duration, dod )
    			Attack.act_skipmove( target, duration )
       Attack.act_apply_spell_end()
---    Attack.act_damage_addlog(target,"add_blog_sleep_")
       Attack.atom_spawn( target, pause, "effect_sleep", Attack.angleto( target ), true )
     end
   else
-    if target==nil then
+    if target == nil then
     		target = Attack.get_target()
     		if Attack.act_need_cure( target )
       and string.find( Attack.act_name( target ),"bear" ) then
-    			 local cur_hp=Attack.act_hp( target )
-     			local max_hp=Attack.act_get_par( target ,"health" )
-     			local need_cure=max_hp-cur_hp
-     			Attack.act_cure( target ,need_cure )
-     			Attack.atom_spawn( target , 0, "effect_total_cure" )
+    			 local cur_hp = Attack.act_hp( target )
+     			local max_hp = Attack.act_get_par( target ,"health" )
+     			local need_cure = max_hp - cur_hp
+     			Attack.act_cure( target, need_cure )
+     			Attack.atom_spawn( target, 0, "effect_total_cure" )
     		end 
     end
   end
@@ -429,20 +425,94 @@ function effect_sleep_attack( target, pause, duration, dod )
   return true
 end
 
-function sleep_onremove(caa,duration_end)
+function sleep_onremove( caa, duration_end )
+		Attack.act_skipmove( caa, 0 )
 
-	--if string.sub(Attack.act_name(caa),1,4) == "bear" then
-		Attack.act_skipmove(caa, 0)
-		if duration_end~=true then --and not Attack.act_is_spell(caa,"effect_sleep") then 
-			if Attack.act_size(caa)>1 then 
-				Attack.log(caa,0.002,"add_blog_nosleep_2","name",blog_side_unit(caa))
-			else 
-				Attack.log(caa,0.002,"add_blog_nosleep_1","name",blog_side_unit(caa))
-			end 
+		if duration_end ~= true then --and not Attack.act_is_spell(caa,"effect_sleep") then 
+  		if Attack.act_size( caa ) > 1 then 
+  		  Attack.log( caa, 0.002, "add_blog_nosleep_2", "name", blog_side_unit( caa ) )
+  		else 
+  		  Attack.log( caa, 0.002, "add_blog_nosleep_1", "name", blog_side_unit( caa ) )
+  		end 
 		end 
-	--end
-	return true
 
+ 	return true
+end
+
+-- ***********************************************
+-- * Unconscious
+-- ***********************************************
+function effect_unconscious_attack( target, pause, duration )
+  if pause == nil then
+    pause = 1
+  end
+
+  local dod = false
+
+ 	if target ~= nil then
+    if ( Attack.act_ally( target )
+    or Attack.act_enemy( target ) )
+    and not Attack.act_feature( target, "golem" )
+    and not Attack.act_feature( target, "plant" )
+    and not Attack.act_feature( target, "undead" )
+    and not Attack.act_feature( target, "boss,pawn" ) then
+      if duration == nil then
+        duration = tonumber( Logic.obj_par( "effect_unconscious", "duration") )
+      end
+
+      local duration_old = tonumber( Attack.act_spell_duration( target, "effect_unconscious" ) )
+    
+      if duration_old ~=nil
+      and duration_old ~= 0 then
+        duration = math.max( duration, duration_old ) + 1
+      end
+
+      if Attack.act_is_spell( target, "effect_stun" ) then
+        duration = duration + 1
+        local duration_stun = tonumber( Attack.act_spell_duration( target, "effect_stun" ) )
+        Attack.act_del_spell( target, "effect_stun" )
+        Attack.val_store( target, "duration_stun", duration_stun )
+      end
+
+      duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_unconscious", false )
+      Attack.act_apply_spell_begin( target, "effect_unconscious", duration, dod )
+      Attack.act_apply_par_spell( "hitback", 0, 0, -100, duration, false, 1000 )--true)
+   			Attack.act_skipmove( target, duration )
+      Attack.act_apply_spell_end()
+      Attack.atom_spawn( target, pause, "effect_sleep", Attack.angleto( target ), true )
+    end
+  end
+
+  return true
+end
+
+function unconscious_onremove( caa, duration_end )
+		Attack.act_skipmove( caa, 0 )
+
+		if duration_end ~= true then
+  		if Attack.act_size( caa ) > 1 then 
+  		  Attack.log( caa, 0.002, "add_blog_nosleep_2", "name", blog_side_unit( caa ) )
+  		else 
+  		  Attack.log( caa, 0.002, "add_blog_nosleep_1", "name", blog_side_unit( caa ) )
+  		end 
+  else
+    local duration = 3
+    local duration_stun = Attack.val_restore( caa, "duration_stun" )
+
+    if duration_stun ~= nil then
+      duration = duration + duration_stun
+    end
+
+    effect_stun_attack( caa, 1, duration )
+    
+  		if Attack.act_size( caa ) > 1 then 
+  		  Attack.log( caa, 0.002, "add_blog_ogre_nosleep_2", "name", blog_side_unit( caa ) )
+  		else 
+  		  Attack.log( caa, 0.002, "add_blog_ogre_nosleep_1", "name", blog_side_unit( caa ) )
+  		end
+		end 
+
+ 	return true
 end
 
 -- ***********************************************
@@ -662,8 +732,7 @@ function effect_stun_attack( target, pause, duration )
    	end 
 
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_stun", false )
-    local duration_old
-    duration_old = tonumber( Attack.act_spell_duration( target, "effect_stun" ) )
+    local duration_old = tonumber( Attack.act_spell_duration( target, "effect_stun" ) )
   
     local message
     if duration_old ~=nil
@@ -715,8 +784,7 @@ function effect_weakness_attack( target, pause, duration )
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_weakness", false )
     local power = tonumber( Logic.obj_par( "effect_weakness", "power" ) )
     power = power + Logic.hero_lu_item( "sp_power_effect_weakness", "count" )
-    local duration_old
-    duration_old = tonumber( Attack.act_spell_duration( target, "effect_weakness" ) )
+    local duration_old = tonumber( Attack.act_spell_duration( target, "effect_weakness" ) )
 
     local message
     if duration_old ~=nil and duration_old ~= 0 then
@@ -766,8 +834,7 @@ function effect_freeze_attack(target,pause,duration)
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_freeze", false )
     local speedbonus = tonumber( Logic.obj_par( "effect_freeze", "speedbonus" ) )
     local speed = Attack.act_get_par( target, "speed" )
-    local duration_old
-    duration_old = tonumber( Attack.act_spell_duration( target, "effect_freeze" ) )
+    local duration_old = tonumber( Attack.act_spell_duration( target, "effect_freeze" ) )
   
     local message
     if duration_old ~=nil and duration_old ~= 0 then
@@ -817,8 +884,7 @@ function effect_curse_attack( target, pause, duration )
     end
 
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_curse", false )
-    local duration_old
-    duration_old = tonumber( Attack.act_spell_duration( target, "effect_curse" ) )
+    local duration_old = tonumber( Attack.act_spell_duration( target, "effect_curse" ) )
   
     local message
     if duration_old ~=nil and duration_old ~= 0 then

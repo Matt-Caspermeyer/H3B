@@ -72,6 +72,7 @@ arena_params {
     dontusenearenemy=1
     class=throw
     distance=7
+    moves=7
     reload=3
     base_attack=0
     mindist=2

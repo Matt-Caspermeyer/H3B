@@ -1079,50 +1079,45 @@ end
 -- Кристалл Карадора
 
 function darkcrystal_attack()
+	 local corpses = {}
+  local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/alead' ), Game.HSP_difficulty() + 1, '|' ) )
 
-	local corpses = {}
-	for i=0, Attack.cell_count()-1 do
-		local c = Attack.cell_get(i)
-		local act = Attack.cell_get_corpse(c)
-		if act ~= nil and not Attack.act_feature(act, "nonecro,golem,plant,demon,magic_immunitet") and Attack.cell_is_empty(c) then
-			table.insert(corpses, {c, act})
-		end
-	end
+	 for i = 0, Attack.cell_count() - 1 do
+		  local c = Attack.cell_get( i )
+		  local act = Attack.cell_get_corpse( c )
 
-	if table.getn(corpses) > 0 then
+		  if act ~= nil
+    and not Attack.act_feature( act, "nonecro,golem,plant,demon,magic_immunitet")
+    and Attack.cell_is_empty( c ) then
+			   table.insert( corpses, { c, act } )
+		  end
+	 end
 
-		local c,act = unpack( corpses[Game.Random(1,table.getn(corpses))] )
-		local unit_animate = necro_get_unit(actor_name(act))
-		local count = math.ceil(Attack.act_initsize(act)*Attack.act_hp(0)/Attack.act_get_par(0,"health")*0.7)
-		Attack.act_aseq(0, "attack")
-		animate_dead(c, act, Attack.aseq_time(0, "x"), 0, unit_animate, count)
+	 if table.getn( corpses ) > 0 then
+		  local c, act = unpack( corpses[ Game.Random( 1, table.getn( corpses ) ) ] )
+		  local unit_animate = necro_get_unit( actor_name( act ) )
+		  local count = math.ceil( Attack.act_initsize( act ) * Attack.act_hp( 0 ) / Attack.act_get_par( 0, "health" ) * diff_k )
+		  Attack.act_aseq( 0, "attack" )
+		  animate_dead( c, act, Attack.aseq_time( 0, "x" ), 0, unit_animate, count )
+ 			Attack.log( "add_blog_necro_1", "name",blog_side_unit( 0, 1 ), "target", blog_side_unit( act, 0 ), "targeta", blog_side_unit( c, 0 ), "special", count )
+ 	end
 
-		--if count>1 then
-		--	Attack.log("add_blog_necro_2","name",blog_side_unit(0,1),"target",blog_side_unit(act,0),"targeta",blog_side_unit(c,0),"special",count)
-		--else
-			Attack.log("add_blog_necro_1","name",blog_side_unit(0,1),"target",blog_side_unit(act,0),"targeta",blog_side_unit(c,0),"special",count)
-		--end
-
-	end
-
-	return true
-
+ 	return true
 end
 
 function darkcrystal_hitback()
+	 Attack.act_aseq( 0, "attack" )
+	 local target = Attack.get_target()
 
-	Attack.act_aseq(0, "attack")
-	local target = Attack.get_target()
-	if target ~= nil then 
-		Attack.act_del_spell(target,"spell_weakness")
-		Attack.act_del_spell(target,"spell_bless")
-		Attack.act_apply_spell_begin( target, "spell_weakness", tonumber(Attack.get_custom_param("duration")), false )
-		Attack.act_apply_spell_end()
-		Attack.atom_spawn(target, 0, "magic_sword", Attack.angleto(target))
-	end 
+ 	if target ~= nil then 
+		  Attack.act_del_spell( target, "spell_weakness" )
+  		Attack.act_del_spell( target, "spell_bless" )
+		  Attack.act_apply_spell_begin( target, "spell_weakness", tonumber( Attack.get_custom_param( "duration" ) ), false )
+		  Attack.act_apply_spell_end()
+		  Attack.atom_spawn( target, 0, "magic_sword", Attack.angleto( target ) )
+	 end 
 
 	return true
-
 end
 
 

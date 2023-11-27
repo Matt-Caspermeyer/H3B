@@ -38,6 +38,7 @@ arena_params {
   }
   charge {
     class=scripted
+    moves=7
     reload=3
     attack_cursor=attack
     hinthead=special_charge_head

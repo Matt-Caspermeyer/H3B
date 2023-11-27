@@ -127,5 +127,101 @@ TEX335 {
     geom_size=1,1
     mask=3555,237
   }
-  texture_size=172,176
+  block {
+    filename=BA1_boilingoil_normal.png
+    in_tex_pos=0,176
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3792,237
+  }
+  block {
+    filename=BA1_boilingoil_disabled.png
+    in_tex_pos=43,176
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4029,237
+  }
+  block {
+    filename=BA1_boilingoil_onmouse.png
+    in_tex_pos=86,176
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4266,237
+  }
+  block {
+    filename=BA1_boilingoil_onpress.png
+    in_tex_pos=129,176
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4503,237
+  }
+  block {
+    filename=BA1_throw_axe_normal.png
+    in_tex_pos=0,220
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4740,237
+  }
+  block {
+    filename=BA1_throw_axe_disabled.png
+    in_tex_pos=43,220
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=4977,237
+  }
+  block {
+    filename=BA1_throw_axe_onmouse.png
+    in_tex_pos=86,220
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=5214,237
+  }
+  block {
+    filename=BA1_throw_axe_onpress.png
+    in_tex_pos=129,220
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=5451,237
+  }
+  block {
+    filename=BA1_amalgamation_normal.png
+    in_tex_pos=0,264
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=5688,237
+  }
+  block {
+    filename=BA1_amalgamation_disabled.png
+    in_tex_pos=43,264
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=5925,237
+  }
+  block {
+    filename=BA1_amalgamation_onmouse.png
+    in_tex_pos=86,264
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=6162,237
+  }
+  block {
+    filename=BA1_amalgamation_onpress.png
+    in_tex_pos=129,264
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=6399,237
+  }
+  texture_size=172,308
 }

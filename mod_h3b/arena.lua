@@ -393,6 +393,70 @@ function calc_bonus() --ftag:bonus
 end
 
 
+--New! Function decreases moral of your units
+function apply_long_combat_penalties( target, suffix, morale, init, speed )
+  local function apply_long_combat_penalties_common( target, suffix, morale, init, speed )
+    if morale
+    and not Attack.act_pawn( target )
+    and not Attack.act_feature( target, "pawn" )
+    and not Attack.act_feature( target, "boss" )
+    and not Attack.act_feature( target, "undead" )
+    and not Attack.act_feature( target, "golem" )
+    and Attack.act_ally( target )
+    and not Attack.act_temporary( target ) then
+      local current_value, base_value = Attack.act_get_par( target, "moral" )
+
+      if current_value > -3 then
+     	  Attack.act_del_modificator( target, "battle_", true)
+        local penalty = tonum( Attack.val_restore( target, "moral_penalty" ) )
+        Attack.val_store( target, "moral_penalty", penalty + 1 )
+        Attack.act_attach_modificator( target, "moral", "battle_" .. suffix, base_value - 1 - penalty, 0, 0, -100, false )
+      end
+    end
+
+    if init
+    and not Attack.act_pawn( target )
+    and not Attack.act_feature( target, "pawn" )
+    and not Attack.act_feature( target, "boss" )
+    and not Attack.act_feature( target, "golem" )
+    and not Attack.act_feature( target, "plant" )
+    and Attack.act_ally( target ) then
+      local current_value, base_value = Attack.act_get_par( target, "initiative" )
+
+      if base_value > 1 then
+        Attack.act_set_par( target, "initiative", base_value - 1 )
+      end
+    end
+
+    if speed
+    and not Attack.act_pawn( target )
+    and not Attack.act_feature( target, "pawn" )
+    and not Attack.act_feature( target, "boss" )
+    and not Attack.act_feature( target, "golem" )
+    and not Attack.act_feature( target, "plant" )
+    and Attack.act_ally( target ) then
+      local current_value, base_value = Attack.act_get_par( target, "speed" )
+
+      if base_value > 1 then
+        Attack.act_set_par( target, "speed", base_value - 1 )
+      end
+    end
+
+    return true
+  end
+
+  if target == nil then
+    for a = 1, Attack.act_count() - 1 do
+      apply_long_combat_penalties_common( a, suffix, morale, init, speed )
+    end
+  else
+    apply_long_combat_penalties_common( target, suffix, morale, init, speed )
+  end
+
+  return true
+end
+
+
 --New! Function ensures that the hitback parameter does not exceed 2 due to bonuses
 function fix_hitback( target )
   local function fix_hitback_common( target )
@@ -450,6 +514,7 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
       end
   
       Attack.act_set_par( target, parameter, base_value + value_inc )
+
       if parameter == "defense" then
         local defenseup = math.max( math.floor( ( base_value + value_inc ) / 5 ), min_stat_inc )
         Attack.act_set_par( target, "defenseup", defenseup )
@@ -791,13 +856,21 @@ function on_round_start( round, tend )
     local roundmrgk1 = tonumber( text_dec( Game.Config( 'difficulty_k/roundmrgk1' ), Game.HSP_difficulty() + 1, '|' ) ) + ROUND_MANA_RAGE_GAIN
     local roundmrgk2 = tonumber( text_dec( Game.Config( 'difficulty_k/roundmrgk2' ), Game.HSP_difficulty() + 1, '|' ) ) + ROUND_MANA_RAGE_GAIN
     local roundmrgk3 = tonumber( text_dec( Game.Config( 'difficulty_k/roundmrgk3' ), Game.HSP_difficulty() + 1, '|' ) ) + ROUND_MANA_RAGE_GAIN
-    local mrk_table = { { roundmrgk1, 1/2., "rage_mana_deficit_detected_1" },
-                        { roundmrgk2, 1/4., "rage_mana_deficit_detected_2" },
-                        { roundmrgk3, 0.  , "rage_mana_deficit_detected_3" } }
+    local mrk_table = { { roundmrgk1, 1/2., "rage_mana_deficit_detected_1", "long", true, false, false },
+                        { roundmrgk2, 1/4., "rage_mana_deficit_detected_2", "drawn", true, true, false },
+                        { roundmrgk3, 0.  , "rage_mana_deficit_detected_3", "hard", true, true, true } }
     for k, v in ipairs( mrk_table ) do
       if round == v[ 1 ] then
         mana_rage_gain_k = v[ 2 ]
         Attack.log( tend + .001, v[ 3 ], "special", math.floor( v[ 2 ] * 100 + .5 ), "round", round )
+        apply_long_combat_penalties( nil, v[ 4 ], v[ 5 ], v[ 6 ], v[ 7 ] )
+        break
+      elseif round > roundmrgk3
+      and v[ 1 ] == roundmrgk3
+      and modulo( round, roundmrgk3 - roundmrgk2 ) == 0 then
+        Attack.log( tend + .001, "extremely_long_combat" )
+        apply_long_combat_penalties( nil, "drudge", v[ 5 ], v[ 6 ], v[ 7 ] )
+        break
       end
     end
 
@@ -1739,7 +1812,9 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         for i, act in ipairs( actors ) do
           if Attack.act_ally( act )
           and Attack.act_feature( act, "plant" )
-          and act.level > 3 then
+          and ( act.level > 3
+          or ( act.level < 4
+          and not Attack.act_temporary( act ) ) ) then
             local dist = Attack.cell_dist( mover, act )
             if dist < min_dist then
               local path = Attack.calc_path( mover, act )
@@ -1981,6 +2056,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
       or name == "holy_rage"
       or name == "magic_shield"
       or name == "dispell"
+      or name == "amalgamation"
       or name == "stupid" then -- 5 in 1 !!!!
         local possible_targets = {}
 
@@ -2019,6 +2095,33 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
             and bonus_spells
             and not penalty_spells ) then -- для врага - наоборот
               power = 2
+            end
+
+          elseif name == "amalgamation" then -- дрессировка
+            if Attack.act_enemy( act )
+            and act.level <= tonumber( atk.custom_params.level )
+            and ( ( not Attack.act_is_spell( act, "spell_ram" )
+            and not Attack.act_feature( act, "plant" )
+            and not Attack.act_feature( act, "golem" )
+            and not Attack.act_feature( act, "undead" ) )
+            or ( not Attack.act_is_spell( act, "spell_blind" )
+            and not Attack.act_feature( act, "eyeless" ) )
+            or not Attack.act_is_spell( act, "spell_pygmy" ) ) then
+              power = power + act.leadship * act.units / 1e3
+
+              if Attack.act_is_spell( act, "spell_ram" ) then
+                power = power / 3
+              end
+
+              if Attack.act_is_spell( act, "spell_blind" ) then
+                power = power / 3
+              end
+
+              if Attack.act_is_spell( act, "spell_pygmy" ) then
+                power = power / 3
+              end
+
+              threshold = 0
             end
 
           elseif name == "stupid" then

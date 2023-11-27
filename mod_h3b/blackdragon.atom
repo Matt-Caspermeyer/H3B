@@ -50,6 +50,7 @@ arena_params {
     picture_small=BA1_Fire_Power_small.png
     warning=sw_firepower
     ad_factor=1
+    moves=8
     reload=3
     script_attack=special_blackdragon_firepower
     script_calccells=calccells_blackdragon_firepower

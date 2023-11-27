@@ -1,0 +1,248 @@
+main {
+  class=chesspiece
+  model=snake_royal.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_snake_royal_feat
+  features_hints=no_retaliation_header/no_retaliation_hint,poisonous_header/poisonous_hint,poison_immunity_header/poison_immunity_hint
+  race=neutral
+  cost=220
+  level=3
+  leadership=60
+  attack=18
+  defense=18
+  defenseup=3
+  initiative=6
+  speed=3
+  hitpoint=52
+  movetype=0
+  krit=25
+  posthitmaster=features_poison
+  hitback=1
+  hitbackprotect=1
+  attacks=moveattack,longattack
+  features=beast,nonecro,poison_immunitet
+  resistances {
+    physical=10
+    poison=80
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=6,10
+    }
+    custom_params {
+      poison=30
+    }
+  }
+  longattack {
+    class=scripted
+    moves=8
+    reload=2
+    picture=BA1_Special_Rush_
+    picture_small=BA1_Special_Rush_small.png
+    warning=sw_long
+    hinthead=special_snake_long_head
+    hint=special_snake3_long_hint
+    ad_factor=1
+    script_attack=special_long_hit
+    script_calccells=calccells_enemy_longhit
+    attack_cursor=attack
+    damage {
+      physical=8,11
+    }
+    custom_params {
+      poison=100
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=snake_royal_idle.bsa/fr:18:36
+  rare=snake_royal_rare.bsa/fr:25:50
+  attack=snake_royal_attack.bsa/fr:25:50
+  longattack=snake_royal_cast.bsa/fr:25:50
+  move=snake_royal_move.bsa/fr:25:50
+  start=snake_royal_start.bsa/fr:25:50
+  stop=snake_royal_stop.bsa/fr:25:50
+  clock=snake_royal_clock.bsa/fr:25:50
+  contra=snake_royal_contra.bsa/fr:25:50
+  lturn=snake_royal_lturn.bsa/fr:25:50
+  rturn=snake_royal_rturn.bsa/fr:25:50
+  damage=snake_royal_damage.bsa/fr:25:50
+  slew=snake_royal_slew.bsa/fr:25:50
+  death=snake_royal_death.bsa/fr:25:50
+  respawn=snake_royal_respawn.bsa/fr:25:50
+  cursor=snake_royal_rare.bsa/fr:25:50
+  teleout=snake_royal_idle.bsa/fr:25:50/r:35:70
+  telein=snake_royal_idle.bsa/fr:25:50/r:0:35
+  happy=/fwd:1:rare
+  victory=/t:1:1:rare:1:3:idlemain
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    3.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @longattack {
+    3.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=idlemain
+      frame=0.01
+      file=snake_idle
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=snake_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=snake_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=snake_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=snake_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=snake_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=snake_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=snake_contra
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=snake_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=snake_rturn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=snake_damage
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=snake_cast
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=snake_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=snake_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=snake_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=snake_rare
+      fadetime=60
+    }
+    sound {
+      animation=longattack
+      frame=0.01
+      file=snake_longattack
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  snake_royal_idle.bsa=file
+  snake_royal_rare.bsa=file
+  snake_royal_attack.bsa=file
+  snake_royal_move.bsa=file
+  snake_royal_start.bsa=file
+  snake_royal_stop.bsa=file
+  snake_royal_clock.bsa=file
+  snake_royal_contra.bsa=file
+  snake_royal_lturn.bsa=file
+  snake_royal_rturn.bsa=file
+  snake_royal_damage.bsa=file
+  snake_royal_death.bsa=file
+  snake_royal_respawn.bsa=file
+}

@@ -1,0 +1,316 @@
+main {
+  class=chesspiece
+  model=priest2.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_priest_feat
+  features_hints=holy_attack_header/holy_attack_hint,holy_aura_header/holy_aura_hint,no_melee_header/no_melee_hint
+  race=human
+  cost=300
+  level=3
+  leadership=100
+  attack=16
+  defense=16
+  defenseup=4
+  initiative=5
+  speed=2
+  hitpoint=50
+  movetype=0
+  krit=10
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,shot,respawn,holy_rage
+  features=holy,humanoid,mage
+  posthitmaster=special_priest
+  resistances {
+    physical=0
+    poison=0
+    magic=10
+    fire=0
+  }
+  moveattack {
+    group=1,1
+    nonextifenemy=1
+    ad_factor=1
+    damage {
+      magic=5,7
+    }
+  }
+  shot {
+    group=1,2
+    class=throw
+    base_attack=1
+    ad_factor=1
+    distance=7
+    mindist=2
+    showdmg=1
+    penalty=0.5
+    animation=cast/throw/thtarget
+    throw=priest2_ball
+    framekey=x
+    damage {
+      magic=5,7
+    }
+  }
+  holy_rage {
+    class=scripted
+    attack_cursor=magicstick
+    nfeatures=magic_immunitet,pawn,boss,demon
+    no_hint=1
+    script_attack=special_bless_attack
+    script_calccells=calccells_bless
+    picture=BA1_Holy_Rage_
+    picture_small=BA1_Holy_Rage_small.png
+    moves=5
+    reload=3
+    hinthead=special_holy_rage_head
+    hint=special_holy_rage_hint
+    custom_params {
+      rage=5-10
+      duration=2
+    }
+  }
+  respawn {
+    class=scripted
+    attack_cursor=magicstick
+    warning=warning_resurrect
+    picture=ba1_resurection_
+    picture_small=ba1_resurection_small.png
+    hinthead=special_prist_res_head
+    hint=special_prist_res_hint
+    nfeatures=undead,magic_immunitet,pawn,boss,plant,golem,demon
+    moves=1
+    script_calccells=calccells_all_need_resurrect_ally_simple
+    script_attack=special_presurrect
+    custom_params {
+      heal=7
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=priest_idle.bsa/fr:25:50
+  rare=priest_rare.bsa/fr:25:50
+  attack=priest_attack_short.bsa/fr:35:70
+  cast=priest_attack_short.bsa/fr:35:70
+  cure=priest_cast.bsa/fr:25:50
+  resur=priest_cast.bsa/fr:25:50
+  move=priest_move.bsa/fr:35:70
+  start=priest_start.bsa/fr:35:70
+  stop=priest_stop.bsa/fr:40:80
+  clock=priest_clock.bsa/fr:40:80
+  contra=priest_contra.bsa/fr:40:80
+  clock2=priest_2clock.bsa/fr:40:80
+  contra2=priest_2contra.bsa/fr:40:80
+  lturn=priest_lturn.bsa/fr:35:70
+  rturn=priest_rturn.bsa/fr:35:70
+  damage=priest_damage.bsa/fr:25:50
+  slew=priest_slew.bsa/fr:35:70
+  death=priest_death.bsa/fr:25:50
+  respawn=priest_respawn.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  victorymain=priest_victory.bsa/fr:25:50
+  happy=/fwd:1:victorymain
+  teleout=priest_idle.bsa/fr:25:50/r:65:100
+  telein=priest_idle.bsa/fr:25:50/r:0:35
+  cursor=priest_rare.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    33.0?x=
+    0.0=cam
+  }
+  @cast {
+    33.0?x=
+    0.0=cam
+  }
+  @cure {
+    23.0?x=
+    0.0=cam
+  }
+  @resur {
+    23.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/-0/0/1
+      animation=attack
+      frame=33/100
+      file=attack_2priest.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      animation=cast
+      frame=33/100
+      file=attack_2priest.ptb
+    }
+  }
+  1 {
+    aspawn {
+      animation=cure
+      atag=hll_priest_heal_cast
+    }
+    aspawn {
+      animation=resur
+      atag=hll_priest_resur_cast
+    }
+    dummy {
+      tag=throw
+      trans=0/1.59000003/-1.42852783/0/-0/0/1
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=priest_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=priest_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=priest_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=priest_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=priest_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=priest_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=priest_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=priest_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=priest_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=priest_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=priest_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=priest_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=priest_death
+      fadetime=60
+    }
+    sound {
+      animation=victorymain
+      frame=0.01
+      file=priest_victory
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=priest_victory
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=priest_attack
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  pirat_idle.bsa=file
+  pirat_rare.bsa=file
+  pirat_attack.bsa=file
+  pirat_move.bsa=file
+  pirat_start.bsa=file
+  pirat_stop.bsa=file
+  pirat_clock.bsa=file
+  pirat_contra.bsa=file
+  pirat_2clock.bsa=file
+  pirat_2contra.bsa=file
+  pirat_lturn.bsa=file
+  pirat_rturn.bsa=file
+  pirat_damage.bsa=file
+  pirat_death.bsa=file
+  pirat_respawn.bsa=file
+  pirat_victory.bsa=file
+  pirat_cast.bsa=file
+}

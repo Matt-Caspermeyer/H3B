@@ -10,9 +10,104 @@ function effect_chance( value, effect_or_feature, kind )
 end
 
 
+-- New Ogre Attack
+function features_ogre_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+  if ( minmax == 0 )
+  and not hitbacking then
+    local receiver_level = Attack.act_level( receiver )
+    local stun = tonumber( Attack.get_custom_param( "stun" ) )
+    local stun_inc = tonumber( Attack.get_custom_param( "stun_inc" ) )
+    local stun_chance = stun + ( receiver_level - 1 ) * stun_inc
+    local receiver_res = Attack.act_get_res( receiver, "physical" )
+    stun_chance = stun_chance * ( 1 - receiver_res / 100 )
+    local rnd = Game.Random( 100 )
+  
+    if damage > 0
+    and ( ( rnd < stun_chance
+    and not Attack.act_feature( receiver, "golem" )
+    and not Attack.act_feature( receiver, "pawn" )
+    and not Attack.act_feature( receiver, "boss" )
+    and not Attack.act_feature( receiver, "plant" )
+    and not Attack.act_feature( receiver, "undead" ) )
+    or Attack.act_is_spell( receiver, "effect_stun" ) ) then
+      local sleep = tonumber( Attack.get_custom_param( "sleep" ) )
+      local sleep_inc = tonumber( Attack.get_custom_param( "sleep_inc" ) )
+      local sleep_chance = sleep + ( 5 - receiver_level ) * sleep_inc
+
+      if Attack.act_is_spell( receiver, "effect_stun" ) then
+        sleep_chance = sleep_chance + 10
+      end
+
+      sleep_chance = sleep_chance * ( 1 - receiver_res / 100 )
+      rnd = Game.Random( 100 )
+  
+      if rnd < sleep_chance then
+        local duration = 1
+     			effect_unconscious_attack( receiver, 1, duration )
+     			Attack.act_damage_addlog( receiver, "add_blog_unconscious_" )
+      else
+        local duration = 2
+      	 effect_stun_attack( receiver, 1, duration )
+      end
+    end
+  end 
+
+  return damage, addrage
+end
+
+
+-- New Archdemon Attack
+function features_archdemon_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+  if ( minmax == 0 )
+  and not hitbacking then
+    if damage > 0
+    and not Attack.act_feature( receiver, "magic_immunitet" )
+    and not Attack.act_feature( receiver, "golem" )
+    and not Attack.act_feature( receiver, "pawn" )
+    and not Attack.act_feature( receiver, "boss" )
+    and not Attack.act_is_spell( receiver, "spell_ram" ) then
+      local tmp_spells = {}
+  
+      if not Attack.act_is_spell( receiver, "spell_scare" )
+      and not Attack.act_feature( receiver, "mind_immunitet" )
+      and not Attack.act_feature( receiver, "undead" ) then
+        table.insert( tmp_spells, spell_scare_attack )
+      end
+      
+      if not Attack.act_is_spell( receiver, "spell_defenseless" ) then
+        table.insert( tmp_spells, spell_defenseless_attack )
+      end
+  
+      if not Attack.act_is_spell( receiver, "spell_magic_bondage" )
+      and not Attack.act_feature( receiver, "mind_immunitet" ) then
+        table.insert( tmp_spells, spell_magic_bondage_attack )
+      end
+      
+      if table.getn( tmp_spells ) > 0 then
+        Attack.act_aseq( 0, "cast" )
+        local dmgts = Attack.aseq_time( 0, "x" )
+        local cast = Game.Random( 1, table.getn( tmp_spells ) )
+        local spell_level = 3
+      
+        if tmp_spells[ cast ] == spell_magic_bondage_attack then
+          tmp_spells[ cast ]( spell_level, receiver )
+        else
+          tmp_spells[ cast ]( spell_level, dmgts, receiver )
+        end
+      
+    		  Attack.log( dmgts + 0.2, "add_blog_archdemon_attack", "name", blog_side_unit( attacker, 1 ), "target", blog_side_unit( receiver, 0 ) )
+      end
+    end
+  end 
+
+  return damage, addrage
+end
+
+
 -- New Bone Dragon Attack
-function features_bonedragon_attack( damage, addrage, attacker, receiver, minmax )
-  if ( minmax == 0 ) then
+function features_bonedragon_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+  if ( minmax == 0 )
+  and not hitbacking then
     local receiver_level = Attack.act_level( receiver )
     local chance = tonumber( Attack.get_custom_param( "chance" ) )
     local receiver_chance = ( 5 - receiver_level ) * chance
@@ -25,7 +120,8 @@ function features_bonedragon_attack( damage, addrage, attacker, receiver, minmax
     and not Attack.act_feature( receiver, "magic_immunitet" )
     and not Attack.act_feature( receiver, "golem" )
     and not Attack.act_feature( receiver, "pawn" )
-    and not Attack.act_feature( receiver, "boss" ) then
+    and not Attack.act_feature( receiver, "boss" )
+    and not Attack.act_is_spell( receiver, "spell_ram" ) then
       local tmp_spells = {}
 
       if not Attack.act_is_spell( receiver, "spell_scare" )
@@ -428,6 +524,17 @@ function features_burn( damage, addrage, attacker, receiver, minmax )
     --local receiver=Attack.get_target(1)  -- кого?
     local burn = tonumber( Attack.get_custom_param( "burn" ) )
     common_fire_burn_attack( receiver, burn, 0, 3, damage )
+    local res = tonumber( Attack.get_custom_param( "res" ) )
+
+    if res ~= nil then
+      local a = Attack.atom_spawn( receiver, 0, "magic_oilfog" )
+      local dmgts1 = Attack.aseq_time( a, "x" )
+      local duration = 3
+      Attack.act_del_spell( receiver, "effect_burning_oil" )
+      Attack.act_apply_spell_begin( receiver, "effect_burning_oil", duration, false )
+      Attack.act_apply_res_spell( "fire", res, 0, 0, duration, false)
+      Attack.act_apply_spell_end()
+    end
   end 
 
   return damage, addrage
@@ -1298,6 +1405,8 @@ function features_regeneration()
 				Attack.act_cure( 0, max_hp - cur_hp, 0 )
     Attack.log_label( "add_blog_regen_1" ) -- работает
     Attack.act_aseq( 0, "idle" )	
+    Attack.val_store( 0, "gizmo_priority", 0 )
+
  			if Attack.act_size( 0 ) > 0 then 
 	  			Attack.log( "add_blog_regen_2", "name", blog_side_unit( 0 ) )
  			else 

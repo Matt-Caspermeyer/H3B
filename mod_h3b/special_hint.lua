@@ -68,6 +68,7 @@ function gen_special_hint(unit,par)
 
   if par == "burn"
   or par == "poison"
+  or par == "res"
   or par == "shock" then
     local attack_class = apars.class
 
@@ -79,6 +80,8 @@ function gen_special_hint(unit,par)
         text = tostring( round( get_add_gain_bonus( apars.custom_params.burn, par .. "_" .. apars.name ) ) ) .. "%"
       elseif par == "poison" then
         text = tostring( round( get_add_gain_bonus( apars.custom_params.poison, par .. "_" .. apars.name ) ) ) .. "%"
+      elseif par == "res" then
+        text = tostring( round( get_add_gain_bonus( apars.custom_params.res, par .. "_" .. apars.name ) ) ) .. "%"
       elseif par == "shock" then
         text = tostring( round( get_add_gain_bonus( apars.custom_params.shock, par .. "_" .. apars.name ) ) ) .. "%"
       end
@@ -125,6 +128,8 @@ function gen_special_hint(unit,par)
 
   if par == "lsummon" then
     local count_min, count_max = text_range_dec( apars.custom_params.k )
+    count_min = count_min * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+    count_max = count_max * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
     local unit_count = AU.unitcount( unit )
     local unit_lead = AU.abslead( unit )
 
@@ -255,7 +260,27 @@ function gen_special_charge( unit, par )
   local lreload = apars.reload_left
   local reload = apars.reload
   
-  if moves ~= nil then  
+  if moves ~= nil
+  and reload ~= nil then
+    if par == "text" then
+      text = "<br><label=special_charge> "
+    else
+      if Game.LocIsArena() then 
+       	if lmoves == 0 then text = text .. "<label=skill_hintNoUp_font>" end
+
+        text = text .. lmoves .. "/" .. moves .. "."
+
+      	 if lreload == 0 then -- готово
+         	text = text .. "<br><label=hint_Dis_font><label=special_reload> " .. reload - 1 .. "."
+        else
+         	text = text .. "<br><color=222,194,94><label=special_reload></color> <label=skill_hintNoUp_font>" .. ( lreload ) .. "."
+        end 
+      else 
+        text = moves .. "."
+        text = text .. "<br><color=222,194,94><label=special_reload></color> " .. reload - 1 .. "."
+      end 
+    end 
+  elseif moves ~= nil then
     if par == "text" then
       text = "<br><label=special_charge> "
     else
@@ -268,7 +293,8 @@ function gen_special_charge( unit, par )
     end 
   elseif reload ~= nil then
     if par == "text" then
-    	 if Game.LocIsArena() and lreload == 0 then
+    	 if Game.LocIsArena()
+      and lreload == 0 then
     	   text = text .. "<label=hint_Dis_font>"
      	end 
 
@@ -278,7 +304,7 @@ function gen_special_charge( unit, par )
       	 if lreload == 0 then -- готово
          	text = "<label=hint_Dis_font>" .. reload - 1 .. "."
         else
-         	text = "<label=skill_hintNoUp_font>" .. (lreload) .. "."
+         	text = "<label=skill_hintNoUp_font>" .. ( lreload ) .. "."
         end 
       else 
         text = reload - 1 .. "."

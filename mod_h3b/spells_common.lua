@@ -655,30 +655,28 @@ function calccells_all_enemy_level()
 end
 
 function calccells_hypnosis()
+  local spell = Obj.name()
+  local level = Obj.spell_level()
 
-    local spell = Obj.name()
-    --local level=math.floor(Game.Random(1,4))
-    local level=Obj.spell_level()
-    if level==0 then level=1 end
---  local power = tonumber(text_dec(Logic.obj_par(spell,"unit_count"),level))
-  local lvl = tonumber(text_dec(Logic.obj_par(spell,"level"),level))
-  local power = tonumber("0" .. text_dec(Logic.obj_par("spell_hypnosis","power"),level))/100*Logic.hero_lu_item("leadership","count")
-  --  local acnt = Attack.act_count()
---  for i=1,acnt-1 do
-  for c=0,Attack.cell_count()-1 do
+  if level == 0 then level = 1 end
 
-    local i = Attack.cell_get(c)
-    if (Attack.act_enemy(i)) and  (Attack.act_level(i)<=lvl) then       -- contains enemy and level
-  	local lead=tonumber(Attack.act_leadership(i))*Attack.act_size(i)
+	 local lvl, power = pwr_hypnosis( level )
 
-      if Attack.act_applicable(i) and (lead<=power) then      -- can receive this attack
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
+
+    if ( Attack.act_enemy( i ) )
+    and ( Attack.act_level( i ) <= lvl ) then       -- contains enemy and level
+  	   local lead = tonumber( Attack.act_leadership( i ) ) * Attack.act_size( i )
+
+      if Attack.act_applicable( i )
+      and ( lead <= power ) then      -- can receive this attack
         Attack.marktarget(i)            -- select it
-	    end 
+	     end 
     end
-
   end
-  return true
 
+  return true
 end
 
 function calccells_all_ally_level()
@@ -1219,39 +1217,60 @@ function calccells_ally_undead()
 
 end
 
-function calccells_enemy_beast()
-
---  local acnt = Attack.act_count()
---  for i=1,acnt-1 do
-  local level = tonumber(Attack.get_custom_param("level"))
-  --local k = tonumber(Attack.get_custom_param("k"))
-	local k=Game.Random(text_range_dec(Attack.get_custom_param("k")))
-  local caster_count=Attack.act_size(0)	-- сколько магов
-	local caster_name=Attack.act_name(0)
-	local caster_lead=Attack.act_leadership(0)
-	local target_lead,target_count=0,0
+-- New for Archdemon Amalgamation
+function calccells_enemy_special_amalgamation()
+  local level = tonumber( Attack.get_custom_param( "level" ) )
 	
-  for c=0,Attack.cell_count()-1 do
-	
-  local i = Attack.cell_get(c)
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
 		
-		if Attack.act_enemy(i) then 
-			target_lead=Attack.act_leadership(i)
-			target_count=Attack.act_size(i)
-		end 
-		-- сколько можно соблазнить по лидерству
+    if Attack.act_enemy( i )
+    and Attack.act_level( i ) <= level
+    and ( ( not Attack.act_is_spell( i, "spell_ram" )
+    and not Attack.act_feature( i, "plant" )
+    and not Attack.act_feature( i, "golem" )
+    and not Attack.act_feature( i, "undead" ) )
+    or ( not Attack.act_is_spell( i, "spell_blind" )
+    and not Attack.act_feature( i, "eyeless" ) )
+    or not Attack.act_is_spell( i, "spell_pygmy" ) ) then
+      if Attack.act_applicable( i ) then      -- can receive this attack
+      	 Attack.marktarget( i )                -- select it
+      end
+    end
+  end
+
+  return true
+end
+
+function calccells_enemy_beast()
+  local level = tonumber( Attack.get_custom_param( "level" ) )
+	 local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) )
+  k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+  local caster_count = Attack.act_size( 0 )	-- сколько магов
+	 local caster_name = Attack.act_name( 0 )
+ 	local caster_lead = Attack.act_leadership( 0 )
+ 	local target_lead, target_count = 0, 0
+	
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
+		
+  		if Attack.act_enemy( i ) then 
+			   target_lead = Attack.act_leadership( i )
+			   target_count = Attack.act_size( i )
+		  end 
 	 
-    if Attack.act_enemy(i) and Attack.act_feature(i,"beast") and Attack.act_level(i)<=level  then        -- contains ally
-    	if caster_lead*caster_count*k/100>=target_lead*target_count then
-      	if Attack.act_applicable(i) then      -- can receive this attack
-        	Attack.marktarget(i)            -- select it
-      	end
+    if Attack.act_enemy( i )
+    and Attack.act_feature( i, "beast" )
+    and Attack.act_level( i ) <= level then        -- contains ally
+    	 if caster_lead * caster_count * k / 100 >= target_lead * target_count then
+      	 if Attack.act_applicable( i ) then      -- can receive this attack
+        	 Attack.marktarget( i )            -- select it
+      	 end
       end 
     end
-
   end
-  return true
 
+  return true
 end
 
 function calccells_all_corpse()
@@ -1435,46 +1454,52 @@ function calccells_evilbook()
 end
 
 function calccells_dominator()
-
   local cycle = Attack.get_cycle()
-  local level = tonumber(Attack.get_custom_param("level"))
-	local k=Game.Random(text_range_dec(Attack.get_custom_param("k")))
-  local caster_count=Attack.act_size(0)	-- сколько магов
-	local caster_name=Attack.act_name(0)
-	local caster_lead=tonumber(Attack.act_leadership(0))
-	local target_lead,target_count=0,0
+  local level = tonumber( Attack.get_custom_param( "level" ) )
+	 local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) )
+  k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+  local caster_count = Attack.act_size( 0 )	-- сколько магов
+ 	local caster_name = Attack.act_name( 0 )
+	 local caster_lead = tonumber( Attack.act_leadership( 0 ) )
+ 	local target_lead, target_count = 0, 0
   
   if not Attack.is_computer_move() then 
-		Game.InfoHint("bmsg_dominator_"..(cycle+1))
+		  Game.InfoHint( "bmsg_dominator_" .. ( cycle + 1 ) )
   end 
-
   
-  if (cycle == 0) then -- кого телепортаем
-
+  if ( cycle == 0 ) then -- кого телепортаем
     local acnt = Attack.act_count()
-    for i=1,acnt-1 do                           -- for all actors
-      if Attack.act_level(i)<=level and (Attack.act_enemy(i) or Attack.act_ally(i)) and not Attack.act_feature(i,"mind_immunitet") and not Attack.act_feature(i,"undead") then      
-					target_lead=tonumber(Attack.act_leadership(i))
-					target_count=Attack.act_size(i)
-				if (caster_lead*caster_count*k/100>=target_lead*target_count) then
-        if Attack.act_applicable(i) and Attack.act_ap(i)>0 and not Attack.act_feature(i,"mind_immunitet") then                -- can receive this attack
-          Attack.marktarget(i)                      -- select it
-        end
+
+    for i = 1, acnt - 1 do                           -- for all actors
+      if Attack.act_level( i ) <= level
+      and ( Attack.act_enemy( i )
+      or Attack.act_ally( i ) )
+      and not Attack.act_feature( i, "mind_immunitet" )
+      and not Attack.act_feature( i, "undead" ) then      
+					   target_lead = tonumber( Attack.act_leadership( i ) )
+					   target_count = Attack.act_size( i )
+
+				    if ( caster_lead * caster_count * k / 100 >= target_lead * target_count ) then
+          if Attack.act_applicable( i )
+          and Attack.act_ap( i ) > 0
+          and not Attack.act_feature( i, "mind_immunitet" ) then                -- can receive this attack
+            Attack.marktarget(i)                      -- select it
+          end
         end
       end
     end
 
-  elseif (cycle == 1) then -- в куда телепортаем
-
+  elseif ( cycle == 1 ) then -- в куда телепортаем
     local acnt = Attack.act_count()
-    for i=1,acnt-1 do                           -- for all actors
-      if Attack.act_enemy(i) and not Attack.act_equal(Attack.val_restore("dominator_control"),i) then      -- только своих
-        if Attack.act_applicable(i) then                -- can receive this attack
-          Attack.marktarget(i)                      -- select it
+
+    for i = 1, acnt - 1 do                           -- for all actors
+      if Attack.act_enemy( i )
+      and not Attack.act_equal( Attack.val_restore( "dominator_control" ), i ) then      -- только своих
+        if Attack.act_applicable( i ) then                -- can receive this attack
+          Attack.marktarget( i )                      -- select it
         end
       end
     end
-
   end
 
   return true

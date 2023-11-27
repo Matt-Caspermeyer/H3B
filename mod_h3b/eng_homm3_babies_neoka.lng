@@ -64,7 +64,7 @@ itm_kid_gelare_taken=^?^
 
 //==== kid_josephine
 itm_kid_josephine_name=Josephine
-itm_kid_josephine_hint=^?^[preamble_girl] [s]Antagarich, Bracada, Tower, Alchemist, Mysticism, Sorcery, Stone, Golem, Iron...[/s] [postamble_girl][mysticsm1][sorcery1][sprites1][dryad1]
+itm_kid_josephine_hint=^?^[preamble_girl] [s]Antagarich, Bracada, Tower, Alchemist, Mysticism, Sorcery, Stone, Golem, Iron...[/s] [postamble_girl][mysticism1][sorcery1][sprites1][dryad1]
 itm_kid_josephine_info=^?^[info_girl]
 itm_kid_josephine_mhint=^?^
 itm_kid_josephine_minfo=^?^

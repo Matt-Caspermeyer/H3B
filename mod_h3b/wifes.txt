@@ -1419,6 +1419,7 @@ wife_xeona {
     sp_lead_unit_demon=count,10
     sp_lead_unit_demoness=count,10
     sp_lead_unit_imps=count,10
+    sp_lead_unit_spider_fire=count,10
   }
   propbits=usable,wife
   params {

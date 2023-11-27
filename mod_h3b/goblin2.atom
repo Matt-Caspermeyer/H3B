@@ -5,6 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_goblin2_feat
+  features_hints=tireless_header/tireless_hint
   race=orc
   cost=60
   level=2
@@ -19,9 +20,9 @@ arena_params {
   movetype=0
   realdeath=0
   immove=0
-  hitback=1
+  hitback=2
   hitbackprotect=0
-  attacks=moveattack,run
+  attacks=moveattack,run,throw1
   features=humanoid
   resistances {
     physical=5
@@ -37,18 +38,25 @@ arena_params {
       physical=3,8
     }
   }
-  throw {
-    group=1,2
+  throw1 {
+    dontusenearenemy=1
+    class=throw
+    picture=BA1_throw_axe_
+    picture_small=BA1_throw_axe_small.png
+    hinthead=special_throw_axe_head
+    hint=special_throw_axe_hint
+    moves=1
     showdmg=1
-    base_attack=1
-    distance=4
-    mindist=1
+    distance=6
+    ad_factor=1
+    mindist=2
     penalty=0.5
+    base_attack=0
     animation=cast/throw/thtarget
     throw=goblinaxe
     framekey=x
     damage {
-      physical=1,1
+      physical=3,8
     }
   }
   run {

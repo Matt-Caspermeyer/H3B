@@ -1,0 +1,292 @@
+main {
+  class=chesspiece
+  model=pirat2.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_pirat_feat
+  features_hints=gold_digger_header/gold_digger_hint,sea_header/sea_hint
+  race=neutral
+  cost=100
+  level=3
+  leadership=40
+  attack=18
+  defense=10
+  defenseup=2
+  initiative=5
+  speed=2
+  hitpoint=34
+  movetype=0
+  krit=20
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,triple_attack,run
+  features=humanoid
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=5,7
+    }
+  }
+  triple_attack {
+    class=moveattack
+    hinthead=special_triple_head
+    hint=special_triple_hint
+    moves=8
+    reload=2
+    base_attack=0
+    ad_factor=1
+    picture=BA1_Triple_Attack_
+    picture_small=BA1_Triple_Attack_small.png
+    options=disablerush,used_if_damaged,3in1
+    anim_attack=power
+    damage {
+      physical=5,7
+    }
+  }
+  run {
+    class=scripted
+    moves=1
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2
+    }
+  }  
+  arena_bonuses {
+    1 {
+      logbits=sea
+      moral=2
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=pirat_idle.bsa/fr:25:50
+  rare=pirat_rare.bsa/fr:25:50
+  attack=pirat_attack.bsa/fr:25:50
+  power=pirat_power.bsa/fr:25:50
+  move=pirat_move.bsa/fr:25:50
+  start=pirat_start.bsa/fr:25:50
+  stop=pirat_stop.bsa/fr:25:50
+  clock=pirat_clock.bsa/fr:40:80
+  contra=pirat_contra.bsa/fr:40:80
+  clock2=pirat_2clock.bsa/fr:35:70
+  contra2=pirat_2contra.bsa/fr:35:70
+  lturn=pirat_lturn.bsa/fr:25:50
+  rturn=pirat_rturn.bsa/fr:25:50
+  damage=pirat_damage.bsa/fr:25:50
+  slew=pirat_slew.bsa/fr:35:70
+  rush=pirat_rush.bsa/fr:25:50
+  death=pirat_death.bsa/fr:25:50
+  respawn=pirat_respawn.bsa/fr:25:50
+  cursor=pirat_rare.bsa/fr:25:50
+  teleout=pirat_idle.bsa/fr:25:50/r:40:75
+  telein=pirat_idle.bsa/fr:25:50/r:0:35
+  happy=pirat_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:1:idlemain:1:2:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    13.0?x=
+    0.0=cam
+  }
+  @power {
+    13.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    13.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=pirat_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=pirat_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=pirat_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=pirat_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=pirat_stop
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=pirat_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=pirat_turn
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=pirat_rush
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=pirat_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=pirat_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=pirat_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=pirat_contra2
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=pirat_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=pirat_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=pirat_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=pirat_victory
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=pirat_rare
+      fadetime=60
+    }
+    sound {
+      animation=power
+      frame=0.01
+      file=pirat2_power
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/1.39999998/0/0/-0.17453289/0/0.80000001
+      animation=power
+      frame=8/15
+      file=attack_pirat_whoosh.ptb
+    }
+    particle {
+      trans=0/1.39999998/0/0/-0.17453289/-3.1415925/0.80000013
+      animation=power
+      frame=8/15
+      file=attack_pirat_whoosh.ptb
+    }
+  }
+}
+prefetch {
+  pirat_idle.bsa=file
+  pirat_rare.bsa=file
+  pirat_attack.bsa=file
+  pirat_move.bsa=file
+  pirat_start.bsa=file
+  pirat_stop.bsa=file
+  pirat_clock.bsa=file
+  pirat_contra.bsa=file
+  pirat_2clock.bsa=file
+  pirat_2contra.bsa=file
+  pirat_lturn.bsa=file
+  pirat_rturn.bsa=file
+  pirat_damage.bsa=file
+  pirat_death.bsa=file
+  pirat_respawn.bsa=file
+  pirat_victory.bsa=file
+  pirat_power.bsa=file
+  pirat_rush.bsa=file
+}

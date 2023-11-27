@@ -76,8 +76,10 @@ spell_healing {
     hero=1
     destroyer=1
     healer=1
+    holy=1
     holy_rage=1
     attack=1
+    magic=1
     mana_cost = 2,5,8  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -186,7 +188,7 @@ spell_stone_skin {
 spell_last_hero {
   category=s
   profit=1
-  price=2700
+  price=2800
   icon=s_overtime_last_hero.png
   image=book_spell_last_hero.png
   button_image=book_scroll_last_hero.png
@@ -213,13 +215,13 @@ spell_last_hero {
     level=2,3,4
     type=bonus
     int=1 // if = 1 that intelligence affects the duration of spells
-    mana_cost = 5,9,23  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 5,9,24  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=5,2
     2=9,4
-    3=23,11
+    3=24,12
   }
 }
 
@@ -295,6 +297,7 @@ spell_magic_axe {
     healer=0
     holy_rage=1
     attack=1
+    physical=1
     mana_cost = 3,7,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -556,13 +559,13 @@ spell_gifts {
     duration=0
     int=0 // если =1 то интеллект влияет на длительность заклинания
     level=2,3,4	// at a maximum level beings act
-    mana_cost = 9,20,27  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 14,31,42  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=9,4
-    2=20,10
-    3=27,13
+    1=14,7
+    2=31,15
+    3=42,21
   }
 }
 
@@ -650,6 +653,7 @@ spell_lightning {
     healer=0
     holy_rage=1
     attack=1
+    magic=1
     mana_cost = 14,31,49  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -692,6 +696,7 @@ spell_resurrection {
     hero=1
     destroyer=0
     healer=1
+    holy=1
     holy_rage=1
     attack=0
     mana_cost = 12,24,36  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
@@ -737,6 +742,7 @@ spell_divine_armor {
     hero=1
     destroyer=0
     healer=1
+    holy=1
     holy_rage=1
     attack=0
     defense=1
@@ -788,8 +794,10 @@ spell_holy_rain {
     hero=1
     destroyer=1
     healer=1
+    holy=1
     holy_rage=1
     attack=1
+    magic=1
     mana_cost = 10,22,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1245,6 +1253,7 @@ spell_trap {
     destroyer=1
     healer=0
     attack=1
+    physical=1
     mana_cost = 7,13,19  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1332,6 +1341,7 @@ spell_ghost_sword {
     destroyer=1
     healer=0
     attack=1
+    physical=1
     mana_cost = 4,8,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1377,7 +1387,7 @@ spell_phantom {
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
-    healer=0
+    healer=1
     attack=0
     mana_cost = 20,30,40  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
@@ -1511,7 +1521,7 @@ spell_blind {
 spell_hypnosis {
   category=s
   profit=5
-  price=14700
+  price=16700
   attack=scripted
   icon=s_overtime_hypnosis.png
   image=book_spell_hypnosis.png
@@ -1534,20 +1544,21 @@ spell_hypnosis {
   params {
     duration=1,2,3
     int=1 // если =1 то интеллект влияет на длительность заклинания
-    power=5,10,20
+    power=25,30,35
     level=2,3,4
     type=bonus //это упырьское заклинание, т.к. когда враг под гипнозом - его нужно снимать, т.к. он свой
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
     healer=0
+    glory=1
     attack=0
-    mana_cost = 17,31,51  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 24,37,51  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=17,8
-    2=31,15
+    1=24,12
+    2=37,18
     3=51,25
   }
 }
@@ -1586,6 +1597,7 @@ spell_geyser {
     destroyer=1
     healer=0
     attack=1
+    physical=1
     mana_cost = 15,33,52  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1635,6 +1647,7 @@ spell_fire_arrow {
     destroyer=1
     healer=0
     attack=1
+    fire=1
     mana_cost = 4,10,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1678,6 +1691,7 @@ spell_smile_skull {
     healer=0
     attack=1
     necromancy=1
+    poison=1
     mana_cost = 4,10,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1765,6 +1779,7 @@ spell_oil_fog {
     destroyer=1
     healer=0
     attack=1
+    fire=1
     mana_cost = 3,6,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1941,6 +1956,7 @@ spell_ice_serpent {
     destroyer=1
     healer=0
     attack=1
+    physical=1
     mana_cost = 10,21,31  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -1985,6 +2001,7 @@ spell_fire_ball {
     destroyer=1
     healer=0
     attack=1
+    fire=1
     mana_cost = 10,22,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -2172,6 +2189,7 @@ spell_kamikaze {
     healer=0
     attack=1
     necromancy=1
+    physical=1
     mana_cost = 4,10,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -2301,6 +2319,7 @@ spell_demonologist {
     hero=1
     destroyer=0
     healer=0
+    glory=1
     attack=0
     mana_cost = 14,23,39  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
@@ -2345,6 +2364,7 @@ spell_fire_rain {
     destroyer=1
     healer=0
     attack=1
+    fire=1
     mana_cost = 11,24,38  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
@@ -2445,6 +2465,7 @@ spell_armageddon {
     destroyer=1
     healer=0
     attack=1
+    astral=1
     mana_cost = 23,41,60  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {

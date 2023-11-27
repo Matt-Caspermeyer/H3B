@@ -115,7 +115,11 @@ function get_sp_bonus( spell, bonus_type, ehero_level )
       elseif bonus_type == "typedmg" then
         spell_bonus = 1 + tonumber( Logic.hero_lu_item( "sp_spell_" .. bonus, "count" ) ) / 100
       elseif bonus_type == "healer" then
-        spell_bonus = 1 + ( tonumber( skill_power2( "healer", 1 ) ) + tonumber( hero_item_count2( "sp_spell_holy", "count" ) ) ) / 100
+        spell_bonus = 1 + tonumber( skill_power2( "healer", 1 ) ) / 100
+      elseif bonus_type == "holy" then
+        spell_bonus = 1 + tonumber( hero_item_count2( "sp_spell_holy", "count" ) ) / 100
+      elseif bonus_type == "glory" then
+        spell_bonus = 1 + tonumber( skill_power2( "glory", 3 ) ) / 100
       elseif bonus_type == "holy_rage" then
         spell_bonus = 1 + tonumber( skill_power2( "holy_rage", 3 ) ) / 100
       elseif bonus_type == "necromancy" then
@@ -155,6 +159,8 @@ function get_spell_bonus( spell, text, ehero_level )
   local sp_attack = get_sp_bonus( spell, "attack", ehero_level )
   local sp_defense = get_sp_bonus( spell, "defense", ehero_level )
   local sp_healer = get_sp_bonus( spell, "healer", ehero_level )
+  local sp_holy = get_sp_bonus( spell, "holy", ehero_level )
+  local sp_glory = get_sp_bonus( spell, "glory", ehero_level )
   local sp_holy_rage = get_sp_bonus( spell, "holy_rage", ehero_level )
   local type_damage = Logic.obj_par( spell, "typedmg" )
   local sp_fire, sp_physical, sp_magic, sp_poison, sp_astral, sp_damage = 1, 1, 1, 1, 1
@@ -173,7 +179,7 @@ function get_spell_bonus( spell, text, ehero_level )
 
   local int_power = 1 + ( HInt() * int_pwr( 1, ehero_level ) * get_sp_bonus( spell, "int_pwr", ehero_level ) ) / 100
   local sp_necromancy = get_sp_bonus( spell, "necromancy", ehero_level )
-  local spell_bonus = sp_hero * sp_destroyer * sp_attack * sp_defense * sp_healer * sp_holy_rage * sp_damage * int_power * sp_necromancy
+  local spell_bonus = sp_hero * sp_destroyer * sp_attack * sp_defense * sp_healer * sp_holy * sp_glory * sp_holy_rage * sp_damage * int_power * sp_necromancy
 
   if text ~= nil then
     if sp_hero > 1 then
@@ -190,6 +196,12 @@ function get_spell_bonus( spell, text, ehero_level )
     end
     if sp_healer > 1 then
       bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_healer_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_healer - 1 ) * 100 ) ) )
+    end
+    if sp_holy > 1 then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_holy_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_holy - 1 ) * 100 ) ) )
+    end
+    if sp_glory > 1 then
+      bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_glory_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_glory - 1 ) * 100 ) ) )
     end
     if sp_holy_rage > 1 then
       bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_holy_rage_bonus> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_holy_rage - 1 ) * 100 ) ) )

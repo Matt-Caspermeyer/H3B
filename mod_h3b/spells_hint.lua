@@ -236,32 +236,40 @@ function gen_dmg_evilbook( par )
     text = gen_dmg_common_hint( "plus_power_percent", math.floor( res_bonus ) )
   elseif string.find( par, "krit" ) then
     -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
-    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-    if Logic.hero_lu_item( "sp_kid_aislinn", "count" ) > 0 then
-      text = "<label=spell_krit_summon>" .. gen_dmg_common_hint( "plus_power_percent", 12 )
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
+    local sp_kid_aislinn = Logic.hero_lu_item( "sp_kid_aislinn", "count" )
+
+    if sp_kid_aislinn > 0 then
+      text = "<label=spell_krit_summon>" .. gen_dmg_common_hint( "plus_power_percent", sp_kid_aislinn * 12 )
     else
       text = ""
     end
   elseif string.find( par, "init" ) then
     -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
-    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-    if Logic.hero_lu_item( "sp_kid_aislinn", "count" ) > 0 then
-      text = "<label=spell_init_summon>" .. gen_dmg_common_hint( "plus_power", 1 )
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
+    local sp_kid_aislinn = Logic.hero_lu_item( "sp_kid_aislinn", "count" )
+
+    if sp_kid_aislinn > 0 then
+      text = "<label=spell_init_summon>" .. gen_dmg_common_hint( "plus_power", sp_kid_aislinn )
     else
       text = ""
     end
   elseif string.find( par, "speed" ) then
     -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
-    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-    if Logic.hero_lu_item( "sp_kid_aislinn", "count" ) > 0 then
-      text = "<label=spell_speed_summon>" .. gen_dmg_common_hint( "plus_power", 1 )
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
+    local sp_kid_aislinn = Logic.hero_lu_item( "sp_kid_aislinn", "count" )
+
+    if sp_kid_aislinn > 0 then
+      text = "<label=spell_speed_summon>" .. gen_dmg_common_hint( "plus_power", sp_kid_aislinn )
     else
       text = ""
     end
   elseif string.find( par, "unlimited_retaliation" ) then
     -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
-    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-    if Logic.hero_lu_item( "sp_kid_aislinn", "count" ) > 0 then
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
+    local sp_kid_aislinn = Logic.hero_lu_item( "sp_kid_aislinn", "count" )
+
+    if sp_kid_aislinn > 0 then
       text = "<label=spell_unlimited_retaliation_summon>"
     else
       text = ""
@@ -292,9 +300,11 @@ function gen_dmg_phoenix( par )
   elseif string.find( par, "krit" ) then
     local power = 0
     -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
-    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-    if Logic.hero_lu_item( "sp_kid_luna", "count" ) > 0 then
-      power = 20
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
+    local sp_kid_luna = Logic.hero_lu_item( "sp_kid_luna", "count" )
+
+    if sp_kid_luna > 0 then
+      power = 20 * sp_kid_luna
     end
 
     if skill_power2( "holy_rage", 3 ) > 0 then
@@ -309,6 +319,14 @@ function gen_dmg_phoenix( par )
   elseif string.find( par, "init" ) then
     local power = 0
 
+    -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
+    local sp_kid_luna = Logic.hero_lu_item( "sp_kid_luna", "count" )
+
+    if sp_kid_luna > 0 then
+      power = sp_kid_luna
+    end
+
     if skill_power2( "holy_rage", 2 ) > 0 then
       power = power + skill_power2( "holy_rage", 2 )
     end
@@ -321,9 +339,11 @@ function gen_dmg_phoenix( par )
   elseif string.find( par, "speed" ) then
     local power = 0
     -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
-    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-    if Logic.hero_lu_item( "sp_kid_luna", "count" ) > 0 then
-      power = 1
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
+    local sp_kid_luna = Logic.hero_lu_item( "sp_kid_luna", "count" )
+
+    if sp_kid_luna > 0 then
+      power = sp_kid_luna
     end
 
     if skill_power2( "holy_rage", 2 ) > 0 then
@@ -337,7 +357,7 @@ function gen_dmg_phoenix( par )
     end
   elseif string.find( par, "unlimited_retaliation" ) then
     -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
-    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
+    -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to the bonus multiple
     if Logic.hero_lu_item( "sp_kid_luna", "count" ) > 0 then
       text = "<label=spell_unlimited_retaliation_summon>"
     else

@@ -1,0 +1,273 @@
+main {
+  class=chesspiece
+  model=footman.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_footman_feat
+  features_hints=armor_header/armor_hint
+  race=human
+  cost=70
+  level=2
+  leadership=35
+  attack=10
+  defense=16
+  defenseup=4
+  initiative=3
+  speed=3
+  hitpoint=32
+  krit=8
+  movetype=0
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,moveattack2
+  features=armor,humanoid
+  resistances {
+    physical=20
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=4,5
+    }
+  }
+  moveattack2 {
+    class=moveattack
+    hinthead=special_footman_head
+    hint=special_footman_hint
+    moves=5
+    reload=3
+    base_attack=0
+    require_skill=traning:1
+    ad_factor=1
+    options=disablerush,used_if_damaged
+    anim_attack=power
+    picture=ba1_doublestrike_
+    picture_small=ba1_doublestrike_small.png
+    damage {
+      physical=6,9
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=footman_idle.bsa/fr:25:50
+  rare=footman_rare.bsa/fr:25:50
+  attack=footman_attack.bsa/fr:20:40
+  power=footman_power.bsa/fr:25:50
+  move=footman_move.bsa/fr:30:60
+  start=footman_start.bsa/fr:30:60
+  stop=footman_stop.bsa/fr:30:60
+  clock=footman_clock.bsa/fr:40:80
+  contra=footman_contra.bsa/fr:40:80
+  clock2=footman_2clock.bsa/fr:40:80
+  contra2=footman_2contra.bsa/fr:40:80
+  lturn=footman_lturn.bsa/fr:30:60
+  rturn=footman_rturn.bsa/fr:30:60
+  damage=footman_damage.bsa/fr:20:40
+  slew=footman_slew.bsa/fr:35:70
+  rush=footman_rush.bsa/fr:25:50
+  death=footman_death.bsa/fr:25:50
+  respawn=footman_respawn.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  happy=footman_victory.bsa/fr:25:50
+  teleout=footman_idle.bsa/fr:25:50/r:35:70
+  telein=footman_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  @attack {
+    11.0?x=
+    0.0=cam
+  }
+  @power {
+    28.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    12.0?x=
+    0.0=cam
+  }
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=5
+    particle {
+      trans=0/0.3704834/0/1.57000005/-0.00000001/-1.57000005/0.5
+      animation=power
+      frame=10/29
+      restart=true
+      file=attack_knight_sword.ptb
+    }
+    particle {
+      trans=0/0.3704834/0/0.27151459/0/-1.57000005/0.5
+      animation=power
+      frame=10/29
+      restart=true
+      file=attack_knight_sword.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/1.60000002/0/-0.34907651/0/2.13319206/1
+      animation=power
+      frame=24/59
+      restart=true
+      file=attack_footman_whoosh.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=footman_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=footman_attack
+      fadetime=60
+    }
+    sound {
+      animation=power
+      frame=0.01
+      file=footman_power
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=footman_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=footman_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=footman_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=footman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=footman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=footman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=footman_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=footman_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=footman_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=footman_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=footman_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=footman_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=footman_death
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  footman_idle.bsa=file
+  footman_rare.bsa=file
+  footman_attack.bsa=file
+  footman_move.bsa=file
+  footman_start.bsa=file
+  footman_stop.bsa=file
+  footman_clock.bsa=file
+  footman_contra.bsa=file
+  footman_2clock.bsa=file
+  footman_2contra.bsa=file
+  footman_lturn.bsa=file
+  footman_rturn.bsa=file
+  footman_damage.bsa=file
+  footman_death.bsa=file
+  footman_respawn.bsa=file
+  footman_victory.bsa=file
+  footman_power.bsa=file
+  footman_rush.bsa=file
+}

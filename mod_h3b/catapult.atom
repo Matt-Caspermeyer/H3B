@@ -21,7 +21,7 @@ arena_params {
   krit=10
   hitback=1
   hitbackprotect=0
-  attacks=moveattack,throw,siegegun,firethrow
+  attacks=moveattack,throw,siegegun,firethrow,boiling_oil
   features=shot,humanoid
   posthitmaster=features_burn
   resistances {
@@ -92,6 +92,7 @@ arena_params {
     ad_factor=1
     base_attack=0
     mindist=2
+    moves=5
     reload=3
     penalty=0.5
     animation=firecast/throw/thtarget
@@ -106,6 +107,34 @@ arena_params {
     }
     custom_params {
       burn=50
+    }
+  }
+  boiling_oil {
+    dontusenearenemy=1
+    device=firecatapult
+    class=throw
+    picture=BA1_boilingoil_
+    picture_small=BA1_boilingoil_small.png
+    distance=50
+    ad_factor=1
+    base_attack=0
+    mindist=2
+    moves=5
+    reload=3
+    penalty=0.5
+    animation=firecast/throw/thtarget
+    throw=catapultfireball
+    hinthead=special_boilingoil_head
+    hint=special_boilingoil_hint
+    framekey=x
+    7in1=0.5
+    friendly_fire=1
+    damage {
+      fire=3,5
+    }
+    custom_params {
+      burn=100
+      res=-20
     }
   }
 }

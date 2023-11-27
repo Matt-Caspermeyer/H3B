@@ -1,0 +1,407 @@
+main {
+  class=chesspiece
+  model=demoness.bma
+}
+arena_params {
+  features_label=cpi_demoness_feat
+  features_hints=demon_header/demon_hint,beauty_header/beauty_hint
+  race=demon
+  cost=400
+  level=4
+  leadership=160
+  attack=26
+  defense=24
+  defenseup=4
+  initiative=6
+  speed=2
+  hitpoint=80
+  movetype=0
+  krit=15
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,longattack,charm,change
+  features=demon,beauty
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=50
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=10,18
+    }
+  }
+  longattack {
+    class=scripted
+    moves=10
+    reload=2
+    hinthead=special_demoness_long_head
+    hint=special_demoness_long_hint
+    picture=BA1_Demoness_Longattack_
+    picture_small=BA1_Demoness_Longattack_small.png
+    ad_factor=1
+    warning=sw_long
+    script_attack=special_long_hit
+    script_calccells=calccells_enemy_longhit
+    attack_cursor=attack
+    damage {
+      physical=10,18
+    }
+  }
+  charm {
+    class=scripted
+    hinthead=special_demoness_charm_head
+    hint=special_demoness_charm_hint
+    picture=BA1_Seduction_
+    picture_small=BA1_Seduction_small.png
+    ad_factor=1
+    warning=sw_charm
+    moves=7
+    reload=3
+    script_attack=special_demoness_charm
+    script_calccells=calccells_all_enemy_around2
+    attack_cursor=magicstick
+    features=humanoid
+    nfeatures=undead,magic_immunitet,boss,pawn
+    damage {
+      physical=10,18
+    }
+    custom_params {
+      duration=2
+      k=80-80
+    }
+  }
+  change {
+    class=scripted
+    moves=5
+    reload=4
+    no_hint=1
+    log_label=null
+    nfeatures=magic_immunitet,boss,pawn
+    script_attack=special_change_place
+    script_calccells=calccells_change_place
+    attack_cursor=magicstick
+    picture=BA1_Change_
+    picture_small=BA1_Change_small.png
+    hinthead=special_change_head
+    hint=special_change_hint
+  }  
+  arena_bonuses {
+    1 {
+      logbits=lava
+      defense=50%
+    }
+    2 {
+      logbits=winter
+      defense=-50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=demoness_idle.bsa/fr:25:50
+  rare=demoness_rare.bsa/fr:25:50
+  attack=demoness_cast.bsa/fr:25:50
+  longattack=demoness_attack.bsa/fr:25:50
+  move=demoness_move.bsa/fr:16:32
+  start=demoness_start.bsa/fr:16:32
+  stop=demoness_stop.bsa/fr:16:32
+  clock=demoness_clock.bsa/fr:25:50
+  contra=demoness_contra.bsa/fr:25:50
+  clock2=demoness_2clock.bsa/fr:25:50
+  contra2=demoness_2contra.bsa/fr:25:50
+  lturn=demoness_lturn.bsa/fr:16:32
+  rturn=demoness_rturn.bsa/fr:16:32
+  damage=demoness_damage.bsa/fr:25:50
+  slew=demoness_slew.bsa/fr:25:50
+  death=demoness_death.bsa/fr:25:50
+  respawn=demoness_respawn.bsa/fr:25:50
+  cursor=/fwd:1:rare
+  teleout=demoness_idle.bsa/fr:25:50/r:30:65
+  telein=demoness_idle.bsa/fr:25:50/r:0:35
+  happy=demoness_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:idlemain
+  special=demoness_special.bsa/fr:25:50
+  castmagic=demoness_castmagic.bsa/fr:25:50
+  avoid=demoness_avoid.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    13.0?x=
+    0.0=cam
+  }
+  @special {
+    54.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @longattack {
+    32.0?x=
+    0.0=cam
+  }
+  @castmagic {
+    36.0?x=
+    0.0=cam
+  }
+  @avoid {
+    15.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/1.20000005/-0.61737061/0/-0/0/0.80000001
+      animation=attack
+      frame=10/22
+      file=attack_demoness_whoosh.ptb
+    }
+    particle {
+      trans=-0.80000001/1.11000001/-1.79999995/0.46546736/-0/0/1
+      animation=attack
+      frame=12/14
+      file=attack_demoness_bang.ptb
+    }
+    particle {
+      trans=-0.5/1.11000001/-2/0.3102476/-0/0/0.99999982
+      animation=attack
+      frame=12/15
+      file=attack_demoness_bang.ptb
+    }
+    particle {
+      trans=0/1.11000001/-2.22000003/-0.15512419/-0/0/1
+      animation=attack
+      frame=12/16
+      file=attack_demoness_bang.ptb
+    }
+    particle {
+      trans=0.5/1.11000001/-1.85180664/-0.3102479/-0/0/1
+      animation=attack
+      frame=13/17
+      file=attack_demoness_bang.ptb
+    }
+    particle {
+      trans=0.80000001/1.11000001/-1.79999995/-0.62059116/-0/0/1
+      animation=attack
+      frame=14/18
+      file=attack_demoness_bang.ptb
+    }
+    particle {
+      trans=0/1.20000005/-1.5/0/-0/-3.1415925/0.80000001
+      animation=longattack
+      frame=28/33
+      file=attack_demoness_whoosh.ptb
+    }
+    particle {
+      trans=0/1.11000001/-3.20000005/-2.79251623/-0/0/1
+      animation=longattack
+      frame=30/33
+      file=attack_demoness_bang.ptb
+    }
+    particle {
+      trans=0/1.60000002/-0.89999998/0/-0/0/0.80000001
+      animation=castmagic
+      frame=5/44
+      file=cast_demoness_twirl.ptb
+    }
+    particle {
+      trans=0/1.55999994/-0.80000001/0/1.57079637/0/0.80000001
+      animation=castmagic
+      frame=11/33
+      file=death_wave.ptb
+    }
+  }
+  0 {
+    particle {
+      animation=castmagic
+      frame=2/41
+      file=cast_demoness_tail.ptb
+    }
+    particle {
+      animation=castmagic
+      frame=11/30
+      file=cast_demoness_star.ptb
+    }
+    slot=0
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=demoness_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=demoness_move
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=demoness_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=demoness_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=demoness_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=demoness_contra2
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=demoness_slew
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=demoness_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=demoness_stop
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=demoness_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=demoness_rturn
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=demoness_attack
+      fadetime=60
+    }
+    sound {
+      animation=longattack
+      frame=0.01
+      file=demoness_longattack
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=demoness_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=demoness_death
+      fadetime=60
+    }
+    sound {
+      animation=respawn
+      frame=0.01
+      file=demoness_respawn
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=demoness_happy
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=demoness_special
+      fadetime=60
+    }
+    sound {
+      animation=castmagic
+      frame=0.01
+      file=demoness_castmagic
+      fadetime=60
+    }
+    sound {
+      animation=avoid
+      frame=0.01
+      file=demoness_avoid
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  demoness_idle.bsa=file
+  demoness_rare.bsa=file
+  demoness_attack.bsa=file
+  demoness_move.bsa=file
+  demoness_start.bsa=file
+  demoness_stop.bsa=file
+  demoness_clock.bsa=file
+  demoness_contra.bsa=file
+  demoness_2clock.bsa=file
+  demoness_2contra.bsa=file
+  demoness_lturn.bsa=file
+  demoness_rturn.bsa=file
+  demoness_damage.bsa=file
+  demoness_death.bsa=file
+  demoness_respawn.bsa=file
+  demoness_victory.bsa=file
+ 
+  demoness_cast.bsa=file
+  demoness_special.bsa=file
+  demoness_avoid.bsa=file
+  demoness_castmagic.bsa=file
+
+}

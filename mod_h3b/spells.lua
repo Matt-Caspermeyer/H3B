@@ -109,10 +109,12 @@ function summon_bonus( unit, spell, text, ehero_level )
     if spell == "spell_phoenix" then
       -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
       -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-      if Logic.hero_lu_item( "sp_kid_luna", "count" ) > 0 then
-        sp_kid = 1.20
-        sp_kid_speed = 1
-        sp_kid_init = 1
+      local sp_kid_luna = Logic.hero_lu_item( "sp_kid_luna", "count" )
+
+      if sp_kid_luna > 0 then
+        sp_kid = 1 + sp_kid_luna * 0.20
+        sp_kid_speed = sp_kid_luna
+        sp_kid_init = sp_kid_luna
         sp_kid_ur = true
       end
 
@@ -121,10 +123,12 @@ function summon_bonus( unit, spell, text, ehero_level )
     elseif spell == "spell_evilbook" then
       -- Note that hero_lu_item_on_body does not work properly so sp_kid_... was added to
       -- SPECIAL_PARAMS.TXT as a work-around and the count for the child set to 1
-      if Logic.hero_lu_item( "sp_kid_aislinn", "count" ) > 0 then
-        sp_kid = 1.12
-        sp_kid_speed = 1
-        sp_kid_init = 1
+      local sp_kid_aislinn = Logic.hero_lu_item( "sp_kid_aislinn", "count" )
+
+      if sp_kid_aislinn > 0 then
+        sp_kid = 1 + sp_kid_aislinn * 0.12
+        sp_kid_speed = sp_kid_aislinn
+        sp_kid_init = sp_kid_aislinn
         sp_kid_ur = true
       end
     end
@@ -226,7 +230,7 @@ function summon_bonus( unit, spell, text, ehero_level )
         bonus_string = bonus_string .. "<br>" .. "<label=spell_item_base_attack_summon> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_kid - 1 ) * 100 ) ) )
       end
       if sp_kid > 1 then
-        bonus_string = bonus_string .. "<br>" .. "<label=spell_item_krit_summon> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_kid - 1 ) * 100 ) ) )
+        bonus_string = bonus_string .. "<br>" .. "<label=spell_item_krit_summon> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_kid - 1 ) * 200 ) ) )
       end
       if sp_kid_speed > 0 then
         bonus_string = bonus_string .. "<br>" .. "<label=spell_item_speed_summon> " .. gen_dmg_common_hint( "plus_power", tostring( round( sp_kid_speed ) ) )
@@ -2038,11 +2042,13 @@ end
 -- ***********************************************
 -- * Defenseless
 -- ***********************************************
-function spell_defenseless_attack( lvl, dmgts )
+function spell_defenseless_attack( lvl, dmgts, target )
  	if dmgts == nil then dmgts = 0 end
 
   local level = common_get_spell_level( lvl )
-  local target = Attack.get_target()
+
+  if target == nil then target = Attack.get_target() end
+
   local ehero_level
 
   if Attack.act_belligerent() == 4 then
@@ -2218,10 +2224,10 @@ end
 -- * Pygmy
 -- ***********************************************
 
-function spell_pygmy_attack( lvl, dmgts )
+function spell_pygmy_attack( lvl, dmgts, target )
  	if dmgts == nil then dmgts = 0 end
 
-  local target = Attack.get_target()
+  if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
    	local level = common_get_spell_level( lvl )
@@ -2232,6 +2238,12 @@ function spell_pygmy_attack( lvl, dmgts )
     end
 
     local duration = int_dur( "spell_pygmy", level, "sp_duration_pygmy" )
+    local unit_level = Attack.act_level( target )
+
+    if unit_level > 4 then
+      duration = math.max( duration - 2, 1 )
+    end
+
     local penalty = pwr_pygmy( level, ehero_level )
     local health = Attack.act_get_par( target,"health" )
     local cur_health = Attack.act_hp( target )
@@ -2258,10 +2270,10 @@ end
 -- ***********************************************
 -- * Blind
 -- ***********************************************
-function spell_blind_attack( lvl, dmgts )
+function spell_blind_attack( lvl, dmgts, target )
  	if dmgts == nil then dmgts = 0 end
 
-  local target = Attack.get_target()
+  if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
    	local level = common_get_spell_level( lvl )
@@ -2272,6 +2284,12 @@ function spell_blind_attack( lvl, dmgts )
     end
 
     local duration = int_dur( "spell_blind", level, "sp_duration_blind" )
+    local unit_level = Attack.act_level( target )
+
+    if unit_level > 4 then
+      duration = math.max( duration - 2, 1 )
+    end
+
     Attack.act_apply_spell_begin( target, "spell_blind", duration, true )
     Attack.act_skipmove( target, duration )
     Attack.act_apply_spell_end()
@@ -2817,7 +2835,7 @@ end
 -- * Ram
 -- ***********************************************
 
-function spell_ram_attack( lvl, dmgts, target )
+function spell_ram_attack( lvl, dmgts, target, nolog )
  	if dmgts == nil then dmgts = 0 end
 
   if target == nil then target = Attack.get_target() end
@@ -2831,6 +2849,12 @@ function spell_ram_attack( lvl, dmgts, target )
     end
 
    	local duration = int_dur( "spell_ram", level, "sp_duration_ram" )
+    local unit_level = Attack.act_level( target )
+
+    if unit_level > 4 then
+      duration = math.max( duration - 2, 1 )
+    end
+
     takeoff_spells( target, "penalty" )
     takeoff_spells( target, "bonus" )
 --		  Attack.act_del_spell( target )
@@ -2847,7 +2871,10 @@ function spell_ram_attack( lvl, dmgts, target )
    	Attack.atom_spawn( target, 0, "magic_ram" )
     Attack.atom_spawn( target, l - Attack.aseq_time( "magic_ram", "x" ), "magic_ram", Attack.angleto( target ) )
    	Attack.act_fadeout( target, l, l*2, 1 )
-   	Attack.log_label( "add_blog_sram" )
+
+    if nolog == nil then
+     	Attack.log_label( "add_blog_sram" )
+    end
   end
 
   return true

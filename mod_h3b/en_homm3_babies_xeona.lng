@@ -64,7 +64,7 @@ itm_kid_calid_taken=^?^
 
 //==== kid_xyron
 itm_kid_xyron_name=Xyron
-itm_kid_xyron_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Efreet, Wisdom, Scholar...[/s] [postamble_boy][wisdom1][scholar1][fire_arrow_rain1]
+itm_kid_xyron_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Efreet, Wisdom, Scholar...[/s] [postamble_boy][wisdom1][scholar1][fire_arrow_ball_rain1]
 itm_kid_xyron_info=^?^[info_boy]
 itm_kid_xyron_mhint=^?^
 itm_kid_xyron_minfo=^?^
@@ -128,7 +128,7 @@ itm_kid_olema_taken=^?^
 
 //==== kid_xarfax
 itm_kid_xarfax_name=Xarfax
-itm_kid_xarfax_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Leadership, Fireball, Erathia...[/s] [postamble_boy][wisdom1][leadership1][fire_arrow_ball1]
+itm_kid_xarfax_hint=^?^[preamble_boy] [s]Antagarich, Kreegan, Eeofol, Inferno, Heretic, Wisdom, Leadership, Fireball, Erathia...[/s] [postamble_boy][wisdom1][leadership1][fire_ball1]
 itm_kid_xarfax_info=^?^[info_boy]
 itm_kid_xarfax_mhint=^?^
 itm_kid_xarfax_minfo=^?^
@@ -144,7 +144,7 @@ itm_kid_luna_taken=^?^
 
 //==== kid_inteus
 itm_kid_inteus_name=Inteus
-itm_kid_inteus_hint=^?^[preamble_boy] [s]Antagarich, Erathia, Conflux, Elementalist, Wisdom, Fire, Magic, Bloodlust...[/s] [postamble_boy][wisdom1][fire_magic1][berserker1]
+itm_kid_inteus_hint=^?^[preamble_boy] [s]Antagarich, Erathia, Conflux, Elementalist, Wisdom, Fire, Magic, Bloodlust...[/s] [postamble_boy][wisdom1][fire_magic1][fire_rain1]
 itm_kid_inteus_info=^?^[info_boy]
 itm_kid_inteus_mhint=^?^
 itm_kid_inteus_minfo=^?^

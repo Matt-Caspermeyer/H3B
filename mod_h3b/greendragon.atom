@@ -63,6 +63,7 @@ arena_params {
     script_calccells=calccells_capture
     picture=BA1_Capture_
     picture_small=BA1_Capture_small.png
+    moves=8
     reload=3
     nfeatures=boss,pawn
     hinthead=special_dragon_capture_head
@@ -80,6 +81,7 @@ arena_params {
     anim_attack=cast
     picture=BA1_Mana_Source_
     picture_small=BA1_Mana_Source_small.png
+    moves=6
     reload=4
     hinthead=special_mana_source_head
     hint=special_mana_source_hint

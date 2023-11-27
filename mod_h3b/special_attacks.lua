@@ -291,108 +291,106 @@ function special_shaman_spirit_dance_attack()
   damage = damage + titan_energy
 
   if not Attack.act_feature( target, "pawn" ) then --здоровье пьем только из живых
-    local function check_cure( i )
-  	   return Attack.act_ally( i )
-      and Attack.act_need_cure( i )
-      and not Attack.act_feature( i,"pawn" )
-      and not Attack.act_temporary( i )
-      and not Attack.act_race( i ) == "orc"
-    end
-
-    local function check_res( i )
-  	   return Attack.act_ally( i )
-      and Attack.cell_need_resurrect( i )
-      and not Attack.act_feature( i,"pawn" )
-      and not Attack.act_temporary( i )
-      and Attack.act_race( i ) == "orc"
-    end
-
-    local function check_dam( i, t )
-  	   return Attack.act_enemy( i )
-      and not Attack.act_feature( i,"pawn" )
-      and not Attack.act_equal( i, t )
-    end
-
-    -- считаем сколько юнитов нужно лечить
-    local acnt = Attack.act_count()
-    local need_cure, need_res = 0, 0
-
-    for i = 1, acnt - 1 do
-      if check_res( i ) then
-        need_res = need_res + 1
+    if not Attack.act_feature( target, "undead" )
+    and not Attack.act_feature( target, "golem" )
+    and not Attack.act_feature( target, "plant" ) then
+      local function check_cure( i )
+    	   return Attack.act_ally( i )
+        and Attack.act_need_cure( i )
+        and not Attack.act_feature( i,"pawn" )
+        and not Attack.act_temporary( i )
+        and Attack.act_race( i ) ~= "orc"
       end
-    end
+  
+      local function check_res( i )
+    	   return Attack.act_ally( i )
+        and Attack.cell_need_resurrect( i )
+        and not Attack.act_feature( i,"pawn,plant,undead,golem" )
+        and not Attack.act_temporary( i )
+        and Attack.act_race( i ) == "orc"
+      end
 
-    if need_res > 0 then
-      local res = math.ceil( damage / need_res * power / 100 )
-      damage = 0
+      -- считаем сколько юнитов нужно лечить
+      local acnt = Attack.act_count()
+      local need_cure, need_res = 0, 0
   
       for i = 1, acnt - 1 do
         if check_res( i ) then
-          local initsize = Attack.act_initsize( i )
-          local health = Attack.act_get_par( i, "health" )
-          local inithp = initsize * health
-          local totalhp = Attack.act_totalhp( i )
-          local newhp = totalhp + res
-          local excess_hp = newhp - inithp
-          local oldsize = Attack.act_size( i )
-      
-          if excess_hp > 0 then
-            damage = damage + excess_hp
-          end
-      
-          local a = Attack.atom_spawn( i, dmgt, "hll_priest_resur_cast" )
-          local dmgts = Attack.aseq_time( a, "x" )
-          Attack.cell_resurrect( i, res, dmgt + dmgts )
-          local newsize = Attack.act_size( i )
-          local res_units = newsize - oldsize
-      
-          if res_units > 1 then
-            Attack.log( dmgt + 0.1, "add_blog_res_2", "target", blog_side_unit( i, 0 ), "special", res_units )
-          elseif res_units > 0 then
-            Attack.log( dmgt + 0.1, "add_blog_res_1", "target", blog_side_unit( i, 0 ), "special", res_units )
-          else
-            if oldsize > 1 then
-              Attack.log( dmgt + 0.1, "add_blog_cure_2", "target", blog_side_unit( i, 0 ), "special", res )
+          need_res = need_res + 1
+        end
+      end
+
+      if need_res > 0 then
+        local res = math.ceil( damage / need_res * power / 100 )
+        damage = 0
+    
+        for i = 1, acnt - 1 do
+          if check_res( i ) then
+            local initsize = Attack.act_initsize( i )
+            local health = Attack.act_get_par( i, "health" )
+            local inithp = initsize * health
+            local totalhp = Attack.act_totalhp( i )
+            local newhp = totalhp + res
+            local excess_hp = newhp - inithp
+            local oldsize = Attack.act_size( i )
+        
+            if excess_hp > 0 then
+              damage = damage + excess_hp
+            end
+        
+            local a = Attack.atom_spawn( i, dmgt, "hll_priest_resur_cast" )
+            local dmgts = Attack.aseq_time( a, "x" )
+            Attack.cell_resurrect( i, res, dmgt + dmgts )
+            local newsize = Attack.act_size( i )
+            local res_units = newsize - oldsize
+        
+            if res_units > 1 then
+              Attack.log( dmgt + 0.1, "add_blog_res_2", "target", blog_side_unit( i, 0 ), "special", res_units )
+            elseif res_units > 0 then
+              Attack.log( dmgt + 0.1, "add_blog_res_1", "target", blog_side_unit( i, 0 ), "special", res_units )
             else
-              Attack.log( dmgt + 0.1, "add_blog_cure_1", "target", blog_side_unit( i, 0 ), "special", res )
+              if oldsize > 1 then
+                Attack.log( dmgt + 0.1, "add_blog_cure_2", "target", blog_side_unit( i, 0 ), "special", res )
+              else
+                Attack.log( dmgt + 0.1, "add_blog_cure_1", "target", blog_side_unit( i, 0 ), "special", res )
+              end
             end
           end
         end
       end
-    end
-
-    if damage > 0 then
-      for i = 1, acnt - 1 do
-        if check_cure( i ) then need_cure = need_cure + 1 end
-      end
   
-      if need_cure > 0 then
-        -- пересчитываем урон в лечилку
-        local cure = math.ceil( damage / need_cure * power / 100 )
-        damage = 0
-    
-        --лечим
+      if damage > 0 then
         for i = 1, acnt - 1 do
-          if check_cure( i ) then
-            local max_hp = Attack.act_get_par( i, "health" )
-            local cure_hp = cure
-            local cur_hp = Attack.act_hp( i )
-            local need_cure_hp = max_hp - cur_hp
+          if check_cure( i ) then need_cure = need_cure + 1 end
+        end
     
-            if cure_hp > need_cure_hp then
-              damage = damage + ( cure_hp - need_cure_hp )
-              cure_hp = max_hp - cur_hp
-            end
-    
-            local a = Attack.atom_spawn( i, dmgt, "effect_total_cure" )
-            local dmgts = Attack.aseq_time( a, "x" )
-            Attack.act_cure( i, cure_hp, dmgt + dmgts )
-    
-            if Attack.act_size( i ) > 1 then
-              Attack.log( dmgt + 0.2, "add_blog_cure_2", "target", blog_side_unit( i, 0 ), "special", cure_hp )
-            else
-              Attack.log( dmgt + 0.2, "add_blog_cure_1", "target", blog_side_unit( i, 0 ), "special", cure_hp )
+        if need_cure > 0 then
+          -- пересчитываем урон в лечилку
+          local cure = math.ceil( damage / need_cure * power / 100 )
+          damage = 0
+      
+          --лечим
+          for i = 1, acnt - 1 do
+            if check_cure( i ) then
+              local max_hp = Attack.act_get_par( i, "health" )
+              local cure_hp = cure
+              local cur_hp = Attack.act_hp( i )
+              local need_cure_hp = max_hp - cur_hp
+      
+              if cure_hp > need_cure_hp then
+                damage = damage + ( cure_hp - need_cure_hp )
+                cure_hp = max_hp - cur_hp
+              end
+      
+              local a = Attack.atom_spawn( i, dmgt, "effect_total_cure" )
+              local dmgts = Attack.aseq_time( a, "x" )
+              Attack.act_cure( i, cure_hp, dmgt + dmgts )
+      
+              if Attack.act_size( i ) > 1 then
+                Attack.log( dmgt + 0.2, "add_blog_cure_2", "target", blog_side_unit( i, 0 ), "special", cure_hp )
+              else
+                Attack.log( dmgt + 0.2, "add_blog_cure_1", "target", blog_side_unit( i, 0 ), "special", cure_hp )
+              end
             end
           end
         end
@@ -1033,6 +1031,7 @@ function special_cast_thorn()
   if nearest_enemy ~= nil then ang_to_enemy = Attack.angleto(target, nearest_enemy) end
 
   local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) )
+  k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
   local summoner_count = Attack.act_size( 0 )
   local summoner_name = Attack.act_name( 0 )
   local summoner_lead = Attack.atom_getpar( summoner_name, "leadership" )
@@ -1151,8 +1150,7 @@ function special_cast_thorn_sacrifice()
   end
 
   Attack.act_kill( 0, true, false )
-  -- Need to set the cell as passable, otherwise next unit might not be able to move there
-	 Attack.cell_passability( 0, 0 )
+  Attack.act_remove( 0, 4 )
   Attack.log_label( "null" )
 
   if add_count > 0 then
@@ -1238,6 +1236,7 @@ function special_cast_bear()
   if nearest_enemy ~= nil then ang_to_enemy = Attack.angleto( target, nearest_enemy ) end
 
   local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) )
+  k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
   local summoner_count = Attack.act_size( 0 )
   local summoner_name = Attack.act_name( 0 )
   local summoner_lead = Attack.atom_getpar( summoner_name, "leadership" )
@@ -1643,43 +1642,42 @@ end
 -- ***********************************************
 
 function special_demoness_charm()
-
   local target = Attack.get_target()
+  Attack.aseq_rotate( 0, target )
+  Attack.act_aseq( 0, "special" )
+  local dmgts = Attack.aseq_time( 0, "x" )
+  local k = text_range_dec( Attack.get_custom_param( "k" ) )  --коэф.
+  k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+  local duration = tonumber( Attack.get_custom_param( "duration" ) )  --коэф.
+  local demon_count = Attack.act_size( 0 )  -- сколько магов
+  local demon_name = Attack.act_name( 0 )
+  --лидерство магов и цели
+  local demon_lead = Attack.atom_getpar( demon_name, "leadership" )
+  local target_lead = Attack.act_leadership( target )
+  local target_count = Attack.act_size( target )
 
-    Attack.aseq_rotate(0,target)
-    Attack.act_aseq( 0, "special" )
-    local dmgts = Attack.aseq_time(0, "x")
-
-    local k=text_range_dec(Attack.get_custom_param("k"))  --коэф.
-    local duration=tonumber(Attack.get_custom_param("duration"))  --коэф.
-
-    local demon_count=Attack.act_size(0)  -- сколько магов
-    local demon_name=Attack.act_name(0)
-    --лидерство магов и цели
-    local demon_lead=Attack.atom_getpar(demon_name,"leadership")
-    local target_lead=Attack.act_leadership(target)
-    local target_count=Attack.act_size(target)
-    -- сколько можно соблазнить по лидерству
-    if demon_lead*demon_count*k/100>target_lead*target_count and Attack.act_level(target)<5 and effect_charm_attack(target,dmgts ,duration) then
-      Attack.log_label("charm_")
+  -- сколько можно соблазнить по лидерству
+  if demon_lead * demon_count * k / 100 > target_lead * target_count
+  and Attack.act_level( target ) < 5
+  and effect_charm_attack( target, dmgts, duration ) then
+    Attack.log_label( "charm_" )
+  else
+    if Attack.cell_dist( 0, target ) == 1 then
+      Attack.act_aseq( 0, "attack" )
     else
-      if Attack.cell_dist(0,target)==1 then
-        Attack.act_aseq( 0, "attack" )
-      else
-        Attack.act_aseq( 0, "longattack" )
-      end
-      local dmgts1 = Attack.aseq_time(0, "x")
-
-      --local dmg_min,dmg_max = text_range_dec(Attack.get_custom_param("damage"))
-      --local typedmg=Attack.get_custom_param("typedmg")
-      --Attack.atk_set_damage(typedmg,dmg_min,dmg_max)
-
-      common_cell_apply_damage(target, dmgts1)
-      Attack.log_label("")
+      Attack.act_aseq( 0, "longattack" )
     end
 
-    return true
+    local dmgts1 = Attack.aseq_time( 0, "x" )
 
+    --local dmg_min,dmg_max = text_range_dec(Attack.get_custom_param("damage"))
+    --local typedmg=Attack.get_custom_param("typedmg")
+    --Attack.atk_set_damage(typedmg,dmg_min,dmg_max)
+    common_cell_apply_damage( target, dmgts1 )
+    Attack.log_label( "" )
+  end
+
+  return true
 end
 
 -- ***********************************************
@@ -1703,6 +1701,7 @@ function special_summon_demon()
 
   local mas = { "imp", "imp2", "cerberus", "demoness", "demon" }
   local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) ) --коэф.
+  k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
 
   if nearest_enemy ~= nil then ang_to_enemy = Attack.angleto( target, nearest_enemy ) end
 
@@ -1827,6 +1826,7 @@ function special_summonplant()
   end
 
   local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) )
+  k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
 
   if nearest_enemy ~= nil then ang_to_enemy = Attack.angleto( target, nearest_enemy ) end
 
@@ -1850,6 +1850,43 @@ function special_summonplant()
 
   return true
 end
+
+-- ***********************************************
+-- * Archdemon Sheep
+-- ***********************************************
+
+function special_amalgamation()
+  local target = Attack.get_target()
+  local tmp_spells = {}
+  
+  if not Attack.act_is_spell( target, "spell_blind" )
+  and not Attack.act_feature( target, "eyeless" ) then
+    table.insert( tmp_spells, spell_blind_attack )
+  end
+  
+  if not Attack.act_is_spell( target, "spell_pygmy" ) then
+    table.insert( tmp_spells, spell_pygmy_attack )
+  end
+  
+  if not Attack.act_is_spell( target, "spell_ram" )
+  and not Attack.act_feature( target, "plant" )
+  and not Attack.act_feature( target, "golem" )
+  and not Attack.act_feature( target, "undead" ) then
+    table.insert( tmp_spells, spell_ram_attack )
+  end
+
+  if table.getn( tmp_spells ) > 0 then
+    Attack.act_aseq( 0, "cast" )
+    local dmgts = Attack.aseq_time( 0, "x" )
+    local cast = Game.Random( 1, table.getn( tmp_spells ) )
+    local spell_level = 3
+    tmp_spells[ cast ]( spell_level, dmgts, target, true )
+    Attack.log( dmgts + 0.2, "add_blog_amal_attack", "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( target, 0 ) )
+  end
+
+  return true
+end
+
 -- ******************************************************* --
 -- * Выкопаться * --
 -- ******************************************************* --

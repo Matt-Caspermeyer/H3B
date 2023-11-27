@@ -10,6 +10,56 @@
 //
 //
 
+// New! Effect Unconscious
+effect_unconscious {
+  category=s
+  hide=1
+  image=book_effect_sleep.png   // не нужно для эффекта
+  icon=s_overtime_sleep.png
+  label=EN_unconscious
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_unconscious_hint
+  hint_header=effect_unconscious_header
+  icon=book_effect_sleep.png        // не нужно для эффекта
+  onremove=unconscious_onremove
+  
+  each_turn_attack=scripted
+  
+  nfeatures=undead,plant,golem
+  scripted {
+    script_attack=effect_unconscious_attack
+    script_calccells=
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    duration=3
+    type=penalty
+  }
+  levels {}
+}
+
+// New! Effect Burning Oil
+effect_burning_oil {
+  category=s
+  hide=1
+  image=book_spell_oil_fog.png   // не нужно для эффекта
+  icon=s_overtime_oil_fog.png
+  label=EN_burning_oil
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_burning_oil_hint
+  hint_header=effect_burning_oil_header
+  
+  params {
+    duration=3
+    type=penalty
+  }
+}
+
 // New! Effect Entangle
 effect_entangle {
   category=s
@@ -33,7 +83,6 @@ effect_entangle {
     duration=3
     type=penalty
   }
-  levels {}
 }
 
 // Пост-эффект от ударов молнии. Это не заклинание

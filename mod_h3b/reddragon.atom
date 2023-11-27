@@ -52,6 +52,7 @@ arena_params {
     anim_attack=mana
     picture=BA1_Fire_Flow_
     picture_small=BA1_Fire_Flow_small.png
+    moves=8
     reload=3
     hinthead=special_dragon_rail_head
     hint=special_dragon_rail_hint

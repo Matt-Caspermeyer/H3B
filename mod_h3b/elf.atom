@@ -68,6 +68,7 @@ arena_params {
     picture_small=BA1_DoubleShot_small.png
     hinthead=special_double_arrow_head
     hint=special_double_arrow_hint
+    moves=5
     reload=3
     showdmg=0
     distance=100

@@ -1379,7 +1379,7 @@ dark_commander {
           fight {
             {
               filter {
-                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
+                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackdragon,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,greendragon,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
                 belligerent=ally
               }
               pbonus=attack,2,0,0,-100,0,0
@@ -1394,14 +1394,14 @@ dark_commander {
           fight {
             {
               filter {
-                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
+                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackdragon,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,greendragon,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
                 belligerent=ally
               }
               pbonus=attack,4,0,0,-100,0,0
             }
             {
               filter {
-                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
+                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackdragon,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,greendragon,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
                 belligerent=ally
               }
               pbonus=initiative,1,0,0,-100,0,0
@@ -1416,21 +1416,21 @@ dark_commander {
           fight {
             {
               filter {
-                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
+                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackdragon,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,greendragon,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
                 belligerent=ally
               }
               pbonus=attack,8,0,0,-100,0,0
             }
             {
               filter {
-                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
+                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackdragon,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,greendragon,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
                 belligerent=ally
               }
               pbonus=initiative,1,0,0,-100,0,0
             }
             {
               filter {
-                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
+                unit=archdemon,archer,barbarian,barbarian2,bat,bat2,beholder,beholder2,blackdragon,blackknight,bonedragon,catapult,cerberus,cyclop,demon,demoness,devilfish,ghost,ghost2,goblin,goblin2,graywolf,greendragon,hyena,imp,imp2,necromant,ogre,orc,orc2,pirat,pirat2,reddragon,robber,robber2,shaman,skeleton,snake,snake_green,snake_royal,spider,spider_fire,spider_undead,spider_venom,vampire,vampire2,werewolf,wolf,zombie,zombie2
                 belligerent=ally
               }
               pbonus=speed,1,0,0,-100,0,0
@@ -1723,19 +1723,19 @@ glory {
           deps=
           runes=0,4,0
           trade=
-          pars=+200,-2%
+          pars=+200,-2%, +2%
         }
       2 {
           deps=
           runes=0,10,0
           trade=
-          pars=+500,-5%
+          pars=+500,-5%, +5%
         }
       3 {
           deps=
           runes=0,14,0
           trade=
-          pars=+1000,-10%
+          pars=+1000,-10%, +10%
         }
     }
   }
@@ -2410,7 +2410,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest2,druid
+               	unit=priest2,druid,beholder
               }
               pbonus=attack,3,0,0,-100,0,0
               dbonus=
@@ -2421,7 +2421,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest2,druid
+               	unit=priest2,druid,beholder
               }
               pbonus=defense,3,0,0,-100,0,0
               dbonus=
@@ -2432,7 +2432,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=archmage,necromant,shaman
+               	unit=archmage,beholder2,necromant,shaman
               }
               pbonus=attack,4,0,0,-100,0,0
               dbonus=
@@ -2443,7 +2443,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=archmage,necromant,shaman
+               	unit=archmage,beholder2,necromant,shaman
               }
               pbonus=defense,4,0,0,-100,0,0
               dbonus=
@@ -2454,7 +2454,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest,priest2,druid,archmage,shaman,necromant
+               	unit=priest,priest2,beholder,beholder2,druid,archmage,shaman,necromant
               }
               pbonus=health,0,5,0,-100,0,0
               dbonus=
@@ -2495,7 +2495,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest2,druid
+               	unit=priest2,druid,beholder
               }
               pbonus=attack,3,0,0,-100,0,0
               dbonus=
@@ -2506,7 +2506,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest2,druid
+               	unit=priest2,druid,beholder
               }
               pbonus=defense,3,0,0,-100,0,0
               dbonus=
@@ -2517,7 +2517,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=archmage,necromant,shaman
+               	unit=archmage,beholder2,necromant,shaman
               }
               pbonus=attack,4,0,0,-100,0,0
               dbonus=
@@ -2528,7 +2528,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=archmage,necromant,shaman
+               	unit=archmage,beholder2,necromant,shaman
               }
               pbonus=defense,4,0,0,-100,0,0
               dbonus=
@@ -2539,7 +2539,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest,priest2,druid,archmage,shaman,necromant
+               	unit=priest,priest2,beholder,beholder2,druid,archmage,shaman,necromant
               }
               pbonus=krit,0,20,0,-100,0,0
               dbonus=
@@ -2550,7 +2550,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest,priest2,druid,archmage,shaman,necromant
+               	unit=priest,priest2,beholder,beholder2,druid,archmage,shaman,necromant
               }
               pbonus=health,0,10,0,-100,0,0
               dbonus=
@@ -2591,7 +2591,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest2,druid
+               	unit=priest2,druid,beholder
               }
               pbonus=attack,3,0,0,-100,0,0
               dbonus=
@@ -2602,7 +2602,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest2,druid
+               	unit=priest2,druid,beholder
               }
               pbonus=defense,3,0,0,-100,0,0
               dbonus=
@@ -2613,7 +2613,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=archmage,necromant,shaman
+               	unit=archmage,beholder2,necromant,shaman
               }
               pbonus=attack,4,0,0,-100,0,0
               dbonus=
@@ -2624,7 +2624,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=archmage,necromant,shaman
+               	unit=archmage,beholder2,necromant,shaman
               }
               pbonus=defense,4,0,0,-100,0,0
               dbonus=
@@ -2635,7 +2635,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest,priest2,druid,archmage,shaman,necromant
+               	unit=priest,priest2,beholder,beholder2,druid,archmage,shaman,necromant
               }
               pbonus=krit,0,30,0,-100,0,0
               dbonus=
@@ -2646,7 +2646,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest,priest2,druid,archmage,shaman,necromant
+               	unit=priest,priest2,beholder,beholder2,druid,archmage,shaman,necromant
               }
               pbonus=health,0,15,0,-100,0,0
               dbonus=
@@ -2657,7 +2657,7 @@ megamage {
             {
               filter {
                 belligerent=ally
-               	unit=priest,priest2,druid,archmage,shaman,necromant
+               	unit=priest,priest2,beholder,beholder2,druid,archmage,shaman,necromant
               }
               pbonus=initiative,1,0,0,-100,0,0
               dbonus=

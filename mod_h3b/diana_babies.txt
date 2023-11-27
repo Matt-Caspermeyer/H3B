@@ -1205,7 +1205,7 @@ kid_halon {
   }
   mods {
     sp_power_int=count,18
-    sp_mana_battle=count,2
+    sp_mana_battle=count,4
   }
   propbits=child,rare
   params {}

@@ -519,6 +519,8 @@ function skill_archmage( name, level )
 -- otherwise the individual bonuses are ignored. Each individual bonus is
 -- therefore adjusted rather than the group sp_lead_archmage. See SPECIAL_PARAMS.TXT
   apply_skill_bonus_to_hero( name, level, 1, "sp_lead_unit_archmage", "count" )
+  apply_skill_bonus_to_hero( name, level, 1, "sp_lead_unit_beholder", "count" )
+  apply_skill_bonus_to_hero( name, level, 1, "sp_lead_unit_beholder2", "count" )
   apply_skill_bonus_to_hero( name, level, 1, "sp_lead_unit_druid", "count" )
   apply_skill_bonus_to_hero( name, level, 1, "sp_lead_unit_necromant", "count" )
   apply_skill_bonus_to_hero( name, level, 1, "sp_lead_unit_priest", "count" )

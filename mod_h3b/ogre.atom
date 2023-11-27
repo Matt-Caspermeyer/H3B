@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_ogre_feat
-  features_hints=orks_commander_header/orks_commander_hint
+  features_hints=orks_commander_header/orks_commander_hint,ogre_attack_header/ogre_attack_hint
   race=orc
   cost=3000
   level=5
@@ -22,6 +22,7 @@ arena_params {
   krit=15
   movetype=0
   features=humanoid
+  posthitmaster=features_ogre_attack
   resistances {
     physical=20
     poison=20
@@ -33,12 +34,19 @@ arena_params {
     damage {
       physical=50,70
     }
+    custom_params {
+      stun=95
+      stun_inc=-15
+      sleep=15
+      sleep_inc=15
+    }
   }
   ogre_rage {
     class=scripted
     script_attack=special_ogre_rage_attack
     script_calccells=
     endmove=0
+    moves=6
     reload=4
     picture=BA1_OgreRage_
     picture_small=BA1_OgreRage_small.png

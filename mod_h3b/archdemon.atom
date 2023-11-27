@@ -1,0 +1,562 @@
+main {
+  class=chesspiece
+  model=archdemon.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_archdemon_feat
+  features_hints=demon_header/demon_hint,teleportation_header/teleportation_hint,fire_immunity_header/fire_immunity_hint,clear_header/clear_hint,archdemon_attack_header/archdemon_attack_hint
+  race=demon
+  cost=6000
+  level=5
+  leadership=1600
+  attack=52
+  defense=52
+  defenseup=6
+  initiative=7
+  speed=9
+  hitpoint=666
+  realdeath=1
+  movetype=0
+  krit=15
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,amalgamation //,change,cast_demon
+  each_turn_script=features_auto_dispell
+  posthitmaster=features_archdemon_attack
+  features=fire_immunitet,demon
+  resistances {
+    physical=10
+    poison=0
+    magic=0
+    fire=80
+  }
+  moveattack {
+    ad_factor=1
+    options=nomove
+    damage {
+      physical=88,99
+    }
+  }
+  amalgamation {
+    class=scripted
+    warning=sw_amalgamation
+    hinthead=special_amalgamation_head
+    hint=special_amalgamation_hint
+    picture=BA1_amalgamation_
+    picture_small=BA1_amalgamation_small.png
+    moves=8
+    reload=3
+    script_attack=special_amalgamation
+    script_calccells=calccells_enemy_special_amalgamation
+    no_hint=1
+    nfeatures=magic_immunitet,pawn,boss
+    custom_params {
+      level=5
+    }
+  }
+
+  arena_bonuses {
+    1 {
+      logbits=lava
+      defense=50%
+    }
+    2 {
+      logbits=winter
+      defense=-50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=archdemon_idle.bsa/fr:25:50
+  rare=archdemon_rare.bsa/fr:25:50
+  attack=archdemon_attack.bsa/fr:25:50
+  start=archdemon_start.bsa/fr:25:50
+  stop=archdemon_stop.bsa/fr:25:50
+  clock=archdemon_clock.bsa/fr:25:50
+  contra=archdemon_contra.bsa/fr:25:50
+  telestart=archdemon_start.bsa/fr:25:50
+  telestop=archdemon_stop.bsa/fr:25:50
+  clock2=archdemon_2clock.bsa/fr:25:50
+  contra2=archdemon_2contra.bsa/fr:25:50
+  damage=archdemon_damage.bsa/fr:25:50
+  slew=archdemon_slew.bsa/fr:25:50
+  cast=archdemon_cast.bsa/fr:25:50
+  death=archdemon_death.bsa/fr:25:50
+  cursor=archdemon_rare.bsa/fr:25:50
+  teleout=archdemon_idle.bsa/fr:25:50/r:55:90
+  telein=archdemon_idle.bsa/fr:25:50/r:0:35
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  happy=archdemon_victory.bsa/fr:25:50
+  special=archdemon_special.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    22.0?x=
+    0.0=cam
+  }
+  @cast {
+    20.0?x=
+    0.0=cam
+  }
+  @damage {
+    1.5?x=
+    0.0=cam
+  }
+  @death {
+    10.0=alpha/0/25
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=-0.15000001/0.12359619/-0.3704834/0/-0/0/1
+      animation=start
+      frame=7/10
+      restart=true
+      file=archdemon_spot.ptb
+    }
+    particle {
+      trans=-0.3704834/0.12/-0.3704834/0/-0/0.42663842/2
+      animation=start
+      frame=7/14
+      restart=true
+      file=archdemon_firehigh.ptb
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/2.5
+      animation=start
+      frame=5/11
+      restart=true
+      file=archdemon_firehigh.ptb
+    }
+    particle {
+      trans=0.3704834/0/0/0/-0/-0.42663842/2
+      animation=start
+      frame=8/12
+      restart=true
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=0/0/0.3704834/-0.03568163/0.23561637/0/1.5
+      animation=start
+      frame=9/13
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=0/0/-0.61737061/0/-0.23561637/0/1.5
+      animation=start
+      frame=11/16
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=0/0.15000001/0/0/-0/0/2
+      animation=start
+      frame=7/28
+      file=archdemon_flames.ptb
+    }
+    camshaker {
+      animation=start
+      frame=7/29
+      envelope=quake_small.envlp
+      attenuation=0.01
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/2
+      animation=start
+      frame=0/29
+      file=archdemon_rune.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.1/0/0/-0/0/1
+      animation=stop
+      frame=2/19
+      file=archdemon_burst.ptb
+    }
+    particle {
+      trans=0.12359619/0.1/-0.3704834/0/-0.23561643/0/4
+      animation=stop
+      frame=2/19
+      file=archdemon_fire.ptb
+    }
+    particle {
+      trans=0/0.1/0.12359619/0/0.23561636/0/2.5
+      animation=stop
+      file=archdemon_fire.ptb
+    }
+    particle {
+      trans=0.0321/0.0955/0.037564/0/-0/0/1
+      animation=stop
+      frame=1/19
+      file=archdemon_spot.ptb
+    }
+    particle {
+      trans=0.3704834/0.12359619/0.12359619/0.00000006/1.14422286/-0.2715148/2.19999981
+      animation=stop
+      frame=5/11
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=-0.3704834/0.132/0.3704834/0/0.30705899/0.32999998/1.61331451
+      animation=stop
+      frame=7/14
+      file=archdemon_firethin.ptb
+    }
+    camshaker {
+      animation=stop
+      frame=7/19
+      envelope=quake_small.envlp
+      attenuation=0.01
+    }
+    particle {
+      trans=0/0.12359619/-0.122/0/-0.26163828/0/2.33299994
+      animation=stop
+      frame=1/15
+      file=archdemon_firehigh.ptb
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/2
+      animation=stop
+      frame=0/19
+      file=archdemon_rune.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=-0.15000001/0.12359619/-0.3704834/0/-0/0/1
+      animation=telestart
+      frame=7/10
+      file=archdemon_spot.ptb
+    }
+    particle {
+      trans=-0.3704834/0.12/-0.3704834/0/-0/0.42663842/2
+      animation=telestart
+      frame=7/14
+      file=archdemon_firehigh.ptb
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/2.5
+      animation=telestart
+      frame=5/11
+      file=archdemon_firehigh.ptb
+    }
+    particle {
+      trans=0.3704834/0/0/0/-0/-0.42663842/2
+      animation=telestart
+      frame=8/12
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=0/0/0.3704834/-0.03568163/0.23561637/0/1.5
+      animation=telestart
+      frame=9/13
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=0/0/-0.61737061/0/-0.23561637/0/1.5
+      animation=telestart
+      frame=11/16
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=0/0.15000001/0/0/-0/0/2
+      animation=telestart
+      frame=7/28
+      file=archdemon_flames.ptb
+    }
+    camshaker {
+      animation=telestart
+      frame=7/29
+      envelope=quake_small.envlp
+      attenuation=0.01
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/2
+      animation=telestart
+      frame=0/29
+      file=archdemon_rune.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.1/0/0/-0/0/1
+      animation=telestop
+      frame=2/19
+      file=archdemon_burst.ptb
+    }
+    particle {
+      trans=0.12359619/0.1/-0.3704834/0/-0.23561643/0/4
+      animation=telestop
+      frame=2/19
+      file=archdemon_fire.ptb
+    }
+    particle {
+      trans=0/0.1/0.12359619/0/0.23561636/0/2.5
+      animation=telestop
+      file=archdemon_fire.ptb
+    }
+    particle {
+      trans=0.0321/0.0955/0.037564/0/-0/0/1
+      animation=telestop
+      frame=1/19
+      file=archdemon_spot.ptb
+    }
+    particle {
+      trans=0.3704834/0.12359619/0.12359619/0.00000006/1.14422286/-0.2715148/2.19999981
+      animation=telestop
+      frame=5/11
+      file=archdemon_firethin.ptb
+    }
+    particle {
+      trans=-0.3704834/0.132/0.3704834/0/0.30705899/0.32999998/1.61331451
+      animation=telestop
+      frame=7/14
+      file=archdemon_firethin.ptb
+    }
+    camshaker {
+      animation=telestop
+      frame=7/19
+      envelope=quake_small.envlp
+      attenuation=0.01
+    }
+    particle {
+      trans=0/0.12359619/-0.122/0/-0.26163828/0/2.33299994
+      animation=telestop
+      frame=1/15
+      file=archdemon_firehigh.ptb
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/2
+      animation=telestop
+      frame=0/29
+      file=archdemon_rune.ptb
+    }
+  }
+  1 {
+    particle {
+      animation=death
+      frame=10/35
+      file=death_archdemon.ptb
+      meshemission=true
+    }
+    particle {
+      animation=death
+      frame=15/35
+      file=death_archdemon.ptb
+      meshemission=true
+    }
+    particle {
+      animation=death
+      frame=20/35
+      file=death_archdemon.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/0.60000002/0/0/-0/0/1.5
+      animation=death
+      frame=8/39
+      file=death_archdemon_smoke.ptb
+    }
+    particle {
+      trans=0/1.20000005/0/0/-0/0/1.29999995
+      animation=death
+      frame=8/35
+      file=death_archdemon_smoke.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=rare
+      frame=0.01
+      file=archdemon_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=archdemon_attack
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=archdemon_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=archdemon_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=archdemon_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=archdemon_contra
+      fadetime=60
+    }
+    sound {
+      animation=telestart
+      frame=0.01
+      file=archdemon_start
+      fadetime=60
+    }
+    sound {
+      animation=telestop
+      frame=0.01
+      file=archdemon_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=archdemon_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=archdemon_contra2
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=archdemon_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=archdemon_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=archdemon_death
+      fadetime=60
+    }
+    sound {
+      animation=victory
+      frame=0.01
+      file=archdemon_victory
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=archdemon_victory
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=archdemon_cast
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=archdemon_special
+      fadetime=60
+    }
+  }
+  0 {
+    slot=1
+    particle {
+      animation=cast
+      frame=5/22
+      file=cast_archdemon_tail.ptb
+    }
+    particle {
+      animation=cast
+      frame=21/44
+      file=cast_archdemon_flames.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=-0.2/2.0999999/-1.10000002/-3.1415925/-0/0/1
+      animation=cast
+      frame=20/25
+      file=cast_archdemon_blast.ptb
+    }
+    particle {
+      animation=special
+      frame=11/18
+      file=cast_archdemon_memi.ptb
+      meshemission=true
+    }
+  }
+  0 {
+    slot=3
+    particle {
+      trans=0/0/-0.19/0/0.26179942/0/1
+      file=cerberus_footflame.ptb
+    }
+  }
+  0 {
+    slot=4
+    particle {
+      trans=0/0/-0.19/0/0.26179942/0/1
+      file=cerberus_footflame.ptb
+    }
+  }
+}
+prefetch {
+  archdemon_idle.bsa=file
+  archdemon_rare.bsa=file
+  archdemon_attack.bsa=file
+  archdemon_move.bsa=file
+  archdemon_start.bsa=file
+  archdemon_stop.bsa=file
+  archdemon_clock.bsa=file
+  archdemon_contra.bsa=file
+  archdemon_2clock.bsa=file
+  archdemon_2contra.bsa=file
+  archdemon_slew.bsa=file
+  archdemon_lturn.bsa=file
+  archdemon_rturn.bsa=file
+  archdemon_damage.bsa=file
+  archdemon_death.bsa=file
+  archdemon_cast.bsa=file
+  archdemon_victory.bsa=file
+  archdemon_special.bsa=file
+}

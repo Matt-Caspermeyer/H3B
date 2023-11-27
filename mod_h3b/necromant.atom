@@ -66,6 +66,7 @@ arena_params {
     spell=special_stupid
     hinthead=special_stupid_head
     hint=special_stupid_hint
+    moves=5
     reload=4
     nfeatures=magic_immunitet,boss,pawn
     picture=BA1_MagicBondage_
@@ -76,6 +77,7 @@ arena_params {
     warning=sw_necro
     hinthead=special_raise_dead_head
     hint=special_raise_dead_hint
+    moves=10
     reload=2
     log_label=null
     no_hint=1
@@ -95,6 +97,7 @@ arena_params {
     nfeatures=plant,golem,demon,boss,pawn
     script_attack=special_plague
     script_calccells=
+    moves=7
     reload=3
     picture=BA1_Plague_
     picture_small=BA1_Plague_small.png

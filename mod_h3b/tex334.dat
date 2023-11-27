@@ -63,5 +63,29 @@ TEX334 {
     geom_size=1,1
     mask=595,85
   }
-  texture_size=104,52
+  block {
+    filename=BA1_boiling oil_small.png
+    in_tex_pos=0,52
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=680,85
+  }
+  block {
+    filename=BA1_throw_axe_small.png
+    in_tex_pos=26,52
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=765,85
+  }
+  block {
+    filename=BA1_amalgamation_small.png
+    in_tex_pos=52,52
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=850,85
+  }
+  texture_size=104,78
 }

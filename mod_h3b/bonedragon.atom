@@ -51,6 +51,7 @@ arena_params {
     picture=BA1_PoisonCloud_
     picture_small=BA1_PoisonCloud_small.png
     script_attack=special_poison_cloud
+    moves=8
     reload=3
     ad_factor=1
     deadonly=0
