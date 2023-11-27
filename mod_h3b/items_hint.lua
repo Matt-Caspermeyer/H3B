@@ -705,7 +705,7 @@ function gen_itm_param(par)
       local kid = Obj.get_param( "kid" )
       local sex = Obj.get_param( "sex" )
 
-      if sex ~= "0" then
+      if sex == "1" then
         local wifelabel = "<br><color=138,138,132>(<label=itm_" .. objname .. "_name> <label=itm_wife_baby> "
         local victories = 10 - tonumber( returnval )
         local victorylabel = " <label=itm_wife_baby_victories>)."

@@ -86,9 +86,9 @@ bonedragon_egg {
   use {}
   propbits=multiuse,usable,container
   params {
-    troop=bonedragon,bonedragon
-    troopcount=1,2
-    random=97,3
+    troop=bonedragon
+    troopcount=1-2
+    random=100
   }
   actions {
     onuse=
