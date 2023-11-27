@@ -583,7 +583,8 @@ function spell_plague_attack1( target, level, dmgts )
 		  	 if target == nil then target = 0 end
 
     		local trg = Attack.cell_adjacent( target, i )
-    		level = Attack.act_spell_param( target, "spell_plague", "level" )
+    		level = tonumber( Attack.act_spell_param( target, "spell_plague", "level" ) )
+
     		if ( Attack.act_enemy( trg )
       or Attack.act_ally( trg ) )
       and Attack.act_level( trg ) < 5

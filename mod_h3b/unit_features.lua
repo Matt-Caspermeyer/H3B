@@ -872,8 +872,9 @@ function post_spell_mana_source( damage, addrage, attacker, receiver, minmax, us
       end
 
       local cur_mana, max_mana, add_mana
+      local belligerent = tonumber( Attack.act_spell_param( receiver, spell, "belligerent" ) )
 
-      if Attack.act_spell_param( receiver, spell, "belligerent" ) == 4 then
+      if belligerent == 4 then
   			   cur_mana = Logic.enemy_lu_item( "mana", "count" )
 		  	   max_mana = Logic.enemy_lu_item( "mana", "limit" )
 			     add_mana = math.min( mana, max_mana - cur_mana )

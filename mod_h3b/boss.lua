@@ -783,44 +783,41 @@ end
 -- ***********************************************
 -- * Spider Poison
 -- ***********************************************
-function effect_spider_poison_attack(target,pause, duration)
-
-  if pause==nil then
+function effect_spider_poison_attack( target, pause, duration )
+  if pause == nil then
     pause=1
   end
 	
-	if target~=nil and (Attack.act_ally(target) or Attack.act_enemy(target)) then
-    local poisonresist = Attack.act_get_res(target,"poison")
-    if poisonresist<80 then
+ 	if target ~= nil
+  and ( Attack.act_ally( target )
+  or Attack.act_enemy( target ) ) then
+    local poisonresist = Attack.act_get_res( target, "poison" )
 
-      if duration==nil then
-        duration = tonumber(Logic.obj_par("boss_poison","duration"))
+    if poisonresist < 80 then
+      if duration == nil then
+        duration = tonumber( Logic.obj_par( "boss_poison", "duration" ) )
       end
       
-    	local dmg_min,dmg_max = text_range_dec(Logic.obj_par("boss_poison","damage"))
-
-      local power = tonumber(Logic.obj_par("boss_poison","power"))
-      local attack = Attack.act_get_par(target, "attack")
-
-      Attack.act_del_spell(target,"boss_poison")
-
+    	 local dmg_min, dmg_max = text_range_dec( Logic.obj_par( "boss_poison", "damage" ) )
+      local power = tonumber( Logic.obj_par( "boss_poison", "power" ) )
+      local attack = Attack.act_get_par( target, "attack" )
+      Attack.act_del_spell( target, "boss_poison" )
       Attack.act_apply_spell_begin( target, "boss_poison", duration, false )
-      Attack.act_apply_par_spell( "attack", -attack/100*power , 0, 0, duration, false)
+      Attack.act_apply_par_spell( "attack", -attack/100*power, 0, 0, duration, false )
       Attack.act_apply_spell_end()
-   	  Attack.act_spell_param(target, "boss_poison", "dmg_min", dmg_min,"dmg_max", dmg_max)
-
+   	  Attack.act_spell_param( target, "boss_poison", "dmg_min", dmg_min,"dmg_max", dmg_max )
       Attack.atom_spawn(target, pause, "effect_poison",0,true)
     end
-  else if target==nil then
+  else
+    if target == nil then
   		  target = Attack.get_target()
-				local typedmg=Logic.obj_par("boss_poison","typedmg")
-  			local dmg_min=Attack.act_spell_param(target, "boss_poison", "dmg_min")
-  			local dmg_max=Attack.act_spell_param(target, "boss_poison", "dmg_max")
-  
-  			Attack.atk_set_damage(typedmg,dmg_min,dmg_max)
-  			Attack.atom_spawn(target, 0, "effect_poison",0,true)
-  			common_cell_apply_damage(target, 1)
-  	end
+				  local typedmg = Logic.obj_par( "boss_poison","typedmg" )
+  		  local dmg_min = tonumber( Attack.act_spell_param( target, "boss_poison", "dmg_min" ) )
+  		  local dmg_max = tonumber( Attack.act_spell_param( target, "boss_poison", "dmg_max" ) )
+  		  Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+  		  Attack.atom_spawn( target, 0, "effect_poison", 0, true )
+  		  common_cell_apply_damage( target, 1 )
+    end
   end
 
   return true
