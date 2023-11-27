@@ -89,13 +89,13 @@ spirit {
     level=2
     default=level1
     upgrade {
-      level1=level:0/damage:physical:110:130,health:150,init:1,rage:15,rest:6,exp:15,level:1
-      attack1=attack:0,level:>0/damage:physical:+110:+130,health:+75,init:+2,rage:+5,exp:+5,atk:+10,attack:1
-      attack2=attack:1/damage:physical:+110:+130,health:+75,init:+2,rage:+10,exp:+10,atk:+15,attack:2
-      attack3=attack:2,LV:>29/damage:physical:+110:+130,health:+75,init:+2,rage:+15,exp:+15,atk:+25,attack:3
-      defense1=defense:0,level:>0/damage:physical:+55:+65,health:+150,init:+1,rage:+5,exp:+5,def:+10,defense:1
-      defense2=defense:1/damage:physical:+55:+65,health:+150,init:+1,rage:+10,exp:+10,def:+15,defense:2
-      defense3=defense:2,LV:>28/damage:physical:+55:+65,health:+150,init:+1,rage:+15,exp:+15,def:+25,defense:3
+      level1=level:0/damage:physical:110:130,health:200,init:1,rage:15,rest:6,exp:15,level:1
+      attack1=attack:0,level:>0/damage:physical:+110:+130,health:+100,init:+2,rage:+5,exp:+5,atk:+10,attack:1
+      attack2=attack:1/damage:physical:+110:+130,health:+100,init:+2,rage:+10,exp:+10,atk:+15,attack:2
+      attack3=attack:2,LV:>29/damage:physical:+110:+130,health:+100,init:+2,rage:+15,exp:+15,atk:+25,attack:3
+      defense1=defense:0,level:>0/damage:physical:+55:+65,health:+200,init:+1,rage:+5,exp:+5,def:+10,defense:1
+      defense2=defense:1/damage:physical:+55:+65,health:+200,init:+1,rage:+10,exp:+10,def:+15,defense:2
+      defense3=defense:2,LV:>28/damage:physical:+55:+65,health:+200,init:+1,rage:+15,exp:+15,def:+25,defense:3
       rage1=rs:0,level:>0,rage:>10,LV:>6/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,LV:>10,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
       rage3=rs:2,LV:>35,rage:>20/rage:-20,rs:3,exp:+20,ragelevel:3

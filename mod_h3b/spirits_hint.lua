@@ -127,7 +127,7 @@ function gen_spirit_param( data, par )
     if par == "atk" then
       value = "<br>" .. "<label=spirit_hint_attack>" .. " " .. "<color=255,243,179>" .. "+" .. value
     elseif par == "def" then
-      value = "<br>" .. "<label=spirit_hint_defense>" .. " " .. "<color=255,243,179>" .. "+" .. value
+      value = "<br>" .. "<label=spirit_hint_orbdefense>" .. " " .. "<color=255,243,179>" .. "+" .. value
     elseif par == "init" then
       value = "<br>" .. "<label=spirit_hint_initiative>" .. " " .. "<color=255,243,179>" .. "+" .. value
     elseif par == "rage_gain" then

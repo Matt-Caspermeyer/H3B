@@ -28,10 +28,10 @@ arena_params {
   features=freeze_immunitet,mind_immunitet,golem,orb,magic_immunitet,poison_immunitet
   posthitmaster=orb_posthit
   resistances {
-    physical=80
+    physical=30
     poison=80
     magic=80
-    fire=-50
+    fire=-100
   }
   rollattack {
     group=1,1

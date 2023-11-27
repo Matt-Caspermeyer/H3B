@@ -254,11 +254,13 @@ function lina_orb()
     Attack.act_set_par( c, "defense", def + base_def )
     local current_defup = Attack.act_get_par( c, "defenseup" )
     Attack.act_set_par( c, "defenseup", math.ceil( current_defup + def / 5 ) )
+    Attack.act_attach_modificator_res( c, "fire", "orb_res1", def, 0, 0, -100, false, 0, false )
+    Attack.act_attach_modificator_res( c, "physical", "orb_res2", def, 0, 0, -100, false, 0, false )
   end
 
   local start_defense_p = skill_power2( "start_defense", 1 )
+
   if start_defense_p > 0 then
-    local resist = Attack.act_get_res( c, "physical" )
     Attack.act_attach_modificator_res( c, "physical", "sc", start_defense_p, 0, 0, -100, false, 0, true )
   end
 

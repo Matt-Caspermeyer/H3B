@@ -9,6 +9,26 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Version: Alpha 2011-12-01
+-------------------------
+
+* mod_homm3_babies.kfs
+  & LINA.ATOM
+    ^ Ice Orb now starts with 200 health (this is standard, was 150)
+    ^ Ice Orb health upgrades adjusted to match new health
+  & ORB.ATOM
+    ^ Ice Orb now only starts with 30% Physical Resistance (was 80%)
+    ^ Ice Orb now only starts with -100% Fire Resistance (was -50%)
+  & TEMPLATES.LNG - changed some of the templates for Lina's Ice Orb upgrade
+  & SPIRIT_HINTS.LUA - updated Ice Orb hints to match changes
+  & SPIRIT_LINA.LUA
+    ^ Ice Orb now has +Defense, Physical, and Fire Resistance for defense upgrades
+    ^ This change makes it so that Ice Orb is not as powerful at the start, but will still get to the same power at its highest level
+* mod_homm3_babies_en(g)_lng.kfs
+  & en(g)_chat_1315394584_0068736578.lng - somehow when I moved the *.LNG files into separate KFS files, I omitted this file, which is needed for Diana's dialog
+  & en(g)_chat_1315394584_0076798669.lng - somehow when I moved the *.LNG files into separate KFS files, I omitted this file, which is needed for Diana's dialog
+
+
 Version: Alpha 2011-11-26
 -------------------------
 

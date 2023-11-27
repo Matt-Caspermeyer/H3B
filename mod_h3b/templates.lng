@@ -1113,6 +1113,7 @@ int_spr_LvlUp_tAD {
     mana=<label=spirit_hint_mana>
     attack=<label=spirit_hint_attack>
     defense=<label=spirit_hint_defense>
+    orbdefres=<label=spirit_hint_orbdefres>
     res_all=<label=spirit_hint_res_all>
     poison=<label=spirit_hint_poison>
     slow=<label=spirit_hint_slow>
