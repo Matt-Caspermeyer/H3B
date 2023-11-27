@@ -160,6 +160,12 @@ Change List
 
 This list is provided for historical purposes as well as for people to learn about the changes made.
 
+Version: Beta 2012-06-21
+* mod_homm3_babies.kfs
+  & ARENA.LUA - fixed a bug where Frenzy level 2 and higher was not adding the proper amount of rage per round
+* mod_homm3_babies_en(g)_lng.kfs
+  & EN(G)_WINDOWS.LNG - updated version number
+
 Version: Beta 2012-06-16
 * mod_homm3_babies.kfs
     ^ GERDA_BABIES.TXT - fixed where I somehow had accidentally introduced a typo into Gerda's Lorelei baby causing the game to crash when Gerda had babies

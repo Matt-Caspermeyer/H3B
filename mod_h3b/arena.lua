@@ -937,8 +937,8 @@ function on_round_start( round, tend )
       mana_class = 2
     end
 
-    local function kind_per_round( skill, item, class_bonus, kind, tend )
-      local skill_bonus = skill_power2( skill )
+    local function kind_per_round( skill, param, item, class_bonus, kind, tend )
+      local skill_bonus = skill_power2( skill, param )
       local item_bonus = hero_item_count( item )
       local bonus_per_round = math.ceil( ( skill_bonus + item_bonus + class_bonus ) * mana_rage_gain_k )
 
@@ -950,8 +950,8 @@ function on_round_start( round, tend )
       end
     end
 
-    kind_per_round( "concentration", "sp_mana_battle", mana_class, "mana", tend )
-    kind_per_round( "brutality", "sp_rage_battle", rage_class, "rage", tend )
+    kind_per_round( "concentration", 1, "sp_mana_battle", mana_class, "mana", tend )
+    kind_per_round( "brutality", 2, "sp_rage_battle", rage_class, "rage", tend )
 
     -- Высшая магия (окончание)
     local dbc = Logic.hero_lu_var( "double_book_charges" )
