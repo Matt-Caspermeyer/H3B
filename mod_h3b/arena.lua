@@ -450,6 +450,17 @@ function calc_bonus() --ftag:bonus
   return false
 end
 
+--New! Function that computes the proper Morale Increase / Decrease Bonus / Penalty
+function get_moral_modifier( moral_now, moral_prev )
+  local att_def_table = { 70, 80, 90, 100, 110, 120, 130 }
+  local krit_table = { 0, 50, 75, 100, 125, 150, 200 }
+  moral_now = limit_value( moral_now, -3, 3 ) + 4
+  moral_prev = limit_value( moral_prev, -3, 3 ) + 4
+  local att_def_modifier = ( att_def_table[ moral_now ] / att_def_table[ moral_prev ] - 1 ) * 100
+  local krit_modifier = ( krit_table[ moral_now ] / math.max( 45, krit_table[ moral_prev ] ) - 1 ) * 100
+
+  return att_def_modifier, krit_modifier
+end
 
 --New! Function decreases moral of your units
 function apply_long_combat_penalties( target, suffix, morale, init, speed, reload )
@@ -466,9 +477,33 @@ function apply_long_combat_penalties( target, suffix, morale, init, speed, reloa
 
       if current_value > -3 then
      	  Attack.act_del_modificator( target, "battle_", true)
+     	  Attack.act_del_modificator( target, "battle_attack_", true)
+     	  Attack.act_del_modificator( target, "battle_defense_", true)
+     	  Attack.act_del_modificator( target, "battle_krit_", true)
         local penalty = tonum( Attack.val_restore( target, "moral_penalty" ) )
-        Attack.val_store( target, "moral_penalty", penalty + 1 )
-        Attack.act_attach_modificator( target, "moral", "battle_" .. suffix, base_value - 1 - penalty, 0, 0, -100, false )
+        local starting_moral
+
+        if penalty == 0 then
+          starting_moral = current_value
+          Attack.val_store( target, "starting_moral", starting_moral )
+        else
+          starting_moral = tonum( Attack.val_restore( target, "starting_moral" ) )
+        end
+
+        penalty = penalty + 1
+        Attack.val_store( target, "moral_penalty", penalty )
+        Attack.act_attach_modificator( target, "moral", "battle_" .. suffix, base_value - penalty, 0, 0, -100, false )
+        current_value, base_value = Attack.act_get_par( target, "moral" )
+        local att_def_penalty, krit_penalty = get_moral_modifier( current_value, starting_moral )
+
+        if att_def_penalty < 0 then
+          Attack.act_attach_modificator( target, "attack", "battle_attack_" .. suffix, 0, 0, att_def_penalty, -100, false )
+          Attack.act_attach_modificator( target, "defense", "battle_defense_" .. suffix, 0, 0, att_def_penalty, -100, false )
+        end
+
+        if krit_penalty < 0 then
+          Attack.act_attach_modificator( target, "krit", "battle_krit_" .. suffix, 0, 0, krit_penalty, -100, false )
+        end
       end
     end
 
@@ -745,6 +780,8 @@ function on_round_start( round, tend )
   if round == 1 then -- начало боя
     -- NEW! Adds +rounds to the mana_rage_gain_k decrease when fighting enemy heroes, towers, and bosses (must be GLOBAL)
     ROUND_MANA_RAGE_GAIN = 0
+    -- New! Used for generating spirit experience
+    SECOND_SPIRIT_ATTACK = 0
 
     if ehero_level ~= nil
     and ehero_level > 0 then
@@ -3654,18 +3691,53 @@ function spell_auto_cast( spells, spellattacks )
 
   local goodSpells = { 
     -- Haste now increases initiative and chance to krit
-    spell_haste = function( a ) return ( Attack.act_get_par( a, "initiative" ) < avg_enemy_init or ck_cantatk or ( Game.Random( 99 ) < 20 ) ) end, 
-    spell_divine_armor = ck_underatk, 
-    spell_stone_skin = ck_underatk, 
-    spell_pacifism = ck_underatk, 
-    spell_berserker = ck_canatk, 
-    spell_fire_breath = ck_canatk, 
-    spell_magic_source = ck_underatk,
-    spell_last_hero = ck_underatk_not_temporary,
+    spell_haste =
+      function( a )
+        return ( Attack.act_get_par( a, "initiative" ) < avg_enemy_init
+        or ck_cantatk
+        or ( Game.Random( 99 ) < 20 ) )
+        and not Attack.act_is_spell( a, "spell_haste" )
+      end, 
+    spell_divine_armor =
+      function( a )
+        return ck_underatk
+        and not Attack.act_is_spell( a, "spell_divine_armor" )
+      end, 
+    spell_stone_skin =
+      function( a )
+        return ck_underatk
+        and not Attack.act_is_spell( a, "spell_stone_skin" )
+      end, 
+    spell_pacifism =
+      function( a )
+        return ck_underatk
+        and not Attack.act_is_spell( a, "spell_pacifism" )
+      end, 
+    spell_berserker =
+      function( a )
+        return ck_canatk
+        and not Attack.act_is_spell( a, "spell_berserker" )
+      end, 
+    spell_fire_breath =
+      function( a )
+        return ck_canatk
+        and not Attack.act_is_spell( a, "spell_fire_breath" )
+      end, 
+    spell_magic_source =
+      function( a )
+        return ck_underatk
+        and not Attack.act_is_spell( a, "spell_magic_source" )
+      end,
+    spell_last_hero =
+      function( a )
+        return ck_underatk_not_temporary
+        and not Attack.act_is_spell( a, "spell_last_hero" )
+      end,
     spell_bless =
       function( a )
         return ck_canatk( a )
         and Attack.act_leadership(a) * Attack.act_size(a) > allies_power / 4.
+        and not Attack.act_is_spell( a, "spell_bless" )
       end,
     spell_adrenalin =
       function( a )
@@ -3710,11 +3782,13 @@ function spell_auto_cast( spells, spellattacks )
         return ck_canatk( a )
         and Attack.act_is_thrower( a )
         and Attack.act_feature( a, "archer" )
+        and not Attack.act_is_spell( a, "spell_dragon_arrow" )
       end,
     spell_accuracy =
       function ( a )
         return ck_canatk( a )
         and Attack.act_is_thrower( a )
+        and not Attack.act_is_spell( a, "spell_accuracy" )
       end,
     spell_gifts =
       function ( a )
@@ -3723,27 +3797,60 @@ function spell_auto_cast( spells, spellattacks )
     spell_demon_slayer =
       function ()
         return spell_feature_slayer( "demon" )
+        and not Attack.act_is_spell( a, "spell_demon_slayer" )
       end,
     spell_dragon_slayer =
       function ()
         return spell_feature_slayer( "dragon" )
+        and not Attack.act_is_spell( a, "spell_dragon_slayer" )
       end
   }
 
   local badSpells  = {
     -- Slow now decreases initiative and susceptibility to krit
-    spell_slow = function( a ) return ( Attack.act_get_par( a, "initiative" ) > avg_enemy_init or ck_canatk or ( Game.Random( 99 ) < 20 ) ) end,
-    spell_shroud = ck_canatk_thrower,
-    spell_pygmy = ck_canatk,
-    spell_hypnosis = ck_none,
-    spell_crue_fate = ck_underatk,
+    spell_slow =
+      function( a )
+        return ( Attack.act_get_par( a, "initiative" ) > avg_enemy_init
+        or ck_canatk
+        or ( Game.Random( 99 ) < 20 ) )
+        and not Attack.act_is_spell( a, "spell_slow" )
+      end,
+    spell_shroud =
+      function( a )
+        return ck_canatk_thrower
+        and not Attack.act_is_spell( a, "spell_shroud" )
+      end,
+    spell_pygmy =
+      function( a )
+        return ck_canatk
+        and not Attack.act_is_spell( a, "spell_pygmy" )
+      end,
+    spell_hypnosis =
+      function( a )
+        return ck_none
+        and not Attack.act_is_spell( a, "spell_hypnosis" )
+      end,
+    spell_crue_fate =
+      function( a )
+        return ck_underatk
+        and not Attack.act_is_spell( a, "spell_crue_fate" )
+      end,
 		  spell_weakness =
       function(a)
      			return ck_canatk( a )
         and Attack.act_leadership( a ) * Attack.act_size( a ) > enemies_power / 4.
+        and not Attack.act_is_spell( a, "spell_weakness" )
     		end,
-  		spell_blind = ck_canatk,
-    spell_ram = ck_canatk,
+  		spell_blind =
+      function( a )
+        return ck_canatk
+        and not Attack.act_is_spell( a, "spell_blind" )
+      end,
+    spell_ram =
+      function( a )
+        return ck_canatk
+        and not Attack.act_is_spell( a, "spell_ram" )
+      end,
     spell_scare =
       function( a )
         return ck_canatk( a )
@@ -3755,6 +3862,7 @@ function spell_auto_cast( spells, spellattacks )
         return Attack.act_race( a ) ~= "undead"
         and ( ck_canatk( a )
         or ck_underatk( a ) )
+        and not Attack.act_is_spell( a, "spell_plague" )
       end, -- т.к. чума снижает и атаку и защиту
     spell_magic_bondage =
       function( a )
@@ -3769,6 +3877,7 @@ function spell_auto_cast( spells, spellattacks )
       function(a)
         return ck_underatk( a )
         and Attack.act_get_par( a, "defense" ) >= 5
+        and not Attack.act_is_spell( a, "spell_defenseless" )
       end
   }
 

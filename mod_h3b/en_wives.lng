@@ -146,10 +146,17 @@ itm_wife_gerda_preamble=^?^The dwarven woman Gerda's beauty is in her industriou
 itm_wife_rina_preamble=^?^She is the chieftain Hake's former girlfriend. She has the unpleasant but very useful ability of turning into a zombie.<br>
 itm_wife_rina_zombie_preamble=^?^She is the chieftain Hake's former girlfriend. At this moment, her curse has turned her into a zombie.<br>
 itm_wife_xeona_preamble=^?^The indomitable, passionate and alluring Demoness Xeona.<br>
+itm_wife_baby=^?^is expecting her
+itm_wife_baby_victory=^?^victory
+itm_wife_baby_victories=^?^victories
+itm_wife_expecting0=^?^first child after
+itm_wife_expecting1=^?^second child after
+itm_wife_expecting2=^?^third child after
+itm_wife_expecting3=^?^fourth child after
 
 //NEW!==== wife_orcelyn
 itm_wife_orcelyn_name=Orcelyn
-itm_wife_orcelyn_hint=^?^[preamble_orcelyn][wife_bonus][race_orc1][orcelyn_resist1]
+itm_wife_orcelyn_hint=^?^[preamble_orcelyn][wife_bonus][race_orc1][orcelyn_resist1][baby]
 itm_wife_orcelyn_info=^?^
 itm_wife_orcelyn_mhint=^?^
 itm_wife_orcelyn_minfo=^?^
@@ -157,7 +164,7 @@ itm_wife_orcelyn_taken=^?^
 
 //NEW!==== wife_diana
 itm_wife_diana_name=Diana
-itm_wife_diana_hint=^?^[preamble_diana][wife_bonus][diana_units1][diana_resist1]
+itm_wife_diana_hint=^?^[preamble_diana][wife_bonus][diana_units1][diana_resist1][baby]
 itm_wife_diana_info=^?^
 itm_wife_diana_mhint=^?^
 itm_wife_diana_minfo=^?^
@@ -165,7 +172,7 @@ itm_wife_diana_taken=^?^
 
 //==== wife_feanora
 itm_wife_feanora_name=Feanora
-itm_wife_feanora_hint=^?^[preamble_feanora][wife_bonus][feanora_units1][feanora_resist1]
+itm_wife_feanora_hint=^?^[preamble_feanora][wife_bonus][feanora_units1][feanora_resist1][baby]
 itm_wife_feanora_info=^?^
 itm_wife_feanora_mhint=^?^
 itm_wife_feanora_minfo=^?^
@@ -173,7 +180,7 @@ itm_wife_feanora_taken=^?^
 
 //==== wife_frog_feanora
 itm_wife_frog_feanora_name=Frog Feanora
-itm_wife_frog_feanora_hint=^?^[preamble_frog_feanora][wife_bonus][frog_feanora_units1][frog_feanora_eresist1]
+itm_wife_frog_feanora_hint=^?^[preamble_frog_feanora][wife_bonus][frog_feanora_units1][frog_feanora_eresist1][baby]
 itm_wife_frog_feanora_info=^?^
 itm_wife_frog_feanora_mhint=^?^
 itm_wife_frog_feanora_minfo=^?^
@@ -181,7 +188,7 @@ itm_wife_frog_feanora_taken=^?^
 
 //==== wife_mirabella
 itm_wife_mirabella_name=Mirabella
-itm_wife_mirabella_hint=^?^[preamble_mirabella][wife_bonus][mirabella_units1][earth_magic1]
+itm_wife_mirabella_hint=^?^[preamble_mirabella][wife_bonus][mirabella_units1][earth_magic1][baby]
 itm_wife_mirabella_info=^?^
 itm_wife_mirabella_mhint=^?^
 itm_wife_mirabella_minfo=^?^
@@ -189,7 +196,7 @@ itm_wife_mirabella_taken=^?^
 
 //==== wife_neoka
 itm_wife_neoka_name=Neoka
-itm_wife_neoka_hint=^?^[preamble_neoka][wife_bonus][race_elf1][air_magic1]
+itm_wife_neoka_hint=^?^[preamble_neoka][wife_bonus][race_elf1][air_magic1][baby]
 itm_wife_neoka_info=^?^
 itm_wife_neoka_mhint=^?^
 itm_wife_neoka_minfo=^?^
@@ -197,7 +204,7 @@ itm_wife_neoka_taken=^?^
 
 //==== wife_nessy
 itm_wife_nessy_name=Gerda
-itm_wife_nessy_hint=^?^[preamble_gerda][wife_bonus][race_dwarf1][resistance1]
+itm_wife_nessy_hint=^?^[preamble_gerda][wife_bonus][race_dwarf1][resistance1][baby]
 itm_wife_nessy_info=^?^
 itm_wife_nessy_mhint=^?^
 itm_wife_nessy_minfo=^?^
@@ -205,7 +212,7 @@ itm_wife_nessy_taken=^?^
 
 //==== wife_rina
 itm_wife_rina_name=Rina
-itm_wife_rina_hint=^?^[preamble_rina][wife_bonus][rina_units1][water_magic1]
+itm_wife_rina_hint=^?^[preamble_rina][wife_bonus][rina_units1][water_magic1][baby]
 itm_wife_rina_info=^?^
 itm_wife_rina_mhint=^?^
 itm_wife_rina_minfo=^?^
@@ -213,7 +220,7 @@ itm_wife_rina_taken=^?^
 
 //==== wife_rina_zombie
 itm_wife_rina_zombie_name=Zombie Rina
-itm_wife_rina_zombie_hint=^?^[preamble_rina_zombie][wife_bonus][race_undead1][rina_zombie_eresist1]
+itm_wife_rina_zombie_hint=^?^[preamble_rina_zombie][wife_bonus][race_undead1][rina_zombie_eresist1][baby]
 itm_wife_rina_zombie_info=^?^
 itm_wife_rina_zombie_mhint=^?^
 itm_wife_rina_zombie_minfo=^?^
@@ -221,7 +228,7 @@ itm_wife_rina_zombie_taken=^?^
 
 //==== wife_xeona
 itm_wife_xeona_name=Xeona
-itm_wife_xeona_hint=^?^[preamble_xeona][wife_bonus][race_demon1][fire_magic1]
+itm_wife_xeona_hint=^?^[preamble_xeona][wife_bonus][race_demon1][fire_magic1][baby]
 itm_wife_xeona_info=^?^
 itm_wife_xeona_mhint=^?^
 itm_wife_xeona_minfo=^?^

@@ -941,7 +941,7 @@ function special_bonus_spell( attacker, receiver )
   local dmgts = Attack.aseq_time( 0, "x" )
   local level = tonumber( Attack.val_restore( receiver, "spell_last_hero_cast_level" ) )
   local heroname = Attack.act_spell_param( receiver, "spell_last_hero", "heroname" )
-  local belligerent = Attack.act_spell_param( receiver, "spell_last_hero", "belligerent" )
+  local belligerent = tonumber( Attack.act_spell_param( receiver, "spell_last_hero", "belligerent" ) )
 
   local spellf1 = { spell_stone_skin_attack, 
                     spell_bless_attack, 
@@ -1034,7 +1034,7 @@ function special_bonus_spell( attacker, receiver )
     if spell_type == "penalty"
     and string.find( spell_name, "^totem_" ) == nil
     and level > 2 then
-      table.insert( tmp_spells, spell_dispel_attack )
+      table.insert( tmp_spells, spell_dispell_attack )
     end
   end
 
@@ -1784,7 +1784,12 @@ function features_mage( damage, addrage, attacker, receiver, minmax )
       if chance < prob then
         local cur_mana, max_mana, add_mana
     
-        if AU.is_human( attacker ) then
+        if AU.is_human( receiver ) then
+      		  cur_mana = Logic.hero_lu_item( "mana", "count" )
+    		    max_mana = Logic.hero_lu_item( "mana", "limit" )
+    			   add_mana = math.min( mana, max_mana - cur_mana )
+    			   Logic.hero_lu_item( "mana", "count", cur_mana + add_mana )
+        else
           local ehero_level = tonum( Logic.enemy_hero_level() )
     
           if ehero_level > 0 then
@@ -1795,11 +1800,6 @@ function features_mage( damage, addrage, attacker, receiver, minmax )
           else
             add_mana = 0
           end
-        else
-      		  cur_mana = Logic.hero_lu_item( "mana", "count" )
-    		    max_mana = Logic.hero_lu_item( "mana", "limit" )
-    			   add_mana = math.min( mana, max_mana - cur_mana )
-    			   Logic.hero_lu_item( "mana", "count", cur_mana + add_mana )
         end
     
     			 if add_mana > 0 then
@@ -1827,12 +1827,25 @@ function features_morale_penalty()
     and not Attack.act_feature( i, "holy" )
     and not Attack.act_feature( i, "mind_immunitet" )
     and not Attack.act_feature( i, "pawn,boss" ) then
+      local current_value, base_value = Attack.act_get_par( i, "moral" )
+      local penalty = -1
+
       if Attack.act_level( i ) < 3 then
-			     Attack.act_attach_modificator( i, "moral", "moral_penalty", -3 )
+        penalty = -3
       elseif Attack.act_level( i ) < 5 then
-			     Attack.act_attach_modificator( i, "moral", "moral_penalty", -2 )
-      else
-			     Attack.act_attach_modificator( i, "moral", "moral_penalty", -1 )
+        penalty = -2
+      end
+
+			   Attack.act_attach_modificator( i, "moral", "moral_penalty", penalty )
+      local att_def_penalty, krit_penalty = get_moral_modifier( current_value + penalty, current_value )
+      
+      if att_def_penalty < 0 then
+        Attack.act_attach_modificator( i, "attack", "attack_bd", 0, 0, att_def_penalty, -100, false )
+        Attack.act_attach_modificator( i, "defense", "defense_bd", 0, 0, att_def_penalty, -100, false )
+      end
+
+      if krit_penalty < 0 then
+        Attack.act_attach_modificator( i, "krit", "krit_bd", 0, 0, krit_penalty, -100, false )
       end
   		end
  	end
@@ -1845,6 +1858,9 @@ function bone_dragon_ondamage( wnm, ts, dead )
 	 if dead then
 		  for i = 1, Attack.act_count() - 1 do
 			   Attack.act_del_modificator( i, "moral_penalty" )
+			   Attack.act_del_modificator( i, "attack_bd" )
+			   Attack.act_del_modificator( i, "defense_bd" )
+			   Attack.act_del_modificator( i, "krit_bd" )
 		  end
 	 end
 

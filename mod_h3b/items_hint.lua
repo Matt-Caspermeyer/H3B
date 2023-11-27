@@ -696,7 +696,33 @@ function gen_itm_param(par)
  	local suffiks=text_dec(par,2)
  	return param..suffiks
  else 
- 	return Obj.get_param(par)
+  local returnval = Obj.get_param(par)
+
+  if par == "win" then
+    local objname = Obj.name()
+    
+    if string.find( objname, "wife" ) then
+      local kid = Obj.get_param( "kid" )
+      local sex = Obj.get_param( "sex" )
+
+      if sex ~= "0" then
+        local wifelabel = "<br><color=138,138,132>(<label=itm_" .. objname .. "_name> <label=itm_wife_baby> "
+        local victories = 10 - tonumber( returnval )
+        local victorylabel = " <label=itm_wife_baby_victories>)."
+        local kidlabel = "<label=itm_wife_expecting" .. kid .. "> "
+
+        if victories == 1 then
+          victorylabel = " <label=itm_wife_baby_victory>)"
+        end
+
+        returnval = wifelabel .. kidlabel .. tostring( victories ) .. victorylabel
+      else
+        returnval = ""
+      end
+    end
+  end
+
+ 	return returnval
  end 
  	return ""
 end

@@ -1051,7 +1051,7 @@ kid_alagar {
   mods {
     sp_power_int=count,20
     sp_spell_attack=count,20
-    sp_duration_ice_serpent=1
+    sp_duration_ice_serpent=count,1
     sp_add_infliction_freeze=count,20
     sp_gain_power_ice_serpent=count,20
     sp_gain_periphery_damage_ice_serpent=count,20

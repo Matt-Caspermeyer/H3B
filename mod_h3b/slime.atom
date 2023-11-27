@@ -174,7 +174,7 @@ spirit {
     level=0
     default=level1
     upgrade {
-      level1=level:0/damage:poison:25:40,rage:5,rest:1,exp:5,level:1,time:3,poison_min:25,poison_max:40
+      level1=level:0/damage:poison:25:40,rage:5,rest:1,exp:5,level:1,time:3,poison_min:25,poison_max:40,killedunitexp:1
       level2=level:1/damage:poison:+25:+40,rage:+1,exp:+1,level:2,poison_min:+25,poison_max:+40
       level3=level:2/damage:poison:+50:+80,rage:+2,exp:+2,level:3,poison_min:+50,poison_max:+80
       level4=level:3/damage:poison:+100:+160,rage:+3,exp:+3,level:4,poison_min:+100,poison_max:+160
@@ -197,7 +197,7 @@ spirit {
     level=2
     default=level1
     upgrade {
-      level1=level:0/damage:physical:125:175,rage:10,rest:2,exp:10,level:1
+      level1=level:0/damage:physical:125:175,rage:10,rest:2,exp:10,level:1,killedunitexp:1
       level2=level:1/damage:physical:+125:+175,rage:+3,exp:+3,level:2
       level3=level:2/damage:physical:+225:+275,rage:+6,rest:+1,exp:+6,level:3
       level4=level:3,LV:>7/damage:physical:+425:+475,rage:+9,exp:+9,level:4

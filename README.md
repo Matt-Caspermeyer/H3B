@@ -164,6 +164,76 @@ Windows 8 Comments
 * Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
 * So this release is mostly bug fixes, but there are some new features as well.
 
+Version: Beta 2013-02-10.1 - I forgot to include DEVATRON.ATOM in 2013-02-10
+
+Version: Beta 2013-02-10 - CRITICAL UPDATE
+*.ATOM
+  & DEVATRON.ATOM - reverted to previous version until I figure out how to make it prevent ranged troops from attacking when adjacent to it
+  & DRYAD.ATOM
+    ^ Fixed issue with not properly implementing the Arena bonuses / penalties (i.e. +50% Attack in Forest Environments / -1 Morale in Dungeons)
+  & EVILBOOK1.ATOM - Physical Resistance changed from 5 -> 2
+  & EVILBOOK2.ATOM - Physical Resistance changed from 10 -> 5
+  & EVILBOOK3.ATOM - Physical Resistance changed from 15 -> 10
+  & PHOENIX_YOUNG.ATOM
+    ^ Physical Resistance changed from 10 -> 5
+    ^ Poison Resistance changed from 5 -> 2
+  & PHOENIX.ATOM
+    ^ Physical Resistance changed from 15 -> 10
+    ^ Poison Resistance changed from 10 -> 5
+  & PHOENIX_OLD.ATOM
+    ^ Physical Resistance changed from 20 -> 15
+    ^ Poison Resistance changed from 15 -> 10
+  & Spirit ATOM's:
+    ^ Added killedunitexp flag to help with showing combat experience during battles
+*.LNG
+  & EN(G)_CHAT_0170292983_0979371428.LNG - fixed minor grammar error
+  & EN(G)_SPIRITS.LNG
+    ^ Added exp macro to end of spirit ability descriptions to show experience
+    ^ Showing experience is very experimental as it doesn't quite seem to follow the formula in the fan manual
+  & EN(G)_WIVES.LNG - added baby macro to end of wives for showing victories to next birth
+  & TEMPLATES.LNG
+    ^ Added new baby template for wives to show number of victories until next birth
+    ^ Added new exp template for spirit ability experience
+*.LOC
+  & ELLINIA_2_EMBRYOS.LOC (Great Forest)
+    ^ ***CRASH*** Neoka's Castle: Fixed bug with "druids" in item list after marrying Neoka
+    ^ If you started a new game with 2013-01-27 you'll need to use the fix identified below
+      % If you are playing a game and it crashes after marrying Neoka, you have to make a copy of DRUID.ATOM and call it DRUIDS.ATOM and place it in your mods folder.
+      % Don't buy the "DRUIDS.ATOM" units (their picture will be blank), it is just to allow you to continue your game if you want to marry Neoka
+*.LUA
+  & ARENA.LUA
+    ^ Fixed error of your unit Critical Hit not being affected by Morale changed during long combats (thanks to Gza for pointing this out!)
+    ^ Added global flag to aid in showing of spirit experience
+    ^ Added additional criteria for Spells to ensure that they are not repeatedly cast on the same unit(s)
+  & ITEM_HINT.LUA
+    ^ Added capability to display number of wins before your wife's next baby
+  & ITEM_USE.LUA
+    ^ Updated "objuse_spawn_troop" to use different code than the built-in code to randomize the units per the percentages listed
+  & SPELLS.LUA
+    ^ Fixed error where Battle Cry was not affecting your unit's Critical Hit positively
+    ^ Fixed weird error with Plague trying to infect disappearing pawns (I think it was related to fire killing a unit, with fire being the pawn) (thanks Windows 8!)
+    ^ Fixed possible nil value for tgt in spell_holy_rain_attack (thanks Windows 8!)
+    ^ Fixed possibility of nil value for target in spell_accuracy_attack (thanks Windows 8!)
+    ^ Added check for belligerent when checking ally for spell_dispell_attack so that it works with Enchanted Hero
+  & SPIRITS_COMMON.LUA
+    ^ Added global flag to aid in showing of spirit experience
+  & SPIRITS_HINT.LUA
+    ^ Added functions based on CW's EXP_PET_HINT.LUA to aid in showing the spirit experience hint
+  & SPIRIT_THEROCK.LUA
+    ^ ***BUG*** Fixed sequence of damage timeshift (thanks Windows 8!)
+  & TEXT_GEN.LUA
+    ^ Fixed error with display of your unit's Critical Hit using hero's Defense instead of Attack for bonus
+  & UNIT_FEATURES.LUA
+    ^ Fixed error with Bone Dragon's Dread not dropping your unit's Critical Hit due to the Morale decrease
+    ^ Fixed error with Regenerates Mana where it sometimes gave mana to your hero when damaging enemy mages (i.e. with spirit abilities)
+    ^ Fixed error with string belligerent for special_bonus_spell for Enchanted Hero
+    ^ Fixed error with misspelled "spell_dispell_attack" function name for special_bonus_spell for Enchanted Hero
+*.TXT
+  & GERDA_BABIES.TXT - fixed missing count on sp_duration_stone_skin for Labetha (thanks Windows 8!)
+  & NEOKA_BABIES.TXT - fixed missing count on sp_duration_ice_serpent for Alagar (thanks Windows 8!)
+  & RINA_BABIES.TXT - fixed missing count on sp_duration_stone_skin for Xsi (thanks Windows 8!)
+
+
 Version: Beta 2013-01-27 - CRITICAL UPDATE
 *.LOC
   & ISLAND_1_EMBRYOS.LOC (Western Islands) - ***CRASH TO DESKTOP*** fixed error of Griffin Eggs improperly implemented (thanks to Sir Whiskers for pointing this out!)

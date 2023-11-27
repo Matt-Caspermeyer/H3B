@@ -834,7 +834,7 @@ kid_xsi {
     sp_lead_unit_bonedragon=count,3
     sp_addexp_battle=count,12
     sp_addexp_spirit=count,12
-    sp_duration_stone_skin=1
+    sp_duration_stone_skin=count,1
     sp_gain_power_stone_skin=count,12
     sp_add_penalty_stone_skin=count,1
   }

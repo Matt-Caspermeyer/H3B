@@ -112,7 +112,7 @@ spirit {
     level=4
     default=level1
     upgrade {
-      level1=level:0/damage:physical:150:250,rage:7,rest:2,exp:7,level:1,freeze:20,duration:2,thorns:10
+      level1=level:0/damage:physical:150:250,rage:7,rest:2,exp:7,level:1,freeze:20,duration:2,thorns:10,killedunitexp:1
       level2=level:1/damage:physical:+150:+250,rage:+3,rest:+1,exp:+3,level:2,freeze:+20,duration:+1,thorns:+10
       level3=level:2/damage:physical:+300:+500,rage:+6,rest:+1,exp:+6,level:3,freeze:+20,duration:+1,thorns:+10
       level4=level:3/damage:physical:+600:+1000,rage:+12,rest:+1,exp:+12,level:4,freeze:+20,duration:+1,thorns:+10

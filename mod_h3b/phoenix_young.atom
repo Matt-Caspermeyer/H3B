@@ -30,8 +30,8 @@ arena_params {
   each_turn_script=phoenix_onmove
   features=fire_immunitet,nonecro,freeze_immunitet,magic_immunitet,mind_immunitet,golem
   resistances {
-    physical=10
-    poison=5
+    physical=5
+    poison=2
     magic=80
     fire=180
   }

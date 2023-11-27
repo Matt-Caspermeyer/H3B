@@ -141,10 +141,9 @@ function gen_unit_krit( data )
   local is_human = AU.is_human( data )
   local hero_attack
 
-  if not Game.LocIsArena() then
+  if not Game.LocIsArena()
+  or is_human then
     hero_attack = Logic.hero_lu_item( "attack", "count" )
-  elseif is_human then
-    hero_attack = Logic.hero_lu_item( "defense", "count" )
   else
     hero_attack = Attack.val_restore( data, "enemy_hero_attack" )
   end
@@ -159,6 +158,12 @@ function gen_unit_krit( data )
     local krit_bonus = math.floor( hero_attack / 7 ) * krit_inc
     current_krit = current_krit + krit_bonus
   end
+
+  if Attack.act_is_spell( data, "special_preparation" ) then
+    current_krit = 100
+  end
+
+  current_krit = limit_value( current_krit, 0, 100 )
 
   if current_krit > base_krit then
     current_color = "<color=0,254,10>"

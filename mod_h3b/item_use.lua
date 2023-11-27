@@ -22,24 +22,23 @@ function objuse_spawn_troop() --ftag:action
   end
 
   if text_par_count( troop ) > 1 then
-    local total_prob = 0
+    local troop_table = {}
 
     for i = 1, text_par_count( trand ) do
-      total_prob = total_prob + tonumber( text_dec( trand, i ) )
+      table.insert( troop_table, { troop = text_dec( troop, i ), troopcnt = text_dec( troopcnt, i ), prob = tonumber( text_dec( trand, i ) ) } )
     end
 
-    local rnd = Game.Random( 1, total_prob )
+    local troop_select = random_choice( troop_table )
     
-    local troop_num = diap( trand, 0, rnd )
-    troop = text_dec( troop, troop_num )
-    troopcnt = text_dec( troopcnt, troop_num )
+    troop = troop_select.troop
+    troopcnt = troop_select.troopcnt
 
     if text_range_count( troopcnt ) > 0 then
-      troopcnt = text_range_ret( troopcnt, Obj.id() )
+      troopcnt = Game.Random( text_range_dec( troopcnt ) )
     end
   else
     if text_range_count( troopcnt ) > 0 then
-      troopcnt = text_range_ret( troopcnt, Obj.id() )
+      troopcnt = Game.Random( text_range_dec( troopcnt ) )
     end
   end
 

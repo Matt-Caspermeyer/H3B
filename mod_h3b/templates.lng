@@ -269,6 +269,7 @@ items_tM {
     minut=<gen=gen_itm_param,minut>
     max=<gen=gen_itm_param,max>
     egg=<gen=gen_egg_param>
+    baby=<gen=gen_itm_param,win>
 // Wife labels
     wife_bonus=<label=itm_wife_bonuses>
     preamble_orcelyn=<label=itm_wife_orcelyn_preamble>
@@ -1316,6 +1317,7 @@ int_spr_tH0 {
     linaorbgizmolevel=<br>[TM]<label=spirit_hint_abilitylevel></color><gen=gen_spirit_hint,linaorbgizmolevel>
     rage=<br>[TM]<label=spirit_hint_rage></color><gen=gen_spirit_hint,rage>
     rest=<br>[TM]<label=spirit_hint_rest></color><gen=gen_spirit_hint,rest>
+    exp=<gen=gen_spirit_hint,exp>
     damage=[s]<gen=gen_spirit_damage>[/s]
     damage2=<gen=gen_spirit_damage>
     square=<gen=gen_spirit_param,square>

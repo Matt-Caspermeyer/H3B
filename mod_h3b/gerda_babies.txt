@@ -1184,7 +1184,7 @@ kid_labetha {
   mods {
     sp_power_int=count,16
     sp_add_penalty_stone_skin=count,1
-    sp_duration_stone_skin=1
+    sp_duration_stone_skin=count,1
     sp_gain_power_stone_skin=count,16
   }
   propbits=child,rare

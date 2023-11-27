@@ -423,26 +423,30 @@ end
 --*************************************************************************
 -- New! Common function for applying plague attack effects
 function common_plague_attack( target, duration, power, level, dmgts )
-  local spell = "spell_plague"
-
-  if Attack.act_race( target ) ~= "undead" then
-    duration = res_dur( target, spell, duration, "poison" )
+  if Attack.act_name( target ) ~= "" then
+    local spell = "spell_plague"
+  
+    if Attack.act_race( target ) ~= "undead" then
+      duration = res_dur( target, spell, duration, "poison" )
+    end
+  
+    Attack.act_apply_spell_begin( target, spell, duration, false )
+    -- on non-undead throw fines
+    if Attack.act_race( target ) ~= "undead" then
+      Attack.act_apply_par_spell( "health", 0, -power, 0, duration, false )
+   	 	Attack.act_apply_par_spell( "attack", 0, -power, 0, duration, false )
+  		  Attack.act_apply_par_spell( "defense", 0, -power, 0, duration, false )
+  		end
+  
+  		Attack.act_spell_param( target, spell, "level", level )
+  		Attack.act_posthitmaster( target, "post_spell_plague", duration )
+    Attack.act_apply_spell_end()
+    Attack.atom_spawn( target, dmgts , "magic_greenfly", Attack.angleto( target ), true )
+  
+    return true
+  else
+    return false
   end
-
-  Attack.act_apply_spell_begin( target, spell, duration, false )
-  -- on non-undead throw fines
-  if Attack.act_race( target ) ~= "undead" then
-    Attack.act_apply_par_spell( "health", 0, -power, 0, duration, false )
- 	 	Attack.act_apply_par_spell( "attack", 0, -power, 0, duration, false )
-		  Attack.act_apply_par_spell( "defense", 0, -power, 0, duration, false )
-		end
-
-		Attack.act_spell_param( target, spell, "level", level )
-		Attack.act_posthitmaster( target, "post_spell_plague", duration )
-  Attack.act_apply_spell_end()
-  Attack.atom_spawn( target, dmgts , "magic_greenfly", Attack.angleto( target ), true )
-
-  return true
 end
 
 function spell_plague_attack( target, level, dmgts )
@@ -1462,7 +1466,7 @@ function spell_dispell_attack( level, target, belligerent )
 	   else
      	local type
 
-	     if Attack.act_ally( target ) then
+	     if Attack.act_ally( target, belligerent ) then
         type = "penalty" -- Remove all of their penalty-spell
 	     else
         type = "bonus"
@@ -2483,16 +2487,7 @@ function spell_accuracy_attack( level, target, belligerent )
 
   if target == nil then target = Attack.get_target() end
 
-  local ehero_level
-
-  if belligerent == nil then
-    belligerent = Attack.act_belligerent( target )
-  end
-
-  if belligerent ~= 1 then
-    ehero_level, level = get_enemy_hero_stuff( level )
-  end
-
+  local belligerent, ehero_level
   local spell = "spell_accuracy"
   local duration, bonus
 
@@ -2658,11 +2653,18 @@ function spell_reaction_attack( level, target, belligerent )
   end
 
   local function common_reaction_attack( target, spell, duration, bonus, spawn )
+    local current_value, base_value = Attack.act_get_par( target, "moral" )
+    local att_def_bonus, krit_bonus = get_moral_modifier( current_value + bonus, current_value )
     local dmgts = Game.Random() / 10
     duration = res_dur( target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
     Attack.act_apply_par_spell( "moral", bonus, 0, 0, duration, false)
+
+    if krit_bonus > 0 then
+      Attack.act_apply_par_spell( "krit", 0, 0, krit_bonus, duration, false)
+    end
+
     Attack.act_apply_spell_end()
 --    Attack.resort()
     Attack.atom_spawn( target, dmgts, spawn, Attack.angleto( target ) )
@@ -3591,8 +3593,10 @@ function spell_holy_rain_attack( level, target )
     local n = Attack.get_targets_count()
     for i = 0, n - 1 do
       local tgt = Attack.get_target( i )
-      local min_dmg, max_dmg, holy, duration = pwr_holy_rain( level, Attack.act_race( tgt, "undead" ) )
+
       if tgt ~= nil then
+        local min_dmg, max_dmg, holy, duration = pwr_holy_rain( level, Attack.act_race( tgt, "undead" ) )
+  
         if Attack.act_enemy( tgt )
         or Attack.act_ally( tgt ) then
           if (Attack.act_race( tgt, "undead" ) ) then

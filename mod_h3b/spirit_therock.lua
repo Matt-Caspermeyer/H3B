@@ -435,9 +435,9 @@ function therock_rockfall()
           if dead then
             Attack.add_exp( Attack.act_exp(target) )
           end]]
-          Attack.dmg_timeshift( target, hit_time )
           local hit_x = Attack.aseq_time( target, "x" )
           Attack.aseq_timeshift( target, hit_time - hit_x )
+          Attack.dmg_timeshift( target, hit_time )
           local dead = Attack.act_damage( target )
           if not dead
           and not Attack.act_pawn( target )

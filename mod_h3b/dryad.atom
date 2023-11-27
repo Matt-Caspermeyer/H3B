@@ -80,7 +80,6 @@ arena_params {
     picture=BA1_ElfSong_
     picture_small=BA1_ElfSong_small.png
   }
-}
   arena_bonuses {
     1 {
       logbits=forest
@@ -91,6 +90,7 @@ arena_params {
       moral=-1
     }
   }
+}
 scripts {
   scenario=default_scenario
   idle=default_idle

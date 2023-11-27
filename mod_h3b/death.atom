@@ -106,7 +106,7 @@ spirit {
     level=0
     default=level1
     upgrade {
-      level1=level:0/kill:10,rage:10,rest:1,exp:10,level:1
+      level1=level:0/kill:10,rage:10,rest:1,exp:10,level:1,killedunitexp:1
       level2=level:1/kill:+10,rage:+10,rest:+1,exp:+10,level:2
       level3=level:2/kill:+10,rage:+15,rest:+1,exp:+15,level:3
       level4=level:3,LV:>12/kill:+10,rage:+20,rest:+1,exp:+20,level:4
@@ -128,7 +128,7 @@ spirit {
     level=2
     default=level1
     upgrade {
-      level1=level:0/damage:astral:50:180,rage_gain:10,rage:1,rest:1,exp:1,level:1
+      level1=level:0/damage:astral:50:180,rage_gain:10,rage:1,rest:1,exp:1,level:1,killedunitexp:1
       level2=level:1/damage:astral:+80:+210,rage_gain:+10,rage:+1,rest:+1,exp:+1,level:2
       level3=level:2/damage:astral:+110:+240,rage_gain:+10,rage:+2,rest:+1,exp:+2,level:3
       level4=level:3/damage:astral:+140:+270,rage_gain:+10,rage:+3,rest:+1,exp:+3,level:4
@@ -169,7 +169,7 @@ spirit {
     level=6
     default=level1
     upgrade {
-      level1=level:0/damage:astral:300:700,rage:15,rest:3,exp:15,level_influence:50,level:1
+      level1=level:0/damage:astral:300:700,rage:15,rest:3,exp:15,level_influence:50,level:1,killedunitexp:1
       level2=level:1/damage:astral:+300:+700,rage:+10,rest:+1,exp:+5,level_influence:+5,level:2
       level3=level:2/damage:astral:+300:+700,rage:+20,rest:+1,exp:+10,level_influence:+5,level:3
       level4=level:3,LV:>12/damage:astral:+300:+700,rage:+30,rest:+1,exp:+15,level_influence:+5,level:4

@@ -28,7 +28,7 @@ arena_params {
   posthitslave=features_mage
   features=poison_immunitet,magic_immunitet,mind_immunitet,eyeless,golem,mage
   resistances {
-    physical=5
+    physical=2
     poison=80
     magic=80
     fire=-95

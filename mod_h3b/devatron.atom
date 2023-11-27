@@ -17,7 +17,6 @@ arena_params {
   realdeath=1
   chessboard_aligned=1
   skipmove=0
-  isenemy=1
   repl_label1=devatron_repl1
   repl_label2=glot_repl2
   features=barrier,pawn
