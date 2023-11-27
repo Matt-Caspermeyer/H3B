@@ -157,6 +157,7 @@ function summon_bonus( unit, spell, text, ehero_level )
     hitpoint_bonus = hitpoint_bonus * sp_kid * sp_skill_holy_rage
     defense_bonus = defense_bonus * sp_kid * sp_skill_holy_rage
     attack_bonus = attack_bonus * sp_kid * sp_skill_holy_rage
+
   		if text ~= nil then
       if sp_power > 1 then
         bonus_string = bonus_string .. "<br>" .. "<label=spell_sp_power_summon> " .. gen_dmg_common_hint( "plus_power_percent", tostring( round( ( sp_power - 1 ) * 100 ) ) )
@@ -234,6 +235,7 @@ function summon_bonus( unit, spell, text, ehero_level )
         bonus_string = bonus_string .. "<br>" .. "<label=spell_item_ur_summon>"
       end
     end
+
     return damage_bonus, hitpoint_bonus, defense_bonus, attack_bonus, res_bonus, bonus_string
   end
 end
@@ -427,7 +429,7 @@ function common_plague_attack( target, duration, power, level, dmgts )
     local spell = "spell_plague"
   
     if Attack.act_race( target ) ~= "undead" then
-      duration = res_dur( target, spell, duration, "poison" )
+      duration = res_dur( dmgts + 0.1, target, spell, duration, "poison" )
     end
   
     Attack.act_apply_spell_begin( target, spell, duration, false )
@@ -470,7 +472,7 @@ function spell_plague_attack( target, level, dmgts )
 
   -- Spell Attack
 	 if type_trigger == 2 then
-		  duration = int_dur( "spell_plague", level, "sp_duration_plague" )
+		  duration = int_dur( "spell_plague", level, "sp_duration_plague", nil, ehero_level )
 	 end
 
   -- Necromancer Attack
@@ -607,7 +609,7 @@ end
 --New! Common function for the Demon / Dragon Slayer spells
 function common_slayer_attack( target, spell, duration, script, level, effect )
   local dmgts = Game.Random() / 10
-  duration = res_dur( target, spell, duration, "magic" )
+  duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
   Attack.act_del_spell( target, spell )
   Attack.act_apply_spell_begin( target, spell, duration, false )
   Attack.act_posthitmaster( target, script, duration, level )
@@ -638,7 +640,7 @@ function spell_demon_slayer_attack( level, target, belligerent )
     end
   
     if duration == nil then
-      duration = int_dur( spell, level, "sp_duration_demon_slayer" )
+      duration = int_dur( spell, level, "sp_duration_demon_slayer", nil, ehero_level )
     end
 
     return duration
@@ -685,7 +687,7 @@ function spell_dragon_slayer_attack( level, target, belligerent )
     end
   
     if duration == nil then
-      duration = int_dur( spell, level, "sp_duration_dragon_slayer" )
+      duration = int_dur( spell, level, "sp_duration_dragon_slayer", nil, ehero_level )
     end
 
     return duration
@@ -816,11 +818,11 @@ function spell_magic_bondage_attack( level, target )
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
-  local duration = int_dur( "spell_magic_bondage", level, "sp_duration_magic_bondage" )
+  local duration = int_dur( "spell_magic_bondage", level, "sp_duration_magic_bondage", nil, ehero_level )
 
   local function common_magic_bondage_attack( target, spell, special, duration, spawn )
     local dmgts = Game.Random() / 10
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     Attack.act_del_spell( target, special )
     Attack.act_apply_spell_begin( target, spell, duration, false )
@@ -867,13 +869,13 @@ function spell_scare_attack( lvl, dmgts, target )
     end
 
     local spell = "spell_scare"
-    local duration = int_dur( spell, level, "sp_duration_scare" )
-    duration = res_dur( target, spell, duration, "magic" )
+    local duration = int_dur( spell, level, "sp_duration_scare", nil, ehero_level )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, "effect_fear" )
     Attack.act_apply_spell_begin( target, "effect_fear", duration, false )
     Attack.act_apply_par_spell( "autofight", 1, 0, 0, duration, false )
     Attack.act_apply_spell_end()
-    Attack.atom_spawn( target, 0, "magic_scare", Attack.angleto( target ) )
+    Attack.atom_spawn( target, dmgts, "magic_scare", Attack.angleto( target ) )
     Attack.act_damage_addlog( target, "add_blog_fear_" )
   end
 
@@ -898,8 +900,8 @@ function spell_crue_fate_attack( lvl, dmgts, target )
     end
 
     local spell = "spell_crue_fate"
-    local duration = int_dur( spell, level, "sp_duration_crue_fate" )
-    duration = res_dur( target, spell, duration, "magic" )
+    local duration = int_dur( spell, level, "sp_duration_crue_fate", nil, ehero_level )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
     Attack.act_apply_spell_end()
@@ -948,8 +950,8 @@ function spell_last_hero_attack( level, target )
     local belligerent
     belligerent, ehero_level, level = common_get_belligerent( target, belligerent, ehero_level, level )
     local spell = "spell_last_hero"
-    local duration = int_dur( spell, level, "sp_duration_last_hero" )
-    duration = res_dur( target, spell, duration, "magic" )
+    local duration = int_dur( spell, level, "sp_duration_last_hero", nil, ehero_level )
+    duration = res_dur( 0.1, target, spell, duration, "magic" )
     local script = Logic.obj_par( spell, "script" )
     local hit = 1;
     Attack.act_del_spell( target, spell )
@@ -976,50 +978,50 @@ end
 function store_power_on_target( target, level, ehero_level )
   local power, penalty = pwr_stone_skin( level, ehero_level )
   local spell = "spell_stone_skin"
-  local duration = int_dur( spell, level, "sp_duration_stone_skin" )
+  local duration = int_dur( spell, level, "sp_duration_stone_skin", nil, ehero_level )
 		Attack.val_store( target, "spell_last_hero_stone_skin_power", power )
 		Attack.val_store( target, "spell_last_hero_stone_skin_penalty", penalty )
 		Attack.val_store( target, "spell_last_hero_stone_skin_duration", duration )
 
   spell = "spell_bless"
-  duration = int_dur( spell, level, "sp_duration_bless" )
+  duration = int_dur( spell, level, "sp_duration_bless", nil, ehero_level )
 		Attack.val_store( target, "spell_last_hero_bless_duration", duration )
 
   spell = "spell_accuracy"
-  duration = int_dur( spell, level, "sp_duration_accuracy" )
+  duration = int_dur( spell, level, "sp_duration_accuracy", nil, ehero_level )
   local bonus = pwr_accuracy( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_accuracy_duration", duration )
 		Attack.val_store( target, "spell_last_hero_accuracy_bonus", bonus )
 
   spell = "spell_adrenalin"
   power = tonumber( pwr_adrenalin( level, ehero_level ) )
-  duration = int_dur( spell, level, "sp_duration_adrenalin" )
+  duration = int_dur( spell, level, "sp_duration_adrenalin", nil, ehero_level )
 		Attack.val_store( target, "spell_last_hero_adrenalin_power", power )
 		Attack.val_store( target, "spell_last_hero_adrenalin_duration", duration )
 
   spell = "spell_demon_slayer"
-  duration = int_dur( spell, level, "sp_duration_demon_slayer" )
+  duration = int_dur( spell, level, "sp_duration_demon_slayer", nil, ehero_level )
 		Attack.val_store( target, "spell_last_hero_demon_slayer_duration", duration )
 
   spell = "spell_dragon_slayer"
-  duration = int_dur( spell, level, "sp_duration_dragon_slayer" )
+  duration = int_dur( spell, level, "sp_duration_dragon_slayer", nil, ehero_level )
 		Attack.val_store( target, "spell_last_hero_dragon_slayer_duration", duration )
 
   power = pwr_fire_breath( level, ehero_level )
   spell = "spell_fire_breath"
-  duration = int_dur( spell, level, "sp_duration_fire_breath" )
+  duration = int_dur( spell, level, "sp_duration_fire_breath", nil, ehero_level )
 		Attack.val_store( target, "spell_last_hero_fire_breath_power", power )
 		Attack.val_store( target, "spell_last_hero_fire_breath_duration", duration )
 
   spell = "spell_haste"
-  duration = int_dur( spell, level, "sp_duration_haste" )
+  duration = int_dur( spell, level, "sp_duration_haste", nil, ehero_level )
   local speedbonus, kritbonus = pwr_haste( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_haste_duration", duration )
 		Attack.val_store( target, "spell_last_hero_haste_speedbonus", speedbonus )
 		Attack.val_store( target, "spell_last_hero_haste_kritbonus", kritbonus )
 
   spell = "spell_reaction"
-  duration = int_dur( spell, level, "sp_duration_reaction" )
+  duration = int_dur( spell, level, "sp_duration_reaction", nil, ehero_level )
   local moralbonus = pwr_warcry( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_reaction_duration", duration )
 		Attack.val_store( target, "spell_last_hero_reaction_moralbonus", moralbonus )
@@ -1028,20 +1030,20 @@ function store_power_on_target( target, level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_resurrection_rephits", rephits )
 
   spell = "spell_magic_source"
-  duration = int_dur( spell, level, "sp_duration_magic_source" )
+  duration = int_dur( spell, level, "sp_duration_magic_source", nil, ehero_level )
   local penalty, mana = pwr_magic_source( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_magic_source_duration", duration )
 		Attack.val_store( target, "spell_last_hero_magic_source_penalty", penalty )
 		Attack.val_store( target, "spell_last_hero_magic_source_mana", mana )
 
   spell = "spell_divine_armor"
-  duration = int_dur( spell, level, "sp_duration_divine_armor" )
+  duration = int_dur( spell, level, "sp_duration_divine_armor", nil, ehero_level )
   local resistbonus = pwr_divine_armor( level, ehero_level )
 		Attack.val_store( target, "spell_last_hero_divine_armor_duration", duration )
 		Attack.val_store( target, "spell_last_hero_divine_armor_resistbonus", resistbonus )
 
   spell = "spell_invisibility"
-  duration = int_dur( spell, level, "sp_duration_invisibility" )
+  duration = int_dur( spell, level, "sp_duration_invisibility", nil, ehero_level )
 		Attack.val_store( target, "spell_last_hero_invisibility_duration", duration )
 
   return true
@@ -1078,11 +1080,11 @@ function spell_magic_source_attack( level, target, belligerent, heroname, enchan
   		  penalty = Attack.val_restore( target, "spell_last_hero_magic_source_penalty" )
   		  mana = Attack.val_restore( target, "spell_last_hero_magic_source_mana" )
     else
-      duration = int_dur( spell, level, "sp_duration_magic_source" )
+      duration = int_dur( spell, level, "sp_duration_magic_source", nil, ehero_level )
       penalty, mana = pwr_magic_source( level, ehero_level )
     end
 
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( 0.1, target, spell, duration, "magic" )
     local script = Logic.obj_par( spell, "script" )
     local defense, basedefense = Attack.act_get_par( target, "defense" )
     Attack.val_store( target, "spell_magic_source_mana_gain", mana )
@@ -1109,7 +1111,7 @@ function spell_target_attack( level, target )
 
   if (target ~= nil) then
    	level = common_get_spell_level( level )
-    local duration = int_dur( "spell_target", level, "sp_duration_target" )
+    local duration = int_dur( "spell_target", level, "sp_duration_target", nil, ehero_level )
     Attack.act_del_spell( target, "spell_target" )
     Attack.act_apply_spell_begin( target, "spell_target", duration, false )
     Attack.act_spell_param( target, "spell_target", "lvl", text_dec( Logic.obj_par( "spell_target", "lvl" ), level ) )
@@ -1136,8 +1138,8 @@ function spell_berserker_attack( level, target )
     end
 
     local spell = "spell_berserker"
-    local duration = int_dur( spell, level, "sp_duration_berserker" )
-    duration = res_dur( target, spell, duration, "magic" )
+    local duration = int_dur( spell, level, "sp_duration_berserker", nil, ehero_level )
+    duration = res_dur( 0.1, target, spell, duration, "magic" )
     local level, power = pwr_berserker( level, ehero_level )
     Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
@@ -1198,7 +1200,7 @@ function spell_adrenalin_attack( level, target, belligerent )
     if power == nil
     or duration == nil then
       power = tonumber( pwr_adrenalin( level, ehero_level ) )
-      duration = int_dur( spell, level, "sp_duration_adrenalin" )
+      duration = int_dur( spell, level, "sp_duration_adrenalin", nil, ehero_level )
     end
 
     local cur_ap = Attack.act_ap( target )
@@ -1216,7 +1218,7 @@ function spell_adrenalin_attack( level, target, belligerent )
 
     Attack.act_ap( target, new_ap ) -- вынес функцию сюда, т.к. act_apply_spell_end() восстанавливает разность ОД, т.е. по сути аннулирует эффект от вызова этой функции двумя строками ниже
 
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( 0.1, target, spell, duration, "magic" )
 
     --New! Adds unlimited retaliation to the unit for the duration specified in SPELLS.TXT
     if duration > 0 then
@@ -1266,8 +1268,8 @@ function spell_hypnosis_attack( lvl, dmgts )
 
   Attack.act_belligerent( target, bl )
   local spell = "spell_hypnosis"
-  local moves = int_dur( spell, level, "sp_duration_hypnosis" )
-  moves = res_dur( target, spell, moves, "magic" )
+  local moves = int_dur( spell, level, "sp_duration_hypnosis", nil, ehero_level )
+  moves = res_dur( dmgts + 0.1, target, spell, moves, "magic" )
   Attack.act_apply_spell_begin( target, spell, moves, false )
   Attack.act_apply_spell_end()
   Attack.atom_spawn( target, dmgts, "magic_hypnosis", Attack.angleto( target ) )
@@ -1307,10 +1309,10 @@ function spell_fire_breath_attack( level, target, belligerent )
     if power == nil
     or duration == nil then
       power = pwr_fire_breath( level, ehero_level )
-      duration = int_dur( spell, level, "sp_duration_fire_breath" )
+      duration = int_dur( spell, level, "sp_duration_fire_breath", nil, ehero_level )
     end
 
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     local mindfire = Attack.act_get_dmg_min( target, "fire" )
     local mindpoison = Attack.act_get_dmg_min( target, "poison" )
@@ -1372,14 +1374,15 @@ function spell_stone_skin_attack( level, target, belligerent )
     or penalty == nil
     or duration == nil then
       power, penalty = pwr_stone_skin( level, ehero_level )
-      duration = int_dur( spell, level, "sp_duration_stone_skin" )
+      duration = int_dur( spell, level, "sp_duration_stone_skin", nil, ehero_level )
     end
 
     return power, penalty, duration
   end
 
   local function common_stone_skin( target, spell, power, penalty, duration )
-    duration = res_dur( target, spell, duration, "magic" )
+    local dmgts0 = Game.Random() / 10
+    duration = res_dur( dmgts0 + 0.1, target, spell, duration, "magic" )
     local initiative, initiativebase = Attack.act_get_par( target, "initiative" )
   
     if initiative < 2 then
@@ -1392,7 +1395,7 @@ function spell_stone_skin_attack( level, target, belligerent )
     Attack.act_apply_par_spell( "initiative", -penalty, 0, 0, duration, false)
     Attack.act_apply_par_spell( "defense", 0, 0, power, duration, false)
     Attack.act_apply_spell_end()
-    local a = Attack.atom_spawn( target, Game.Random() / 10, "magic_stoneskin" )
+    local a = Attack.atom_spawn( target, dmgts0, "magic_stoneskin" )
     local dmgts = Attack.aseq_time( a, "x" )
     local dmgts2 = Attack.aseq_time( a, "y" )
     Attack.act_set_diff_tex( target, "stone_skin.dds", dmgts )
@@ -1525,7 +1528,7 @@ function spell_oil_fog_attack( lvl, dmgts )
 
     local spell = "spell_oil_fog"
     local min_dmg, max_dmg, duration, power = pwr_oil_fog( lvl, ehero_level )
-    duration = res_dur( target, spell, duration, "fire" )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "fire" )
     local dmg_type = Logic.obj_par( spell, "typedmg" )
     Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
     local a = Attack.atom_spawn( target, dmgts, "magic_oilfog" )
@@ -1589,7 +1592,7 @@ end
 --New! Common function for Haste / Slow spells
 function common_haste_slow_attack( target, spell1, spell2, duration, value, dmgts, spawn, krit )
   dmgts = dmgts + Game.Random() / 10
-  duration = res_dur( target, spell1, duration, "magic" )
+  duration = res_dur( dmgts + 0.1, target, spell1, duration, "magic" )
   Attack.act_del_spell( target, spell1 )
   Attack.act_del_spell( target, spell2 )
   Attack.act_apply_spell_begin( target, spell1, duration, false )
@@ -1633,7 +1636,7 @@ function spell_haste_attack( level, dmgts, target, belligerent )
     if duration == nil
     or speedbonus == nil
     or kritbonus == nil then
-      duration = int_dur( spell, level, "sp_duration_haste" )
+      duration = int_dur( spell, level, "sp_duration_haste", nil, ehero_level )
       speedbonus, kritbonus = pwr_haste( level, ehero_level )
     end
 
@@ -1674,7 +1677,7 @@ function spell_slow_attack( lvl, dmgts )
   end
 
   local spell = "spell_slow"
-  local duration = int_dur( spell, level, "sp_duration_slow" )
+  local duration = int_dur( spell, level, "sp_duration_slow", nil, ehero_level )
   local speedlow, kritlow = pwr_slow( level, ehero_level )
 
   if ( target ~= nil ) then
@@ -1743,7 +1746,7 @@ function common_fire_burn_attack( target, burn, dmgts, duration, damage, label, 
   and not Attack.act_feature( target, "golem" )
   and not Attack.act_feature( target, "fire_immunitet" ) then
     if spell ~= nil then
-      duration = res_dur( target, spell, duration, "fire" )
+      duration = res_dur( dmgts + 0.1, target, spell, duration, "fire" )
     end
 
   	 effect_burn_attack( target, dmgts, duration, burn_damage, burn_damage )
@@ -1911,7 +1914,7 @@ function spell_smile_skull_attack( lvl, dmgts )
 
     if poison_rnd < poison_chance
     and not Attack.act_feature( target, "golem" ) then
-      duration = res_dur( target, spell, duration, "poison" )
+      duration = res_dur( dmgts + dmgts1 + 1.1, target, spell, duration, "poison" )
       effect_poison_attack( target, dmgts1 + 1 + dmgts, duration, poison_damage, poison_damage )
     end
     --hll_post_archmage_lighting
@@ -2048,7 +2051,7 @@ function common_freeze_attack( target, spell, freeze, dmgts, duration )
   and not Attack.act_feature( target, "boss" )
   and not Attack.act_feature( target, "golem" )
   and not Attack.act_feature( target, "freeze_immunitet" ) then
-    duration = res_dur( target, spell, duration, "physical", nil, true )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "physical", nil, true )
     effect_freeze_attack( target, dmgts, duration )
   end
 
@@ -2056,6 +2059,10 @@ function common_freeze_attack( target, spell, freeze, dmgts, duration )
 end
 
 function common_freeze_im_vul( target, min_dmg, max_dmg )
+  if max_dmg == nil then
+    max_dmg = min_dmg
+  end
+
   if Attack.act_feature( target, "freeze_immunitet" ) then
     min_dmg = min_dmg * freeze_im
     max_dmg = max_dmg * freeze_im
@@ -2172,7 +2179,7 @@ function spell_lightning_attack( lvl, dmgts )
 
    	if shock_rnd < shock_chance
     and not Attack.act_feature( target, "golem" ) then
-      duration = res_dur( target, spell, duration, "magic" )
+      duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
 	  	  effect_shock_attack( target, dmgts, duration )
    	end
 
@@ -2257,7 +2264,7 @@ function spell_weakness_attack( lvl, dmgts, target )
   end
 
   local spell = "spell_weakness"
-  local duration = int_dur( spell, level, "sp_duration_weakness" )
+  local duration = int_dur( spell, level, "sp_duration_weakness", nil, ehero_level )
 
   if target ~= nil  then
     effect_bless_weakness_attack( target, spell, duration, dmgts, "magic_sword", true )
@@ -2300,7 +2307,7 @@ function spell_bless_attack( level, dmgts, target, belligerent )
     end
   
     if duration == nil then
-      duration = int_dur( spell, level, "sp_duration_bless" )-- + healer_bonus
+      duration = int_dur( spell, level, "sp_duration_bless", nil, ehero_level )-- + healer_bonus
     end
   
     return duration
@@ -2368,8 +2375,8 @@ function spell_pacifism_attack( level, target )
     end
 
     local spell = "spell_pacifism"
-    local duration = int_dur( spell, level, "sp_duration_pacifism" )
-    duration = res_dur( target, spell, duration, "magic" )
+    local duration = int_dur( spell, level, "sp_duration_pacifism", nil, ehero_level )
+    duration = res_dur( 0.1, target, spell, duration, "magic" )
     local bonus, penalty = pwr_pacifism( level, ehero_level )
     Attack.act_del_spell( target, spell )
     local bhealth, bhealth = Attack.act_get_par( target, "health" )
@@ -2401,12 +2408,12 @@ function spell_defenseless_attack( lvl, dmgts, target )
   end
 
   local spell = "spell_defenseless"
-  local duration = int_dur( spell, level, "sp_duration_defenseless" )
+  local duration = int_dur( spell, level, "sp_duration_defenseless", nil, ehero_level )
   local less = pwr_defenseless( level, ehero_level )
 
   local function common_defenseless_attack( target, spell, duration, less, dmgts )
     dmgts = dmgts + Game.Random() / 10
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
     Attack.act_apply_par_spell( "defense", 0, 0, -less, duration, false )
@@ -2448,11 +2455,11 @@ function spell_divine_armor_attack( level, target, belligerent )
 
     if duration == nil
     or resistbonus == nil then
-      duration = int_dur( spell, level, "sp_duration_divine_armor" )
+      duration = int_dur( spell, level, "sp_duration_divine_armor", nil, ehero_level )
       resistbonus = pwr_divine_armor( level, ehero_level )
     end
 
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     local curfire, firebase = Attack.act_get_res( target, "fire" )
     local curphysical, physicalbase = Attack.act_get_res( target, "physical" )
@@ -2488,12 +2495,12 @@ function spell_divine_armor_attack( level, target, belligerent )
     end
 
     Attack.act_apply_spell_begin( target, spell, duration, false )
-    Attack.act_apply_res_spell( "fire", bonfire, 0, 0, duration, false)
-    Attack.act_apply_res_spell( "physical", bonphysical, 0, 0, duration, false)
-    Attack.act_apply_res_spell( "magic", bonmagic, 0, 0, duration, false)
-    Attack.act_apply_res_spell( "poison", bonpoison, 0, 0, duration, false)
+    Attack.act_apply_res_spell( "fire", bonfire, 0, 0, duration, false )
+    Attack.act_apply_res_spell( "physical", bonphysical, 0, 0, duration, false )
+    Attack.act_apply_res_spell( "magic", bonmagic, 0, 0, duration, false )
+    Attack.act_apply_res_spell( "poison", bonpoison, 0, 0, duration, false )
     Attack.act_apply_spell_end()
-    Attack.atom_spawn(target, 0, "magic_armor", Attack.angleto(target))
+    Attack.atom_spawn( target, 0, "magic_armor", Attack.angleto( target ) )
   end
 
   return true
@@ -2519,7 +2526,7 @@ function spell_accuracy_attack( level, target, belligerent )
   
     if duration == nil
     or bonus == nil then
-      duration = int_dur( spell, level, "sp_duration_accuracy" )
+      duration = int_dur( spell, level, "sp_duration_accuracy", nil, ehero_level )
       bonus = pwr_accuracy( level, ehero_level )
     end
 
@@ -2528,7 +2535,7 @@ function spell_accuracy_attack( level, target, belligerent )
 
   local function common_accuracy_attack( target, spell, duration, bonus, spawn )
     local dmgts = Game.Random() / 10
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
     apply_common_damage_bonus( target, bonus / 100, duration )
@@ -2575,8 +2582,8 @@ function spell_pygmy_attack( lvl, dmgts, target )
     end
 
     local spell = "spell_pygmy"
-    local duration = int_dur( spell, level, "sp_duration_pygmy" )
-    duration = res_dur( target, spell, duration, "magic" )
+    local duration = int_dur( spell, level, "sp_duration_pygmy", nil, ehero_level )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     local unit_level = Attack.act_level( target )
 
     if unit_level > 4 then
@@ -2623,8 +2630,8 @@ function spell_blind_attack( lvl, dmgts, target )
     end
 
     local spell = "spell_blind"
-    local duration = int_dur( spell, level, "sp_duration_blind" )
-    duration = res_dur( target, spell, duration, "magic" )
+    local duration = int_dur( spell, level, "sp_duration_blind", nil, ehero_level )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     local unit_level = Attack.act_level( target )
 
     if unit_level > 4 then
@@ -2665,7 +2672,7 @@ function spell_reaction_attack( level, target, belligerent )
   
     if duration == nil
     or moralbonus == nil then
-      duration = int_dur( spell, level, "sp_duration_reaction" )
+      duration = int_dur( spell, level, "sp_duration_reaction", nil, ehero_level )
       moralbonus = pwr_warcry( level, ehero_level )
     end
 
@@ -2676,7 +2683,7 @@ function spell_reaction_attack( level, target, belligerent )
     local current_value, base_value = Attack.act_get_par( target, "moral" )
     local att_def_bonus, krit_bonus = get_moral_modifier( current_value + bonus, current_value )
     local dmgts = Game.Random() / 10
-    duration = res_dur( target, spell, duration, "magic" )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     Attack.act_del_spell( target, spell )
     Attack.act_apply_spell_begin( target, spell, duration, false )
     Attack.act_apply_par_spell( "moral", bonus, 0, 0, duration, false)
@@ -2838,7 +2845,7 @@ function spell_geyser_attack( level, dmgts, target )
           and not Attack.act_feature( i, "plant" )
           and not Attack.act_feature( i, "golem" )
           and rnd < ( math.max( 0, stun - stun_res ) ) then
-            effect_stun_attack( i, hit_time + 2, res_dur( target, spell, duration, "physical" ) )
+            effect_stun_attack( i, hit_time + 2, res_dur( hit_time + 2.1, target, spell, duration, "physical" ) )
           end
         end
       end
@@ -2971,6 +2978,7 @@ function spell_phoenix_call()
   end
 
   fix_hitback( target )
+  apply_hero_attack_defense_bonuses( target )
   Attack.resort( target )
  	Attack.log_label( "null" )
 	 Attack.log( "add_blog_phoen", "hero_name", blog_side_unit( target, 4 )..Attack.hero_name(), "targeta", blog_side_unit( target, 0 ) )
@@ -3057,7 +3065,7 @@ function spell_phantom_attack()
 
     local spell = "spell_phantom"
     count = round( Attack.act_totalhp( source ) * ( pwr_phantom( level, ehero_level ) / 100 ) / ( Attack.act_get_par( source, "health" ) ) )
-    local moves = int_dur( spell, level, "sp_duration_phantom" )
+    local moves = int_dur( spell, level, "sp_duration_phantom", nil, ehero_level )
 --    local moves = text_dec(Logic.obj_par(spell,"duration"),level)
     Attack.act_spawn( target, 0, actor_name( source ), angle, count )
     Attack.act_enable_attack( target, "split", false ); Attack.val_store( target, "clone", 1 )
@@ -3073,6 +3081,7 @@ function spell_phantom_attack()
    	Attack.act_nodraw( target, false, x + y )
    	Attack.act_transparency( target, .7 )
     fix_hitback( target )
+    apply_hero_attack_defense_bonuses( target )
     Attack.act_apply_spell_begin( target, spell, moves, false )
     Attack.act_apply_spell_end()
 	--add_blog_sfantom_2
@@ -3210,8 +3219,8 @@ function spell_ram_attack( lvl, dmgts, target, nolog )
     end
 
     local spell = "spell_ram"
-   	local duration = int_dur( spell, level, "sp_duration_ram" )
-    duration = res_dur( target, spell, duration, "magic" )
+   	local duration = int_dur( spell, level, "sp_duration_ram", nil, ehero_level )
+    duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
     local unit_level = Attack.act_level( target )
 
     if unit_level > 4 then
@@ -3320,6 +3329,7 @@ function spell_evilbook_attack()
     summon_bonus( target, "spell_evilbook", nil, ehero_level )
     Attack.act_animate( target, "appear" )
     fix_hitback( target )
+    apply_hero_attack_defense_bonuses( target )
     Attack.resort( target )
   end
 
@@ -3405,8 +3415,8 @@ function special_trap()
   and not Attack.act_feature( cell, "undead" )
   and not Attack.act_feature( cell, "plant" )
   and not Attack.act_feature( cell, "poison_immunitet" ) then
-    duration = res_dur( cell, "spell_trap", duration, "poison" )
-    effect_poison_attack( cell, dmgts+1, duration, poison_damage, poison_damage )
+    duration = res_dur( dmgts + 1.1, cell, "spell_trap", duration, "poison" )
+    effect_poison_attack( cell, dmgts + 1, duration, poison_damage, poison_damage )
   end
 
  	local count = Attack.act_size( cell )
@@ -3466,7 +3476,7 @@ function spell_shroud_attack()
     ehero_level, level = get_enemy_hero_stuff( level )
   end
 
-  local duration = int_dur( "spell_shroud", level, "sp_duration_shroud" )
+  local duration = int_dur( "spell_shroud", level, "sp_duration_shroud", nil, ehero_level )
   local penalty  = pwr_shroud( level, ehero_level )
   local cid = Attack.cell_id( Attack.get_cell( target ) )
   for i = 1, Attack.act_count() - 1 do
@@ -3611,6 +3621,7 @@ function spell_holy_rain_attack( level, target )
     dmgt = Attack.aseq_time( a, "x" )
     local dmg_type = Logic.obj_par( spell, "typedmg" )
     local n = Attack.get_targets_count()
+
     for i = 0, n - 1 do
       local tgt = Attack.get_target( i )
 
@@ -3624,25 +3635,31 @@ function spell_holy_rain_attack( level, target )
             local b = Attack.atom_spawn( tgt, dmgt, "effect_hard_bless" )
             dmgs = Attack.aseq_time( b, "x" )
             common_cell_apply_damage( tgt, dmgt + dmgs )
-  							   effect_holy_attack( tgt, dmgs, res_dur( target, spell, duration, "magic" ), holy )
-          elseif ( Attack.act_need_cure( tgt ) )
+  							   effect_holy_attack( tgt, dmgt + dmgs + 0.1, res_dur( dmgt + dmgs + 0.2, tgt, spell, duration, "magic" ), holy )
+          elseif ( Attack.cell_need_resurrect( tgt ) )
           and not ( Attack.act_race( tgt, "demon" ) )
---          and not Attack.act_temporary( tgt )
-          and not ( Attack.act_feature( tgt, "golem, magic_immunitet" ) )
+          and not ( Attack.act_is_spell( tgt, "special_summon_bonus" ) )
           and Attack.act_ally( tgt ) then
             local rephits = round( Game.Random( min_dmg, max_dmg ) )
-            local max_hp = Attack.act_get_par( tgt, "health" )
-            local cure = Attack.act_hp( tgt )
+   	        local count_1, count, hp = Attack.act_size( tgt ), 0, Attack.act_hp( tgt )
+            Attack.atom_spawn( tgt, dmgt, "hll_priest_resur_cast" )
+            Attack.cell_resurrect( tgt, rephits )
+            local count_2 = Attack.act_size( tgt )
 
-            if rephits > max_hp - cure then rephits = max_hp - cure end
-
-            Attack.act_cure( tgt, rephits, dmgt )
-            Attack.atom_spawn( tgt, dmgt, "effect_total_cure" )
-            --add_blog_sheal_2=^blog_td0^[hero_name] использует [spell]. [target] восстанавливают [g][special][/c] здоровья.
-            if Attack.act_size( tgt ) > 1 then
-           	 	Attack.log( 0.001, "add_blog_cure_2", "target", blog_side_unit( tgt, 0 ), "special", rephits )
-            else
-            		Attack.log( 0.001, "add_blog_cure_1", "target", blog_side_unit( tgt, 0 ), "special", rephits )
+            if count_2 > count_1 then count = count_2 - count_1 end
+        
+            if count_2 < count_1 then count = count_2 end
+        
+           	local N
+        
+            if Attack.act_size( tgt ) > 1 then N = '2' else N = '1' end
+        
+            local heroname = blog_side_unit( tgt, 4 ) .. Attack.hero_name()
+            
+            if count_1 == count_2 then
+           	 	Attack.log( dmgt + 0.5, "add_blog_sheal_" .. N, "hero_name", heroname, "spell", blog_side_unit( tgt, 3 ) .. "<label=spell_holy_rain_name>", "special", Attack.act_hp( tgt ) - hp, "target", blog_side_unit( tgt, -1 ) )
+          	 else
+             	Attack.log( dmgt + 0.5, "add_blog_sres_"  .. N, "hero_name", heroname, "spell", blog_side_unit( tgt, 3 ) .. "<label=spell_holy_rain_name>", "special", count, "target", blog_side_unit( tgt, -1 ) )
             end
           end
         end
@@ -3716,10 +3733,10 @@ function spell_invisibility( level, target, belligerent )
   local duration = Attack.val_restore( target, "spell_last_hero_invisibility_duration" )
 
   if duration == nil then
-    duration = int_dur( spell, level, "sp_duration_invisibility" )
+    duration = int_dur( spell, level, "sp_duration_invisibility", nil, ehero_level )
   end
 
-  duration = res_dur( target, spell, duration, "magic" )
+  duration = res_dur( 0.1, target, spell, duration, "magic" )
   Attack.act_apply_spell_begin( target, spell, duration, false )
   Attack.act_apply_spell_end()
   Attack.act_transparency( target, .5 )
@@ -3813,6 +3830,7 @@ function demon_portal()
 	  	--Attack.act_ap(target,Attack.act_get_par(target,"speed"))
 	  	Attack.resort( target )
     fix_hitback( target )
+    apply_hero_attack_defense_bonuses( target )
 	  	Attack.cell_passability( 0, 0 )
 	  	Attack.log( "add_blog_demon_summon_" .. loadstring ( "if " .. count .. ">1 then return 2 else return 1 end" )(),	"name", blog_side_unit( target, 2, bel ) .. blog_side_unit( target, 3, bel ), "target", blog_side_unit( target, 0, bel ), "special", count )
  	else

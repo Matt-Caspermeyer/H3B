@@ -153,24 +153,19 @@ end
 function gen_unit_krit( data )
   local text = ""
   local is_human = AU.is_human( data )
-  local hero_attack
-
-  if not Game.LocIsArena()
-  or is_human then
-    hero_attack = Logic.hero_lu_item( "attack", "count" )
-  else
-    hero_attack = Attack.val_restore( data, "enemy_hero_attack" )
-  end
-
   local current_krit, base_krit = Attack.act_get_par( data, "krit" )
   local current_color = "<color=252,249,220>"
   local base_color = "<color=79,172,211>"
 
-  if hero_attack ~= nil
-  and hero_attack > 0 then
-    local krit_inc = Game.Config( "attack_config/krit_inc" )
-    local krit_bonus = math.floor( hero_attack / 7 ) * krit_inc
-    current_krit = current_krit + krit_bonus
+  if not Game.LocIsArena() then
+    local hero_attack = Logic.hero_lu_item( "attack", "count" )
+
+    if hero_attack ~= nil
+    and hero_attack > 0 then
+      local krit_inc = Game.Config( "attack_config/krit_inc" )
+      local krit_bonus = math.floor( hero_attack / 7 ) * krit_inc
+      current_krit = current_krit + krit_bonus
+    end
   end
 
   if Attack.act_is_spell( data, "special_preparation" ) then
@@ -198,18 +193,11 @@ function gen_unit_res( data )
   local res_count = AU.rescount()
 
   for i = 0, res_count - 2 do
-    local res = AU.resistance( data,  i )
-    local is_human = AU.is_human( data )
-    local hero_defense = 0
+    local res = AU.resistance( data, i )
 
-    if not Game.LocIsArena()
-    or is_human then
-      hero_defense = Logic.hero_lu_item( "defense", "count" )
-      local value = Game.Config( "defense_config/res_inc" )
-      res = res + math.floor( hero_defense / 7 ) * value
-    else
-      hero_defense = Attack.val_restore( data, "enemy_hero_defense" )
-      
+    if not Game.LocIsArena() then
+      local hero_defense = Logic.hero_lu_item( "defense", "count" )
+
       if hero_defense ~= nil
       and hero_defense > 0 then
         local value = Game.Config( "defense_config/res_inc" )

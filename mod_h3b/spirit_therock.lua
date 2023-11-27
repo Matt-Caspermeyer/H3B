@@ -29,26 +29,6 @@ end
 
 function therock_quake() 
   local r = Game.Random()
---  local stunning_prob = tonumber( "0" .. Attack.get_custom_param("stunning") )
-  for i = 1, Attack.act_count() - 1 do
-    if Attack.act_enemy( i )
-    and Attack.act_takesdmg( i ) then
-      local dead = Attack.act_damage( i )
-      if not dead then
-        local power = tonumber( "0" .. Attack.get_custom_param( "bleeding" ) ) -- назначаем бонус
-        local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" )
-        if Game.Random( 99 ) < power then
-          therock_bleeding( i, power, duration )
-        end
-      end
-
---      if not dead and Game.Random(100) < stunning_prob then
---          Attack.act_apply_spell_begin( i, "spirit_therock_stunning", 3, false )
---        --Attack.act_apply_par_spell( "attack", 0, -power, 0, 3, false)
---      Attack.act_apply_spell_end()
---      end
-    end
-  end
 
   if Attack.is_short_spirit_seq() then
     Attack.act_aseq( 0, "2attack1" )
@@ -74,6 +54,7 @@ function therock_quake()
     Attack.act_aseq( 0, "attack1" )
     Attack.setnodimming()
     Attack.setnodimming( 0 )
+
     if Game.ArenaShape() == 1 then --//  castle
       if idletype == 0 then
         Attack.cam_track(0, 0, "therock_appear_rare_quake_castle.track" )
@@ -120,14 +101,21 @@ function therock_quake()
   for i = 1, Attack.act_count() - 1 do
     if Attack.act_enemy( i )
     and Attack.act_takesdmg( i ) then
-      --[[local dead = Attack.act_damage(i)
-      if dead then
-        Attack.add_exp( Attack.act_exp(i) )
-      end]]
+      local dead = Attack.act_damage( i )
       Attack.dmg_timeshift( i, shake_time )
       Attack.atom_spawn( i, shake_time, "thespikes_quake" )
       local hit_x = Attack.aseq_time( i, "x" )
       Attack.aseq_timeshift( i, shake_time - hit_x )
+
+      if not dead then
+        local power = tonumber( "0" .. Attack.get_custom_param( "bleeding" ) ) -- назначаем бонус
+
+        if Game.Random( 99 ) < power then
+          local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" )
+          duration = tal_dur( hit_x + 0.1, i, duration, "physical", "penalty" )
+          therock_bleeding( i, power, duration )
+        end
+      end
     end
   end
 
@@ -148,6 +136,7 @@ function therock_bleeding( target, power, duration )
     and not Attack.act_feature( target, "boss" ) then
       local bleeding_res = Attack.act_get_res( target, "physical" )
       power = math.min( 80, power - bleeding_res )
+
       if power > 0 then
         local duration_old = tonumber( Attack.act_spell_duration( target, "feat_lump_bleeding" ) )
   
@@ -185,12 +174,7 @@ function therock_lump()
   local r = Game.Random()
   local target = Attack.get_target()
   local photo = Attack.photogenic( target )
-  Attack.act_damage( target )
-  local power = tonumber( "0" .. Attack.get_custom_param( "bleeding" ) ) -- назначаем бонус
-  local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" )
 		
-  therock_bleeding( target, power, duration )
-
   if Attack.is_short_spirit_seq() then
     Attack.act_aseq( 0, "2attack2" )
     Attack.cam_track_duration(8.0)
@@ -265,13 +249,14 @@ function therock_lump()
 
   if target ~= nil then
     Attack.act_move( start_time, end_time, 0, target )
-    --[[local dead = Attack.act_damage( target )
-    if dead then
-      Attack.add_exp( Attack.act_exp(target) )
-    end]]
-    Attack.dmg_timeshift(target,hit_time)
+    Attack.act_damage( target )
+    Attack.dmg_timeshift( target, hit_time )
     local hit_x = Attack.aseq_time( target, "x" )
     Attack.aseq_timeshift( target, hit_time - hit_x )
+    local power = tonumber( "0" .. Attack.get_custom_param( "bleeding" ) ) -- назначаем бонус
+    local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_feat_bleeding", "count" )
+    duration = tal_dur( hit_x + 0.1, target, duration, "physical", "penalty" )
+    therock_bleeding( target, power, duration )
   end
 
   spirit_after_hit()
@@ -435,10 +420,10 @@ function therock_rockfall()
           if dead then
             Attack.add_exp( Attack.act_exp(target) )
           end]]
+          local dead = Attack.act_damage( target )
           local hit_x = Attack.aseq_time( target, "x" )
           Attack.aseq_timeshift( target, hit_time - hit_x )
           Attack.dmg_timeshift( target, hit_time )
-          local dead = Attack.act_damage( target )
 
           if not dead
           and not Attack.act_pawn( target )
@@ -452,6 +437,7 @@ function therock_rockfall()
             local stun_chance = math.max( 0, stunning_prob - stun_res )
             if rnd < stun_chance then
               local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) )
+              duration = tal_dur( hit_time + 2.1, target, duration, "physical", "penalty" )
               effect_stun_attack( target, hit_time + 2, duration )
             end
           end

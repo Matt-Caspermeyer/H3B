@@ -349,8 +349,8 @@ function gen_special_hint( unit, par )
     local total_hp = tonumber( health ) / 100 * Attack.act_totalhp( 0 )
     local hp = math.ceil( total_hp + titan_energy )
     local init, init_base = Attack.act_get_par( 0, "initiative" )
-    local init_den = apars.custom_params.init_den
-    local totem_init = init_base + math.floor( hp / init_den )
+--    local init_den = apars.custom_params.init_den
+    local totem_init = init_base + round( math.pow( hp, 1/5 ) )
     text = tostring( totem_init )
   end 
 

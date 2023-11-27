@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_beholder_feat
-  features_hints=soars_header/soars_hint,shot_header/shot_hint,paralyse_header/paralyse_hint,underground_header/underground_hint,mind_immunity_header/mind_immunity_hint,regenerates_mana_header/regenerates_mana_hint
+  features_hints=soars_header/soars_hint,shot_header/shot_hint,paralyse_header/paralyse_hint,underground_header/underground_hint,mind_immunity_header/mind_immunity_hint,magic_resistance_header/magic_resistance_hint,regenerates_mana_header/regenerates_mana_hint
   race=neutral
   cost=460
   level=3
@@ -27,7 +27,7 @@ arena_params {
   resistances {
     physical=0
     poison=0
-    magic=0
+    magic=15
     fire=0
   }
   moveattack {

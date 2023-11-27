@@ -96,10 +96,26 @@ function int_pwr( pwr, ehero_level )
 end
 
 
+-- New function for determining spell power increase / decrease based on difficulty level
+function get_sp_map_difficulty_bonus( ehero_level )
+  local bonus = 1
+
+  if ehero_level ~=nil then
+    local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/espell' ), Game.HSP_difficulty() + 1, '|' ) )
+    local maplocden = tonumber( text_dec( Game.Config( 'difficulty_k/maplocden' ), Game.HSP_difficulty() + 1, '|' ) )
+    local maplocdiff = Game.MapLocDifficulty() + 1
+    bonus = diff_k + maplocdiff / maplocden / 100
+  end
+
+  return bonus
+end
+
+
 -- New common function for determining spell bonuses based on type
 function get_sp_bonus( spell, bonus_type, ehero_level )
   local bonus = Logic.obj_par( spell, bonus_type )
   local spell_bonus = 1
+
   if bonus == "1"
   or bonus == "fire"
   or bonus == "physical"
@@ -136,6 +152,7 @@ function get_sp_bonus( spell, bonus_type, ehero_level )
       end
     else
       local ehero_int = HInt()
+
       if bonus_type == "hero" then
         spell_bonus = 1 + ehero_level / 100
       elseif bonus_type == "destroyer" then
@@ -187,7 +204,8 @@ function get_spell_bonus( spell, text, ehero_level )
   local sp_power = get_sp_bonus( spell, "int_pwr", ehero_level )
   local int_power = ( 1 + HInt() / 100 ) * sp_power * int_pwr( 1, ehero_level )
   local sp_necromancy = get_sp_bonus( spell, "necromancy", ehero_level )
-  local spell_bonus = sp_hero * sp_destroyer * sp_attack * sp_defense * sp_healer * sp_holy * sp_glory * sp_holy_rage * sp_damage * int_power * sp_necromancy
+  local sp_map_difficulty_bonus = get_sp_map_difficulty_bonus( ehero_level )
+  local spell_bonus = sp_hero * sp_destroyer * sp_attack * sp_defense * sp_healer * sp_holy * sp_glory * sp_holy_rage * sp_damage * int_power * sp_necromancy * sp_map_difficulty_bonus
 
   if text ~= nil then
     if sp_hero > 1 then
@@ -311,6 +329,7 @@ end
 function get_add_gain_bonus( value, kind, bonus )
   local add_bonus = tonumber( Logic.hero_lu_item( "sp_add_" .. kind, "count" ) )
   local gain_bonus = tonumber( Logic.hero_lu_item( "sp_gain_" .. kind, "count" ) )
+
   if bonus == false then
     value = ( value - add_bonus ) * ( 1 - gain_bonus / 100 )
   else
@@ -338,8 +357,10 @@ function get_min_max_damage( spell, level, par, ehero_level, prc )
   else
     if par ~= nil and string.find( par, "rephits" ) then
       min_dmg, max_dmg = text_range_dec( Logic.obj_par( spell, "rephits" ) )
+
       if prc then
         local prc_damage = Logic.obj_par( spell, "prc_damage" )
+
         if prc_damage ~= nil
         and prc_damage ~= "" then
           min_dmg = min_dmg * tonumber( prc_damage ) / 100
@@ -355,7 +376,7 @@ function get_min_max_damage( spell, level, par, ehero_level, prc )
 
   min_dmg = get_add_bonus( spell, min_dmg, bonus_type )
   max_dmg = get_add_bonus( spell, max_dmg, bonus_type )
-  duration = int_dur( spell, level, string.gsub( spell, "spell_", "sp_duration_" ) )
+  duration = int_dur( spell, level, string.gsub( spell, "spell_", "sp_duration_" ), nil, ehero_level )
   local base_lvl_inc = tonumber( Logic.obj_par( spell, "lvl_inc" ) )
   base_lvl_inc = get_add_bonus( spell, base_lvl_inc, "sp_lvl_inc_" )
   local lvl_inc = 1 + ( level - 1 ) * base_lvl_inc / 100
@@ -380,7 +401,8 @@ function get_infliction( spell, level, kind, ehero_level, text )
   local sp_attack_infliction = get_sp_bonus( spell, "attack", ehero_level )
   local sp_destroyer_infliction = get_sp_bonus( spell, "destroyer", ehero_level )
   local sp_int_infliction = 1 + HInt() / 100
-  infliction = infliction * level * sp_int_infliction * sp_attack_infliction * sp_destroyer_infliction
+  local sp_map_difficulty_bonus = get_sp_map_difficulty_bonus( ehero_level )
+  infliction = infliction * level * sp_int_infliction * sp_attack_infliction * sp_destroyer_infliction * sp_map_difficulty_bonus
   infliction = round( infliction )
 
   if text ~= nil then
@@ -420,7 +442,7 @@ end
 
 
 -- New common function for computing duration increase as a function of intelligence
-function int_dur( spell, level, bonus, text )
+function int_dur( spell, level, bonus, text, ehero_level )
   local dur
   local bonus_string = ""
   local duration_string = Logic.obj_par( spell, "duration" )
@@ -443,8 +465,8 @@ function int_dur( spell, level, bonus, text )
     end
 
     dur = dur + dur_bonus
-
     local dur_int_bonus = 0
+
     if Logic.obj_par( spell, "int" ) == "1" then
       local mod = math.max( 1, tonumber( Game.Config( "spell_power_config/int_duration" ) ) - tonumber( Logic.hero_lu_item( "sp_dur_mod", "count" ) ) )
       local dur_inc = tonumber( Game.Config( "spell_power_config/dur_inc" ) )
@@ -454,17 +476,27 @@ function int_dur( spell, level, bonus, text )
 
     local healer = tonumber( Logic.obj_par( spell, "healer" ) )
     local sp_healer = 0
+
     if healer == 1 then
       sp_healer = math.max( 0, tonumber( Logic.hero_lu_skill( "healer" ) ) - 2 )  -- +1 duration at level 3
     end
 
     local necromancy = tonumber( Logic.obj_par( spell, "necromancy" ) )
     local sp_necromancy = 0
+
     if necromancy == 1 then
 	    	sp_necromancy = math.max( 0, tonumber( Logic.hero_lu_skill( "necromancy" ) ) - 2 )  -- +1 duration at level 3
     end
 
-    dur = dur + sp_healer + sp_necromancy
+    local map_difficulty_level = 0
+
+    if ehero_level ~= nil then
+      local ehero_dur_bonus = get_sp_map_difficulty_bonus( ehero_level )
+      local min_stat_inc = tonumber( text_dec( Game.Config( 'difficulty_k/minstatinc' ), Game.HSP_difficulty() + 1, '|' ) )
+      map_difficulty_level = math.max( round( dur * ehero_dur_bonus ) - dur, min_stat_inc )
+    end
+
+    dur = dur + sp_healer + sp_necromancy + map_difficulty_level
 
     if text ~= nil then
       if dur > base_duration then
@@ -496,12 +528,24 @@ end
 
 
 -- New common function for computing duration as a function of target's resistance
-function res_dur( target, spell, duration, res_type, res_dur_only, freeze )
+function res_dur( dmgts, target, spell, duration, res_type, res_dur_only, freeze )
+  if dmgts == nil then
+    dmgts = 1
+  end
+
   if res_type == nil then
     res_type = "magic"
   end
 
-  local res_spell = Logic.obj_par( spell, "dur_res_" .. res_type )
+  local res_spell
+  
+  if spell == "devatron"
+  or spell == "throw3" then
+    res_spell = "1"
+  else
+    res_spell = Logic.obj_par( spell, "dur_res_" .. res_type )
+  end
+
   local new_duration = duration
 
   if res_spell == "1"
@@ -509,20 +553,31 @@ function res_dur( target, spell, duration, res_type, res_dur_only, freeze )
     local resist = Attack.act_get_res( target, res_type )
 
     if freeze == true then
-      res_type = "fire"
-      resist = -Attack.act_get_res( target, res_type )
+      if Attack.act_feature( target, "fire_immunitet" )
+      or Attack.act_race( target, "demon" ) then
+        res_type = "fire"
+        resist = -Attack.act_get_res( target, res_type )
+      end
     end
 
-    local spell_type = Logic.obj_par( spell, "type" )
+    local spell_type
+    
+    if spell == "devatron"
+    or spell == "spell_hypnosis"
+    or spell == "throw3" then
+      spell_type = "penalty"
+    else
+      spell_type = Logic.obj_par( spell, "type" )
+    end
 
     if spell_type == "bonus" then
       new_duration = math.max( math.ceil( duration * ( 1 + resist / 100 ) ), 1 )
 
       if res_dur_only == nil then
         if new_duration > duration then
-          Attack.log( "add_blog_resdur_bon_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+          Attack.log( dmgts, "add_blog_resdur_bon_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
         elseif new_duration < duration then
-          Attack.log( "add_blog_resdur_bon_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+          Attack.log( dmgts, "add_blog_resdur_bon_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
         end
       end
     else
@@ -530,9 +585,9 @@ function res_dur( target, spell, duration, res_type, res_dur_only, freeze )
 
       if res_dur_only == nil then
         if new_duration > duration then
-          Attack.log( "add_blog_resdur_pen_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+          Attack.log( dmgts, "add_blog_resdur_pen_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
         elseif new_duration < duration then
-          Attack.log( "add_blog_resdur_pen_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+          Attack.log( dmgts, "add_blog_resdur_pen_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
         end
       end
     end

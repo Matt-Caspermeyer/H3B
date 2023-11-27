@@ -27,7 +27,7 @@ arena_params {
   resistances {
     physical=0
     poison=50
-    magic=0
+    magic=-10
     fire=-10
   }
   moveattack {

@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_shaman_feat
-  features_hints=regenerates_mana_header/regenerates_mana_hint
+  features_hints=magic_resistance_header/magic_resistance_hint,poison_resistance_header/poison_resistance_hint,regenerates_mana_header/regenerates_mana_hint
   race=orc
   cost=600
   level=4
@@ -27,8 +27,8 @@ arena_params {
   posthitslave=shaman_posthitslave
   resistances {
     physical=10
-    poison=10
-    magic=0
+    poison=25
+    magic=20
     fire=10
   }
   moveattack {

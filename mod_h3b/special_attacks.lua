@@ -30,6 +30,48 @@ function apply_difficulty_level_talent_bonus( value, max )
 end
 
 
+-- New common function for computing talent duration as a function of target's resistance (based on res_dur)
+function tal_dur( dmgts, target, duration, res_type, spell_type, res_dur_only )
+  if dmgts == nil then
+    dmgts = 1
+  end
+
+  if res_type == nil then
+    res_type = "magic"
+  end
+
+  local new_duration = duration
+
+  if target ~= nil then
+    local resist = Attack.act_get_res( target, res_type )
+
+    if spell_type == "bonus" then
+      new_duration = math.max( math.ceil( duration * ( 1 + resist / 100 ) ), 1 )
+
+      if res_dur_only == nil then
+        if new_duration > duration then
+          Attack.log( dmgts, "add_blog_resdur_bon_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        elseif new_duration < duration then
+          Attack.log( dmgts, "add_blog_resdur_bon_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        end
+      end
+    else
+      new_duration = math.max( math.ceil( duration * ( 1 - resist / 100 ) ), 1 )
+
+      if res_dur_only == nil then
+        if new_duration > duration then
+          Attack.log( dmgts, "add_blog_resdur_pen_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        elseif new_duration < duration then
+          Attack.log( dmgts, "add_blog_resdur_pen_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        end
+      end
+    end
+  end
+
+  return new_duration
+end
+
+
 -- *********************************************************** --
 -- New! For Black Dragons to layout their path - based on WotN --
 -- *********************************************************** --
@@ -256,137 +298,195 @@ function special_blackdragon_firepower_highlight( target )
 end
 
 function special_blackdragon_firepower_attack()
-  local cycle = Attack.get_cycle()
-  local aps = Attack.act_ap( 0 )
-  local useddist, dist, path_dist
-  Attack.log_label( 'null' )
-
-  if cycle == 0 then 
-    if Attack.is_computer_move() then
-      Attack.val_store( 0, "firepower_" .. cycle, Attack.get_cell( 0 ) )
-      useddist = aps
-      cycle = 1
-      Attack.val_store( 0, "firepower_" .. ( cycle ), Attack.cell_id( tonumber( Attack.val_restore( "target" ) ) ) )
-      Attack.val_store( 0, "firepower_" .. ( cycle + 1 ), Attack.get_target() )
-    else
-      Attack.val_store( 0, "firepower_" .. cycle, Attack.get_cell( 0 ) )
-      Attack.val_store( 0, "firepower_" .. ( cycle + 1 ), Attack.get_target() )
-      path_dist = Attack.calc_path( 0, Attack.get_target() )
-
-      if path_dist ~= nil then
-        dist = table.getn( path_dist ) - 1
-        useddist = dist
-        Attack.val_store( 0, "useddist", useddist )
-      end
-    end
-  else
-    path_dist = Attack.calc_path( Attack.val_restore( 0, "firepower_" .. cycle ), Attack.get_target() )
-    useddist = Attack.val_restore( 0, "useddist" )
-
-    if path_dist ~= nil then
-      dist = table.getn( path_dist ) - 1
-      Attack.val_store( 0, "firepower_" .. ( cycle + 1 ), Attack.get_target() )
-      useddist = useddist + dist
-      Attack.val_store( 0,"useddist", useddist )
-    else
-      cycle = cycle - 1
-      aps = useddist
+  local function common_burn_damage( cell, dmgts, burn )
+    common_cell_apply_damage( cell, dmgts )
+    local burn_rnd = Game.Random( 99 )
+    local burn_res = Attack.act_get_res( cell, "fire" )
+    local dmg = tonum( Attack.val_restore( 0, "last_dmg" ) )
+    local burn_chance = math.min( 100, burn * ( 1 - burn_res / 100 ) )
+    local burn_damage = dmg * burn_chance / 200
+  
+    if burn_rnd < burn_chance
+    and not string.find( Attack.act_name( cell ), "cyclop" )
+    and dmg > 0 then
+      local duration = apply_difficulty_level_talent_bonus( 3 )
+      duration = tal_dur( dmgts + 0.1, cell, duration, "fire", "penalty" )
+      effect_burn_attack( cell, dmgts, duration, burn_damage, burn_damage )
     end
   end
-
-  if useddist == aps then
-    local path ={}
-    local b = 1
-
-    for t = 0, cycle do
-      local pathw = Attack.calc_path( Attack.val_restore( 0, "firepower_" .. t ), Attack.val_restore( 0, "firepower_" .. ( t + 1 ) ) )
-
-      for k = b, ( b + table.getn( pathw )-2 ) do
-        table.insert( path, table.getn( path ) + 1,pathw[ k - b + 1 ] )
-      end
-
-      b = b + table.getn( pathw ) - 1
-      if t == cycle then 
-        table.insert( path,table.getn( path ) + 1, pathw[ table.getn( pathw ) ] )
-      end
-    end
-
-    if path == nil then 
-      return false 
-    end
-
-    local typedmg = tostring( Attack.get_custom_param( "typedmg" ) )
-    local dmg_min, dmg_max = text_range_dec( tostring( Attack.get_custom_param( "damage" ) ) )
-    local burn = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) )
-    burn = effect_chance( burn, "effect", "burn" )
-
-    local multi = {}
-    local apli = {}
-    for i = 1, table.getn( path ) do
-      if multi[ path[ i ].id ] == nil then
-        multi[ path[ i ].id ] = 1
+  
+  if Attack.act_human( 0 ) then
+    local cycle = Attack.get_cycle()
+    local aps = Attack.act_ap( 0 )
+    local useddist, dist, path_dist
+    Attack.log_label( 'null' )
+  
+    if cycle == 0 then 
+      if Attack.is_computer_move() then
+        Attack.val_store( 0, "firepower_" .. cycle, Attack.get_cell( 0 ) )
+        useddist = aps
+        cycle = 1
+        Attack.val_store( 0, "firepower_" .. ( cycle ), Attack.cell_id( tonum( Attack.val_restore( "target" ) ) ) )
+        Attack.val_store( 0, "firepower_" .. ( cycle + 1 ), Attack.get_target() )
       else
-        multi[ path[ i ].id ] = multi[ path[ i ].id ] + 1
-      end
-
-      apli[ i ] = 1
-    end
-
-    for i = 1, table.getn( path ) - 1 do
-      for j = i + 1, table.getn( path ) do
-        if path[ i ].id == path[ j ].id then
-          apli[ i ]=0
+        Attack.val_store( 0, "firepower_" .. cycle, Attack.get_cell( 0 ) )
+        Attack.val_store( 0, "firepower_" .. ( cycle + 1 ), Attack.get_target() )
+        path_dist = Attack.calc_path( 0, Attack.get_target() )
+  
+        if path_dist ~= nil then
+          dist = table.getn( path_dist ) - 1
+          useddist = dist
+          Attack.val_store( 0, "useddist", useddist )
         end
       end
-    end
-
-    Attack.act_no_cell_update( 0 )
-    Attack.aseq_rotate( 0, path[ 2 ].cell )
-    Attack.aseq_start( 0, "fire_takeoff", "fire_flight" )
-    local i = 2
-    local dir = path[ 1 ].dir
-
-    local function common_burn_damage( cell, dmgts, burn )
-      common_cell_apply_damage( cell, dmgts )
-      local burn_rnd = Game.Random( 99 )
-      local burn_res = Attack.act_get_res( cell, "fire" )
-      local dmg = tonum( Attack.val_restore( 0, "last_dmg" ) )
-      local burn_chance = math.min( 100, burn * ( 1 - burn_res / 100 ) )
-      local burn_damage = dmg * burn_chance / 200
-
-      if burn_rnd < burn_chance
-      and not string.find( Attack.act_name( cell ), "cyclop" )
-      and dmg > 0 then
-        effect_burn_attack( cell, dmgts, 3, burn_damage, burn_damage )
+    else
+      path_dist = Attack.calc_path( Attack.val_restore( 0, "firepower_" .. cycle ), Attack.get_target() )
+      useddist = Attack.val_restore( 0, "useddist" )
+  
+      if path_dist ~= nil then
+        dist = table.getn( path_dist ) - 1
+        Attack.val_store( 0, "firepower_" .. ( cycle + 1 ), Attack.get_target() )
+        useddist = useddist + dist
+        Attack.val_store( 0,"useddist", useddist )
+      else
+        cycle = cycle - 1
+        aps = useddist
       end
     end
-
+  
+    if useddist == aps then
+      local path ={}
+      local b = 1
+  
+      for t = 0, cycle do
+        local pathw = Attack.calc_path( Attack.val_restore( 0, "firepower_" .. t ), Attack.val_restore( 0, "firepower_" .. ( t + 1 ) ) )
+  
+        for k = b, ( b + table.getn( pathw )-2 ) do
+          table.insert( path, table.getn( path ) + 1,pathw[ k - b + 1 ] )
+        end
+  
+        b = b + table.getn( pathw ) - 1
+        if t == cycle then 
+          table.insert( path,table.getn( path ) + 1, pathw[ table.getn( pathw ) ] )
+        end
+      end
+  
+      if path == nil then 
+        return false 
+      end
+  
+      local typedmg = tostring( Attack.get_custom_param( "typedmg" ) )
+      local dmg_min, dmg_max = text_range_dec( tostring( Attack.get_custom_param( "damage" ) ) )
+      local burn = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) )
+      burn = effect_chance( burn, "effect", "burn" )
+  
+      local multi = {}
+      local apli = {}
+      for i = 1, table.getn( path ) do
+        if multi[ path[ i ].id ] == nil then
+          multi[ path[ i ].id ] = 1
+        else
+          multi[ path[ i ].id ] = multi[ path[ i ].id ] + 1
+        end
+  
+        apli[ i ] = 1
+      end
+  
+      for i = 1, table.getn( path ) - 1 do
+        for j = i + 1, table.getn( path ) do
+          if path[ i ].id == path[ j ].id then
+            apli[ i ]=0
+          end
+        end
+      end
+  
+      Attack.act_no_cell_update( 0 )
+      Attack.aseq_rotate( 0, path[ 2 ].cell )
+      Attack.aseq_start( 0, "fire_takeoff", "fire_flight" )
+      local i = 2
+      local dir = path[ 1 ].dir
+  
+      while i < table.getn( path ) do
+        local ndir = path[ i ].dir
+  
+        if ndir == dir then
+          if i + 2 < table.getn( path )
+          and path[ i + 1 ].dir == dir
+          and path[ i + 2 ].dir == dir then
+            Attack.aseq_waft( 0, "fire_flight", "fire_waft" )
+  
+            if apli[ i ] == 1 then
+              Attack.atk_set_damage( typedmg, dmg_min * multi[ path[ i ].id ], dmg_max * multi[ path[ i ].id ] )
+              common_burn_damage( path[ i ].cell, Attack.aseq_time( 0, "v" ), burn )
+            else
+              Attack.act_animate( path[i].cell, "damage", Attack.aseq_time( 0, "v" ) )
+            end
+  
+            Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+  
+            if apli[ i + 1 ] == 1 then
+              Attack.atk_set_damage( typedmg, dmg_min * multi[ path[ i + 1 ].id ], dmg_max * multi[ path[ i + 1 ].id ] )
+              common_burn_damage( path[ i + 1 ].cell, Attack.aseq_time( 0, "w" ), burn )
+            else
+              Attack.act_animate( path[ i + 1 ].cell, "damage", Attack.aseq_time( 0, "w" ) )
+            end
+  
+            Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+            i = i + 2
+          else
+            Attack.aseq_move( 0, "fire_flight" )
+          end
+        else
+          if wrap( ndir - dir, -3, 3 ) == 1 then
+            Attack.aseq_move( 0, "fire_flight", "fire_rdivert", 1 )
+          else
+            Attack.aseq_move( 0, "fire_flight", "fire_ldivert", -1 )
+          end
+  
+          dir = ndir
+        end
+  
+        if apli[i] == 1 then
+          Attack.atk_set_damage( typedmg, dmg_min*multi[path[i].id], dmg_max*multi[path[i].id] )
+          common_burn_damage( path[ i ].cell, Attack.aseq_time( 0, "x" ), burn )
+        else
+          Attack.act_animate( path[i].cell, "damage", Attack.aseq_time( 0, "x" ) )
+        end
+        i = i + 1
+      end
+  
+      Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+      Attack.act_aseq( 0, "fire_descent", false, true )
+      Attack.atk_min_time( Attack.aseq_time( 0 ) + .5 )
+      Attack.log_label( "" )
+  
+      return true
+    else
+      Attack.next( 0 )
+  
+      return true
+    end
+  else
+    local path = Attack.calc_path( 0, Attack.get_target() )
+    local burn = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) )
+    burn = effect_chance( burn, "effect", "burn" )
+  
+    if path == nil then return false end
+  
+    Attack.act_no_cell_update( 0 )
+    Attack.aseq_rotate( 0, path[2].cell )
+    Attack.aseq_start( 0, "fire_takeoff", "fire_flight" )
+    local i, dir = 2, path[1].dir
+  
     while i < table.getn( path ) do
-      local ndir = path[ i ].dir
-
+      local ndir = path[i].dir
       if ndir == dir then
         if i + 2 < table.getn( path )
         and path[ i + 1 ].dir == dir
         and path[ i + 2 ].dir == dir then
           Attack.aseq_waft( 0, "fire_flight", "fire_waft" )
-
-          if apli[ i ] == 1 then
-            Attack.atk_set_damage( typedmg, dmg_min * multi[ path[ i ].id ], dmg_max * multi[ path[ i ].id ] )
-            common_burn_damage( path[ i ].cell, Attack.aseq_time( 0, "v" ), burn )
-          else
-            Attack.act_animate( path[i].cell, "damage", Attack.aseq_time( 0, "v" ) )
-          end
-
-          Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
-
-          if apli[ i + 1 ] == 1 then
-            Attack.atk_set_damage( typedmg, dmg_min * multi[ path[ i + 1 ].id ], dmg_max * multi[ path[ i + 1 ].id ] )
-            common_burn_damage( path[ i + 1 ].cell, Attack.aseq_time( 0, "w" ), burn )
-          else
-            Attack.act_animate( path[ i + 1 ].cell, "damage", Attack.aseq_time( 0, "w" ) )
-          end
-
-          Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+          common_cell_apply_damage( path[ i ].cell, Attack.aseq_time( 0, "v" ) )
+          common_cell_apply_damage( path[ i + 1 ].cell, Attack.aseq_time( 0, "w" ) )
           i = i + 2
         else
           Attack.aseq_move( 0, "fire_flight" )
@@ -397,28 +497,18 @@ function special_blackdragon_firepower_attack()
         else
           Attack.aseq_move( 0, "fire_flight", "fire_ldivert", -1 )
         end
-
+  
         dir = ndir
       end
-
-      if apli[i] == 1 then
-        Attack.atk_set_damage( typedmg, dmg_min*multi[path[i].id], dmg_max*multi[path[i].id] )
-        common_burn_damage( path[ i ].cell, Attack.aseq_time( 0, "x" ), burn )
-      else
-        Attack.act_animate( path[i].cell, "damage", Attack.aseq_time( 0, "x" ) )
-      end
+  
+      common_cell_apply_damage( path[i].cell, Attack.aseq_time( 0, "x" ) )
+      common_burn_damage( path[ i ].cell, Attack.aseq_time( 0, "x" ), burn )
       i = i + 1
     end
-
-    Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+  
     Attack.act_aseq( 0, "fire_descent", false, true )
-    Attack.atk_min_time( Attack.aseq_time( 0 ) + .5 )
-    Attack.log_label( "" )
-
-    return true
-  else
-    Attack.next( 0 )
-
+    Attack.atk_min_time( Attack.aseq_time(0) + .5 )
+  
     return true
   end
 end
@@ -952,8 +1042,8 @@ function special_shaman_totem()
   Attack.act_hp( totem, hp )
   Attack.act_set_par( totem, "health", hp )
   local init, init_base = Attack.act_get_par( 0, "initiative" )
-  local init_den = tonumber( Attack.get_custom_param( "init_den" ) )
-  local totem_init = init_base + math.floor( hp / init_den )
+--  local init_den = tonumber( Attack.get_custom_param( "init_den" ) )
+  local totem_init = init_base + round( math.pow( hp, 1/5 ) )
   Attack.act_set_par( totem, "initiative", totem_init )
 
   local edg = 1
@@ -1138,6 +1228,7 @@ function special_ogre_rage_attack()
 --  local target = Attack.get_target()
   local duration = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "duration" ) )
   duration = apply_hero_duration_bonus( nil, duration, "sp_duration_ogre_rage", true )
+  duration = tal_dur( 0.1, 0, duration, "physical", "bonus" )
   local power = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "power" ) )
   local attack = Attack.act_get_par( 0, "attack" )
   Attack.act_del_spell( 0, "spell_weakness" )
@@ -1155,28 +1246,23 @@ end
 -- * Magic shield
 -- ***********************************************
 function special_magic_shield_attack()
-
   local target = Attack.get_target()
 
-  if (target ~= nil) then
-    local duration = Logic.obj_par( "special_magic_shield", "duration" )
-
+  if ( target ~= nil ) then
+    local duration = tonumber( Logic.obj_par( "special_magic_shield", "duration" ) )
+    duration = apply_difficulty_level_talent_bonus( duration )
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_special_magic_shield", true )
-
-    local dfactor = Logic.obj_par( "special_magic_shield", "power" )
-
-    Attack.act_del_spell(target,"special_magic_shield")
-
+    dmgts = Attack.aseq_time( 0, "x" )
+    duration = tal_dur( dmgts + 0.1, target, duration, "magic", "bonus" )
+--    local dfactor = Logic.obj_par( "special_magic_shield", "power" )
+    Attack.act_del_spell( target, "special_magic_shield" )
     Attack.act_apply_spell_begin( target, "special_magic_shield", duration, false )
     --Attack.act_apply_par_spell( "dfactor", dfactor/100, 0, 0, duration, false)
-      Attack.act_posthitslave(target, "post_magic_shield", duration)
+    Attack.act_posthitslave( target, "post_magic_shield", duration )
     Attack.act_apply_spell_end()
-
-    Attack.aseq_rotate(0, target, "cast")
+    Attack.aseq_rotate( 0, target, "cast" )
 --    Attack.act_aseq( 0, "cast" )
-    dmgts = Attack.aseq_time(0, "x")
-
-    Attack.atom_spawn(target, dmgts , "shield" )
+    Attack.atom_spawn( target, dmgts, "shield" )
   end
 
   return true
@@ -1187,10 +1273,11 @@ end
 -- ***********************************************
 
 function special_berserk_attack()
-  local duration = Logic.obj_par( "special_berserk", "duration" )
+  local duration = tonumber( Logic.obj_par( "special_berserk", "duration" ) )
+  duration = apply_difficulty_level_talent_bonus( duration )
   duration = apply_hero_duration_bonus( nil, duration, "sp_duration_berserk", true )
-  local power = Logic.obj_par( "special_berserk", "power" )
-  local penalty = Logic.obj_par( "special_berserk", "penalty" )
+  local power = tonumber( Logic.obj_par( "special_berserk", "power" ) )
+  local penalty = tonumber( Logic.obj_par( "special_berserk", "penalty" ) )
   local attack = Attack.act_get_par( 0, "attack" )
   local initiative = Attack.act_get_par( 0, "initiative" )
   local defense = Attack.act_get_par( 0, "defense" )
@@ -1212,9 +1299,10 @@ end
 -- ***********************************************
 
 function special_haste_attack()
-  local duration = Logic.obj_par( "special_haste", "duration" )
+  local duration = tonumber( Logic.obj_par( "special_haste", "duration" ) )
+  duration = apply_difficulty_level_talent_bonus( duration )
   duration = apply_hero_duration_bonus( nil, duration, "sp_duration_special_haste", true )
-  local power = Logic.obj_par( "special_haste", "power" )
+  local power = tonumber( Logic.obj_par( "special_haste", "power" ) )
   local speed = Attack.act_get_par( 0, "speed" )
   Attack.act_aseq( 0, "speed" )
 		Attack.act_ap( 0, Attack.act_ap( 0 ) + Attack.act_ap( 0 ) )
@@ -1230,7 +1318,8 @@ function special_spider_web_attack()
   local target = Attack.get_target()
 
   if (target ~= nil) then
-    local duration = Logic.obj_par( "special_spider_web", "duration" )
+    local duration = tonumber( Logic.obj_par( "special_spider_web", "duration" ) )
+    duration = apply_difficulty_level_talent_bonus( duration )
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_special_spider_web", false )
     Attack.act_del_spell( target, "special_spider_web" )
     Attack.act_apply_spell_begin( target, "special_spider_web", duration, false )
@@ -1270,6 +1359,8 @@ function special_bless_attack()
         duration = apply_hero_duration_bonus( target, duration, "sp_duration_holy_rage", true )
       end
 
+      duration = apply_difficulty_level_talent_bonus( duration )
+      duration = tal_dur( dmgts + 0.1, target, duration, "magic", "bonus" )
       effect_bless_weakness_attack( target, "spell_bless", duration, dmgts, "magic_bless", false )
   
       if Attack.get_custom_param( "rage" ) == "0" then
@@ -1280,7 +1371,7 @@ function special_bless_attack()
         if not Attack.act_feature( target, "plant" )
         and not Attack.act_feature( target, "golem" ) then 
           Attack.act_apply_spell_begin( target, "special_holy_rage", duration, false )
-          Attack.act_posthitmaster( target, "features_holy_attack" ,duration )
+          Attack.act_posthitmaster( target, "features_holy_attack", duration )
           Attack.act_apply_spell_end()
           Attack.atom_spawn( target, dmgts + 0.3, "effect_hard_bless", 0, true )
         end 
@@ -1302,7 +1393,9 @@ function special_bless_attack()
     else
       if not Attack.act_feature( target, "plant" )
       and not Attack.act_feature( target, "golem" ) then
-        local duration = Logic.obj_par( "effect_holy", "duration" ) + tonumber( Logic.hero_lu_item( "sp_duration_effect_holy", "count" ) )
+        local duration = tonumber( Logic.obj_par( "effect_holy", "duration" ) ) + tonumber( Logic.hero_lu_item( "sp_duration_effect_holy", "count" ) )
+        duration = apply_difficulty_level_talent_bonus( duration )
+        duration = tal_dur( dmgts + 0.1, target, duration, "magic", "penalty" )
         Attack.act_del_spell( target, "effect_holy" )
         effect_holy_attack( target, dmgts, duration )
       end 
@@ -1319,8 +1412,11 @@ function special_stupid_attack()
   local target = Attack.get_target()
 
   if (target ~= nil) then
-    local duration = Logic.obj_par( "special_stupid", "duration" )
+    local duration = tonumber( Logic.obj_par( "special_stupid", "duration" ) )
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_special_stupid", false )
+    duration = apply_difficulty_level_talent_bonus( duration )
+    dmgts = Attack.aseq_time( 0, "x" )
+    duration = tal_dur( dmgts + 0.1, target, duration, "magic", "penalty" )
     Attack.act_del_spell( target, "special_stupid" )
     Attack.act_del_spell( target, "spell_magic_bondage" )
     Attack.act_apply_spell_begin( target, "special_stupid", duration, false )
@@ -1328,7 +1424,6 @@ function special_stupid_attack()
     Attack.act_apply_par_spell( "disspec", 10, 0, 0, duration, false )
     Attack.act_apply_spell_end()
     Attack.act_aseq( 0, "cast" )
-    dmgts = Attack.aseq_time( 0, "x" )
     Attack.atom_spawn( target, dmgts, "magic_bondage", Attack.angleto( target ) )
   end
 
@@ -1363,7 +1458,7 @@ function special_wolf_cry_attack()
   for i = 1, acnt - 1 do
     if check_wolf_cry( i ) then
       local rnd = Game.Random( 99 )
-      duration = apply_hero_duration_bonus( i, duration, "sp_duration_special_wolf_cry", false )
+      duration = apply_difficulty_level_talent_bonus( apply_hero_duration_bonus( i, duration, "sp_duration_special_wolf_cry", false ) )
       Attack.act_apply_spell_begin( i, "effect_fear", duration, false )
       Attack.act_apply_par_spell( "autofight", 1, 0, 0, duration, false )
 
@@ -1583,6 +1678,7 @@ function special_cast_thorn()
   Attack.act_animate( target, "grow", t )
   Attack.act_nodraw( target, false, t )
   fix_hitback( target )
+  apply_hero_attack_defense_bonuses( target )
   Attack.log_label( "add_blog_summon_" ) -- работает
   Attack.log_special( count_summon ) -- работает
 
@@ -1673,9 +1769,10 @@ end
 -- ***********************************************
 
 function special_preparation_attack()
-  local duration = Logic.obj_par( "special_preparation", "duration" )
+  local duration = tonumber( Logic.obj_par( "special_preparation", "duration" ) )
+  duration = apply_difficulty_level_talent_bonus( duration )
   duration = apply_hero_duration_bonus( nil, duration, "sp_duration_special_preparation", true )
-  local speed = Logic.obj_par( "special_preparation", "power" )
+  local speed = tonumber( Logic.obj_par( "special_preparation", "power" ) )
   Attack.act_del_spell( 0, "special_preparation" )
   Attack.act_apply_spell_begin( 0, "special_preparation", duration, false )
   Attack.act_apply_spell_end()
@@ -1703,9 +1800,10 @@ function special_suicide()
         common_cell_apply_damage( i, dmgts )
         local burn_res = Attack.act_get_res( i, "fire" )
         local burn_chance = math.min( 100, burn * ( 1 - burn_res / 100 ) )
+
         if rnd < burn_chance
         and not string.find( Attack.act_name( i ), "cyclop" ) then
-          effect_burn_attack( i, dmgts, 3 )
+          effect_burn_attack( i, dmgts, apply_difficulty_level_talent_bonus( 3 ) )
         end
       end
     end
@@ -1766,6 +1864,7 @@ function special_cast_bear()
   Attack.act_animate( target, "castbear", dmgts )
   Attack.act_nodraw( target, false, dmgts )
   fix_hitback( target )
+  apply_hero_attack_defense_bonuses( target )
   Attack.log_label( "add_blog_summon_" ) -- работает
   Attack.log_special( count_summon ) -- работает
 
@@ -1936,12 +2035,13 @@ end
 -- ***********************************************
 
 function special_battle_mage_attack()
-  local duration = Logic.obj_par( "special_battle_mage", "duration" )
+  local duration = tonumber( Logic.obj_par( "special_battle_mage", "duration" ) )
+  duration = apply_difficulty_level_talent_bonus( duration )
   duration = apply_hero_duration_bonus( nil, duration, "sp_duration_battle_mage", true )
   local power = round( get_add_gain_bonus( tonumber( Logic.obj_par( "special_battle_mage", "power" ) ), "power_battle_mage" ) )
   local penalty = round( get_add_gain_bonus( tonumber( Logic.obj_par( "special_battle_mage", "penalty" ) ), "penalty_battle_mage", false ) )
-  local shock = round( get_add_gain_bonus( Logic.obj_par( "special_battle_mage", "shock" ), "shock_battle_mage" ) )
-  local bon_krit = round( get_add_gain_bonus( Logic.obj_par( "special_battle_mage", "krit" ), "krit_battle_mage" ) )
+  local shock = round( get_add_gain_bonus( tonumber( Logic.obj_par( "special_battle_mage", "shock" ) ), "shock_battle_mage" ) )
+  local bon_krit = round( get_add_gain_bonus( tonumber( Logic.obj_par( "special_battle_mage", "krit" ) ), "krit_battle_mage" ) )
   local krit = Attack.act_get_par( 0, "krit" )
   Attack.act_apply_spell_begin( 0, "special_battle_mage", duration, false )
   Attack.act_apply_dmgmin_spell( "magic", 0, power, 0, duration, false )
@@ -1985,7 +2085,7 @@ function special_telekines()
     local dmgts = Attack.aseq_time(0, "x")
 
     local angle = Attack.angleto(target,source)
-    Attack.atom_spawn(target, dmgts, "effect_telekines",angle)
+    Attack.atom_spawn( target, dmgts, "effect_telekines", angle )
     if ((source ~= nil) and (target ~= nil)) then
       Attack.act_move( 1, 3, source, target )
       --common_cell_apply_damage(t2, (movtime0+movtime1)/2)
@@ -2001,6 +2101,7 @@ end
 -- ***********************************************
 function special_aiming_attack()
   local duration = tonumber( Logic.obj_par( "special_aiming", "duration" ) )
+  duration = apply_difficulty_level_talent_bonus( duration )
   duration = apply_hero_duration_bonus( nil, duration, "sp_duration_special_aiming", true )
   local power = tonumber( Logic.obj_par( "special_aiming", "power" ) )
   Attack.act_apply_spell_begin( 0, "special_aiming", duration, false )
@@ -2017,20 +2118,22 @@ end
 -- ***********************************************
 function special_elf_song_attack()
   local duration = tonumber( Logic.obj_par( "special_elf_song", "duration" ) )
+  duration = apply_hero_duration_bonus( i, duration, "sp_duration_special_elf_song", true )
+  duration = apply_difficulty_level_talent_bonus( duration )
   local power = tonumber( Logic.obj_par( "special_elf_song", "power" ) )
   Attack.act_aseq( 0, "song" )
   local dmgts = Attack.aseq_time( 0, "x" )                   -- x time of attacker
-
   acnt = Attack.act_count()
+
   for i = 1, acnt - 1 do
     if ( Attack.act_ally( i ) )
     and ( Attack.act_race( i ) == "elf"
     or Attack.act_feature( i, "plant" ) ) then        -- contains ally
-      duration = apply_hero_duration_bonus( i, duration, "sp_duration_special_elf_song", true )
       local a = Attack.atom_spawn( i, dmgts, "effect_elvensong" )
       Attack.act_del_spell( i, "special_elf_song" )
-      Attack.act_apply_spell_begin( i, "special_elf_song", duration, false )
-      Attack.act_apply_par_spell( "initiative", power, 0, 0, duration, false )
+      local new_duration = tal_dur( dmgts + 0.1, i, duration, "magic", "bonus" )
+      Attack.act_apply_spell_begin( i, "special_elf_song", new_duration, false )
+      Attack.act_apply_par_spell( "initiative", power, 0, 0, new_duration, false )
       Attack.act_apply_spell_end()
      end
   end
@@ -2054,11 +2157,12 @@ function special_cast_sleep()
   local nfeatures = Attack.get_custom_param( "nfeatures" )
   Attack.act_aseq( 0, "sleep" )
   local dmgts = Attack.aseq_time(0, "x")                   -- x time of attacker
-
   local acnt = Attack.act_count()
+
   for i = 1, acnt - 1 do
     if check_cast_sleep( i, level, nfeatures ) then
-      effect_sleep_attack( i, dmgts, duration )
+      effect_sleep_attack( i, dmgts, tal_dur( dmgts + 0.1, i, duration, "magic", "penalty" ) )
+
       if Attack.act_size( i ) > 1 then
         Attack.log( 0.001, "add_blog_sleep_2", "targets", "   "..blog_side_unit( i, 0 ) )
       else
@@ -2150,7 +2254,9 @@ function special_poison_cloud()
         local poison_damage = dmg * poison_chance / 200
         if rnd < poison_chance
         and not Attack.act_feature( i, "golem" ) then
-          effect_poison_attack( i, dmgts, 3, poison_damage, poison_damage )
+          local duration = apply_difficulty_level_talent_bonus( 3 )
+          duration = tal_dur( dmgts + 0.1, i, duration, "poison", "penalty" )
+          effect_poison_attack( i, dmgts, duration, poison_damage, poison_damage )
         end
       end
     end
@@ -2174,10 +2280,11 @@ end
 function special_beast_training()
   local level = tonumber( Attack.get_custom_param( "level" ) )
   local duration = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "duration" ) )
+  dmgts = Attack.aseq_time( 0, "x" )
+  duration = tal_dur( dmgts + 0.1, target, duration, "magic", "penalty" )
   local target = Attack.get_target()
   Attack.aseq_rotate( 0,target )
   Attack.act_aseq( 0, "cast" )
-  dmgts = Attack.aseq_time( 0, "x" )
   effect_charm_attack( target, dmgts , duration, "effect_beast_training" )
 
   return true
@@ -2287,6 +2394,7 @@ function special_demoness_charm()
   local k = apply_difficulty_level_talent_bonus( text_range_dec( Attack.get_custom_param( "k" ) ) )  --коэф.
   k = k * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
   local duration = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "duration" ) )  --коэф.
+  duration = tal_dur( dmgts + 0.1, target, duration, "magic", "penalty" )
   local demon_count = Attack.act_size( 0 )  -- сколько магов
   local demon_name = Attack.act_name( 0 )
   --лидерство магов и цели
@@ -2360,6 +2468,7 @@ function special_summon_demon()
 --    Attack.act_animate(target, "descent", t)
   Attack.act_nodraw( target, false, dmgts + dmgts1 )
   fix_hitback( target )
+  apply_hero_attack_defense_bonuses( target )
   Attack.log_label( "add_blog_summon_" ) -- работает
   Attack.log_special( summon_count ) -- работает
   --Attack.act_aseq(target, "respawn")
@@ -2486,6 +2595,7 @@ function special_summonplant()
 
   Attack.act_nodraw( target, false, t )
   fix_hitback( target )
+  apply_hero_attack_defense_bonuses( target )
   Attack.log_label( "add_blog_summon_" )
   Attack.log_special( summon_count )
 
@@ -2531,6 +2641,7 @@ function special_summondragonfly()
 	 t = t + a
   Attack.act_nodraw( target, false, t )
   fix_hitback( target )
+  apply_hero_attack_defense_bonuses( target )
   Attack.log_label( "add_blog_summon_" )
   Attack.log_special( summon_count )
 
@@ -2746,6 +2857,7 @@ function special_dragon_rail()
   end
 
   local dmgts, dt = Attack.aseq_time( 0, "x" ), Attack.aseq_time( "reddragon", "cast", "y" )
+
   for i = 0, cell_count - 1 do
     local cell_found = Attack.trace(i)
     if Attack.cell_present( cell_found ) then
@@ -2759,10 +2871,13 @@ function special_dragon_rail()
         if burn_rnd < burn_chance
         and not string.find( Attack.act_name( cell_found ), "cyclop" )
         and dmg > 0 then
-          effect_burn_attack( cell_found, dmgts, 3, burn_damage, burn_damage )
+          local duration = apply_difficulty_level_talent_bonus( 3 )
+          duration = tal_dur( dmgts + 0.1, cell_found, duration, "fire", "penalty" )
+          effect_burn_attack( cell_found, dmgts, duration, burn_damage, burn_damage )
         end
       end
     end
+
     dmgts = dmgts + dt
   end
 
@@ -2952,6 +3067,7 @@ function special_zap()
         if rnd < shock_chance
         and not Attack.act_feature( i, "golem" ) then
           local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "effect_shock", "duration" ) )
+          duration = tal_dur( dmgts + 0.1, i, duration, "astral", "penalty" )
           effect_shock_attack( i, dmgts, duration )
         end
       end
@@ -3094,7 +3210,18 @@ function special_griffin_split()
   local t = Attack.aseq_time( 0 ) - .3
   Attack.act_animate( target, "descent", t )
   Attack.act_nodraw( target, false, t )
+
+	 for i = 0, Attack.act_spell_count( 0 ) - 1 do
+		  local spell_name = Attack.act_spell_name( 0, i )
+
+		  if string.find( spell_name, "special_difficulty" ) then
+      update_enemy_units_based_on_difficulty( target )
+      break
+		  end
+	 end
+
   fix_hitback( target )
+  apply_hero_attack_defense_bonuses( target )
   Attack.log_label( "add_blog_split_" )
   Attack.resort( target ) -- даем походить новому отряду в этом раунде
 
@@ -3149,7 +3276,7 @@ end
 -- ***********************************************
 -- * Fire Power
 -- ***********************************************
-function special_blackdragon_firepower()
+--[[function special_blackdragon_firepower()
   local path = Attack.calc_path( 0, Attack.get_target() )
   local burn = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) )
   burn = effect_chance( burn, "effect", "burn" )
@@ -3191,7 +3318,7 @@ function special_blackdragon_firepower()
     if burn_rnd < burn_chance
     and not string.find( Attack.act_name( path[i].cell ), "cyclop" )
     and dmg > 0 then
-      effect_burn_attack( path[i].cell, Attack.aseq_time( 0, "x" ), 3, burn_damage, burn_damage )
+      effect_burn_attack( path[i].cell, Attack.aseq_time( 0, "x" ), apply_difficulty_level_talent_bonus( 3 ), burn_damage, burn_damage )
     end
     i = i + 1
   end
@@ -3200,7 +3327,7 @@ function special_blackdragon_firepower()
   Attack.atk_min_time( Attack.aseq_time(0) + .5 )
 
   return true
-end
+end]]
 
 --[[function special_blackdragon_firepower_highlight(target)
 

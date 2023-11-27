@@ -51,10 +51,11 @@ difficulty_k {
         rage=2.0|1.0|0.85|0.7   // коэф. прихода ярости в бою
     manarage=2.0|1.0|0.80|0.5   // коэф. прихода маны на карте, а для ярости скорости падения
        eunit=1.0|1.0|1.10|1.25  // New! Enemy unit statistic scaler based on difficulty level
+      espell=1.0|1.0|1.10|1.25  // New! Enemy Hero Spell scaler based on difficulty level
    maplocden=50|20|10|4         // New! Enemy unit statistic scaler divisor based on map difficulty location
    releadmax=1e4|5e3|2e3|1e3    // New! Maximum leadership for rebirth of hero's army after death
 
-  minstatinc=0|0|0|1            // New! The minimum a stat will increase (or decrease) if eunit's scaling causes no change
+  minstatinc=0|0|0|1            // New! The minimum a stat will increase (or decrease) if eunit's / espell's scaling causes no change
 
   emanaregen=0.0|0.0|5.0|10.0   // New! Enemy hero mana regen (percent of max mana, i.e. /100, per turn)
     ehlvldbc=30|30|28|25        // New! Enemy hero level at which they can cast an extra spell per turn

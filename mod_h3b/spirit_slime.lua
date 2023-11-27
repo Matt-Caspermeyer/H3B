@@ -241,6 +241,7 @@ function slime_fishes() --////////////////////////////////
               Attack.act_damage_addlog( c, "add_blog_frightened_" )
             else
               local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) )
+--              duration = tal_dur( START_TIME_R + 3.0 + Attack.cell_dist( cell, c ) * 0.3 + 0.1, c, duration, "magic", "penalty" )
               Attack.act_apply_spell_begin( c, "effect_fear", duration, false )
               Attack.act_apply_par_spell( "autofight", 1, 0, 0, duration, false )
               Attack.act_apply_spell_end()
@@ -453,6 +454,7 @@ function slimefog_hackmove()
 
           if rnd < poison_chance then
             local dmg = tonum( Attack.val_restore( c, "sdmg" ) )
+            duration = tal_dur( movetime + 2.1, c, duration, "poison", "penalty" )
             effect_poison_attack( c, movetime + 2, duration, dmg, dmg )
           end
         end
@@ -476,6 +478,7 @@ function slimefog_hackmove()
 
       if rnd < poison_chance then
         local dmg = tonum( Attack.val_restore( mypos, "sdmg" ) )
+        duration = tal_dur( movetime + 2.1, mypos, duration, "poison", "penalty" )
         effect_poison_attack( mypos, movetime + 2, duration, dmg, dmg )
       end
     end
@@ -650,6 +653,7 @@ function slime_fog() --////////////////////////////////
 
             if rnd < poison_chance then
               local dmg = tonum( Attack.val_restore( target, "sdmg" ) )
+              duration = tal_dur( hit_time + 2.1, target, duration, "poison", "penalty" )
               effect_poison_attack( target, hit_time + 2, duration, dmg, dmg )
             end
           end
@@ -800,6 +804,7 @@ function slime_spittle()
     local dmg_min2 = tonumber( Attack.get_custom_param( "damage.poison.0" ) )
     local dmg_max = tonumber( Attack.get_custom_param( "poison_max" ) )
     local duration = tonumber( Attack.get_custom_param( "duration" ) ) + Logic.hero_lu_item( "sp_duration_effect_poison", "count" )
+    duration = tal_dur( hit_time + 0.1, target, duration, "poison", "penalty" )
 
     if poisonresist < 80 then
       local dmg_min_old, dmg_max_old, duration_old
@@ -952,7 +957,7 @@ function slime_glot() --////////////////////////////////
   local health = tonumber( "0" .. Attack.get_custom_param( "health" ) )
   Attack.act_hp( atom, health )
   Attack.act_set_par( atom, "health", health )
-  local duration = tonumber( "0" .. Attack.get_custom_param("duration") )
+  local duration = tonumber( "0" .. Attack.get_custom_param( "duration" ) )
   local res_all = tonumber( Attack.get_custom_param( "res_all" ) )
   Attack.act_attach_modificator_res( atom, "fire", "glot_res_fire", res_all, 0, 0, duration, false )
   Attack.act_attach_modificator_res( atom, "magic", "glot_res_magic", res_all, 0, 0, duration, false )

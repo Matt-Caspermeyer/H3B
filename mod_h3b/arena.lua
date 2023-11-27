@@ -24,9 +24,6 @@ function att_rec_stuff( attacker, receiver )
     hero_attack = tonum( Attack.val_restore( attacker, "enemy_hero_attack" ) )
   end
 
-  local krit_inc = tonum( Game.Config( "attack_config/krit_inc" ) )
-  local krit_bonus = math.floor( hero_attack / 7 ) * krit_inc
-  local res_inc = 0
   local hero_defense = 0
 
   if receiver_human then
@@ -34,10 +31,6 @@ function att_rec_stuff( attacker, receiver )
   else
     hero_defense = tonum( Attack.val_restore( receiver, "enemy_hero_defense" ) )
   end
-
-  local res_inc_config = tonum( Game.Config( "defense_config/res_inc" ) )
-  res_inc = math.floor( hero_defense / 7 ) * res_inc_config
-
 -- Здесь усиливает атака по нежити от скилла Святой Гнев
   --holy_rage
   local holy_rage_skill = tonum( skill_power2( "holy_rage", 1 ) )
@@ -105,7 +98,7 @@ function att_rec_stuff( attacker, receiver )
   
   local kdmg = limit_value( ( 1 + math.abs( k ) / 30 )^( sign( k ) ), 1 / kmin, kmax )
 
-  return kdmg, receiver_human, attacker_human, krit_bonus, res_inc
+  return kdmg, receiver_human, attacker_human
 end
 
 
@@ -118,7 +111,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
   dfactor = dfactor / 100
   local sdmg = 0
   local iskrit
-  local kdmg, receiver_human, attacker_human, krit_bonus, res_inc = att_rec_stuff( attacker, receiver )
+  local kdmg, receiver_human, attacker_human = att_rec_stuff( attacker, receiver )
 
   if minmax ~= 0
   or krit == 0 then
@@ -129,7 +122,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
   or Attack.act_is_spell( receiver, "effect_sleep" ) then
     iskrit = true
   else
-    kritProb = kritProb + krit_bonus
+    kritProb = kritProb
   
     if Attack.act_is_spell( receiver, "effect_entangle" )
     or Attack.act_is_spell( receiver, "special_spider_web" )
@@ -191,7 +184,7 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     -- ВНИМАНИЕ! Крит берется не из диапазона а по максимуму!
     if iskrit then dmg = max_ end
 
-    local resi = AU.resistance( receiver, i ) + res_inc
+    local resi = AU.resistance( receiver, i )
 
     if resi > 95 then resi = 95 end
 
@@ -1083,6 +1076,99 @@ function recharge_enemy_attacks()
 end
 
 
+--New! Function that applies Hero Attack / Defense bonuses
+function apply_hero_attack_defense_bonuses( target )
+  local function apply_bonus( unit )
+    local unit_human = Attack.act_human( unit )
+    local hero_attack = 0
+  
+    if unit_human then
+      hero_attack = tonum( Logic.hero_lu_item( "attack", "count" ) )
+    else
+      hero_attack = Attack.val_restore( unit, "enemy_hero_attack" )
+
+      if hero_attack == nil then
+        local new_current_value, new_base_value = Attack.act_get_par( unit, "attack" )
+        hero_attack = math.max( 0, new_current_value - new_base_value )
+
+        if hero_attack > 0 then
+          Attack.val_store( unit, "enemy_hero_attack", math.max( 0, hero_attack ) )
+        end
+      else
+        hero_attack = tonumber( hero_attack )
+      end
+    end
+  
+    if hero_attack > 0 then
+      local krit_inc = tonum( Game.Config( "attack_config/krit_inc" ) )
+      local krit_bonus = math.floor( hero_attack / 7 ) * krit_inc
+  
+      if krit_bonus > 0 then
+        Attack.act_attach_modificator( unit, "krit", "hero_attack_krit", krit_bonus, 0, 0, -100, false )
+      end
+    end
+
+    local res_inc = 0
+    local hero_defense = 0
+  
+    if unit_human then
+      hero_defense = tonum( Logic.hero_lu_item( "defense", "count" ) )
+    else
+      hero_defense = Attack.val_restore( unit, "enemy_hero_defense" )
+
+      if hero_defense == nil then
+        local new_current_value, new_base_value = Attack.act_get_par( unit, "defense" )
+        hero_defense = math.max( 0, new_current_value - new_base_value )
+
+        if hero_defense > 0 then
+          Attack.val_store( unit, "enemy_hero_defense", math.max( 0, hero_defense ) )
+        end
+      else
+        hero_defense = tonumber( hero_defense )
+      end
+    end
+  
+    if hero_defense > 0 then
+      local res_inc_config = tonum( Game.Config( "defense_config/res_inc" ) )
+      res_inc = math.floor( hero_defense / 7 ) * res_inc_config
+  
+      if res_inc > 0 then
+        local resistances = {}
+        local str_resistances = Game.Config( 'resistances' )
+        local number_resistances = text_par_count( str_resistances )
+      
+        if number_resistances > 1 then
+          for j = 1, number_resistances do
+            local sub_string = text_dec( str_resistances, j )
+            table.insert( resistances, sub_string )
+          end
+        end
+    
+        for i, res in ipairs( resistances ) do
+          Attack.act_attach_modificator_res( unit, res, "hero_defense_res_" .. res, res_inc, 0, 0, -100, false )
+        end
+      end
+    end
+
+    return true
+  end
+
+  if target == nil then
+    for a = 1, Attack.act_count() - 1 do
+      if not Attack.act_pawn( a )
+      and not Attack.act_feature( a, "pawn" )
+      and not Attack.act_feature( a, "boss" ) then
+        apply_bonus( a )
+      end
+    end
+  else
+    apply_bonus( target )
+  end
+
+  return true
+end
+
+
 function on_round_start( round, tend )
   -- NEW! set cast charges depending on hero's level and mana limit
   local extra_book_times_level, extra_book_times_mana, enemy_hero_book_times = 0, 0, 0
@@ -1106,7 +1192,7 @@ function on_round_start( round, tend )
   Logic.enemy_lu_var( "book_times", enemy_hero_book_times )
 
   if round == 1 then -- начало боя
-    local locName = Game.LocName()
+--[[    local locName = Game.LocName()
     local locType = ''
   
     if Game.LocType( 'cemetery' ) then
@@ -1163,7 +1249,7 @@ function on_round_start( round, tend )
       timeOfDay = 'night'
     end
 
-    Attack.log( "loc_name_type_log", "name", locName, "special", locType, "special2", timeOfDay )
+    Attack.log( "loc_name_type_log", "name", locName, "special", locType, "special2", timeOfDay )]]
 
     -- NEW! Adds +rounds to the mana_rage_gain_k decrease when fighting enemy heroes, towers, and bosses (must be GLOBAL)
     ROUND_MANA_RAGE_GAIN = 0
@@ -1364,6 +1450,8 @@ function on_round_start( round, tend )
         break
       end
     end
+
+    apply_hero_attack_defense_bonuses()
 
   else
     Attack.log( tend, "round_start", "round", round )
@@ -4211,7 +4299,7 @@ function spell_auto_cast( spells, spellattacks )
       end
 
       for i = 1, table.getn( duration ) do
-        duration[ i ] = res_dur( act, spell_name, duration[ i ], res_type[ i ], true, cold_fear[ i ] )
+        duration[ i ] = res_dur( nil, act, spell_name, duration[ i ], res_type[ i ], true, cold_fear[ i ] )
       end
 
       local score, effect_score = 0, 0
@@ -4328,7 +4416,7 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_fire_rain", spells.spell_fire_rain, ignore_mana, max_rating )
-      Attack.log( "spell_prob_log", "name", "spell_fire_rain", "special", max_rating )
+--      Attack.log( "spell_prob_log", "name", "spell_fire_rain", "special", max_rating )
       table.insert( cast, { spell = "spell_fire_rain", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -4339,7 +4427,7 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_fire_ball", spells.spell_fire_ball, ignore_mana, max_rating )
-      Attack.log( "spell_prob_log", "name", "spell_fire_ball", "special", max_rating )
+--      Attack.log( "spell_prob_log", "name", "spell_fire_ball", "special", max_rating )
       table.insert( cast, { spell = "spell_fire_ball", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -4350,7 +4438,7 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_ice_serpent", spells.spell_ice_serpent, ignore_mana, max_rating )
-      Attack.log( "spell_prob_log", "name", "spell_ice_serpent", "special", max_rating )
+--      Attack.log( "spell_prob_log", "name", "spell_ice_serpent", "special", max_rating )
       table.insert( cast, { spell = "spell_ice_serpent", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -4394,7 +4482,7 @@ function spell_auto_cast( spells, spellattacks )
   local function common_spell_score( act, act_pos, spell_level, spell_name, ehero_level, function_name, good )
     local score = get_act_damage_score( act, act_pos, good )
     local spell_power = function_name( spell_level, ehero_level )
-    local duration = int_dur( spell_name, spell_level )
+    local duration = int_dur( spell_name, spell_level, nil, nil, ehero_level )
     spell_power = spell_power / 100 * duration
     score = score * spell_power
 
@@ -4452,7 +4540,7 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_shroud", spells.spell_shroud, ignore_mana, max_rating )
-      Attack.log( "spell_prob_log", "name", "spell_shroud", "special", max_rating )
+--      Attack.log( "spell_prob_log", "name", "spell_shroud", "special", max_rating )
       table.insert( cast, { spell = "spell_shroud", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -4488,7 +4576,7 @@ function spell_auto_cast( spells, spellattacks )
     if max_score > min_score
     and tid ~= nil then
       max_score = common_spell_mana( "spell_pain_mirror", spells.spell_pain_mirror, ignore_mana, max_score )
-      Attack.log( "spell_prob_log", "name", "spell_pain_mirror", "special", max_score )
+--      Attack.log( "spell_prob_log", "name", "spell_pain_mirror", "special", max_score )
       table.insert( cast, { spell = "spell_pain_mirror", target = { cell = tid }, prob = max_score } )
     end
   end
@@ -4559,7 +4647,7 @@ function spell_auto_cast( spells, spellattacks )
     max_score = common_spell_mana( "spell_lightning", spells.spell_lightning, ignore_mana, max_score )
 
     if tid ~= nil then
-      Attack.log( "spell_prob_log", "name", "spell_lightning", "special", max_score )
+--      Attack.log( "spell_prob_log", "name", "spell_lightning", "special", max_score )
       table.insert( cast, { spell = "spell_lightning", target = { cell = tid }, prob = max_score } )
     end
   end
@@ -5059,7 +5147,7 @@ function spell_auto_cast( spells, spellattacks )
 
     if act ~= nil
     and act_pos ~= 0 then
-      duration = res_dur( act, spell_name, duration, nil, true )
+      duration = res_dur( nil, act, spell_name, duration, nil, true )
       local score = get_act_damage_score( act, act_pos, good )
       local spell_power = 0
       
@@ -5096,7 +5184,7 @@ function spell_auto_cast( spells, spellattacks )
         for i, c in ipairs( avcells ) do -- ищем самого сильного юнита,..
           if not Attack.act_is_spell( c, name )
           and check( c ) then -- ..на котором нет этого спела
-            local power = get_good_bad_score( c, name, int_dur( name, level ), level, ehero_level, good )
+            local power = get_good_bad_score( c, name, int_dur( name, level, nil, nil, ehero_level ), level, ehero_level, good )
 
             if power > max_power then
               max_power = power
@@ -5110,7 +5198,7 @@ function spell_auto_cast( spells, spellattacks )
 
           if prob > min_score then
             prob = common_spell_mana( name, level, ignore_mana, prob )
-            Attack.log( "spell_prob_log", "name", name, "special", prob )
+--            Attack.log( "spell_prob_log", "name", name, "special", prob )
             table.insert( cast, { spell = name, target = target, prob = prob } )
           end
         end
@@ -5130,7 +5218,7 @@ function spell_auto_cast( spells, spellattacks )
           and not Attack.act_is_spell( act, name )
           and applicable( act )
           and check( act ) then -- ..на которых нет этого спела и на которых можно наложить этот спелл
-            local power = get_good_bad_score( Attack.get_cell( act ), name, int_dur( name, level ), level, ehero_level, good )
+            local power = get_good_bad_score( Attack.get_cell( act ), name, int_dur( name, level, nil, nil, ehero_level ), level, ehero_level, good )
             k = k + power
           end
         end
@@ -5139,7 +5227,7 @@ function spell_auto_cast( spells, spellattacks )
 
         if prob > min_score then
           prob = common_spell_mana( name, level, ignore_mana, prob )
-          Attack.log( "spell_prob_log", "name", name, "special", prob )
+--          Attack.log( "spell_prob_log", "name", name, "special", prob )
           table.insert( cast, { spell = name, prob = prob } )
         end
       end
@@ -5211,7 +5299,7 @@ function spell_auto_cast( spells, spellattacks )
 
       if tid ~= nil then
         max_prob = common_spell_mana( name, level, ignore_mana, max_prob )
-        Attack.log( "spell_prob_log", "name", name, "special", max_prob )
+--        Attack.log( "spell_prob_log", "name", name, "special", max_prob )
         table.insert( cast, { spell = name, target = tid, prob = max_prob } )
       end
     end
@@ -5293,7 +5381,7 @@ function spell_auto_cast( spells, spellattacks )
 
         if prob > min_score then
           prob = common_spell_mana( name, level, ignore_mana, prob )
-          Attack.log( "spell_prob_log", "name", name, "special", prob )
+--          Attack.log( "spell_prob_log", "name", name, "special", prob )
           table.insert( cast, { spell = name, target = nearest, prob = prob } )
         end
       end
@@ -5322,7 +5410,7 @@ function spell_auto_cast( spells, spellattacks )
     prob = common_spell_mana( "spell_healing", spells.spell_healing, ignore_mana, prob )
 
     if prob > min_score then
-      Attack.log( "spell_prob_log", "name", "spell_healing", "special", prob )
+--      Attack.log( "spell_prob_log", "name", "spell_healing", "special", prob )
       table.insert( cast, { spell = "spell_healing", target = target, prob = prob } )
     end
   end
@@ -5348,7 +5436,7 @@ function spell_auto_cast( spells, spellattacks )
     prob = common_spell_mana( "spell_resurrection", spells.spell_resurrection, ignore_mana, prob )
 
     if prob > min_score then
-      Attack.log( "spell_prob_log", "name", "spell_resurrection", "special", prob )
+--      Attack.log( "spell_prob_log", "name", "spell_resurrection", "special", prob )
       table.insert( cast, { spell = "spell_resurrection", target = target, prob = prob } )
     end
   end
@@ -5370,7 +5458,7 @@ function spell_auto_cast( spells, spellattacks )
 
     if prob > min_score then
       prob = common_spell_mana( "spell_armageddon", spells.spell_armageddon, ignore_mana, prob )
-      Attack.log( "spell_prob_log", "name", "spell_armageddon", "special", prob )
+--      Attack.log( "spell_prob_log", "name", "spell_armageddon", "special", prob )
       table.insert( cast, { spell = 'spell_armageddon', prob = prob } )
     end
   end
@@ -5399,7 +5487,7 @@ function spell_auto_cast( spells, spellattacks )
 
     if prob > min_score then
       prob = common_spell_mana( "spell_geyser", spells.spell_geyser, ignore_mana, prob )
-      Attack.log( "spell_prob_log", "name", "spell_geyser", "special", prob )
+--      Attack.log( "spell_prob_log", "name", "spell_geyser", "special", prob )
       table.insert( cast, { spell = 'spell_geyser', prob = prob } )
     end
   end
@@ -5423,7 +5511,7 @@ function spell_auto_cast( spells, spellattacks )
       if prob > min_score then
         local av = spellattacks.spell_phantom.avcells( target ) -- место появления - рандомно
         prob = common_spell_mana( "spell_phantom", spells.spell_phantom, ignore_mana, prob )
-        Attack.log( "spell_prob_log", "name", "spell_phantom", "special", prob )
+--        Attack.log( "spell_prob_log", "name", "spell_phantom", "special", prob )
         table.insert( cast, { spell = 'spell_phantom', target = target, target2 = av[ Game.Random( 1, av.n ) ], prob = prob } )
       end
     end
@@ -5445,7 +5533,7 @@ function spell_auto_cast( spells, spellattacks )
         prob = power * ( 1 + averages.power.enemy / averages.power.ally )
 --        prob = math.ceil( math.min( 2000, benefit * 1000 ) * e2a )
         prob = common_spell_mana( "spell_necromancy", spells.spell_necromancy, ignore_mana, prob )
-        Attack.log( "spell_prob_log", "name", "spell_necromancy", "special", prob )
+--        Attack.log( "spell_prob_log", "name", "spell_necromancy", "special", prob )
         table.insert( cast, { spell = 'spell_necromancy', target = c, prob = prob } )
         break
       end

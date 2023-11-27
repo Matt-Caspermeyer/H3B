@@ -120,7 +120,7 @@ end
 
 -- New function for applying the bless effect with a hero bonus
 function effect_bless_weakness_attack( target, spell, duration, dmgts, spawn_type, spawn )
-  duration = res_dur( target, spell, duration, "magic" )
+  duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
   Attack.act_del_spell( target, "spell_bless" )
   Attack.act_del_spell( target, "spell_weakness" )
 

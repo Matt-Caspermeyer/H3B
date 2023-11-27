@@ -327,25 +327,31 @@ function magic_attack_hint_gen()
  		   res, targetid = main_target_hint( target )
 
       res = ""
+
       if targetid ~= nil then res = add_target( target, res, added_target_ids ) end
 
-    elseif Attack.act_need_cure( target )
+    elseif Attack.cell_need_resurrect( target )
     and Attack.act_ally( target )
-    and not ( Attack.act_feature( target, "golem, magic_immunitet" ) )
+    and not ( Attack.act_is_spell( target, "special_summon_bonus" ) )
     and not Attack.act_race( target, "demon" ) then
       local min_dmg, max_dmg = pwr_holy_rain( nil, false )
  			  local cure_hp = math.floor( Game.Random( min_dmg, max_dmg ) )
- 			  local real_cure = math.min( cure_hp, Attack.act_get_par( target,"health" ) - Attack.act_hp( target ) )
-      local effectiveness = math.floor( real_cure / cure_hp * 100 )
+ 			  local actual_cure_hp = math.max( 0, math.min( cure_hp, Attack.act_get_par( target, "health" ) * Attack.act_initsize( target ) - Attack.act_totalhp( target ) ) )
+ 			  local real_cure = math.ceil( ( Attack.act_totalhp( target ) + actual_cure_hp ) / Attack.act_get_par( target, "health" ) ) - Attack.act_size( target )
+      local effectiveness = math.floor( actual_cure_hp / cure_hp * 100 )
       res = "<label=dmg_hint_format_ally>"
 
       if Attack.act_size( target ) > 1 then
-      	 res = res .. "<label=cpsn_"..Attack.act_name( target ) .. ">" .. ". "
+      	 res = res .. "<label=cpsn_" .. Attack.act_name( target ) .. ">" .. ".</color><br>"
       else
-      	 res = res .. "<label=cpn_" .. Attack.act_name( target ) .. ">" .. ". "
+      	 res = res .. "<label=cpn_" .. Attack.act_name( target ) .. ">" .. ".</color><br>"
       end
 
- 			  res = res .. "</color><br><label=dmg_hint_just_heal> " .. real_cure .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.'
+ 			  if real_cure == 0 then
+ 			    res = res .. "<label=dmg_hint_just_heal> " .. actual_cure_hp .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.<br>'
+      else
+        res = res .. "<label=dmg_hint_just_raise> " .. real_cure .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.<br>'
+      end
     end
 
    	for i = 1, 6 do
@@ -359,29 +365,33 @@ function magic_attack_hint_gen()
           local min_dmg, max_dmg = pwr_holy_rain( nil, true )
    	      Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
        			res = add_target( target, res, added_target_ids )
-
-        elseif Attack.act_need_cure( target )
+        elseif Attack.cell_need_resurrect( target )
         and Attack.act_ally( target )
-        and not ( Attack.act_feature( target, "golem, magic_immunitet" ) )
+        and not ( Attack.act_is_spell( target, "special_summon_bonus" ) )
         and not Attack.act_race( target, "demon" ) then
           local min_dmg, max_dmg = pwr_holy_rain( nil, false )
      			  local cure_hp = math.floor( Game.Random( min_dmg, max_dmg ) )
-     			  local real_cure = math.min( cure_hp, Attack.act_get_par( target,"health" ) - Attack.act_hp( target ) )
-          local effectiveness = math.floor( real_cure / cure_hp * 100 )
+     			  local actual_cure_hp = math.max( 0, math.min( cure_hp, Attack.act_get_par( target, "health" ) * Attack.act_initsize( target ) - Attack.act_totalhp( target ) ) )
+     			  local real_cure = math.ceil( ( Attack.act_totalhp( target ) + actual_cure_hp ) / Attack.act_get_par( target, "health" ) ) - Attack.act_size( target )
+          local effectiveness = math.floor( actual_cure_hp / cure_hp * 100 )
 
           if res == "" then
             res = "<label=dmg_hint_format_ally>"
           else
-            res = res .. "<br><label=dmg_hint_format_ally>"
+            res = res .. "<label=dmg_hint_format_ally>"
           end
     
           if Attack.act_size( target ) > 1 then
-          	 res = res .. "<label=cpsn_"..Attack.act_name( target ) .. ">" .. ". "
+          	 res = res .. "<label=cpsn_"..Attack.act_name( target ) .. ">" .. ".</color><br>"
           else
-          	 res = res .. "<label=cpn_" .. Attack.act_name( target ) .. ">" .. ". "
+          	 res = res .. "<label=cpn_" .. Attack.act_name( target ) .. ">" .. ".</color><br>"
           end
 
-     			  res = res .. "</color><br><label=dmg_hint_just_heal> " .. real_cure .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.'
+     			  if real_cure == 0 then
+     			    res = res .. "<label=dmg_hint_just_heal> " .. actual_cure_hp .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.<br>'
+          else
+            res = res .. "<label=dmg_hint_just_raise> " .. real_cure .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.<br>'
+          end
         end
       end
     end

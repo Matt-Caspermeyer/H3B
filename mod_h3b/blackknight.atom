@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_blackknight_feat
-  features_hints=undead_header/undead_hint,steel_armor_header/steel_armor_hint,dark_commander_header/dark_commander_hint,increasing_anger_header/increasing_anger_hint
+  features_hints=undead_header/undead_hint,steel_armor_header/steel_armor_hint,dark_commander_header/dark_commander_hint,increasing_anger_header/increasing_anger_hint,fire_resistance_header/fire_resistance_hint
   race=undead
   cost=1000
   level=4
@@ -26,8 +26,8 @@ arena_params {
   resistances {
     physical=30
     poison=50
-    magic=0
-    fire=0
+    magic=-5
+    fire=25
   }
   moveattack {
     ad_factor=1

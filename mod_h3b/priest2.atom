@@ -26,8 +26,8 @@ arena_params {
   posthitslave=features_mage
   resistances {
     physical=0
-    poison=0
-    magic=10
+    poison=20
+    magic=25
     fire=0
   }
   moveattack {
