@@ -170,6 +170,7 @@ Windows 8 Comments
 * So this release is mostly bug fixes, but there are some new features as well.
 
 Version 1.0 2021-MM-DD
+-------------------------
 *.ATOM - altered the movement points of a lot of units and added the run ability to quite a few more atoms and the action points are now variable
   * Most biped units move just 1 or 2 movement points, but have the run ability to make up for it and it is also reloadable
   * Snakes have either 1 or 2 movement points (but can run)
@@ -461,6 +462,7 @@ Version 1.0 2021-MM-DD
     * XEONA_BABIES.TXT - Ignatius
 
 Version Beta 2014-06-01
+-------------------------
 *.ATOM
   * BEHOLDER.ATOM - +15% Magic Resistance (since classed as a mage)
   * BEHOLDER2.ATOM - +20% Magic Resistance (since classed as a mage)
@@ -614,6 +616,7 @@ Version Beta 2014-06-01
 
 
 Version Beta 2014-05-11
+-------------------------
 *.ATOM
   * BLACKRAGON.ATOM
     * Added WotN functions to allow selection of the path of the Dragon's Power of Fire talent just like the AI uses
@@ -649,6 +652,7 @@ Version Beta 2014-05-11
 
 
 Version Beta 2014-05-08
+-------------------------
 *.ATOM
   * ARCHMAGE.ATOM - added level=4 custom param since features_shock has been updated to work with blue dragons
   * Bear ATOM's
@@ -997,6 +1001,7 @@ Version Beta 2014-05-08
     * Tolerance now removes penalties for other units (i.e. Robbers, Green Dragons / Giants, etc.)
 
 Version Beta 2014-01-28
+-------------------------
 *.LNG
   * EN(G)_WINDOWS.LNG
     * Corrected a few errors in the original tips
@@ -1010,6 +1015,7 @@ Version Beta 2014-01-28
 
 
 Version Beta 2014-01-01
+-------------------------
 *.ATOM
   * CANNONER.ATOM
     * Triple shot: Added Fatt_Shade's idea for damage to surrounding troops, although I added friendly damage.
@@ -1103,11 +1109,13 @@ Version Beta 2014-01-01
   * SPELLS.TXT - Ice Snake is now an Order spell
 
 Version: Beta 2013-06-02
+-------------------------
 *.TXT
   * ITEMS_MONSTER.TXT - forgot to fix the Bone Dragon 1 unit per 2 egg issue - now this is fixed!
 
 
 Version: Beta 2013-05-26
+-------------------------
 *.CHAT
   * 79826769.chat - fixed Orcelyn's chat dialogue for when she initiates conversation to have a child (thanks to Nevar for pointing this out!)
   * 68736578.chat - fixed Diana's chat dialogue for when she initiates conversation to have a child (thanks to Nevar for pointing this out!)
@@ -1119,6 +1127,7 @@ Version: Beta 2013-05-26
 
 
 Version: Beta 2013-05-18
+-------------------------
 *.ATOM
   * SLIME.ATOM
     * Lowered the level requirements for Poisonous Spit levels 5-7 to be 8, 11, and 14 was (9, 15, and 19)
@@ -1143,6 +1152,7 @@ Version: Beta 2013-05-18
     
 
 Version: Beta 2013-03-18
+-------------------------
 *.ATOM
   * ORC.ATOM - Ill-tempered now works only 50% of the time
   * ORC2.ATOM - Ill-tempered now works only 50% of the time
@@ -1171,6 +1181,7 @@ Version: Beta 2013-03-18
 
 
 Version: Beta 2013-03-03
+-------------------------
 *.ATOM
   * DEATH.ATOM
     * Fixed errors in rest level increases that prevented it from being selected during levelup
@@ -1195,6 +1206,7 @@ Version: Beta 2013-03-03
 
 
 Version: Beta 2013-02-24
+-------------------------
 *.ATOM
   * DEATH.ATOM
     * Doubled experience for using Time Back since it does not get any damage bonus for experience gain
@@ -1236,8 +1248,10 @@ Version: Beta 2013-02-24
 
 
 Version: Beta 2013-02-10.1 - I forgot to include DEVATRON.ATOM in 2013-02-10
+-------------------------
 
 Version: Beta 2013-02-10 - CRITICAL UPDATE
+-------------------------
 *.ATOM
   * DEVATRON.ATOM - reverted to previous version until I figure out how to make it prevent ranged troops from attacking when adjacent to it
   * DRYAD.ATOM
@@ -1317,6 +1331,7 @@ Version: Beta 2013-01-27 - CRITICAL UPDATE
 
 
 Version: Beta 2013-01-26
+-------------------------
 *.ATOM
   * ALCHEMIST.ATOM
     * Holy Water charges changed to a reload of 3
@@ -2021,6 +2036,7 @@ Version: Beta 2013-01-26
       * Now has a 66.7% chance to sell Necromancers (40:20:200)
 
 Version: Beta 2012-12-01
+-------------------------
 
 * All files have been combined into a single KFS file to make installation / unintstallation easier.
 * mod_h3b.kfs
@@ -2288,16 +2304,19 @@ Version: Beta 2012-12-01
   
 
 Version: Beta 2012-06-21
+-------------------------
 * mod_homm3_babies.kfs
   * ARENA.LUA - fixed a bug where Frenzy level 2 and higher was not adding the proper amount of rage per round
 * mod_homm3_babies_en(g)_lng.kfs
   * EN(G)_WINDOWS.LNG - updated version number
 
 Version: Beta 2012-06-16
+-------------------------
 * mod_homm3_babies.kfs
     * GERDA_BABIES.TXT - fixed where I somehow had accidentally introduced a typo into Gerda's Lorelei baby causing the game to crash when Gerda had babies
 
 Version: Beta 2012-06-12
+-------------------------
 * mod_homm3_babies.kfs
   * *.ATOM
     * ENT.ATOM - added level=4 to custom parameters for its post-entangle effect
@@ -2401,6 +2420,7 @@ Version: Beta 2012-06-12
   * TEX335.DDS - updated to include new ability pictures (i.e. Royal Thorn Entangle)
 
 Version: Beta 2012-04-08
+-------------------------
 * mod_homm3_babies.kfs
   * TEMPLATES.LNG
     * The "scouting" skill template was named incorrectly.
