@@ -41,7 +41,6 @@ arena_params {
     }    
   }
   throw1 {
-    moves=7
     reload=3
     class=throw
     picture=BA1_Wasp_
@@ -80,7 +79,6 @@ arena_params {
     class=scripted
     hinthead=special_summonplant1_head
     hint=special_summonplant1_hint
-    moves=4
     reload=5
     warning=sw_place
     script_attack=special_summonplant

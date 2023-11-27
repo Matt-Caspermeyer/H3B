@@ -312,6 +312,37 @@ function skill_power2( skillname, param, level )
 end
 
 
+function skill_power_range_dec( skillname, param, level )
+	 if Attack.act_belligerent() ~= 1 then return 0 end
+
+  level = tonumber( level )
+
+  if level == nil then level = Logic.hero_lu_skill( skillname ) - 1 end
+
+  if level < 0 then return 0 end
+  --local skillname=Logic.skill_name()
+
+  local par_end = 0
+  local par_string = Logic.skill( skillname, level )
+  local par = ""
+
+  if par_string ~= ""
+  and par_string ~= nil then
+    par_string = string.gsub( par_string, "/", "" )
+    par = text_dec( par_string, param )
+    if par ~= ""
+    and par ~= nil then
+      local par_e = string.gsub( par, "%%", "" )
+      par_end = par_e
+    end
+  end
+
+  local min, max = text_range_dec( par_end )
+
+  return min, max
+end
+
+
 function hero_item_count( name )
   local count = Logic.hero_lu_item( name, "count" )
 
@@ -474,8 +505,8 @@ end
 
 
 function skill_rune_stone( name, level )
-  apply_skill_bonus_to_hero( name, level, 1, "rune_might", "count" )
-  apply_skill_bonus_to_hero( name, level, 1, "rune_magic", "count" )
+  apply_skill_bonus_to_hero( name, level, 3, "rune_might", "count" )
+  apply_skill_bonus_to_hero( name, level, 3, "rune_magic", "count" )
   apply_skill_bonus_to_hero( name, level, 2, "defense", "count" )
 
   return true

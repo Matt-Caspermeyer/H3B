@@ -51,6 +51,7 @@ effect_unconscious {
   }
   params {
     duration=3
+    power=90
     type=penalty
   }
   levels {}
@@ -290,6 +291,7 @@ effect_sleep {
   params {
     duration=1
     level=3
+    power=75
     type=penalty
   }
   levels {}

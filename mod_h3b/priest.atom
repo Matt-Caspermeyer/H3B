@@ -62,7 +62,6 @@ arena_params {
     picture=BA1_Bless_
     nfeatures=magic_immunitet,pawn,boss,demon
     picture_small=BA1_Bless_small.png
-    moves=8
     reload=2
     hinthead=special_priest_bless_head
     hint=special_pries_bless_hint
@@ -90,6 +89,7 @@ arena_params {
   }
   cure2 {
     class=scripted
+    ad_factor=0
     script_calccells=calccells_all_need_cure2_all
     script_attack=special_heal2
     attack_cursor=magicstick
@@ -101,6 +101,7 @@ arena_params {
     hinthead=special_prist_heal2_head
     hint=special_prist_heal2_hint
     moves=2
+    reload=2
     damage {
       magic=2,2  // set to same as heal and then true damage is x2 because of special_priest posthitmaster
     }

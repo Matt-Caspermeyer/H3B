@@ -129,7 +129,20 @@ function enbox_bonus( t, cl )
 
   Attack.val_store( "name", "" ) -- чтобы дважды не давать этот бонус
 
-  if Attack.act_human( cl ) then
+  if Attack.act_belligerent( cl ) ~= 1 then
+    if name == "name" then
+  	   local count = Logic.enemy_lu_item( name,"count" )
+
+	     if count ~= nil then
+        Logic.enemy_lu_item( name, "count", count + tonumber( Attack.val_restore( "val" ) ) )
+  		  end
+    end
+  else
+    Logic.hero_lu_item( name, "count", Logic.hero_lu_item( name, "count" ) + tonumber( Attack.val_restore( "val" ) ) )
+  end
+
+-- This code doesn't work properly - the above should be okay...
+--[[  if Attack.act_human( cl ) then
     Logic.hero_lu_item( name, "count", Logic.hero_lu_item( name, "count" ) + tonumber( Attack.val_restore( "val" ) ) )
 	 elseif Attack.act_belligerent( cl ) == 4
   and name == "mana" then
@@ -138,7 +151,7 @@ function enbox_bonus( t, cl )
 	   if count ~= nil then
       Logic.enemy_lu_item( name, "count", count + tonumber( Attack.val_restore( "val" ) ) )
 		  end
-  end
+  end]]
 
   Attack.act_aseq( 0, "disappear", true )
   Attack.aseq_timeshift( 0, t )

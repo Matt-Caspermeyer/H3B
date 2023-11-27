@@ -213,9 +213,13 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
 
     -- особое свойство древнего вампира - превращать криты по нему в 0
     -- или в miss, тогда нужно делать damage не -0,1 а 0
-    if Attack.act_name( receiver ) == "vampire2"
-    and iskrit then
-      return MISS, 0, "special", ""
+    if iskrit then
+      if Attack.act_name( receiver ) == "vampire2" then
+        return MISS, 0, "special", ""
+      elseif Attack.act_name( receiver ) == "orc"
+      or Attack.act_name( receiver ) == "orc2" then
+        Attack.val_store( receiver, "critical_hit", 1 )
+      end
     end
 
     -- Здесь снижается урон по красавицам гуманоидами
@@ -394,8 +398,8 @@ end
 
 
 --New! Function decreases moral of your units
-function apply_long_combat_penalties( target, suffix, morale, init, speed )
-  local function apply_long_combat_penalties_common( target, suffix, morale, init, speed )
+function apply_long_combat_penalties( target, suffix, morale, init, speed, reload )
+  local function apply_long_combat_penalties_common( target, suffix, morale, init, speed, reload )
     if morale
     and not Attack.act_pawn( target )
     and not Attack.act_feature( target, "pawn" )
@@ -442,15 +446,22 @@ function apply_long_combat_penalties( target, suffix, morale, init, speed )
       end
     end
 
+    if reload
+    and not Attack.act_feature( target, "pawn" )
+    and not Attack.act_feature( target, "boss" )
+    and Attack.act_ally( target ) then
+      Attack.act_attach_modificator( target, "disreload", "disreload_lc_" .. suffix, 1, 0, 0, -100, false, 1000, false )
+    end
+
     return true
   end
 
   if target == nil then
     for a = 1, Attack.act_count() - 1 do
-      apply_long_combat_penalties_common( a, suffix, morale, init, speed )
+      apply_long_combat_penalties_common( a, suffix, morale, init, speed, reload )
     end
   else
-    apply_long_combat_penalties_common( target, suffix, morale, init, speed )
+    apply_long_combat_penalties_common( target, suffix, morale, init, speed, reload )
   end
 
   return true
@@ -579,6 +590,9 @@ end
 --New! Function that increases / decreases all the unit's stats based on difficulty level
 function update_enemy_units_based_on_difficulty( target )
   local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/eunit' ), Game.HSP_difficulty() + 1, '|' ) ) - 1
+  local maplocden = tonumber( text_dec( Game.Config( 'difficulty_k/maplocden' ), Game.HSP_difficulty() + 1, '|' ) )
+  local maplocdiff = Game.MapLocDifficulty() + 1
+  diff_k = diff_k + math.floor( maplocdiff / maplocden )
   local min_stat_inc = tonumber( text_dec( Game.Config( 'difficulty_k/minstatinc' ), Game.HSP_difficulty() + 1, '|' ) )
   local difficulty_value = Game.HSP_difficulty()
   local desc = "difficulty_normal"
@@ -631,11 +645,15 @@ function regen_enemy_hero_mana( ehero_mana_limit )
   and ehero_mana_limit > 0
   and mana_regen_percent > 0 then
     local mana_regen = math.ceil( ehero_mana_limit * mana_regen_percent / 100 * mana_rage_gain_k )
+
     if mana_regen > 0 then
   	   local current_mana = Logic.enemy_lu_item( "mana", "count" )
-      Logic.enemy_lu_item( "mana", "count", current_mana + mana_regen )
-	     local mana_now = Logic.enemy_lu_item( "mana", "count" )
-      Attack.log( "enemy_hero_mana_regen_log", "hero_name", enemy_hero_name, "special", mana_now - current_mana, "special2", mana_now )
+
+      if current_mana < ehero_mana_limit then
+        Logic.enemy_lu_item( "mana", "count", current_mana + mana_regen )
+  	     local mana_now = Logic.enemy_lu_item( "mana", "count" )
+        Attack.log( "enemy_hero_mana_regen_log", "hero_name", enemy_hero_name, "special", mana_now - current_mana, "special2", mana_now )
+      end
     end
   end
 
@@ -818,7 +836,8 @@ function on_round_start( round, tend )
     end
 
     -- Инициализация паунов
-    local lv = math.floor(Game.MapLocDifficulty()/20) + 1
+    local lv = math.floor( Game.MapLocDifficulty() / 20 ) + 1
+
     for i=1, Attack.act_count()-1 do
       if string.find(Attack.act_name(i), "^altar") or string.find(Attack.act_name(i), "^barrier") then
         Attack.act_level(i, lv)
@@ -828,6 +847,26 @@ function on_round_start( round, tend )
         local health = Attack.act_get_par(i, "health")*lv
         Attack.act_hp( i, health )
         Attack.act_set_par( i, "health", health )
+      end
+    end
+
+    for i = 1, Attack.act_count() - 1 do
+      if string.find( Attack.act_name( i ), "^darkcrystal") then
+        enemy_unit_names = {}
+
+        for j = 1, Attack.act_count() - 1 do
+          if string.find( Attack.act_name( j ), "^darkcrystal") then
+            local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/bosshp' ), Game.HSP_difficulty() + 1, '|' ) )
+            local health = Attack.act_get_par( j, "health" ) * diff_k
+            Attack.act_hp( j, health )
+            Attack.act_set_par( j, "health", health )
+          elseif Attack.act_enemy( j )
+          and Attack.act_feature( j, "undead" ) then
+            table.insert( enemy_unit_names, Attack.act_name( j ) )
+          end
+        end
+
+        break
       end
     end
 
@@ -856,20 +895,20 @@ function on_round_start( round, tend )
     local roundmrgk1 = tonumber( text_dec( Game.Config( 'difficulty_k/roundmrgk1' ), Game.HSP_difficulty() + 1, '|' ) ) + ROUND_MANA_RAGE_GAIN
     local roundmrgk2 = tonumber( text_dec( Game.Config( 'difficulty_k/roundmrgk2' ), Game.HSP_difficulty() + 1, '|' ) ) + ROUND_MANA_RAGE_GAIN
     local roundmrgk3 = tonumber( text_dec( Game.Config( 'difficulty_k/roundmrgk3' ), Game.HSP_difficulty() + 1, '|' ) ) + ROUND_MANA_RAGE_GAIN
-    local mrk_table = { { roundmrgk1, 1/2., "rage_mana_deficit_detected_1", "long", true, false, false },
-                        { roundmrgk2, 1/4., "rage_mana_deficit_detected_2", "drawn", true, true, false },
-                        { roundmrgk3, 0.  , "rage_mana_deficit_detected_3", "hard", true, true, true } }
+    local mrk_table = { { roundmrgk1, 1/2., "rage_mana_deficit_detected_1", "long", true, false, false, false },
+                        { roundmrgk2, 1/4., "rage_mana_deficit_detected_2", "drawn", true, true, false, false },
+                        { roundmrgk3, 0.  , "rage_mana_deficit_detected_3", "hard", true, true, true, false } }
     for k, v in ipairs( mrk_table ) do
       if round == v[ 1 ] then
         mana_rage_gain_k = v[ 2 ]
         Attack.log( tend + .001, v[ 3 ], "special", math.floor( v[ 2 ] * 100 + .5 ), "round", round )
-        apply_long_combat_penalties( nil, v[ 4 ], v[ 5 ], v[ 6 ], v[ 7 ] )
+        apply_long_combat_penalties( nil, v[ 4 ], v[ 5 ], v[ 6 ], v[ 7 ], v[ 8 ] )
         break
       elseif round > roundmrgk3
       and v[ 1 ] == roundmrgk3
       and modulo( round, roundmrgk3 - roundmrgk2 ) == 0 then
         Attack.log( tend + .001, "extremely_long_combat" )
-        apply_long_combat_penalties( nil, "drudge", v[ 5 ], v[ 6 ], v[ 7 ] )
+        apply_long_combat_penalties( nil, "drudge", true, true, true, true )
         break
       end
     end
@@ -929,6 +968,17 @@ function on_knockout( koN, caa ) -- koN - кол-во убитых отрядов
   return true
 end
 
+
+-- New function for resetting the enemy unit bonuses between turns
+function transform_modificators()
+  if TRANSFORM_SPECIAL_DIFFICULTY == true then
+    TRANSFORM_SPECIAL_DIFFICULTY = nil  -- reset for next transformer
+    -- Using the cell ID is needed because the current unit, might not be the same that just transformed
+    update_enemy_units_based_on_difficulty( Attack.get_caa( Attack.get_cell( TRANSFORM_CELL_ID ) ) )
+    TRANSFORM_CELL_ID = nil  -- clean up
+  end
+
+end
 
 --seed = 0
 
@@ -992,18 +1042,6 @@ function ai_choose_target( mover--[[, attacks]], enemies, ecells ) --выбирает це
 
   --setfenv(1,aipar) --задаём переменные окружения функции, теперь вместо aipar.enemies можно использовать просто enemies / лучше это не использовать, т.к. тогда перестают быть видны другие объекты из глобальной области видимости, напр. math
   --local Game = {Random = function (x,y) seed = math.mod(seed,6584375897 * seed + 41864553113,1024*1024); return x+(y-x)*math.mod(seed,256)/256; end}
-
-  --HACK - I don't know how to do this any other way, but to retain a transforming unit's special_difficulty bonus
-  --       I needed to use a global parameter to let me know that the unit just transformed as well as a global
-  --       parameter of the unit's cell ID to properly identify the unit so that I can reapply the special_difficulty
-  --       bonus before the unit continues its turn.
-  if TRANSFORM_SPECIAL_DIFFICULTY == true then
-    TRANSFORM_SPECIAL_DIFFICULTY = nil  -- reset for next transformer
-    -- Using the cell ID is needed because the current unit, might not be the same that just transformed
-    -- I wish I knew a better way to do this...
-    update_enemy_units_based_on_difficulty( Attack.get_caa( Attack.get_cell( TRANSFORM_CELL_ID ) ) )
-    TRANSFORM_CELL_ID = nil  -- clean up
-  end
 
   if table.getn(enemies) == 0 then return {target = 0} end
 
@@ -1805,26 +1843,23 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
           if profit > maxprofit then maxprofit = profit; target = act; end
         end
 
-        if maxprofit > .95 then prob = 1000 else prob = math.floor(50 * maxprofit) end
+        prob = math.floor( maxprofit^2 * 1000 )
 
       elseif name == "cure2" then -- лечение
         local h = atk.custom_params.heal * mover.units
         local maxprofit = 0
-        local best_power = 0
-        local undead = false
 
         for i = 1, atk.targets.n do
           local act = atk.targets[ i ]
 
-          if Attack.act_race( act, "undead" ) then
-            undead = true
+          if Attack.act_race( act, "undead" )
+          and Attack.act_enemy( act ) then
             local h2 = h * 2
             local power = math.min( act.totalhp, h2 ) / math.max( act.totalhp, h2 )
 
-            if power > best_power then
-              best_power = power
+            if power > maxprofit then
+              maxprofit = power
               target = act
-              prob = power * 1000
             end
           else
             local profit = math.min( act.par( 'health' ) - act.hp, h ) / h
@@ -1833,9 +1868,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
           end
         end
 
-        if not undead then
-          if maxprofit > .95 then prob = 1000 else prob = math.floor( 50 * maxprofit ) end
-        end
+        prob = math.floor( maxprofit^2 * 1000 )
 
       elseif name == "cast_sacrifice" then
         local min_dist, nearest, nearest_act = 1000
@@ -1888,7 +1921,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
           if profit > maxprofit then maxprofit = profit; target = act; end
         end
 
-        if maxprofit > .95 then prob = 1000 else prob = math.floor(100 * maxprofit) end
+        prob = math.floor( maxprofit^2 * 1000 )
 
       elseif name == "resurrect" then -- возрождение феникса - всегда юзаем
         target = mover
@@ -2346,7 +2379,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
       elseif name == "animate_dead" then
         for i = 1, atk.cells.n do
           local act = Attack.cell_get_corpse( atk.cells[ i ] )
-          local unit_animate = necro_get_unit( actor_name( act ) ) -- проверок на фичи можно не делать, т.к. мы смотрим только доступные клетки
+          local unit_animate = necro_get_unit( actor_name( act ), Attack.act_initsize( act ), mover_power * ( text_range_dec( atk.custom_params.k ) ) / 100 ) -- проверок на фичи можно не делать, т.к. мы смотрим только доступные клетки
           local undead_lead = Attack.atom_getpar( unit_animate, "leadership" )
           -- сколько можно поднять по лидерству
           local animate_count_lead = math.floor( mover_power / undead_lead * ( text_range_dec( atk.custom_params.k ) ) / 100 )
@@ -3009,14 +3042,29 @@ function spell_auto_cast( spells, spellattacks )
     return score
   end
 
+  local function atk_common_score( act )
+    local atk_power = 0
+
+    for name, atk in pairs( act.atks ) do
+      if name ~= nil then
+        if atk.dmgavg ~= 0 then
+          atk_power = atk_power + act.units * atk.dmgavg * act.level * atk.targets.n
+        else
+          atk_power = atk_power + act.units * act.level * atk.targets.n
+        end
+      end
+    end
+
+    return atk_power
+  end
+
   local function common_score( act, factor )
     local lead_power = act.leadship * act.units
     local hp_power = act.totalhp
-    local baseatk = act.atks.base
+    local atk_power = atk_common_score( act )
     local power = 0
 
-    if baseatk ~= nil then
-      local atk_power = act.units * baseatk.dmgavg * act.level
+    if atk_power > 0 then
       power = ( lead_power + hp_power + atk_power ) / 3
     else
       power = ( lead_power + hp_power ) / 2
@@ -3030,14 +3078,8 @@ function spell_auto_cast( spells, spellattacks )
   local function unit_score( act )
     local lead_power = act.leadship * act.units
     local hp_power = act.totalhp
-    local baseatk = act.atks.base
-    local atk_power, power = 0, 0
-
-    if baseatk ~= nil then
-      atk_power = act.units * baseatk.dmgavg * act.level
-    end
-
-    power = lead_power + hp_power + atk_power
+    local atk_power = atk_common_score( act )
+    local power = lead_power + hp_power + atk_power
 
     return power 
   end
@@ -3869,14 +3911,15 @@ function spell_auto_cast( spells, spellattacks )
     local maxprofit, target = 0
 
     for i, act in ipairs( spellattacks.spell_healing.avcells() ) do
-      local profit = ( Attack.act_get_par( act, "health" ) - Attack.act_hp( act ) ) / h
+      local profit = math.min( Attack.act_get_par( act, "health" ) - Attack.act_hp( act ), h ) / h
+
       if profit > maxprofit then maxprofit = profit; target = act; end
     end
 
-    local prob = math.ceil( math.min( 1000, maxprofit * 500 ) * a2e )
+    local prob = math.ceil( maxprofit^2 * 500 * a2e )
     prob = common_spell_mana( "spell_healing", spell_level, ignore_mana, prob )
 
-    if maxprofit > .95 then table.insert( cast, { spell = "spell_healing", target = target, prob = prob } ) end
+    if maxprofit > .90 then table.insert( cast, { spell = "spell_healing", target = target, prob = prob } ) end
   end
 
   if spells.spell_resurrection then -- воскрешение
@@ -3884,15 +3927,15 @@ function spell_auto_cast( spells, spellattacks )
     local maxprofit = 0
 
     for i, act in ipairs( spellattacks.spell_resurrection.avcells() ) do
-      local profit = ( Attack.act_get_par( act, "health" ) * Attack.act_initsize( act ) - Attack.act_totalhp( act ) ) / h
+      local profit = math.min( Attack.act_get_par( act, "health" ) * Attack.act_initsize( act ) - Attack.act_totalhp( act ), h ) / h
 
       if profit > maxprofit then maxprofit = profit; target = act; end
     end
 
-    local prob = math.ceil( math.min( 2000, maxprofit * 1000 ) * a2e )
+    local prob = math.ceil( maxprofit^2 * 1000 * a2e )
     prob = common_spell_mana( "spell_resurrection", spell_level, ignore_mana, prob )
 
-    if maxprofit > .95 then table.insert( cast, { spell = "spell_resurrection", target = target, prob = prob } ) end
+    if maxprofit > .90 then table.insert( cast, { spell = "spell_resurrection", target = target, prob = prob } ) end
   end
 
   if spells.spell_armageddon then
@@ -3987,8 +4030,8 @@ function spell_auto_cast( spells, spellattacks )
   if spells.spell_necromancy then
     for i, c in ipairs( spellattacks.spell_necromancy.avcells() ) do
       local act = Attack.cell_get_corpse( c )
-      local unit_animate = necro_get_unit( actor_name( act ) )
       local power = pwr_necromancy( spells.spell_necromancy, ehero_level )
+      local unit_animate = necro_get_unit( actor_name( act ), Attack.act_initsize( act ), power )
       local undead_HP = Attack.atom_getpar( unit_animate, "hitpoint" )
       -- сколько можно поднять по здоровью
       local animate_count = math.floor( power / undead_HP )

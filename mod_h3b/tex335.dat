@@ -223,5 +223,37 @@ TEX335 {
     geom_size=1,1
     mask=6399,237
   }
-  texture_size=172,308
+  block {
+    filename=BA1_phoenix_sacrifice_normal.png
+    in_tex_pos=0,308
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=6636,237
+  }
+  block {
+    filename=BA1_phoenix_sacrifice_disabled.png
+    in_tex_pos=43,308
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=6873,237
+  }
+  block {
+    filename=BA1_phoenix_sacrifice_onmouse.png
+    in_tex_pos=86,308
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=7110,237
+  }
+  block {
+    filename=BA1_phoenix_sacrifice_onpress.png
+    in_tex_pos=129,308
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=7347,237
+  }
+  texture_size=172,352
 }

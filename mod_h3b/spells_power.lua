@@ -373,7 +373,7 @@ function get_infliction( spell, level, kind, text )
     end
   end
 
-  infliction = limit_value( infliction, nil, 100 )
+  infliction = limit_value( infliction, 0, 100 )
 
   if bonus_string == nil then
     bonus_string = ""
@@ -455,6 +455,25 @@ function int_dur( spell, level, bonus, text )
   end
 
   return dur, bonus_string
+end
+
+
+-- New common function for computing duration as a function of target's resistance
+function res_dur( target, spell, duration, res_type )
+  local res_spell = Logic.obj_par( spell, "dur_res_" .. res_type )
+
+  if res_spell == "1" then
+    local resist = Attack.act_get_res( target, res_type )
+    local spell_type = Logic.obj_par( spell, "type" )
+
+    if spell_type == "bonus" then
+      duration = math.max( math.ceil( duration * ( 1 + resist / 100 ) ), 1 )
+    else
+      duration = math.max( math.ceil( duration * ( 1 - resist / 100 ) ), 1 )
+    end
+  end
+  
+  return duration
 end
 
 
@@ -597,6 +616,7 @@ function pwr_plague( level, ehero_level )
   end
 
   local power = round( get_power_bonus( "spell_plague", "power", level, ehero_level ) )
+  power = limit_value( power, 0, 80 )
 
   return power
 end
@@ -660,7 +680,7 @@ function pwr_stone_skin( level, ehero_level )
 
   local penalty = tonumber("0" .. text_dec(Logic.obj_par("spell_stone_skin","penalty"),level))-Logic.hero_lu_item("sp_add_penalty_stone_skin","count")
   local power = round( get_power_bonus( "spell_stone_skin", "power", level, ehero_level ) )
-  power = limit_value( power, nil, 80 )
+  power = limit_value( power, 0, 80 )
 
   return power, penalty
 
@@ -718,6 +738,7 @@ function pwr_shroud( level, ehero_level )
   end
 
   local penalty = round( get_power_bonus( "spell_shroud", "power", level, ehero_level ) )
+  penalty = limit_value( penalty, 0, 80 )
 
   return penalty
 end
@@ -851,7 +872,7 @@ function pwr_divine_armor( level, ehero_level )
   end
 
   local power = round( get_power_bonus( "spell_divine_armor", "power", level, ehero_level ) )
-  power = limit_value( power, nil, 80 )
+  power = limit_value( power, 0, 80 )
 
   return power
 end
@@ -864,7 +885,7 @@ function pwr_defenseless( level, ehero_level )
   end
 
   local def = round( get_power_bonus( "spell_defenseless", "power", level, ehero_level ) )
-  def = limit_value( def, nil, 80 )
+  def = limit_value( def, 0, 80 )
 
   return def
 end
@@ -910,7 +931,7 @@ end
 function pwr_oil_fog( level, ehero_level )
   local min_dmg, max_dmg, level, duration = get_min_max_damage( "spell_oil_fog", level, nil, ehero_level )
   local power = round( get_power_bonus( "spell_oil_fog", "power", level, ehero_level ) )
-  power = limit_value( power, nil, 100 )
+  power = limit_value( power, 0, 100 )
 
   return min_dmg, max_dmg, duration, power
 end

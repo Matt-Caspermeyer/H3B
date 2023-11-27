@@ -7,6 +7,372 @@ Created by: Matt Caspermeyer (matt.caspermeyer@cox.net)
 You are free to use any part of my work in your projects so long as you give me credit.
 
 
+Installation:
+-------------
+
+1. This mod is not compatible with any other mods since I've most likely modified a file that another mod uses.
+  a. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
+  b. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+    i. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
+2. Extract 4 of the 5 *.KFS files included in this archive to the King's Bounty: The Legend mods folder.
+  a. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
+  b. If the "mods" folder does not exist, then see note 1bi above.
+  c. The 4 KFS files are:
+    i.   mod_homm3_portraits.kfs - stand alone game picture resources containing all *.DAT and *.DDS files that may be used in other mods.
+    ii.  mod_tougher_eheroes.kfs - stand alone tougher heroes containing all *.HERO files that may be used in other mods.
+    iii. mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LUA, and *.TXT files modified for this mod. This also contains TEMPLATES.LNG, the universal language template file (all other *.LNG files are in a different KFS).
+    iv.  mod_homm3_babies_eng_lng.kfs ***OR*** mod_homm3_babies_en_lng.kfs - updated *.LNG files
+      1) Use mod_homm3_babies_eng_lng.kfs for your English localization with eng_*.lng
+      2) Use mod_homm3_babies_en_lng.kfs for your English localization with en_*.lng
+      3) DO NOT USE BOTH FILES!!! Just one or the other!!!
+  d. All 4 KFS files are needed for the complete HOMM3 babies mod experience and the game will not load without them!
+3. Run the game
+  a. Start a new game to play!
+  b. It is not recommended to continue your current game, please restart.
+  c. For your first play through:
+    i.   Please do not use any cheats (i.e. Save Game Scanner, etc.)
+    ii.  Please do not use with any other mods (probably won't work anyway)
+    iii. You'll be able to experience the mod as I intended it to be played.
+
+
+Uninstallation:
+---------------
+
+1. Simply delete the 4 KFS files from your "mods" folder:
+  a. mod_homm3_portraits.kfs
+  b. mod_tougher_eheroes.kfs
+  c. mod_homm3_babies.kfs
+  d. mod_homm3_babies_eng_lng.kfs OR mod_homm3_babies_en_lng.kfs depending on your English localization variant
+2. Done!
+
+
+Notes:
+------
+
+1. This mod was developed using the Gamer's Gate V1.7 version of King's Bounty: The Legend.
+2. I have not tried it with other versions.
+3. This mod uses the English localizations using both the "eng_" and "en_" prefixes for the localization files.
+  a. As mentioned above, only one of those files is needed to play the game.
+  b. Other versions may have other prefixes and so you may be able to get this mod to work with your localization version by changing the prefixes of the *.LNG localization files.
+    i.   The *.LNG files are located inside mod_homm3_babies_en_lng.kfs or mod_homm3_babies_eng_lng.kfs both file sets are identical so either may be used as a baseline.
+    ii.  Simply rename *.kfs to *.zip and extract files if you wish to attempt this.
+    iii. Currently, you're on your own if you want to get it to work with a different localization, but if you'd like to help with localizations in your country then please let me know.
+
+
+Issues / Bugs:
+--------------
+
+Since this is a beta release of this mod, it is quite possible that your game will crash or you'll find bugs in this mod. Please provide me feedback on any issues that you are having with my mod so that I can make improvements and make your playing experience more enjoyable.
+
+If you have any problems during play, here are some pointers:
+
+1. If it is a game crash, note which action caused the crash.
+2. If the game appears to lock up, ALT-TAB back to Windows to see if there is a pop-up.
+  a. If there is a pop-up window, note the message and then click OK to proceed.
+  b. After you click OK, the game will most likely crash exit to Windows.
+  c. If the game does not crash after you click OK, it is highly recommended to quit your game rather than continue since behavior may be strange.
+3. Save your game often just in case!
+4. If the game locks up when you cursor over a child or item, there is a misspelling in one of the templates:
+  a. Note which child it is when this happens
+  b. Contact me and let me know which child it is and I'll correct the error
+  c. I hope we've found all these errors!
+5. Try to load from a save game and see if it still crashes in the same spot. If it crashes in the same spot, the only hope I have of resolving the issue is for:
+  a. You to provide me a savegame.
+  b. Provide me the exact steps to repeat the crash.
+  c. Without these, my chance of resolving this issue is probably very slim.
+
+Crash List
+----------
+
+1. I've had crashes with a failure to allocate more memory a couple of times.
+  a. The solution is to reload your most recent save game and simply continue.
+  b. Let me know if you see this problem, but currently I have no idea how to resolve it (I probably would need 1CC or Katauri Interactive's help with this one).
+  c. This problem seems to exhibit itself after you've been playing a long gaming session (it seems like I run into this after playing for several hours).
+
+Bug List:
+---------
+
+1. Damage causing effects (i.e. burning and poison):
+  a. If an AI unit is killed by a damage causing effect and if the next unit to move is another AI unit, then their damage causing effect is skipped if they have one.
+  b. I worked and worked trying to fix this bug, but to no avail.
+    i.  I'm pretty sure that it is a bug with the game itself as I don't think they intended for damaging effects to kill units.
+    ii. As such, I don't know how to fix this bug, but if you have any ideas then please let me know!
+
+If you notice any other problems or issues, then please let me know!
+
+It is my intent to make this mod as bug free and enjoyable as possible!
+
+
+Updates:
+--------
+
+1. As this version of the mod is in a beta state, there are still changes that are being done; however:
+  a. The mod is stable enough to play the game completely through - enjoy!
+  b. Every change has been checked at least once, but I'm in the quality assurance phase rechecking the code.
+  c. I'm currently play testing the game with a Paladin.
+2. At this stage, changes should not require you to restart your game - simply install the new files and continue playing.
+  a. Changes will be focused on editing data files (i.e. *.ATOM, *.TXT) to improve game balance and user enjoyability.
+  b. New features can still be added, but only if they are really good ideas!
+3. Updates will most likely occur on a monthly basis depending on severity and other factors.
+4. Once the quality assurance phase is completed and sufficient feedback is garnered, the project will transition to the release phase.
+5. The release phase will have all features properly implemented and all controllable bugs fixed.
+
+
+Modders:
+--------
+
+1. I've made many changes under the hood that only modders or code aficionados would notice.
+2. I've added comments where warranted to the areas in the game that I've changed, but not everywhere.
+  a. Feel free to look at these comments and provide me feedback if you know of a better way to implement something.
+  b. Certain comments have the word "HACK" where I did not know how to do it a better way - once again if you know a better way to implement this feature then please let me know!
+3. I've unified many *.LUA functions (i.e. like SPELLS_POWER.LUA) so that they all use the same bonus system, etc.
+4. I've made common functions for dealing with redundant code.
+  a. The original *.LUA files had lots and lots of redundant code.
+  b. I've replaced most of the redundant code in the *.LUA functions I've edited to reduce error and provide code consistency.
+5. I've beautified the sections of the *.LUA files I've changed to make reading the code much, much easier.
+6. The changes I've made really form the basis of a new code base from which you can create new mods.
+
+
+Copyright Issues:
+-----------------
+
+1. This work contains images from the Heroes of Might and Magic 3 game and those images are copyrighted.
+2. The picture for Orcelyn Ordy I found via the web, but I have not been able to find out who created that source image.
+  a. If you have any information about who created this picture please let me know and I'll give credit to the author.
+3. I created all the new ability icons.
+4. All of my effort is being freely distributed to the public domain.
+  a. Please give me credit if you use any portion of my work in your projects - thanks! :-)
+  b. Feel free to use this code base as a starting point for your own mod!
+
+
+THANK YOU!!!
+------------
+
+1. Thanks to all the people posting in the King's Bounty forums, especially those with modding tips!
+2. Thanks for trying out my mod and providing feedback!
+
+
+/C\/C\ Matt Caspermeyer
+
+
+Change List
+-----------
+
+This list is provided for historical purposes as well as for people to learn about the changes made.
+
+Version: Beta 2012-01-14
+-------------------------
+
+* mod_homm3_babies.kfs
+  & BONEDRAGON.ATOM
+    ^ Changed Poison Cloud damage from 100-120 to 80-100
+
+
+Alpha Testing Phase Complete!!!
+
+Thanks to:
+
+  * Fatt_Shade
+  * Erkilmarl
+  * saroumana
+
+Version: Alpha 2012-01-13
+-------------------------
+
+* mod_homm3_babies.kfs
+  & *.ATOM
+    ^ Unit ATOM's
+      % Removed charges for most reloadable abilities (that were added previously) due to simply disabling reloading of special attacks when the combat enters the "drudgery" phase
+      % This way difficulty level affects when your units run out of their reloadable attacks and it only effects your troops
+      % Charged attacks without reloads are not affected
+    ^ ARCHDEMON.ATOM
+      % Defenders no longer retaliate against the ArchDemon's attacks
+      % Fixed magicstick issue with Amalgamation ability
+      % As mentioned above, charges from reloadable attacks removed
+    ^ BAT.ATOM - new subturn_modificator to immediately re-apply difficulty bonus to transforming troop
+    ^ BAT2.ATOM - new subturn_modificator to immediately re-apply difficulty bonus to transforming troop
+    ^ BEHOLDER.ATOM - now has the mage feature
+    ^ BEHOLDER2.ATOM - now has the mage feature
+    ^ BONEDRAGON.ATOM
+      % Increased base attack damage from 50-65 to 65-80
+      % Increase Poison Cloud damage from 60-80 to 100-120
+      % As mentioned above, charges from reloadable attacks removed
+    ^ DARKCRYSTAL.ATOM
+      % New features (explicit immunity as well as pawn)
+      % Attack now is much more powerful
+      % Hitback is now much more powerful
+      % Posthitslave now recharges Karrador's mana
+    ^ DEATH.ATOM - used relative rest reduction (no functional change)
+    ^ DRUID.ATOM - Cast Bear now has a reload of 5 (instead of 4) and as mentioned above, charges are removed
+    ^ KINGTHORN - Cast Thorn reload is back to 4 and as mentioned above, charges are removed
+    ^ LINA.ATOM
+      % Updated Ice Thorns so that they are not as spammable at maximum level
+      % Used relative rest reduction (no functional change)
+    ^ NECROMANT.ATOM
+      % Now Raise Undead (animate_dead) can permanently reanimate (resurrect) Undead troops if the hero has Necromancy
+      % Raise Undead now has only 1 charge, but a charge is not consumed if it does not resurrect a troop
+      % Raise Undead reload time is 3
+      % Added level requirement for Raise Undead
+      % As mentioned above, removed charges on other reloadable attacks
+    ^ ORC.ATOM - added new "Ill-Tempered" feature
+    ^ ORC2.ATOM - added new "Ill-Tempered" feature
+    ^ PHOENIX.ATOM - new Cast Sacrifice ability
+    ^ PHOENIX_OLD.ATOM - new Cast Sacrifice ability
+    ^ PHOENIX_YOUNG.ATOM - new Cast Sacrifice ability
+    ^ PRIEST.ATOM
+      % Healing (cure2) now does not use the attacker's attack / defender's defense for computing damage
+      % As mentioned above, charges removed from reloadable attacks
+      % Healing (cure2) now has a reload time of 2
+    ^ SLIME.ATOM - used relative rest reduction (no functional change)
+    ^ THEROCK.ATOM - used relative rest reduction (no functional change)
+    ^ VAMPIRE.ATOM - new subturn_modificator to immediately re-apply difficulty bonus to transforming troop
+    ^ VAMPIRE2.ATOM - new subturn_modificator to immediately re-apply difficulty bonus to transforming troop
+    ^ WEREWOLF.ATOM - new subturn_modificator to immediately re-apply difficulty bonus to transforming troop
+    ^ WOLF.ATOM - new subturn_modificator to immediately re-apply difficulty bonus to transforming troop
+  & TEMPLATES.LNG
+    ^ Added new Necromancy skill templates for unit abilities affected by it
+    ^ Added new Necromancy spell templates for spells changed by it (Necro Call)
+  & *.LUA
+    ^ ARENA.LUA
+      % Now when the battle enters the "drudgery" phase, reloadable attacks are disabled for your troops
+      % Changed AI probability scoring for heal and resurrection-based abilities
+      % Fixed new Priest "cure2" AI to work properly
+      % Updated calls to function "necro_get_unit" to handle new function parameter list for Necro Call / Raise Undead
+      % Updated AI unit scoring to include special abilities and number of targets abilities and attacks can hit
+      % Added check for (Veteran) Orc critical hit received to allow their "Ill-Tempered" feature to work
+      % Added check to not display the enemy hero mana regeneration message if the mana regen is 0
+      % Dark Crystal health is now tied to the boss_hp difficulty level parameter
+      % Unit list generated for use by Dark Crystal when summoning reinforcements
+      % New function (transform_modificators) that re-applies the difficulty level bonus to transformers (this works much better than the way I did it before!)
+      % The map difficulty location is an additive bonus to the difficulty bonus scaler
+    ^ COMBAT_LOG.LUA
+      % Added Necro Call resurrect hint
+      % Added Phoenix Sacrifice resurrect hint
+    ^ LOGIC_HERO.LUA - updated rune_pal comment (no functional change)
+    ^ PAWN.LUA
+      % Improved darcrystal_attack function to include new move abilities
+      % Improved darkcrystal_hitback function to make it much more powerful and interesting
+      % Added new darkcrystal_posthitslave function to recharge Karrador's mana when the crystal receives damage
+    ^ SKILLS.LUA
+      % Added new function "skill_power_range_dec" to handle new Necromancy skill effectiveness range
+      % Fixed issue with Paladin Rune Stone ability not giving enough runes at level 2 and 3
+    ^ SPECIAL_ATTAKCS.LUA
+      % Priest "cure2" now always consumes charges
+      % Updated "special_animate_dead" to resurrect Undead if hero has the Necromancy skill
+      % Updated "special_ghost_cry" to do more damage if the hero has the Necromancy skill
+      % When the Phoenix resurrects itself, it recharges all its abilities (i.e. Cast Sacrifice)
+      % Cleaned up special_cast_thorn_sacrifice, removing code that wasn't being used
+      % Added new function (special_phoenix_sacrifice) to implement new Phoenix ability
+    ^ SPECIAL_HINT.LUA
+      % Added Scream (Ghost Cry) damage hint increase if the hero has the Necromancy skill
+      % Added new hint generators for Scream and Raise Undead
+      % Added new hint for Phoenix Cast Sacrifice
+      % Updated difficulty scaler hint to include map difficulty location
+    ^ SPELL_EFFECTS.LUA
+      % Duration of effects are now affected by the unit's magic resistance or resistance to that kind of effect (i.e. poison for effect poison)
+      % The function effect_sleep_attack now applies a defense penalty to sleeping targets
+      % The function effect_unconscious_attack now applies a defense penalty to sleeping targets
+    ^ SPELLS.LUA
+      % Updated belligerent check code for all spells where used to determine enemy hero level and spell level
+      % Duration of spells are now affected by the unit's magic resistance or resistance to that kind of effect (i.e. poison for effect poison)
+      % Updated function "necro_get_unit" to always pick the highest level undead when spell power is greater than number of units
+      % Updated "spell_necromancy_attack" to handle resurrecting Undead units when hero has the Necromancy skill
+      % Added new function "common_plague_attack" for applying the effects of the various Plague spells and abilities
+      % The function spell_gifts_attack now removes the "Drudgery" long combat effect when used (so that the spell can be used to reload attacks after the Drudgery phase is enterred)
+      % Fixed issues with lightning where it was not updating the chance of effect based on the current target
+    ^ SPELLS_COMMON.LUA
+      % Function "calccells_all_need_resurrect_ally" no longer allows selection of Undead units if hero has the Necromancy skill and is using the Resurrect Spell
+      % New function "calccells_all_corpse2" for handling selection of Undead units with either Necro Call or Raise Undead and the Necromancy skill
+      % New function "calccells_all_phoenix_sacrifice" for handling selection of valid resurrection targets for new Phoenix Cast Sacrifice ability
+      % Function calccells_hypnosis updated to include enemy hero level in pwr_hypnosis function
+      % Function calccells_sacrifice updated to include enemy hero level in pwr_sacrifice function
+      % Function calccells_phantom updated to include enemy hero level in pwr_phantom function
+    ^ SPELLS_POWER.LUA
+      % For some spells, applied value limits to both lower and upper value
+      % New function "res_dur" for applying resistance to alter spell or effect duration
+    ^ SPELLS_HINT.LUA
+      % Updated common hint display function
+      % Updated Necro Call spell hint display funtion to show Necromancy skill bonuses
+    ^ SPIRIT_LINA.LUA - updated mana increase function to prevent enemy units from giving your hero mana from a mana ball in rare cases
+    ^ UNIT_FEATURES.LUA
+      % New function "orc_posthitslave" to implement new (Veteran) Orc "Ill-Tempered" feature
+      % Updated features_archdemon_attack to improve its implementation and add the capability to dispell beneficial spells on the target
+      % Updated features_soul_drain so that it doesn't work on units of the Demon race
+      % Updated features_vampirism so that it doesn't work on units of the Demon race
+      % Function post_spell_dragon_slayer updated to include enemy hero level in pwr_dragon_slayer function
+      % Function post_spell_demon_slayer updated to include enemy hero level in pwr_demon_slayer function
+  & *.TXT
+    ^ EFFECTS.TXT
+      % Effect effect_unconscious now has a defense penalty
+      % Effect effect_sleep now has a defense penalty
+    ^ HERO.TXT - level 31 experience increased from 1 to 2 million
+    ^ LOGIC.TXT - new difficulty scaler parameter: maplocden - now the map location difficulty adds to the difficulty scaler bonus
+    ^ MORALE.TXT
+      % Beholders and Evil Beholders add to Mega Mage
+      % Removed Tolerance Morale bonus
+      % Added Diplomacy Morale bonuses
+    ^ SKILLS.TXT
+      % Updated trading "trade" parameters to match skill parameters (not sure if these are used???)
+      % Added second parameter to Diplomacy skill levels for the Morale bonus hint display
+      % Added "Light" troop bonuses to Keeper of the Light
+      % Added Resist All bonuses to Tolerance
+      % Added third parameter to Runic Stone to allow proper Rune reward
+      % Removed Necromancy Undead Magic Resistance bonus since they get Resist All from Tolerance
+    ^ SPELL.TXT
+      % Updated Necro Call spell unit reanimation list to allow more possibilities
+      % Updated Necro Call spell to use new "calccells_all_corpse2" unit selection function
+      % Updated power of spell_necromancy and derived price and mana / crystals
+      % Added level requirement parameter for when Necro Call spell is used to resurrect Undead
+      % Added new "dur_res_[resistance_type]" parameter for applying a unit's resistance to affect spell duration
+      % The following changes were due to changing the "level model" for these spells (i.e. how does the power change from level 1 to 2, etc.)
+        $ Updated power of spell_stone_skin and derived price and mana / crystals
+        $ Updated derived parameters for spell_last_hero
+        $ Updated power and penalty of spell_pacifism and derived price and mana / crystals
+        $ Updated power of spell_dragon_slayer and derived price and mana / crystals
+        $ Updated power of spell_demon_slayer and derived price and mana / crystals
+        $ Updated power of spell_accuracy and derived price and mana / crystals
+        $ Updated power of spell_berserker and derived price and mana / crystals
+        $ Updated power of spell_shroud and derived price and mana / crystals
+        $ Updated power of spell_pain_mirror and derived price and mana / crystals
+        $ Updated power (just defense, not mana regen) of spell_magic_source and derived price and mana / crystals
+        $ Updated power of spell_phantom and derived price and mana / crystals
+        $ Updated power of spell_pygmy and derived price and mana / crystals
+        $ Updated power of spell_hypnosis and derived price and mana / crystals
+        $ Updated power of spell_oil_fog and derived price and mana / crystals
+        $ Updated power of spell_plague and derived price and mana / crystals
+        $ Updated power of spell_fire_breath and derived price and mana / crystals
+        $ Updated power of spell_sacrifice and derived price and mana / crystals
+        $ Updated power of spell_demonologist and derived price and mana / crystals
+        $ Updated prc_damage of spell_armageddon and derived price and mana / crystals
+* mod_homm3_babies_en(g)_lng.kfs
+  & EN(G)_BATTLE.LNG
+    ^ Updated drudgery combat message
+    ^ Added new (Veteran) Orc "Get's Angry" messages for new Ill-Tempered feature
+    ^ Added new Phoenix Sacrifice messages
+    ^ Fixed grammar error in add_block_necro_2 message
+    ^ Added Dark Crystal message
+  & EN(G)_SKILLS.LNG
+    ^ Updated Keeper of the Light text to include "Light Troop" bonuses
+    ^ Updated Diplomacy to include Morale messages
+    ^ Updated Tolerance skill to remove Morale bonus and include Resist All bonus
+    ^ Updated Necromancy skill text to remove +Magic Resistance and reword it a bit
+  & EN(G)_SPELLS.LNG
+    ^ Updated Necro Call Necromancy skill bonus text
+    ^ Updated Sleep description to include defense reduction
+    ^ Updated Unconscious description to include defense reduction
+  & EN(G)_UNITS.LNG - added new Diplomacy skill morale bonuses
+  & EN(G)_UNITS_FEATURES.LNG
+    ^ Added new "Ill-Tempered" feature to Orcs and Veteran Orcs
+    ^ Added new No Retaliation to ArchDemons
+    ^ Added new "Ill-Tempered" feature header and hint
+    ^ Updated ArchDemon Odium hint to match current ability
+  & EN(G)_UNITS_SPECIALS.LNG
+    ^ Updated new Priest "cure2" text
+    ^ Updated Neromancer Raise Undead text for Necromancy skill allowing Undead resurrection
+    ^ Added new Phoenix Sacrifice name, header, and hint
+    ^ Updated the difficulty level descriptions to include the new map location difficulty bonus
+
+
 Version: Alpha 2011-12-29
 -------------------------
 
@@ -416,141 +782,3 @@ This archive contains all the files for the HOMM3 Babies mod / micro / mini expa
 There are many changes to the game, but at this time I do not have them listed here. In the future, this file will list those changes. In the mean time, visit the YouTube video page: http://youtu.be/JE0VbSnfYkM and the King's Bounty: The Legend Mod forum for more information: http://forum.1cpublishing.eu/showthread.php?p=360731#post360731.
 
 
-Installation:
--------------
-
-1. This mod is not compatible with any other mods since I've most likely modified a file that another mod uses.
-  a. You will need to remove all mods from your King's Bounty: The Legend "mods" folder before installation of this mod.
-  b. Ensure that the "mods" folder exists, it is typically located here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
-    i. If the "mods" folder does not exist then create it below the "data" folder using the path above as a guide.
-2. Extract the 4 *.KFS files included in this archive to the King's Bounty: The Legend folder.
-  a. This folder is typically here: C:\Program Files (x86)\1C Company\King's Bounty\data\mods
-  b. If the "mods" folder does not exist, then see note 1ai above.
-  c. The 4 KFS files are:
-    i.   mod_homm3_portraits.kfs - stand alone game picture resources containing all *.DAT and *.DDS files that may be used in other mods.
-    ii.  mod_tougher_eheroes.kfs - stand alone tougher heroes containing all *.HERO files that may be used in other mods.
-    iii. mod_homm3_babies.kfs - core HOMM3 babies mod files containing all *.ACT, *.ATOM, *.CHAT, *.LUA, and *.TXT files modified for this mod.
-    iv.  mod_homm3_babies_eng_lng.kfs ***OR*** mod_homm3_babies_en_lng.kfs - updated *.LNG files
-      1) Use mod_homm3_babies_eng_lng.kfs for your English localization with eng_*.lng
-      2) Use mod_homm3_babies_en_lng.kfs for your English localization with en_*.lng
-      3) DO NOT USE BOTH FILES!!! Just one or the other!!!
-  d. All 4 KFS files are needed for the complete HOMM3 babies mod experience!
-3. Run the game
-  a. Start a new game to play!
-  b. It is not recommended to continue your current game, please restart.
-  c. For your first play through:
-    i.   Please do not use any cheats (i.e. Save Game Scanner, etc.)
-    ii.  Please do not use with any other mods (probably won't work anyway)
-    iii. You'll be able to experience the mod as I intended it to be played.
-
-
-Uninstallation:
----------------
-
-1. Simply delete the 3 KFS files from your "mods" folder:
-  a. mod_homm3_portraits.kfs
-  b. mod_tougher_eheroes.kfs
-  c. mod_homm3_babies.kfs
-2. Done!
-
-
-Notes:
-------
-
-1. This mod was developed using the Gamer's Gate V1.7 version of King's Bounty: The Legend.
-2. I have not tried it with other versions.
-3. This mod uses the English localizations using both the "eng_" and "en_" prefixes for the localization files.
-  a. As mentioned above, only one of those files is needed to play the game.
-  b. Other versions may have other prefixes and so you may be able to get this mod to work with your localization version by changing the prefixes of the *.LNG localization files.
-    i.   The *.LNG files are located inside mod_homm3_babies_en_lng.kfs or mod_homm3_babies_eng_lng.kfs both file sets are identical so either may be used as a baseline.
-    ii.  Simply rename *.kfs to *.zip and extract files if you wish to attempt this.
-    iii. Currently, you're on your own if you want to get it to work with a different localization, but if you'd like to help with localizations in your country then please let me know.
-
-
-Issues / Bugs:
---------------
-
-Since this is an alpha release of this mod, it is quite possible that your game with crash or you'll find bugs in this mod. Please provide me feedback on any issues that you are having with my mod so that I can make improvements and make your playing experience more enjoyable.
-
-If you have any problems during play, here are some pointers:
-
-1. If it is a game crash, note which action caused the crash.
-2. If the game appears to lock up, ALT-TAB back to Windows to see if there is a pop-up.
-  a. If there is a pop-up window, note the message and then click OK to proceed.
-  b. After you click OK, the game will most likely crash exit to Windows.
-  c. If the game does not crash after you click OK, it is highly recommended to quit your game rather than continue since behavior may be strange.
-3. Save your game often just in case!
-4. If the game crashes right after a battle and you've asked your wife for children then it is due to a spelling error in one of that wife's children.
-  a. I just ran into this problem where I had a mispelling in one of Rina's children.
-
-Crash List
-----------
-
-1. I've had crashes with a failure to allocate more memory a couple of times.
-  a. The solution is to reload your most recent save game and simply continue.
-  b. Let me know if you see this problem, but currently I have no idea how to resolve it (I probably would need 1CC or Katauri Interactive's help with this one).
-
-Bug List - there is one bug that I'm not sure if I've squished or not:
---------
-
-1. Damage causing effects (i.e. burning and poison):
-  a. If an AI unit is killed by a damage causing effect and if the next unit to move is another AI unit, then their damage causing effect is skipped if they have one.
-  b. I worked and worked trying to fix this bug, but to no avail.
-    i.  I'm pretty sure that it is a bug with the game itself as I don't think they intended for damaging effects to kill units.
-    ii. As such, I don't know how to fix this bug, but if you have any ideas then please let me know!
-
-If you notice any other problems or issues, then please let me know!
-
-It is my intent to make this mod as bug free and enjoyable as possible!
-
-
-Updates:
---------
-
-1. As this version of the mod is in an alpha state, there are still changes that are being done; however:
-  a. The mod is stable enough to play the game completely through - enjoy!
-  b. Every change has been checked at least once, but I'm in the quality assurance phase rechecking the code.
-  c. I'm about to start a new Paladin game to check gameplay some more.
-2. At this stage, changes should not require you to restart your game - simply install the new files and continue playing.
-3. Updates will most likely occur on a bi-monthly basis depending on severity and other factors.
-4. Once the quality assurance phase is completed and sufficient feedback is garnered, the project will transition to the beta release phase.
-5. The beta release phase will have all features properly implemented and all controllable bugs fixed.
-  a. Changes will be focused on editing data files (i.e. *.ATOM, *.TXT) to improve game balance and user enjoyability.
-  b. Once the beta phase has garnered sufficient feedback, the project will transition to the official release phase - more information on that once the beta phase is reached.
-
-
-Modders:
---------
-
-1. I've made many changes under the hood that only modders or code aficionados would notice.
-2. I've added comments where warranted to the areas in the game that I've changed.
-  a. Feel free to look at these comments and provide me feedback if you know of a better way to implement something.
-  b. Certain comments have the word "HACK" where I did not know how to do it a better way - once again if you know a better way to implement this feature then please let me know!
-3. I've unified many *.LUA functions (i.e. like SPELLS_POWER.LUA) so that they all use the same bonus system, etc.
-4. I've made common functions for dealing with redundant code.
-  a. The original *.LUA files had lots and lots of redundant code.
-  b. I've replaced most of the redundant code in the *.LUA functions I've edited to reduce error and provide code consistency.
-5. I've beautified the sections of the *.LUA files I've changed to make reading the code much, much easier.
-6. The changes I've made really form the basis of a new code base from which you can create new mods.
-
-
-Copyright Issues:
------------------
-
-1. This work contains images from the Heroes of Might and Magic 3 game and those images are copyrighted.
-2. The picture for Orcelyn Ordy I found via the web, but I have not been able to find out who created that source image.
-  a. If you have any information about who created this picture please let me know and I'll give credit to the author.
-3. I created all the new ability icons.
-4. All of my effort is being freely distributed to the public domain.
-  a. Please give me credit if you use any portion of my work in your projects - thanks! :-)
-  b. Feel free to use this code base as a starting point for your own mod!
-
-
-THANK YOU!!!
-------------
-
-1. Thanks to all the people posting in the King's Bounty forums, especially those with modding tips!
-2. Thanks for trying out my mod and providing feedback!
-
-
-/C\/C\ Matt Caspermeyer

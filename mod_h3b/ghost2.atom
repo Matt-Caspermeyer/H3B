@@ -43,7 +43,6 @@ arena_params {
     class=scripted
     hinthead=special_ghost_cry_head
     hint=special_ghost_cry_hint
-    moves=3
     reload=5
     ad_factor=1
     script_attack=special_ghost_cry

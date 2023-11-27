@@ -5,6 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_orc_feat
+  features_hints=get_angry_header/get_angry_hint
   race=orc
   cost=90
   level=3
@@ -21,6 +22,7 @@ arena_params {
   hitbackprotect=0
   attacks=moveattack,run
   features=humanoid
+  posthitslave=orc_posthitslave
   resistances {
     physical=10
     poison=10

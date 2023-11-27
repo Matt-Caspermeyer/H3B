@@ -41,7 +41,6 @@ arena_params {
     hinthead=special_sham_dance_head
     hint=special_sham_dance_hint
     ad_factor=0
-    moves=5
     reload=4
     script_attack=special_shaman_spirit_dance_attack
     script_calccells=calccells_all_enemy_actors_takes_damage
@@ -63,7 +62,6 @@ arena_params {
     hinthead=special_life_totem_head
     hint=special_life_totem_hint
     ad_factor=0
-    moves=5
     reload=4
     script_attack=special_shaman_totem
     script_calccells=calccells_all_empty
@@ -80,7 +78,6 @@ arena_params {
     hinthead=special_dead_totem_head
     hint=special_dead_totem_hint
     ad_factor=0
-    moves=5
     reload=4
     script_attack=special_shaman_totem
     script_calccells=calccells_all_empty

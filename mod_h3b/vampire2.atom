@@ -1,0 +1,285 @@
+main {
+  class=chesspiece
+  model=vampire2.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_vampire2_feat
+  features_hints=undead_header/undead_hint,regeneration_header/regeneration_hint,no_retaliation_header/no_retaliation_hint,dead_evasion_header/dead_evasion_hint
+  race=undead
+  cost=460
+  level=4
+  leadership=180
+  attack=25
+  defense=25
+  defenseup=5
+  initiative=6
+  speed=2
+  hitpoint=110
+  features=undead
+  movetype=0
+  krit=20
+  hitback=1
+  hitbackprotect=1
+  transformto=bat2
+  each_turn_script=features_regeneration
+  attacks=moveattack,transform
+  resistances {
+    physical=0
+    poison=50
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=10,18
+    }
+  }
+  transform {
+    class=scripted
+    reload=2
+    script_attack=special_transform
+    hinthead=special_vampire_transform_head
+    hint=special_vampire_transform_hint
+    picture=BA1_Transform_Bat2_
+    picture_small=BA1_Transform_Bat2_small.png
+    endmove=0
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      moral=1
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+  subturn_modificators=transform_modificators
+}
+clippers {
+  transmute {
+    clipatom=clip_icemagic,vampiretrans,clip
+    toatom=magic_bat2,idle
+  }
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=vampire_idle.bsa/fr:25:50
+  rare=vampire_rare.bsa/fr:25:50
+  attack=vampire_attack.bsa/fr:25:50
+  move=vampire_move.bsa/fr:30:50
+  start=vampire_start.bsa/fr:30:50
+  stop=vampire_stop.bsa/fr:30:50
+  clock=vampire_clock.bsa/fr:40:80
+  contra=vampire_contra.bsa/fr:40:80
+  clock2=vampire_2clock.bsa/fr:40:80
+  contra2=vampire_2contra.bsa/fr:40:80
+  lturn=vampire_lturn.bsa/fr:30:60
+  rturn=vampire_rturn.bsa/fr:30:60
+  damage=vampire_damage.bsa/fr:25:50
+  slew=vampire_slew.bsa/fr:35:70
+  death=vampire_death.bsa/fr:25:50
+  respawn=vampire_respawn.bsa/fr:25:50
+  cursor=vampire_rare.bsa/fr:25:50
+  teleout=vampire_idle.bsa/fr:25:50/r:45:80
+  telein=vampire_idle.bsa/fr:25:50/r:0:35
+  happy=vampire_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:rare:1:1:idlemain
+  special=vampire_special.bsa/fr:25:50
+  transform=vampire_transform.bsa/fr:25:25/clip:transmute
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    17.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @respawn {
+    2.0?x=
+    0.0=cam
+  }
+  @special {
+    19.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=transform
+      frame=0.01
+      file=vampire_transform
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=vampire_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=vampire_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=vampire_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=vampire_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=vampire_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=vampire_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=vampire_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=vampire_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=vampire_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=vampire_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=vampire_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=vampire_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=vampire_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=vampire_rare
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=vampire_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=vampire_victory
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=vampire2_special
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0.5/1.11114502/0/0/-0.69815296/0/1
+      animation=transform
+      frame=36/38
+      file=magic_vampire_dust.ptb
+    }
+    particle {
+      trans=-0.5/1.11114502/0/0/-0.69815296/0/1
+      animation=transform
+      frame=36/38
+      file=magic_vampire_dust.ptb
+    }
+  }
+}
+prefetch {
+  vampire_idle.bsa=file
+  vampire_rare.bsa=file
+  vampire_attack.bsa=file
+  vampire_move.bsa=file
+  vampire_start.bsa=file
+  vampire_stop.bsa=file
+  vampire_clock.bsa=file
+  vampire_contra.bsa=file
+  vampire_2clock.bsa=file
+  vampire_2contra.bsa=file
+  vampire_lturn.bsa=file
+  vampire_rturn.bsa=file
+  vampire_damage.bsa=file
+  vampire_death.bsa=file
+  vampire_respawn.bsa=file
+  vampire_victory.bsa=file
+  vampire_special.bsa=file
+}

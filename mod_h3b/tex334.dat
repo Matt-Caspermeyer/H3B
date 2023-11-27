@@ -87,5 +87,13 @@ TEX334 {
     geom_size=1,1
     mask=850,85
   }
+  block {
+    filename=BA1_phoenix_sacrifice_small.png
+    in_tex_pos=78,52
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=935,85
+  }
   texture_size=104,78
 }

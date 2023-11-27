@@ -66,7 +66,6 @@ arena_params {
     spell=special_stupid
     hinthead=special_stupid_head
     hint=special_stupid_hint
-    moves=5
     reload=4
     nfeatures=magic_immunitet,boss,pawn
     picture=BA1_MagicBondage_
@@ -77,12 +76,12 @@ arena_params {
     warning=sw_necro
     hinthead=special_raise_dead_head
     hint=special_raise_dead_hint
-    moves=10
-    reload=2
+    moves=1
+    reload=3
     log_label=null
     no_hint=1
     script_attack=special_animate_dead
-    script_calccells=calccells_all_corpse
+    script_calccells=calccells_all_corpse2
     picture=BA1_Turn_Undead_
     picture_small=BA1_Turn_Undead_small.png
     attack_cursor=magicstick
@@ -90,6 +89,7 @@ arena_params {
     nfeatures=nonecro,golem,plant,demon
     custom_params {
       k=60-60
+      level=4
     }
   }
   plague {
@@ -97,7 +97,6 @@ arena_params {
     nfeatures=plant,golem,demon,boss,pawn
     script_attack=special_plague
     script_calccells=
-    moves=7
     reload=3
     picture=BA1_Plague_
     picture_small=BA1_Plague_small.png

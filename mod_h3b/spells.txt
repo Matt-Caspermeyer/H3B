@@ -121,6 +121,7 @@ spell_defenseless {
 //    lvl_def=50  //How much% increased effect from the level
     type=penalty
     int=1 //  If = 1 then the intelligence affects the duration of spells
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
@@ -141,7 +142,7 @@ spell_defenseless {
 spell_stone_skin {
   category=s
   profit=1
-  price=3500
+  price=3965
   hide=0
   image=book_spell_stone_skin.png
   icon=s_overtime_stone_skin.png
@@ -165,8 +166,9 @@ spell_stone_skin {
   params {
     duration=2,3,4
     type=bonus
-    power=15,20,25
+    power=5,10,20
     int=1 //  If = 1 then the intelligence affects the duration of spells
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     penalty=1,1,1		// How many drops Initiative
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
@@ -174,13 +176,13 @@ spell_stone_skin {
     healer=1
     attack=0
     defense=1
-    mana_cost = 5,7,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 4,7,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=5,2
+    1=4,2
     2=7,3
-    3=9,4
+    3=12,6
   }
 }
 
@@ -188,7 +190,7 @@ spell_stone_skin {
 spell_last_hero {
   category=s
   profit=1
-  price=2800
+  price=2850
   icon=s_overtime_last_hero.png
   image=book_spell_last_hero.png
   button_image=book_scroll_last_hero.png
@@ -215,13 +217,14 @@ spell_last_hero {
     level=2,3,4
     type=bonus
     int=1 // if = 1 that intelligence affects the duration of spells
-    mana_cost = 5,9,24  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
+    mana_cost = 5,9,25  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=5,2
     2=9,4
-    3=24,12
+    3=25,12
   }
 }
 
@@ -335,6 +338,7 @@ spell_bless {
   params {
     duration=2,3,3
     int=1 // if = 1 that intelligence affects the duration of spells
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,all
     type=bonus
     healer=1
@@ -375,6 +379,7 @@ spell_adrenalin {
     bonus=1,2,2
     duration=0,0,1
     int=1 //  If = 1 then the intelligence affects the duration of spells
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     holy_rage=1
     type=bonus
     mana_cost = 4,8,22  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
@@ -391,7 +396,7 @@ spell_adrenalin {
 spell_pacifism {
   category=s
   profit=3
-  price=2800
+  price=3900
   image=book_spell_pacifism.png
   button_image=book_scroll_pacifism.png
   icon=s_overtime_pacifism.png
@@ -416,8 +421,8 @@ spell_pacifism {
   params {
     duration=1,2,3
     int=1 // if = 1 then the intelligence affects the duration of spells
-    penalty=10,15,20	// how many drops Damage
-    power=10,15,20	// how much growing hitpoint
+    penalty=5,10,20	// how many drops Damage
+    power=5,10,20	// how much growing hitpoint
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
@@ -425,13 +430,13 @@ spell_pacifism {
     healer=1
     holy_rage=1
     attack=0
-    mana_cost = 4,6,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 4,8,14  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=4,2
-    2=6,3
-    3=9,4
+    2=8,4
+    3=14,7
   }
 }
 
@@ -439,7 +444,7 @@ spell_pacifism {
 spell_dragon_slayer {
   profit=3
   category=s
-  price=9580
+  price=9440
   icon=s_overtime_dragon_slayer.png
   image=book_spell_dragon_slayer.png
   button_image=book_scroll_dragon_slayer.png
@@ -461,9 +466,10 @@ spell_dragon_slayer {
   }
   params {
     duration=2,3,3
-    power=10,15,15 // бонус урона в %
+    power=10,20,20 // бонус урона в %
     unit_count=one,one,all
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     script=post_spell_dragon_slayer
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -472,11 +478,11 @@ spell_dragon_slayer {
     healer=0
     holy_rage=1
     attack=1
-    mana_cost = 5,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 4,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=5,2
+    1=4,2
     2=7,3
     3=35,17
   }
@@ -574,7 +580,7 @@ spell_demon_slayer {
   category=s
   profit=4
   hide=0
-  price=8330
+  price=9440
   icon=s_overtime_demon_slayer.png
   image=book_spell_demon_slayer.png
   button_image=book_scroll_demon_slayer.png
@@ -596,9 +602,10 @@ spell_demon_slayer {
   }
   params {
     duration=2,3,3
-    power=10,15,15 // бонус урона в %
+    power=10,20,20 // бонус урона в %
     unit_count=one,one,all
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     script=post_spell_demon_slayer
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -607,13 +614,13 @@ spell_demon_slayer {
     healer=0
     holy_rage=1
     attack=1
-    mana_cost = 4,6,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 4,7,35  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=4,2
-    2=6,3
-    3=30,15
+    2=7,3
+    3=35,17
   }
 }
 
@@ -645,6 +652,7 @@ spell_lightning {
     lvl_inc=125      // Increase the damage level in%
     duration=1       // Duration
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     shock=15         // Probability of shock, depending on the level
     count=1,2,4
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -736,6 +744,7 @@ spell_divine_armor {
   params {
     duration=1,2,3
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     power=5,10,15
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -787,6 +796,7 @@ spell_holy_rain {
     lvl_inc=125      // прирост урона с уровнем в %
     duration=1       // длительность
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     holy=5           // power of holy attack effect
     prc_damage=300		 // какая часть от силы лечения наносит урон. Можно ставить и больше 100%, тогда урон будет сильнее лечения
     multi=7
@@ -816,7 +826,7 @@ spell_holy_rain {
 spell_accuracy {
   category=s
   profit=1
-  price=5555
+  price=6665
   icon=s_overtime_accuracy.png
   button_image=book_scroll_accuracy.png
   image=book_spell_accuracy.png
@@ -839,8 +849,9 @@ spell_accuracy {
   }
   params {
     duration=2,3,3
-    power=15,20,20
+    power=15,30,30
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,all
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -848,13 +859,13 @@ spell_accuracy {
     destroyer=1
     healer=0
     attack=1
-    mana_cost = 3,4,20  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 3,5,25  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=3,1
-    2=4,2
-    3=20,10
+    2=5,2
+    3=25,12
   }
 }
 
@@ -885,6 +896,7 @@ spell_haste {
     duration=2,3,3
     bonus=1,2,2
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,all
     type=bonus
     mana_cost = 3,5,25  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
@@ -923,6 +935,7 @@ spell_slow {
   params {
     duration=2,3,3
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     penalty=1,2,2
     unit_count=one,one,all
     type=penalty
@@ -964,6 +977,7 @@ spell_reaction {
   params {
     duration=2,3,3
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,all
     bonus=1,2,2
     holy_rage=1
@@ -983,7 +997,7 @@ spell_reaction {
 spell_berserker {
   category=s
   profit=2
-  price=3500
+  price=4430
   icon=s_overtime_berserker.png
   image=book_spell_berserker.png
   button_image=book_scroll_berserker.png
@@ -1007,7 +1021,8 @@ spell_berserker {
   params {
     duration=2,3,4
     int=1 // если =1 то интеллект влияет на длительность заклинания
-    power=25,30,35
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
+    power=10,20,40
     level=2,3,4
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -1015,13 +1030,13 @@ spell_berserker {
     destroyer=1
     healer=0
     attack=1
-    mana_cost = 5,7,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 5,8,13  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=5,2
-    2=7,3
-    3=9,4
+    2=8,4
+    3=13,6
   }
 }
 
@@ -1042,7 +1057,7 @@ spell_shroud {
   category=s
   profit=2
   hide=0
-  price=1080
+  price=1330
   icon=s_overtime_shroud.png
   image=book_spell_shroud.png
   button_image=book_scroll_shroud.png
@@ -1067,19 +1082,19 @@ spell_shroud {
   params {
     duration=3,4,5
     int=1 // если =1 то интеллект влияет на длительность заклинания
-    power=10,15,20
+    power=5,10,20
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
     healer=0
     attack=0
-    mana_cost = 2,3,4  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 2,3,6  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=2,1
     2=3,1
-    3=4,2
+    3=6,3
   }
 }
 
@@ -1087,7 +1102,7 @@ spell_shroud {
 spell_pain_mirror {
   category=s
   profit=2
-  price=7200
+  price=5200
   icon=s_overtime_pain_mirror.png
   image=book_spell_pain_mirror.png
   button_image=book_scroll_pain_mirror.png
@@ -1108,20 +1123,20 @@ spell_pain_mirror {
     nfeatures=magic_immunitet,pawn,boss
   }
   params {
-    power=15,20,25
+    power=10,20,40
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=1
     healer=0
     attack=1
     necromancy=1
-    mana_cost = 12,16,20  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 5,10,20  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=12,6
-    2=16,8
+    1=5,2
+    2=10,5
     3=20,10
   }
 }
@@ -1169,7 +1184,7 @@ spell_target {
 spell_magic_source {
   category=s
   profit=2
-  price=5200
+  price=5600
   icon=s_overtime_magic_source.png
   image=book_spell_magic_source.png
   button_image=book_scroll_magic_source.png
@@ -1191,9 +1206,10 @@ spell_magic_source {
   }
   params {
     duration=2,3,4
-    power=5,10,15  // % increase in protection
+    power=5,10,20  // % increase in protection
     mana=3,6,9     // how much mana is given
     int=1          // if = 1 then the intelligence affects the duration of spells
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     script=post_spell_mana_source
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -1202,13 +1218,13 @@ spell_magic_source {
     healer=1
     attack=0
     defense=1
-    mana_cost = 5,9,13  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 5,9,15  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=5,2
     2=9,4
-    3=13,6
+    3=15,7
   }
 }
 
@@ -1243,6 +1259,7 @@ spell_trap {
   params {
     duration=3,4,5	// lifetime
     int=1 // if = 1 then the intelligence affects the duration of spells
+    dur_res_poison=1  // New! Target's poison resistance effects spell duration
     typedmg=physical
     damage=250-300	// damage
     lvl_inc=150	// increase the damage level in%
@@ -1295,6 +1312,7 @@ spell_invisibility {
     duration=1,2,3
     level=2,3,4
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,one
     type=bonus
     mana_cost = 18,27,36  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
@@ -1357,7 +1375,7 @@ spell_phantom {
   category=s
   profit=3
   hide=0
-  price=11250
+  price=10665
   image=book_spell_phantom.png
   button_image=book_scroll_phantom.png
   icon=s_overtime_phantom.png
@@ -1382,20 +1400,20 @@ spell_phantom {
   params {
     duration=1,2,3
     int=1 // если =1 то интеллект влияет на длительность заклинания
-    power=10,15,20	// % Health phantom detachment from the original
+    power=5,10,20	// % Health phantom detachment from the original
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
     healer=1
     attack=0
-    mana_cost = 20,30,40  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 15,26,45  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=20,10
-    2=30,15
-    3=40,20
+    1=15,7
+    2=26,13
+    3=44,22
   }
 }
 
@@ -1440,7 +1458,7 @@ spell_teleport {
 spell_pygmy {
   category=s
   profit=4
-  price=15750
+  price=10150
   icon=s_overtime_pygmy.png
   button_image=book_scroll_pygmy.png
   image=book_spell_pygmy.png
@@ -1464,17 +1482,18 @@ spell_pygmy {
     duration=1,2,3
     level=2,3,4
     int=1 // если =1 то интеллект влияет на длительность заклинания    
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     int_pwr=1  // if = 1 then the intelligence effects spell power
-    power=10,15,20
+    power=5,10,20
     hero=1
     type=penalty
-    mana_cost = 18,30,42  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 10,18,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=18,9
-    2=30,15
-    3=42,21
+    1=10,5
+    2=18,9
+    3=30,15
   }
 }
 
@@ -1506,6 +1525,7 @@ spell_blind {
     duration=1,2,3
     level=2,3,4
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     type=penalty
     mana_cost = 15,26,37  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
@@ -1521,7 +1541,7 @@ spell_blind {
 spell_hypnosis {
   category=s
   profit=5
-  price=16700
+  price=21000
   attack=scripted
   icon=s_overtime_hypnosis.png
   image=book_spell_hypnosis.png
@@ -1544,7 +1564,8 @@ spell_hypnosis {
   params {
     duration=1,2,3
     int=1 // если =1 то интеллект влияет на длительность заклинания
-    power=25,30,35
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
+    power=10,20,40
     level=2,3,4
     type=bonus //это упырьское заклинание, т.к. когда враг под гипнозом - его нужно снимать, т.к. он свой
     int_pwr=1  // if = 1 then the intelligence effects spell power
@@ -1587,6 +1608,7 @@ spell_geyser {
   params {
     duration=1
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_physical=1  // New! Target's physical resistance effects spell duration
     typedmg=physical
     damage=75-150
     lvl_inc=125
@@ -1641,6 +1663,7 @@ spell_fire_arrow {
     lvl_inc=150             // прирост урона с уровнем в %
     duration=2              // длительность
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_fire=1  // New! Target's fire resistance effects spell duration
     burn=25                     // вероятность поджога в зависимости от уровня
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
@@ -1685,6 +1708,7 @@ spell_smile_skull {
     typedmg=poison
     poison=25
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_poison=1  // New! Target's poison resistance effects spell duration
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=1
@@ -1733,6 +1757,7 @@ spell_scare {
     duration=1,2,3
     level=2,3,4
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     necromancy=1
     mana_cost = 9,15,22  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
@@ -1748,7 +1773,7 @@ spell_scare {
 spell_oil_fog {
   profit=2
   category=s
-  price=3900
+  price=4200
   image=book_spell_oil_fog.png
   button_image=book_scroll_oil_fog.png
   icon=s_overtime_oil_fog.png
@@ -1768,9 +1793,10 @@ spell_oil_fog {
   }
   params {
     duration=3,4,5
-    power=5,10,15	// Which receives the vulnerability unit. Resists do not matter
+    power=5,10,20	// Which receives the vulnerability unit. Resists do not matter
     typedmg=fire
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_fire=1  // New! Target's fire resistance effects spell duration
     damage=75
     lvl_inc=150
     type=penalty
@@ -1780,13 +1806,13 @@ spell_oil_fog {
     healer=0
     attack=1
     fire=1
-    mana_cost = 3,6,9  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 3,6,10  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=3,1
     2=6,3
-    3=9,4
+    3=9,5
   }
 }
 
@@ -1795,7 +1821,7 @@ spell_plague {
   category=s
   icon=s_overtime_infection.png
   profit=2
-  price=16800
+  price=20800
   button_image=book_scroll_infection.png
   image=book_spell_infection.png
   label=SN_plague
@@ -1817,22 +1843,23 @@ spell_plague {
   }
   params {
     duration=1,2,3
-    power=10,15,20 // How much% drop characteristics
+    power=5,10,20 // How much% drop characteristics
     type=penalty
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_poison=1  // New! Target's poison resistance effects spell duration
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
     healer=0
     attack=0
     necromancy=1
-    mana_cost = 16,28,40  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 11,22,38  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=16,8
-    2=28,14
-    3=40,20
+    1=11,5
+    2=22,11
+    3=38,19
   }
 }
 
@@ -1841,7 +1868,7 @@ spell_fire_breath {
   category=s
   hide=0
   profit=2
-  price=3600
+  price=4530
   icon=s_overtime_fire_breath.png
   image=book_spell_fire_breath.png
   button_image=book_scroll_fire_breath.png
@@ -1863,8 +1890,9 @@ spell_fire_breath {
   }
   params {
     duration=2,3,4
-    power=10,15,20
+    power=5,10,20
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     type=bonus
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
@@ -1872,13 +1900,13 @@ spell_fire_breath {
     healer=0
     attack=1
     fire=1
-    mana_cost = 4,6,8  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 4,7,12  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=4,2
-    2=6,3
-    3=8,4
+    2=7,3
+    3=12,4
   }
 }
 
@@ -1908,6 +1936,7 @@ spell_magic_bondage {
   params {
     level=3,4,4
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,all
     duration=1,2,3
     type=penalty
@@ -1946,6 +1975,7 @@ spell_ice_serpent {
   params {
     duration=2
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_physical=1  // New! Target's physical resistance effects spell duration
     typedmg=physical
     damage=125-150		// урон цели
     periphery_damage=100-125	// Damage to neighbors
@@ -1990,6 +2020,7 @@ spell_fire_ball {
   params {
     duration=1
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_fire=1  // New! Target's fire resistance effects spell duration
     typedmg=fire
     damage=100-150		// урон в эпицентре
     lvl_inc=125
@@ -2016,7 +2047,7 @@ spell_fire_ball {
 spell_sacrifice {
   category=s
   profit=3
-  price=10000
+  price=9865
   icon=s_overtime_sacrifice.png
   button_image=book_scroll_sacrifice.png
   image=book_spell_sacrifice.png
@@ -2042,20 +2073,20 @@ spell_sacrifice {
     duration=0
     damage=250
     lvl_inc=150         // прирост урона с уровнем в %
-    power=15,20,25	// какой процент от отнятого здоровья идет на увеличение численности
+    power=10,20,40	// какой процент от отнятого здоровья идет на увеличение численности
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=1
     healer=0
     attack=0
     necromancy=1
-    mana_cost = 9,17,25  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 7,15,28  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=9,4
-    2=17,8
-    3=25,12
+    1=7,3
+    2=15,7
+    3=28,14
   }
 }
 
@@ -2086,6 +2117,7 @@ spell_weakness {
   params {
     duration=2,3,3
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     unit_count=one,one,all
     type=penalty
     necromancy=1
@@ -2228,6 +2260,7 @@ spell_crue_fate {
     duration=1,2,3
     type=penalty
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     level=2,3,4
     necromancy=1
     mana_cost = 8,12,16  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
@@ -2270,6 +2303,7 @@ spell_ram {
     duration=1,2,3
     level=2,3,4
     int=1 // если =1 то интеллект влияет на длительность заклинания
+    dur_res_magic=1  // New! Target's magic resistance effects spell duration
     type=penalty
     speed=4		// скорость барана
     mana_cost = 22,38,55  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
@@ -2287,7 +2321,7 @@ spell_demonologist {
   category=s
   profit=4
   hide=0
-  price=13180
+  price=14230
   icon=s_overtime_demonologist.png
   image=book_spell_demonologist.png
   button_image=book_scroll_demonologist.png
@@ -2314,20 +2348,20 @@ spell_demonologist {
     units1=imp,imp2,cerberus		// which units may be called at any level
     units2=imp,imp2,cerberus,demon,demoness
     units3=cerberus,demon,demoness,archdemon
-    power=5,10,20          // percent hero leadership (scaled by intellect)
+    power=10,20,40          // percent hero leadership (scaled by intellect)
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
     healer=0
     glory=1
     attack=0
-    mana_cost = 14,23,39  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 15,25,42  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=14,7
-    2=23,11
-    3=39,19
+    1=15,7
+    2=25,12
+    3=42,21
   }
 }
 
@@ -2354,6 +2388,7 @@ spell_fire_rain {
   params {
     duration=1
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_fire=1  // New! Target's fire resistance effects spell duration
     typedmg=fire
     damage=75-125
     lvl_inc=125
@@ -2380,7 +2415,7 @@ spell_necromancy {
   category=s
   icon=s_overtime_bless.png
   profit=4
-  price=10500
+  price=9915
   button_image=book_scroll_necromancy.png
   image=book_spell_necromancy.png
   label=SN_necromancy
@@ -2393,41 +2428,43 @@ spell_necromancy {
   attack=scripted
   
   scripted {
-    no_hint=1
     log_label=null
     nfeatures=nonecro,golem,plant,demon,magic_immunitet
     script_attack=spell_necromancy_attack
-    script_calccells=calccells_all_corpse
+    script_calccells=calccells_all_corpse2
     attack_cursor=magicstick
   }
   params {
-    // someone who rises from
-    skeleton=,sprite,dryad,werewolf,druid,sprite_lake,robber,peasant,footman,goblin2,goblin,robber2,pirat,pirat2,skeleton,
-    archer=,elf,elf2,bowman,archer,
-    spider_undead=,spider,spider_venom,spider_fire,spider_undead,
-    zombie=,werewolf,druid,wolf,robber,footman,zombie,miner,orc2,barbarian,orc,
-    zombie2=,footman2,zombie2,dwarf,cannoner,alchemist,catapult,barbarian2,ogre,orc2,
-    ghost=,druid,griffin,ghost,alchemist,giant,hyena,catapult,bear,graywolf,
-    ghost2=,ghost2,bear_white,bear2,ogre,shaman,unicorn2,unicorn,
-    vampire=,bat,werewolf,horseman,knight,vampire,footman2,pirat2,priest,priest2,
-    vampire2=,bat2,archmage,vampire2,
-    blackknight=,horseman,knight,blackknight,
-    necromant=,druid,archmage,necromant,
-    bonedragon=,bonedragon,greendragon,blackdragon,reddragon,
-    power=400,800,1200 // суммарный хитпоинт
+    // someone who rises from (note that I've reduced the set of units, because it is using string.find (i.e. sprite is always found in sprite_lake)
+    skeleton=,skeleton,sprite_lake,peasant,robber,
+    archer=,archer,bowman,elf2,goblin,peasant,
+    spider_undead=,spider_undead,spider_venom,spider_fire,
+    zombie=,zombie,barbarian2,dryad,footman,goblin2,miner,sprite_lake,peasant,pirat,robber2,
+    zombie2=,zombie2,barbarian2,dryad,footman,goblin2,miner,sprite_lake,peasant,pirat,robber2,
+    ghost=,ghost,barbarian2,catapult,druid,dryad,dwarf,elf,footman2,goblin2,miner,orc,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
+    ghost2=,ghost2,barbarian2,catapult,druid,dryad,dwarf,elf,footman2,goblin2,miner,orc,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
+    bat=,bat,bear2,graywolf,griffin,hyena,
+    bat2=,bat2,bear2,bear_white,graywolf,griffin,horseman,hyena,unicorn2,wolf,
+    vampire=,vampire,barbarian2,bowman,catapult,druid,dryad,dwarf,elf,footman2,goblin2,miner,orc,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
+    vampire2=,vampire2,alchemist,barbarian2,cannoner,catapult,druid,dryad,dwarf,elf2,footman2,goblin2,horseman,knight,miner,orc2,shaman,sprite_lake,peasant,pirat2,priest2,robber2,werewolf,
+    blackknight=,blackknight,barbarian2,dwarf,footman2,goblin2,horseman,knight,orc2,shaman,werewolf,
+    necromant=,necromant,alchemist,archmage,cannoner,catapult,druid,dryad,elf2,priest2,
+    bonedragon=,bonedragon,blackdragon,greendragon,reddragon,giant,ogre,bear2,bear_white,griffin,horseman,unicorn2,  // horseman is here because of the horse + the man
+    power=400,800,1600 // суммарный хитпоинт
+    level=2,3,4
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
     destroyer=0
     healer=0
     attack=0
     necromancy=1
-    mana_cost = 10,20,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 10,17,30  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
     1=10,5
-    2=20,10
-    3=30,20
+    2=17,8
+    3=30,15
   }
 }
 
@@ -2435,7 +2472,7 @@ spell_necromancy {
 spell_armageddon {
   category=s
   profit=5
-  price=58580
+  price=62065
   hide=0
   image=book_spell_armageddon.png
   button_image=book_scroll_armageddon.png
@@ -2455,10 +2492,11 @@ spell_armageddon {
   params {
     duration=2
     int=1            //  If = 1 then the intelligence affects the duration of spells
+    dur_res_fire=1  // New! Target's fire resistance effects spell duration
     typedmg=astral
     damage=100-300
     lvl_inc=125
-    prc_damage=10,15,20
+    prc_damage=5,10,20
     burn=30
     int_pwr=1  // if = 1 then the intelligence effects spell power
     hero=1
@@ -2466,13 +2504,13 @@ spell_armageddon {
     healer=0
     attack=1
     astral=1
-    mana_cost = 23,41,60  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
+    mana_cost = 20,41,70  // this is the mana cost for the AI function spell_auto_cast in ARENA.LUA - I don't know how to do this any other way since Obj is not available there, match mana cost below
   }
   levels {
     // level = mana_cost, crystals_cost to upgrade from previous level
-    1=23,11
+    1=20,10
     2=41,20
-    3=60,30
+    3=70,35
   }
 }
 

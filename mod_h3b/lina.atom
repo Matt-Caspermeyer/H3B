@@ -78,12 +78,12 @@ spirit {
       rage1=rs:0,level:>1/rage:+2,rs:1,exp:+2,manabonus:4:8,ragebonus:4:8,ragelevel:1
       rage2=rs:1,LV:>10/rage:+3,rs:2,exp:+3,manabonus:8:16,ragebonus:8:16,ragelevel:2
       rage3=rs:2,LV:>20/rage:+4,rs:3,exp:+4,manabonus:16:32,ragebonus:16:32,ragelevel:3
-      rest1=rest:5,LV:>5/rest:4,exp:+2,restlevel:1
-      rest2=rest:4,LV:>15/rest:3,exp:+4,restlevel:2
+      rest1=rest:5,LV:>5/rest:-1,exp:+2,restlevel:1
+      rest2=rest:4,LV:>15/rest:-1,exp:+4,restlevel:2
     }
   }
   orb {
-	no_hint=1
+    no_hint=1
     script_attack=lina_orb
     script_calccells=calccells_all_empty
     level=2
@@ -99,13 +99,13 @@ spirit {
       rage1=rs:0,level:>0,rage:>10,LV:>6/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,LV:>10,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
       rage3=rs:2,LV:>35,rage:>20/rage:-20,rs:3,exp:+20,ragelevel:3
-      rest1=rest:6,LV:>9/rest:5,exp:+2,restlevel:1
-      rest2=rest:5,LV:>19/rest:4,exp:+4,restlevel:2
-      rest3=rest:4,LV:>34/rest:3,exp:+6,restlevel:3
+      rest1=rest:6,LV:>9/rest:-1,exp:+2,restlevel:1
+      rest2=rest:5,LV:>19/rest:-1,exp:+4,restlevel:2
+      rest3=rest:4,LV:>34/rest:-1,exp:+6,restlevel:3
     }
   }
   devatron {
-	no_hint=1
+    no_hint=1
     script_attack=lina_devatron
     script_calccells=devatron_calccells
     script_highlight=devatron_highlight
@@ -113,19 +113,19 @@ spirit {
     level=4
     default=level1
     upgrade {
-      level1=level:0/rage:20,rest:5,exp:20,level:1
+      level1=level:0/rage:30,rest:6,exp:30,level:1
       rage1=rs:0,level:>0,LV:>6,rage:>2/rage:-2,rs:1:exp:+2,ragelevel:1
-      rage2=rs:1,LV:>5,rage:>3/rage:-3,rs:2,exp:+3,ragelevel:2
-      rage3=rs:2,LV:>10,rage:>4/rage:-4,rs:3,exp:+4,ragelevel:3
-      rage4=rs:3,LV:>15,rage:>5/rage:-5,rs:4,exp:+5,ragelevel:4
-      rest1=rest:5,LV:>6/rest:4,exp:+2,restlevel:1
-      rest2=rest:4,LV:>10/rest:3,exp:+4,restlevel:2
-      rest3=rest:3,LV:>14/rest:2,exp:+6,restlevel:3
-      rest4=rest:2,LV:>18/rest:1,exp:+8,restlevel:4
+      rage2=rs:1,LV:>15,rage:>3/rage:-3,rs:2,exp:+3,ragelevel:2
+      rage3=rs:2,LV:>25,rage:>4/rage:-4,rs:3,exp:+4,ragelevel:3
+      rage4=rs:3,LV:>35,rage:>5/rage:-5,rs:4,exp:+5,ragelevel:4
+      rest1=rest:6,LV:>5/rest:-1,exp:+2,restlevel:1
+      rest2=rest:5,LV:>16/rest:-1,exp:+4,restlevel:2
+      rest3=rest:4,LV:>27/rest:-1,exp:+6,restlevel:3
+      rest4=rest:3,LV:>38/rest:-1,exp:+8,restlevel:4
     }
   }
   gizmo {
-	no_hint=1
+    no_hint=1
     script_attack=lina_gizmo
     script_calccells=gizmo_calccells
     level=6
@@ -142,9 +142,9 @@ spirit {
       healing4=healing:3,LV:>29/dmg:+125:+375,charges:+1,init:+2,heal:+500,rage:+20,exp:+20,healing:4
       rage1=rs:0,level:>0,rage:>10,LV:>12/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,LV:>18,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
-      rest1=rest:6,LV:>10/rest:5,exp:+2,restlevel:1
-      rest2=rest:5,LV:>25/rest:4,exp:+4,restlevel:2
-      rest3=rest:4,LV:>35/rest:3,exp:+6,restlevel:3
+      rest1=rest:6,LV:>10/rest:-1,exp:+2,restlevel:1
+      rest2=rest:5,LV:>25/rest:-1,exp:+4,restlevel:2
+      rest3=rest:4,LV:>35/rest:-1,exp:+6,restlevel:3
     }
   }
 }

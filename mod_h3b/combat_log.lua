@@ -67,6 +67,17 @@ function gen_combat_hint( )
 
   		  return res
     end
+  elseif apars.name == "phoenix_sacrifice" then
+    local receiver = Attack.val_restore( 0, "cast_sacrifice_receiver" )
+ 			local rephits = Attack.act_hp( 0 )
+  		local real = math.max( 0, math.min( rephits, Attack.act_get_par( receiver,"health" ) * Attack.act_initsize( receiver ) - Attack.act_totalhp( receiver ) ) )
+  		local raise = math.ceil( ( Attack.act_totalhp( receiver ) + real ) / Attack.act_get_par( receiver, "health" ) ) - Attack.act_size( receiver )
+    local effectiveness = math.floor( real / rephits * 100 )
+ 			local res = "<label=dmg_hint_just_raise> " .. raise .. ".<br><label=dmg_hint_just_effectiveness> " .. effectiveness .. '%.'
+    local name = "<label=cpn_" .. Attack.act_name( 0 ) .. ">"
+    res = res .. "<br><color=192,0,0>" .. name .. "</color> <label=dmg_hint_phoenix_sacrifice>"
+
+  		return res
   else -- This is the normal "unhacked" section of code
     local damage = "<label=dmg_hint_dmg>"
     local dead = ""
@@ -223,6 +234,24 @@ end
 
 function magic_attack_hint_gen()
 	 local target = Attack.get_target()
+
+ 	if Obj.name() == "spell_necromancy" then
+    if ( tonumber( skill_power2( "necromancy", 4 ) ) > 0 )
+    and Attack.act_feature( target, "undead" )
+    and ( Attack.cell_has_ally_corpse( target )
+    or Attack.act_ally( target ) ) then
+  	   local rephits = pwr_necromancy()
+      local min_pct, max_pct = skill_power_range_dec( "necromancy", 1 )
+      local min_heal = rephits * min_pct / 100
+      local max_heal = rephits * max_pct / 100
+    		local real_min = math.max( 0, math.min( min_heal, Attack.act_get_par( target,"health" ) * Attack.act_initsize( target ) - Attack.act_totalhp( target ) ) )
+    		local real_max = math.max( 0, math.min( max_heal, Attack.act_get_par( target,"health" ) * Attack.act_initsize( target ) - Attack.act_totalhp( target ) ) )
+    		local raise_min = math.ceil( ( Attack.act_totalhp( target ) + real_min ) / Attack.act_get_par( target, "health" ) ) - Attack.act_size( target )
+    		local raise_max = math.ceil( ( Attack.act_totalhp( target ) + real_max ) / Attack.act_get_par( target, "health" ) ) - Attack.act_size( target )
+  
+    		return "<label=dmg_hint_just_raise> " .. raise_min .. "-" .. raise_max .. ".<br><label=dmg_hint_just_effectiveness> " .. math.floor( real_min / min_heal * 100 ) .. "-" .. math.floor( real_max / max_heal * 100 ) .. '%.'
+    end
+ 	end
 
  	if Obj.name() == "spell_resurrection" then
 	   local rephits = pwr_resurrection()

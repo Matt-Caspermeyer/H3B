@@ -46,7 +46,6 @@ arena_params {
     script_attack=special_ogre_rage_attack
     script_calccells=
     endmove=0
-    moves=6
     reload=4
     picture=BA1_OgreRage_
     picture_small=BA1_OgreRage_small.png

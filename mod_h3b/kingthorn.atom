@@ -43,8 +43,7 @@ arena_params {
     warning=sw_place
     hinthead=special_thorn2_head
     hint=special_thorn2_hint
-    moves=10
-    reload=2
+    reload=4
     script_attack=special_cast_thorn
     script_calccells=calccells_all_empty_around
     attack_cursor=magicstick

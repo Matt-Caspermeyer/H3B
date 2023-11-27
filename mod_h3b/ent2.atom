@@ -48,7 +48,6 @@ arena_params {
     hint=special_swarm_hint
     ad_factor=1
     distance=100
-    moves=8
     reload=3
     mindist=1
     penalty=1
@@ -94,7 +93,6 @@ arena_params {
     class=scripted
     hinthead=special_summonplant2_head
     hint=special_summonplant2_hint
-    moves=5
     reload=5
     warning=sw_place
     script_attack=special_summonplant

@@ -1080,7 +1080,9 @@ end
 
 function darkcrystal_attack()
 	 local corpses = {}
-  local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/alead' ), Game.HSP_difficulty() + 1, '|' ) )
+  local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/bossatk' ), Game.HSP_difficulty() + 1, '|' ) )
+  local max_power = 0
+  local cell, unit
 
 	 for i = 0, Attack.cell_count() - 1 do
 		  local c = Attack.cell_get( i )
@@ -1089,17 +1091,85 @@ function darkcrystal_attack()
 		  if act ~= nil
     and not Attack.act_feature( act, "nonecro,golem,plant,demon,magic_immunitet")
     and Attack.cell_is_empty( c ) then
-			   table.insert( corpses, { c, act } )
+      local power = Attack.act_initsize( act ) * Attack.act_get_par( act, "health" )
+
+      if power > max_power then
+        cell = c
+        unit = act
+        max_power = power
+      end
 		  end
 	 end
 
-	 if table.getn( corpses ) > 0 then
-		  local c, act = unpack( corpses[ Game.Random( 1, table.getn( corpses ) ) ] )
-		  local unit_animate = necro_get_unit( actor_name( act ) )
-		  local count = math.ceil( Attack.act_initsize( act ) * Attack.act_hp( 0 ) / Attack.act_get_par( 0, "health" ) * diff_k )
+  local freecell
+
+ 	for dir = 0, 5 do
+ 	  local c = Attack.cell_adjacent( 0, dir )
+ 	  if empty_cell( c ) then freecell = c end
+ 	end
+
+  if freecell == nil then
+	   local free_enemy_cells = {}
+
+    for i = 0, Attack.act_count() - 1 do
+      if not Attack.act_feature( i, "pawn" ) then
+        for j = 0, 5 do
+          local cell_adj = Attack.cell_adjacent( i, j )
+  
+          if empty_cell( cell_adj ) then
+            table.insert( free_enemy_cells, cell_adj )
+          end
+        end
+      end
+    end
+
+    if table.getn( free_enemy_cells ) > 0 then
+      freecell = free_enemy_cells[ Game.Random( 1, table.getn( free_enemy_cells ) ) ]
+    end
+  end
+
+  local crystal_health = Attack.act_hp( 0 )
+
+	 if cell ~= nil
+  and unit ~= nil then
+		  Attack.log_label( "null" )
+    local crystal_hp = Attack.act_get_par( 0, "health" )
+    local unit_size = Attack.act_initsize( unit )
+    local count_crystal = math.ceil( unit_size * crystal_health / crystal_hp * diff_k )
+		  local count = math.min( unit_size, count_crystal )
+		  local unit_animate = necro_get_unit( actor_name( unit ), count, Attack.act_initsize( unit ) * Attack.act_hp( 0 ) * diff_k )
 		  Attack.act_aseq( 0, "attack" )
-		  animate_dead( c, act, Attack.aseq_time( 0, "x" ), 0, unit_animate, count )
- 			Attack.log( "add_blog_necro_1", "name",blog_side_unit( 0, 1 ), "target", blog_side_unit( act, 0 ), "targeta", blog_side_unit( c, 0 ), "special", count )
+		  animate_dead( cell, unit, Attack.aseq_time( 0, "x" ), 0, unit_animate, count )
+ 			Attack.log( "add_blog_necro_1", "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( unit, 0 ), "targeta", blog_side_unit( cell, 0 ), "special", count )
+ 	elseif freecell ~= nil
+  and table.getn( enemy_unit_names ) > 0 then
+   	local start = 1.
+ 		 Attack.atom_spawn( 0, 0, "effect_unit_turn", 0 )
+ 		 Attack.act_animate( 0, "cast", start )
+ 		 -- Призываем союзника
+  		local name = enemy_unit_names[ Game.Random( 1, table.getn( enemy_unit_names ) ) ]
+    local total_allies = 0
+
+    for a = 1, Attack.act_count() - 1 do
+      if Attack.act_ally( a )
+      and not Attack.act_feature( a, "pawn" ) then
+        total_allies = total_allies + 1
+      end
+    end
+
+    local unit_power = math.max( tonumber( Attack.atom_getpar( name, "hitpoint" ) ), tonumber( Attack.atom_getpar( name, "leadership" ) ) )
+ 		 local count = math.ceil( crystal_health / unit_power / total_allies * diff_k )
+ 		 Attack.act_spawn( freecell, 0, name, tonum( ang_to_nearest_enemy( freecell, Attack.act_enemy ) ), count )
+ 		 local delay = start + 1
+ 		 Attack.act_fadeout( freecell, 0, delay, 0.01, 0 )
+ 		 Attack.act_fadeout( freecell, delay, delay + 2, 1 )
+ 		 Attack.atom_spawn( freecell, delay, "hll_teleout" )
+
+    if count > 1 then name = 'cpsn_' .. name else name = 'cpn_' .. name end
+
+ 		 Attack.log_special( '<label=' .. name .. '>', count )
+ 		 Attack.log_label( 'add_blog_summon2_' )
+ 		 Attack.log_image( 'blog_enemy_spell_img' )
  	end
 
  	return true
@@ -1110,14 +1180,46 @@ function darkcrystal_hitback()
 	 local target = Attack.get_target()
 
  	if target ~= nil then 
-		  Attack.act_del_spell( target, "spell_weakness" )
-  		Attack.act_del_spell( target, "spell_bless" )
-		  Attack.act_apply_spell_begin( target, "spell_weakness", tonumber( Attack.get_custom_param( "duration" ) ), false )
-		  Attack.act_apply_spell_end()
-		  Attack.atom_spawn( target, 0, "magic_sword", Attack.angleto( target ) )
+    local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/bossatk' ), Game.HSP_difficulty() + 1, '|' ) )
+    local crystal_health = Attack.act_hp( 0 )
+    local crystal_hp = Attack.act_get_par( 0, "health" )
+  	 local percent_dmg = crystal_health / crystal_hp * diff_k
+    local last_dmg = tonum( Attack.val_restore( target, "last_dmg" ) )
+    local a = Attack.atom_spawn( target, 0, "magic_mirror", Attack.angleto( target ) - 0.5 )
+    local dmgts = Attack.aseq_time( a, "x" )
+    Attack.atk_set_damage( "magic", last_dmg * percent_dmg )
+    common_cell_apply_damage( target, dmgts )
 	 end 
 
 	return true
+end
+
+-- New for Dark Crystal
+function darkcrystal_posthitslave( damage, addrage, attacker, receiver, minmax )
+  if minmax == 0
+  and damage > 0 then
+    local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/emanaregen' ), Game.HSP_difficulty() + 1, '|' ) ) / 100
+    local bossatk = tonumber( text_dec( Game.Config( 'difficulty_k/bossatk' ), Game.HSP_difficulty() + 1, '|' ) )
+    local bosshp = tonumber( text_dec( Game.Config( 'difficulty_k/bosshp' ), Game.HSP_difficulty() + 1, '|' ) )
+    local mana_regen = math.ceil( damage / 50 * diff_k * bossatk * bosshp )
+
+    if mana_regen > 0 then
+      local ehero_mana = Logic.enemy_lu_item( "mana", "limit" )
+      local current_mana = Logic.enemy_lu_item( "mana", "count" )
+
+      if current_mana < ehero_mana then
+        Logic.enemy_lu_item( "mana", "count", current_mana + mana_regen )
+        local mana_now = Logic.enemy_lu_item( "mana", "count" )
+        Attack.log( "darkcrystal_recharge_enemy_hero_log", "name", blog_side_unit( receiver, 1 ), "hero_name", enemy_hero_name, "special", mana_now - current_mana, "special2", mana_now )
+      end
+    end
+  end
+  
+  if Attack.get_custom_param( "arrows" ) == "1" then
+    return damage * .2, addrage * .2
+  end
+
+	 return damage, addrage
 end
 
 

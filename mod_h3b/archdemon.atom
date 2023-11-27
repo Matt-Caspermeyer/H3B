@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_archdemon_feat
-  features_hints=demon_header/demon_hint,teleportation_header/teleportation_hint,fire_immunity_header/fire_immunity_hint,clear_header/clear_hint,archdemon_attack_header/archdemon_attack_hint
+  features_hints=demon_header/demon_hint,teleportation_header/teleportation_hint,fire_immunity_header/fire_immunity_hint,clear_header/clear_hint,no_retaliation_header/no_retaliation_hint,archdemon_attack_header/archdemon_attack_hint
   race=demon
   cost=6000
   level=5
@@ -20,7 +20,7 @@ arena_params {
   movetype=0
   krit=15
   hitback=1
-  hitbackprotect=0
+  hitbackprotect=1
   attacks=moveattack,amalgamation //,change,cast_demon
   each_turn_script=features_auto_dispell
   posthitmaster=features_archdemon_attack
@@ -40,12 +40,12 @@ arena_params {
   }
   amalgamation {
     class=scripted
+    attack_cursor=magicstick
     warning=sw_amalgamation
     hinthead=special_amalgamation_head
     hint=special_amalgamation_hint
     picture=BA1_amalgamation_
     picture_small=BA1_amalgamation_small.png
-    moves=8
     reload=3
     script_attack=special_amalgamation
     script_calccells=calccells_enemy_special_amalgamation

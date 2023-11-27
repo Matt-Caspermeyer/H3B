@@ -922,6 +922,7 @@ function special_resurrect()
  	  local name = Attack.act_name( Attack.cell_get_corpse( 0 ) )
    	if string.find( name, "phoenix" ) then
      	Attack.act_resurrect( 0 )
+      Attack.act_charge( 0 )
       local ehero_level = tonumber( Attack.val_restore( 0, "ehero_level" ) )
 
       if ehero_level == 0 then
@@ -1085,30 +1086,10 @@ end
 function special_cast_thorn_sacrifice()
   local target = Attack.get_target()
   Attack.aseq_rotate( 0, target )
-  -- Find the nearest plant ally
-  local nearest_dist, nearest_ally, ang_to_ally = 10e10, nil, 0
-
-  for i = 1, Attack.act_count() - 1 do
-    if Attack.act_ally( i )
-    and Attack.act_feature( i, "plant" ) then
-      local d = Attack.cell_dist( target, i )
-
-      if d < nearest_dist then
-        nearest_dist = d
-        nearest_ally = i
-      end
-    end
-  end
-
-  if nearest_ally ~= nil then
-    ang_to_ally = Attack.angleto( target, nearest_ally )
-  end
-
   Attack.atom_spawn( target, 0, "hll_priest_resur_cast" )
   Attack.act_aseq( 0, "x" )
   Attack.atom_spawn( 0, 0, "magic_dagger", Attack.angleto( 0 ) )
   Attack.act_aseq( 0, "x" )
-  
   local heal = round( get_add_gain_bonus( common_apply_skill_bonus( tonumber( Attack.get_custom_param( "heal" ) ), "healer" ), "heal_cast_sacrifice" ) )
   local giver_size = Attack.act_size( 0 )
   local giver_totalhp = Attack.act_totalhp( 0 )
@@ -1328,7 +1309,7 @@ function special_heal2()
 
     if cure_hp > max_hp - cur_hp then
       cure_hp = max_hp - cur_hp
-      Attack.act_charge( 0, 1, "cure2" )
+--      Attack.act_charge( 0, 1, "cure2" )
     end
 
     local a = Attack.atom_spawn( target, 0, "hll_priest_heal_post" )
@@ -1382,6 +1363,54 @@ function special_presurrect()
 
   return true
 end
+
+
+function special_phoenix_sacrifice()
+  local target = Attack.get_target()
+  Attack.aseq_rotate( 0, target )
+  Attack.atom_spawn( target, 0, "hll_priest_resur_cast" )
+  Attack.act_aseq( 0, "x" )
+  Attack.atom_spawn( 0, 0, "magic_dagger", Attack.angleto( 0 ) )
+  Attack.act_aseq( 0, "x" )
+  local heal = Attack.act_hp( 0 )
+  local count_before
+
+  if Attack.get_caa( target ) == nil then
+    count_before = 0
+  else
+    count_before = Attack.act_size( target )
+  end
+
+  Attack.cell_resurrect( target, heal )
+  local count_after = Attack.act_size( target )
+	 takeoff_spells( target, "penalty" )
+  Attack.act_charge( target )
+  Attack.act_reload( target )
+
+  local N
+  if count_before > 1 then
+    N = '2'
+  else
+    N = '1'
+  end
+
+  Attack.act_kill( 0, false, false )
+  phoenix_ondamage( 0, 0, true )
+  Attack.log_label( "null" )
+
+  if count_after > count_before then
+    Attack.log( "phoenix_sacrifice_res_" .. N, "name", blog_side_unit( 0, 1, nil, 1 ), "saname", blog_side_unit( 0, 3 ) .. "<label=special_phoenix_sacrifice_name></color>", "targets", blog_side_unit( target, 1, nil, count_before ), "special", heal, "special2", count_after - count_before, "name", blog_side_unit( 0, -1 ) )
+  else
+    Attack.log( "phoenix_sacrifice_cure_" .. N, "name", blog_side_unit( 0, 1, nil, 1 ), "saname", blog_side_unit( 0, 3 ) .. "<label=special_phoenix_sacrifice_name></color>", "targets", blog_side_unit( target, 1, nil, count_before ), "special", heal, "name", blog_side_unit( 0, -1, nil, 1 ) )
+  end
+
+  -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
+  -- because it has no way of knowing that a unit was resurrected via other means...
+  Attack.val_store( target, "gizmo_priority", 0 )
+
+  return true
+end
+
 
 -- ***********************************************
 -- * Dispell
@@ -1633,53 +1662,93 @@ end
 -- ***********************************************
 
 function special_animate_dead()
-  local target = Attack.cell_get_corpse( Attack.get_target() )
-  Attack.aseq_rotate( 0, target )
-  Attack.act_aseq( 0, "cast" )
-  local dmgts = Attack.aseq_time( 0, "x" )
-  local name = actor_name( target )
-  local unit_animate = necro_get_unit( name )
-  local bel = 0
+  local target = Attack.get_target()
+  local cell = Attack.cell_get_corpse( target )
 
-  if string.find( name,"priest" ) then --священников - в священников
-    unit_animate = name
-    local necro_side = Attack.act_belligerent( 0 )
-    -- I didn't realize, but the code below will change the side that the resurrected priests
-    -- are on such that they fight AGAINST the necromancer. The animate dead AI should take
-    -- this into condideration since I thought this was a bug, but the developers wanted it to
-    -- work this way.
-    -- воскрешенные священники против некромантов
-    if necro_side == 1 or necro_side == 2 then bel = 4 else bel = 2 end
+  if cell == nil then
+    cell = target
   end
 
-  local animate_count_base = Attack.act_initsize( target )  --сколько юнитов в трупе
   local k = Game.Random( text_range_dec( Attack.get_custom_param( "k" ) ) ) --коэф.
+  k = k * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 )
   local necro_count = Attack.act_size( 0 )  -- сколько магов
   local necro_name = Attack.act_name( 0 )
   --лидерство магов и трупов
   local necro_lead = Attack.atom_getpar( necro_name, "leadership" )
-  local undead_lead = Attack.atom_getpar( unit_animate, "leadership" )
-  -- сколько можно поднять по лидерству
-  local animate_count_lead = math.floor( necro_lead * necro_count / undead_lead * k / 100 )
-  -- реально
-  local animate_real = math.min( animate_count_lead, animate_count_base )
-  if animate_real < 1 then
-    unit_animate = "skeleton"
-    undead_lead = Attack.atom_getpar( unit_animate, "leadership" )
-    animate_count_lead = math.floor( necro_lead * necro_count / undead_lead * k / 100 )
-    animate_real = math.min( animate_count_lead, animate_count_base )
-    bel = 0
-  end
 
-  animate_dead( Attack.get_target(), target, Attack.aseq_time( 0, "x" ), bel, unit_animate, animate_real )
+  if ( tonumber( skill_power2( "necromancy", 4 ) ) > 0 )
+  and ( Attack.act_feature( target, "undead" )
+  or Attack.act_feature( cell, "undead" ) )
+  and ( Attack.cell_has_ally_corpse( cell )
+  or Attack.act_ally( target ) )
+  and not Attack.act_temporary( cell ) then
+    local percent = Game.Random( skill_power_range_dec( "necromancy", 1 ) )
+    heal = necro_count * necro_lead * k / 100 * percent / 100
 
-  if animate_real > 1 then
-    Attack.log( "add_blog_necro_2", "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( target, 0 ), "targeta", blog_side_unit( Attack.get_target(), 0 ), "special", animate_real )
+    Attack.act_aseq( 0, "cure" )
+    local dmgts = Attack.aseq_time( 0, "x" )
+    local a = Attack.atom_spawn( target, dmgts, "hll_priest_resur_cast" )
+    local dmgts1 = Attack.aseq_time( a, "x" )
+    Attack.cell_resurrect( target, heal, dmgts + dmgts1 )
+    Attack.log_label( "respawn_" ) -- работает
+    local count_2 = Attack.act_size( target )
+    local hp_2 = Attack.act_hp( target )
+  
+    if count_1 < count_2 then
+      Attack.act_damage_addlog( target, "res_" )
+      Attack.log_special( count_2 - count_1 )
+    elseif count_1 > count_2
+    or ( hp_1 == 0
+    and count_1 == count_2 ) then
+      Attack.act_damage_addlog( target, "res_" )
+      Attack.log_special( count_2 )
+    elseif hp_1 < hp_2
+    and hp_1 ~= 0 then
+      Attack.act_damage_addlog( target, "cur_" )
+      Attack.log_special( hp_2 - hp_1 )
+    end
+
+    -- This resets Gizmo's Priority Acccumulator otherwise it might pick this target,
+    -- because it has no way of knowing that a unit was resurrected via other means...
+    Attack.val_store( target, "gizmo_priority", 0 )
+
+    return true
   else
-    Attack.log( "add_blog_necro_1", "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( target, 0 ), "targeta", blog_side_unit( Attack.get_target(), 0 ), "special", animate_real )
-  end
+    Attack.aseq_rotate( 0, cell )
+    Attack.act_aseq( 0, "cast" )
+    local dmgts = Attack.aseq_time( 0, "x" )
+    local name = actor_name( cell )
+    local bel = 0
+  
+    local animate_count_base = Attack.act_initsize( cell )  --сколько юнитов в трупе
+    local unit_animate = necro_get_unit( name, animate_count_base, necro_lead * necro_count * k / 100 )
+    local undead_lead = Attack.atom_getpar( unit_animate, "leadership" )
+    -- сколько можно поднять по лидерству
+    local animate_count_lead = math.floor( necro_lead * necro_count / undead_lead * k / 100 )
+    -- реально
+    local animate_real = math.min( animate_count_lead, animate_count_base )
+  
+    if animate_real < 1 then
+      unit_animate = "skeleton"
+      undead_lead = Attack.atom_getpar( unit_animate, "leadership" )
+      animate_count_lead = math.floor( necro_lead * necro_count / undead_lead * k / 100 )
+      animate_real = math.min( animate_count_lead, animate_count_base )
+    end
+  
+    animate_dead( target, cell, Attack.aseq_time( 0, "x" ), bel, unit_animate, animate_real )
+  
+    if animate_real > 1 then
+      Attack.log( "add_blog_necro_2", "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( cell, 0 ), "targeta", blog_side_unit( Attack.get_target(), 0 ), "special", animate_real )
+    else
+      Attack.log( "add_blog_necro_1", "name", blog_side_unit( 0, 1 ), "target", blog_side_unit( cell, 0 ), "targeta", blog_side_unit( Attack.get_target(), 0 ), "special", animate_real )
+    end
+  
+    if mana_rage_gain_k > 0 then
+      Attack.act_charge( 0, 1, "animate_dead" )
+    end
 
-  return true
+    return true
+  end
 end
 
 
@@ -2021,55 +2090,61 @@ function check_ghost_cry(i, dist)
 end
 
 function special_ghost_cry()
-
   --local target=Attack.get_target()
   --Attack.atom_spawn(0, 0, "hll_post_archmage_lighting")
-  local dmg_min,dmg_max = text_range_dec(Attack.get_custom_param("damage"))
-  local typedmg=Attack.get_custom_param("typedmg")
-  local dist=tonumber(Attack.get_custom_param("dist"))
-  Attack.act_aseq(0,"special")
-  local dmgts = Attack.aseq_time(0, "x")                   -- x time of attacker
-
+  local dmg_min, dmg_max = text_range_dec( Attack.get_custom_param( "damage" ) )
+  dmg_min = dmg_min * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 )
+  dmg_max = dmg_max * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 )
+  local typedmg = Attack.get_custom_param( "typedmg" )
+  local dist = tonumber( Attack.get_custom_param( "dist" ) )
+  Attack.act_aseq( 0, "special" )
+  local dmgts = Attack.aseq_time( 0, "x" )                   -- x time of attacker
   local busy_cells = {}
 
-  for i=1,Attack.act_count()-1 do
-
-    --local i = Attack.cell_get(c)
-    if check_ghost_cry(i,dist) and (Attack.act_enemy(i) or Attack.act_ally(i)) and Attack.act_applicable(i) then      -- берем цель
+  for i = 1, Attack.act_count() - 1 do
+    if check_ghost_cry( i, dist )
+    and ( Attack.act_enemy( i )
+    or Attack.act_ally( i ) )
+    and Attack.act_applicable( i ) then      -- берем цель
       -- ищем для цели максимально удаленную от привидения клетку
-      local max_dist=Attack.cell_dist(0,i) -- задаем расстояние минимум
-      --Attack.atom_spawn(i, 2, "magic_haste")
-      local cell=nil
-      for j=0,5 do -- перебираем все направления для цели
-        local trg=Attack.cell_adjacent(i,j)
-        local dist=Attack.cell_dist(0,trg) -- определяем расстояние до привидения из клетки в этом направлении
-        if dist>max_dist and Attack.cell_present(trg) and Attack.cell_is_empty(trg)
-          and Attack.cell_is_pass(trg) and not busy_cells[Attack.cell_id(trg)] then -- если оно дальше предыдущего найденного, при этом клетка есть, свободна и проходима, то имеем ее в виду
+      local max_dist = Attack.cell_dist( 0, i ) -- задаем расстояние минимум
+      local cell = nil
+
+      for j = 0, 5 do -- перебираем все направления для цели
+        local trg = Attack.cell_adjacent( i, j )
+        local dist = Attack.cell_dist( 0, trg ) -- определяем расстояние до привидения из клетки в этом направлении
+
+        if dist > max_dist
+        and Attack.cell_present( trg )
+        and Attack.cell_is_empty( trg )
+        and Attack.cell_is_pass( trg )
+        and not busy_cells[ Attack.cell_id( trg ) ] then -- если оно дальше предыдущего найденного, при этом клетка есть, свободна и проходима, то имеем ее в виду
           --Attack.atom_spawn(trg, 4, "magic_slow")
-          max_dist=dist
-          cell=trg
-          busy_cells[Attack.cell_id(trg)]=true
+          max_dist = dist
+          cell = trg
+          busy_cells[ Attack.cell_id( trg ) ] = true
         end
       end
 
-    local time1,time2=1,2
+      local time1, time2 = 1, 2
       -- если была найдена удаленная свободная, то юнит сдвигаем:
-      if cell~=nil and Attack.act_get_par(i, "dismove") == 0 then
-        Attack.act_move(1,2,i,cell)
-        time1,time2=2,3
+      if cell ~= nil
+      and Attack.act_get_par( i, "dismove" ) == 0 then
+        Attack.act_move( 1, 2, i, cell )
+        time1, time2 = 2, 3
       end
 
-    local d = Attack.cell_dist(0,i)
+      local d = Attack.cell_dist( 0, i )
 
-    if not Attack.act_feature(i,"mind_immunitet,undead") and Attack.act_enemy(i) then
-      Attack.atk_set_damage(typedmg,dmg_min/d,dmg_max/d) --*Attack.act_size(0
-      common_cell_apply_damage(i, time1 --[[+ time2]])
-    end
+      if not Attack.act_feature( i, "mind_immunitet,undead" )
+      and Attack.act_enemy( i ) then
+        Attack.atk_set_damage( typedmg, dmg_min / d, dmg_max / d ) --*Attack.act_size(0
+        common_cell_apply_damage( i, time1 --[[+ time2]] )
+      end
     end
   end
 
   return true
-
 end
 
 -- ***********************************************

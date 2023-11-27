@@ -1,0 +1,351 @@
+main {
+  class=chesspiece
+  model=beholder_red.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_beholder_feat
+  features_hints=soars_header/soars_hint,shot_header/shot_hint,paralyse_header/paralyse_hint,underground_header/underground_hint,mind_immunity_header/mind_immunity_hint
+  race=neutral
+  cost=620
+  level=4
+  leadership=180
+  attack=22
+  defense=28
+  defenseup=3
+  initiative=5
+  speed=3
+  hitpoint=70
+  krit=20
+  movetype=1
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,ray,dominator
+  features=shot,mind_immunitet,nonecro,mage
+  posthitmaster=features_sleep
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    group=1,1
+    showdmg=1
+    nonextifenemy=1
+    base_attack=1
+    ad_factor=1
+    damage {
+      magic=8,15
+    }
+    custom_params {
+      sleep=0
+      dod=no
+      duration=1
+      special=0
+    }
+  }
+  ray {
+    group=1,2
+    class=scripted
+    ad_factor=1
+    showdmg=1
+    mindist=1
+    base_attack=1
+    script_attack=beholder_ray_attack
+    script_calccells=calccells_all_enemy_actors_takes_damage
+    distance=7
+    penalty=.5
+    ad_factor=1
+    damage {
+      magic=8,15
+    }
+    custom_params {
+      sleep=50
+      dod=no
+      duration=1
+      special=1
+    }
+  }
+  dominator {
+    class=scripted
+    nfeatures=boss,pawn
+    no_hint=1
+    picture=BA1_Mind_Control_
+    picture_small=BA1_Mind_Control_small.png
+    ai_ignore=0
+    attack_cursor=magicstick
+    ad_factor=0
+    showdmg=0
+    moves=1
+    hinthead=special_dominator_head
+    hint=special_dominator_hint
+    base_attack=0
+    script_attack=special_dominator
+    script_calccells=calccells_dominator
+    custom_params {
+      sleep=0
+      k=100-100
+      level=4
+    }
+  }
+  arena_bonuses {
+    logbits=dungeon
+    attack=50%
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=beholder_idle.bsa/fr:25:50
+  rare=beholder_rare.bsa/fr:25:50
+  attack=beholder_attack.bsa/fr:25:50
+  special=beholder_special.bsa/fr:25:50
+  cast=beholder_cast.bsa/fr:25:50
+  move=beholder_move.bsa/fr:25:50
+  start=beholder_start.bsa/fr:25:50
+  stop=beholder_stop.bsa/fr:25:50
+  clock=beholder_clock.bsa/fr:25:50
+  contra=beholder_contra.bsa/fr:25:50
+  clock2=beholder_2clock.bsa/fr:25:50
+  contra2=beholder_2contra.bsa/fr:25:50
+  lturn=beholder_lturn.bsa/fr:25:50
+  rturn=beholder_rturn.bsa/fr:25:50
+  damage=beholder_damage.bsa/fr:25:50
+  slew=beholder_slew.bsa/fr:25:50
+  death=beholder_death.bsa/fr:25:50
+  respawn=beholder_respawn.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  happy=beholder_victory.bsa/fr:25:50
+  teleout=beholder_idle.bsa/fr:25:50/r:60:95
+  telein=beholder_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  @attack {
+    22.0?x=
+    0.0=cam
+  }
+  @special {
+    19.0?x=
+    0.0=cam
+  }
+  @cast {
+    19.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  0 {
+    slot=5
+    particle {
+      trans=0/-0/0/1
+      file=beholder_slime_inner.ptb
+    }
+    particle {
+      animation=idlemain
+      file=beholder_slime.ptb
+    }
+    particle {
+      animation=rare
+      file=beholder_slime.ptb
+    }
+    particle {
+      animation=victory
+      file=beholder_slime.ptb
+    }
+    particle {
+      animation=happy
+      file=beholder_slime.ptb
+    }
+  }
+  0 {
+    slot=2
+    particle {
+      trans=0/0/-0.40000001/0/-0/0/1.29999995
+      animation=cast
+      frame=14/30
+      file=attack_beholder_accum.ptb
+    }
+    particle {
+      trans=0/-0.03/-0.43000001/0/-0/0/1
+      animation=special
+      frame=15/44
+      file=cast_hypnosis.ptb
+    }
+    particle {
+      trans=0/0/-0.34999999/0/-0/0/1
+      animation=special
+      frame=15/44
+      file=attack_beholder_accum.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=idlemain
+      frame=0.01
+      file=beholder_idle
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=beholder_rarelist
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=beholder_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=beholder_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=beholder_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=beholder_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=beholder_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=beholder_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=beholder_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=beholder_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=beholder_rturn
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=beholder_slew
+      fadetime=60
+    }
+    sound {
+      animation=respawn
+      frame=0.01
+      file=beholder_respawn
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=beholder_attack
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01
+      file=beholder_cast
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=beholder_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=beholder_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=beholder_victory
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=beholder2_special
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  beholder_idle.bsa=file
+  beholder_rare.bsa=file
+  beholder_attack.bsa=file
+  beholder_move.bsa=file
+  beholder_start.bsa=file
+  beholder_stop.bsa=file
+  beholder_clock.bsa=file
+  beholder_contra.bsa=file
+  beholder_2clock.bsa=file
+  beholder_2contra.bsa=file
+  beholder_lturn.bsa=file
+  beholder_rturn.bsa=file
+  beholder_damage.bsa=file
+  beholder_death.bsa=file
+  beholder_respawn.bsa=file
+  beholder_cast.bsa=file
+  beholder_victory.bsa=file
+  beholder_special.bsa=file
+}

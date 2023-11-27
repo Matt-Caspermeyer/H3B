@@ -39,7 +39,7 @@ arena_params {
     ad_factor=1
     usefly=4
     damage {
-      poison=50,65
+      poison=65,80
     }
     custom_params {
       poison=0
@@ -51,14 +51,13 @@ arena_params {
     picture=BA1_PoisonCloud_
     picture_small=BA1_PoisonCloud_small.png
     script_attack=special_poison_cloud
-    moves=8
     reload=3
     ad_factor=1
     deadonly=0
     hinthead=special_poison_cloud_head
     hint=special_poison_cloud_hint
     damage {
-      poison=60,80
+      poison=80,100
     }
     custom_params {
       poison=100

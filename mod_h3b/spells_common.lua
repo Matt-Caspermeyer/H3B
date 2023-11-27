@@ -98,9 +98,7 @@ function calccells_all_need_resurrect_ally()
       if ( Attack.cell_has_ally_corpse( cell ) ) then   -- contains ally corpse
         if ( Attack.cell_need_resurrect( cell ) )
         and ( Attack.act_level( Attack.cell_get_corpse( cell ) ) <= lvl ) then  -- needs resurrection
-          if Attack.act_applicable( Attack.cell_get_corpse( cell ) )
-          or ( Logic.hero_lu_skill( "necromancy" ) > 0  --New! if Hero has Necromancy, then they may resurrect the undead
-          and Attack.act_feature( Attack.cell_get_corpse( cell ), "undead" ) ) then      -- can receive this attack
+          if Attack.act_applicable( Attack.cell_get_corpse( cell ) ) then      -- can receive this attack
             Attack.marktarget( cell )           -- select it
           end
         end
@@ -108,10 +106,8 @@ function calccells_all_need_resurrect_ally()
     elseif ( Attack.act_ally( cell ) ) then         -- contains ally
       if ( Attack.cell_need_resurrect( cell ) )
       and ( Attack.act_level( cell ) <= lvl ) then    -- ally needs resurrect
-        if Attack.act_applicable( cell )
-        or ( Logic.hero_lu_skill( "necromancy" ) > 0  --New! if Hero has Necromancy, then they may resurrect the undead
-        and Attack.act_feature( cell, "undead" ) ) then     -- can receive this attack
-          Attack.marktarget(cell)           -- select it
+        if Attack.act_applicable( cell ) then     -- can receive this attack
+          Attack.marktarget( cell )           -- select it
         end
       end
     end
@@ -147,6 +143,40 @@ function calccells_all_need_resurrect_ally_simple()
   end
   return true
 
+end
+
+-- New for Phoenix Sacrifice
+function calccells_all_phoenix_sacrifice()
+  local lvl = tonumber( Attack.get_custom_param( "level" ) )
+  local ccnt = Attack.cell_count()
+
+  for i = 0, ccnt - 1 do
+    local cell = Attack.cell_get( i )
+
+    if ( Attack.cell_is_empty( cell ) ) then        -- is empty (has no live object)
+      if not Attack.act_equal( 0, Attack.cell_get_corpse( cell ) ) then
+        if ( Attack.cell_has_ally_corpse( cell ) ) then   -- contains ally corpse
+          if ( Attack.cell_need_resurrect( cell ) )       -- needs resurrection
+          and ( Attack.act_level( Attack.cell_get_corpse( cell ) ) <= lvl ) then
+            if Attack.act_applicable( Attack.cell_get_corpse( cell ) ) then      -- can receive this attack
+              Attack.marktarget( cell )           -- select it
+            end
+          end
+        end
+      end
+    elseif ( Attack.act_ally( cell ) ) then         -- contains ally
+      if not Attack.act_equal( 0, cell ) then
+        if ( Attack.cell_need_resurrect( cell ) )     -- ally needs resurrect
+        and ( Attack.act_level( cell ) <= lvl ) then
+          if Attack.act_applicable( cell ) then     -- can receive this attack
+            Attack.marktarget( cell )           -- select it
+          end
+        end
+      end
+    end
+  end
+
+  return true
 end
 
 
@@ -390,30 +420,28 @@ function common_cell_apply_kill(cell, dmgts)
 
 end
 
-function common_cell_apply_damage(cell, dmgts, ignore_posthitmaster)
+function common_cell_apply_damage( cell, dmgts, ignore_posthitmaster )
+  if ( cell ~= nil ) then                 -- not nil
+    if ( not Attack.cell_is_empty( cell ) ) then        -- not empty
+      if ( Attack.act_takesdmg( cell ) )--[[ and Attack.cell_is_pass(cell)]] then       -- takes damage
+        if ( Attack.act_applicable( cell ) ) then       -- can receive this attack
+		        if ignore_posthitmaster ~= 0 then -- 0 означает, что act_damage вызывать не нужно
+	           if ignore_posthitmaster == nil then ignore_posthitmaster = false end
 
-  if (cell ~= nil) then                 -- not nil
-    if (not Attack.cell_is_empty(cell)) then        -- not empty
-      if (Attack.act_takesdmg(cell))--[[ and Attack.cell_is_pass(cell)]] then       -- takes damage
-        if (Attack.act_applicable(cell)) then       -- can receive this attack
+	           Attack.act_damage( cell, ignore_posthitmaster )
+		        end
 
-		  if ignore_posthitmaster ~= 0 then -- 0 означает, что act_damage вызывать не нужно
-	          if ignore_posthitmaster == nil then ignore_posthitmaster = false end
-	          Attack.act_damage( cell, ignore_posthitmaster )
-		  end
           local hit_x = Attack.aseq_time( cell, "x" )
           Attack.aseq_timeshift( cell, dmgts - hit_x )
           Attack.dmg_timeshift( cell, dmgts )
 
           return true
-
         end
       end
     end
   end
 
   return false
-
 end
 
 
@@ -683,7 +711,13 @@ function calccells_hypnosis()
 
   if level == 0 then level = 1 end
 
-	 local lvl, power = pwr_hypnosis( level )
+  local ehero_level
+
+  if Attack.act_belligerent() ~= 1 then
+    ehero_level, level = get_enemy_hero_stuff( level )
+  end
+
+	 local lvl, power = pwr_hypnosis( level, ehero_level )
 
   for c = 0, Attack.cell_count() - 1 do
     local i = Attack.cell_get( c )
@@ -998,50 +1032,61 @@ function calccells_time_return()
 end
 
 function calccells_sacrifice()
-
   local cycle = Attack.get_cycle()
+
   if not Attack.is_computer_move() then 
-		Game.InfoHint("bmsg_sacrifice_"..(cycle+1))
+		  Game.InfoHint( "bmsg_sacrifice_" .. ( cycle + 1 ) )
   end 
 
-  local function check_target(j, hp, source)
-  	return Attack.act_ally(j) and not Attack.act_equal(j, source) and Attack.act_applicable(j) and not Attack.act_temporary(j)
-	  	and math.floor(hp/Attack.act_get_par(j,"health")) >= 1
+  local function check_target( j, hp, source )
+  	 return Attack.act_ally( j )
+    and not Attack.act_equal( j, source )
+    and Attack.act_applicable( j )
+    and not Attack.act_temporary( j )
+	  	and math.floor( hp / Attack.act_get_par( j,"health" ) ) >= 1
   end
 
-  if (cycle == 0) then
+  if ( cycle == 0 ) then
+	   local level = Obj.spell_level()
 
-	local level=Obj.spell_level()
-	if level==0 then level=1 end
-	local damage,power=pwr_sacrifice(level)
+	   if level == 0 then level = 1 end
+    local ehero_level
 
+    if Attack.act_belligerent() ~= 1 then
+      ehero_level, level = get_enemy_hero_stuff( level )
+    end
+
+	   local damage, power = pwr_sacrifice( level, ehero_level )
     local acnt = Attack.act_count()
-    for i=1,acnt-1 do                           -- for all actors
-      if Attack.act_ally(i) and Attack.act_applicable(i) and not Attack.act_temporary(i) and Attack.act_get_armour(i) == nil and not Attack.act_feature(i,"undead") then
-        	-- проверяем, для данного source, есть ли хоть один target
-        	local hp = math.min(damage,Attack.act_totalhp(i))*power/100
-		    for j=1,acnt-1 do                           -- for all actors
-		      if check_target(j, hp, i) then
-          		Attack.marktarget(i)
+
+    for i = 1, acnt - 1 do                           -- for all actors
+      if Attack.act_ally( i )
+      and Attack.act_applicable( i )
+      and not Attack.act_temporary( i )
+      and Attack.act_get_armour( i ) == nil
+      and not Attack.act_feature( i, "undead" ) then
+        -- проверяем, для данного source, есть ли хоть один target
+        local hp = math.min( damage, Attack.act_totalhp( i ) ) * power / 100
+
+		      for j = 1, acnt - 1 do                           -- for all actors
+		        if check_target( j, hp, i ) then
+          		Attack.marktarget( i )
           		break
-          	  end
-          	end
+          end
+        end
       end
     end
 
-  elseif (cycle == 1) then
-
-    local source = Attack.val_restore("sacrifice_source")
+  elseif ( cycle == 1 ) then
+    local source = Attack.val_restore( "sacrifice_source" )
     local dcnt = Attack.act_count()
-    local hp=Attack.val_restore("sacrifice_hp")
-    for j=1,dcnt-1 do                           -- for all actors
+    local hp = Attack.val_restore( "sacrifice_hp" )
 
-      if check_target(j, hp, source) then
-          Attack.marktarget(j)
+    for j = 1, dcnt - 1 do                           -- for all actors
+      if check_target( j, hp, source ) then
+        Attack.marktarget( j )
       end
-
     end
-
   end
 
   return true
@@ -1135,50 +1180,60 @@ end
 
 
 function calccells_phantom()
-
   local cycle = Attack.get_cycle()
   local spell = Obj.name()
-  local level=Obj.spell_level()
-  if level==0 then level=1 end
+  local level = Obj.spell_level()
+
+  if level == 0 then level = 1 end
   
   if not Attack.is_computer_move() then 
-		Game.InfoHint("bmsg_phantom_"..(cycle+1))
+		  Game.InfoHint( "bmsg_phantom_" .. ( cycle + 1 ) )
   end 
 
-  if (cycle == 0) then -- кого клонируем
+  if ( cycle == 0 ) then -- кого клонируем
+    local ehero_level
+
+    if Attack.act_belligerent() ~= 1 then
+      ehero_level, level = get_enemy_hero_stuff( level )
+    end
 
     local acnt = Attack.act_count()
-    for i=1,acnt-1 do
-      if Attack.act_ally(i) and Attack.act_applicable(i) and not Attack.act_is_spell(i,spell) then
-      local count = math.floor( Attack.act_totalhp(i) * (pwr_phantom(level)/100) / (Attack.act_get_par(i,"health")) )
-      if count > 0 then
-      	for dir=0,5 do
-      		local c = Attack.cell_adjacent(i,dir)
-      		if empty_cell(c) then -- есть хоть одна пустая клетка вокруг
-        		Attack.marktarget(i)
-        		break
-        	end
+
+    for i = 1, acnt - 1 do
+      if Attack.act_ally( i )
+      and Attack.act_applicable( i )
+      and not Attack.act_is_spell( i, spell ) then
+        local count = math.floor( Attack.act_totalhp( i ) * ( pwr_phantom( level, ehero_level ) / 100 ) / (Attack.act_get_par( i, "health" ) ) )
+
+        if count > 0 then
+      	   for dir = 0, 5 do
+      		    local c = Attack.cell_adjacent( i, dir )
+
+      		    if empty_cell( c ) then -- есть хоть одна пустая клетка вокруг
+        		    Attack.marktarget( i )
+        		    break
+        	   end
+          end
         end
       end
-      end
     end
 
-  elseif (cycle == 1) then -- куда
-
-    local source = Attack.val_restore("source_unit")
-
+  elseif ( cycle == 1 ) then -- куда
+    local source = Attack.val_restore( "source_unit" )
     local ccnt = Attack.cell_count()
-    for i=0,ccnt-1 do
-      local cell = Attack.cell_get(i)
-      if Attack.cell_is_empty(cell) and Attack.cell_is_pass(cell) and Attack.cell_dist(source, cell) == 1 then
-        Attack.marktarget(cell)
+
+    for i = 0, ccnt - 1 do
+      local cell = Attack.cell_get( i )
+
+      if Attack.cell_is_empty( cell )
+      and Attack.cell_is_pass( cell )
+      and Attack.cell_dist( source, cell ) == 1 then
+        Attack.marktarget( cell )
       end
     end
-
   end
 
   return true
-
 end
 
 
@@ -1297,18 +1352,61 @@ function calccells_enemy_beast()
 end
 
 function calccells_all_corpse()
-  for c=0,Attack.cell_count()-1 do
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
 
-    local i = Attack.cell_get(c)
-
-    if Attack.cell_is_empty(i) and Attack.cell_present(i) and Attack.cell_get_corpse(i)~=nil and Attack.cell_is_pass(i) then
-      if Attack.act_applicable(Attack.cell_get_corpse(i)) --[[and (Attack.act_size(Attack.cell_get_corpse(i))>0 or Attack.act_size(Attack.cell_get_corpse(i))~=nil)]] then      -- can receive this attack
-      --Attack.cell_get_corpse(Attack.get_target())
-        Attack.marktarget(i)            -- select it
+    if Attack.cell_is_empty( i )
+    and Attack.cell_present( i )
+    and Attack.cell_get_corpse( i ) ~= nil
+    and Attack.cell_is_pass( i ) then
+      if Attack.act_applicable( Attack.cell_get_corpse( i ) ) --[[and (Attack.act_size(Attack.cell_get_corpse(i))>0 or Attack.act_size(Attack.cell_get_corpse(i))~=nil)]] then      -- can receive this attack
+        Attack.marktarget( i )            -- select it
       end
     end
-
   end
+
+  return true
+end
+
+
+function calccells_all_corpse2()
+  local lvl
+
+		if Attack.get_caa( 0 ) == nil then -- magic
+    local level
+  	 level = Obj.spell_level()
+ 	  -- если заклинание читаем из свитка (уровень = 0) то кастуем с силой 1
+
+   	if level == 0 or level == nil then level = 1 end
+
+   	local spell = Obj.name()
+    lvl = tonumber( text_dec( Logic.obj_par( spell, "level" ), level ) )
+  else
+    lvl = tonumber( Attack.get_custom_param( "level" ) )
+  end
+
+  for c = 0, Attack.cell_count() - 1 do
+    local i = Attack.cell_get( c )
+
+    if Attack.cell_is_empty( i )
+    and Attack.cell_present( i )
+    and Attack.cell_get_corpse( i ) ~= nil
+    and Attack.cell_is_pass( i ) then
+      if Attack.act_applicable( Attack.cell_get_corpse( i ) ) --[[and (Attack.act_size(Attack.cell_get_corpse(i))>0 or Attack.act_size(Attack.cell_get_corpse(i))~=nil)]] then      -- can receive this attack
+        Attack.marktarget( i )            -- select it
+      end
+    elseif ( Attack.act_ally( i ) ) then         -- contains ally
+      if ( Attack.cell_need_resurrect( i ) )
+      and ( Attack.act_level( i ) <= lvl )
+      and ( tonumber( skill_power2( "necromancy", 4 ) ) > 0 )
+      and Attack.act_feature( i, "undead" ) then    -- ally needs resurrect
+        if Attack.act_applicable( i ) then     -- can receive this attack
+          Attack.marktarget( i )           -- select it
+        end
+      end
+    end
+  end
+
   return true
 end
 

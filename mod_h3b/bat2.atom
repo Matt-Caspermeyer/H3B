@@ -1,0 +1,283 @@
+main {
+  class=chesspiece
+  model=bat2.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_bat_feat
+  features_hints=undead_header/undead_hint,soars_header/soars_hint,no_retaliation_header/no_retaliation_hint,vampirism_header/vampirism_hint
+  race=undead
+  cost=460
+  level=4
+  leadership=180
+  attack=25
+  defense=20
+  defenseup=3
+  initiative=7
+  speed=5
+  rareshop=1
+  hitpoint=90
+  features=undead
+  movetype=1
+  krit=10
+  hitback=1
+  hitbackprotect=1
+  transformto=vampire2
+  posthitmaster=features_vampirism
+  attacks=moveattack,transform
+  resistances {
+    physical=0
+    poison=50
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=8,12
+    }
+  }
+  transform {
+    class=scripted
+    reload=2
+    endmove=0
+    script_attack=special_transform
+    hinthead=special_bat_transform_head
+    hint=special_bat_transform_hint
+    picture=BA1_Transform_Vampire2_
+    picture_small=BA1_Transform_Vampire2_small.png
+  }
+  arena_bonuses {
+    1 {
+      logbits=cemetery
+      moral=1
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+  subturn_modificators=transform_modificators
+}
+clippers {
+  transmute {
+    clipatom=clip_icemagic,vampireback,clip
+    toatom=magic_vampire2,idle
+  }
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=bat_idle.bsa/fr:25:50
+  rare=bat_rare.bsa/fr:25:50
+  attack=bat_attack.bsa/fr:25:50
+  move=bat_move.bsa/fr:30:50
+  start=bat_start.bsa/fr:30:50
+  stop=bat_stop.bsa/fr:30:50
+  clock=bat_clock.bsa/fr:40:80
+  contra=bat_contra.bsa/fr:40:80
+  clock2=bat_2clock.bsa/fr:40:80
+  contra2=bat_2contra.bsa/fr:40:80
+  lturn=bat_lturn.bsa/fr:30:60
+  rturn=bat_rturn.bsa/fr:30:60
+  damage=bat_damage.bsa/fr:25:50
+  slew=bat_slew.bsa/fr:35:70
+  death=bat_death.bsa/fr:25:50
+  respawn=bat_respawn.bsa/fr:25:50
+  cursor=bat_rare.bsa/fr:25:50
+  teleout=bat_idle.bsa/fr:25:50/r:25:60
+  telein=bat_idle.bsa/fr:25:50/r:0:35
+  happy=bat_victory.bsa/fr:25:50
+  victory=/t:1:2:happy:1:2:rare:1:1:idlemain
+  transform=bat_formback.bsa/fr:25:25/clip:transmute
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    8.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @respawn {
+    5.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=idlemain
+      frame=0.01
+      file=bat_idle
+      fadetime=60
+    }
+    sound {
+      animation=rare
+      frame=0.01
+      file=bat_rare
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=bat_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=bat_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=bat_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=bat_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=bat_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=bat_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=bat_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=bat_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=bat_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=bat_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=bat_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=bat_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=bat_death
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      frame=0.01
+      file=bat_rare
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=bat_victory
+      fadetime=60
+    }
+    sound {
+      animation=transform
+      frame=0.01
+      file=bat_transform
+      fadetime=60
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=3.14159274/-1.35747683/3.14159274/1
+      animation=transform
+      frame=45/55
+      file=magic_vampire2_dust.ptb
+    }
+  }
+  1 {
+    particle {
+      animation=transform
+      frame=30/55
+      file=magic_bat2_memi.ptb
+      meshemission=true
+    }
+  }
+}
+prefetch {
+  bat_idle.bsa=file
+  bat_rare.bsa=file
+  bat_attack.bsa=file
+  bat_move.bsa=file
+  bat_start.bsa=file
+  bat_stop.bsa=file
+  bat_clock.bsa=file
+  bat_contra.bsa=file
+  bat_2clock.bsa=file
+  bat_2contra.bsa=file
+  bat_lturn.bsa=file
+  bat_rturn.bsa=file
+  bat_damage.bsa=file
+  bat_death.bsa=file
+  bat_respawn.bsa=file
+  bat_victory.bsa=file
+}

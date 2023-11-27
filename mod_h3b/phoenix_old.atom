@@ -24,7 +24,7 @@ arena_params {
   krit=40
   hitback=1
   hitbackprotect=0
-  attacks=moveattack,resurrect
+  attacks=moveattack,resurrect,phoenix_sacrifice
   ondamage=phoenix_ondamage
   posthitmaster=features_burn
   each_turn_script=phoenix_onmove
@@ -55,6 +55,22 @@ arena_params {
     picture_small=BA1_Phoenix_Resurection_small.png
     hinthead=special_resurrect_head
     hint=special_resurrect_hint
+  }
+  phoenix_sacrifice {
+    class=scripted
+    attack_cursor=magicstick
+    warning=warning_resurrect
+    picture=ba1_phoenix_sacrifice_
+    picture_small=ba1_phoenix_sacrifice_small.png
+    hinthead=special_phoenix_sacrifice_head
+    hint=special_phoenix_sacrifice_hint
+    nfeatures=undead,pawn,boss
+    moves=1
+    script_calccells=calccells_all_phoenix_sacrifice
+    script_attack=special_phoenix_sacrifice
+    custom_params {
+      level=5
+    }
   }
 }
 scripts {

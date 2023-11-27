@@ -115,6 +115,7 @@ end
 
 -- New function for applying the bless effect with a hero bonus
 function effect_bless_weakness_attack( target, spell, duration, dmgts, spawn_type, spawn )
+  duration = res_dur( target, spell, duration, "magic" )
   Attack.act_del_spell( target, "spell_bless" )
   Attack.act_del_spell( target, "spell_weakness" )
 
@@ -403,7 +404,9 @@ function effect_sleep_attack( target, pause, duration, dod )
       end
 
       duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_sleep", false )
+      local power = tonumber( Logic.obj_par( "effect_sleep", "power" ) )
       Attack.act_apply_spell_begin( target, "effect_sleep", duration, dod )
+      Attack.act_apply_par_spell( "defense", 0, 0, -power, duration, false )
    			Attack.act_skipmove( target, duration )
       Attack.act_apply_spell_end()
       Attack.atom_spawn( target, pause, "effect_sleep", Attack.angleto( target ), true )
@@ -475,7 +478,9 @@ function effect_unconscious_attack( target, pause, duration )
       end
 
       duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_unconscious", false )
+      local power = tonumber( Logic.obj_par( "effect_unconscious", "power" ) )
       Attack.act_apply_spell_begin( target, "effect_unconscious", duration, dod )
+      Attack.act_apply_par_spell( "defense", 0, 0, -power, duration, false )
       Attack.act_apply_par_spell( "hitback", 0, 0, -100, duration, false, 1000 )--true)
    			Attack.act_skipmove( target, duration )
       Attack.act_apply_spell_end()

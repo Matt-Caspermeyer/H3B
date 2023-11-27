@@ -91,11 +91,17 @@ unit2unit {
     bear, bear2, bear_white {
     	barbarian,barbarian2=+2,hint_morale_bear
     }
-    archmage,druid,priest,priest2,shaman {
-        archmage,druid,priest,priest2,shaman=+1,hint_morale_megamage3,megamage>2
+    archmage,beholder,beholder2,druid,priest,priest2,shaman {
+        archmage,beholder,beholder2,druid,priest,priest2,shaman=+1,hint_morale_megamage3,megamage>2
     }
-    alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,blackknight,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf {
-        alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,blackknight,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_tolerance2,tolerance>1
+    alchemist,archmage,bowman,cannoner,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,horseman,knight,miner,peasant,priest,priest2,robber,robber2,sprite,sprite_lake,unicorn,unicorn2,werewolf,wolf {
+        alchemist,archmage,bowman,cannoner,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,horseman,knight,miner,peasant,priest,priest2,robber,robber2,sprite,sprite_lake,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_diplomacy1,diplomacy>0
+    }
+    alchemist,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf {
+        alchemist,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cyclop,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_diplomacy2,diplomacy>1
+    }
+    alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf {
+        alchemist,archdemon,archmage,barbarian,barbarian2,bear,bear2,bear_white,beholder,beholder2,blackdragon,bowman,cannoner,catapult,cerberus,cyclop,demon,demoness,devilfish,dragonfly_fire,dragonfly_lake,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,goblin,goblin2,graywolf,greendragon,griffin,horseman,hyena,imp,imp2,kingthorn,knight,miner,ogre,orc,orc2,peasant,pirat,pirat2,priest,priest2,robber,robber2,shaman,snake,snake_green,snake_royal,spider,spider_fire,spider_venom,sprite,sprite_lake,thorn,thorn_warrior,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_diplomacy3,diplomacy>2
     }
 
 }

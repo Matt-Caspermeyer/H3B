@@ -10,6 +10,47 @@ function effect_chance( value, effect_or_feature, kind )
 end
 
 
+-- New Orc / Veteran Orc Post-Hit
+function orc_posthitslave( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+	 if ( minmax == 0 )
+  and damage > 0
+  and not hitbacking then
+    local iskrit = Attack.val_restore( receiver, "critical_hit" )
+
+    if iskrit == 1 then
+   		 local new_ap
+      local message
+
+      if ( Attack.act_again( receiver ) ) then
+        Attack.act_again( receiver, true )
+        message = "add_blog_orc_posthit_1"
+      else
+        new_ap = Attack.act_ap( receiver ) + math.max( 1, math.ceil( Attack.act_ap( receiver ) / 2 ) )
+        local current_init, base_init = Attack.act_get_par( receiver, "initiative" )
+        Attack.act_set_par( receiver, "initiative", base_init + 1 )
+        Attack.act_ap( receiver, new_ap )
+        Attack.resort()
+
+        message = "add_blog_orc_posthit_2"
+      end
+
+      if Attack.act_size( receiver ) > 1 then
+        message = message .. "2"
+      else
+        message = message .. "1"
+      end
+
+      Attack.log( 1, message, "name", blog_side_unit( receiver ) )
+      Attack.atom_spawn( receiver, 0, "magic_horn" )
+    end
+ 	end
+
+  Attack.val_store( receiver, "critical_hit", 0 )
+
+	 return damage, addrage
+end
+
+
 -- New Giant Attack
 function features_giant_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
@@ -101,6 +142,10 @@ function features_archdemon_attack( damage, addrage, attacker, receiver, minmax,
     and not Attack.act_feature( receiver, "boss" )
     and not Attack.act_is_spell( receiver, "spell_ram" ) then
       local tmp_spells = {}
+
+      if takeoff_spells( receiver, "bonus", true ) then
+        table.insert( tmp_spells, spell_dispell_attack )
+      end
   
       if not Attack.act_is_spell( receiver, "spell_scare" )
       and not Attack.act_feature( receiver, "mind_immunitet" )
@@ -114,7 +159,14 @@ function features_archdemon_attack( damage, addrage, attacker, receiver, minmax,
   
       if not Attack.act_is_spell( receiver, "spell_magic_bondage" )
       and not Attack.act_feature( receiver, "mind_immunitet" ) then
-        table.insert( tmp_spells, spell_magic_bondage_attack )
+        local act = Attack.get_caa( receiver, true )
+
+        for t in pairs( act.atks ) do
+          if t ~= "base" then
+            table.insert( tmp_spells, spell_magic_bondage_attack )
+            break
+          end
+        end
       end
       
       if table.getn( tmp_spells ) > 0 then
@@ -123,7 +175,8 @@ function features_archdemon_attack( damage, addrage, attacker, receiver, minmax,
         local cast = Game.Random( 1, table.getn( tmp_spells ) )
         local spell_level = 3
       
-        if tmp_spells[ cast ] == spell_magic_bondage_attack then
+        if tmp_spells[ cast ] == spell_dispell_attack
+        or tmp_spells[ cast ] == spell_magic_bondage_attack then
           tmp_spells[ cast ]( spell_level, receiver )
         else
           tmp_spells[ cast ]( spell_level, dmgts, receiver )
@@ -376,6 +429,7 @@ function features_soul_drain( damage, addrage, attacker, receiver, minmax )
   and damage > 0 then
 	   if Attack.act_enemy( receiver )
     and not ( Attack.act_feature( receiver, "undead" ) )
+    and not ( Attack.act_race( receiver, "demon" ) )
     and not ( Attack.act_feature( receiver, "plant" ) )
     and not ( Attack.act_feature( receiver, "golem" ) )
     and not ( Attack.act_feature( receiver, "pawn" ) ) then
@@ -415,7 +469,8 @@ function features_vampirism( damage, addrage, attacker, receiver, minmax ) -- mi
     -- сколько хитов у вампов
   	 if --[[Attack.act_need_cure(attacker) or ]]Attack.cell_need_resurrect( attacker ) then
     	 if Attack.act_enemy( receiver )
-      and not ( Attack.act_feature( receiver,"undead" ) )
+      and not ( Attack.act_feature( receiver, "undead" ) )
+      and not ( Attack.act_race( receiver, "demon" ) )
       and not ( Attack.act_feature( receiver, "plant" ) )
       and not ( Attack.act_feature( receiver, "golem" ) )
       and not ( Attack.act_feature( receiver, "pawn" ) ) then
@@ -580,26 +635,27 @@ end
 --   Раздел постспеллов
 --*************************************************************************
 
-function post_spell_dragon_slayer(damage,addrage,attacker,receiver,minmax,userdata )
-
+function post_spell_dragon_slayer( damage, addrage, attacker, receiver, minmax, userdata )
 		local spell = "spell_dragon_slayer"
-		
-    --local receiver=Attack.get_target(1)  -- кого?
-    --local attacker=Attack.get_target(0)  -- кто?
-    
-    if Attack.act_is_spell(attacker,spell) then
-    
-		local level=tonumber(userdata);
 
-  		local bonus_damage = pwr_dragon_slayer(level)
+  if Attack.act_is_spell( attacker, spell ) then
+		  local level = tonumber( userdata );
+    local ehero_level
+
+    if Attack.act_belligerent() ~= 1 then
+      ehero_level, level = get_enemy_hero_stuff( level )
+    end
+
+  		local bonus_damage = pwr_dragon_slayer( level, ehero_level )
     
-    	if Attack.act_feature(receiver,"dragon") then 
-      	return damage*(1+bonus_damage/100),addrage*(1+bonus_damage/100)
-    	end 
-	else       	
-		    if (minmax==0) then	Attack.act_posthitmaster(attacker,"post_spell_dragon_slayer",0) end
-  	end
-	return damage,addrage
+    if Attack.act_feature( receiver, "dragon" ) then 
+      return damage * ( 1 + bonus_damage / 100 ), addrage * ( 1 + bonus_damage / 100 )
+    end 
+	 else       	
+		  if ( minmax == 0 ) then	Attack.act_posthitmaster( attacker, "post_spell_dragon_slayer", 0 ) end
+  end
+
+ 	return damage, addrage
 end
 
 
@@ -631,33 +687,30 @@ function special_priest(damage,addrage,attacker,receiver,minmax,userdata)
 end
 
 
-function post_spell_demon_slayer(damage,addrage,attacker,receiver,minmax,userdata )
+function post_spell_demon_slayer( damage, addrage, attacker, receiver, minmax, userdata )
+	 local spell = "spell_demon_slayer"
 
-	local spell = "spell_demon_slayer"
-		
-    --local receiver=Attack.get_target(1)  -- кого?
-    --local attacker=Attack.get_target(0)  -- кто?
+  if Attack.act_is_spell( attacker, spell ) then
+		  local level = tonumber( userdata );
+    local ehero_level
 
-    if Attack.act_is_spell(attacker,spell) then
+    if Attack.act_belligerent() ~= 1 then
+      ehero_level, level = get_enemy_hero_stuff( level )
+    end
+
+  		local bonus_damage = pwr_demon_slayer( level, ehero_level )
     
-		local level=tonumber(userdata);
+    if Attack.act_feature( receiver, "demon" ) then 
+	     return damage * ( 1 + bonus_damage / 100 ), addrage * ( 1 + bonus_damage / 100 )
+    end
 
-  		local bonus_damage = pwr_demon_slayer(level)
-    
-    	if Attack.act_feature(receiver,"demon") then 
-	      	return damage*(1+bonus_damage/100),addrage*(1+bonus_damage/100)
-    	end
+	 else
+	   if ( minmax == 0 ) then
+			   Attack.act_posthitmaster( attacker, "post_spell_demon_slayer", 0 )
+		  end
+ 	end
 
-	else
-
-	    if (minmax==0) then
-			Attack.act_posthitmaster(attacker,"post_spell_demon_slayer",0)
-		end
-
-  	end
-
-	return damage,addrage
-
+ 	return damage, addrage
 end
 
 

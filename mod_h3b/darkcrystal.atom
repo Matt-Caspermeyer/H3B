@@ -1,0 +1,352 @@
+main {
+  class=pawn
+  mustdieforwin=1
+  model=darkcrystal.bms
+  apass=3
+  cullcat=0
+  infobox {
+    msgbox=cpn_hint_darkcrystal
+  }
+  
+}
+animations {
+  idle=/mo/r:0:200
+  attack=/mo/r:0:25
+  damage=/mo/r:0:25
+  death=/mo/r:0:75/clip:transmute
+  @damage {
+    2.0?x=
+  }
+  @death {
+    2.0?x=
+    20=alpha/0/22
+  }
+  @attack {
+    20.0?x=
+  }
+}
+clippers {
+  transmute {
+    clipatom=clip_icemagic,darkcrystal,clip
+    toatom=darkcrystal_empty,idle
+  }
+}
+arena_params {
+  initiative=3
+  speed=2
+  hitpoint=20000
+  level=5
+  takedmg=1
+  attack=1
+  hitback=1
+  defense=10
+  chessboard_aligned=1
+  skipmove=0
+  realdeath=1
+  isenemy=1
+  attacks=scripted,hitbk
+  features=pawn,mind_immunitet,fire_immunitet,magic_immunitet,poison_immunitet,freeze_immunitet
+  posthitslave=darkcrystal_posthitslave
+  resistances {
+    physical=0
+    poison=80
+    fire=80
+    magic=80
+  }
+  scripted {
+    script_attack=darkcrystal_attack
+    ad_factor=0
+    log_label=null
+  }
+  hitbk {
+    class=scripted
+    script_attack=darkcrystal_hitback
+    ad_factor=0
+    log_label=null
+    custom_params {
+      duration=3
+    }
+  }
+  script_data {}
+}
+scripts {
+  idle=default_idle
+  pawn_change_attack=arena_tower_selattack
+  pl_hitback=arena_tower_selhitback
+}
+editor {
+  arena {
+    align=chessboard
+    angle=30,90,150,210,270,330
+  }
+  map {
+    align=grid/0/0/0.1/0.1
+    angle=30,90,150,210,270,330
+  }
+}
+attachments {
+  1 {
+    coord=0/1/0/0/-0/0/1
+    particle {
+      trans=0/0.40000001/0/0/-0/0/1
+      animation=idle
+      frame=22
+      file=env_ghost_face_curl.ptb
+    }
+    particle {
+      trans=0/-0.2/0/0/-1.25671387/0/1
+      animation=idle
+      frame=55
+      file=env_ghost_face_curl.ptb
+    }
+    particle {
+      trans=0/-1.25671375/0/1
+      animation=idle
+      file=env_ghost_face_swarm.ptb
+    }
+    particle {
+      trans=0/-0/0/1
+      animation=idle
+      frame=33
+      file=env_ghost_face_jump.ptb
+    }
+    particle {
+      trans=0/0.2/0/0/-1.25671387/0/1
+      animation=idle
+      frame=77
+      file=env_ghost_face_jump.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/0.5
+      animation=idle
+      file=env_ghost_twirl.ptb
+    }
+    particle {
+      trans=0/0.1/0/-3.1415925/-0.00000009/-3.1415925/0.5
+      animation=idle
+      file=env_ghost_twirl.ptb
+    }
+    particle {
+      trans=0/1.39999998/0/0/0.93083876/0/0.5
+      animation=idle
+      file=env_ghost_side.ptb
+    }
+    particle {
+      trans=-0.5/-0.5/0/0/-0/1.62899172/0.5
+      animation=idle
+      file=env_ghost_side.ptb
+    }
+    particle {
+      trans=0.5/-0.5/0/0/-0/1.4486233/0.5
+      animation=idle
+      file=env_ghost_side.ptb
+    }
+    particle {
+      trans=0/0/0.40000001/0/1.57079637/0/0.5
+      animation=idle
+      file=env_ghost_side.ptb
+    }
+    particle {
+      trans=0/0/-0.5/0/1.57079637/0/0.5
+      animation=idle
+      file=env_ghost_side.ptb
+    }
+    particle {
+      trans=0/-0.80000001/0/0/-0/0/0.69999999
+      animation=idle
+      file=env_ghost_side.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/3/1.60491943/0/0.38780949/0/0.60000002
+      animation=death
+      frame=8/11
+      file=env_ghost_debris.ptb
+    }
+    particle {
+      trans=0/3/0.61737061/0/0.46546736/0/0.60000002
+      animation=death
+      frame=14/18
+      file=env_ghost_debris.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/0.23268582/0/0.60000002
+      animation=death
+      frame=20/25
+      file=env_ghost_debris.ptb
+    }
+    particle {
+      trans=0/2.5/0/0/-0/0/0.60000002
+      animation=death
+      frame=24/27
+      file=env_ghost_debris.ptb
+    }
+    particle {
+      trans=0/1.5/0/0/-0.12217333/0/0.60000002
+      animation=death
+      frame=25/29
+      file=env_ghost_debris.ptb
+    }
+    particle {
+      trans=0/1/0/0/0.08726652/0/0.60000002
+      animation=death
+      frame=29/33
+      file=env_ghost_debris.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/1
+      animation=death
+      frame=0/55
+      file=env_ghost_river.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/1
+      animation=death
+      frame=11/33
+      file=env_ghost_debris_volume.ptb
+    }
+    particle {
+      trans=0/2/0/-3.1415925/-0.00000009/-3.1415925/1
+      animation=death
+      frame=0/33
+      file=lina_snow_twirl.ptb
+    }
+    particle {
+      trans=0/2/0.60000002/0/-0/3.10276365/5
+      animation=death
+      frame=0/5
+      file=attack_sprite_bang.ptb
+    }
+    particle {
+      trans=0/2.20000005/0/-3.1415925/0.1163909/-3.1415925/4
+      animation=death
+      frame=24/26
+      file=attack_sprite_bang.ptb
+    }
+    particle {
+      trans=0/1.79999995/0.5/0/-0/3.10276365/3.49999928
+      animation=death
+      frame=26/28
+      file=attack_sprite_bang.ptb
+    }
+    particle {
+      trans=0/1.5/0/-3.1415925/0.11639095/-3.1415925/4
+      animation=death
+      frame=28/30
+      file=attack_sprite_bang.ptb
+    }
+    particle {
+      trans=0/1.29999995/0.40000001/0/-0/3.10276365/3.49999928
+      animation=death
+      frame=17/32
+      file=attack_sprite_bang.ptb
+    }
+    particle {
+      trans=0/1/0/-3.1415925/0.11639095/-3.1415925/4
+      animation=death
+      frame=32/34
+      file=attack_sprite_bang.ptb
+    }
+  }
+  1 {
+    particle {
+      animation=damage
+      frame=0/11
+      file=slime_acid_memi.ptb
+      meshemission=true
+    }
+    particle {
+      trans=0/-1.5/0.60000002/0/-0/0/1.5
+      animation=damage
+      frame=0/2
+      file=cast_archmage.ptb
+    }
+    particle {
+      trans=0/-1.5/-0.80000001/0/-0/0/1.5
+      animation=damage
+      frame=0/2
+      file=cast_archmage.ptb
+    }
+    particle {
+      trans=-0.60000002/-1.5/0.40000001/0/-0/0/1.5
+      animation=damage
+      frame=0/2
+      file=cast_archmage.ptb
+    }
+    particle {
+      trans=0.80000001/-1.5/0.40000001/0/-0/0/1.5
+      animation=damage
+      frame=0/2
+      file=cast_archmage.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0/0.2/0/0/-0/0/1
+      animation=attack
+      frame=22
+      file=cast_firecatapult_smoke.ptb
+    }
+    particle {
+      trans=0/2.34558105/0/0/-0/0/1
+      animation=attack
+      frame=15
+      file=attack_beholder_postcore.ptb
+    }
+    particle {
+      trans=0/2.20000005/0/0/-0/0/1
+      animation=attack
+      frame=18
+      file=attack_cyclop_radio.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/1.5
+      animation=attack
+      frame=0/22
+      file=wisdom_intense.ptb
+    }
+    particle {
+      trans=0/2/0/0/-0/0/1
+      animation=attack
+      frame=0/22
+      file=wisdom_intense.ptb
+    }
+    omni {
+      trans=0/2/0/0/-0/0/1
+      animation=attack
+      frame=15
+      lightland=true
+      key=0/FF000000/7/1
+      key=0.08/FF4ACDFF/7/1
+      key=0.16/FF000000/7/1
+      key=1/FF000000/7/1
+    }
+    camshaker {
+      animation=attack
+      frame=18
+      envelope=quake_boom.envlp
+      attenuation=0.02
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=darkcrystal_attack
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=darkcrystal_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=darkcrystal_death
+      fadetime=60
+    }
+  }
+}

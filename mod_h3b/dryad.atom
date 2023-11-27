@@ -43,7 +43,6 @@ arena_params {
     class=scripted
     hinthead=special_dryad_thorn_head
     hint=special_dryad_thorn_hint
-    moves=5
     reload=3
     warning=sw_place
     script_attack=special_cast_thorn
@@ -59,7 +58,6 @@ arena_params {
     class=scripted
     hinthead=special_lullaby_head
     hint=special_lullaby_hint
-    moves=4
     reload=4
     script_attack=special_cast_sleep
     script_calccells=

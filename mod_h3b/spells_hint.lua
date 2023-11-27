@@ -161,6 +161,12 @@ function gen_dmg_common_hint( par, value, min_dmg, max_dmg, sel_fnt, def_fnt )
     return sel_fnt .. tostring( value ) .. "%" .. def_fnt
   elseif string.find( par, "holy" ) then
     return sel_fnt .. "-" .. tostring( value ) .. "%" .. def_fnt
+  elseif string.find( par, "range_pct" ) then
+    if min_dmg == max_dmg then
+      return sel_fnt .. tostring( min_dmg ) .. "%" .. def_fnt
+    else
+      return sel_fnt .. tostring( min_dmg ) .. "-" .. tostring( max_dmg ) .. "%" .. def_fnt
+    end
   else
     if min_dmg == max_dmg then
       return sel_fnt .. tostring( min_dmg ) .. def_fnt
@@ -170,9 +176,33 @@ function gen_dmg_common_hint( par, value, min_dmg, max_dmg, sel_fnt, def_fnt )
   end
 end
 
-function gen_dmg_necromancy( level )
+function gen_dmg_necromancy( par )
+  local level = tonumber( text_dec( par, 1 ) )
   local power = pwr_necromancy( tonumber( level ) )
-  local text = gen_dmg_common_hint( "value", power )
+  local text, text2 = "", ""
+
+  if string.find( par, "skill_hint" ) then
+    text2 = "<br><label=spell_necromancy_skill_hint>"
+  elseif string.find( par, "necro_heal_hint" ) then
+    text2 = "<br><label=spell_necromancy_heal_hint>"
+  elseif ( tonumber( skill_power( "necromancy", 4 ) ) > 0 )
+  and string.find( par, "heal_power" ) then
+    local min_pct, max_pct = skill_power_range_dec( "necromancy", 1 )
+    local min_power = round( power * min_pct / 100 )
+    local max_power = round( power * max_pct / 100 )
+    text2 = gen_dmg_common_hint( "damage", nil, min_power, max_power )
+  elseif ( tonumber( skill_power( "necromancy", 4 ) ) > 0 )
+  and string.find( par, "necro_skill_power" ) then
+    local min_pct, max_pct = skill_power_range_dec( "necromancy", 1 )
+    text2 = gen_dmg_common_hint( "range_pct", nil, min_pct, max_pct )
+  end
+
+  if ( tonumber( skill_power( "necromancy", 4 ) ) > 0 )
+  and text2 ~= "" then
+    text = text2
+  elseif text2 == "" then
+    text = gen_dmg_common_hint( "value", power )
+  end
 
   return text
 end

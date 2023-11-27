@@ -51,6 +51,7 @@ difficulty_k {
         rage=2.0|1.0|0.85|0.7   // коэф. прихода ярости в бою
     manarage=2.0|1.0|0.80|0.5   // коэф. прихода маны на карте, а для ярости скорости падения
        eunit=1.0|1.0|1.10|1.25  // New! Enemy unit statistic scaler based on difficulty level
+   maplocden=50|20|10|4         // New! Enemy unit statistic scaler divisor based on map difficulty location
 
   minstatinc=0|0|0|1            // New! The minimum a stat will increase (or decrease) if eunit's scaling causes no change
 

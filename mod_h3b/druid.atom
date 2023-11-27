@@ -64,8 +64,7 @@ arena_params {
     class=scripted
     hinthead=special_cast_bear_head
     hint=special_cast_bear_hint
-    moves=4
-    reload=4
+    reload=5
     warning=sw_place
     script_attack=special_cast_bear
     script_calccells=calccells_all_empty_around

@@ -1041,6 +1041,16 @@ special_t {
     dissipate=<color=252,249,220><gen=gen_special_hint,dissipate></color>
     res=<color=252,249,220><gen=gen_special_hint,res></color>
     cure2=<color=252,249,220><gen=gen_special_hint,cure2></color>
+    nlsummon=<color=252,249,220><gen=gen_special_hint,nlsummon></color>
+    Necromancy=<gen=gen_special_hint,necromancy_hint>
+    sacrifice=<color=252,249,220><gen=gen_special_hint,sacrifice></color>
+}
+
+special_tt=<shadow=on><align=left><font=ft1_14><color=255,243,179>$<color=222,194,94>
+special_tt {
+    tm=<color=222,194,94>
+    /s=</color>
+    nheal=<color=252,249,220><gen=gen_special_hint,nheal></color>
 }
 
 special_tC=<align=center><font=ft1_14>$<gen=gen_special_name>
@@ -1908,6 +1918,7 @@ spells_tSpell {
     CS12_UnlimitedRetaliation=<gen=gen_dmg_evilbook,#,unlimited_retaliation>                          //
     CS13_Level=<gen=gen_dmg_ram,#>                          // барашек
     CS14_Power=<gen=gen_dmg_necromancy,#>                          // некроментия
+    CS14_Heal=<gen=gen_dmg_necromancy,#,heal_power>                          // некроментия
     CS15_Level=<gen=gen_dmg_demonologist,#,level>                          // портал демонов
     CS15_Time=<gen=gen_dmg_demonologist,#,time>                          //
     CS15_Power=<gen=gen_dmg_demonologist,#,lead>                          //
@@ -1927,6 +1938,9 @@ spells_tSpell {
 
     Bonuses=<gen=gen_spell_bonus_hint,#>
     Summon_Bonuses=<gen=gen_spell_summon_bonus_hint,#>
+    Necromancy=<gen=gen_dmg_necromancy,#,skill_hint>
+    necroskillpower=<gen=gen_dmg_necromancy,#,necro_skill_power>
+    necrohealhint=<gen=gen_dmg_necromancy,#,necro_heal_hint>
 
     GlotHP=[s]<gen=gen_glot_health>[/s]
 }

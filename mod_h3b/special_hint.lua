@@ -20,6 +20,15 @@ function gen_special_hint(unit,par)
 
   if par == "damage" then
     local damage = apars.damage.physical
+
+    if apars.name == "gcry"
+    and ( tonumber( skill_power2( "necromancy", 4 ) ) > 0 ) then
+      local dmg_min, dmg_max = text_range_dec( string.gsub( damage, ",", "-" ) )
+      dmg_min = round( dmg_min * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 ) )
+      dmg_max = round( dmg_max * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 ) )
+      damage = tostring( dmg_min ) .. "," .. tostring( dmg_max )
+    end
+
     text = string.gsub( damage, ",", "-" )
   end 
 
@@ -132,10 +141,26 @@ function gen_special_hint(unit,par)
     text = count_min * unit_count .. "-" .. count_max * unit_count
   end 
 
-  if par == "lsummon" then
+  if par == "lsummon"
+  or par == "nlsummon"
+  or par == "nheal" then
     local count_min, count_max = text_range_dec( apars.custom_params.k )
-    count_min = count_min * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
-    count_max = count_max * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+
+    if par == "lsummon" then
+      count_min = count_min * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+      count_max = count_max * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+    elseif par == "nlsummon"
+    or par == "nheal" then
+      count_min = count_min * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 )
+      count_max = count_max * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 )
+
+      if par == "nheal"
+      and ( tonumber( skill_power2( "necromancy", 4 ) ) > 0 ) then
+        local min_pct, max_pct = skill_power_range_dec( "necromancy", 1 )
+        count_min = count_min * min_pct / 100
+        count_max = count_max * max_pct / 100
+      end
+    end
     local unit_count = AU.unitcount( unit )
     local unit_lead = AU.abslead( unit )
 
@@ -145,6 +170,11 @@ function gen_special_hint(unit,par)
       text = tostring( math.floor( count_min * unit_count * unit_lead / 100 ) )
     end 
   end 
+
+  if par == "necromancy_hint"
+  and ( tonumber( skill_power2( "necromancy", 4 ) ) > 0 ) then
+    text = "<br><label=special_necromancy_skill_hint>"
+  end
 
   if par == "level" then
     local attack_class = apars.class
@@ -239,9 +269,17 @@ function gen_special_hint(unit,par)
     text = tostring( dissipate ) .. "%"
   end
 
+  -- New hint for Phoenix Sacrifice
+  if par == "sacrifice" then
+    text = tostring( Attack.act_hp( 0 ) )
+  end
+
   -- New hint for difficulty level
   if par == "difficulty_level" then
     local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/eunit' ), Game.HSP_difficulty() + 1, '|' ) ) * 100
+    local maplocden = tonumber( text_dec( Game.Config( 'difficulty_k/maplocden' ), Game.HSP_difficulty() + 1, '|' ) )
+    local maplocdiff = Game.MapLocDifficulty() + 1
+    diff_k = diff_k + math.floor( maplocdiff / maplocden )
     local color
 
     if diff_k < 100 then

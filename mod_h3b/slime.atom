@@ -185,8 +185,8 @@ spirit {
       poison2=ppwr:1,level:>4,LV:>12/poison_min:+400,poison_max:+640,rage:+10,exp:+10,ppwr:2
       rage1=rs:0,level:>5,rage:>24/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,level:>6,rage:>30/rage:-15,rs:2,exp:+15,ragelevel:2
-      rest1=rest:3,LV:>2/rest:2,exp:+2,restlevel:1
-      rest2=rest:2,LV:>12/rest:1,exp:+4,restlevel:2
+      rest1=rest:3,LV:>2/rest:-1,exp:+2,restlevel:1
+      rest2=rest:2,LV:>12/rest:-1,exp:+4,restlevel:2
     }
   }
   fishes {
@@ -206,8 +206,8 @@ spirit {
       level7=level:6,LV:>19/damage:physical:+1025:+1075,rage:+18,exp:+18,level:7
       rage1=rs:0,level:>3,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,level:>5,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
-      rest1=rest:5,LV:>9/rest:4,exp:+2,restlevel:1
-      rest2=rest:4,LV:>22/rest:3,exp:+4,restlevel:2
+      rest1=rest:5,LV:>9/rest:-1,exp:+2,restlevel:1
+      rest2=rest:4,LV:>22/rest:-1,exp:+4,restlevel:2
     }
   }
   fog {
@@ -227,8 +227,8 @@ spirit {
       time2=time:3,LV:>29/time:3,rage:+15,exp:+15,timelevel:2
       rage1=level:>3,rage:>10/rage:-10,exp:+10,ragelevel:1
       rage2=level:>4,rage:>15/rage:-15,exp:+15,ragelevel:2
-      rest1=rest:6,LV:>8/rest:5,exp:+2,restlevel:1
-      rest2=rest:5,LV:>12/rest:4,exp:+4,restlevel:2
+      rest1=rest:6,LV:>8/rest:-1,exp:+2,restlevel:1
+      rest2=rest:5,LV:>12/rest:-1,exp:+4,restlevel:2
     }
   }
   glot {
@@ -248,8 +248,8 @@ spirit {
       level7=level:6,LV:>20/health:+3200,duration:+1,rage:+6,exp:+6,level:7,res_all:+5
       rage1=rs:0,level:>4,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
       rage2=rs:1,level:>6,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
-      rest1=rest:5,LV:>10/rest:4,exp:+2,restlevel:1
-      rest2=rest:4,LV:>12/rest:3,exp:+4,restlevel:2
+      rest1=rest:5,LV:>10/rest:-1,exp:+2,restlevel:1
+      rest2=rest:4,LV:>12/rest:-1,exp:+4,restlevel:2
     }
   }
 }

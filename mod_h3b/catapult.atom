@@ -92,7 +92,6 @@ arena_params {
     ad_factor=1
     base_attack=0
     mindist=2
-    moves=5
     reload=3
     penalty=0.5
     animation=firecast/throw/thtarget
@@ -119,7 +118,6 @@ arena_params {
     ad_factor=1
     base_attack=0
     mindist=2
-    moves=5
     reload=3
     penalty=0.5
     animation=firecast/throw/thtarget
