@@ -164,6 +164,30 @@ Windows 8 Comments
 * Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
 * So this release is mostly bug fixes, but there are some new features as well.
 
+Version: Beta 2013-05-18
+*.ATOM
+  & SLIME.ATOM
+    ^ Lowered the level requirements for Poisonous Spit levels 5-7 to be 8, 11, and 14 was (9, 15, and 19)
+    ^ Increased the level requirements for Poisonous Spit Poison levels 1-2 to be 9 and 16 (was 6 and 12)
+    ^ Increased the level requirements for EVil Shoal levels 4-7 to be 9, 12, 15, and 20 (were 7, 10, 14, and 19)
+    ^ Lowered the level requirements for Poison Cloud levels 3-5 to be 8, 14, and 22 (were 11, 16, and 24)
+  & THE_ROCK.ATOM
+    ^ Added level requirements for Wall levels 4-5 to be 10 and 16 (no level requirements before)
+*.LNG
+  ENG_ITEMS.LNG - updated description for Griffin and Dragon Eggs so that they are now just like the other containers (and have a range)
+*.LUA
+  & ARENA.LUA
+    ^ Fixed error with Shroud spell that was causing a crash (thanks to Jorko80 and Sir Whiskers for pointing this out!)
+    ^ Added AI spell function for Shroud so that it selects the optimal location to cast (was using the generic bonus spell code before, which is where the above error was as well)
+    ^ Changed score for AI damage spells to include number of kills so that the AI focuses more on killing your units
+  & ITEM_USE.LUA
+    ^ Updated objuse_spawn_troop so that it loops through the troop ranges for each container used (this provides better variability for containers)
+*.TXT
+  & ITEMS_MONSTER.TXT
+    ^ Fixed Griffin and Dragon Eggs so that it is no longer 2 eggs per unit (thanks to Sir Whiskers for pointing this out!)
+    ^ Griffin and Dragon Eggs now just have a range of 1-2 and due to the change in objuse_spawn_troop above, it will give an average of 1.5 units per egg.
+    
+
 Version: Beta 2013-03-18
 *.ATOM
   & ORC.ATOM - Ill-tempered now works only 50% of the time

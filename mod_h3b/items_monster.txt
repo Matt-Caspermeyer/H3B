@@ -21,13 +21,9 @@ griffin_egg {
   use {}
   propbits=multiuse,usable,container
   params {
-    troop=griffin,griffin
-    troopcount=1,2
-    random=94,6
-    altfactor=2
-    alttroop=griffin
-    alttroopcount=1
-    altrandom=100
+    troop=griffin
+    troopcount=1-2
+    random=100
   }
   actions {
     onuse=
@@ -59,7 +55,7 @@ snake_egg {
   propbits=multiuse,usable,container
   params {
     troop=snake,snake_green,snake_royal
-    troopcount=1-3,1-3,1
+    troopcount=1-3,1-3,1-2
     random=39,41,20
   }
   actions {
@@ -93,10 +89,6 @@ bonedragon_egg {
     troop=bonedragon,bonedragon
     troopcount=1,2
     random=97,3
-    altfactor=2
-    alttroop=bonedragon
-    alttroopcount=1
-    altrandom=100
   }
   actions {
     onuse=
@@ -159,13 +151,9 @@ dragon_egg {
   use {}
   propbits=multiuse,usable,container
   params {
-    troop=greendragon,greendragon
-    troopcount=1,2
-    random=97,3
-    altfactor=2
-    alttroop=greendragon
-    alttroopcount=1
-    altrandom=100
+    troop=greendragon
+    troopcount=1-2
+    random=100
   }
   actions {
     onuse=
@@ -195,13 +183,9 @@ red_dragon_egg {
   use {}
   propbits=multiuse,usable,container
   params {
-    troop=reddragon,reddragon
-    troopcount=1,2
-    random=97,3
-    altfactor=2
-    alttroop=reddragon
-    alttroopcount=1
-    altrandom=100
+    troop=reddragon
+    troopcount=1-2
+    random=100
   }
   actions {
     onuse=
@@ -231,13 +215,9 @@ black_dragon_egg {
   use {}
   propbits=multiuse,usable,container
   params {
-    troop=blackdragon,blackdragon
-    troopcount=1,2
-    random=97,3
-    altfactor=2
-    alttroop=blackdragon
-    alttroopcount=1
-    altrandom=100
+    troop=blackdragon
+    troopcount=1-2
+    random=100
   }
   actions {
     onuse=
@@ -335,7 +315,7 @@ vampire_grave {
   propbits=multiuse,usable,container
   params {
     troop=vampire,vampire2
-    troopcount=1-3,1
+    troopcount=1-3,1-2
     random=72,32
   }
   actions {
@@ -371,7 +351,7 @@ thorn_seed {
     random=50,50
     altfactor=47-76
     alttroop=kingthorn
-    alttroopcount=1
+    alttroopcount=1-2
     altrandom=100
   }
   actions {
@@ -403,11 +383,11 @@ ent_seed {
   propbits=multiuse,usable,container
   params {
     troop=ent
-    troopcount=1
+    troopcount=1-2
     random=100
     altfactor=4-5
     alttroop=ent2
-    alttroopcount=1
+    alttroopcount=1-2
     altrandom=100
   }
   actions {

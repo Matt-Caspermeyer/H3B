@@ -3248,7 +3248,9 @@ function spell_auto_cast( spells, spellattacks )
 
   for name, level in pairs( spells ) do
     if spell_level ~= nil then
-      spells[ name ] = spell_level
+      if spells[ name ] < spell_level then
+        spells[ name ] = spell_level
+      end
     else
       spell_level = level
       break
@@ -3342,7 +3344,13 @@ function spell_auto_cast( spells, spellattacks )
   local cast = {}
 
   local function common_damage_score( value, res, act, factor )
-    local score = math.min( math.abs( value * res ), act.totalhp ) / math.max( math.abs( value * res ), act.totalhp ) * value * res * factor
+    if value == 0 then
+      return 0
+    end
+
+    local eff = math.min( 1, act.totalhp / ( value * res ) )
+    local kill = value * res / ( act.totalhp / act.units )
+    local score = eff * value * res * factor * kill * act.level / 5
 
     return score
   end
@@ -3522,6 +3530,71 @@ function spell_auto_cast( spells, spellattacks )
     end
   end
 
+  local function ck_canatk_thrower( act )
+    return can_attack_units[ act.cell ]
+    and Attack.act_is_thrower( act )
+    and Attack.act_enemy( act )
+    and Attack.act_name( act ) ~= "ram"
+  end
+
+  if spells.spell_shroud then
+    local cells_rating = {}
+
+    for i = 0, Attack.cell_count() - 1 do
+      local cell = Attack.cell_get( i )
+      local id = Attack.cell_id( cell )
+
+      if cell ~= nil
+      and spellattacks.spell_shroud.applicable( cell ) then
+        local act = Attack.get_caa( cell, true )
+
+        if act ~= nil then
+          if ck_canatk_thrower( act )
+          and not Attack.act_is_spell( act, "totem_shroud" ) then
+            local unit_power = common_score( act, e2a )
+            local spell_power = pwr_shroud( spell_level, ehero_level )
+            local duration = int_dur( "spell_shroud", spell_level )
+            local score = unit_power * ( spell_power + 100 ) / 100 * duration
+            cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
+          end
+        end
+      end
+
+      for dir = 0, 5 do
+        local c = Attack.cell_adjacent( cell, dir )
+
+        if c ~= nil
+        and spellattacks.spell_shroud.applicable( c ) then
+          local act = Attack.get_caa( c, true )
+
+          if act ~= nil then
+            if ck_canatk_thrower( act )
+            and not Attack.act_is_spell( act, "totem_shroud" ) then
+              local unit_power = common_score( act, e2a )
+              local spell_power = pwr_shroud( spell_level, ehero_level )
+              local duration = int_dur( "spell_shroud", spell_level )
+              local score = unit_power * ( spell_power + 100 ) / 100 * duration
+              cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
+            end
+          end
+        end
+        
+      end
+    end
+
+    local max_rating, tid = 0
+
+    for id, rating in pairs( cells_rating ) do
+      if rating > max_rating then tid = id; max_rating = rating end
+    end
+
+    if tid ~= nil
+    and max_rating > min_score then
+      max_rating = common_spell_mana( "spell_shroud", spell_level, ignore_mana, max_rating )
+      table.insert( cast, { spell = "spell_shroud", target = { cell = tid }, prob = max_rating } )
+    end
+  end
+
   if spells.spell_pain_mirror then
     local applicable = spellattacks.spell_pain_mirror.applicable
     local max_score, tid = min_score
@@ -3666,13 +3739,6 @@ function spell_auto_cast( spells, spellattacks )
     and Attack.act_name( act ) ~= "ram"
   end
 
-  local function ck_canatk_thrower( act )
-    return can_attack_units[ act.cell ]
-    and Attack.act_is_thrower( act )
-    and Attack.act_enemy( act )
-    and Attack.act_name( act ) ~= "ram"
-  end
-
   local function ck_cantatk( act ) -- данный юнит не может атаковать
     return not can_attack_units[ act.cell ]
     and Attack.act_name(act) ~= "ram"
@@ -3694,43 +3760,43 @@ function spell_auto_cast( spells, spellattacks )
     spell_haste =
       function( a )
         return ( Attack.act_get_par( a, "initiative" ) < avg_enemy_init
-        or ck_cantatk
+        or ck_cantatk( a )
         or ( Game.Random( 99 ) < 20 ) )
         and not Attack.act_is_spell( a, "spell_haste" )
       end, 
     spell_divine_armor =
       function( a )
-        return ck_underatk
+        return ck_underatk( a )
         and not Attack.act_is_spell( a, "spell_divine_armor" )
       end, 
     spell_stone_skin =
       function( a )
-        return ck_underatk
+        return ck_underatk( a )
         and not Attack.act_is_spell( a, "spell_stone_skin" )
       end, 
     spell_pacifism =
       function( a )
-        return ck_underatk
+        return ck_underatk( a )
         and not Attack.act_is_spell( a, "spell_pacifism" )
       end, 
     spell_berserker =
       function( a )
-        return ck_canatk
+        return ck_canatk( a )
         and not Attack.act_is_spell( a, "spell_berserker" )
       end, 
     spell_fire_breath =
       function( a )
-        return ck_canatk
+        return ck_canatk( a )
         and not Attack.act_is_spell( a, "spell_fire_breath" )
       end, 
     spell_magic_source =
       function( a )
-        return ck_underatk
+        return ck_underatk( a )
         and not Attack.act_is_spell( a, "spell_magic_source" )
       end,
     spell_last_hero =
       function( a )
-        return ck_underatk_not_temporary
+        return ck_underatk_not_temporary( a )
         and not Attack.act_is_spell( a, "spell_last_hero" )
       end,
     spell_bless =
@@ -3811,18 +3877,13 @@ function spell_auto_cast( spells, spellattacks )
     spell_slow =
       function( a )
         return ( Attack.act_get_par( a, "initiative" ) > avg_enemy_init
-        or ck_canatk
+        or ck_canatk( a )
         or ( Game.Random( 99 ) < 20 ) )
         and not Attack.act_is_spell( a, "spell_slow" )
       end,
-    spell_shroud =
-      function( a )
-        return ck_canatk_thrower
-        and not Attack.act_is_spell( a, "spell_shroud" )
-      end,
     spell_pygmy =
       function( a )
-        return ck_canatk
+        return ck_canatk( a )
         and not Attack.act_is_spell( a, "spell_pygmy" )
       end,
     spell_hypnosis =
@@ -3832,7 +3893,7 @@ function spell_auto_cast( spells, spellattacks )
       end,
     spell_crue_fate =
       function( a )
-        return ck_underatk
+        return ck_underatk( a )
         and not Attack.act_is_spell( a, "spell_crue_fate" )
       end,
 		  spell_weakness =
@@ -3843,12 +3904,12 @@ function spell_auto_cast( spells, spellattacks )
     		end,
   		spell_blind =
       function( a )
-        return ck_canatk
+        return ck_canatk( a )
         and not Attack.act_is_spell( a, "spell_blind" )
       end,
     spell_ram =
       function( a )
-        return ck_canatk
+        return ck_canatk( a )
         and not Attack.act_is_spell( a, "spell_ram" )
       end,
     spell_scare =
@@ -4125,7 +4186,7 @@ function spell_auto_cast( spells, spellattacks )
             duration = 1
           end
 
-          local prob = unit_power * spell_power / 100 * duration
+          local prob = unit_power * ( spell_power + 100 ) / 100 * duration
 
           if prob > min_score then
             prob = common_spell_mana( name, spell_level, ignore_mana, prob )
@@ -4162,7 +4223,7 @@ function spell_auto_cast( spells, spellattacks )
               spell_power = powerSpells[ name ]( name, act, spell_level, ehero_level )
             end
 
-            k = k + power * spell_power / 100
+            k = k + power * ( spell_power + 100 ) / 100
           end
         end
 
@@ -4192,7 +4253,7 @@ function spell_auto_cast( spells, spellattacks )
     elseif name == "spell_ghost_sword" then
       local min_dmg, max_dmg, ignore_res = _G[ func_name ]( level, ehero_level )
       avg_dmg = ( min_dmg + max_dmg ) / 2
-      res = res * ( 1 - ignore_res / 100 )
+      res = ( 100 - Attack.act_get_res( c, Logic.obj_par( name, "typedmg" ) ) * ( 1 - ignore_res / 100 ) ) / 100
       spell_power = common_damage_score( avg_dmg, res, act, e2a )
 
     elseif name == "spell_oil_fog" then
@@ -4231,7 +4292,7 @@ function spell_auto_cast( spells, spellattacks )
       local targets = {}
       for i, c in ipairs( spellattacks[ name ].avcells() ) do
         if Attack.act_enemy( c ) then
-          local prob = battleSpells[ name ]( c, name, level, ehero_level, e2a ) / nomag_immune_enemies
+          local prob = battleSpells[ name ]( c, name, level, ehero_level, e2a )
 
           if prob > max_prob then
             max_prob = prob
