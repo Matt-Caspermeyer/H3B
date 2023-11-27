@@ -1,25 +1,57 @@
-
-function gen_special_hint(unit,par)
+function gen_special_hint( unit, par )
   local text = ""
   local apars = Logic.attack_params()
+
+  local function apply_bonus( value, max )
+    value = tonumber( value )
+
+    if Game.LocIsArena() then
+      local diff_k = Attack.val_restore( unit, "diff_k" )
+      local sign_diff_k = Attack.val_restore( unit, "sign_diff_k" )
+      local min_stat_inc = Attack.val_restore( unit, "min_stat_inc" )
+      local value_inc = 0
+      
+      if diff_k ~= nil
+      and sign_diff_k ~= nil
+      and min_stat_inc ~= nil then
+        value_inc = math.max( round( math.abs( value * diff_k ) ), min_stat_inc ) * sign_diff_k
+      end
+  
+      if max ~= nil then
+        return tostring( math.min( max, value + value_inc ) )
+      else
+        return tostring( value + value_inc )
+      end
+    else
+      return tostring( value )
+    end
+  end
+
+  local function difficulty_level_damage( damage )
+    local dmg_min, dmg_max = text_range_dec( string.gsub( damage, ",", "-" ) )
+    dmg_min = apply_bonus( dmg_min )
+    dmg_max = apply_bonus( dmg_max )
+
+    return ( dmg_min .. ',' .. dmg_max )
+  end
       
   if par == "fdamage" then
-    local damage = apars.damage.fire
+    local damage = difficulty_level_damage( apars.damage.fire )
     text = string.gsub( damage, ",", "-" )
   end 
 
   if par == "pdamage" then
-    local damage = apars.damage.poison
+    local damage = difficulty_level_damage( apars.damage.poison )
     text = string.gsub( damage, ",", "-" )
   end 
 
   if par == "adamage" then
-    local damage = apars.damage.astral
+    local damage = difficulty_level_damage( apars.damage.astral )
     text = string.gsub( damage, ",", "-" )
   end 
 
   if par == "damage" then
-    local damage = apars.damage.physical
+    local damage = difficulty_level_damage( apars.damage.physical )
 
     if apars.name == "gcry"
     and ( tonumber( skill_power2( "necromancy", 4 ) ) > 0 ) then
@@ -33,30 +65,30 @@ function gen_special_hint(unit,par)
   end 
 
   if par == "mdamage" then
-    local damage = apars.damage.magic
+    local damage = difficulty_level_damage( apars.damage.magic )
     text = string.gsub( damage, ",", "-" )
   end 
 
   if par == "sdamage" then
-    local damage = apars.custom_params.damage
+    local damage = difficulty_level_damage( apars.custom_params.damage )
     text = string.gsub( damage, ",", "-" )
   end 
 
   if par == "ap" then
     local ap = apars.custom_params.ap
-    text = ap
+    text = apply_bonus( ap )
   end   
 
   if par == "cure" then
     local unit_count = AU.unitcount( unit )
     local cure = common_apply_skill_bonus( get_add_gain_bonus( tonumber( apars.custom_params.heal ), apars.script_attack ), "healer" )
-    text = tostring( round( unit_count * cure ) )
+    text = tostring( round( unit_count * apply_bonus( cure ) ) )
   end 
 
   if par == "cure2" then
     local unit_count = AU.unitcount( unit )
     local cure = common_apply_skill_bonus( get_add_gain_bonus( tonumber( apars.custom_params.heal ) * 2, apars.script_attack ), "healer" )
-    text = tostring( round( unit_count * cure ) )
+    text = tostring( round( unit_count * apply_bonus( cure ) ) )
   end 
 
   if par == "duration" then
@@ -66,7 +98,7 @@ function gen_special_hint(unit,par)
     or ( attack_class == "spell"
     and string.find( apars.spell, "special" ) ) then 
       local spell = apars.spell
-      text = Logic.obj_par( spell, "duration" )
+      text = apply_bonus( Logic.obj_par( spell, "duration" ) )
     else
       local duration_bonus = 0
 
@@ -77,7 +109,7 @@ function gen_special_hint(unit,par)
         duration_bonus = tonumber( Logic.hero_lu_item( "sp_duration_" .. apars.script_attack, "count" ) )
       end
 
-      text = tostring( tonumber( apars.custom_params.duration ) + duration_bonus )
+      text = tostring( tonumber( apply_bonus( apars.custom_params.duration ) ) + duration_bonus )
     end
   end 
 
@@ -89,22 +121,22 @@ function gen_special_hint(unit,par)
 
     if attack_class == "spell" then 
       local spell = apars.spell
-      text = Logic.obj_par( spell, par ) .. "%"
+      text = apply_bonus( Logic.obj_par( spell, par ) ) .. "%"
     else
       if par == "burn" then
-        text = tostring( round( get_add_gain_bonus( apars.custom_params.burn, par .. "_" .. apars.name ) ) ) .. "%"
+        text = tostring( round( get_add_gain_bonus( apply_bonus( apars.custom_params.burn ), par .. "_" .. apars.name ) ) ) .. "%"
       elseif par == "poison" then
-        text = tostring( round( get_add_gain_bonus( apars.custom_params.poison, par .. "_" .. apars.name ) ) ) .. "%"
+        text = tostring( round( get_add_gain_bonus( apply_bonus( apars.custom_params.poison ), par .. "_" .. apars.name ) ) ) .. "%"
       elseif par == "res" then
-        text = tostring( round( get_add_gain_bonus( apars.custom_params.res, par .. "_" .. apars.name ) ) ) .. "%"
+        text = tostring( round( get_add_gain_bonus( apply_bonus( apars.custom_params.res ), par .. "_" .. apars.name ) ) ) .. "%"
       elseif par == "shock" then
-        text = tostring( round( get_add_gain_bonus( apars.custom_params.shock, par .. "_" .. apars.name ) ) ) .. "%"
+        text = tostring( round( get_add_gain_bonus( apply_bonus( apars.custom_params.shock ), par .. "_" .. apars.name ) ) ) .. "%"
       end
     end
   end 
 
   if string.find( par, "health" ) then
-    text = apars.custom_params.health
+    text = apply_bonus( apars.custom_params.health )
 
     if par == "health%" then text = text .. "%" end 
 
@@ -127,14 +159,14 @@ function gen_special_hint(unit,par)
     or ( attack_class == "spell"
     and string.find( apars.spell, "special" ) ) then 
       local spell = apars.spell
-      text = Logic.obj_par( spell, string.gsub( par, "%%", "" ) )
+      text = apply_bonus( Logic.obj_par( spell, string.gsub( par, "%%", "" ) ) )
 
       if string.find( par, "%%" ) then text = text .. "%" end 
     else
       if string.find( par, "power" ) then
-        text = tostring( round( get_add_gain_bonus( tonumber( apars.custom_params.power ), "power_" .. apars.script_attack ) ) )
+        text = tostring( round( apply_bonus( get_add_gain_bonus( tonumber( apars.custom_params.power ), "power_" .. apars.script_attack ) ) ) )
       elseif string.find( par, "penalty" ) then
-        text = tostring( round( get_add_gain_bonus( tonumber( apars.custom_params.penalty ), "penalty_" .. apars.script_attack, false ) ) )
+        text = tostring( round( apply_bonus( get_add_gain_bonus( tonumber( apars.custom_params.penalty ), "penalty_" .. apars.script_attack, false ) ) ) )
       end
 
       if string.find( par, "%%" ) then text = text .. "%" end 
@@ -144,7 +176,7 @@ function gen_special_hint(unit,par)
   if par == "summon" then
     local count_min, count_max = text_range_dec( apars.custom_params.count )
     local unit_count = AU.unitcount( unit )
-    text = count_min * unit_count .. "-" .. count_max * unit_count
+    text = apply_bonus( count_min ) * unit_count .. "-" .. apply_bonus( count_max ) * unit_count
   end 
 
   if par == "lsummon"
@@ -155,6 +187,7 @@ function gen_special_hint(unit,par)
     if par == "lsummon" then
       count_min = count_min * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
       count_max = count_max * ( 1 + tonumber( skill_power2( "glory", 3 ) ) / 100 )
+
     elseif par == "nlsummon"
     or par == "nheal" then
       count_min = count_min * ( 1 + tonumber( skill_power2( "necromancy", 4 ) ) / 100 )
@@ -167,13 +200,14 @@ function gen_special_hint(unit,par)
         count_max = count_max * max_pct / 100
       end
     end
+
     local unit_count = AU.unitcount( unit )
     local unit_lead = AU.abslead( unit )
 
     if count_min ~= count_max then 
-      text = math.floor( count_min * unit_count * unit_lead / 100 ) .. "-" .. math.floor( count_max * unit_count * unit_lead / 100 )
+      text = math.floor( apply_bonus( count_min, 100 ) * unit_count * unit_lead / 100 ) .. "-" .. math.floor( apply_bonus( count_max, 100 ) * unit_count * unit_lead / 100 )
     else
-      text = tostring( math.floor( count_min * unit_count * unit_lead / 100 ) )
+      text = tostring( math.floor( apply_bonus( count_min, 100 ) * unit_count * unit_lead / 100 ) )
     end 
   end 
 
@@ -206,36 +240,36 @@ function gen_special_hint(unit,par)
     if count_max > max_mana then count_max = max_mana end
     
     if count_min == count_max then 
-      text = tostring( count_min )
+      text = tostring( apply_bonus( count_min ) )
     else
-      text = count_min .. "-" .. count_max
+      text = apply_bonus( count_min ) .. "-" .. apply_bonus( count_max )
     end 
   end 
 
   -- New Thorn Gift of Life Health
   if par == "thorn_gift" then
-    local cure = common_apply_skill_bonus( tonumber( apars.custom_params.heal ), "healer" )
+    local cure = apply_bonus( common_apply_skill_bonus( tonumber( apars.custom_params.heal ), "healer" ) )
     local bonus = tonumber( Logic.hero_lu_item( "sp_special_attacks_thorn_gift", "count" ) )
     text = "+" .. tostring( round( Attack.act_totalhp( 0 ) * ( cure + bonus ) / 100 ) )
   end
 
   -- New Horseman Charge
   if par == "horseman_charge" then
-    local damage = tonumber( apars.custom_params.rush_dmg_inc )
+    local damage = tonumber( apply_bonus( apars.custom_params.rush_dmg_inc ) )
     local bonus = tonumber( Logic.hero_lu_item( "sp_special_attacks_horseman_charge", "count" ) )
     text = "+" .. tostring( damage + bonus ) .. "%"
   end
 
   -- New Tap Tree of Life - resistances
   if par == "ent_rooted_resist" then
-    local resist = tonumber( apars.custom_params.resist )
+    local resist = apply_bonus( tonumber( apply_bonus( apars.custom_params.resist ) ) )
     local bonus = tonumber( Logic.hero_lu_item( "sp_special_gain_ent_rooted_resist", "count" ) )
     text = "+" .. tostring( resist + bonus ) .. "%"
   end
 
   -- New Tap Tree of Life - health
   if par == "ent_rooted_hp" then
-    local hp = tonumber( apars.custom_params.HP )
+    local hp = apply_bonus( tonumber( apply_bonus( apars.custom_params.HP ) ) )
     local bonus = tonumber( Logic.hero_lu_item( "sp_special_gain_ent_rooted_HP", "count" ) )
     text = "+" .. tostring( hp + bonus ) .. "%"
   end
@@ -253,7 +287,7 @@ function gen_special_hint(unit,par)
 
     rage_min = math.ceil( rage_min * skill_bonus * mana_rage_gain_k )
     rage_max = math.ceil( rage_max * skill_bonus * mana_rage_gain_k )
-    local rage = tostring( rage_min ) .. "-" .. tostring( rage_max )
+    local rage = tostring( apply_bonus( rage_min ) ) .. "-" .. tostring( apply_bonus( rage_max ) )
 
     if rage_min == 0
     and rage_max == 0 then
@@ -271,7 +305,7 @@ function gen_special_hint(unit,par)
 
   -- New for Shaman's Energy Dissipation
   if par == "dissipate" then
-    local dissipate = tonumber( apars.custom_params.dissipate )
+    local dissipate = tonumber( apply_bonus( apars.custom_params.dissipate ) ) * ( 2 - apply_bonus( 1 ) )
     text = tostring( dissipate ) .. "%"
   end
 
@@ -285,7 +319,7 @@ function gen_special_hint(unit,par)
     local diff_k = tonumber( text_dec( Game.Config( 'difficulty_k/eunit' ), Game.HSP_difficulty() + 1, '|' ) ) * 100
     local maplocden = tonumber( text_dec( Game.Config( 'difficulty_k/maplocden' ), Game.HSP_difficulty() + 1, '|' ) )
     local maplocdiff = Game.MapLocDifficulty() + 1
-    diff_k = diff_k + math.floor( maplocdiff / maplocden )
+    diff_k = diff_k + round( maplocdiff / maplocden )
     local color
 
     if diff_k < 100 then
@@ -310,7 +344,7 @@ function gen_special_hint(unit,par)
 
   -- New Titan Energy
   if string.find( par, "init_totem" ) then
-    local health = apars.custom_params.health
+    local health = apply_bonus( apars.custom_params.health )
     local titan_energy = tonum( Attack.val_restore( 0, "titan_energy" ) )
     local total_hp = tonumber( health ) / 100 * Attack.act_totalhp( 0 )
     local hp = math.ceil( total_hp + titan_energy )

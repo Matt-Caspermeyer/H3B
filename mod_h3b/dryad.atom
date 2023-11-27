@@ -51,14 +51,14 @@ arena_params {
     picture=BA1_CastThorn_
     picture_small=BA1_CastThorn_small.png
     custom_params {
-      k=35-55
+      k=20-40
     }
   }
   cast_sleep {
     class=scripted
     hinthead=special_lullaby_head
     hint=special_lullaby_hint
-    reload=4
+    moves=1
     script_attack=special_cast_sleep
     script_calccells=
     attack_cursor=

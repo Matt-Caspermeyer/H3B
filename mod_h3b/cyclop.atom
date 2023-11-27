@@ -24,7 +24,7 @@ arena_params {
   krit=10
   hitback=1
   hitbackprotect=0
-  attacks=moveattack,throw,stun,push
+  attacks=moveattack,throw,siegethrow,stun,push
   posthitmaster=features_stun
   features=shot,golem,poison_immunitet
   resistances {
@@ -85,6 +85,7 @@ arena_params {
     }
   }
   throw {
+    nfeatures=barrier
     class=throw
     group=1,2
     distance=100
@@ -104,6 +105,29 @@ arena_params {
       stun=50
       push=0
       sleep=25
+    }
+  }
+  siegethrow {
+    features=barrier
+    class=throw
+    group=1,3
+    distance=100
+    picture=ba1_waterflask_
+    picture_small=ba1_waterflask_small.png
+    mindist=1
+    base_attack=1
+    penalty=1
+    showdmg=1
+    animation=cast/throw/thtarget
+    throw=cyclopcast
+    framekey=x
+    damage {
+      physical=100,120
+    }
+    custom_params {
+      stun=0
+      push=0
+      sleep=0
     }
   }
 }

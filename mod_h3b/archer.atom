@@ -66,7 +66,7 @@ arena_params {
     throw=arrow_dragon
     framekey=x
     damage {
-      astral=2,3
+      astral=4,6
     }
     custom_params {
       poison=0
@@ -163,6 +163,7 @@ arena_params {
 scripts {
   scenario=default_scenario
   idle=default_idle
+  subturn_modificators=features_undead_penalty
 }
 animations {
   idle=/t:1:4:idlemain:1:1:rarelist

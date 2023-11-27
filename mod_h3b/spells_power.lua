@@ -45,6 +45,13 @@ function get_enemy_hero_stuff( level )
     end
   end
 
+  -- This is for computing the exp / gold bonus in function calc_bonus in ARENA.LUA
+  if EHERO_LEVEL == nil then
+    EHERO_LEVEL = ehero_level
+  else
+    EHERO_LEVEL = math.max( EHERO_LEVEL, ehero_level )
+  end
+
   return ehero_level, level
 end
 
@@ -489,30 +496,44 @@ end
 
 
 -- New common function for computing duration as a function of target's resistance
-function res_dur( target, spell, duration, res_type )
+function res_dur( target, spell, duration, res_type, res_dur_only, freeze )
+  if res_type == nil then
+    res_type = "magic"
+  end
+
   local res_spell = Logic.obj_par( spell, "dur_res_" .. res_type )
   local new_duration = duration
 
   if res_spell == "1"
   and target ~= nil then
     local resist = Attack.act_get_res( target, res_type )
+
+    if freeze == true then
+      res_type = "fire"
+      resist = -Attack.act_get_res( target, res_type )
+    end
+
     local spell_type = Logic.obj_par( spell, "type" )
 
     if spell_type == "bonus" then
       new_duration = math.max( math.ceil( duration * ( 1 + resist / 100 ) ), 1 )
 
-      if new_duration > duration then
-        Attack.log( "add_blog_resdur_bon_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
-      elseif new_duration < duration then
-        Attack.log( "add_blog_resdur_bon_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+      if res_dur_only == nil then
+        if new_duration > duration then
+          Attack.log( "add_blog_resdur_bon_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        elseif new_duration < duration then
+          Attack.log( "add_blog_resdur_bon_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        end
       end
     else
       new_duration = math.max( math.ceil( duration * ( 1 - resist / 100 ) ), 1 )
 
-      if new_duration > duration then
-        Attack.log( "add_blog_resdur_pen_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
-      elseif new_duration < duration then
-        Attack.log( "add_blog_resdur_pen_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+      if res_dur_only == nil then
+        if new_duration > duration then
+          Attack.log( "add_blog_resdur_pen_inc", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        elseif new_duration < duration then
+          Attack.log( "add_blog_resdur_pen_dec", "target", blog_side_unit( target, 0 ), "restype", string.upper( string.sub( res_type, 1, 1 ) ) .. string.sub( res_type, 2 ), "durold", tostring( duration ), "durnew", tostring( new_duration ) )
+        end
       end
     end
   end
@@ -1054,7 +1075,7 @@ function pwr_armageddon( level, ehero_level )
   prc = prc - add_prc
   local sp_prc = 1 - Logic.hero_lu_item( "sp_gain_prc_armageddon", "count" ) / 100
   prc = math.ceil( prc * sp_prc )
-  prc = limit_value( prc, 0, 95 )
+  prc = limit_value( prc, 5, 100 )
 
   local burn = get_infliction( "spell_armageddon", level, "burn", ehero_level )
 

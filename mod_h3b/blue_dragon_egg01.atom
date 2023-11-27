@@ -1,0 +1,132 @@
+main {
+  class=box
+  model=sapphire_egg.bma
+  lutemplate=template_item_altar
+  cooldown=0
+  infobox {
+    hint=itm_dragon_egg_mhint
+    msgbox=itm_dragon_egg_map
+  }
+  cullcat=9
+}
+animations {
+  idle=sapphire_egg_idle.bsa/fr:25:50
+  charge=sapphire_egg_charge.bsa/fr:25:50
+  click=sapphire_egg_click.bsa/fr:25:50
+  cursor=sapphire_egg_cursor.bsa/fr:25:50
+  finish=sapphire_egg_finish.bsa/fr:25:50
+  release=sapphire_egg_release.bsa/fr:25:50
+  take=sapphire_egg_take.bsa/fr:25:50
+  empty=sapphire_egg_empty.bsa/fr:25:50
+  @finish {
+    5.0=alpha/0/15
+  }
+}
+editor {
+  align=grid/0/0/0.1/0.1
+  angle=0:1:360
+  spawnangle=0:1:360
+  scale=0.1:2
+  spawnscale=1.0
+  logicunit {
+    typeflags=vars,capture,items
+    name=blue_dragon_egg01
+    capture {
+      traps=template_item_ft
+    }
+    vars {
+      $status=object_visited_status
+      taken=itm_bluedragon_egg01_found
+    }
+    items {
+      dragon_egg {}
+    }
+  }
+}
+collisions {
+  ground=0.3
+  test0=0.5
+}
+attachments {
+  1 {
+    coord=0/-0.01/0/0/-0/0/0.80000001
+    particle {
+      trans=0/0.05/0/0/-0/0/0.60000002
+      file=env_outline_crystal.ptb
+    }
+    particle {
+      trans=0.1/0.5/0.1/0/-0/0/0.80000001
+      file=env_magic_stars.ptb
+    }
+    particle {
+      trans=0/0.5/0/0/-0/0/5
+      file=env_ring_blackbox.ptb
+    }
+  }
+  1 {
+    particle {
+      trans=0.1/-0.1/0/0/-0/0/1
+      animation=cursor
+      frame=0/200
+      file=env_magic_gleam.ptb
+    }
+    particle {
+      trans=0/0.30000001/0.2/0/-0.42663842/0/1
+      animation=click
+      frame=1/10
+      file=env_clickstroke.ptb
+    }
+    particle {
+      trans=0/0.30000001/0.2/-3.1415925/0.42663842/0/1
+      animation=click
+      frame=1/10
+      file=env_clickstroke.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=charge
+      frame=1
+      file=ch06_sq4
+      fadetime=60
+    }
+    sound {
+      animation=click
+      frame=2
+      file=ch05_sq4
+      fadetime=60
+    }
+    sound {
+      animation=click
+      frame=7
+      file=ch06_sq6
+      fadetime=60
+    }
+    sound {
+      animation=cursor
+      file=ch06_cursor2
+    }
+    sound {
+      animation=finish
+      frame=5
+      file=ch06_cursor1
+      fadetime=60
+    }
+    sound {
+      animation=release
+      frame=4
+      file=ch06_sq9
+      fadetime=60
+    }
+    sound {
+      animation=take
+      frame=3
+      file=ch06_sq7
+      fadetime=60
+    }
+    sound {
+      animation=take
+      file=money_take
+    }
+  }
+}

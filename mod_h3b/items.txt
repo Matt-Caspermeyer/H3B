@@ -1987,7 +1987,7 @@ rahha_shield {
   fight {
     {
       filter {
-        unit=bonedragon,blackdragon,greendragon,reddragon
+        unit=bonedragon,blackdragon,bluedragon,greendragon,reddragon
         belligerent=enemy
       }
       pbonus=attack,0,-50,0,-100,0,0
@@ -3228,7 +3228,7 @@ wing_wind {
     {
       filter {
         belligerent=ally
-        unit=beholder,blackdragon,bonedragon,dragonfly_fire,dragonfly_lake,ghost,ghost2,greendragon,griffin,sprite_lake,sprite,beholder2,reddragon,dryad,bat,bat2
+        unit=beholder,blackdragon,bluedragon,bonedragon,dragonfly_fire,dragonfly_lake,ghost,ghost2,greendragon,griffin,sprite_lake,sprite,beholder2,reddragon,dryad,bat,bat2
       }
       pbonus=speed,1,0,0,-100,0,0
       dbonus=
@@ -5003,7 +5003,7 @@ storm_eye {
     {
       filter {
         belligerent=enemy
-        unit=beholder,blackdragon,bonedragon,dragonfly_fire,dragonfly_lake,dryad,ghost,ghost2,greendragon,griffin,sprite,sprite_lake,beholder2,reddragon,bat,bat2
+        unit=beholder,blackdragon,bluedragon,bonedragon,dragonfly_fire,dragonfly_lake,dryad,ghost,ghost2,greendragon,griffin,sprite,sprite_lake,beholder2,reddragon,bat,bat2
       }
       pbonus=speed,-1,0,0,-100,0,0
       dbonus=

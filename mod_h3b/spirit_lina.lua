@@ -130,12 +130,15 @@ function enbox_bonus( t, cl )
   Attack.val_store( "name", "" ) -- чтобы дважды не давать этот бонус
 
   if Attack.act_belligerent( cl ) ~= 1 then
-    if name == "name" then
-  	   local count = Logic.enemy_lu_item( name,"count" )
+    if name == "rage"
+    or name == "mana" then
+  	   local count = Logic.enemy_lu_item( name, "count" )
 
 	     if count ~= nil then
         Logic.enemy_lu_item( name, "count", count + tonumber( Attack.val_restore( "val" ) ) )
-  		  end
+  		  else
+        Logic.hero_lu_item( name, "count", Logic.hero_lu_item( name, "count" ) - tonumber( Attack.val_restore( "val" ) ) )
+      end
     end
   else
     Logic.hero_lu_item( name, "count", Logic.hero_lu_item( name, "count" ) + tonumber( Attack.val_restore( "val" ) ) )
@@ -1234,8 +1237,8 @@ function lina_devatron()
   local duration = tonumber( Attack.get_custom_param( "duration" ) )
   local freeze = tonumber( Attack.get_custom_param( "freeze" ) )
   local thorns = tonumber( Attack.get_custom_param( "thorns" ) )
-  local min_dmg = tonumber( Attack.get_custom_param( "damage.physical.0" ) ) * thorns / 100
-  local max_dmg = tonumber( Attack.get_custom_param( "damage.physical.1" ) ) * thorns / 100
+  local min_dmg = tonumber( Attack.get_custom_param( "damage.physical.0" ) )
+  local max_dmg = tonumber( Attack.get_custom_param( "damage.physical.1" ) )
 
   for i, c in ipairs( get_devatron_cells() ) do
     local deviation = Game.Random( 000,600 )/1000.
@@ -1247,25 +1250,23 @@ function lina_devatron()
       Attack.act_animate( atom, "appear", t )
       local random_dur = Game.Random( 1, duration )
       Attack.val_store( atom, "duration", random_dur )
-      Attack.val_store( atom, "min_dmg", min_dmg )
-      Attack.val_store( atom, "max_dmg", max_dmg )
+      Attack.val_store( atom, "min_dmg", min_dmg * thorns / 100 )
+      Attack.val_store( atom, "max_dmg", max_dmg * thorns / 100 )
       Attack.val_store( atom, "dmg_type", "physical" )
     elseif Attack.act_enemy( c )
     and Attack.act_takesdmg( c ) then
       local a = Attack.atom_spawn( c, start + deviation / 10, "devatron_throw" )
       Attack.act_aseq( a, "idle" )
       local hit_time = Attack.aseq_time( a, "x" ) + start + deviation / 10
-      local hit_x = Attack.aseq_time( c, "x" )
+      local dmg_min, dmg_max = common_freeze_im_vul( c, min_dmg, max_dmg )
+      Attack.atk_set_damage( "physical", dmg_min, dmg_max )
+      local returnval, dead = common_cell_apply_damage( c, hit_time )
+--[[      local hit_x = Attack.aseq_time( c, "x" )
       Attack.aseq_timeshift( c, hit_time )
       Attack.dmg_timeshift( c, hit_time )
-      local dead = Attack.act_damage( c )
+      local dead = Attack.act_damage( c )]]
 
-      if not dead
-      and not Attack.act_pawn( c )
-      and not Attack.act_feature( c, "golem" )
-      and not Attack.act_feature( c, "plant" )
-      and not Attack.act_feature( c, "freeze_immunitet" )
-      and not Attack.act_feature( c, "boss" ) then
+      if not dead then
         common_freeze_attack( c, "devatron", freeze, hit_time + 2, duration )
       end
     end
@@ -1294,7 +1295,8 @@ function devatron_attack()
       and Attack.cell_present( c )
       and Attack.act_takesdmg( c )
       and not ( Attack.act_name( c ) == "devatron" ) then
-        Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
+        local dmg_min, dmg_max = common_freeze_im_vul( c, min_dmg, max_dmg )
+        Attack.atk_set_damage( dmg_type, dmg_min, dmg_max )
 		    	 common_cell_apply_damage( c, dmgts + Game.Random() )
     				Attack.log_label( '' )
 		    end
@@ -1316,7 +1318,8 @@ function devatron_thorns( wnm, ts, dead )
 	   local target = Attack.val_restore( 0, "target" )
 
     if target ~= nil then
-      Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
+      local dmg_min, dmg_max = common_freeze_im_vul( target, min_dmg, max_dmg )
+      Attack.atk_set_damage( dmg_type, dmg_min, dmg_max )
       common_cell_apply_damage( target, ts + 0.5 )
   				Attack.log_label( '' )
     end

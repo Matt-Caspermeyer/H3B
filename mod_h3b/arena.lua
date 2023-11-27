@@ -134,7 +134,8 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
     if Attack.act_is_spell( receiver, "effect_entangle" )
     or Attack.act_is_spell( receiver, "special_spider_web" )
     or Attack.act_is_spell( receiver, "effect_stun" )
-    or Attack.act_is_spell( receiver, "spell_blind" ) then
+    or Attack.act_is_spell( receiver, "spell_blind" )
+    or Attack.act_is_spell( receiver, "effect_blind" ) then
       kritProb = 2 * kritProb
     end
   
@@ -163,6 +164,21 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
 
     if Attack.is_base_attack() then -- все изменения урона распространяются только на базовые атаки
       min_, max_ = correct_damage_minmax( attacker, min_, max_ )
+    elseif Attack.get_caa( attacker ) ~= nil
+    and Attack.act_chesspiece( attacker ) then
+      local diff_k = Attack.val_restore( attacker, "diff_k" )
+      local sign_diff_k = Attack.val_restore( attacker, "sign_diff_k" )
+      local min_stat_inc = Attack.val_restore( attacker, "min_stat_inc" )
+      local inc = 0
+
+      if diff_k ~= nil
+      and sign_diff_k ~= nil
+      and min_stat_inc ~= nil then
+        inc = math.max( round( math.abs( min_ * diff_k ) ), min_stat_inc ) * sign_diff_k
+        min_ = min_ + inc
+        inc = math.max( round( math.abs( max_ * diff_k ) ), min_stat_inc ) * sign_diff_k
+        max_ = max_ + inc
+      end
     end
 
     local dmg
@@ -245,6 +261,15 @@ function apply_damage( attacker, receiver, dfactor, minmax, krit, kritProb ) --f
 
   if minmax == 0 then -- только когда реально наносим урон
     -- выпили зелье уклонения и висит спелл
+    if Attack.act_is_spell( attacker, "effect_blind" )
+    and Attack.val_restore( attacker, "ignore_effect_blind" ) == nil then
+      local rnd = Game.Random( 99 )
+      
+      if rnd < 89 then
+        return MISS, 0, "happy", ""
+      end
+    end
+
     if Attack.act_is_spell( receiver, "feat_potion_evasion" )
     and ( Attack.act_chesspiece( attacker )
     or Attack.act_pawn( attacker ) ) then
@@ -365,23 +390,80 @@ end
 
 
 function calc_bonus() --ftag:bonus
-  local enemyHeroK = 1.5 + Game.Config( "enemy_hero_money_exp_bonus_k") * Logic.enemy_hero_level()
-  if Logic.enemy_hero_level() == 0 then enemyHeroK = 1 end
+--  local enemyHeroK = 1.5 + Game.Config( "enemy_hero_money_exp_bonus_k") * Logic.enemy_hero_level()
+--  if Logic.enemy_hero_level() == 0 then enemyHeroK = 1 end
+  local ehero_level = 0
+
+  if EHERO_LEVEL ~= nil then
+    ehero_level = EHERO_LEVEL  -- this accounts for Gremlin Towers
+    EHERO_LEVEL = nil  -- clear Global
+  end
+
+  local enemyHeroK = 1.5 + Game.Config( "enemy_hero_money_exp_bonus_k" ) * ehero_level
+
+  if ehero_level == 0 then enemyHeroK = 1 end
 
   local necroK, necroKexp = skill_power2( "holy_knight", 1 ), skill_power2( "holy_knight", 2 )
   local addexp, gold = 0, 0
+  local total_dragonflies = 0 --[[, total_griffins, total_snakes, total_spiders = 0, 0, 0, 0
+  local total_skeletons, total_vampires, total_thorns, total_ents = 0, 0, 0, 0
+  local total_bonedragons, total_greendragons, total_reddragons, total_blackdragons = 0, 0, 0, 0]]
 
   for i = 0, Bonus.info_enemy_dead_count() - 1 do
     local dead, atom = Bonus.info_enemy_dead_get( i )
     local k, expK = 0, 1
+
     if dead > 0 then
       if necroK > 0 then
         local race = Attack.atom_getpar( atom, "race" )
+
         if race == "demon"
-        or race == "undead" then k = necroK/100; expK = 1+necroKexp/100 end
+        or race == "undead" then k = necroK / 100; expK = 1 + necroKexp / 100 end
       end
 
-      addexp = addexp + ( Bonus.info_unitexp( atom ) * dead) * expK
+      -- This is to compute chance of awarding dragonfly wings as a bonus
+      if atom == "dragonfly_fire"
+      or atom == "dragonfly_lake" then
+        total_dragonflies = total_dragonflies + dead
+--[[      elseif atom == "griffin" then
+        total_griffins = total_griffins + dead
+      elseif atom == "snake"
+      or atom == "snake_green"
+      or atom == "snake_royal" then
+        total_snakes = total_snakes + dead
+      elseif atom == "spider"
+      or atom == "spider_fire"
+      or atom == "spider_undead"
+      or atom == "spider_venom" then
+        total_spiders = total_spiders + dead
+      elseif atom == "archers"
+      or atom == "skeletons" then
+        total_skeletons = total_skeletons + dead
+      elseif atom == "bat"
+      or atom == "bat2"
+      or atom == "vampire"
+      or atom == "vampire2" then
+        total_vampires = total_vampires + dead
+      elseif atom == "thorn"
+      or atom == "thorn_warrior" then
+        total_thorns = total_thorns + dead
+      elseif atom == "kingthorn" then
+        total_thorns = total_thorns + dead * 61.5
+      elseif atom == "ent" then
+        total_ents = total_ents + dead
+      elseif atom == "ent2" then
+        total_ents = total_ents + dead * 4.5
+      elseif atom == "bonedragon" then
+        total_bonedragons = total_bonedragons + dead
+      elseif atom == "blackdragon" then
+        total_blackdragons = total_blackdragons + dead
+      elseif atom == "greendragon" then
+        total_greendragons = total_greendragons + dead
+      elseif atom == "reddragon" then
+        total_reddragons = total_reddragons + dead]]
+      end
+
+      addexp = addexp + ( Bonus.info_unitexp( atom ) * dead ) * expK
       gold = gold + Attack.atom_getpar( atom, "cost" ) * dead * ( 1 + k )
     end
   end
@@ -435,12 +517,223 @@ function calc_bonus() --ftag:bonus
   end
 
   local compensk = tonumber( text_dec( Game.Config( 'difficulty_k/deadmoney' ), Game.HSP_difficulty() + 1, '|' ) )
+
   for i = 0, Bonus.info_ally_dead_count() - 1 do
     local dead, atom = Bonus.info_ally_dead_get( i )
     if dead > 0 then
       gold = gold + Attack.atom_getpar( atom, "cost" ) * dead * compensk
     end
   end
+
+  local total_bonus_add = 0  -- this counter is used to protect against calling Bonus.add more than 3 times (crashes game if it happens)
+
+  if total_dragonflies > 0 then
+    local dragonfly_wing_chance = math.sqrt( total_dragonflies )
+    local number_wings = math.floor( math.sqrt( dragonfly_wing_chance ) )
+
+    if number_wings > 0 then
+      if Game.Random( 99 ) < dragonfly_wing_chance then
+        Logic.hero_add_item( "wing_dragonfly", number_wings )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "dfly_wng" )  -- I don't put the number of wings here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+--[[  if total_blackdragons > 0 then
+    local container_chance = math.sqrt( total_blackdragons )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "blackdragon_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_blackdragon" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_reddragons > 0 then
+    local container_chance = math.sqrt( total_reddragons )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "reddragon_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_reddragon" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_greendragons > 0 then
+    local container_chance = math.sqrt( total_greendragons )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "greendragon_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_greendragon" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_bonedragons > 0 then
+    local container_chance = math.sqrt( total_bonedragons )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "bonedragon_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_bonedragon" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_ents > 0 then
+    local container_chance = math.sqrt( total_ents )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "ent_seed", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "seed_ent" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_griffins > 0 then
+    local container_chance = math.sqrt( total_griffins )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "griffin_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_griffin" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_vampires > 0 then
+    local container_chance = math.sqrt( total_vampires )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "vampire_grave", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "grave_vampire" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_snakes > 0 then
+    local container_chance = math.sqrt( total_snakes )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "snake_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_snake" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_spiders > 0 then
+    local container_chance = math.sqrt( total_spiders )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "spider_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_spider" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_skeletons > 0 then
+    local container_chance = math.sqrt( total_skeletons )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "skeleton_grave", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "grave_skeleton" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_dragonflies > 0 then
+    local container_chance = math.sqrt( total_dragonflies )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "dfly_egg", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "egg_dfly" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end
+
+  if total_thorns > 0 then
+    local container_chance = math.sqrt( total_thorns )
+    local number_container = math.floor( math.sqrt( container_chance ) )
+
+    if number_container > 0 then
+      if Game.Random( 99 ) < container_chance then
+        Logic.hero_add_item( "thorn_seed", number_continer )
+
+        if total_bonus_add < 3 then
+          Bonus.add( "seed_thorn" )  -- I don't put the number here because they interfere with the gold display (not sure how to fix)
+          total_bonus_add = total_bonus_add + 1
+        end
+      end
+    end
+  end]]
 
   Bonus.add( "money", common_update_money( gold ) )
   mana_rage_gain_k = 1
@@ -462,7 +755,7 @@ function get_moral_modifier( moral_now, moral_prev )
   return att_def_modifier, krit_modifier
 end
 
---New! Function decreases moral of your units
+--New! Function decreases stats of your units for long combats
 function apply_long_combat_penalties( target, suffix, morale, init, speed, reload )
   local function apply_long_combat_penalties_common( target, suffix, morale, init, speed, reload )
     if morale
@@ -596,15 +889,19 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
   if diff_k < 0 then
     sign_diff_k = -1
   end
+
+  Attack.val_store( target, "diff_k", diff_k )
+  Attack.val_store( target, "sign_diff_k", sign_diff_k )
+  Attack.val_store( target, "min_stat_inc", min_stat_inc )
   
   local function apply_bonus( target, diff_k, sign_diff_k, parameter, min_stat_inc )
     local current_value, base_value = Attack.act_get_par( target, parameter )
     local value_inc = 0
 
     if parameter == "krit" then
-      value_inc = math.max( math.floor( math.abs( diff_k * 100 ) ), min_stat_inc ) * sign_diff_k
+      value_inc = math.max( round( math.abs( diff_k * 100 ) ), min_stat_inc ) * sign_diff_k
     else
-      value_inc = math.max( math.floor( math.abs( base_value * diff_k ) ), min_stat_inc ) * sign_diff_k
+      value_inc = math.max( round( math.abs( base_value * diff_k ) ), min_stat_inc ) * sign_diff_k
     end
 
     if base_value + value_inc < 1
@@ -622,7 +919,7 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
       Attack.act_set_par( target, parameter, base_value + value_inc )
 
       if parameter == "defense" then
-        local defenseup = math.max( math.floor( ( base_value + value_inc ) / 5 ), min_stat_inc )
+        local defenseup = math.max( round( ( base_value + value_inc ) / 5 ), min_stat_inc )
         Attack.act_set_par( target, "defenseup", defenseup )
         local new_current_value, new_base_value = Attack.act_get_par( target, parameter )
         Attack.val_store( target, "enemy_hero_defense", math.max( 0, new_current_value - new_base_value ) )
@@ -650,8 +947,8 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
     local min_damage_current, min_damage_base = Attack.act_get_dmg_min( target, resistances[ i ] )
     if min_damage_base > 0 then
       local max_damage_current, max_damage_base = Attack.act_get_dmg_max( target, resistances[ i ] )
-      local min_damage_inc = math.max( math.floor( math.abs( min_damage_base * diff_k ) ), min_stat_inc ) * sign_diff_k
-      local max_damage_inc = math.max( math.floor( math.abs( max_damage_base * diff_k ) ), min_stat_inc ) * sign_diff_k
+      local min_damage_inc = math.max( round( math.abs( min_damage_base * diff_k ) ), min_stat_inc ) * sign_diff_k
+      local max_damage_inc = math.max( round( math.abs( max_damage_base * diff_k ) ), min_stat_inc ) * sign_diff_k
       local new_min_damage = min_damage_current + min_damage_inc
       local new_max_damage = max_damage_current + max_damage_inc
   
@@ -678,7 +975,7 @@ function apply_difficulty_bonuses( target, diff_k, desc, resistances, min_stat_i
   for i = 1, table.getn( resistances ) do
     local resist, base_resist = Attack.act_get_res( target, resistances[ i ] )
     if base_resist ~= 0 then
-      local new_resist = math.floor( math.abs( base_resist * diff_k ) * sign_diff_k )
+      local new_resist = round( math.abs( base_resist * diff_k ) * sign_diff_k )
       Attack.act_attach_modificator_res( target, resistances[ i ], desc .. resistances[ i ], new_resist, 0, 0, -100, false )
     end
   end
@@ -809,6 +1106,65 @@ function on_round_start( round, tend )
   Logic.enemy_lu_var( "book_times", enemy_hero_book_times )
 
   if round == 1 then -- начало боя
+    local locName = Game.LocName()
+    local locType = ''
+  
+    if Game.LocType( 'cemetery' ) then
+      locType = 'cemetery'
+    end
+    if Game.LocType( 'lava' ) then
+      if locType == '' then
+        locType = 'lava'
+      else
+        locType = locType .. ',' .. 'lava'
+      end
+    end
+    if Game.LocType( 'dungeon' ) then
+      if locType == '' then
+        locType = 'dungeon'
+      else
+        locType = locType .. ',' .. 'dungeon'
+      end
+    end
+    if Game.LocType( 'forest' ) then
+      if locType == '' then
+        locType = 'forest'
+      else
+        locType = locType .. ',' .. 'forest'
+      end
+    end
+    if Game.LocType( 'sea' ) then
+      if locType == '' then
+        locType = 'sea'
+      else
+        locType = locType .. ',' .. 'sea'
+      end
+    end
+    if Game.LocType( 'winter' ) then
+      if locType == '' then
+        locType = 'winter'
+      else
+        locType = locType .. ',' .. 'winter'
+      end
+    end
+    if locType == '' then
+      locType = 'normal'
+    end
+
+    local timeOfDay
+
+    if Game.DayTime() == 0 then
+      timeOfDay = 'morning'
+    elseif Game.DayTime() == 1 then
+      timeOfDay = 'afternoon'
+    elseif Game.DayTime() == 2 then
+      timeOfDay = 'evening'
+    elseif Game.DayTime() == 3 then
+      timeOfDay = 'night'
+    end
+
+    Attack.log( "loc_name_type_log", "name", locName, "special", locType, "special2", timeOfDay )
+
     -- NEW! Adds +rounds to the mana_rage_gain_k decrease when fighting enemy heroes, towers, and bosses (must be GLOBAL)
     ROUND_MANA_RAGE_GAIN = 0
     -- New! Used for generating spirit experience
@@ -1136,17 +1492,6 @@ function on_knockout( koN, caa ) -- koN - кол-во убитых отрядов
 end
 
 
--- New function for resetting the enemy unit bonuses between turns
-function transform_modificators()
-  if TRANSFORM_SPECIAL_DIFFICULTY == true then
-    TRANSFORM_SPECIAL_DIFFICULTY = nil  -- reset for next transformer
-    -- Using the cell ID is needed because the current unit, might not be the same that just transformed
-    update_enemy_units_based_on_difficulty( Attack.get_caa( Attack.get_cell( TRANSFORM_CELL_ID ) ) )
-    TRANSFORM_CELL_ID = nil  -- clean up
-  end
-
-end
-
 --seed = 0
 
 -- AI Front End
@@ -1273,7 +1618,7 @@ function ai_choose_target( mover--[[, attacks]], enemies, ecells ) --выбирает це
         end
       end
 ]]
-      local targets = {}
+--      local targets = {}
 
 --      for i=1,table.getn(enemies) do
 --        if --[[enemies[i].skip ~= true and]] enemies[i].attacks.n > 0 then --выбираем только тех, кого можно атаковать сейчас
@@ -1473,6 +1818,9 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
   Иначе считается суммарная сила вражеских стреляющих юнитов, которые могут достать до любого нашего юнита,
   а также суммарная сила всех юнитов врага, если отношение первого показателя ко второму больше 0.6, то тактика - наступающая, иначе:
   считаются аналогичные показатели для дружественных юнитов, и если их отношение больше 0.6, то тактика - оборонительная, иначе наступающая. ]]
+  if mana_rage_gain_k == nil then
+    mana_rage_gain_k = 1
+  end
 
   local targets, offence = {}
 
@@ -1493,7 +1841,6 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
   end
 
   local actions = {}
-
   --[[ Действия при наступающей тактике:
     1. базовая атака (цель выбирается по наибольшей опасности либо из тех врагов, кого можно атаковать сейчас, либо если таких нет,
        из всех доступных врагов);
@@ -1509,16 +1856,24 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
       return false
   end]]
   local can_attack = {}
+  local total_can_attack = 0
+
+  for k, act in ipairs( enemies ) do
+    can_attack[ act.cell ] = true
+    total_can_attack = total_can_attack + 1
+  end
+
+  local cant_attack_incapacitated_enemies = 1
 
   for k, act in ipairs( enemies ) do
     local max_duration = duration_effect( act, "spell_blind", 0 )
     max_duration = duration_effect( act, "effect_unconscious", max_duration )
     max_duration = duration_effect( act, "effect_sleep", max_duration )
 
-    if max_duration > 1 then
+    if max_duration > 1
+    and total_can_attack > cant_attack_incapacitated_enemies then
       can_attack[ act.cell ] = false
-    else
-      can_attack[ act.cell ] = true
+      cant_attack_incapacitated_enemies = cant_attack_incapacitated_enemies + 1
     end
   end
 
@@ -1626,6 +1981,35 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
   local can_attack_enemy = false
   local mover_atks, target = mover.atks
   local mover_power = mover.leadship * mover.units
+
+  local bonus_cells = {}
+
+  for i = 1, ecells.n do
+    local cell = ecells[ i ]
+    local ecellbonus = Attack.cell_bonus( cell )
+  
+    if ecellbonus ~= nil then
+      table.insert( bonus_cells, cell )
+    end
+  end
+
+  local closest, closest_target = 1e5, nil
+
+  for i = 1, table.getn( bonus_cells ) do
+    local cell = bonus_cells[ i ]
+
+    if Attack.calc_path( cell, mover ) ~= nil then
+      if cell.distance <= mover.ap
+      and cell.distance < closest then
+        closest = cell.distance
+        closest_target = cell
+      end
+    end
+  end
+  
+  if closest_target ~= nil then
+    table.insert( actions, { target = { cell = closest_target.cell }, prob = mover.ap / closest * ( mintours2enemy + 0.5 ) * 10000 * ( mana_rage_gain_k + 0.01 ) } )
+  end
 
   -- I didn't know any other way to do this, since the Throw Axe ability doesn't show when the Furious Goblin
   -- is adjacent to an enemy. So by disabling their Run ability (and then re-enabling later) I can then see (by
@@ -2056,14 +2440,15 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
         for i = 1, atk.targets.n do
           local act = atk.targets[ i ]
 
-          if Attack.act_race( act, "undead" )
-          and Attack.act_enemy( act ) then
-            local h2 = h * 2
-            local power = math.min( act.totalhp, h2 ) / math.max( act.totalhp, h2 )
-
-            if power > maxprofit then
-              maxprofit = power
-              target = act
+          if Attack.act_race( act, "undead" ) then
+            if Attack.act_enemy( act ) then
+              local h2 = h * 2
+              local power = math.min( act.totalhp, h2 ) / math.max( act.totalhp, h2 )
+  
+              if power > maxprofit then
+                maxprofit = power
+                target = act
+              end
             end
           else
             local profit = math.min( act.par( 'health' ) - act.hp, h ) / h
@@ -2234,6 +2619,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
       elseif name == "cast_thorn"
       or name == "cast_bear"
       or name == "cast_demon"
+      or name == "summondragonfly"
       or string.find( name, "summonplant" ) then  -- New! Summon Plant
         local pr = 70 + mover_power / allies_power * 30
 
@@ -2684,8 +3070,9 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
 
         if Game.Random( 99 ) < pr then target = mover end
 
-      elseif name == "poison_cloud"
-      or name == "gain_mana" then -- bone/green dragon
+      elseif name == "poison_cloud"  -- bone dragon
+      or name == "zap"               -- blue dragon
+      or name == "gain_mana" then    -- green dragon
         local enemies = 0
 
         for dir = 0, 5 do
@@ -2694,6 +3081,7 @@ function ai_solver( mover, enemies, ecells, actors ) -- actors - массив актеров,
           if c ~= nil
           and Attack.cell_present( c ) then
             if name == "poison_cloud"
+            or name == "zap"
             and Attack.act_ally( c ) then -- своих не бьём!
               enemies = 0
               break
@@ -3236,6 +3624,389 @@ function ally_enemy_midpoint()
 end
 
 
+-- New! Function that computes actor, ally, and enemy data for AI functions
+function compute_actor_ally_enemy( resistances )
+  local actors, allies, enemies = {}, {}, {}
+  local under_attack_units, can_attack_units = {}, {}
+
+
+  local function augment_act( a, act )
+    act.power = act.units * act.leadship
+    act.att = Attack.act_get_par( a, "attack" )
+    act.def = Attack.act_get_par( a, "defense" )
+    act.init = Attack.act_get_par( a, "initiative" )
+    act.krit = Attack.act_get_par( a, "krit" )
+    act.baseatk = {}
+    act.res = {}
+    local total_avg_dmg = 0
+    local total_res = 0
+
+    for i = 1, table.getn( resistances ) do
+      local min_dmg = Attack.act_get_dmg_min( a, resistances[ i ] )
+      local max_dmg = Attack.act_get_dmg_max( a, resistances[ i ] )
+      local avg_dmg = ( min_dmg + max_dmg ) / 2
+      total_avg_dmg = total_avg_dmg + avg_dmg
+      act.baseatk[ resistances[ i ] ] = { min_dmg = min_dmg, max_dmg = max_dmg, avg_dmg = avg_dmg }
+      local res = Attack.act_get_res( a, resistances[ i ] )
+      act.res[ resistances[ i ] ] = res
+      total_res = total_res + res
+    end
+
+    act.total_avg_dmg = total_avg_dmg
+    act.dangerous = act.units * act.att * act.total_avg_dmg * ( 1 + act.krit )
+    act.avg_res = total_res / table.getn( resistances )
+    act.res_factor = ( act.avg_res + 100 ) / 100
+    act.toughness = act.def * act.res_factor
+    act.resilience = act.totalhp * act.toughness
+
+    return true
+  end
+
+
+  for i = 1, Attack.act_count() - 1 do
+    local ally = Attack.act_ally( i )
+
+    if ally
+    or Attack.act_enemy( i ) then
+      local act = Attack.get_caa( i, true )
+      augment_act( i, act )
+      table.insert( actors, act )
+      local base = act.atks.base
+
+      if base ~= nil then
+        if base.targets.n > 0 then
+          local max_duration = duration_effect( act, "spell_blind", 0 )
+          max_duration = duration_effect( act, "effect_unconscious", max_duration )
+          max_duration = duration_effect( act, "effect_sleep", max_duration )
+       
+          if max_duration > 1 then
+            can_attack_units[ act.cell ] = false
+          else
+            can_attack_units[ act.cell ] = true
+          end
+        end
+
+        for i = 1, base.targets.n do
+          under_attack_units[ base.targets[ i ].cell ] = true
+        end
+      end
+    end
+  end
+
+
+  local function atk_common_score( act )
+    local atk_power = 0
+    local total_targets = 0
+
+
+    local function use_mass_ability( unit, no_spell, check_func )
+      local targets = 0
+  
+      for i, act in ipairs( actors ) do
+        if not act.spells[ no_spell ]
+        and check_func( act, unit ) then
+          targets = targets + 1
+        end
+      end
+
+      return targets  
+    end
+
+
+    for name, atk in pairs( act.atks ) do
+      if name ~= nil then
+        if atk.dmgavg ~= 0 then
+          atk_power = atk_power + act.units * atk.dmgavg * act.level * atk.targets.n
+          total_targets = total_targets + atk.targets.n
+        else
+          if name == "cry" then
+            local targets = use_mass_ability( act, 'effect_fear', function( act, unit ) return Attack.act_enemy( act, Attack.act_belligerent( unit ) ) and ( Attack.act_race( act ) == "human" or Attack.act_race( act ) == "elf" or Attack.act_race( act ) == "dwarf" or ( string.find( Attack.act_name( act ), "pirat" ) ) ) and Attack.act_level( act ) <= tonumber( Logic.obj_par( "special_wolf_cry", "level" ) ) and not Attack.act_feature( act, "mind_immunitet" ) end )
+            atk_power = atk_power + act.units * act.level * act.level * targets * targets
+            total_targets = total_targets + targets
+          elseif name == "cast_sleep" then
+            local targets = use_mass_ability( act, 'effect_sleep', function( act, unit ) return Attack.act_enemy( act, Attack.act_belligerent( unit ) ) and Attack.act_level( act ) <= tonumber( atk.custom_params.level ) and not Attack.act_feature( act, atk.custom_params.nfeatures ) end )
+            atk_power = atk_power + act.units * act.level * act.level * targets * targets
+            total_targets = total_targets + targets
+          elseif name == "elf_song" then
+            local targets = use_mass_ability( act, 'special_elf_song', function( act, unit ) return Attack.act_ally( act, Attack.act_belligerent( unit ) ) and Attack.act_race( act ) == "elf" end )
+            atk_power = atk_power + act.units * act.level * act.level * targets * targets
+            total_targets = total_targets + targets
+          else
+            atk_power = atk_power + act.units * act.level * act.level * atk.targets.n * atk.targets.n
+            total_targets = total_targets + atk.targets.n
+          end
+        end
+      end
+    end
+
+    total_targets = math.max( total_targets, ( act.init + act.ap ) / 2 )
+
+    return atk_power, total_targets
+  end
+
+
+  local function unit_score( act )
+    local lead_power = act.leadship * act.units
+    local hp_power = act.totalhp
+    local power = lead_power + hp_power + act.atk_power
+
+    return power 
+  end
+
+
+  local totals = { dangerous = { total = 0, ally = 0, enemy = 0 },
+                   toughness = { total = 0, ally = 0, enemy = 0 },
+                   resilience = { total = 0, ally = 0, enemy = 0 },
+                   power = { total = 0, ally = 0, enemy = 0 },
+                   level = { total = 0, ally = 0, enemy = 0 },
+                   init = { total = 0, ally = 0, enemy = 0 },
+                   ap = { total = 0, ally = 0, enemy = 0 },
+                   att = { total = 0, ally = 0, enemy = 0 },
+                   def = { total = 0, ally = 0, enemy = 0 },
+                   krit = { total = 0, ally = 0, enemy = 0 },
+                   res = { total = {}, ally = {}, enemy = {} },
+                   total_avg_dmg = { total = 0, ally = 0, enemy = 0 },
+                   atk_power = { total = 0, ally = 0, enemy = 0 },
+                   unit_score = { total = 0, ally = 0, enemy = 0 },
+                   threat = { total = 0, ally = 0, enemy = 0 } }
+
+  local maxes = { dangerous = { total = 0, ally = 0, enemy = 0 },
+                  toughness = { total = 0, ally = 0, enemy = 0 },
+                  resilience = { total = 0, ally = 0, enemy = 0 },
+                  power = { total = 0, ally = 0, enemy = 0 },
+                  level = { total = 0, ally = 0, enemy = 0 },
+                  init = { total = 0, ally = 0, enemy = 0 },
+                  ap = { total = 0, ally = 0, enemy = 0 },
+                  att = { total = 0, ally = 0, enemy = 0 },
+                  def = { total = 0, ally = 0, enemy = 0 },
+                  krit = { total = 0, ally = 0, enemy = 0 },
+                  res = { total = {}, ally = {}, enemy = {} },
+                  total_avg_dmg = { total = 0, ally = 0, enemy = 0 },
+                  atk_power = { total = 0, ally = 0, enemy = 0 },
+                  unit_score = { total = 0, ally = 0, enemy = 0 },
+                  threat = { total = 0, ally = 0, enemy = 0 } }
+
+
+  local mins = { dangerous = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 toughness = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 resilience = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 power = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 level = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 init = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 ap = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 att = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 def = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 krit = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 res = { total = {}, ally = {}, enemy = {} },
+                 total_avg_dmg = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 atk_power = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 unit_score = { total = 1e10, ally = 1e10, enemy = 1e10 },
+                 threat = { total = 1e10, ally = 1e10, enemy = 1e10 } }
+
+
+  for i = 1, table.getn( resistances ) do
+    for kind, v in pairs( totals.res ) do
+      totals.res[ kind ][ resistances[ i ] ] = 0
+    end
+
+    for kind, v in pairs( maxes.res ) do
+      maxes.res[ kind ][ resistances[ i ] ] = -1e10
+    end
+
+    for kind, v in pairs( mins.res ) do
+      mins.res[ kind ][ resistances[ i ] ] = 1e10
+    end
+  end
+
+
+  local function get_totals( kind, act )
+    for name, v in pairs( totals ) do
+      if name == "res" then
+        for res, value in pairs( act.res ) do
+          totals[ name ][ kind ][ res ] = totals[ name ][ kind ][ res ] + value + 100
+
+          if value > maxes[ name ][ kind ][ res ] then
+            maxes[ name ][ kind ][ res ] = value
+          end
+
+          if value < mins[ name ][ kind ][ res ] then
+            mins[ name ][ kind ][ res ] = value
+          end
+        end
+      else
+        totals[ name ][ kind ] = totals[ name ][ kind ] + act[ name ]
+
+        if act[ name ] > maxes[ name ][ kind ] then
+          maxes[ name ][ kind ] = act[ name ]
+        end
+
+        if act[ name ] < mins[ name ][ kind ] then
+          mins[ name ][ kind ] = act[ name ]
+        end
+      end
+    end
+  end
+
+
+  local res_danger = { total = {}, ally = {}, enemy = {} }
+
+  for i = 1, table.getn( resistances ) do
+    res_danger.total[ resistances[ i ] ] = 0
+    res_danger.ally[ resistances[ i ] ] = 0
+    res_danger.enemy[ resistances[ i ] ] = 0
+  end
+
+  for i, act in ipairs( actors ) do
+    for res, dmg in pairs( act.baseatk ) do
+      res_danger.total[ res ] = res_danger.total[ res ] + act.units * act.att * act.baseatk[ res ].avg_dmg * ( 1 + act.krit )
+
+      if Attack.act_ally( act ) then
+        res_danger.ally[ res ] = res_danger.ally[ res ] + act.units * act.att * act.baseatk[ res ].avg_dmg * ( 1 + act.krit )
+      else
+        res_danger.enemy[ res ] = res_danger.enemy[ res ] + act.units * act.att * act.baseatk[ res ].avg_dmg * ( 1 + act.krit )
+      end
+    end
+
+    actors[ i ].atk_power, actors[ i ].threat = atk_common_score( act )
+    actors[ i ].unit_score = unit_score( act )
+    get_totals( "total", act )
+--    local nomag_immune = not Attack.act_feature( act, "magic_immunitet" )
+
+    if Attack.act_ally( act ) then
+      table.insert( allies, act )
+      get_totals( "ally", act )
+
+--      if nomag_immune then nomag_immune_allies = nomag_immune_allies + 1 end
+    else
+      table.insert( enemies, act )
+      get_totals( "enemy", act )
+
+--      if nomag_immune then nomag_immune_enemies = nomag_immune_enemies + 1 end
+    end
+  end
+
+  local averages = { dangerous = { total = 0, ally = 0, enemy = 0 },
+                     toughness = { total = 0, ally = 0, enemy = 0 },
+                     resilience = { total = 0, ally = 0, enemy = 0 },
+                     power = { total = 0, ally = 0, enemy = 0 },
+                     level = { total = 0, ally = 0, enemy = 0 },
+                     init = { total = 0, ally = 0, enemy = 0 },
+                     ap = { total = 0, ally = 0, enemy = 0 },
+                     att = { total = 0, ally = 0, enemy = 0 },
+                     def = { total = 0, ally = 0, enemy = 0 },
+                     krit = { total = 0, ally = 0, enemy = 0 },
+                     res = { total = {}, ally = {}, enemy = {} },
+                     total_avg_dmg = { total = 0, ally = 0, enemy = 0 },
+                     atk_power = { total = 0, ally = 0, enemy = 0 },
+                     unit_score = { total = 0, ally = 0, enemy = 0 },
+                     threat = { total = 0, ally = 0, enemy = 0 } }
+
+
+  local total_numbers = { total = table.getn( actors ),
+                          ally = table.getn( allies ),
+                          enemy = table.getn( enemies ) }
+
+  for name, v in pairs( totals ) do
+    for kind, w in pairs( v ) do
+      if name == "res" then
+        for res, value in pairs( w ) do
+          averages[ name ][ kind ][ res ] = ( value - total_numbers[ kind ] * 100 ) / total_numbers[ kind ]
+        end
+      else
+        averages[ name ][ kind ] = w / total_numbers[ kind ]
+      end
+    end
+  end
+
+  local pct_danger = { total = {}, ally = {}, enemy = {} }
+
+  for kind, danger in pairs( res_danger ) do
+    for res, v in pairs( danger ) do
+      pct_danger[ kind ][ res ] = v / totals.dangerous[ kind ]
+    end
+  end
+
+  local ranks = { actors = {}, allies = {}, enemies = {} }
+
+
+  local function update_ranks( ranks )
+    local allies_counter, enemies_counter = 0, 0
+
+    for i, act in ipairs( actors ) do
+      ranks.actors[ i ] = {}
+      local total = 0
+
+      for name, v in pairs( totals ) do
+        if name == "res" then
+          ranks.actors[ i ][ name ] = {}
+
+          for res, value in pairs( act.res ) do
+            local res_value = ( 100 + act[ name ][ res ] ) / totals[ name ][ "total" ][ res ]
+            ranks.actors[ i ][ name ][ res ] = res_value
+            total = total + res_value
+          end
+        else
+          local name_value = act[ name ] / totals[ name ][ "total" ]
+          ranks.actors[ i ][ name ] = name_value
+          total = total + name_value
+        end
+      end
+
+      ranks.actors[ i ].total = total
+      local total_allies, total_enemies = 0, 0
+  
+      if Attack.act_ally( act ) then
+        allies_counter = allies_counter + 1
+        ranks.allies[ allies_counter ] = {}
+
+        for name, v in pairs( totals ) do
+          if name == "res" then
+            ranks.allies[ allies_counter ][ name ] = {}
+
+            for res, value in pairs( act.res ) do
+              local res_value = ( 100 + act[ name ][ res ] ) / totals[ name ][ "ally" ][ res ]
+              ranks.allies[ allies_counter ][ name ][ res ] = res_value
+              total_allies = total_allies + res_value
+            end
+          else
+            local name_value = act[ name ] / totals[ name ][ "ally" ]
+            ranks.allies[ allies_counter ][ name ] = name_value
+            total_allies = total_allies + name_value
+          end
+        end
+
+        ranks.allies[ allies_counter ].total = total_allies
+      else
+        enemies_counter = enemies_counter + 1
+        ranks.enemies[ enemies_counter ] = {}
+
+        for name, v in pairs( totals ) do
+          if name == "res" then
+            ranks.enemies[ enemies_counter ][ name ] = {}
+
+            for res, value in pairs( act.res ) do
+              local res_value = ( 100 + act[ name ][ res ] ) / totals[ name ][ "enemy" ][ res ]
+              ranks.enemies[ enemies_counter ][ name ][ res ] = res_value
+              total_enemies = total_enemies + res_value
+            end
+          else
+            local name_value = act[ name ] / totals[ name ][ "enemy" ]
+            ranks.enemies[ enemies_counter ][ name ] = name_value
+            total_enemies = total_enemies + name_value
+          end
+        end
+
+        ranks.enemies[ enemies_counter ].total = total_enemies
+      end
+    end
+  end
+
+  update_ranks( ranks )
+
+  return actors, allies, enemies, totals, maxes, mins, averages, res_danger, pct_danger, ranks, under_attack_units, can_attack_units
+end
+
+
 function spell_auto_cast( spells, spellattacks )
 --[[
 Аргументы:
@@ -3297,63 +4068,40 @@ function spell_auto_cast( spells, spellattacks )
     return
   end  -- список спелов пуст
 
-  -- Формируем списки врагов и своих в удобной форме
-  local actors, allies, enemies = {}, {}, {}
-  local nomag_immune_allies, nomag_immune_enemies = 0, 0
-  local allies_power, enemies_power = 0, 0
-  local under_attack_units, can_attack_units = {}, {}
-  local avg_ally_init, avg_enemy_init = 0, 0
-
-  for i = 1, Attack.act_count() - 1 do
-    local ally = Attack.act_ally( i )
-
-    if ally
-    or Attack.act_enemy( i ) then
-      local act = Attack.get_caa( i, true )
-      table.insert( actors, act )
-      local nomag_immune = not Attack.act_feature( act, "magic_immunitet" )
-      local init = Attack.act_get_par( i, "initiative" )
-
-      if ally then
-        table.insert( allies, act )
-        if nomag_immune then nomag_immune_allies = nomag_immune_allies + 1 end
-        allies_power = allies_power + act.leadship * act.units
-        avg_ally_init = avg_ally_init + init
-
-      else
-        table.insert( enemies, act )
-        if nomag_immune then nomag_immune_enemies = nomag_immune_enemies + 1 end
-        enemies_power = enemies_power + act.leadship * act.units
-        avg_enemy_init = avg_enemy_init + init
-      end
-
-      local base = act.atks.base
-
-      if base ~= nil then
-        if base.targets.n > 0 then
-          local max_duration = duration_effect( act, "spell_blind", 0 )
-          max_duration = duration_effect( act, "effect_unconscious", max_duration )
-          max_duration = duration_effect( act, "effect_sleep", max_duration )
-       
-          if max_duration > 1 then
-            can_attack_units[ act.cell ] = false
-          else
-            can_attack_units[ act.cell ] = true
-          end
-        end
-
-        for i = 1, base.targets.n do
-          under_attack_units[ base.targets[ i ].cell ] = true
-        end
-      end
+  local resistances = {}
+  local str_resistances = Game.Config( 'resistances' )
+  local number_resistances = text_par_count( str_resistances )
+  
+  if number_resistances > 1 then
+    for j = 1, number_resistances do
+      local sub_string = text_dec( str_resistances, j )
+      table.insert( resistances, sub_string )
     end
   end
 
-  avg_ally_init = avg_ally_init / table.getn( allies )
-  avg_enemy_init = avg_enemy_init / table.getn( enemies )
-  local a2e = limit_value( allies_power / enemies_power, 0.1, 10 )
-  local e2a = limit_value( enemies_power / allies_power, 0.1, 10 )
---  local min_score = math.ceil( math.max( allies_power, enemies_power ) / 100 )
+  -- Формируем списки врагов и своих в удобной форме
+  local actors, allies, enemies, totals, maxes, mins, averages, res_danger, pct_danger, ranks, under_attack_units, can_attack_units = compute_actor_ally_enemy( resistances )
+--  local actors, allies, enemies = {}, {}, {}
+--  local nomag_immune_allies, nomag_immune_enemies = 0, 0
+  local allies_power, enemies_power = 0, 0
+  local avg_ally_init, avg_enemy_init = 0, 0
+  local a2e = limit_value( totals.power.ally / totals.power.enemy, 0.1, 10 )
+  local e2a = limit_value( totals.power.enemy / totals.power.ally, 0.1, 10 )
+
+
+  local function common_score( act )
+    local lead_power = act.leadship * act.units
+    local power = 0
+    
+    if act.unit_score ~= nil then
+      power = ( act.unit_score / 3 ) / math.max( 1, lead_power )
+    end
+
+    return power 
+  end
+
+
+--  local min_score = math.ceil( math.max( totals.power.ally, totals.power.enemy ) / 100 )
   local min_score = 0
 
   -- Рандомно выбираем 7 спелов для использования
@@ -3380,137 +4128,172 @@ function spell_auto_cast( spells, spellattacks )
 
   local cast = {}
 
-  local function common_damage_score( value, res, act, factor )
-    if value == 0 then
-      return 0
+
+  local function find_ally_or_enemy_pos( act, actor_table )
+    for i, act_tab in ipairs( actor_table ) do
+      if act_tab.cell == act.cell then
+        return i
+      end
     end
-
-    local eff = math.min( 1, act.totalhp / ( value * res ) )
-    local kill = value * res / ( act.totalhp / act.units )
-    local score = eff * value * res * factor * kill * act.level / 5
-
-    return score
   end
 
-  local function atk_common_score( act )
-    local atk_power = 0
 
-    for name, atk in pairs( act.atks ) do
-      if name ~= nil then
-        if atk.dmgavg ~= 0 then
-          atk_power = atk_power + act.units * atk.dmgavg * act.level * atk.targets.n
-        else
-          atk_power = atk_power + act.units * act.level * atk.targets.n
-        end
+  local function find_act( act )
+    if act == nil then
+      return nil, nil, nil
+    end
+
+    local actor_pos = 0
+
+    for i, act_tab in ipairs( actors ) do
+      if act_tab.cell == act.cell then
+        act = act_tab
+        actor_pos = i
+        break
       end
     end
 
-    return atk_power
-  end
+    local ally_or_enemy_pos = 0
 
-  local function common_score( act, factor )
-    local lead_power = act.leadship * act.units
-    local hp_power = act.totalhp
-    local atk_power = atk_common_score( act )
-    local power = 0
-
-    if atk_power > 0 then
-      power = ( lead_power + hp_power + atk_power ) / 3
+    if Attack.act_ally( act ) then
+      ally_or_enemy_pos = find_ally_or_enemy_pos( act, allies )
     else
-      power = ( lead_power + hp_power ) / 2
+      ally_or_enemy_pos = find_ally_or_enemy_pos( act, enemies )
     end
 
-    power = power / lead_power * 500 * factor
-
-    return power 
+    return act, actor_pos, ally_or_enemy_pos
   end
 
-  local function unit_score( act )
-    local lead_power = act.leadship * act.units
-    local hp_power = act.totalhp
-    local atk_power = atk_common_score( act )
-    local power = lead_power + hp_power + atk_power
 
-    return power 
+  local function get_damage_score( cell, res_type, avg_dmg, chance, duration, spell_name, ignore_res, prc, cold_fear )
+    local res = {}
+
+    for i = 1, table.getn( res_type ) do
+      res[ i ] = ( 100 - Attack.act_get_res( cell, res_type[ i ] ) * ( 1 - ignore_res / 100 ) ) / 100
+    end
+
+    local k = 0
+
+    if Attack.act_ally( cell ) then
+      k = -1
+      prc = prc / 100
+    else
+      k = 1
+      prc = 1
+    end
+
+    local act, act_pos = find_act( Attack.get_caa( cell, true ) )
+
+    if act ~= nil
+    and act_pos ~= 0 then
+      if cold_fear == nil then
+        cold_fear = { false }
+      end
+  
+      local cold_res = {}
+      local cold_chance = {}
+
+      for i = 1, table.getn( cold_fear ) do
+        cold_res[ i ] = 1
+        cold_chance[ i ] = 0
+
+        if cold_fear[ i ] then
+          if Attack.act_feature( act, "freeze_immunitet" ) then
+            chance[ i ] = 0
+          elseif Attack.act_feature( act, "fire_immunitet" )
+          or Attack.act_race( act, "demon" ) then
+            cold_chance[ i ] = Attack.act_get_res( act, "fire" ) + 30
+            chance[ i ] = chance[ i ] + cold_chance[ i ]
+          end
+
+          cold_res[ i ] = 0
+        end
+      end
+
+      for i = 1, table.getn( duration ) do
+        duration[ i ] = res_dur( act, spell_name, duration[ i ], res_type[ i ], true, cold_fear[ i ] )
+      end
+
+      local score, effect_score = 0, 0
+      
+      for i = 1, table.getn( res ) do
+        score = score + math.min( act.totalhp, avg_dmg * res[ i ] * prc ) * ranks.actors[ act_pos ].total
+
+        if cold_chance[ i ] > 50 then
+          effect_score = effect_score + duration[ i ]
+        else
+          effect_score = effect_score + ( 1 + math.max( 0, ( chance[ i ] - ( 100 - res[ i ] * cold_res[ i ] * 100 ) ) / 100 * duration[ i ] ) )
+        end
+      end
+
+      score = score / table.getn( res )
+      effect_score = k * effect_score
+      score = score * effect_score * ( 1 + averages.power.enemy / averages.power.ally )
+  
+      if Attack.act_feature( act, "pawn" ) then
+        score = score / 10;
+      end
+  
+      return score, res
+    else
+      return 0
+    end
   end
+
 
   local function common_spell_7_in_1( applicable, spell_name, spell_level, ehero_level, res_type )
     local cells_rating = {}
 
     for i = 0, Attack.cell_count() - 1 do
       local cell = Attack.cell_get( i )
-      local k, k2 = 0, 0
-      local res
-      local min_dmg, max_dmg, chance, duration, chance2
+      local min_dmg, max_dmg, chance, duration
+
       if spell_name == "spell_fire_rain" then
         min_dmg, max_dmg, chance, duration = pwr_fire_rain( spell_level, ehero_level )
-        chance2 = chance
       elseif spell_name == "spell_fire_ball" then
         min_dmg, max_dmg, chance, duration = pwr_fire_ball( "epicentre", spell_level, ehero_level )
-        chance2 = chance
       elseif spell_name == "spell_ice_serpent" then
         min_dmg, max_dmg, chance, duration = pwr_ice_serpent( "epicentre", spell_level, ehero_level )
-        chance2 = 0
       end
 
       local id = Attack.cell_id( cell )
+      local avg_dmg = ( min_dmg + max_dmg ) / 2
 
       if cell ~= nil
       and applicable( cell ) then
-        res = ( 100 - Attack.act_get_res( cell, res_type ) ) / 100
+        local score = 0
 
-        if Attack.act_ally( cell ) then
-          k = -( min_dmg + max_dmg ) / 2 * ( 1 + chance2 / 100 * duration )
-          k2 = -1
+        if spell_name == "spell_ice_serpent" then
+          local dmg = common_freeze_im_vul( cell, avg_dmg, avg_dmg )
+          score = get_damage_score( cell, { res_type }, dmg, { chance }, { duration }, spell_name, 0, 100, { true } )
         else
-          k = ( min_dmg + max_dmg ) / 2 * ( 1 + chance2 / 100 * duration )
-          k2 = 1
-        end
-
-        local act = Attack.get_caa( cell, true )
-        local score = common_damage_score( k, res, act, e2a )
-        local effect_score = k2 * common_score( act, e2a ) * ( chance - ( 100 - res * 100 ) ) / 100 * duration
-        score = score + effect_score
-
-        if Attack.act_feature( act, "pawn" ) then
-          score = score / 10;
+          score = get_damage_score( cell, { res_type }, avg_dmg, { chance }, { duration }, spell_name, 0, 100 )
         end
 
         cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
       end
+
+      if spell_name == "spell_fire_ball" then
+        min_dmg, max_dmg, chance, duration = pwr_fire_ball( "periphery", spell_level, ehero_level )
+      elseif spell_name == "spell_ice_serpent" then
+        min_dmg, max_dmg, chance, duration = pwr_ice_serpent( "periphery", spell_level, ehero_level )
+      end
+
+      avg_dmg = ( min_dmg + max_dmg ) / 2
 
       for dir = 0, 5 do
         local c = Attack.cell_adjacent( cell, dir )
 
         if c ~= nil
         and applicable( c ) then
-          res = ( 100 - Attack.act_get_res( c, res_type ) ) / 100
+          local score = 0
 
-          if spell_name == "spell_fire_ball" then
-            min_dmg, max_dmg, chance, duration = pwr_fire_ball( "periphery", spell_level, ehero_level )
-            chance2 = chance
-          elseif spell_name == "spell_ice_serpent" then
-            min_dmg, max_dmg, chance, duration = pwr_ice_serpent( "periphery", spell_level, ehero_level )
-            chance2 = 0
-          end
-
-          if Attack.act_ally( c ) then
-            k = -( min_dmg + max_dmg ) / 2 * ( 1 + chance2 / 100 * duration )
-            k2 = -1
+          if spell_name == "spell_ice_serpent" then
+            local dmg = common_freeze_im_vul( c, avg_dmg, avg_dmg )
+            score = get_damage_score( c, { res_type }, dmg, { chance }, { duration }, spell_name, 0, 100, { true } )
           else
-            k = ( min_dmg + max_dmg ) / 2 * ( 1 + chance2 / 100 * duration )
-            k2 = 1
+            score = get_damage_score( c, { res_type }, avg_dmg, { chance }, { duration }, spell_name, 0, 100 )
           end
-
-          local act = Attack.get_caa( c, true )
-          local score = common_damage_score( k, res, act, e2a )
-          local effect_score = k2 * common_score( act, e2a ) * ( chance - ( 100 - res * 100 ) ) / 100 * duration
-          score = score + effect_score
-
-          if Attack.act_feature( act, "pawn" ) then
-            score = score / 10;
-          end
-
           cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
         end
       end
@@ -3525,6 +4308,7 @@ function spell_auto_cast( spells, spellattacks )
     return tid, max_rating
   end
 
+
   local function common_spell_mana( spell_name, spell_level, ignore_mana, value )
     if ignore_mana then
       value = math.ceil( value )
@@ -3536,6 +4320,7 @@ function spell_auto_cast( spells, spellattacks )
     return value
   end
 
+
   -- Проверка однотипных спелов (огн.шар и огн.дождь)
   if spells.spell_fire_rain then
     local tid, max_rating = common_spell_7_in_1( spellattacks.spell_fire_rain.applicable, "spell_fire_rain", spells.spell_fire_rain, ehero_level, "fire" )
@@ -3543,6 +4328,7 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_fire_rain", spells.spell_fire_rain, ignore_mana, max_rating )
+      Attack.log( "spell_prob_log", "name", "spell_fire_rain", "special", max_rating )
       table.insert( cast, { spell = "spell_fire_rain", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -3553,6 +4339,7 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_fire_ball", spells.spell_fire_ball, ignore_mana, max_rating )
+      Attack.log( "spell_prob_log", "name", "spell_fire_ball", "special", max_rating )
       table.insert( cast, { spell = "spell_fire_ball", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -3563,9 +4350,11 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_ice_serpent", spells.spell_ice_serpent, ignore_mana, max_rating )
+      Attack.log( "spell_prob_log", "name", "spell_ice_serpent", "special", max_rating )
       table.insert( cast, { spell = "spell_ice_serpent", target = { cell = tid }, prob = max_rating } )
     end
   end
+
 
   local function ck_canatk_thrower( act )
     return can_attack_units[ act.cell ]
@@ -3573,6 +4362,45 @@ function spell_auto_cast( spells, spellattacks )
     and Attack.act_enemy( act )
     and Attack.act_name( act ) ~= "ram"
   end
+
+
+  local function rank_score( act, act_pos )
+    local score = act.unit_score * ranks.actors[ act_pos ].total
+
+    return score
+  end
+
+
+  local function get_act_damage_score( act, act_pos, good )
+    local kind = "ally"
+    local score = 0
+
+    if good then
+      kind = "enemy"
+    end
+
+    local total_avg_eff_dmg = 0
+
+    for res, dmg in pairs( act.baseatk ) do
+      total_avg_eff_dmg = total_avg_eff_dmg + dmg.avg_dmg * ( 1 - pct_danger[ kind ][ res ] )
+    end
+
+    score = total_avg_eff_dmg * act.units * act.att / averages.def[ kind ] * ranks.actors[ act_pos ].total
+
+    return score
+  end
+
+
+  local function common_spell_score( act, act_pos, spell_level, spell_name, ehero_level, function_name, good )
+    local score = get_act_damage_score( act, act_pos, good )
+    local spell_power = function_name( spell_level, ehero_level )
+    local duration = int_dur( spell_name, spell_level )
+    spell_power = spell_power / 100 * duration
+    score = score * spell_power
+
+    return score
+  end
+
 
   if spells.spell_shroud then
     local cells_rating = {}
@@ -3583,15 +4411,13 @@ function spell_auto_cast( spells, spellattacks )
 
       if cell ~= nil
       and spellattacks.spell_shroud.applicable( cell ) then
-        local act = Attack.get_caa( cell, true )
+        local act, act_pos = find_act( Attack.get_caa( cell, true ) )
 
-        if act ~= nil then
+        if act ~= nil
+        and act_pos ~= 0 then
           if ck_canatk_thrower( act )
           and not Attack.act_is_spell( act, "totem_shroud" ) then
-            local unit_power = common_score( act, e2a )
-            local spell_power = pwr_shroud( spells.spell_shroud, ehero_level )
-            local duration = int_dur( "spell_shroud", spells.spell_shroud )
-            local score = unit_power * ( spell_power + 100 ) / 100 * duration
+            local score = common_spell_score( act, act_pos, spells.spell_shroud, "spell_shroud", ehero_level, pwr_shroud, false )
             cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
           end
         end
@@ -3602,15 +4428,13 @@ function spell_auto_cast( spells, spellattacks )
 
         if c ~= nil
         and spellattacks.spell_shroud.applicable( c ) then
-          local act = Attack.get_caa( c, true )
+          local act, act_pos = find_act( Attack.get_caa( c, true ) )
 
-          if act ~= nil then
+          if act ~= nil
+          and act_pos ~= 0 then
             if ck_canatk_thrower( act )
             and not Attack.act_is_spell( act, "totem_shroud" ) then
-              local unit_power = common_score( act, e2a )
-              local spell_power = pwr_shroud( spells.spell_shroud, ehero_level )
-              local duration = int_dur( "spell_shroud", spells.spell_shroud )
-              local score = unit_power * ( spell_power + 100 ) / 100 * duration
+              local score = common_spell_score( act, act_pos, spells.spell_shroud, "spell_shroud", ehero_level, pwr_shroud, false )
               cells_rating[ id ] = tonum( cells_rating[ id ] ) + score
             end
           end
@@ -3628,6 +4452,7 @@ function spell_auto_cast( spells, spellattacks )
     if tid ~= nil
     and max_rating > min_score then
       max_rating = common_spell_mana( "spell_shroud", spells.spell_shroud, ignore_mana, max_rating )
+      Attack.log( "spell_prob_log", "name", "spell_shroud", "special", max_rating )
       table.insert( cast, { spell = "spell_shroud", target = { cell = tid }, prob = max_rating } )
     end
   end
@@ -3636,9 +4461,10 @@ function spell_auto_cast( spells, spellattacks )
     local applicable = spellattacks.spell_pain_mirror.applicable
     local max_score, tid = min_score
 
-    for i, act in ipairs( actors ) do
-      if applicable( act )
-      and Attack.act_enemy( act ) then
+    for i, act in ipairs( enemies ) do
+      local pos = find_ally_or_enemy_pos( act, enemies )
+
+      if applicable( act ) then
         local last_dmg = tonum( Attack.val_restore( act, "last_dmg" ) ) * pwr_pain_mirror( spells.spell_pain_mirror, ehero_level ) / 100
 
         if last_dmg > 0 then
@@ -3648,7 +4474,7 @@ function spell_auto_cast( spells, spellattacks )
             local str_resistances = Game.Config( 'resistances' )
             local sub_string = text_dec( str_resistances, dt_index + 1 )
             local res = ( 100 - Attack.act_get_res( act, sub_string ) ) / 100
-            local score = common_damage_score( last_dmg, res, act, e2a )
+            local score = math.min( act.totalhp, last_dmg * res ) * ranks.enemies[ pos ].total
   
             if score > max_score then
               max_score = score
@@ -3662,6 +4488,7 @@ function spell_auto_cast( spells, spellattacks )
     if max_score > min_score
     and tid ~= nil then
       max_score = common_spell_mana( "spell_pain_mirror", spells.spell_pain_mirror, ignore_mana, max_score )
+      Attack.log( "spell_prob_log", "name", "spell_pain_mirror", "special", max_score )
       table.insert( cast, { spell = "spell_pain_mirror", target = { cell = tid }, prob = max_score } )
     end
   end
@@ -3674,16 +4501,8 @@ function spell_auto_cast( spells, spellattacks )
 
     for i, act in ipairs( enemies ) do
       if applicable( act ) then
-        local res = ( 100 - Attack.act_get_res( act, "magic" ) ) / 100
         local avg_dmg = ( min_dmg + max_dmg ) / 2
-        local spell_power = common_damage_score( avg_dmg, res, act, e2a )
-        local effect_score = common_score( act, e2a ) * ( shock - ( 100 - res * 100 ) ) / 100 * duration
-        local score = spell_power + effect_score
-
-        if Attack.act_feature( act, "pawn" ) then
-          score = score / 10;
-        end
-
+        local score = get_damage_score( Attack.get_cell( act ), { "magic" }, avg_dmg, { shock }, { duration }, "spell_lightning", 0, 100 )
         local count = hits
       	 local attacked_ids = {}
        	attacked_ids[ act.cell ] = true
@@ -3718,23 +4537,8 @@ function spell_auto_cast( spells, spellattacks )
         		  end
 
         		  for j, act in ipairs( atkd ) do -- We attack those who have chosen
-              res = ( 100 - Attack.act_get_res( act, "magic" ) ) / 100
+              score = score + get_damage_score( Attack.get_cell( act ), { "magic" }, avg_dmg, { shock }, { duration }, "spell_lightning", 0, 100 )
               local unit = Attack.get_caa( Attack.get_cell( act ), true )
-
-              if Attack.act_enemy( act ) then
-                spell_power = common_damage_score( avg_dmg, res, unit, e2a )
-              else
-                spell_power = -common_damage_score( avg_dmg, res, unit, e2a )
-              end
-
-              effect_score = common_score( unit, e2a ) * ( shock - ( 100 - res * 100 ) ) / 100 * duration
-
-              if Attack.act_feature( unit, "pawn" ) then
-                effect_score = effect_score / 10;
-                spell_power = spell_power / 10;
-              end
-
-              score = score + spell_power + effect_score
           				attacked_ids[ unit.cell ] = true
         		  		-- Form the next front
           				table.insert( new_front, unit )
@@ -3755,6 +4559,7 @@ function spell_auto_cast( spells, spellattacks )
     max_score = common_spell_mana( "spell_lightning", spells.spell_lightning, ignore_mana, max_score )
 
     if tid ~= nil then
+      Attack.log( "spell_prob_log", "name", "spell_lightning", "special", max_score )
       table.insert( cast, { spell = "spell_lightning", target = { cell = tid }, prob = max_score } )
     end
   end
@@ -3796,7 +4601,10 @@ function spell_auto_cast( spells, spellattacks )
     -- Haste now increases initiative and chance to krit
     spell_haste =
       function( a )
-        return ( Attack.act_get_par( a, "initiative" ) < avg_enemy_init
+        return ( ( Attack.act_get_par( a, "initiative" ) < averages.init.ally
+        or Attack.act_get_par( a, "initiative" ) < averages.init.enemy )
+        or ( Attack.act_ap( a ) < averages.ap.ally
+        or Attack.act_ap( a ) < averages.ap.enemy )
         or ck_cantatk( a )
         or ( Game.Random( 99 ) < 20 ) )
         and not Attack.act_is_spell( a, "spell_haste" )
@@ -3839,7 +4647,7 @@ function spell_auto_cast( spells, spellattacks )
     spell_bless =
       function( a )
         return ck_canatk( a )
-        and Attack.act_leadership(a) * Attack.act_size(a) > allies_power / 4.
+        and Attack.act_leadership(a) * Attack.act_size(a) > totals.power.ally / 4.
         and not Attack.act_is_spell( a, "spell_bless" )
       end,
     spell_adrenalin =
@@ -3879,7 +4687,7 @@ function spell_auto_cast( spells, spellattacks )
       end,
     -- spell_reaction now increases morale - AI does not use morale
     spell_reaction = function( a ) return false end,
---    spell_reaction = function( a ) return Attack.act_get_par( a, "initiative" ) < avg_enemy_init end,
+--    spell_reaction = function( a ) return Attack.act_get_par( a, "initiative" ) < averages.init.enemy end,
     spell_dragon_arrow =
       function ( a )
         return ck_canatk( a )
@@ -3913,7 +4721,10 @@ function spell_auto_cast( spells, spellattacks )
     -- Slow now decreases initiative and susceptibility to krit
     spell_slow =
       function( a )
-        return ( Attack.act_get_par( a, "initiative" ) > avg_enemy_init
+        return ( ( Attack.act_get_par( a, "initiative" ) > averages.init.enemy
+        or Attack.act_get_par( a, "initiative" ) > averages.init.ally )
+        or ( Attack.act_ap( a ) > averages.ap.enemy
+        or Attack.act_ap( a ) > averages.ap.ally )
         or ck_canatk( a )
         or ( Game.Random( 99 ) < 20 ) )
         and not Attack.act_is_spell( a, "spell_slow" )
@@ -3936,7 +4747,7 @@ function spell_auto_cast( spells, spellattacks )
 		  spell_weakness =
       function( a )
      			return ck_canatk( a )
-        and Attack.act_leadership( a ) * Attack.act_size( a ) > enemies_power / 4.
+        and Attack.act_leadership( a ) * Attack.act_size( a ) > totals.power.enemy / 4.
         and not Attack.act_is_spell( a, "spell_weakness" )
     		end,
   		spell_blind =
@@ -3952,7 +4763,7 @@ function spell_auto_cast( spells, spellattacks )
     spell_scare =
       function( a )
         return ck_canatk( a )
-        and Attack.act_level( a ) < 3
+        and Attack.act_level( a ) < maxes.level.ally
         and not Attack.act_is_spell( a, "effect_fear" )
       end,
     spell_plague =
@@ -3976,7 +4787,8 @@ function spell_auto_cast( spells, spellattacks )
     spell_defenseless =
       function( a )
         return ck_underatk( a )
-        and Attack.act_get_par( a, "defense" ) >= 5
+        and ( Attack.act_get_par( a, "defense" ) > averages.def.enemy
+        or Attack.act_get_par( a, "defense" ) > averages.att.ally )
         and not Attack.act_is_spell( a, "spell_defenseless" )
       end
   }
@@ -3984,11 +4796,31 @@ function spell_auto_cast( spells, spellattacks )
   local function pwr_spell( name, unit, level, ehero_level )
     local func_name = string.gsub( name, "^spell_", "pwr_" )
     local baseatk = unit.atks.base
-    local k, gain = 0, 50
+    local k, gain = 0, 20
 
-    if name == "spell_haste"
-    or name == "spell_slow"
-    or name == "spell_dragon_arrow" then
+    if name == "spell_haste" then
+      local power = _G[ func_name ]( level, ehero_level )
+
+      if unit.thrower then
+        if under_attack_units[ unit.cell ] then
+          k = ( power + unit.ap ) / averages.ap.enemy * gain
+        end
+      else
+        k = power * unit.threat / averages.threat.ally * averages.ap.ally / unit.ap * gain
+      end
+
+    elseif name == "spell_slow" then
+      local power = _G[ func_name ]( level, ehero_level )
+
+      if unit.thrower then
+        if under_attack_units[ unit.cell ] == nil then
+          k = math.max( 1, unit.ap - power ) / averages.ap.ally * gain
+        end
+      else
+        k = power * unit.threat / averages.threat.enemy * unit.ap / averages.ap.enemy * gain
+      end
+
+    elseif name == "spell_dragon_arrow" then
       local power = _G[ func_name ]( level, ehero_level )
       k = power * gain
 
@@ -4001,60 +4833,100 @@ function spell_auto_cast( spells, spellattacks )
       k = power
 
     elseif name == "spell_last_hero" then
-      k = unit.level * gain
+      for i, spell in ipairs( unit.spells ) do
+        if spell.name == "effect_poison"
+        or spell.name == "effect_burn" then
+          gain = gain * spell.duration
+        end
+      end
+
+      local initialhp = Attack.act_get_par( unit, "health" ) * unit.initial_units
+      local profit = math.min( 100, initialhp / unit.totalhp )
+      k = gain * profit * 5
 
     elseif name == "spell_bless"
     or name == "spell_weakness" then
-      if baseatk ~= nil then
-        if name == "spell_bless" then
-          k = baseatk.dmgmax / baseatk.dmgavg * gain
-        else
-          k = baseatk.dmgavg / baseatk.dmgmin * gain
-        end
+      local total_min_dmg, total_max_dmg = 0, 0
 
-        if baseatk._3in1 then
-          k = k * 3
-        elseif baseatk.superhitback then
-          k = k * 2
-        elseif baseatk._6in1 then
-          k = k * 6
-        end
+      for i = 1, table.getn( resistances ) do
+        total_min_dmg = total_min_dmg + unit.baseatk[ resistances[ i ] ][ "min_dmg" ]
+        total_max_dmg = total_max_dmg + unit.baseatk[ resistances[ i ] ][ "max_dmg" ]
+      end
+
+      k = total_max_dmg / total_min_dmg * gain
+
+      if baseatk._3in1 then
+        k = k * 3
+      elseif baseatk.superhitback then
+        k = k * unit.threat
+      elseif baseatk._6in1 then
+        k = k * 6
       end
 
     elseif name == "spell_reaction" then
-      k = gain / 5 * avg_enemy_init / avg_ally_init
+      k = gain
 
     elseif name == "spell_adrenalin" then
-      if baseatk ~= nil then
-        k = unit.level * baseatk.dmgavg
+      local power = _G[ func_name ]( level, ehero_level )
 
-        if level == 3 then
-          k = k + unit.level * gain
-        end
+      if unit.ap == 0 then
+        k = power * gain
+      else
+        k = ( unit.threat + power ) / averages.threat.enemy * gain
       end
 
-    elseif name == "spell_gifts"
-    or name == "spell_blind"
+        k = power 
+
+        if level == 3 then
+          k = k + unit.threat * gain
+        end
+
+    elseif name == "spell_gifts" then
+      k = averages.threat.ally / unit.threat * gain
+
+    elseif name == "spell_blind"
     or name == "spell_magic_bondage"
     or name == "spell_hypnosis"
     or name == "spell_crue_fate"
     or name == "spell_ram" then
-      k = unit.level * gain
+      k = unit.threat / averages.threat.enemy * ( 1 + averages.power.enemy / averages.power.ally ) * gain * 10
 
     elseif name == "spell_scare" then
-      k = ( 5 - unit.level ) * gain
+      k = unit.threat / averages.threat.enemy * ( averages.level.ally / unit.level )^2 * gain
+
+    elseif name == "spell_oil_fog" then
+      local min_dmg, max_dmg, duration, power = _G[ func_name ]( level, ehero_level )
+      local resist, resistbase = Attack.act_get_res( unit, "fire" )
+      k = power + resist
 
     else
       local power = _G[ func_name ]( level, ehero_level )
 
-      if name == "spell_divine_armor"
-      or name == "spell_pygmy"
+      if name == "spell_divine_armor" then
+        local res_power = 0
+
+        for i = 1, table.getn( resistances ) do
+          if resistances[ i ] ~= "astral" then
+            res_power = res_power + math.min( 95 - unit.res[ resistances[ i ] ], power ) * pct_danger.enemy[ resistances[ i ] ]
+          end
+        end
+
+        power = res_power
+      elseif name == "spell_pygmy"
       or name == "spell_plague" then
-        power = power * 4
+        power = power * unit.resilience / averages.resilience.enemy * ( 1 + averages.power.enemy / averages.power.ally ) * 10
+      elseif name == "spell_fire_breath" then
+        power = power * ( 1 - math.min( 95, averages.res.enemy.fire ) / 100 )
+      elseif name == "spell_stone_skin" then
+        power = math.min( 95 - unit.res.physical, power ) * pct_danger.enemy.physical
+      elseif name == "spell_defenseless" then
+        power = power * unit.def / averages.def.enemy * unit.def / averages.att.ally * unit.resilience / averages.resilience.enemy
       end
 
       k = power
     end
+
+    k = k / 100
 
     return k
   end
@@ -4087,10 +4959,12 @@ function spell_auto_cast( spells, spellattacks )
     spell_scare = pwr_spell,
     spell_plague = pwr_spell,
     spell_magic_bondage = pwr_spell,
+    spell_oil_fog = pwr_spell,
     spell_defenseless = pwr_spell
   }
 
-  local function power_spell_dispell( c, power )
+  local function power_spell_dispell( c )
+    local power = 10
     local good_k, bad_k = 0, 0
     local good_spells, good_spells_list = takeoff_spells( c, "bonus", true )
 
@@ -4168,8 +5042,41 @@ function spell_auto_cast( spells, spellattacks )
       end
     end
 
+    power = 1 + power / 100
+
     return power
   end
+
+
+  local function get_good_bad_score( cell, spell_name, duration, level, ehero_level, good )
+    if not good
+    and Attack.act_is_spell( cell, "spell_ram" )
+    and spell_name ~= "spell_ram" then
+      return 0
+    end
+
+    local act, act_pos = find_act( Attack.get_caa( cell, true ) )
+
+    if act ~= nil
+    and act_pos ~= 0 then
+      duration = res_dur( act, spell_name, duration, nil, true )
+      local score = get_act_damage_score( act, act_pos, good )
+      local spell_power = 0
+      
+      if spell_name == "spell_dispell" then
+        spell_power = power_spell_dispell( act )
+      elseif powerSpells[ spell_name ] then
+        spell_power = powerSpells[ spell_name ]( spell_name, act, level, ehero_level ) * duration
+      end
+
+      score = score * spell_power
+  
+      return score
+    else
+      return 0
+    end
+  end
+
 
   for name, level in pairs( spells ) do
     if goodSpells[ name ] or badSpells[ name ] then
@@ -4182,7 +5089,6 @@ function spell_auto_cast( spells, spellattacks )
       end
 
       local avcells = spellattacks[ name ].avcells()
-      local no_power_value = 100
 
       if avcells.n > 0 then -- есть ли цели для каста
         local max_power, unit_power, target = 0, 0
@@ -4190,43 +5096,21 @@ function spell_auto_cast( spells, spellattacks )
         for i, c in ipairs( avcells ) do -- ищем самого сильного юнита,..
           if not Attack.act_is_spell( c, name )
           and check( c ) then -- ..на котором нет этого спела
-            local unit = Attack.get_caa( c, true )
-            local power = unit_score( unit )
-
-            if name == "spell_dispell" then
-              power = power_spell_dispell( c, power )
-            end
+            local power = get_good_bad_score( c, name, int_dur( name, level ), level, ehero_level, good )
 
             if power > max_power then
               max_power = power
               target = c
-
-              if good then
-                unit_power = common_score( unit, a2e )
-              else
-                unit_power = common_score( unit, e2a )
-              end
             end
           end
         end
 
         if target ~= nil then
-          local spell_power = no_power_value
-
-          if powerSpells[ name ] then
-            spell_power = powerSpells[ name ]( name, Attack.get_caa( target, true ), level, ehero_level )
-          end
-
-          local duration = int_dur( name, level )
-
-          if duration == 0 then
-            duration = 1
-          end
-
-          local prob = unit_power * ( spell_power + 100 ) / 100 * duration
+          local prob = max_power
 
           if prob > min_score then
             prob = common_spell_mana( name, level, ignore_mana, prob )
+            Attack.log( "spell_prob_log", "name", name, "special", prob )
             table.insert( cast, { spell = name, target = target, prob = prob } )
           end
         end
@@ -4246,29 +5130,16 @@ function spell_auto_cast( spells, spellattacks )
           and not Attack.act_is_spell( act, name )
           and applicable( act )
           and check( act ) then -- ..на которых нет этого спела и на которых можно наложить этот спелл
-            local power = 0
-            
-            if good then
-              power = common_score( act, a2e )
-            else
-              power = common_score( act, e2a )
-            end
-
-            local spell_power = no_power_value
-
-            if powerSpells[ name ] then
-              spell_power = powerSpells[ name ]( name, act, level, ehero_level )
-            end
-
-            k = k + power * ( spell_power + 100 ) / 100
+            local power = get_good_bad_score( Attack.get_cell( act ), name, int_dur( name, level ), level, ehero_level, good )
+            k = k + power
           end
         end
 
-        local duration = int_dur( name, level )
-        local prob = k * duration
+        local prob = k
 
         if prob > min_score then
           prob = common_spell_mana( name, level, ignore_mana, prob )
+          Attack.log( "spell_prob_log", "name", name, "special", prob )
           table.insert( cast, { spell = name, prob = prob } )
         end
       end
@@ -4276,40 +5147,40 @@ function spell_auto_cast( spells, spellattacks )
   end
 
   -- Боевые спелы на одну цель
-  local function score_def( c, name, level, ehero_level, e2a )
+  local function score_def( c, name, level, ehero_level )
     local func_name = string.gsub( name, "^spell_", "pwr_" )
-    local spell_power, effect_score, score, avg_dmg = 0, 0, 0, 0
-    local act = Attack.get_caa( c, true )
-    local res = ( 100 - Attack.act_get_res( c, Logic.obj_par( name, "typedmg" ) ) ) / 100
+    local score, res, avg_dmg, chance, duration, ignore_res = 0, 0, 0, -100, 0, 0
+    local min_dmg, max_dmg = 0, 0
 
     if name == "spell_magic_axe" then
-      local min_dmg, max_dmg = _G[ func_name ]( level, ehero_level )
-      avg_dmg = ( min_dmg + max_dmg ) / 2
-      spell_power = common_damage_score( avg_dmg, res, act, e2a )
+      min_dmg, max_dmg = _G[ func_name ]( level, ehero_level )
 
     elseif name == "spell_ghost_sword" then
-      local min_dmg, max_dmg, ignore_res = _G[ func_name ]( level, ehero_level )
-      avg_dmg = ( min_dmg + max_dmg ) / 2
-      res = ( 100 - Attack.act_get_res( c, Logic.obj_par( name, "typedmg" ) ) * ( 1 - ignore_res / 100 ) ) / 100
-      spell_power = common_damage_score( avg_dmg, res, act, e2a )
+      min_dmg, max_dmg, ignore_res = _G[ func_name ]( level, ehero_level )
 
     elseif name == "spell_oil_fog" then
-      local min_dmg, max_dmg, duration, chance = _G[ func_name ]( level, ehero_level )
-      avg_dmg = ( min_dmg + max_dmg ) / 2
-      spell_power = common_damage_score( avg_dmg, res, act, e2a )
-      effect_score = common_score( act, e2a ) * chance / 100 * duration
+      min_dmg, max_dmg, duration, chance = _G[ func_name ]( level, ehero_level )
+      chance = -chance * 100  -- this effectively negates the duration function so that it can be applied below...
 
     else
-      local min_dmg, max_dmg, chance, duration = _G[ func_name ]( level, ehero_level )
-      avg_dmg = ( min_dmg + max_dmg ) / 2 * ( 1 + chance / 100 * duration )
-      spell_power = common_damage_score( avg_dmg, res, act, e2a )
-      effect_score = common_score( act, e2a ) * ( chance - ( 100 - res * 100 ) ) / 100 * duration
+      min_dmg, max_dmg, chance, duration = _G[ func_name ]( level, ehero_level )
     end
 
-    score = spell_power + effect_score
+    avg_dmg = ( min_dmg + max_dmg ) / 2
+    score, res = get_damage_score( c, { Logic.obj_par( name, "typedmg" ) }, avg_dmg, { chance }, { duration }, name, ignore_res, 100 )
 
-    if Attack.act_feature( act, "pawn" ) then
-      score = score / 10;
+    if name == "spell_oil_fog" then
+      chance = -chance / 100  -- restore to proper value, technically chance is spell power here
+      res[ 1 ] = res[ 1 ] + 100
+
+      -- this is from SPELLS.LUA for the spell_oil_fog_attack function and corresponding power check
+      if ( res[ 1 ] <= -1 * chance ) or ( res[ 1 ] >= 80 ) then
+        chance = 0
+      end
+
+      if chance > 0 then
+        score = score + get_good_bad_score( c, name, duration, level, ehero_level, false )
+      end
     end
 
     return score
@@ -4329,7 +5200,7 @@ function spell_auto_cast( spells, spellattacks )
       local targets = {}
       for i, c in ipairs( spellattacks[ name ].avcells() ) do
         if Attack.act_enemy( c ) then
-          local prob = battleSpells[ name ]( c, name, level, ehero_level, e2a )
+          local prob = battleSpells[ name ]( c, name, level, ehero_level )
 
           if prob > max_prob then
             max_prob = prob
@@ -4340,6 +5211,7 @@ function spell_auto_cast( spells, spellattacks )
 
       if tid ~= nil then
         max_prob = common_spell_mana( name, level, ignore_mana, max_prob )
+        Attack.log( "spell_prob_log", "name", name, "special", max_prob )
         table.insert( cast, { spell = name, target = tid, prob = max_prob } )
       end
     end
@@ -4355,6 +5227,7 @@ function spell_auto_cast( spells, spellattacks )
           if string.sub( actor_name( i ), 1, 7 ) == "phoenix"
           and Attack.act_belligerent( i ) == Attack.act_belligerent() then return false end
         end
+
         return true
       end
   }
@@ -4369,6 +5242,7 @@ function spell_auto_cast( spells, spellattacks )
       end
 
       local mindist, nearest = 1000
+
       for i, c in ipairs( spellattacks[ name ].avcells() ) do
         local dist = Attack.cell_dist( c, allyEnemyMidpoint )
         if dist < mindist then
@@ -4382,11 +5256,12 @@ function spell_auto_cast( spells, spellattacks )
 
         if name == "spell_demonologist" then
           local lead = pwr_demonologist( level, ehero_level )
-          prob = lead
+          prob = lead * ( 1 + averages.power.enemy / averages.power.ally )
 
         else
           local damage_bonus, hitpoint_bonus, defense_bonus, attack_bonus, res_bonus, text = summon_bonus( nil, name, true )
           local hp
+          local danger = 1
 
           -- This is kind of lame, but I don't know how to get their hp from the ATOM
           if name == "spell_phoenix" then
@@ -4395,17 +5270,30 @@ function spell_auto_cast( spells, spellattacks )
             if level == 3 then
               hp = hp + 200
             end
+
           elseif name == "spell_evilbook" then
             hp = 200 * level
+            danger = ( 1 - pct_danger.enemy.fire )
+            local total_books = 1
+
+            for i, act in ipairs( allies ) do
+              if string.find( act.name, "evilbook" ) then
+                total_books = total_books + 1
+              end
+            end
+
+            hp = hp / total_books
           end
 
-          prob = math.ceil( hp * ( level + 2 ) * ( 1 + hitpoint_bonus / 100 ) )
-        end
+          hp = hp * ( 1 + hitpoint_bonus / 100 )
+          local bonus = damage_bonus + defense_bonus + attack_bonus + res_bonus
 
-        prob = prob * e2a
+          prob = math.ceil( hp * level * ( 1 + bonus / 100 ) ) * ( 1 + averages.power.enemy / averages.power.ally ) * danger
+        end
 
         if prob > min_score then
           prob = common_spell_mana( name, level, ignore_mana, prob )
+          Attack.log( "spell_prob_log", "name", name, "special", prob )
           table.insert( cast, { spell = name, target = nearest, prob = prob } )
         end
       end
@@ -4418,15 +5306,25 @@ function spell_auto_cast( spells, spellattacks )
     local maxprofit, target = 0
 
     for i, act in ipairs( spellattacks.spell_healing.avcells() ) do
-      local profit = math.min( Attack.act_get_par( act, "health" ) - Attack.act_hp( act ), h ) / h
+      local a, a_pos = find_act( Attack.get_caa( act, true ) )
 
-      if profit > maxprofit then maxprofit = profit; target = act; end
+      if a ~= nil
+      and a_pos ~= 0 then
+        local currenthp = a.hp - ( a.totalhp - Attack.act_get_par( act, "health" ) * a.units )
+        local profit = math.min( currenthp, h ) / h
+        profit = math.min( 10, profit * a.hp / currenthp )
+  
+        if profit > maxprofit then maxprofit = profit; target = act; end
+      end
     end
 
-    local prob = math.ceil( maxprofit^2 * 500 * a2e )
+    local prob = maxprofit * h * ( 1 + averages.power.enemy / averages.power.ally )
     prob = common_spell_mana( "spell_healing", spells.spell_healing, ignore_mana, prob )
 
-    if maxprofit > .90 then table.insert( cast, { spell = "spell_healing", target = target, prob = prob } ) end
+    if prob > min_score then
+      Attack.log( "spell_prob_log", "name", "spell_healing", "special", prob )
+      table.insert( cast, { spell = "spell_healing", target = target, prob = prob } )
+    end
   end
 
   if spells.spell_resurrection then -- воскрешение
@@ -4434,15 +5332,25 @@ function spell_auto_cast( spells, spellattacks )
     local maxprofit = 0
 
     for i, act in ipairs( spellattacks.spell_resurrection.avcells() ) do
-      local profit = math.min( Attack.act_get_par( act, "health" ) * Attack.act_initsize( act ) - Attack.act_totalhp( act ), h ) / h
+      local a, a_pos = find_act( Attack.get_caa( act, true ) )
 
-      if profit > maxprofit then maxprofit = profit; target = act; end
+      if a ~= nil
+      and a_pos ~= 0 then
+        local initialhp = Attack.act_get_par( act, "health" ) * a.initial_units
+        local profit = math.min( initialhp - a.totalhp, h ) / h
+        profit = math.min( 10, profit * initialhp / a.totalhp )
+  
+        if profit > maxprofit then maxprofit = profit; target = act; end
+      end
     end
 
-    local prob = math.ceil( maxprofit^2 * 1000 * a2e )
+    local prob = maxprofit * h * ( 1 + averages.power.enemy / averages.power.ally )
     prob = common_spell_mana( "spell_resurrection", spells.spell_resurrection, ignore_mana, prob )
 
-    if maxprofit > .90 then table.insert( cast, { spell = "spell_resurrection", target = target, prob = prob } ) end
+    if prob > min_score then
+      Attack.log( "spell_prob_log", "name", "spell_resurrection", "special", prob )
+      table.insert( cast, { spell = "spell_resurrection", target = target, prob = prob } )
+    end
   end
 
   if spells.spell_armageddon then
@@ -4454,22 +5362,7 @@ function spell_auto_cast( spells, spellattacks )
     for i, act in ipairs( actors ) do
       if applicable( act )
       and not Attack.act_feature( act, "magic_immunitet" ) then
-        local res = ( 100 - Attack.act_get_res( act, "astral" ) ) / 100
-        local spell_power = avg_dmg * ( 1 + burn / 100 * duration )
-        local effect_score = common_score( act, e2a ) * ( burn - ( 100 - res * 100 ) ) / 100 * duration
-        local act_score = 0
-
-        if Attack.act_enemy( act ) then
-          act_score = common_damage_score( spell_power, res, act, e2a ) + effect_score
-        else
-          act_score = -( common_damage_score( spell_power * prc / 100, res, act, e2a ) + effect_score )
-        end
-
-        if Attack.act_feature( act, "pawn" ) then
-          act_score = act_score / 10;
-        end
-
-        score = score + act_score
+        score = score + get_damage_score( Attack.get_cell( act ), { "fire" }, avg_dmg, { burn }, { duration }, "spell_armageddon", 0, prc )
       end
     end
 
@@ -4477,13 +5370,14 @@ function spell_auto_cast( spells, spellattacks )
 
     if prob > min_score then
       prob = common_spell_mana( "spell_armageddon", spells.spell_armageddon, ignore_mana, prob )
+      Attack.log( "spell_prob_log", "name", "spell_armageddon", "special", prob )
       table.insert( cast, { spell = 'spell_armageddon', prob = prob } )
     end
   end
 
   if spells.spell_geyser then
     local applicable = spellattacks.spell_geyser.applicable
-   	local min_dmg, max_dmg, count, stun, duration = pwr_geyser( spells.spell_geyser, ehero_level )
+   	local min_dmg, max_dmg, count, freeze, stun, duration = pwr_geyser( spells.spell_geyser, ehero_level )
     local avg_dmg = ( min_dmg + max_dmg ) / 2
     local hits = count
     local score = 0
@@ -4491,16 +5385,7 @@ function spell_auto_cast( spells, spellattacks )
     for i, act in ipairs( enemies ) do
       if applicable( act )
       and not Attack.act_feature( act, "magic_immunitet" ) then
-        local res = ( 100 - Attack.act_get_res( act, "physical" ) ) / 100
-        local spell_power = common_damage_score( avg_dmg, res, act, e2a )
-        local effect_score = common_score( act, e2a ) * ( stun - ( 100 - res * 100 ) ) / 100 * duration
-
-        if Attack.act_feature( act, "pawn" ) then
-          effect_score = effect_score / 10;
-          spell_power = spell_power / 10;
-        end
-
-        score = score + spell_power + effect_score
+        score = score + get_damage_score( Attack.get_cell( act ), { "physical", "physical" }, avg_dmg, { freeze, stun }, { duration, duration }, "spell_geyser", 0, 100, { true, false } )
 
         if hits == 0 then
           break
@@ -4514,6 +5399,7 @@ function spell_auto_cast( spells, spellattacks )
 
     if prob > min_score then
       prob = common_spell_mana( "spell_geyser", spells.spell_geyser, ignore_mana, prob )
+      Attack.log( "spell_prob_log", "name", "spell_geyser", "special", prob )
       table.insert( cast, { spell = 'spell_geyser', prob = prob } )
     end
   end
@@ -4522,23 +5408,22 @@ function spell_auto_cast( spells, spellattacks )
     local max_power, unit_power, target = 0, 0
 
     for i, c in ipairs( spellattacks.spell_phantom.avcells() ) do -- клонируем самого сильного юнита
-      local power = unit_score( Attack.get_caa( c, true ) )
+      local act, act_pos = find_act( Attack.get_caa( c, true ) )
+      local power = common_spell_score( act, act_pos, spells.spell_phantom, "spell_phantom", ehero_level, pwr_phantom, true )
 
       if power > max_power then
         max_power = power
         target = c
-        unit_power = common_score( Attack.get_caa( c, true ), a2e )
       end
     end
 
     if target ~= nil then
-      local av = spellattacks.spell_phantom.avcells( target ) -- место появления - рандомно
-      local power = pwr_phantom( spells.spell_phantom, ehero_level )
-      local duration = int_dur( "spell_phantom", spells.spell_phantom )
-      local prob = unit_power * power / 100 * duration
+      local prob = max_power
 
       if prob > min_score then
+        local av = spellattacks.spell_phantom.avcells( target ) -- место появления - рандомно
         prob = common_spell_mana( "spell_phantom", spells.spell_phantom, ignore_mana, prob )
+        Attack.log( "spell_prob_log", "name", "spell_phantom", "special", prob )
         table.insert( cast, { spell = 'spell_phantom', target = target, target2 = av[ Game.Random( 1, av.n ) ], prob = prob } )
       end
     end
@@ -4557,8 +5442,10 @@ function spell_auto_cast( spells, spellattacks )
       local benefit = animate_real / animate_count
 
       if benefit > .9 then -- воскрешаем первый попавшийся подходящий труп
-        prob = math.ceil( math.min( 2000, benefit * 1000 ) * e2a )
+        prob = power * ( 1 + averages.power.enemy / averages.power.ally )
+--        prob = math.ceil( math.min( 2000, benefit * 1000 ) * e2a )
         prob = common_spell_mana( "spell_necromancy", spells.spell_necromancy, ignore_mana, prob )
+        Attack.log( "spell_prob_log", "name", "spell_necromancy", "special", prob )
         table.insert( cast, { spell = 'spell_necromancy', target = c, prob = prob } )
         break
       end
@@ -4570,7 +5457,7 @@ function spell_auto_cast( spells, spellattacks )
 
     for i, act in ipairs( allies ) do
       if act.thrower
-      and act.units * act.leadship / allies_power > .5
+      and act.units * act.leadship / totals.power.ally > .5
       and under_attack_units[ act.cell ] then -- это лучник, который составляет более половины нашей армии
         thrower = act
 

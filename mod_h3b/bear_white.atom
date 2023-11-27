@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_bear_white_feat
-  features_hints=critical_damage_header/critical_damage_hint,spiteful_header/spiteful_hint,drowsiness_header/drowsiness_hint,northerner_header/northerner_hint,noble_beast_header/noble_beast_hint
+  features_hints=critical_damage_header/critical_damage_hint,spiteful_header/spiteful_hint,drowsiness_header/drowsiness_hint,northerner_header/northerner_hint,noble_beast_header/noble_beast_hint,bear_attack_header/bear_attack_hint
   race=neutral
   cost=540
   level=4
@@ -15,17 +15,18 @@ arena_params {
   defenseup=4
   initiative=4
   speed=2
-  hitpoint=120
+  hitpoint=190
   movetype=0
-  krit=30
+  krit=40
   hitback=1
   hitbackprotect=0
   attacks=moveattack,run
   features=beast,freeze_immunitet
+  posthitmaster=features_bear_attack
   posthitslave=bear_slave
   resistances {
     physical=10
-    poison=0
+    poison=5
     magic=0
     fire=-10
   }
@@ -33,6 +34,12 @@ arena_params {
     ad_factor=1
     damage {
       physical=12,22
+    }
+    custom_params {
+      bleeding=15
+      bleeding_inc=10
+      stun=15
+      stun_inc=10
     }
   }
   run {

@@ -64,6 +64,7 @@ arena_params {
 scripts {
   scenario=default_scenario
   idle=default_idle
+  subturn_modificators=features_undead_penalty
 }
 animations {
   idle=/t:1:4:idlemain:1:1:rarelist

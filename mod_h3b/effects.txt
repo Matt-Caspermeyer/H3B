@@ -25,6 +25,38 @@ effect_temp_ooc {
   }
 }
 
+// New! Effect Blind (this is different from the spell Blind)
+effect_blind {
+  category=s
+  hide=1
+  image=book_spell_blind.png
+  icon=s_overtime_blind.png
+  label=EN_blind
+  attack=scripted
+  hint_config=object_spell
+  school=2
+  hint=spell_blind_hint
+  hint_header=effect_blind_header
+  icon=book_effect_blind.png
+  onremove=effect_blind_onremove
+  
+  each_turn_attack=scripted
+  
+  scripted {
+    script_attack=effect_blind_attack
+    script_calccells=
+    attack_cursor=magicstick
+    ad_factor=0  // use attack/defense
+    nfeatures=eyeless,golem,pawn,boss
+  }
+  params {
+    duration=2
+    power=75
+    type=penalty
+  }
+  levels {}
+}
+
 // New! Effect Unconscious
 effect_unconscious {
   category=s
@@ -34,7 +66,7 @@ effect_unconscious {
   label=EN_unconscious
   attack=scripted
   hint_config=object_spell
-  school=3
+  school=2
   hint=effect_unconscious_hint
   hint_header=effect_unconscious_header
   icon=book_effect_sleep.png        // не нужно для эффекта
@@ -42,12 +74,12 @@ effect_unconscious {
   
   each_turn_attack=scripted
   
-  nfeatures=undead,plant,golem
   scripted {
     script_attack=effect_unconscious_attack
     script_calccells=
     attack_cursor=magicstick
     ad_factor=0  // use attack/defense
+    nfeatures=undead,plant,golem
   }
   params {
     duration=3
@@ -90,10 +122,10 @@ effect_entangle {
   hint_header=effect_entangle_header
   icon=book_effect_slow.png       // не нужно для эффекта
   
-  nfeatures=plant,golem
   scripted {
     script_attack=effect_entangle_attack
     ad_factor=0  // use attack/defense
+    nfeatures=plant,golem
   }
   params {
     duration=3

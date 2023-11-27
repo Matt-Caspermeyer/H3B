@@ -18,7 +18,7 @@ kid_uland {
     {
       filter {
         belligerent=ally
-        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,nercomant,priest,priest2,thorn
+        unit=alchemist,archer,archmage,beholder,beholder2,bowman,cannoner,catapult,cyclop,druid,elf,elf2,goblin,kingthorn,necromant,priest,priest2,thorn
       }
       pbonus=defense,0,16,0,-100,0,0
       dbonus=
@@ -1215,7 +1215,7 @@ kid_mutare {
     {
       filter {
         belligerent=ally
-        unit=blackdragon,bonedragon,greendragon,reddragon
+        unit=blackdragon,bluedragon,bonedragon,greendragon,reddragon
       }
       pbonus=health,0,4,0,-100,0,0
       dbonus=
@@ -1238,6 +1238,7 @@ kid_mutare {
     sp_addgold_battle=count,40
     sp_addgold_chest=count,40
     sp_lead_unit_blackdragon=count,4
+    sp_lead_unit_bluedragon=count,4
     sp_lead_unit_bonedragon=count,4
     sp_lead_unit_greendragon=count,4
     sp_lead_unit_reddragon=count,4

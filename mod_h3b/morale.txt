@@ -50,16 +50,16 @@ unit2unit {
         knight=+1,hint_morale_knight0		// повышенная мораль
     }
     robber, robber2 {
-        peasant,bowman,footman,priest=-1,hint_morale_robber    //Присутствие разбойников в армии. Мораль -1
+        peasant,bowman,footman,priest=-2,hint_morale_robber,tolerance<2    //Присутствие разбойников в армии. Мораль -1
     }
     footman2 {
         bowman,footman=+1,hint_morale_commander    //Присутствие командира в армии. Мораль +1
     }
     giant {
-        greendragon=-2,hint_morale_giant       //Присутствие Гигантов в армии. Мораль -2
+        greendragon=-2,hint_morale_giant,tolerance<3       //Присутствие Гигантов в армии. Мораль -2
     }
     greendragon {
-        giant=1,hint_morale_green  //Присутствие Изумрудных Драконов в армии. Мораль +1
+        giant=+1,hint_morale_green,tolerance<3  //Присутствие Изумрудных Драконов в армии. Мораль +1
     }
     blackknight {
         archer,Skeleton,zombie,zombie2,ghost,ghost2,vampire,vampire2,bat,bat2,necromant,spider_undead,bonedragon=+1,hint_morale_commander        //Присутствие Полководца Тьмы в армии. Мораль +1
@@ -92,7 +92,7 @@ unit2unit {
     	barbarian,barbarian2=+2,hint_morale_bear
     }
     archmage,beholder,beholder2,druid,priest,priest2,shaman {
-        archmage,beholder,beholder2,druid,priest,priest2,shaman=+1,hint_morale_megamage3,megamage>2
+        archmage,beholder,beholder2,druid,priest,priest2,shaman,evilbook1,evilbook2,evilbook3=+1,hint_morale_megamage3,megamage>2
     }
     alchemist,archmage,bowman,cannoner,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,horseman,knight,miner,peasant,priest,priest2,robber,robber2,sprite,sprite_lake,unicorn,unicorn2,werewolf,wolf {
         alchemist,archmage,bowman,cannoner,druid,dryad,dwarf,elf,elf2,ent,ent2,footman,footman2,giant,horseman,knight,miner,peasant,priest,priest2,robber,robber2,sprite,sprite_lake,unicorn,unicorn2,werewolf,wolf=+1,hint_morale_diplomacy1,diplomacy>0
@@ -102,6 +102,15 @@ unit2unit {
     }
     archdemon,cerberus,demon,demoness,imp,imp2,spider_fire {
         archdemon,cerberus,demon,demoness,imp,imp2,spider_fire=+1,hint_morale_diplomacy3,diplomacy>2
+    }
+    bluedragon {
+        greendragon,reddragon=-2,hint_morale_bluedragon_bad,tolerance<3
+    }
+    bluedragon {
+        blackdragon=-1,hint_morale_bluedragon_bad,tolerance<2
+    }
+    bluedragon {
+        dragonfly_fire,dragonfly_lake=+2,hint_morale_bluedragon_good
     }
 
 }

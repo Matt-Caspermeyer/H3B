@@ -47,7 +47,7 @@ arena_params {
     attack_cursor=magicstick
     anim_attack=special
     custom_params {
-      k=80-90
+      k=55-65
     }
   }
   cast_sacrifice {

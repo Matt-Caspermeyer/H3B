@@ -103,7 +103,7 @@ arena_params {
     picture=BA1_summonplant_
     picture_small=BA1_summonplant_small.png
     custom_params {
-      k=35-55
+      k=25-40
     }
   }
   run {

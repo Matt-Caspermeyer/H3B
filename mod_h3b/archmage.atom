@@ -39,6 +39,7 @@ arena_params {
     }
     custom_params {
       shock=0
+      level=4
     }
   }
   magic_shield {

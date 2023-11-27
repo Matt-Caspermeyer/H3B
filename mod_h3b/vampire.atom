@@ -61,7 +61,7 @@ arena_params {
 scripts {
   scenario=default_scenario
   idle=default_idle
-  subturn_modificators=transform_modificators
+  subturn_modificators=vampire_subturn_modificator
 }
 clippers {
   transmute {

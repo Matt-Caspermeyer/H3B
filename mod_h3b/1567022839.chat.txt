@@ -1,0 +1,1356 @@
+{Y}{1567022839}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+{
+	{U}{uid} = {1567022839}
+	{A}{st} = {switch_0}
+	{U}{f} = {2}
+	{U}{a} = {1253377691}
+	{U}{p} = {10}
+	{W}{c} = {?????? - ???????????}
+	{Y}{cs}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 13 elements
+	{
+		{Y}{switch_0}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {1}
+			{W}{t} = {chat_system_1567022839_switch_0_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {switch_0}
+			{X}{p} = {220200006E010000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 4 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_switch_0_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_11}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{COMPLEX}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+						{
+							{Y}{conds}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+							{
+								{Y}{QONLINE}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+								{
+									{U}{u} = {1756831042}
+									{U}{s} = {1}
+								}
+								{Y}{EXPR}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{X}{war} = {00000000FFFFFF7F}
+									{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+									{
+										{I}{==0} = {0}
+									}
+									{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+									{
+										{Y}{lu_var}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+										{
+											{A}{nam} = {dragon}
+											{A}{lu} = {$self}
+											{A}{vn} = {dragon}
+										}
+									}
+								}
+							}
+							{I}{lf} = {1}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_switch_0_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {snap_0}
+					{U}{on} = {1}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{QONLINE}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+						{
+							{U}{u} = {1756831042}
+							{U}{s} = {0}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_switch_0_answer_2}
+					{W}{he} = {}
+					{A}{sn} = {snap_6}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{EXPR}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{== 0} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_var}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {dragon}
+									{A}{lu} = {$self}
+									{A}{vn} = {dragon}
+								}
+							}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_switch_0_answer_3}
+					{W}{he} = {}
+					{A}{sn} = {switch_1}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{EXPR}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{== 1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_var}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {dragon}
+									{A}{lu} = {$self}
+									{A}{vn} = {dragon}
+								}
+							}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{switch_1}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {1}
+			{W}{t} = {chat_system_1567022839_switch_1_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {switch_1}
+			{X}{p} = {220200006E010000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 4 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_switch_1_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_9}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{EXPR}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{== 0} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_var}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {dragonegg}
+									{A}{lu} = {$self}
+									{A}{vn} = {dragonegg}
+								}
+							}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_switch_1_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {snap_18}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{EXPR}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{== 1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_var}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {dragonegg}
+									{A}{lu} = {$self}
+									{A}{vn} = {dragonegg}
+								}
+							}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_0}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_0_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_0}
+			{X}{p} = {780000005D000000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_0_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_1}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_1}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_1_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_1}
+			{X}{p} = {84000000A7000000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_1_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_2}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_2}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_2_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_2}
+			{X}{p} = {89000000F3000000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_2_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_3}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_3}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_3_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_3}
+			{X}{p} = {8A0000003E010000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_3_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_4}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_4}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_4_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_4}
+			{X}{p} = {8B0000008F010000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_4_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_5}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_5}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_5_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_5}
+			{X}{p} = {93000000DF010000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_5_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+					{
+						{Y}{QUEST}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+						{
+							{Y}{pulses}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{U}{1756831042/Dragon} = {1}
+							}
+						}
+						{Y}{FLUSH_EMBRYO}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+						{
+							{U}{au} = {1253377691}
+							{U}{in} = {0}
+						}
+						{Y}{CUSTOM_EVENT}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{I}{idx} = {10}
+							{I}{td} = {0}
+							{A}{lu} = {darion_4_npc_dragon_drahha_3895}
+						}
+					}
+				}
+			}
+		}
+		{Y}{snap_6}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_6_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_6}
+			{X}{p} = {D90200004D020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_6_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_7}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_7}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_7_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_7}
+			{X}{p} = {D702000097020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_7_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_8}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_8}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_8_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_8}
+			{X}{p} = {D3020000E1020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_8_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFFFFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_var}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {dragon}
+									{A}{lu} = {$self}
+									{A}{vn} = {dragon}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		{Y}{snap_9}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_9_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_9}
+			{X}{p} = {BD03000054010000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_9_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_10}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_10}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_10_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_10}
+			{X}{p} = {C6030000A4010000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 2 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_10_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_12}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_10_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_11}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_11_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_11}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 2 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_11_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_7}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_11_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_12}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_12_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_12}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_12_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_13}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_13}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_13_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_13}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_13_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_14}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_14}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_14_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_14}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_14_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_15}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_15}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_15_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_15}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_15_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_16}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_16}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_16_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_16}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_16_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_17}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_17}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_17_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_17}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_17_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFFFFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_var}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {dragonegg}
+									{A}{lu} = {$self}
+									{A}{vn} = {dragonegg}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		{Y}{snap_18}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_18_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_18}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_14}
+					{W}{he} = {}
+					{A}{sn} = {snap_21}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {dragon_egg}
+							{U}{MIN} = {0}
+							{U}{MAX} = {0}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_3}
+					{W}{he} = {}
+					{A}{sn} = {snap_20}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {dragon_egg}
+							{U}{MIN} = {1}
+							{U}{MAX} = {7}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_2}
+					{W}{he} = {}
+					{A}{sn} = {snap_19}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {dragon_egg}
+							{U}{MIN} = {8}
+							{U}{MAX} = {1000}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+						{Y}{REMOVE_ITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{A}{TAG} = {dragon_egg}
+							{U}{CNT} = {8}
+							{A}{OWN} = {$hero}
+						}
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFF00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{+1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_itm}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {c}
+									{A}{lu} = {$hero}
+									{A}{cn} = {rune_mind}
+								}
+							}
+						}
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_13}
+					{W}{he} = {}
+					{A}{sn} = {snap_21}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {red_dragon_egg}
+							{U}{MIN} = {0}
+							{U}{MAX} = {0}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {snap_20}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {red_dragon_egg}
+							{U}{MIN} = {1}
+							{U}{MAX} = {5}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_19}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {red_dragon_egg}
+							{U}{MIN} = {6}
+							{U}{MAX} = {1000}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+						{Y}{REMOVE_ITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{A}{TAG} = {red_dragon_egg}
+							{U}{CNT} = {6}
+							{A}{OWN} = {$hero}
+						}
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFF00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{+1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_itm}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {c}
+									{A}{lu} = {$hero}
+									{A}{cn} = {rune_might}
+								}
+							}
+						}
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_15}
+					{W}{he} = {}
+					{A}{sn} = {snap_21}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{MIN} = {0}
+							{U}{MAX} = {0}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_7}
+					{W}{he} = {}
+					{A}{sn} = {snap_20}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{MIN} = {1}
+							{U}{MAX} = {4}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_9}
+					{W}{he} = {}
+					{A}{sn} = {snap_20}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{MIN} = {1}
+							{U}{MAX} = {4}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_11}
+					{W}{he} = {}
+					{A}{sn} = {snap_20}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{MIN} = {1}
+							{U}{MAX} = {4}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_6}
+					{W}{he} = {}
+					{A}{sn} = {snap_19}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{MIN} = {5}
+							{U}{MAX} = {1000}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+						{Y}{REMOVE_ITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{CNT} = {5}
+							{A}{OWN} = {$hero}
+						}
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFF00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{+1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_itm}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {c}
+									{A}{lu} = {$hero}
+									{A}{cn} = {rune_might}
+								}
+							}
+						}
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_8}
+					{W}{he} = {}
+					{A}{sn} = {snap_19}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{MIN} = {5}
+							{U}{MAX} = {1000}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+						{Y}{REMOVE_ITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{CNT} = {5}
+							{A}{OWN} = {$hero}
+						}
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFF00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{+1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_itm}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {c}
+									{A}{lu} = {$hero}
+									{A}{cn} = {rune_mind}
+								}
+							}
+						}
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_10}
+					{W}{he} = {}
+					{A}{sn} = {snap_19}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{MIN} = {5}
+							{U}{MAX} = {1000}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+						{Y}{REMOVE_ITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{A}{TAG} = {black_dragon_egg}
+							{U}{CNT} = {5}
+							{A}{OWN} = {$hero}
+						}
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFF00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{+1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_itm}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {c}
+									{A}{lu} = {$hero}
+									{A}{cn} = {rune_magic}
+								}
+							}
+						}
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_16}
+					{W}{he} = {}
+					{A}{sn} = {snap_22}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {blue_dragon_egg}
+							{U}{MIN} = {0}
+							{U}{MAX} = {0}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_5}
+					{W}{he} = {}
+					{A}{sn} = {snap_24}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {blue_dragon_egg}
+							{U}{MIN} = {1}
+							{U}{MAX} = {3}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_4}
+					{W}{he} = {}
+					{A}{sn} = {snap_23}
+					{U}{on} = {0}
+					{Y}{co}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+					{
+						{Y}{CHECKITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 4 elements
+						{
+							{A}{TAG} = {blue_dragon_egg}
+							{U}{MIN} = {4}
+							{U}{MAX} = {1000}
+							{U}{OPT} = {3452816842}
+						}
+					}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 2 elements
+					{
+						{Y}{REMOVE_ITEM}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{A}{TAG} = {blue_dragon_egg}
+							{U}{CNT} = {4}
+							{A}{OWN} = {$hero}
+						}
+						{Y}{EXPRESSION}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+						{
+							{X}{war} = {00000000FEFFFFFF00000000FFFFFF7F}
+							{Y}{ss}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{I}{+1} = {0}
+							}
+							{Y}{vv}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+							{
+								{Y}{lu_itm}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 3 elements
+								{
+									{A}{nam} = {c}
+									{A}{lu} = {$hero}
+									{A}{cn} = {rune_magic}
+								}
+							}
+						}
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_18_answer_12}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_19}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_19_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_19}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_19_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_18}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_19_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_20}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_20_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_20}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_20_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_18}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_20_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_21}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_21_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_21}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_21_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_18}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_21_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_22}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_22_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_22}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_22_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_18}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_22_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_23}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_23_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_23}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_23_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_18}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_23_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+		{Y}{snap_24}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 7 elements
+		{
+			{U}{f} = {0}
+			{W}{t} = {chat_system_1567022839_snap_24_question}
+			{U}{r} = {0}
+			{A}{v} = {}
+			{A}{g} = {snap_24}
+			{X}{p} = {4B01000059020000}
+			{Y}{a}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 1 elements
+			{
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_24_answer_0}
+					{W}{he} = {}
+					{A}{sn} = {snap_18}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+				{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 5 elements
+				{
+					{W}{te} = {chat_system_1567022839_snap_24_answer_1}
+					{W}{he} = {}
+					{A}{sn} = {$eod}
+					{U}{on} = {0}
+					{Y}{ac}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+					{
+					}
+				}
+			}
+		}
+	}
+}

@@ -60,12 +60,15 @@ function gen_spirit_exp_hint( data )
    	local spirittable = Game.Config( 'arenacommon/exptable' )
    	local killedunitexp = tonumber( Attack.get_custom_param( "killedunitexp" ) )
   		local LimitKilledUnitExp = 0
+    local cur_exp_inc = tonumber( text_dec( spirittable, LV ) )
+    local diff_sp_exp = tonumber( text_dec( Game.Config( 'difficulty_k/spexp' ), Game.HSP_difficulty() + 1, '|' ) )
 
     if killedunitexp == 1 then
     		if LV > 1 then
-    			LimitKilledUnitExp = ( tonumber( text_dec( spirittable, LV ) ) - tonumber( text_dec( spirittable, LV - 1 ) ) ) * text_dec( Game.Config( 'difficulty_k/spexp' ), Game.HSP_difficulty() + 1, '|' ) / ( LV / 5 + 2 )
+        local prev_exp_inc = tonumber( text_dec( spirittable, LV - 1 ) )
+    			 LimitKilledUnitExp = ( cur_exp_inc - prev_exp_inc ) * diff_sp_exp / ( LV / 5 + 2 )
     		else
-    			LimitKilledUnitExp = tonumber( text_dec( spirittable, LV ) ) * text_dec( Game.Config( 'difficulty_k / spexp' ), Game.HSP_difficulty() + 1, '|' ) / ( LV / 5 + 2 )
+    			 LimitKilledUnitExp = cur_exp_inc * diff_sp_exp / ( LV / 5 + 2 )
     		end
   		end
 

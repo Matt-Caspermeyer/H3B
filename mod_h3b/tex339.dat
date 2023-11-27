@@ -1,0 +1,51 @@
+TEX339 {
+  block {
+    filename=bluedragon.png
+    in_tex_pos=0,0
+    in_tex_size=120,153
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,2295
+  }
+  block {
+    filename=BA1_summondragonfly_normal.png
+    in_tex_pos=120,0
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2295,237
+  }
+  block {
+    filename=BA1_summondragonfly_disabled.png
+    in_tex_pos=163,0
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2532,237
+  }
+  block {
+    filename=BA1_summondragonfly_onmouse.png
+    in_tex_pos=120,44
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=2769,237
+  }
+  block {
+    filename=BA1_summondragonfly_onpress.png
+    in_tex_pos=163,44
+    in_tex_size=43,44
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3006,237
+  }
+  block {
+    filename=BA1_summondragonfly_small.png
+    in_tex_pos=120,88
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=3243,85
+  }
+  texture_size=206,153
+}

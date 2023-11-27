@@ -478,7 +478,7 @@ function effect_unconscious_attack( target, pause, duration )
 
       local duration_old = tonumber( Attack.act_spell_duration( target, "effect_unconscious" ) )
     
-      if duration_old ~=nil
+      if duration_old ~= nil
       and duration_old ~= 0 then
         duration = math.max( duration, duration_old ) + 1
       end
@@ -532,6 +532,95 @@ function unconscious_onremove( caa, duration_end )
 
  	return true
 end
+
+-- ****************************************************
+-- * Blind (note that this is different from the spell)
+-- ****************************************************
+function effect_blind_attack( target, pause, duration )
+  if pause == nil then
+    pause = 1
+  end
+
+  local dod = false
+
+ 	if target ~= nil then
+    if ( Attack.act_ally( target )
+    or Attack.act_enemy( target ) )
+    and not Attack.act_feature( target, "golem" )
+    and not Attack.act_feature( target, "plant" )
+    and not Attack.act_feature( target, "boss,pawn" ) then
+      if duration == nil then
+        duration = tonumber( Logic.obj_par( "effect_blind", "duration") )
+      end
+
+      local duration_old = tonumber( Attack.act_spell_duration( target, "effect_blind" ) )
+      local message = "add_blog_blind_"
+      local purblind = false
+    
+      if duration_old ~= nil
+      and duration_old ~= 0 then
+        duration = math.max( duration, duration_old ) + 1
+        message = "add_blog_purblind_"
+        purblind = true
+      end
+
+      duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_blind", false )
+      local power = tonumber( Logic.obj_par( "effect_blind", "power" ) )
+      Attack.act_apply_spell_begin( target, "effect_blind", duration, dod )
+      Attack.act_apply_par_spell( "speed", -100 , 0, 0, duration, false )
+      Attack.act_apply_par_spell( "initiative", -100, 0, 0, duration, false )
+      Attack.act_apply_par_spell( "attack", 0, 0, -power, duration, false )
+      Attack.act_apply_par_spell( "defense", 0, 0, -power, duration, false )
+      Attack.act_apply_par_spell( "hitback", 0, 0, -100, duration, false, 1000 )--true)
+      Attack.act_apply_spell_end()
+      Attack.atom_spawn( target, pause, "magic_blind" )
+      Attack.act_damage_addlog( target, message )
+      local rnd = Game.Random( 99 )
+
+      if rnd < 50
+      and not Attack.act_feature( target, "undead" ) then
+        duration_old = tonumber( Attack.act_spell_duration( target, "effect_fear" ) )
+
+        if purblind then
+          message = "add_blog_purblind_fear_"
+        else
+          message = "add_blog_blind_fear_"
+        end
+      
+        if duration_old ~= nil
+        and duration_old ~= 0 then
+          duration = math.max( duration, duration_old ) + 1
+          if purblind then
+            message = "add_blog_purblind_frightened_"
+          else
+            message = "add_blog_blind_frightened_"
+          end
+        end
+  
+        Attack.act_del_spell( target, "effect_fear" )
+        Attack.act_apply_spell_begin( target, "effect_fear", duration, false )
+        Attack.act_apply_par_spell( "autofight", 1, 0, 0, duration, false )
+        Attack.act_apply_spell_end()
+        Attack.atom_spawn( target, pause * 2.5, "magic_scare", Attack.angleto( target ) )
+        Attack.act_damage_addlog( target, message )
+      end
+    end
+  end
+
+  return true
+end
+
+
+function effect_blind_onremove( caa )
+ 	if Attack.act_size( caa ) > 1 then
+  		Attack.log( caa, 0.001, "add_blog_noblind_2", "name", blog_side_unit( caa ) )
+ 	else
+	  	Attack.log( caa, 0.001, "add_blog_noblind_1", "name", blog_side_unit( caa ) )
+ 	end 
+
+  return true
+end
+
 
 -- ***********************************************
 -- * Slow
@@ -736,6 +825,8 @@ function effect_stun_attack( target, pause, duration )
     target = Attack.get_target()
   end
 
+  local dazed = false
+
   if ( Attack.act_ally( target )
   or Attack.act_enemy( target ) )
   and not Attack.act_feature( target, "golem" )
@@ -752,7 +843,8 @@ function effect_stun_attack( target, pause, duration )
     duration = apply_hero_duration_bonus( target, duration, "sp_duration_effect_stun", false )
     local duration_old = tonumber( Attack.act_spell_duration( target, "effect_stun" ) )
   
-    local message
+    local message = "add_blog_stun_"
+
     if duration_old ~=nil
     and duration_old ~= 0 then
       if duration_old - duration > 0 then
@@ -761,8 +853,7 @@ function effect_stun_attack( target, pause, duration )
       end
       duration = math.max( duration, duration_old ) + 1
       message = "add_blog_daze_"
-    else
-      message = "add_blog_stun_"
+      dazed = true
     end
 
     Attack.act_del_spell( target, "effect_stun" )
@@ -776,7 +867,7 @@ function effect_stun_attack( target, pause, duration )
     Attack.atom_spawn( target, pause, "effect_stun", 0, true )
   end
 
-  return true
+  return true, dazed
 end
 
 -- ***********************************************

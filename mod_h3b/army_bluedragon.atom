@@ -1,0 +1,164 @@
+main {
+  class=army
+  model=dragon_drahha.bma
+  turn_speed=1.0
+  walk_speed=1.55
+  run_speed=3.5
+  aggro_sound=reddragon_aggro
+  infobox {
+    hint=enemy_hint
+  }
+}
+scripts {
+  idle=default_idle
+  scenario=army_scenario
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=reddragon_idle.bsa/fr:25:50
+  rare=reddragon_rare.bsa/fr:25:50
+  move=reddragon_move_uni.bsa/fr:15:30
+  appear=reddragon_descent.bsa/fr:25:50
+  run=reddragon_move_uni.bsa/fr:35:70
+  death=reddragon_death.bsa/fr:25:50
+  attack=reddragon_attack.bsa/fr:25:50/r:0:26
+  appear=reddragon_descent.bsa/fr:25:50
+  lost=/t:1:1:idlemain
+
+  @death {
+    20.0=alpha/0/10
+  }
+}
+collisions {
+  ground=0.9
+  test1=1
+  test2=4
+  test3=9
+  test4=11
+}
+editor {
+  align=grid/0/0/0.1/0.1
+  spawnscale=1.0
+  scale=0.7:1.5
+  angle=0:1:360
+  logicunit {
+    typeflags=vars,capture
+    name=army_bluedragon
+    props=army
+    vars {
+      maxdist=3
+      fov=180
+    }
+    capture {
+      traps=army_walker_example
+    }
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/-0/0/0.69999999
+      bboxtop=true
+      logic_state=1
+      file=ui_aggro_a.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      bboxtop=true
+      logic_state=1
+      file=ui_aggro_b.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      bboxtop=true
+      logic_state=1
+      file=ui_aggro_c.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      bboxtop=true
+      logic_state=2
+      file=ui_lost_a.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      bboxtop=true
+      logic_state=2
+      file=ui_lost_b.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      bboxtop=true
+      logic_state=2
+      file=ui_lost_c.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=3
+      file=ui_shop.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=4
+      file=ui_quest.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=4
+      file=ui_quest_star.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=4
+      file=ui_quest_starlet.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest_star.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest_starlet.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest_ring.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=6
+      file=ui_sleep.ptb
+    }
+    particle {
+      logic_state=1
+      file=ui_aggro_rune.ptb
+    }
+    coord=0/0.34999999/0/0/-0/0/1
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=army_reddragon_attack
+      fadetime=60
+    }
+  }
+}

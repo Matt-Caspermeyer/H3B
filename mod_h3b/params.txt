@@ -1,0 +1,350 @@
+
+// counters
+
+money {
+  hotkey=1,0,20000
+  image=Victory_moneyIcon.png
+  nolimit=1
+  onchest=modify_chest_money
+  
+  atoms {
+    100 {
+      label=msg_gold_found_01
+      ffolabel=msg_gold_found_02
+      lu=template_item_ft
+      atom=res_gold
+    }
+    2000 {
+      label=msg_gold_found_01
+      ffolabel=msg_gold_found_02
+      //bitmap=money
+      lu=template_item_mb
+      atom=cache_01
+    }
+    1500 {
+      label=msg_gold_found_01
+      ffolabel=msg_gold_found_02
+      lu=template_item_mb
+      atom=hollow02
+    }
+  }
+}
+
+crystals {
+  hotkey=2,50
+  image=Message_icon1_crystal.png
+  onchange=crystals_handler
+  nolimit=1
+  
+  atoms {
+    1 {
+      label=msg_crystal_found_02
+      ffolabel=msg_crystal_found_01
+      lu=template_item_ft
+      atom=res_crystal_01
+    }
+    2 {
+      label=msg_crystal_found_02
+      ffolabel=msg_crystal_found_01
+      lu=template_item_ft
+      atom=res_crystal_02
+    }
+    3 {
+      label=msg_crystal_found_02
+      ffolabel=msg_crystal_found_01
+      lu=template_item_ft
+      atom=res_crystal_03
+    }
+  }
+}
+
+mana {
+  hotkey=3,50
+  limit=30
+  zerocount=1
+  cml=1
+  image=LevelUp_bonus_mana2.png
+  atoms {
+    100 {
+      lu=template_item_mb
+      atom=mana_fountain01
+      label=msg_manafount_add_01
+    }
+    50 {
+      lu=template_item_mb
+      atom=mana_fountain01town
+      label=msg_manafount_add_01
+    }
+  }
+}
+
+rage {
+  hotkey=5,500
+  image=LevelUp_bonus_rage2.png
+  limit=30
+  zerocount=1
+  cml=1
+  
+  atoms {
+    100 {
+      label=msg_rage_found_01
+      limlabel=msg_rage_lim_found_01
+    }
+  }
+}
+
+experience {
+  image=LevelUp_bonus_leadership2.png
+  hotkey=6,0,1000
+  onchange=add_exp_handler
+  nolimit=1
+  zerocount=1
+  
+  atoms {
+    100 {
+      label=msg_rage_found_01
+      limlabel=msg_rage_lim_found_01
+    }
+  }
+}
+
+leadership {
+  image=LevelUp_bonus_leadership2.png
+  hotkey=4,1000
+  onchange=add_lead_handler
+  nolimit=1
+  allowneg=0
+  cmc=1
+  atoms {
+    100 {
+      atom=res_lead_01
+      label=msg_lead_found_01
+      ffolabel=msg_lead_found_01
+      lu=template_item_ft
+    }
+    300 {
+      atom=res_lead_02
+      label=msg_lead_found_01
+      ffolabel=msg_lead_found_01
+      lu=template_item_ft
+    }
+    500 {
+      atom=res_lead_03
+      label=msg_lead_found_01
+      ffolabel=msg_lead_found_01
+      lu=template_item_ft
+    }
+  }
+}
+
+
+defense {
+  hotkey=0,1
+  zerocount=1
+  nolimit=1
+  image=LevelUp_bonus_defense2.png
+  allowneg=0
+  cmc=1
+  atoms {
+    1 {
+      label=
+      atom=target
+      lu=template_item_mb
+    }
+  }
+}
+
+attack {
+  hotkey=0,1
+  zerocount=1
+  nolimit=1
+  allowneg=0
+  cmc=1
+  image=LevelUp_bonus_attack2.png
+  atoms {
+    1 {
+      label=
+      atom=training_dummy
+      lu=template_item_mb
+    }
+  }
+}
+
+intellect {
+  hotkey=0,1
+  zerocount=1
+  nolimit=1
+  cmc=1
+  allowneg=0
+  image=LevelUp_bonus_intellect2.png
+  atoms {
+    1 {
+      label=
+      atom=absorbent_magic
+      lu=template_item_mb
+    }
+  }
+}
+
+rune_might {
+  hotkey=7,100
+  nolimit=1
+  allowneg=0
+  image=Message_icon1_rune_red.png
+  zerocount=1
+  onchange=rune_might_handler
+  
+  atoms {
+    1 {
+      atom=res_rune_might
+      label=msg_rune_found_1
+      ffolabel=msg_rune_found_01
+      lu=template_item_ft
+    }
+  }
+}
+
+rune_magic {
+  hotkey=7,100
+  nolimit=1
+  allowneg=0
+  zerocount=1
+  image=Message_icon1_rune_blue.png
+  onchange=rune_magic_handler
+  atoms {
+    1 {
+      label=msg_rune_found_2
+      ffolabel=msg_rune_found_02
+      lu=template_item_ft
+      atom=res_rune_magic
+    }
+  }
+}
+
+rune_mind {
+  hotkey=7,100
+  zerocount=1
+  nolimit=1
+  allowneg=0
+  image=Message_icon1_rune_green.png
+  onchange=rune_mind_handler
+  atoms {
+    1 {
+      label=msg_rune_found_3
+      ffolabel=msg_rune_found_03
+      //bitmap=rune_travel
+      lu=template_item_ft
+      atom=res_rune_mind
+    }
+  }
+}
+
+
+booksize {
+  hotkey=0,10
+  count=0
+  limit=0
+  cmc=1
+  zerocount=1
+  allowneg=0
+}
+
+search_radius {
+  count=3
+  cmc=1
+  limit=0
+  zerocount=1
+}
+
+// These are just so that I can put it in the combat summary for awarding containers, not used otherwise
+dfly_wng {
+  count=0
+  nolimit=1
+  allowneg=0
+  image=heroitem_quest_dragonfly_wings.png
+}
+
+//egg_griffin {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_griffin.png
+//}
+//
+//egg_snake {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_snake.png
+//}
+//
+//egg_bonedragon {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_dragon_bone.png
+//}
+//
+//egg_spider {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_spider.png
+//}
+//
+//egg_greendragon {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_dragon_green.png
+//}
+//
+//egg_reddragon {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_red_dragon.png
+//}
+//
+//egg_blackdragon {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_black_dragon.png
+//}
+//
+//egg_dfly {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_black_dragon.png
+//}
+//
+//grave_skeleton {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_container_grave01.png
+//}
+//
+//grave_vampire {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_container_vgrave01.png
+//}
+//
+//seed_thorn {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_container_thorn_seed.png
+//}
+//
+//seed_ent {
+//  count=0
+//  nolimit=1
+//  allowneg=0
+//  image=heroitem_egg_small_ent.png
+//}
+

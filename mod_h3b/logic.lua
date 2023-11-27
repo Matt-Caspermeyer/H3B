@@ -1,7 +1,7 @@
 function change_load_tips( count )
 --  local hint_num = tostring( Game.Random( 1, tonumber( count ) ) )
   -- The count doesn't seem to work, so manually set it to the max hints in EN(G)_WINDOWS.LNG
-  local hint_num = tostring( Game.Random( 1, 148 ) )
+  local hint_num = tostring( Game.Random( 1, 164 ) )
 
   return "<label=load_screen_tips_" .. hint_num .. ">"
 

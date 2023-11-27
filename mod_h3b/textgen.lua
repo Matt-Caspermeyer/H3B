@@ -199,29 +199,22 @@ function gen_unit_res( data )
 
   for i = 0, res_count - 2 do
     local res = AU.resistance( data,  i )
-
     local is_human = AU.is_human( data )
-
-    if not Game.LocIsArena() then
-      local hero_defense = Logic.hero_lu_item( "defense", "count" )
-      local value = Game.Config( "defense_config/res_inc" )
-      res = res + math.floor( hero_defense / 7 ) * value
-    end
-
     local hero_defense = 0
 
-    if is_human then
+    if not Game.LocIsArena()
+    or is_human then
       hero_defense = Logic.hero_lu_item( "defense", "count" )
       local value = Game.Config( "defense_config/res_inc" )
       res = res + math.floor( hero_defense / 7 ) * value
     else
       hero_defense = Attack.val_restore( data, "enemy_hero_defense" )
-    end
-
-    if hero_defense ~= nil
-    and hero_defense > 0 then
-      local value = Game.Config( "defense_config/res_inc" )
-      res = res + math.floor( hero_defense / 7 ) * value
+      
+      if hero_defense ~= nil
+      and hero_defense > 0 then
+        local value = Game.Config( "defense_config/res_inc" )
+        res = res + math.floor( hero_defense / 7 ) * value
+      end
     end
 
     if res > 95 then res = 95 end

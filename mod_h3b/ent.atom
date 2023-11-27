@@ -82,6 +82,7 @@ arena_params {
     hinthead=special_summonplant1_head
     hint=special_summonplant1_hint
     reload=5
+    moves=2
     warning=sw_place
     script_attack=special_summonplant
     script_calccells=calccells_all_empty_around
@@ -89,7 +90,7 @@ arena_params {
     picture=BA1_summonplant_
     picture_small=BA1_summonplant_small.png
     custom_params {
-      k=30-50
+      k=20-35
     }
   }
   run {

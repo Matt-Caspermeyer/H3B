@@ -397,7 +397,7 @@ function magic_attack_hint_gen()
  		 local min_dmg, max_dmg, par1, par2 = _G[ func_name ]()
  
  		 if Obj.name() == "spell_ice_serpent" then
- 		   if Attack.act_feature( target, "freeze_immunitet" ) then min_dmg = min_dmg * freeze_im; max_dmg = max_dmg * freeze_im end
+      min_dmg, max_dmg = common_freeze_im_vul( target, min_dmg, max_dmg )
  		 end
  
  	  Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )
@@ -476,6 +476,7 @@ function magic_attack_hint_gen()
 
 			   local min_p_dmg, max_p_dmg = pwr_ice_serpent( "periphery" )
 			   local epicenter = target
+
 			   for i = 0, 5 do
 				    local target = Attack.cell_adjacent( epicenter, i )
 
@@ -484,11 +485,8 @@ function magic_attack_hint_gen()
         and Attack.get_caa( target ) ~= nil
         and Attack.act_takesdmg( target )
         and Attack.act_applicable( target ) then
-     					if Attack.act_feature( target, "freeze_immunitet" ) then
-  						    Attack.atk_set_damage( dmg_type, min_p_dmg * freeze_im, max_p_dmg * freeze_im )   -- set custom damage for periphery
-					     else
-      						Attack.atk_set_damage( dmg_type, min_p_dmg, max_p_dmg )   -- set custom damage for periphery
-					     end
+          local min_dmg, max_dmg = common_freeze_im_vul( target, min_p_dmg, max_p_dmg )
+      				Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )   -- set custom damage for periphery
 
 					     res = add_target( target, res, added_target_ids )
 				    end
@@ -550,7 +548,8 @@ function spirit_attack_hint_gen()
     for i, c in ipairs( get_devatron_cells() ) do
       if Attack.act_enemy( c )
       and Attack.act_takesdmg( c ) then
-        Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+        local min_dmg, max_dmg = common_freeze_im_vul( c, dmg_min, dmg_max )
+        Attack.atk_set_damage( typedmg, min_dmg, max_dmg )
 						  res = add_target( c, res, added_target_ids )
       end
     end

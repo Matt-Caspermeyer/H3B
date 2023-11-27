@@ -11,11 +11,147 @@ function gen_egg_param()
   local variant_color = "<color=0,187,232>"
   local stat_color = "<color=253,248,255>"
   local unit_color = "<color=240,168,4>"
+  local name = Obj.name()
+
+  -- This function is meant to get the object parameters when they're not working properly
+  -- It seems like this is the case after you talk to someone in a castle and they add
+  -- new items. If ITEMS_MONSTER.TXT is changed, then you need to change this to match.
+  -- I don't know any other way to do this, unfortunately, but if you find another way
+  -- then please let me know!
+  local function brute_force_get_params( name, param )
+    if name == "griffin_egg" then
+      if param == "troop" then
+        return "griffin"
+      elseif param == "troopcount" then
+        return "1-2"
+      elseif param == "random" then
+        return "100"
+      end
+    elseif name == "snake_egg" then
+      if param == "troop" then
+        return "snake,snake_green,snake_royal"
+      elseif param == "troopcount" then
+        return "2-4,2-4,1-2"
+      elseif param == "random" then
+        return "39,41,20"
+      end
+    elseif name == "bonedragon_egg" then
+      if param == "troop" then
+        return "bonedragon"
+      elseif param == "troopcount" then
+        return "1-2"
+      elseif param == "random" then
+        return "100"
+      end
+    elseif name == "spider_egg" then
+      if param == "troop" then
+        return "spider,spider_fire,spider_venom,spider_undead"
+      elseif param == "troopcount" then
+        return "2-4,1-2,2-4,2-4"
+      elseif param == "random" then
+        return "27,16,29,28"
+      end
+    elseif name == "dragon_egg" then
+      if param == "troop" then
+        return "greendragon"
+      elseif param == "troopcount" then
+        return "1-2"
+      elseif param == "random" then
+        return "100"
+      end
+    elseif name == "red_dragon_egg" then
+      if param == "troop" then
+        return "reddragon"
+      elseif param == "troopcount" then
+        return "1-2"
+      elseif param == "random" then
+        return "100"
+      end
+    elseif name == "black_dragon_egg" then
+      if param == "troop" then
+        return "blackdragon"
+      elseif param == "troopcount" then
+        return "1-2"
+      elseif param == "random" then
+        return "100"
+      end
+    elseif name == "blue_dragon_egg" then
+      if param == "troop" then
+        return "bluedragon"
+      elseif param == "troopcount" then
+        return "1-2"
+      elseif param == "random" then
+        return "100"
+      end
+    elseif name == "dfly_egg" then
+      if param == "troop" then
+        return "dragonfly_fire,dragonfly_lake"
+      elseif param == "troopcount" then
+        return "2-5,2-5"
+      elseif param == "random" then
+        return "50,50"
+      end
+    elseif name == "skeleton_grave" then
+      if param == "troop" then
+        return "archer,skeleton"
+      elseif param == "troopcount" then
+        return "3-5,3-6"
+      elseif param == "random" then
+        return "48,56"
+      end
+    elseif name == "vampire_grave" then
+      if param == "troop" then
+        return "vampire,vampire2"
+      elseif param == "troopcount" then
+        return "2-4,1-2"
+      elseif param == "random" then
+        return "72,32"
+      end
+    elseif name == "thorn_seed" then
+      if param == "troop" then
+        return "thorn,thorn_warrior"
+      elseif param == "troopcount" then
+        return "5-8,5-8"
+      elseif param == "random" then
+        return "50,50"
+      elseif param == "altfactor" then
+        return "47-76"
+      elseif param == "alttroop" then
+        return "kingthorn"
+      elseif param == "troopcount" then
+        return "1-2"
+      elseif param == "random" then
+        return "100"
+      end
+    end
+
+    return nil
+  end
+
   local troop = Obj.get_param( "troop" )
+
+  if troop == "" then
+    troop = brute_force_get_params( name, "troop" )
+  end
+
   local troopcnt = Obj.get_param( "troopcount" )
+
+  if troopcnt == "" then
+    troopcnt = brute_force_get_params( name, "troopcount" )
+  end
+
   local trand = Obj.get_param( "random" )
+
+  if trand == "" then
+    trand = brute_force_get_params( name, "random" )
+  end
+
   local factor = Logic.cur_lu_item( Obj.name(), "count" )
   local altfactor = Obj.get_param( "altfactor" )
+
+  if altfactor == "" then
+    altfactor = brute_force_get_params( name, "altfactor" )
+  end
 
   local function fill_tables( troop, troopcnt, trand )
     local troops, troopcnts, trands = {}, {}, {}
@@ -95,8 +231,22 @@ function gen_egg_param()
 
   local function get_alt_data()
     local troop = Obj.get_param( "alttroop" )
+
+    if troop == "" then
+      troop = brute_force_get_params( name, "alttroop" )
+    end
+
     local troopcnt = Obj.get_param( "alttroopcount" )
+
+    if troopcnt == "" then
+      troopcnt = brute_force_get_params( name, "alttroopcount" )
+    end
+
     local trand = Obj.get_param( "altrandom" )
+
+    if trand == "" then
+      trand = brute_force_get_params( name, "altrandom" )
+    end
 
     return troop, troopcnt, trand
   end
@@ -218,7 +368,7 @@ function gen_itm_kid_hint( par )
   elseif par == "comma_space" then
     return color .. ", </color>"
   elseif par == "end" then
-    return color .. ".<br></color>"
+    return color .. ".</color>"
   elseif par == "space" then
     return color .. " </color>"
   elseif par == "space_and_space" then
@@ -304,7 +454,7 @@ function gen_itm_kid_hint( par )
     
     if skill_level ~= nil then
       local skill_gain_type, value = get_gain_type_value( par, skill_level )
-      text = text .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+      text = text .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. "."
     end
 
   elseif string.find( par, "astral_damage" )
@@ -316,7 +466,7 @@ function gen_itm_kid_hint( par )
 
     if damage_level ~= nil then
       local damage_gain_type, value = get_gain_type_value( par, damage_level )
-      text = text .. " and " .. gen_dmg_common_hint( damage_gain_type, value, nil, nil, stat_color, "</color>" ) .. " <label=itm_kid_" .. damage .. ">" .. ".<br>"
+      text = text .. " and " .. gen_dmg_common_hint( damage_gain_type, value, nil, nil, stat_color, "</color>" ) .. " <label=itm_kid_" .. damage .. ">" .. "."
     end
 
   elseif string.find( par, "astral_eresist" )
@@ -333,7 +483,7 @@ function gen_itm_kid_hint( par )
 
     if resist_level ~= nil then
       local resist_gain_type, value = get_gain_type_value( par, resist_level )
-      text = text .. color .. "<label=itm_kid_" .. resist .. ">: </color>" .. gen_dmg_common_hint( resist_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+      text = text .. color .. "<label=itm_kid_" .. resist .. ">: </color>" .. gen_dmg_common_hint( resist_gain_type, value, nil, nil, stat_color, "</color>" ) .. "."
     end
 
   elseif string.find( par, "effect_" ) then
@@ -396,7 +546,7 @@ function gen_itm_kid_hint( par )
         text = text .. gen_dmg_common_hint( effect_gain_type, value, nil, nil, stat_color, "</color>" )
 
       elseif effect_display == "end" then
-        text = text .. ".<br>"
+        text = text .. "."
       end
     end
 
@@ -411,20 +561,20 @@ function gen_itm_kid_hint( par )
         local den_scholar = Game.Config( "spell_power_config/den_scholar" )
         local intellect = tostring( mod - skill_level / den_scholar )
         value = value / den_scholar
-        text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. " for every " .. stat_color .. intellect .. "</color> Intelligence.<br>"
+        text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. " for every " .. stat_color .. intellect .. "</color> Intelligence."
       elseif skill == "skill_archery"
       or skill == "skill_offense" then
         text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" )
 
         if skill_level == 1 then
-          text = text .. ".<br>"
+          text = text .. "."
         end
       elseif skill == "skill_navigation" then
-        text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( "plus_power", skill_level, nil, nil, stat_color, "</color>" ) .. ", Critical Hit: " .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+        text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( "plus_power", skill_level, nil, nil, stat_color, "</color>" ) .. ", Critical Hit: " .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. "."
       elseif skill == "skill_necromancy" then
-        text = text .. color .. "<label=itm_kid_" .. skill .. "> <label=itm_kid_lr>: </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+        text = text .. color .. "<label=itm_kid_" .. skill .. "> <label=itm_kid_lr>: </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. "."
       else
-        text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. ".<br>"
+        text = text .. color .. "<label=itm_kid_" .. skill .. "> </color>" .. gen_dmg_common_hint( skill_gain_type, value, nil, nil, stat_color, "</color>" ) .. "."
       end
     end
 
@@ -440,6 +590,15 @@ function gen_itm_kid_hint( par )
 
       elseif spell_display == "starts" then
         text = text .. color .. "<label=itm_kid_spells> </color>" .. spell_color .. "<label=" .. spell .. "_name></color>"
+
+      elseif spell_display == "fire_starts" then
+        text = text .. color .. "<label=itm_kid_fire_spells> </color>" .. spell_color .. "<label=" .. spell .. "_name></color>"
+
+      elseif spell_display == "attack_starts" then
+        text = text .. color .. "<label=itm_kid_attack_spells> </color>" .. spell_color .. "<label=" .. spell .. "_name></color>"
+
+      elseif spell_display == "defense_starts" then
+        text = text .. color .. "<label=itm_kid_defense_spells> </color>" .. spell_color .. "<label=" .. spell .. "_name></color>"
 
       elseif spell_display == "comma_space" then
         text = text .. spell_color .. ", <label=" .. spell .. "_name></color>"

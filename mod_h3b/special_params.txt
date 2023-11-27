@@ -97,6 +97,13 @@ sp_lead_unit_blackknight {
   }
 }
 
+sp_lead_unit_bluedragon {
+  cmc=1
+  params {
+    units=bluedragon
+  }
+}
+
 sp_lead_unit_bonedragon {
   cmc=1
   params {

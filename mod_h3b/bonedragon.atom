@@ -40,10 +40,12 @@ arena_params {
     ad_factor=1
     usefly=4
     damage {
-      poison=65,80
+      poison=33,40
+      physical=33,40
     }
     custom_params {
       poison=0
+      poison_chance=25
       chance=20
     }
   }
@@ -79,7 +81,7 @@ arena_params {
 scripts {
   scenario=default_scenario
   idle=default_idle
-  subturn_modificators=features_morale_penalty
+  subturn_modificators=bonedragon_subturn_modificator
 }
 animations {
   idle=/t:1:4:idlemain:1:1:rarelist

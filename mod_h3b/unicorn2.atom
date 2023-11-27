@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_unicorn2_feat
-  features_hints=magic_resistance_header/magic_resistance_hint,light_horn_header/light_horn_hint,tolerance_header/tolerance_hint,forest_lover_header/forest_lover_hint
+  features_hints=magic_resistance_header/magic_resistance_hint,light_horn_header/light_horn_hint,tolerance_header/tolerance_hint,magic_curse_header/magic_curse_hint,forest_lover_header/forest_lover_hint
   race=elf
   cost=950
   level=4
@@ -22,6 +22,8 @@ arena_params {
   hitbackprotect=0
   features=beast
   attacks=moveattack,demonhell
+  posthitmaster=features_lighthorn_attack
+  ondamage=unicorn2_ondamage
   resistances {
     physical=0
     poison=0
@@ -38,6 +40,9 @@ arena_params {
     damage {
       physical=12,21
     }
+    custom_params {
+      blind=20
+    }
   }
   demonhell {
     group=1,2
@@ -52,6 +57,9 @@ arena_params {
     damage {
       physical=12,21
       magic=4,7
+    }
+    custom_params {
+      blind=40
     }
   }
   lighthorn {
@@ -80,6 +88,7 @@ arena_params {
 scripts {
   scenario=default_scenario
   idle=default_idle
+  subturn_modificators=features_magic_aura2
 }
 animations {
   idle=/t:1:4:idlemain:1:1:rarelist

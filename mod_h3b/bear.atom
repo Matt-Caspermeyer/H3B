@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_bear_feat
-  features_hints=critical_damage_header/critical_damage_hint,spiteful_header/spiteful_hint,drowsiness_header/drowsiness_hint,noble_beast_header/noble_beast_hint,forest_liker_header/forest_liker_hint
+  features_hints=critical_damage_header/critical_damage_hint,spiteful_header/spiteful_hint,drowsiness_header/drowsiness_hint,noble_beast_header/noble_beast_hint,bear_attack_header/bear_attack_hint,forest_liker_header/forest_liker_hint
   race=neutral
   cost=160
   level=3
@@ -15,17 +15,18 @@ arena_params {
   defenseup=4
   initiative=2
   speed=2
-  hitpoint=60
+  hitpoint=80
   movetype=0
-  krit=20
+  krit=30
   hitback=1
   hitbackprotect=0
   attacks=moveattack,run
   features=beast
+  posthitmaster=features_bear_attack
   posthitslave=bear_slave
   resistances {
-    physical=0
-    poison=0
+    physical=5
+    poison=5
     magic=0
     fire=-10
   }
@@ -33,6 +34,12 @@ arena_params {
     ad_factor=1
     damage {
       physical=7,10
+    }
+    custom_params {
+      bleeding=15
+      bleeding_inc=10
+      stun=15
+      stun_inc=10
     }
   }
   run {

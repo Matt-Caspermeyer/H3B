@@ -1,8 +1,8 @@
 //Children hint templates
 itm_kid_boy_preamble=^?^As your gaze falls upon the countenance of your son, you are wracked by visions of... the future? No! Somehow... it feels like the past! The visage of your son is now of this place and time. As your head spins you hear whispers:
-itm_kid_boy_postamble=^?^As the voices fade and your head clears, you cannot get this image of your son out of your mind...<br><br><color=222,194,94>Bonuses:</color><br>
+itm_kid_boy_postamble=^?^As the voices fade and your head clears, you cannot get this image of your son out of your mind...<br><br><color=222,194,94>Bonuses:</color>
 itm_kid_girl_preamble=^?^As your gaze falls upon the countenance of your daughter, you are wracked by visions of... the future? No! Somehow... it feels like the past! The visage of your daughter is now of this place and time. As your head spins you hear whispers:
-itm_kid_girl_postamble=^?^As the voices fade and your head clears, you cannot get this image of your daughter out of your mind...<br><br><color=222,194,94>Bonuses:</color><br>
+itm_kid_girl_postamble=^?^As the voices fade and your head clears, you cannot get this image of your daughter out of your mind...<br><br><color=222,194,94>Bonuses:</color>
 
 itm_kid_info_boy=^?^It's hard to believe that this is your son, but it's true. You're the happy father of this boy.<br><br>The child, besides giving useful bonuses, takes his place in your heart and in your wife's equipment slot.
 itm_kid_info_girl=^?^This little beautiful girl is your daughter. It's hard to believe, but now you're the family guy and happy father.<br><br>The child, besides giving useful bonuses, takes her place in your heart and in your wife's equipment slot.
@@ -85,6 +85,9 @@ itm_kid_effect_weakness=^?^Weakness
 
 itm_kid_spell=^?^Spell
 itm_kid_spells=^?^Spells
+itm_kid_fire_spells=^?^Fire Spells
+itm_kid_attack_spells=^?^Attack Spells
+itm_kid_defense_spells=^?^Defense Spells
 itm_kid_spell_power=^?^Power:
 itm_kid_spell_bonus=^?^Bonus:
 itm_kid_spell_count=^?^Count:
@@ -135,7 +138,7 @@ itm_kid_ur=^?^Unlimited Retaliation
 itm_kid_ur_with_abbrev=^?^Unlimited Retaliation (UR)
 itm_kid_ur_abbrev=^?^UR
 
-itm_wife_bonuses=^?^<br><color=222,194,94>Bonuses:</color><br>
+itm_wife_bonuses=^?^<br><color=222,194,94>Bonuses:</color>
 itm_wife_orcelyn_preamble=^?^You won Orcelyn's heart by aiding her grandfather and freeing her from the embassy dungeon.<br>
 itm_wife_diana_preamble=^?^The beautiful River Fairy, Diana, she fell for you after you helped a simple brook.<br>
 itm_wife_feanora_preamble=^?^Ex-princess of the swamps and patroness of frogs, she is now your wife.<br>

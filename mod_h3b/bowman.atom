@@ -129,7 +129,7 @@ arena_params {
     throw=arrow_dragon
     framekey=x
     damage {
-      astral=3,4
+      astral=6,8
     }
     custom_params {
       burn=0

@@ -2,11 +2,176 @@
 function effect_chance( value, effect_or_feature, kind )
   local bonus = tonumber( Logic.hero_lu_item( "sp_chance_" .. effect_or_feature .. "_" .. kind, "count" ) )
 
-  if bonus ~= nil then
+  if value ~= nil
+  and bonus ~= nil then
     value = value + bonus
   end
 
   return value
+end
+
+
+-- New Bear Attack
+function features_bear_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+  if ( minmax == 0 )
+  and not hitbacking
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
+    if not Attack.act_feature( receiver, "golem" )
+    and not Attack.act_feature( receiver, "pawn" )
+    and not Attack.act_feature( receiver, "boss" )
+    and not Attack.act_feature( receiver, "plant" ) then
+      local attacker_level = Attack.act_level( attacker )
+      local receiver_level = Attack.act_level( receiver )
+      local stun = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "stun" ) )
+      local stunned = false
+      local dazed = false
+  
+      if attacker_level ~= nil   -- attacker_level should never be nil, but you never know...
+      and receiver_level ~= nil  -- receiver_level should never be nil, but you never know...
+      and stun ~= nil then
+        local stun_inc = tonum( Attack.get_custom_param( "stun_inc" ) )
+        local stun_chance = stun + ( attacker_level - receiver_level ) * stun_inc
+        local receiver_res = Attack.act_get_res( receiver, "physical" )
+        stun_chance = stun_chance * ( 1 - receiver_res / 100 )
+        local rnd = Game.Random( 99 )
+      
+        if rnd < stun_chance then
+          stunned = true
+          local duration = apply_difficulty_level_talent_bonus( 2 )
+          local returnVal
+          returnVal, dazed = effect_stun_attack( receiver, 1, duration )
+        end
+      end
+
+      local bleeding = false
+      local hemoraging = false
+
+      if not Attack.act_feature( receiver, "undead" ) then
+        local bleeding = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "bleeding" ) )
+    
+        if attacker_level ~= nil   -- attacker_level should never be nil, but you never know...
+        and receiver_level ~= nil  -- receiver_level should never be nil, but you never know...
+        and bleeding ~= nil then
+          local bleeding_inc = tonum( Attack.get_custom_param( "bleeding_inc" ) )
+          local bleeding_chance = bleeding + ( attacker_level - receiver_level ) * bleeding_inc
+          local receiver_res = Attack.act_get_res( receiver, "physical" )
+          bleeding_chance = bleeding_chance * ( 1 - receiver_res / 100 )
+          local rnd = Game.Random( 99 )
+        
+          if rnd < bleeding_chance then
+            bleeding = true
+            local power = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "power" ) ) -- назначаем бонус
+            local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "duration" ) )
+            duration = apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_bleeding", false )
+            local bleeding_res = Attack.act_get_res( receiver, "physical" )
+            power = math.min( 80, power - bleeding_res )
+      
+            if power > 0 then
+              scared = true
+              local duration_old = tonumber( Attack.act_spell_duration( receiver, "feat_lump_bleeding" ) )
+              local message = "add_blog_bleeding_"
+      
+              if duration_old ~=nil and duration_old ~= 0 then
+                if duration_old - duration > 0 then
+                  power = math.min( 80, power + duration_old - duration )
+                end
+
+                duration = math.max( duration, duration_old ) + 1
+                message = "add_blog_hemoraging_"
+                hemoraging = true
+              end
+
+           			Attack.act_del_spell( receiver, "feat_bleeding" )
+              Attack.act_apply_spell_begin( receiver, "feat_bleeding", duration, false )
+          				Attack.act_apply_par_spell( "attack", 0, -power, 0, duration, false )
+          				Attack.act_apply_par_spell( "defense", 0, -power, 0, duration, false )
+              Attack.act_apply_spell_end()
+         			  Attack.act_damage_addlog( receiver, message )
+            end
+          end
+        end
+      end
+
+      if bleeding
+      or hemoraging then
+        if stunned
+        or dazed then
+          if stunned
+          and bleeding then
+            message = "add_blog_stunned_bleeding_"
+          elseif stunned
+          and hemoraging then
+            message = "add_blog_stunned_hemoraging_"
+          elseif dazed
+          and bleeding then
+            message = "add_blog_dazed_bleeding_"
+          elseif dazed
+          and hemoraging then
+            message = "add_blog_dazed_hemoraging_"
+          end
+  
+          Attack.act_damage_addlog( receiver, message )
+        end
+      end
+    end
+  end 
+
+	 return damage, addrage
+end
+
+
+-- New Unicorn Horn of Light Attack
+function features_lighthorn_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+  if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver )
+  and ( Attack.act_name( receiver ) ~= "unicorn"
+  and Attack.act_name( receiver ) ~= "unicorn2" ) then
+    local blind = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "blind" ) )
+    local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "effect_blind", "duration" ) )
+
+    if blind ~= nil then
+      if Attack.act_race( receiver ) == "undead"
+      or Attack.act_race( receiver ) == "demon"
+      or Attack.act_feature( receiver, "undead" )
+      or Attack.act_feature( receiver, "demon" ) then
+        duration = duration + 1
+      end
+
+      if Attack.act_name( receiver ) == "beholder"
+      or Attack.act_name( receiver ) == "beholder2"
+      or Attack.act_name( receiver ) == "cyclop" then
+        blind = blind * 2
+        duration = duration + 1
+      end
+
+      if Game.DayTime() > 1
+      or Game.LocType( 'dungeon' ) then
+        blind = blind * 2
+        duration = duration + 1
+      end
+
+      -- Note that the Unicorn's Blind is consisdered an Astral Attack and so resistance type is Astral (i.e. no resistance)
+      -- (as opposed to the spell that is magical)
+      local resistance = "astral"
+      local receiver_res = Attack.act_get_res( receiver, resistance )
+      local blind_chance = blind * ( 1 - receiver_res / 100 )
+      local rnd = Game.Random( 99 )
+    
+      if rnd < blind_chance
+      and not Attack.act_feature( receiver, "eyeless" )
+      and not ( Attack.act_feature( receiver, "golem" )
+      or not Attack.act_name( receiver ) == "cyclop" )  -- even though cyclops are golems, they can be blinded
+      and not Attack.act_feature( receiver, "pawn" )
+      and not Attack.act_feature( receiver, "boss" ) then
+        Attack.act_animate( attacker, "power" )
+       	effect_blind_attack( receiver, 1, duration )
+      end
+    end
+  end 
+
+  return damage, addrage
 end
 
 
@@ -17,7 +182,7 @@ function orc_posthitslave( damage, addrage, attacker, receiver, minmax, userdata
   and not hitbacking
   and damage < Attack.act_totalhp( receiver ) then
     local iskrit = Attack.val_restore( receiver, "critical_hit" )
-    local angry = tonumber( Attack.get_custom_param( "angry" ) )
+    local angry = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "angry" ) )
 
     if angry ~= nil then
       local rnd = Game.Random( 99 )
@@ -69,7 +234,7 @@ function features_giant_attack( damage, addrage, attacker, receiver, minmax, use
   and not hitbacking
   and damage > 0
   and damage < Attack.act_totalhp( receiver ) then
-    local sleep = tonumber( Attack.get_custom_param( "sleep" ) )
+    local sleep = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "sleep" ) )
 
     if sleep ~= nil then
       local receiver_res = Attack.act_get_res( receiver, "physical" )
@@ -88,7 +253,7 @@ function features_giant_attack( damage, addrage, attacker, receiver, minmax, use
       and not Attack.act_feature( receiver, "boss" )
       and not Attack.act_feature( receiver, "plant" )
       and not Attack.act_feature( receiver, "undead" ) then
-        local duration = 1
+        local duration = apply_difficulty_level_talent_bonus( 1 )
        	effect_unconscious_attack( receiver, 1, duration )
        	Attack.act_damage_addlog( receiver, "add_blog_unconscious_" )
       end
@@ -106,7 +271,7 @@ function features_ogre_attack( damage, addrage, attacker, receiver, minmax, user
   and damage > 0
   and damage < Attack.act_totalhp( receiver ) then
     local receiver_level = Attack.act_level( receiver )
-    local stun = tonumber( Attack.get_custom_param( "stun" ) )
+    local stun = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "stun" ) )
 
     if receiver_level ~= nil  -- receiver_level should never be nil, but you never know...
     and stun ~= nil then
@@ -122,7 +287,7 @@ function features_ogre_attack( damage, addrage, attacker, receiver, minmax, user
       and not Attack.act_feature( receiver, "boss" )
       and not Attack.act_feature( receiver, "plant" ) )
       or Attack.act_is_spell( receiver, "effect_stun" ) ) then
-        local sleep = tonum( Attack.get_custom_param( "sleep" ) )
+        local sleep = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "sleep" ) ) )
         local sleep_inc = tonum( Attack.get_custom_param( "sleep_inc" ) )
         local sleep_chance = sleep + ( 5 - receiver_level ) * sleep_inc
   
@@ -136,11 +301,11 @@ function features_ogre_attack( damage, addrage, attacker, receiver, minmax, user
         if rnd < sleep_chance
         and not Attack.act_feature( receiver, "undead" )
         and not Attack.act_feature( receiver, "mind_immunitet" ) then
-          local duration = 1
+          local duration = apply_difficulty_level_talent_bonus( 1 )
        			effect_unconscious_attack( receiver, 1, duration )
        			Attack.act_damage_addlog( receiver, "add_blog_unconscious_" )
         else
-          local duration = 2
+          local duration = apply_difficulty_level_talent_bonus( 2 )
         	 effect_stun_attack( receiver, 1, duration )
         end
       end
@@ -232,17 +397,37 @@ end
 -- New Bone Dragon Attack
 function features_bonedragon_attack( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
+    --local receiver=Attack.get_target(1)  -- кого?
+    local poison = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "poison_chance" ) )
+
+    if poison ~= nil then
+      poison = effect_chance( poison, "effect", "poison" )
+      local poison_res = Attack.act_get_res( receiver, "poison" )
+      local rnd = Game.Random( 99 )
+      
+      local poison_chance = math.min( 100, poison * ( 1 - poison_res / 100 ) )
+      local poison_damage = damage * poison_chance / 200
+      if rnd < poison_chance
+      and not Attack.act_feature( receiver, "golem" ) then -- and (not Attack.act_feature(receiver,"poison_immunitet") or Attack.act_race("undead")) then 
+        effect_poison_attack( receiver, 0, apply_difficulty_level_talent_bonus( 3 ), poison_damage, poison_damage )
+      end
+    end
+  end 
+
+  if ( minmax == 0 )
   and not hitbacking
   and damage > 0
   and damage < Attack.act_totalhp( receiver ) then
     local receiver_level = Attack.act_level( receiver )
-    local chance = tonumber( Attack.get_custom_param( "chance" ) )
+    local chance = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "chance" ) )
 
     if receiver_level ~= nil  -- receiver_level should never be nil, but you never know...
     and chance ~= nil then
       local receiver_chance = ( 5 - receiver_level ) * chance
       local rnd = Game.Random( 99 )
-      local poison = tonum( Attack.get_custom_param( "poison" ) )
+      local poison = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "poison" ) ) )
     
       if rnd < receiver_chance
       and poison == 0
@@ -321,7 +506,7 @@ function features_entangle( damage, addrage, attacker, receiver, minmax )
     and not Attack.act_feature( receiver, "plant" )
     and not Attack.act_feature( receiver, "pawn" )
     and not Attack.act_feature( receiver, "boss" ) then
-      local entangle = tonumber( Attack.get_custom_param( "entangle" ) )
+      local entangle = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "entangle" ) )
       
       if entangle ~= nil then
         local level = tonum( Attack.get_custom_param( "level" ) )
@@ -343,6 +528,7 @@ function features_entangle( damage, addrage, attacker, receiver, minmax )
             local rnd = Game.Random( 99 )
         
             if rnd < entangle then
+              local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "effect_entangle", "duration" ) )
               effect_entangle_attack( receiver, 1, duration )
             end
           end
@@ -378,7 +564,7 @@ function features_dissipate_energy()
 
   if titan_energy ~= nil then  -- This shouldn't be needed since tonum sets nil to 0, but is here anyway
     if titan_energy > 0 then
-      local power = 80
+      local power = 100 - tonum( Attack.val_restore( 0, "dissipate" ) )
       local stored_energy = math.floor( titan_energy * power / 100 )
       Attack.val_store( 0, "titan_energy", stored_energy )
       local count = "1"
@@ -430,9 +616,9 @@ end
 function features_increase_anger( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
 	 if ( minmax == 0 )
   and not hitbacking then
-    local bonus = tonumber( Logic.obj_par( "feat_increase_anger", "power" ) ) -- назначаем бонус
-    local krit_bonus = tonumber( Logic.obj_par( "feat_increase_anger", "krit_bonus" ) ) -- назначаем бонус
-    local duration = tonumber( Logic.obj_par( "feat_increase_anger", "duration" ) )
+    local bonus = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_increase_anger", "power" ) ) -- назначаем бонус
+    local krit_bonus = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_increase_anger", "krit_bonus" ) ) -- назначаем бонус
+    local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_increase_anger", "duration" ) )
     duration = apply_hero_duration_bonus( attacker, duration, "sp_duration_feat_increase_anger", true )
     local cur_bonus = 0
     local cur_krit_bonus = 0
@@ -465,8 +651,8 @@ end
 
 function features_brutality( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
   if ( minmax == 0 and Attack.get_caa( attacker ) ~= nil ) then -- если это не спелл
-    local bonus = Game.Random( text_range_dec( Logic.obj_par( "feat_brutality", "power" ) ) ) -- назначаем бонус
-    local duration = tonumber( Logic.obj_par( "feat_brutality", "duration" ) )
+    local bonus = apply_difficulty_level_talent_bonus( Game.Random( text_range_dec( Logic.obj_par( "feat_brutality", "power" ) ) ) ) -- назначаем бонус
+    local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_brutality", "duration" ) )
     duration = apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_brutality", true )
     local cur_bonus = 0
     
@@ -477,6 +663,7 @@ function features_brutality( damage, addrage, attacker, receiver, minmax, userda
       Attack.act_apply_spell_end()
    			Attack.atom_spawn( receiver, 0, "effect_brutality", Attack.angleto( receiver ), true )
     		local dmg, dead = Attack.act_damage_results( receiver )
+
     		if dead ~= Attack.act_size( receiver ) then
        	if Attack.act_size( receiver ) > 1 then 
        			Attack.log( receiver, 0.001, "add_blog_brutality_2", "special", blog_side_unit( attacker, 2 )..blog_side_unit( attacker,3 )..blog_side_unit( receiver, -1 ).."</color>" )
@@ -502,8 +689,17 @@ function features_soul_drain( damage, addrage, attacker, receiver, minmax )
     and not ( Attack.act_feature( receiver, "holy" ) )
     and not ( Attack.act_feature( receiver, "pawn" ) ) then
       local k = tonum( Attack.get_custom_param( "k" ) )
-  
+
       if k > 0 then 
+        k = apply_difficulty_level_talent_bonus( k )
+
+        if Game.DayTime() < 2
+        and not Game.LocType( 'cemetery' )
+        and not Game.LocType( 'lava' )
+        and not Game.LocType( 'dungeon' ) then
+          k = k / 2
+        end
+  
         local health = AU.health( receiver )
         local unit_count = AU.unitcount( receiver )
         local total_hp = Attack.act_totalhp( receiver )
@@ -543,7 +739,17 @@ function features_vampirism( damage, addrage, attacker, receiver, minmax ) -- mi
       and not ( Attack.act_feature( receiver, "golem" ) )
       and not ( Attack.act_feature( receiver, "pawn" ) ) then
     			 local count_1 = Attack.act_size( attacker )
-    	   local vamp = math.min( Attack.act_totalhp( receiver ), damage )
+    	   local vamp = damage
+
+        if Game.DayTime() < 2
+        and not Game.LocType( 'cemetery' )
+        and not Game.LocType( 'lava' )
+        and not Game.LocType( 'dungeon' ) then
+          vamp = vamp / 2
+        end
+
+        vamp = math.min( Attack.act_totalhp( receiver ), vamp )
+  
     	   local hp1 = Attack.act_totalhp( attacker )
      	  Attack.act_resurrect( attacker, math.floor( vamp +.5 ) )
      	  local count_2 = Attack.act_size( attacker )
@@ -596,7 +802,15 @@ end
 
 
 function features_shock( damage, addrage, attacker, receiver, minmax )
-  if ( minmax == 0 ) and damage > 0 then
+  local level = tonum( Attack.get_custom_param( "level" ) )
+
+  if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver )
+  and not Attack.act_feature( receiver, "golem" )
+  and not Attack.act_feature( receiver, "pawn" )
+  and not Attack.act_feature( receiver, "boss" )
+  and Attack.act_level( receiver ) <= level then
   --local receiver=Attack.get_target(1)  -- кого?
     local shock = nil
   
@@ -605,7 +819,7 @@ function features_shock( damage, addrage, attacker, receiver, minmax )
      	shock = tonumber( Attack.act_spell_param( attacker, "special_battle_mage", "shock" ) )
     end 
 
-    if shock == nil then shock = tonum( Attack.get_custom_param( "shock" ) ) end
+    if shock == nil then shock = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "shock" ) ) ) end
 
     shock = effect_chance( shock, "effect", "shock" )
 
@@ -615,11 +829,8 @@ function features_shock( damage, addrage, attacker, receiver, minmax )
 
     local rnd = Game.Random( 99 )
           
-    if rnd < shock
-    and not Attack.act_feature( receiver, "golem" )
-    and Attack.act_level( receiver ) < 5
-    and not Attack.act_feature( receiver, "pawn" )
-    and not Attack.act_feature( receiver, "boss" ) then 
+    if rnd < shock then
+      local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "effect_shock", "duration" ) )
       effect_shock_attack( receiver, 1, duration )
     end
   end 
@@ -630,9 +841,10 @@ end
 
 function features_poison( damage, addrage, attacker, receiver, minmax )
   if ( minmax == 0 )
-  and damage > 0 then
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
     --local receiver=Attack.get_target(1)  -- кого?
-    local poison = tonumber( Attack.get_custom_param( "poison" ) )
+    local poison = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "poison" ) )
 
     if poison ~= nil then
       poison = effect_chance( poison, "effect", "poison" )
@@ -643,7 +855,8 @@ function features_poison( damage, addrage, attacker, receiver, minmax )
       local poison_damage = damage * poison_chance / 200
       if rnd < poison_chance
       and not Attack.act_feature( receiver, "golem" ) then -- and (not Attack.act_feature(receiver,"poison_immunitet") or Attack.act_race("undead")) then 
-        effect_poison_attack( receiver, 0, 3, poison_damage, poison_damage )
+        local duration = apply_difficulty_level_talent_bonus( 3 )
+        effect_poison_attack( receiver, 0, duration, poison_damage, poison_damage )
       end
     end
   end 
@@ -656,9 +869,11 @@ end
 -- ***********************************************
 
 function features_stun( damage, addrage, attacker, receiver, minmax )
- 	if ( minmax == 0 ) and damage > 0 then
-   	local stun = tonum( Attack.get_custom_param( "stun" ) )
-   	local sleep = tonum( Attack.get_custom_param( "sleep" ) )
+ 	if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
+   	local stun = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "stun" ) ) )
+   	local sleep = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "sleep" ) ) )
 
     if sleep ~= nil
     and sleep ~= 0 then
@@ -685,33 +900,37 @@ function features_stun( damage, addrage, attacker, receiver, minmax )
         if rnd < sleep_chance
         and not Attack.act_feature( receiver, "undead" )
         and not Attack.act_feature( receiver, "mind_immunitet" ) then
-          local duration = 2
+          local duration = apply_difficulty_level_talent_bonus( 2 )
        			effect_unconscious_attack( receiver, 1, duration )
        			Attack.act_damage_addlog( receiver, "add_blog_unconscious_" )
         else
-          local duration = 3
+          local duration = apply_difficulty_level_talent_bonus( 3 )
         	 effect_stun_attack( receiver, 1, duration )
         end
       end
-    else
-      if stun < 100 then
-        local receiver_level = Attack.act_level( receiver )
-        stun = stun + ( 4 - receiver_level ) * stun
-      end
-  
-      stun = effect_chance( stun, "effect", "stun" )
-     	local rnd = Game.Random( 99 )
-      local stun_res = Attack.act_get_res( receiver, "physical" )
-      local stun_chance = math.max( 0, stun - stun_res )
-  
-      if not Attack.act_pawn( receiver )
-      and not Attack.act_feature( receiver, "plant" )
-      and not Attack.act_feature( receiver, "golem" )
-      and not Attack.act_feature( receiver, "boss,pawn" )
-      and Attack.act_level( receiver ) < 5
-      and rnd < stun_chance then
-      	 effect_stun_attack( receiver, 0, 2 )
-      	 return -damage, addrage
+    elseif not Attack.act_pawn( receiver )
+    and not Attack.act_feature( receiver, "plant" )
+    and not Attack.act_feature( receiver, "golem" )
+    and not Attack.act_feature( receiver, "boss,pawn" )
+    and stun ~= nil
+    and stun ~= 0 then
+      local receiver_level = Attack.act_level( receiver )
+
+      if receiver_level < 5 then
+        if stun < 100 then
+          stun = stun + ( 4 - receiver_level ) * stun
+        end
+
+        stun = effect_chance( stun, "effect", "stun" )
+        local receiver_res = Attack.act_get_res( receiver, "physical" )
+        local stun_chance = stun * ( 1 - receiver_res / 100 )
+        local rnd = Game.Random( 99 )
+    
+        if rnd < stun_chance then
+          local duration = apply_difficulty_level_talent_bonus( 2 )
+        	 effect_stun_attack( receiver, 0, duration )
+        	 return -damage, addrage
+        end
       end 
     end
   end 
@@ -722,18 +941,19 @@ end
 
 function features_burn( damage, addrage, attacker, receiver, minmax )
   if minmax == 0
-  and damage > 0 then
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
     --local receiver=Attack.get_target(1)  -- кого?
-    local burn = tonumber( Attack.get_custom_param( "burn" ) )
+    local burn = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) )
 
     if burn ~= nil then
       common_fire_burn_attack( receiver, burn, 0, 3, damage )
-      local res = tonumber( Attack.get_custom_param( "res" ) )
+      local res = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "res" ) )
   
       if res ~= nil then
         local a = Attack.atom_spawn( receiver, 0, "magic_oilfog" )
         local dmgts1 = Attack.aseq_time( a, "x" )
-        local duration = 3
+        local duration = apply_difficulty_level_talent_bonus( 3 )
         Attack.act_del_spell( receiver, "effect_burning_oil" )
         Attack.act_apply_spell_begin( receiver, "effect_burning_oil", duration, false )
         Attack.act_apply_res_spell( "fire", res, 0, 0, duration, false)
@@ -807,14 +1027,15 @@ function special_priest( damage, addrage, attacker, receiver, minmax, userdata )
   		addrage = addrage * 2
 
     if ( minmax == 0 )
-    and damage > 0 then
-    		local holy = tonum( Attack.get_custom_param( "holy" ) )
+    and damage > 0
+    and damage < Attack.act_totalhp( receiver ) then
+    		local holy = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "holy" ) ) )
   
       if holy ~= nil then
         local rnd = Game.Random( 99 )
     
         if rnd <= holy then
-          local duration = tonum( Attack.get_custom_param( "duration" ) )
+          local duration = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "duration" ) ) )
           effect_holy_attack( receiver, 0, duration )
         end
       end
@@ -926,18 +1147,22 @@ function post_spell_last_hero( damage, addrage, attacker, receiver, minmax )
     if Attack.act_is_spell( receiver, spell ) then
   		  local dam, thp = math.floor( damage + .5 ), Attack.act_totalhp( receiver )
   		  local deadA = dam >= thp--Attack.act_damage(attacker,true)
+      local level = tonumber( Attack.val_restore( receiver, "spell_last_hero_cast_level" ) )
+      local heroname = Attack.act_spell_param( receiver, "spell_last_hero", "heroname" )
+      local belligerent = tonumber( Attack.act_spell_param( receiver, "spell_last_hero", "belligerent" ) )
 
   		  if deadA
       and Attack.act_size( receiver ) > 0 then
+        local rephits = Attack.val_restore( receiver, "spell_last_hero_resurrection_rephits" )
+        dam = thp + rephits - dam
         Attack.act_aseq( 0, "cast" )
         local dmgts = Attack.aseq_time( 0, "x" )
-        local level = tonumber( Attack.val_restore( receiver, "spell_last_hero_cast_level" ) )
         local tmp_spells = {}
         table.insert( tmp_spells, spell_resurrection_attack )
        	local cell = Attack.cell_get_corpse( receiver )
-        tmp_spells[ 1 ]( level, receiver )
+        tmp_spells[ 1 ]( level, receiver, belligerent, true )
       else
-        special_bonus_spell( attacker, receiver )
+        special_bonus_spell( attacker, receiver, level, heroname, belligerent )
       end
 
   			 local dur = Attack.act_spell_duration( receiver, spell )
@@ -953,10 +1178,8 @@ function post_spell_last_hero( damage, addrage, attacker, receiver, minmax )
   		  
   		  if deadA
       and Attack.act_size( receiver ) > 0 then
-
-        return thp - 1, addrage * ( thp - 1 ) / damage
+        return math.min( dam, thp - 1 ), addrage * math.min( dam, thp - 1 ) / damage
       else
-
         return damage, addrage
       end
   	 else       	
@@ -971,12 +1194,9 @@ end
 
 
 -- NEW - based on special_spell, casts random beneficial spells
-function special_bonus_spell( attacker, receiver )
+function special_bonus_spell( attacker, receiver, level, heroname, belligerent )
   Attack.act_aseq( 0, "cast" )
   local dmgts = Attack.aseq_time( 0, "x" )
-  local level = tonumber( Attack.val_restore( receiver, "spell_last_hero_cast_level" ) )
-  local heroname = Attack.act_spell_param( receiver, "spell_last_hero", "heroname" )
-  local belligerent = tonumber( Attack.act_spell_param( receiver, "spell_last_hero", "belligerent" ) )
 
   local spellf1 = { spell_stone_skin_attack, 
                     spell_bless_attack, 
@@ -1106,6 +1326,8 @@ function special_bonus_spell( attacker, receiver )
       tmp_spells[ cast ]( level, dmgts, receiver, belligerent )
     elseif tmp_spells[ cast ] == spell_dispell_attack then
       tmp_spells[ cast ]( level, receiver, belligerent, true )
+    elseif tmp_spells[ cast ] == spell_magic_source_attack then
+      tmp_spells[ cast ]( level, receiver, belligerent, heroname, true )
     else
       tmp_spells[ cast ]( level, receiver, belligerent, heroname )
     end
@@ -1123,22 +1345,25 @@ end
 
 function special_bowman( damage, addrage, attacker, receiver, minmax )
 	 local freeze_im = 0.75 --25%
- 	local freeze = tonum( Attack.get_custom_param( "freeze" ) )
+ 	local freeze = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "freeze" ) ) )
   freeze = effect_chance( freeze, "effect", "freeze" )
-	 local dragon = tonum( Attack.get_custom_param( "dragon" ) )
+	 local dragon = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "dragon" ) ) )
 	
  	if dragon == 1 then	
 	  	return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
  	end 
 
  	if minmax == 0 and damage ~= 0 then -- damage=0 когда мы промахиваемся
-		  local burn = tonumber( Attack.get_custom_param( "burn" ) )
+		  local burn = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) )
 
-    if burn ~= nil then
+    if burn ~= nil
+    and damage > 0
+    and damage < Attack.act_totalhp( receiver ) then
       burn = effect_chance( burn, "effect", "burn" )
     		--	if burn==nil then burn=100 end
     		--	if freeze==nil then freeze=100 end
-      common_fire_burn_attack( receiver, burn, 0, 3, damage, true )
+      local duration = apply_difficulty_level_talent_bonus( 3 )
+      common_fire_burn_attack( receiver, burn, 0, duration, damage, true )
     		local cold_fear = Attack.act_get_res( receiver, "fire" )
       local freeze_res = Attack.act_get_res( receiver, "physical" )
       local freeze_chance = math.max( 0, freeze - freeze_res )
@@ -1147,10 +1372,10 @@ function special_bowman( damage, addrage, attacker, receiver, minmax )
     		if ( rnd < freeze_chance or ( cold_fear >= 50 and freeze > 10 ) )
       and not Attack.act_feature( receiver, "golem" )
       and not Attack.act_feature( receiver, "freeze_immunitet" )
-      and damage > 0
       and not Attack.act_feature( receiver, "pawn" )
       and not Attack.act_feature( receiver, "boss" ) then
-     			effect_freeze_attack( receiver, 0, 3 )
+        local duration = apply_difficulty_level_talent_bonus( 3 )
+     			effect_freeze_attack( receiver, 0, duration )
      			--Attack.log_label("add_blog_freeze_") -- работает
     		end
     end
@@ -1197,8 +1422,10 @@ function special_archer( damage, addrage, attacker, receiver, minmax )
 	  	return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
  	end 
 
- 	if ( minmax == 0 ) and damage > 0 then
-	   local poison = tonum( Attack.get_custom_param( "poison" ) )
+ 	if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
+	   local poison = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "poison" ) ) )
    	local tranc = tonum( Attack.get_custom_param( "tranc" ) )
    	local spell_name = ""
     --	if burn==nil then burn=100 end 
@@ -1211,7 +1438,8 @@ function special_archer( damage, addrage, attacker, receiver, minmax )
     if rnd < poison_chance
     and not Attack.act_feature( receiver, "golem" )
     and not Attack.act_feature( receiver, "poison_immunitet" ) then
-    	 effect_poison_attack( receiver, 0, 3, poison_damage, poison_damage )
+      local duration = apply_difficulty_level_talent_bonus( 3 )
+    	 effect_poison_attack( receiver, 0, duration, poison_damage, poison_damage )
     end 
 
     if tranc > 0 then
@@ -1221,7 +1449,8 @@ function special_archer( damage, addrage, attacker, receiver, minmax )
       	 spell_name = Attack.act_spell_name( receiver, i )
       	 local spell_type = Logic.obj_par( spell_name, "type" )
       	 if spell_type == "bonus"
-        and string.find( spell_name, "^totem_" ) == nil then 
+        and string.find( spell_name, "^totem_" ) == nil
+        and string.find( spell_name, "special_summon_bonus" ) == nil then 
      					table.insert( spells_to_delete, spell_name );
   	 	  	end 
     		end 
@@ -1247,33 +1476,32 @@ end
 -- ***********************************************
 
 function features_bleeding( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
- 	if minmax == 0 then	
-    local power = tonumber( Logic.obj_par( "feat_bleeding", "power" ) ) -- назначаем бонус
-    local duration = tonumber( Logic.obj_par( "feat_bleeding", "duration" ) )
-    duration = apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_bleeding", false )
-		
+ 	if minmax == 0
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
   		if not Attack.act_feature( receiver, "plant" )
     and not Attack.act_feature( receiver, "undead" )
     and not Attack.act_feature( receiver, "golem" )
     and not hitbacking and Attack.act_enemy( receiver )
-    and damage > 0
     and not Attack.act_feature( receiver, "pawn" )
     and not Attack.act_feature( receiver, "boss" ) then
+      local power = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "power" ) ) -- назначаем бонус
+      local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "duration" ) )
+      duration = apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_bleeding", false )
       local bleeding_res = Attack.act_get_res( receiver, "physical" )
       power = math.min( 80, power - bleeding_res )
+
       if power > 0 then
         local duration_old
         duration_old = tonumber( Attack.act_spell_duration( receiver, "feat_lump_bleeding" ) )
-  
-        local message
+        local message = "add_blog_bleeding_"
+
         if duration_old ~=nil and duration_old ~= 0 then
           if duration_old - duration > 0 then
             power = math.min( 80, power + duration_old - duration )
           end
           duration = math.max( duration, duration_old ) + 1
           message = "add_blog_hemoraging_"
-        else
-          message = "add_blog_bleeding_"
         end
   
      			Attack.act_del_spell( receiver, "feat_bleeding" )
@@ -1287,7 +1515,7 @@ function features_bleeding( damage, addrage, attacker, receiver, minmax, userdat
   		end 
   end 
 
-  return damage,addrage
+  return damage, addrage
 end
 
 -- ***********************************************
@@ -1295,12 +1523,14 @@ end
 -- ***********************************************
 
 function special_alchemist( damage, addrage, attacker, receiver, minmax )
-  if ( minmax == 0 ) and damage > 0 then
+  if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
    	local poison = tonum( Attack.get_custom_param( "poison" ) )
     local poison_res = Attack.act_get_res( receiver, "poison" )
-  		local burn = tonum( Attack.get_custom_param( "burn" ) )
+  		local burn = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) ) )
     local burn_res = Attack.act_get_res( receiver, "fire" )
-  		local holy = tonum( Attack.get_custom_param( "holy" ) )
+  		local holy = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "holy" ) ) )
     local rnd = Game.Random( 99 )
 
     if poison == 10 then
@@ -1311,26 +1541,29 @@ function special_alchemist( damage, addrage, attacker, receiver, minmax )
      	Attack.aseq_timeshift( 0, acid_x - atk_x )
     end 
     
+    poison = apply_difficulty_level_talent_bonus( poison )
     local poison_chance = math.min( 100, poison * ( 1 - poison_res / 100 ) )
     local poison_damage = damage * poison_chance / 200
+
     if rnd < poison_chance
     and not Attack.act_feature( receiver, "golem" ) then -- and (not Attack.act_feature(receiver,"poison_immunitet") or Attack.act_race("undead")) then 
-      local duration = 3
+      local duration = apply_difficulty_level_talent_bonus( 3 )
       effect_poison_attack( receiver, 0, duration, poison_damage, poison_damage )
       --Attack.atom_spawn(receiver, 0, "hll_shaman_post")
     end
 
     local burn_chance = math.min( 100, burn * ( 1 - burn_res / 100 ) )
     local burn_damage = damage * burn_chance / 200
+
     if rnd < burn_chance
     and not string.find( Attack.act_name( receiver ), "orb" )
     and not string.find( Attack.act_name( receiver ), "cyclop" ) then -- and (not Attack.act_feature(receiver,"poison_immunitet") or Attack.act_race("undead")) then 
-      local duration = 3
+      local duration = apply_difficulty_level_talent_bonus( 3 )
       effect_burn_attack( receiver, 0, duration, burn_damage, burn_damage )
     end
 
     if rnd <= holy then -- and (not Attack.act_feature(receiver,"poison_immunitet") or Attack.act_race("undead")) then 
-      local duration = 3
+      local duration = apply_difficulty_level_talent_bonus( 3 )
       effect_holy_attack( receiver, 0, duration )
     end
   end
@@ -1339,19 +1572,21 @@ function special_alchemist( damage, addrage, attacker, receiver, minmax )
 end
 
 function features_weakness( damage, addrage, attacker, receiver, minmax )
-  if ( minmax == 0 ) then
+  if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver ) then
     --local receiver=Attack.get_target(1)  -- кого?
-    local weakness = tonum( Attack.get_custom_param( "weakness" ) )
+    local weakness = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "weakness" ) ) )
     weakness = effect_chance( weakness, "effect", "weakness" )
     local rnd = Game.Random( 99 )
   
     if rnd < weakness
     and not Attack.act_feature( receiver, "golem" )
-    and damage > 0
     and not Attack.act_feature( receiver, "pawn" )
     and not Attack.act_feature( receiver, "boss" )
     and Attack.act_level( receiver ) < 5 then
-      effect_weakness_attack( receiver, 1, 1 )
+      local duration = apply_difficulty_level_talent_bonus( 1 )
+      effect_weakness_attack( receiver, 1, duration )
     end
   end 
 
@@ -1364,16 +1599,19 @@ end
 
 function special_cyclop( damage, addrage, attacker, receiver, minmax )
 	 if ( minmax == 0 ) then
-   	local stun = tonum( Attack.get_custom_param( "stun" ) )
-   	local push = tonum( Attack.get_custom_param( "push" ) )
+   	local stun = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "stun" ) ) )
+   	local push = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "push" ) ) )
     local stun_res = Attack.act_get_res( i, "physical" )
    	local rnd = Game.Random( 99 )
 
-    if rnd < ( math.max( 0, stun - stun_res ) ) and damage > 0
+    if rnd < ( math.max( 0, stun - stun_res ) )
+    and damage > 0
+    and damage < Attack.act_totalhp( receiver )
     and not Attack.act_feature( receiver, "golem" )
     and not Attack.act_feature(receiver,"pawn")
     and not Attack.act_feature(receiver,"boss") then
-    	 effect_stun_attack( receiver, 0, 1 )
+      local duration = apply_difficulty_level_talent_bonus( 1 )
+    	 effect_stun_attack( receiver, 0, duration )
     end 
 
     if rnd <= push then --and not Attack.act_feature(receiver,"freeze_immunitet") then
@@ -1402,25 +1640,26 @@ end
 -- ***********************************************
 
 function features_rabid( damage, addrage, attacker, receiver, minmax )
-	 if ( minmax == 0 ) then		
+	 if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver )
+  and not Attack.act_feature( receiver, "undead" )
+  and not Attack.act_feature( receiver, "golem" )
+  and not Attack.act_feature( receiver, "plant" )
+  and not Attack.act_feature( receiver, "pawn" )
+  and not Attack.act_feature( receiver,"boss" ) then
     local level = tonumber( Logic.obj_par( "feat_rabid", "level" ) ) -- назначаем бонус
  	  local duration = tonumber( Logic.obj_par( "feat_rabid", "duration" ) )
-  		local rabid = tonum( Attack.get_custom_param( "rabid" ) )
+  		local rabid = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "rabid" ) ) )
     rabid = effect_chance( rabid, "feat", "rabid" )
 
   		if duration == nil then duration = tonum( Attack.get_custom_param( "duration" ) ) end 
 		
-    duration = apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_rabid", false )
+    duration = apply_difficulty_level_talent_bonus( apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_rabid", false ) )
   		local rnd = Game.Random( 99 )
 
   		if rnd < rabid
-    and Attack.act_level( receiver ) <= level
-    and not Attack.act_feature( receiver, "undead" )
-    and not Attack.act_feature( receiver, "golem" )
-    and not Attack.act_feature( receiver, "plant" )
-    and damage > 0
-    and not Attack.act_feature( receiver, "pawn" )
-    and not Attack.act_feature( receiver,"boss" ) then
+    and Attack.act_level( receiver ) <= level then
     		Attack.act_belligerent( receiver, 16 )
    			Attack.act_del_spell( receiver, "feat_rabid" )
       Attack.act_apply_spell_begin( receiver, "feat_rabid", duration, false )
@@ -1456,20 +1695,21 @@ end
 -- ***********************************************
 
 function features_curse( damage, addrage, attacker, receiver, minmax )
-	 if ( minmax == 0 ) then		
+	 if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver )
+  and not Attack.act_feature( receiver, "golem" )
+  and not ( Attack.act_feature( receiver, "undead" ) )
+  and not Attack.act_feature( receiver, "pawn" )
+  and not Attack.act_feature( receiver, "boss" ) then
     local level = tonumber( Logic.obj_par( "effect_curse", "level" ) )
-		  local duration = tonumber( Logic.obj_par( "effect_curse", "duration" ) )
-		  local curse = tonum( Attack.get_custom_param( "curse" ) )
+		  local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "effect_curse", "duration" ) )
+		  local curse = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "curse" ) ) )
     curse = effect_chance( curse, "effect", "curse" )
 		  local rnd = Game.Random( 99 )
 
   		if ( rnd < curse )
-    and not Attack.act_feature( receiver, "golem" )
-    and ( Attack.act_level( receiver ) <= level )
-    and not ( Attack.act_feature( receiver, "undead" ) )
-    and damage > 0
-    and not Attack.act_feature( receiver, "pawn" )
-    and not Attack.act_feature( receiver, "boss" ) then
+    and ( Attack.act_level( receiver ) <= level ) then
    			effect_curse_attack( receiver, 1, duration )
   		end 
  	end 
@@ -1488,13 +1728,14 @@ function features_sleep( damage, addrage, attacker, receiver, minmax )
 
     if duration == nil then duration = tonum( Logic.obj_par( "effect_sleep", "duration" ) ) end 
     
+    duration = apply_difficulty_level_talent_bonus( duration )
     local special = tonum( Attack.get_custom_param( "special" ) )		
   		local dod = Attack.get_custom_param( "dod" )
   		local ddd = true
 
  			if dod == "yes" then ddd = true else ddd = false end
 
-  		local sleep = tonum( Attack.get_custom_param( "sleep" ) )		
+  		local sleep = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "sleep" ) )	)
     sleep = effect_chance( sleep, "effect", "sleep" )
     local level2_chance = 50
     level2_chance = effect_chance( level2_chance, "effect", "sleep" )
@@ -1511,6 +1752,7 @@ function features_sleep( damage, addrage, attacker, receiver, minmax )
       and not ( Attack.act_feature( receiver, "undead" ) )
       and not ( Attack.act_feature( receiver, "mind_immunitet" ) )
       and damage > 0
+      and damage < Attack.act_totalhp( receiver )
       and not Attack.act_feature( receiver, "pawn" )
       and not Attack.act_feature( receiver, "boss" ) then
      			effect_sleep_attack( receiver, 2, duration, ddd )     
@@ -1521,24 +1763,13 @@ function features_sleep( damage, addrage, attacker, receiver, minmax )
       and not Attack.act_feature( receiver, "golem" )
       and not ( Attack.act_feature( receiver, "mind_immunitet" ) )
       and damage > 0
+      and damage < Attack.act_totalhp( receiver )
       and not Attack.act_feature( receiver, "pawn" )
       and not Attack.act_feature( receiver, "boss" ) then
-     			if Attack.act_level( receiver ) == 1 then
-      				effect_sleep_attack( receiver, 2, duration, ddd )
-      				Attack.act_damage_addlog( receiver, "add_blog_sleep_" )
-     			end	
-  
-     			if Attack.act_level( receiver ) == 2 and rnd < level2_chance then
-      				effect_sleep_attack( receiver, 2, duration, ddd )
-      				Attack.act_damage_addlog( receiver, "add_blog_sleep_" )
-     			end	
-  
-     			if Attack.act_level( receiver ) == 3 and rnd < level3_chance then
-      				effect_sleep_attack( receiver, 2, duration, ddd )
-      				Attack.act_damage_addlog(receiver,"add_blog_sleep_")
-     			end	
-  
-     			if Attack.act_level( receiver ) == 4 and rnd < level4_chance then
+     			if Attack.act_level( receiver ) == 1
+     			or ( Attack.act_level( receiver ) == 2 and rnd < level2_chance )
+     			or ( Attack.act_level( receiver ) == 3 and rnd < level3_chance )
+     			or ( Attack.act_level( receiver ) == 4 and rnd < level4_chance ) then
       				effect_sleep_attack( receiver, 2, duration, ddd )
       				Attack.act_damage_addlog( receiver, "add_blog_sleep_" )
      			end	
@@ -1554,21 +1785,22 @@ end
 -- ***********************************************
 
 function features_charm( damage, addrage, attacker, receiver, minmax )
-	 if ( minmax == 0 ) then		
+	 if ( minmax == 0 )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver )
+  and not Attack.act_feature( receiver, "golem" )
+  and not ( Attack.act_feature( receiver, "undead" ) )
+  and not Attack.act_feature( receiver, "pawn" )
+  and not Attack.act_feature( receiver,"boss" ) then
     local level = tonumber( Logic.obj_par( "effect_charm", "level" ) )
-		  local duration = tonumber( Logic.obj_par( "effect_charm", "duration" ) )
-		  local charm = tonum( Attack.get_custom_param( "charm" ) )
+		  local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "effect_charm", "duration" ) )
+		  local charm = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "charm" ) ) )
     charm = effect_chance( charm, "effect", "charm" )
   		local rnd = Game.Random( 99 )
 
   		if ( rnd < charm )
-    and not Attack.act_feature( receiver, "golem" )
     and ( Attack.act_level( receiver ) <= level )
-    and not ( Attack.act_feature( receiver, "undead" ) )
-    and ( Attack.act_feature( receiver, "humanoid" ) )
-    and damage > 0
-    and not Attack.act_feature( receiver, "pawn" )
-    and not Attack.act_feature( receiver,"boss" ) then
+    and ( Attack.act_feature( receiver, "humanoid" ) ) then
   			 local caster_count = Attack.act_size( attacker )	-- сколько магов
   		--лидерство магов и цели 
    			local caster_lead = Attack.act_leadership( attacker )
@@ -1629,23 +1861,21 @@ end
 
 function features_devil_fear( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
 	 if minmax == 0
-  and not hitbacking then
---				Attack.aseq_remove(attacker,"attack")
-        --Attack.atom_spawn(receiver, 0, "magic_dispel")
---  			Attack.act_aseq(attacker, "special" )	        
-		  local fear = tonum( Attack.get_custom_param( "fear" ) )
+  and damage > 0
+  and damage < Attack.act_totalhp( receiver )
+  and not hitbacking
+  and not Attack.act_feature( receiver, "mind_immunitet" )
+  and not Attack.act_feature( receiver, "undead" )
+  and not Attack.act_feature( receiver, "pawn" )
+  and not Attack.act_feature( receiver, "boss" ) then
+		  local fear = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "fear" ) ) )
     fear = effect_chance( fear, "effect", "fear" )
   		local level = tonumber( Attack.get_custom_param( "level" ) )
-  		local duration = tonum( Attack.get_custom_param( "duration" ) )
+  		local duration = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "duration" ) ) )
   		local rnd = Game.Random( 99 )
 
   		if rnd < fear
-    and Attack.act_level( receiver ) <= level
-    and not Attack.act_feature( receiver, "mind_immunitet" )
-    and not Attack.act_feature( receiver, "undead" )
-    and damage > 0
-    and not Attack.act_feature( receiver, "pawn" )
-    and not Attack.act_feature( receiver, "boss" ) then
+    and Attack.act_level( receiver ) <= level then
       Attack.act_apply_spell_begin( receiver, "effect_fear", duration, false )
       Attack.act_apply_par_spell( "autofight", 1, 0, 0, duration, false )
       Attack.act_apply_spell_end()
@@ -1693,18 +1923,21 @@ function bear_slave(damage,addrage,attacker,receiver,minmax,userdata,hitbacking)
 
 end
 
-function bear_after_move(pass)
+function bear_after_move( pass )
+	 if not pass
+  and Attack.val_restore( "was_action" ) == "0"
+  and not Attack.act_is_spell( 0, "effect_sleep" )
+  and not Attack.act_is_spell( 0, "effect_unconscious" ) then
+  		effect_sleep_attack( 0, 0, 3, true )
 
-	if not pass and Attack.val_restore("was_action") == "0" and not Attack.act_is_spell(0, "effect_sleep") then
-		effect_sleep_attack(0, 0, 3, true)
-		if Attack.act_size(0)>1 then 
-			Attack.log(0.001,"add_blog_bsleep_2","name",blog_side_unit(0,1))
-		else
-			Attack.log(0.001,"add_blog_bsleep_1","name",blog_side_unit(0,1))
-		end 
-	end
-	return true
+  		if Attack.act_size( 0 ) > 1 then 
+			   Attack.log( 0.001, "add_blog_bsleep_2", "name", blog_side_unit( 0, 1 ) )
+  		else
+		   	Attack.log( 0.001, "add_blog_bsleep_1", "name", blog_side_unit( 0, 1 ) )
+  		end 
+	 end
 
+ 	return true
 end
 
 
@@ -1798,8 +2031,7 @@ end
 -- New for Mages
 function features_mage( damage, addrage, attacker, receiver, minmax )
 	 if ( minmax == 0 )
-  and damage > 0
-  and damage < Attack.act_totalhp( receiver ) then
+  and damage > 0 then
     local unit_level = Attack.act_level( receiver )
     local unit_lead = Attack.act_leadership( receiver )
     local unit_count = Attack.act_size( receiver )
@@ -1854,6 +2086,22 @@ function features_mage( damage, addrage, attacker, receiver, minmax )
 end
 
 
+-- New Blue Dragon zap
+function features_zap( damage, addrage, attacker, receiver, minmax, userdata, hitbacking, hitback_enabled )
+	 if ( minmax == 0 )
+  and damage > 0 then
+    local zapprob = apply_difficulty_level_talent_bonus( 25 )  -- note that this shoul
+    local chance = Game.Random( 99 )
+    
+    if chance < zapprob then
+      BLUEDRAGON_CELL_ID = Attack.act_uid( receiver )
+    end
+	 end
+
+  return damage, addrage
+end
+
+
 -- New Bone Dragon Morale Penalty
 function features_morale_penalty()
 	 for i = 1, Attack.act_count() - 1 do
@@ -1864,6 +2112,11 @@ function features_morale_penalty()
     and not Attack.act_feature( i, "holy" )
     and not Attack.act_feature( i, "mind_immunitet" )
     and not Attack.act_feature( i, "pawn,boss" ) then
+			   Attack.act_del_modificator( i, "moral_penalty" )
+			   Attack.act_del_modificator( i, "attack_bd" )
+			   Attack.act_del_modificator( i, "defense_bd" )
+			   Attack.act_del_modificator( i, "krit_bd" )
+      local morale = AU.moral( Attack.get_caa( i ) )
       local current_value, base_value = Attack.act_get_par( i, "moral" )
       local penalty = -1
 
@@ -1873,7 +2126,7 @@ function features_morale_penalty()
         penalty = -2
       end
 
-			   Attack.act_attach_modificator( i, "moral", "moral_penalty", penalty )
+			   Attack.act_attach_modificator( i, "moral", "moral_penalty", penalty, 0, 0, -100, false )
       local att_def_penalty, krit_penalty = get_moral_modifier( current_value + penalty, current_value )
       
       if att_def_penalty < 0 then
@@ -1905,29 +2158,202 @@ function bone_dragon_ondamage( wnm, ts, dead )
 end
 
 
+-- New Unicorn Magic Aura - for Unicorns
+function features_magic_aura()
+	 for i = 1, Attack.act_count() - 1 do
+		  if Attack.act_ally( i )
+    and not ( Attack.act_name( i ) == "unicorn" )
+    and not ( Attack.act_name( i ) == "unicorn2" ) then
+			   Attack.act_del_modificator( i, "magic_aura_1" )
+      local bonus = apply_difficulty_level_talent_bonus( 20 )
+      Attack.act_attach_modificator_res( i, "magic", "magic_aura_1", bonus, 0, 0, -100, false )
+    end
+  end
+
+  return true
+end
+
+
+function unicorn_ondamage( wnm, ts, dead )
+	 if dead then
+		  for i = 1, Attack.act_count() - 1 do
+			   Attack.act_del_modificator( i, "magic_aura_1" )
+		  end
+	 end
+
+ 	return true
+end
+
+
+-- New Unicorn Magic Aura2 - for Black Unicorns
+function features_magic_aura2()
+	 for i = 1, Attack.act_count() - 1 do
+		  if Attack.act_enemy( i )
+    and not ( Attack.act_name( i ) == "unicorn" )
+    and not ( Attack.act_name( i ) == "unicorn2" ) then
+			   Attack.act_del_modificator( i, "magic_aura_2" )
+      local penalty = apply_difficulty_level_talent_bonus( 30 )
+      Attack.act_attach_modificator_res( i, "magic", "magic_aura_2", -penalty, 0, 0, -100, false )
+    end
+  end
+
+  return true
+end
+
+
+function unicorn2_ondamage( wnm, ts, dead )
+	 if dead then
+		  for i = 1, Attack.act_count() - 1 do
+			   Attack.act_del_modificator( i, "magic_aura_2" )
+		  end
+	 end
+
+ 	return true
+end
+
+
+-- New Undead penalties based on day
+function features_undead_penalty()
+  if Game.DayTime() < 2
+  and not Game.LocType( 'cemetery' )
+  and not Game.LocType( 'lava' )
+  and not Game.LocType( 'dungeon' ) then
+  	 for i = 1, Attack.act_count() - 1 do
+  		  if Attack.act_race( i ) == "undead"
+      or Attack.act_feature( i, "undead" ) then
+			     Attack.act_del_modificator( i, "undead_health_penalty" )
+        local penalty = 25 * ( 2 - apply_difficulty_level_talent_bonus( 100 ) / 100 )
+
+        if Attack.act_name( i ) == "ghost"
+        or Attack.act_name( i ) == "ghost2" then
+          penalty = penalty + 25 * ( 2 - apply_difficulty_level_talent_bonus( 100 ) / 100 )
+        end
+
+        Attack.act_attach_modificator( i, "health", "undead_health_penalty", 0, 0, -penalty, -100, false )
+      end
+    end
+  end
+
+  return true
+end
+
+
+-- Looks like you can only call 1 subturn modificator function so special callers are here
+function vampire_subturn_modificator()
+  transform_modificators()
+  features_undead_penalty()
+  
+  return true
+end
+
+
+function bonedragon_subturn_modificator()
+  features_morale_penalty()
+  features_undead_penalty()
+  
+  return true
+end
+
+
+-- New! This is a slave function to features_zap and is called during the subturn to execute the retaliatory damage
+function zap_apply_damage()
+  if BLUEDRAGON_CELL_ID ~= nil
+  and BLUEDRAGON_CELL_ID == Attack.act_uid( 0 ) then
+    BLUEDRAGON_CELL_ID = nil
+    Attack.act_aseq( 0, "spare" )
+    local dmgts = Attack.aseq_time( 0, "x" )
+    local shock = Attack.get_custom_param( "zapshock" )
+
+    -- These checks are for when get_custom param doesn't seem to be working properly
+    if shock == nil
+    or shock == "" then
+      shock = 75  -- this value (and the ones below) should match the zap* and custom_params of zap in BLUEDRAGON.ATOM
+    end
+
+    shock = apply_difficulty_level_talent_bonus( shock )
+    shock = effect_chance( shock, "effect", "shock" )
+    local typedmg = Attack.get_custom_param( "zaptypedmg" )
+
+    if typedmg == nil
+    or shock == "" then
+      typedmg = "astral"
+    end
+
+    local level = tonum( Attack.get_custom_param( "zaplevel" ) )
+
+    if level == nil
+    or shock == "" then
+      level = 5
+    end
+
+    local dmg_min_max = Attack.get_custom_param( "zapdamage" )
+
+    if dmg_min_max == nil
+    or shock == "" then
+      dmg_min_max = "140-170"
+    end
+
+    local dmg_min, dmg_max = text_range_dec( dmg_min_max )
+    local acnt = Attack.act_count()
+    
+    for j = 1, acnt - 1 do
+      if ( Attack.act_enemy( j )
+      or Attack.act_ally( j ) )
+      and Attack.cell_dist( 0, j ) == 1 then
+        local rnd = Game.Random( 99 )
+		      Attack.atk_set_damage( typedmg, dmg_min, dmg_max )
+        common_cell_apply_damage( j, dmgts )
+        
+        if Attack.act_is_spell( j, "effect_freeze" ) then
+          shock = shock * 2
+        end
+        
+        local shock_res = Attack.act_get_res( j, "astral" )
+        local shock_chance = math.min( 100, shock * ( 1 - shock_res / 100 ) )
+        
+        if rnd < shock_chance
+        and Attack.act_level( j ) <= level
+        and not Attack.act_feature( j, "golem" ) then
+          local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "effect_shock", "duration" ) )
+          effect_shock_attack( j, dmgts, duration )
+        end
+      end
+    end
+  end
+
+  return true
+end
+
+
 function features_initiative_penalty()
+	 for i = 1, Attack.act_count() - 1 do
+		  if Attack.act_enemy( i )
+    and Attack.act_level( i ) < 5 then
+			   Attack.act_del_modificator( i, "initiative_penalty" )
+      local penalty = -1
 
-	for i=1,Attack.act_count()-1 do
-		if Attack.act_enemy(i) and Attack.act_level(i) < 5 then
-			Attack.act_attach_modificator(i,"initiative","initiative_penalty",-1)
-		end
-	end
+      if Attack.act_level( i ) < 3 then
+        penalty = -2
+      end
 
-	return true
+			   Attack.act_attach_modificator( i, "initiative", "initiative_penalty", penalty )
+  		end
+ 	end
 
+	 return true
 end
 
 
-function black_dragon_ondamage(wnm,ts,dead)
+function black_dragon_ondamage( wnm, ts, dead )
+ 	if dead then
+  		for i = 1, Attack.act_count() - 1 do
+			   Attack.act_del_modificator( i, "initiative_penalty" )
+		  end
+	 end
 
-	if dead then
-		for i=1,Attack.act_count()-1 do
-			Attack.act_del_modificator(i,"initiative_penalty")
-		end
-	end
-	return true
-
+	 return true
 end
+
 
 function features_evasion(damage,addrage,attacker,receiver,minmax)
 
@@ -1953,7 +2379,7 @@ function features_saturation( damage, addrage, attacker, receiver, minmax, userd
   		  charges = Attack.get_custom_param( "charge" )
 
   		  if tonum( charges ) then 
-        Attack.val_store( 0, "charges", charges )
+        Attack.val_store( 0, "charges", apply_difficulty_level_talent_bonus( charges ) )
       end
     end
 	 end 
@@ -1975,7 +2401,7 @@ function post_magic_shield(damage,addrage,attacker,receiver,minmax,userdata)
 end 
 
 function features_dragon_slayer(damage,addrage,attacker,receiver,minmax,userdata )
- 	local bonus_damage = tonum( Attack.get_custom_param( "dragonslayer" ) )
+ 	local bonus_damage = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "dragonslayer" ) ) )
    
   if Attack.act_feature( receiver, "dragon" ) then 
    	return damage * ( 1 + bonus_damage / 100 ), addrage * ( 1 + bonus_damage / 100 )

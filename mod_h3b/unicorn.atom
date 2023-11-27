@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_unicorn_feat
-  features_hints=magic_resistance_header/magic_resistance_hint,light_horn_header/light_horn_hint,defender_beauty_header/defender_beauty_hint,forest_lover_header/forest_lover_hint,dungeon_disliker_header/dungeon_disliker_hint
+  features_hints=magic_resistance_header/magic_resistance_hint,light_horn_header/light_horn_hint,defender_beauty_header/defender_beauty_hint,magic_aura_header/magic_aura_hint,forest_lover_header/forest_lover_hint,dungeon_disliker_header/dungeon_disliker_hint
   race=elf
   cost=750
   level=4
@@ -22,6 +22,8 @@ arena_params {
   hitbackprotect=0
   features=beast
   attacks=moveattack,demonhell
+  posthitmaster=features_lighthorn_attack
+  ondamage=unicorn_ondamage
   resistances {
     physical=0
     poison=0
@@ -38,6 +40,9 @@ arena_params {
     damage {
       physical=10,17
     }
+    custom_params {
+      blind=15
+    }
   }
   demonhell {
     group=1,2
@@ -52,6 +57,9 @@ arena_params {
     damage {
       physical=10,17
       magic=3,6
+    }
+    custom_params {
+      blind=30
     }
   }
   lighthorn {
@@ -84,6 +92,7 @@ arena_params {
 scripts {
   scenario=default_scenario
   idle=default_idle
+  subturn_modificators=features_magic_aura
 }
 animations {
   idle=/t:1:4:idlemain:1:1:rarelist

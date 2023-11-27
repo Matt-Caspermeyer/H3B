@@ -51,9 +51,14 @@ arena_params {
     warning=sw_firepower
     ad_factor=1
     reload=3
-    script_attack=special_blackdragon_firepower
-    script_calccells=calccells_blackdragon_firepower
+    always_hint=1
+    script_attack=special_blackdragon_firepower_attack
+    script_calccells=special_blackdragon_firepower_calccells
     script_highlight=special_blackdragon_firepower_highlight
+    hint_gen_script=hint_dmg_blackdragon_firepower
+//    script_attack=special_blackdragon_firepower
+//    script_calccells=calccells_blackdragon_firepower
+//    script_highlight=special_blackdragon_firepower_highlight
     attack_cursor=magicstick
     damage {
       fire=110,140
@@ -62,6 +67,7 @@ arena_params {
       typedmg=fire
       damage=110-140
       burn=70
+      friendly_fire=1
     }
   }
 }

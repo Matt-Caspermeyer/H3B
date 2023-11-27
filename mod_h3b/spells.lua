@@ -718,7 +718,7 @@ end
 -- * Resurrection
 -- ***********************************************
 
-function spell_resurrection_attack( level, target, belligerent )
+function spell_resurrection_attack( level, target, belligerent, last_hero )
   if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
@@ -749,12 +749,15 @@ function spell_resurrection_attack( level, target, belligerent )
 
     if Attack.act_size( target ) > 1 then N = '2' else N = '1' end
 
-    if count_1 == count_2 then
- 	   	Attack.log( "add_blog_sheal_" .. N, "hero_name", blog_side_unit( target, 4 ) .. Attack.hero_name(), "spell", blog_side_unit( target, 3 ) .. "<label=spell_resurrection_name>", "special", Attack.act_hp( target ) - hp, "target", blog_side_unit( target, -1 ) )
-	   else
-   	 	Attack.log( "add_blog_sres_"  .. N, "hero_name", blog_side_unit( target, 4 ) .. Attack.hero_name(), "spell", blog_side_unit( target, 3 ) .. "<label=spell_resurrection_name>", "special", count, "target", blog_side_unit( target, -1 ) )
-   	end
-
+    if last_hero ~= true then
+      local heroname = blog_side_unit( target, 4 ) .. Attack.hero_name()
+  
+      if count_1 == count_2 then
+   	   	Attack.log( "add_blog_sheal_" .. N, "hero_name", heroname, "spell", blog_side_unit( target, 3 ) .. "<label=spell_resurrection_name>", "special", Attack.act_hp( target ) - hp, "target", blog_side_unit( target, -1 ) )
+  	   else
+     	 	Attack.log( "add_blog_sres_"  .. N, "hero_name", heroname, "spell", blog_side_unit( target, 3 ) .. "<label=spell_resurrection_name>", "special", count, "target", blog_side_unit( target, -1 ) )
+     	end
+    end
   end
 
   return true
@@ -963,9 +966,8 @@ function spell_last_hero_attack( level, target )
   return true
 end
 
-function spell_last_hero_onremove(caa,duration_end)
-  if duration_end~=true then
-  end
+function spell_last_hero_onremove( caa, duration_end )
+		Attack.act_posthitmaster( caa, "post_spell_last_hero", 0 )
 
   return true
 end
@@ -1044,11 +1046,13 @@ function store_power_on_target( target, level, ehero_level )
 
   return true
 end
+
+
 -- ***********************************************
 -- * Magic Source
 -- ***********************************************
 
-function spell_magic_source_attack( level, target, belligerent, heroname )
+function spell_magic_source_attack( level, target, belligerent, heroname, enchanted_hero )
   if target == nil then target = Attack.get_target() end
 
   if ( target ~= nil ) then
@@ -1066,13 +1070,14 @@ function spell_magic_source_attack( level, target, belligerent, heroname )
     end
 
     local spell = "spell_magic_source"
-    local duration = Attack.val_restore( target, "spell_last_hero_magic_source_duration" )
-		  local penalty = Attack.val_restore( target, "spell_last_hero_magic_source_penalty" )
-		  local mana = Attack.val_restore( target, "spell_last_hero_magic_source_mana" )
 
-    if duration == nil
-    or penalty == nil
-    or mana == nil then
+    local duration, penalty, mana
+
+    if enchanted_hero == true then
+      duration = Attack.val_restore( target, "spell_last_hero_magic_source_duration" )
+  		  penalty = Attack.val_restore( target, "spell_last_hero_magic_source_penalty" )
+  		  mana = Attack.val_restore( target, "spell_last_hero_magic_source_mana" )
+    else
       duration = int_dur( spell, level, "sp_duration_magic_source" )
       penalty, mana = pwr_magic_source( level, ehero_level )
     end
@@ -1433,6 +1438,7 @@ function takeoff_spells( target, type, check_only )
 		  if spell_type == type
     and string.find( spell_name, "^totem_" ) == nil
     and not string.find( spell_name, "special_difficulty" )
+    and not string.find( spell_name, "special_rooted" )
     and not string.find( spell_name, "special_summon_bonus" ) then
 -- 			Attack.act_del_spell(target, spell_name)
 			   table.insert( spells_to_delete, spell_name );
@@ -2025,31 +2031,45 @@ end
 freeze_im=0.75 --25%
 
 function common_freeze_attack( target, spell, freeze, dmgts, duration )
-  local freeze_rnd = 0
-
-  if Attack.act_feature( target, "freeze_immunitet" ) then
-    freeze_rnd = freeze + Game.Random( 10, 50 )
-  else
-    freeze_rnd = Game.Random( 99 )
-  end
-
+  local freeze_rnd = Game.Random( 99 )
   local cold_fear = Attack.act_get_res( target, "fire" )
+  local freeze_res = Attack.act_get_res( target, "physical" )
 
   if Attack.act_feature( target, "fire_immunitet" )
   or Attack.act_race( target, "demon" ) then
     cold_fear = cold_fear + Game.Random( 10, 50 )
+    freeze_res = 0
   end
-
-  local freeze_res = Attack.act_get_res( target, "physical" )
 
   if ( freeze_rnd < ( freeze - freeze_res + cold_fear )
   or cold_fear >= 50 )
-  and not Attack.act_feature( target, "golem" ) then
-    duration = res_dur( target, spell, duration, "physical" )
+  and not Attack.act_pawn( target )
+  and not Attack.act_feature( target, "pawn" )
+  and not Attack.act_feature( target, "boss" )
+  and not Attack.act_feature( target, "golem" )
+  and not Attack.act_feature( target, "freeze_immunitet" ) then
+    duration = res_dur( target, spell, duration, "physical", nil, true )
     effect_freeze_attack( target, dmgts, duration )
   end
 
   return true
+end
+
+function common_freeze_im_vul( target, min_dmg, max_dmg )
+  if Attack.act_feature( target, "freeze_immunitet" ) then
+    min_dmg = min_dmg * freeze_im
+    max_dmg = max_dmg * freeze_im
+  elseif Attack.act_feature( target, "fire_immunitet" )
+  or Attack.act_race( target, "demon" ) then
+    local physical_res = limit_value( Attack.act_get_res( target, "physical" ), 0, 95 )
+    min_dmg = min_dmg * ( 1 + physical_res / ( 100 - physical_res ) ) * ( 1 - physical_res / 100 / 2 )
+    max_dmg = max_dmg * ( 1 + physical_res / ( 100 - physical_res ) ) * ( 1 - physical_res / 100 / 2 )
+    local fire_res = limit_value( Attack.act_get_res( target, "fire" ), 0, 95 )
+    min_dmg = min_dmg * ( 1 + fire_res / 100 / 2 )
+    max_dmg = max_dmg * ( 1 + fire_res / 100 / 2 )
+  end
+
+  return min_dmg, max_dmg
 end
 
 function spell_ice_serpent_attack( level, dmgt, target )
@@ -2069,15 +2089,10 @@ function spell_ice_serpent_attack( level, dmgt, target )
     local dmgts = Attack.aseq_time( a, "x" ) + dmgt
     local min_e_dmg, max_e_dmg, freeze, duration = pwr_ice_serpent( "epicentre", level, ehero_level )
     local min_p_dmg, max_p_dmg, freeze_p, duration_p = pwr_ice_serpent( "periphery", level, ehero_level )
-
-    if Attack.act_feature( target, "freeze_immunitet" ) then
-      min_e_dmg = min_e_dmg * freeze_im
-      max_e_dmg = max_e_dmg * freeze_im
-    end
-
     local dmg_type = Logic.obj_par( spell, "typedmg" )
+    min_e_dmg, max_e_dmg = common_freeze_im_vul( target, min_e_dmg, max_e_dmg )
     Attack.atk_set_damage( dmg_type, min_e_dmg, max_e_dmg )
-    common_cell_apply_damage(target, dmgts)                       -- apply damage in epicentre
+    common_cell_apply_damage( target, dmgts )                       -- apply damage in epicentre
     common_freeze_attack( target, spell, freeze, dmgts + 1, duration )
  	  local epicenter = target
 
@@ -2088,12 +2103,8 @@ function spell_ice_serpent_attack( level, dmgt, target )
       and Attack.cell_present( target )
       and Attack.get_caa( target ) ~= nil
       and not Attack.act_equal( 0, target ) then
-        if Attack.act_feature( target, "freeze_immunitet" ) then
-          Attack.atk_set_damage( dmg_type, min_p_dmg * freeze_im, max_p_dmg * freeze_im )   -- set custom damage for periphery
-        else
-          Attack.atk_set_damage( dmg_type, min_p_dmg, max_p_dmg )   -- set custom damage for periphery
-        end
-
+        local min_dmg, max_dmg = common_freeze_im_vul( target, min_p_dmg, max_p_dmg )
+        Attack.atk_set_damage( dmg_type, min_dmg, max_dmg )   -- set custom damage for periphery
         common_cell_apply_damage( target, dmgts )       -- apply damage
         common_freeze_attack( target, spell, freeze_p, dmgts + 1, duration_p )
       end
