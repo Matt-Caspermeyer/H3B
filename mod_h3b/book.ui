@@ -1,0 +1,151 @@
+gui_begin 0 0
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 582 722 582 722
+gui_object_name "page_pos"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 37 423 97 482
+gui_object_name "crystals_hint"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_crystals_hint"
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 37 351 99 416
+gui_object_name "scrolls_hint"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_scrolls_hint"
+gui_object_end
+gui_object_begin picture
+gui_object_picture ""
+gui_object_picture_angle 0.000000 0
+gui_object_position 36 286 98 345
+gui_object_name "mana_hint"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_mana_hint"
+gui_object_end
+gui_object_begin button
+gui_object_position 942 671 1016 717
+gui_object_name "next_page"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_next_page_hint"
+gui_object_button_normal "book_next_page_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "book_next_page_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "book_next_page_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 152 671 226 717
+gui_object_name "prev_page"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_prev_page_hint"
+gui_object_button_normal "book_prev_page_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "book_prev_page_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "book_prev_page_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin picture
+gui_object_picture "mana3_empty.png"
+gui_object_picture_angle 0.000000 0
+gui_object_position 53 291 84 323
+gui_object_name "mana_pos"
+gui_object_frigid 0
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 169 84 568 184
+gui_object_name "book_spell_school"
+gui_object_frigid 1
+gui_object_text "" "book_spells" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 1023 402 1142 479
+gui_object_name "all_spells"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_all_schools_hint"
+gui_object_button_normal "book_button_all_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "book_button_all_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "book_button_all_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "book_button_all_active.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 1023 486 1142 563
+gui_object_name "mfu_spells"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_fu_spells_hint"
+gui_object_button_normal "book_button_m4_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "book_button_m4_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "book_button_m4_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "book_button_m4_active.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 1024 270 1143 347
+gui_object_name "red_spells"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_red_school_hint"
+gui_object_button_normal "book_button_m3_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "book_button_m3_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "book_button_m3_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "book_button_m3_active.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 1024 189 1143 266
+gui_object_name "green_spells"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_green_school_hint"
+gui_object_button_normal "book_button_m2_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "book_button_m2_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "book_button_m2_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "book_button_m2_active.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 1024 104 1143 181
+gui_object_name "blue_spells"
+gui_object_frigid 0
+gui_object_hint "english_book.lng" "book_blue_school_hint"
+gui_object_button_normal "book_button_m1_normal.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "book_button_m1_onmouse.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "book_button_m1_onpress.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "book_button_m1_active.png" "" "" 0.000000 0 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 36 462 100 479
+gui_object_name "text_2"
+gui_object_frigid 1
+gui_object_text "" "book_crystals" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 36 397 100 413
+gui_object_name "book_scrolls"
+gui_object_frigid 1
+gui_object_text "" "book_scroll" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin simple_text
+gui_object_position 36 327 102 343
+gui_object_name "text_0"
+gui_object_frigid 1
+gui_object_text "" "book_mana" 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin button
+gui_object_position 895 723 972 817
+gui_object_name "b_cancel"
+gui_object_frigid 0
+gui_object_hint "eng_windows.lng" "book_close_hint"
+gui_object_button_normal "bookbuttonclose_normal.png" "" "" 0.000000 1 0.010000 0.990000 0.010000 0.990000
+gui_object_button_focused "bookbuttonclose_onmouse.png" "" "" 0.000000 1 0.010000 0.990000 0.010000 0.990000
+gui_object_button_pressed "bookbuttonclose_onpress.png" "" "" 0.000000 1 0.010000 0.990000 0.010000 0.990000
+gui_object_button_disabled "bookbuttonclose_normal.png" "" "" 0.000000 1 0.010000 0.990000 0.010000 0.990000
+gui_object_end
+gui_object_begin picture
+gui_object_picture "book_bg4.png"
+gui_object_picture_angle 0.000000 1
+gui_object_position 0 0 1081 765
+gui_object_name "bg"
+gui_object_frigid 0
+gui_object_end
+gui_end

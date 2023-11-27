@@ -1,0 +1,321 @@
+main {
+  class=chesspiece
+  model=devilfish.bma
+  bboxanim=1
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_devilfish_feat
+  features_hints=sea_header/sea_hint,fire_resistance_header/fire_resistance_hint,night_sight_header/night_sight_hint,fear_header/fear_hint,critical_damage_header/critical_damage_hint
+  race=neutral
+  realdeath=0
+  cost=20
+  level=1
+  leadership=12
+  attack=6
+  defense=4
+  defenseup=1
+  initiative=6
+  speed=2
+  hitpoint=10
+  krit=30
+  movetype=0
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,run
+  posthitmaster=features_devil_fear
+  features=nonecro
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=20
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=1,3
+    }
+    custom_params {
+      fear=30
+      level=3
+      duration=2
+    }
+  }
+  run {
+    class=scripted
+    reload=3
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=1-2
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=sea
+      moral=2
+    }
+    2 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=devilfish_idle.bsa/fr:25:50
+  rare=devilfish_rare.bsa/fr:25:50
+  attack=devilfish_attack.bsa/fr:25:50
+  special=devilfish_special.bsa/fr:25:50
+  move=devilfish_move.bsa/fr:25:50
+  start=devilfish_start.bsa/fr:25:50
+  stop=devilfish_stop.bsa/fr:25:50
+  clock=devilfish_clock.bsa/fr:25:50
+  contra=devilfish_contra.bsa/fr:25:50
+  appear=devilfish_appear.bsa/fr:25:50
+  respawn=devilfish_respawn.bsa/fr:25:50
+  clock2=devilfish_2clock.bsa/fr:25:50
+  contra2=devilfish_2contra.bsa/fr:25:50
+  lturn=devilfish_lturn.bsa/fr:25:50
+  rturn=devilfish_rturn.bsa/fr:25:50
+  damage=devilfish_damage.bsa/fr:25:50
+  slew=devilfish_slew.bsa/fr:25:50
+  death=devilfish_death.bsa/fr:25:50
+  castleft=devilfish_castleft.bsa/fr:25:50
+  castright=devilfish_castright.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  happy=devilfish_victory.bsa/fr:25:50
+  teleout=devilfish_idle.bsa/fr:25:50/r:35:70
+  telein=devilfish_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  @attack {
+    19.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+}
+editor {
+  align=chessboard
+  scale=1.0
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    particle {
+      trans=0/-0/0/1
+      animation=appear
+      frame=21/25
+      file=kraken_steam.ptb
+    }
+    particle {
+      trans=0/0.055/0/0/-0/0/0.60000002
+      animation=appear
+      frame=19/26
+      file=devilfish_bubbles.ptb
+    }
+    particle {
+      trans=-3.1415925/-0.31024787/-0/0.70000011
+      animation=damage
+      frame=0/5
+      file=kraken_steam.ptb
+    }
+    particle {
+      trans=0/-0.30000001/0/0/-0/0/1
+      animation=death
+      frame=0/6
+      file=kraken_steam.ptb
+    }
+    particle {
+      trans=0/-0/0/0.60000002
+      animation=special
+      frame=32/55
+      file=devilfish_bubbles.ptb
+    }
+  }
+  0 {
+    slot=5
+    particle {
+      trans=0/-0.40000001/0/0/-0/0/0.5
+      animation=move
+      file=devilfish_bubbles.ptb
+    }
+    particle {
+      trans=0/-0.40000001/0/0/-0/0/0.5
+      animation=start
+      file=devilfish_bubbles.ptb
+    }
+    particle {
+      trans=0/-0.40000001/0/0/-0/0/0.5
+      animation=stop
+      file=devilfish_bubbles.ptb
+    }
+    particle {
+      trans=0/-0.40000001/0/0/-0/0/0.5
+      animation=lturn
+      file=devilfish_bubbles.ptb
+    }
+    particle {
+      trans=0/-0.40000001/0/0/-0/0/0.5
+      animation=rturn
+      file=devilfish_bubbles.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=move
+      frame=0.01
+      file=devilfish_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=devilfish_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=devilfish_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=devilfish_clock
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=devilfish_contra
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=devilfish_clock2
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=devilfish_contra2
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=devilfish_lturn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=devilfish_rturn
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=devilfish_slew
+      fadetime=60
+    }
+    sound {
+      animation=appear
+      frame=0.01
+      file=devilfish_appear
+      fadetime=60
+    }
+    sound {
+      animation=attack
+      frame=0.01
+      file=devilfish_attack
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01
+      file=devilfish_special
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=devilfish_damage
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=devilfish_death
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01
+      file=devilfish_happy
+      fadetime=60
+    }
+    sound {
+      animation=respawn
+      frame=0.01
+      file=devilfish_respawn
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  devilfish_idle.bsa=file
+  devilfish_rare.bsa=file
+  devilfish_attack.bsa=file
+  devilfish_move.bsa=file
+  devilfish_start.bsa=file
+  devilfish_stop.bsa=file
+  devilfish_clock.bsa=file
+  devilfish_contra.bsa=file
+  devilfish_2clock.bsa=file
+  devilfish_2contra.bsa=file
+  devilfish_lturn.bsa=file
+  devilfish_rturn.bsa=file
+  devilfish_damage.bsa=file
+  devilfish_death.bsa=file
+  devilfish_respawn.bsa=file
+  devilfish_victory.bsa=file
+}

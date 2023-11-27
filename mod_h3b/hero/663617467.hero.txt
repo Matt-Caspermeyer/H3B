@@ -1,0 +1,30 @@
+{Y}{}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 11 elements
+{
+	{U}{uid} = {663617467}
+	{U}{au} = {422043374}  // Necromancer
+	{W}{h} = {ehero_system_hint_663617467}
+	{A}{ato} = {}
+	{A}{sp} = {spell_defenseless/spell_magic_axe}
+	{U}{le} = {1}
+	{U}{in} = {2}
+	{U}{ma} = {30}
+	{U}{atk} = {1}
+	{U}{de} = {1}
+	{Y}{fi}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 2 elements
+	{
+                // Race Bonus, 1 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {undead}
+			}
+			{A}{pbonus} = {initiative,1,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+	}
+}

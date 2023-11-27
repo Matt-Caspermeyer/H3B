@@ -1,0 +1,153 @@
+{Y}{}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 11 elements
+{
+	{U}{uid} = {1017349827}
+	{U}{au} = {836491924}  // Dirty Butory
+	{W}{h} = {ehero_system_hint_1017349827}
+	{A}{ato} = {ah_dirty_butori}
+	{A}{sp} = {spell_shroud/spell_berserker/spell_ghost_sword}
+	{U}{le} = {6}
+	{U}{in} = {4}
+	{U}{ma} = {64}
+	{U}{atk} = {7}
+	{U}{de} = {5}
+	{Y}{fi}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 10 elements
+	{
+                // Training
+                // Level 1, 3 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<3}
+			}
+			{A}{pbonus} = {attack,2,0,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<3}
+			}
+			{A}{pbonus} = {defense,2,0,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<3}
+			}
+			{A}{pbonus} = {krit,0,10,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Anger
+                // +1 Damager per level - pick resistance, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {physical,1,0,0,-100,0,0}  // anger, damage per level
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Start Defense
+                // Level 1, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {physical,10,0,0,1,0,0}  // start defense level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Distortion
+                // +5% Physical Resistance per level, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {physical,5,0,0,-100,0,0}  // Distortion, +5% per level
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Race Bonus, 3 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {attack,0,20,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {krit,0,10,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {speed,1,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Damage Bonus, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {physical,2,0,0,-100,0,0}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+	}
+}

@@ -1,0 +1,422 @@
+{Y}{}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 11 elements
+{
+	{U}{uid} = {49950657}
+	{U}{au} = {116734178}  // Harry Cook
+	{W}{h} = {ehero_system_hint_49950657}
+	{A}{ato} = {ah_garry_cook}
+	{A}{sp} = {spell_phantom/spell_pain_mirror/spell_ghost_sword/spell_stone_skin/spell_haste/spell_fire_arrow/spell_resurrection/spell_defenseless/spell_slow}
+	{U}{le} = {12}
+	{U}{in} = {16}
+	{U}{ma} = {145}
+	{U}{atk} = {7}
+	{U}{de} = {6}
+	{Y}{fi}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 32 elements
+	{
+                // Training
+                // Level 1, 3 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<2}
+			}
+			{A}{pbonus} = {attack,1,0,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<2}
+			}
+			{A}{pbonus} = {defense,1,0,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<2}
+			}
+			{A}{pbonus} = {krit,0,10,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Shot Commander
+                // Level 1, 12 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {archer,thorn}
+			}
+			{A}{pbonus} = {attack,1,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {archer,thorn}
+			}
+			{A}{pbonus} = {defense,1,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {bowman,goblin}
+			}
+			{A}{pbonus} = {attack,2,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {bowman,goblin}
+			}
+			{A}{pbonus} = {defense,2,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {catapult,elf}
+			}
+			{A}{pbonus} = {attack,3,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {catapult,elf}
+			}
+			{A}{pbonus} = {defense,3,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {alchemist,cannoner,elf2,kingthorn}
+			}
+			{A}{pbonus} = {attack,4,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {alchemist,cannoner,elf2,kingthorn}
+			}
+			{A}{pbonus} = {defense,4,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {cyclop}
+			}
+			{A}{pbonus} = {attack,5,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {cyclop}
+			}
+			{A}{pbonus} = {defense,5,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {alchemist,archer,bowman,cannoner,catapult,cyclop,elf,elf2,goblin,thorn,kingthorn}
+			}
+			{A}{pbonus} = {krit,0,10,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {alchemist,archer,bowman,cannoner,catapult,cyclop,elf,elf2,goblin,thorn,kingthorn}
+			}
+			{A}{pbonus} = {health,0,5,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}  // shot commander level 1
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Inquisition
+                // Level 1, 3 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<4}
+			}
+			{A}{pbonus} = {health,0,5,0,-100,0,0}  // Inquisition level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<4}
+			}
+			{A}{pbonus} = {initiative,1,0,0,-100,0,0}  // Inquisition level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<4}
+			}
+			{A}{pbonus} = {speed,1,0,0,-100,0,0}  // Inquisition level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Distortion
+                // +5% Physical Resistance per level, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {physical,5,0,0,-100,0,0}  // Distortion, +5% per level
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Concentration
+                // +5% resistance per level - pick resistance, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {fire,5,0,0,-100,0,0}  // Concentration, +5% per level - pick resistance
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Healer
+                // Level 1, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+			}
+			{A}{pbonus} = {health,0,2,0,-100,0,0}  // healer, level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Chaos
+                // +5% Fire, Physical, or Poison Resistance per level - pick element, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {fire,5,0,0,-100,0,0}  // Chaos, +5% per level - pick fire, physical, or poison
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Mega Mage
+                // Level 1, 3 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {priest,priest2,druid,archmage,shaman,necromant}
+			}
+			{A}{pbonus} = {attack,4,0,0,-100,0,0}  // mega mage level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {priest,priest2,druid,archmage,shaman,necromant}
+			}
+			{A}{pbonus} = {defense,4,0,0,-100,0,0}  // mega mage level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{unit} = {priest,priest2,druid,archmage,shaman,necromant}
+			}
+			{A}{pbonus} = {health,0,5,0,-100,0,0}  // mega mage level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Race Bonus, 2 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {krit,0,20,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {initiative,2,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Damage and Resistance Bonus, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {fire,1,0,0,-100,0,0}
+			{A}{rbonus} = {fire,10,0,0,-100,0,0}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Damage and Resistance Bonus, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {magic,2,0,0,-100,0,0}
+			{A}{rbonus} = {magic,10,0,0,-100,0,0}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Resistance Bonus, 1 element
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {poison,5,0,0,-100,0,0}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+	}
+}

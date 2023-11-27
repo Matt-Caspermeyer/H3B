@@ -1,0 +1,71 @@
+{Y}{}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 11 elements
+{
+	{U}{uid} = {1206884}
+	{U}{au} = {1986885}  // Beardless Joe
+	{W}{h} = {ehero_system_hint_1206884}
+	{A}{ato} = {ah_robber}
+	{A}{sp} = {spell_stone_skin}
+	{U}{le} = {1}
+	{U}{in} = {1}
+	{U}{ma} = {20}
+	{U}{atk} = {3}
+	{U}{de} = {1}
+	{Y}{fi}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 4 elements
+	{
+                // Training
+                // Level 1, 3 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<2}
+			}
+			{A}{pbonus} = {attack,1,0,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<2}
+			}
+			{A}{pbonus} = {defense,1,0,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{level} = {<2}
+			}
+			{A}{pbonus} = {krit,0,10,0,-100,0,0}  // training level 1
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+                // Race Bonus, 1 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {human}
+			}
+			{A}{pbonus} = {attack,0,10,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+	}
+}

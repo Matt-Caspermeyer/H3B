@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_knight_feat
-  features_hints=steel_armor_header/steel_armor_hint,valorous_header/valorous_hint,dragon_slayer_header/dragon_slayer_hint
+  features_hints=steel_armor_header/steel_armor_hint,valorous_header/valorous_hint,dragon_slayer_header/dragon_slayer_hint,cold_protection_header/cold_protection_hint
   race=human
   cost=1000
   level=4
@@ -14,20 +14,21 @@ arena_params {
   defense=27
   defenseup=6
   initiative=3
-  speed=2
+  speed=1
   hitpoint=160
   movetype=0
   krit=15
   hitback=1
   hitbackprotect=0
   posthitmaster=features_dragon_slayer
-  attacks=moveattack,krugom,dragonslayer
+  attacks=moveattack,krugom,dragonslayer,run
   features=armor,humanoid
   resistances {
-    physical=30
+    physical=50
     poison=0
     magic=0
-    fire=30
+    fire=50
+    cold=50
   }
   moveattack {
     group=1,1
@@ -38,6 +39,20 @@ arena_params {
     }
     custom_params {
         dragonslayer=1 // заложено во второй атаке
+    }
+  }
+  run {
+    class=scripted
+    reload=4
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=1-2
     }
   }
   dragonslayer {
@@ -59,7 +74,6 @@ arena_params {
     hinthead=special_knight_head
     hint=special_knight_hint
     require_skill=traning:3
-    moves=7
     reload=3
     base_attack=0
     ad_factor=1

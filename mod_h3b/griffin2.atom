@@ -1,0 +1,310 @@
+main {
+  class=chesspiece
+  model=griffin_kaghem.bma
+  bboxanim=1
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_griffin2_feat
+  features_hints=flies_header/flies_hint,tireless_header/tireless_hint,magic_protection_header/magic_protection_hint,dragon_hate_header/dragon_hate_hint,ideal_header/ideal_hint
+  race=neutral
+  cost=1200
+  level=4
+  leadership=300
+  attack=35
+  defense=30
+  defenseup=7
+  initiative=6
+  speed=6
+  hitpoint=220
+  movetype=2
+  krit=15
+  hitback=2
+  hitbackprotect=0
+  attacks=moveattack,dragonslayer,encouragement,sky_guard
+  features=beast
+  resistances {
+    physical=15
+    poison=0
+    magic=50
+    fire=-10
+    cold=20
+  }
+  moveattack {
+    group=1,1
+    nfeatures=dragon
+    ad_factor=1
+    usefly=4
+    damage {
+      physical=20,30
+    }
+  }
+  dragonslayer {
+    group=1,2
+    class=moveattack
+    ad_factor=1
+    usefly=4
+    features=dragon
+    anim_attack=attack
+    damage {
+      physical=40,60
+    }
+  }
+  encouragement {
+    class=scripted
+    moves=1
+    hinthead=special_encouragement_head
+    hint=special_encouragement_hint
+    script_attack=special_encouragement
+    script_calccells=calccells_special_encouragement
+    picture_small=BA1_encouragement_small.png
+    picture=BA1_encouragement_
+    custom_params {
+      power=50
+      duration=2
+    }
+  }
+  sky_guard {
+    class=scripted
+    hinthead=special_sky_guard_head
+    hint=special_sky_guard_hint
+    moves=1
+    warning=sw_place
+    script_attack=special_sky_guard
+    script_calccells=
+    picture=BA1_sky_guard_
+    picture_small=BA1_sky_guard_small.png
+    attack_cursor=magicstick
+    anim_attack=cast
+    custom_params {
+      k=40-60
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=griffin_idle.bsa/fr:25:50
+  rare=griffin_rare.bsa/fr:25:50
+  attack=griffin_attack.bsa/fr:25:50
+  move=griffin_move.bsa/fr:35:70
+  start=griffin_start.bsa/fr:35:70
+  stop=griffin_stop.bsa/fr:35:70
+  clock=griffin_clock.bsa/fr:40:80
+  contra=griffin_contra.bsa/fr:40:80
+  clock2=griffin_2clock.bsa/fr:40:80
+  contra2=griffin_2contra.bsa/fr:40:80
+  lturn=griffin_lturn.bsa/fr:35:70
+  rturn=griffin_rturn.bsa/fr:35:70
+  damage=griffin_damage.bsa/fr:25:50
+  takeoff=griffin_takeoff.bsa/fr:35:70
+  flight=griffin_flight.bsa/fr:35:70
+  descent=griffin_descent.bsa/fr:35:70
+  ldivert=griffin_ldivert.bsa/fr:35:70
+  rdivert=griffin_rdivert.bsa/fr:35:70
+  slew=griffin_slew.bsa/fr:35:70
+  death=griffin_death.bsa/fr:25:50
+  respawn=griffin_respawn.bsa/fr:25:50
+  happy=griffin_victory.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  teleout=griffin_idle.bsa/fr:25:50/r:40:75
+  telein=griffin_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  special=griffin_victory.bsa/fr:15:30
+  cast=griffin_rare.bsa/fr:25:50
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    18.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @special {
+    25.0?x=
+    0.0=cam
+  }
+  @cast {
+    35.0?x=
+    0.0=cam
+  }
+  @appear {
+    1.0=alpha/1/29
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=attack
+      file=griffin_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.1
+      file=griffin_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      file=griffin_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      file=griffin_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      file=griffin_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      file=griffin_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      file=griffin_damage
+      fadetime=60
+    }
+    sound {
+      animation=takeoff
+      file=griffin_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=flight
+      frame=0.1
+      file=griffin_flight
+      fadetime=60
+    }
+    sound {
+      animation=descent
+      file=griffin_descent
+      fadetime=60
+    }
+    sound {
+      animation=ldivert
+      file=griffin_divert
+      fadetime=60
+    }
+    sound {
+      animation=rdivert
+      file=griffin_divert
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      file=griffin_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      file=griffin_death
+      fadetime=60
+    }
+    sound {
+      animation=victory
+      file=griffin_victory
+      fadetime=60
+    }
+    sound {
+      animation=happy
+      frame=0.01/2.00999999
+      file=griffin_victory
+      fadetime=60
+    }
+    sound {
+      animation=cast
+      frame=0.01/2.00999999
+      file=griffin2_cast
+      fadetime=60
+    }
+    sound {
+      animation=special
+      frame=0.01/2.00999999
+      file=griffin2_special
+      fadetime=60
+    }
+  }
+  1 {
+    particle {
+      trans=0/-0.3704834/0/-3.1415925/-1.43503869/-3.1415925/0.5
+      animation=cast
+      frame=12/25
+      file=cast_cross_beams.ptb
+    }
+    particle {
+      trans=0/-0.3704834/-0.61737061/0/-0/0/0.60000002
+      animation=cast
+      frame=15/25
+      file=cast_druid_arx.ptb
+    }
+    particle {
+      trans=0/1.60000002/0.5/0/-0/0/1
+      animation=special
+      frame=15/19
+      file=post_song_stars.ptb
+    }
+    particle {
+      trans=0/1.60000002/0.5/0/-0/0/0.5
+      animation=special
+      frame=12/22
+      file=phoenix_respawn.ptb
+    }
+    coord=0/1/0/0/-0/0/1
+  }
+}

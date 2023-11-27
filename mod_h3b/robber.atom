@@ -20,7 +20,7 @@ arena_params {
   krit=10
   hitback=1
   hitbackprotect=0
-  attacks=moveattack,longattack,greediness
+  attacks=moveattack,longattack,greediness,run
   features=humanoid
   resistances {
     physical=0
@@ -34,6 +34,20 @@ arena_params {
       physical=2,4
     }
   }
+  run {
+    class=scripted
+    reload=3
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=1-2
+    }
+  }
   longattack {
     class=scripted
     warning=sw_long
@@ -42,7 +56,6 @@ arena_params {
     picture=BA1_Flail_
     picture_small=BA1_Flail_small.png
     ad_factor=1
-    moves=8
     reload=2
     script_attack=special_long_hit
     script_calccells=calccells_enemy_longhit

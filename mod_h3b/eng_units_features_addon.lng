@@ -1,0 +1,81 @@
+// AP
+cpi_griffin2_feat=Flight, Furious, Magic Protection, Dragon Despiser, Regal.
+cpi_griffinsp_feat=Flight, Furious, Phantom, Negates Magic.
+
+cpi_droideka_feat=Flight, Archer, No Melee Penalty, Mechanical, Armor, Eyeless.
+cpi_droideka2_feat=Shock, Mechanical, Armor, Eyeless.
+cpi_miner2_feat=Night Sight, Foreman. 
+
+cpi_demon2_feat=Demon, Furious, Domination, Demon Rage, Terrify.
+
+panik_header=^def_hint_t0^Terrify
+panik_hint=^def_hint_t1^When attacking creatures level 1-4, the demon has a 30% chance of making the enemy unit panic. The undead and demons as well as creatures who are immune to Mind attacks, are immune from this effect.
+
+antimage_header=^def_hint_t0^Negates Magic
+antimage_hint=^def_hint_t1^Immune to the effects of spells. Magic Resistance 25%.
+
+dragon_hate_header=^def_hint_t0^Dragon Despiser
+dragon_hate_hint=^def_hint_t1^Inflicts double Damage to dragons. Suffers lower morale if the army contains a dragon.
+
+ideal_header=^def_hint_t0^Regal
+ideal_hint=^def_hint_t1^Gives humans the confidence of Griffins, increasing their Morale by 1.
+
+phantom_header=^def_hint_t0^Phantom
+phantom_hint=^def_hint_t1^Suffers only half of any Physical Damage (50% Physical Damage Resistance), and can pass through barriers.
+
+mech_header=^def_hint_t0^Mechanical
+mech_hint=^def_hint_t1^Mechanical creatures have neither mind nor living flesh. Properties include:<br>Always neutral Morale. <br>Immune to the effects of mind. <br>Immune to Poison and vulnerability to magic. Cannot be healed or resurrected.
+
+foreman_header=^def_hint_t0^Foreman
+foreman_hint=^def_hint_t1^Doubles the base Attack and Defense of Miners in the army. "Outraged" Miners get a +1 bonus to Speed and Initiative, and a 100% chance of Critical Hit. 
+
+shock_header=^def_hint_t0^Shock
+shock_hint=^def_hint_t1^The troop's attack has a 30% probability of shocking the enemy, reducing his Initiative and the Action Points to 1. 
+
+// CW
+flamer_header=^def_hint_t0^Fire Thrower
+flamer_hint=^def_hint_t1^Produces a stream of fire up to 3 cells, burning everything in its path. The enemy cannot counter this attack. Alchemists receive some Archer bonuses. Also has a 15% probability of igniting the target. 
+
+robo_tech_header=^def_hint_t0^Mechanism Optimization
+robo_tech_hint=^def_hint_t1^Bring all controlled mechanisms to peak performance. <br>Droids receive:<br>+5 to Attack, +1 to Speed
+
+chemister_header=^def_hint_t0^Alchemist 
+chemister_hint=^def_hint_t1^Creates new potions and chemical mixtures, once they are depleted.
+
+blind_grenade_name=Shock Grenade
+blind_grenade_head=^special_tC^[Bad]
+blind_grenade_hint=^special_t^Throws a special mixture at the enemy. The target receives [fdamage] fire damage, and neighboring units of level [level] are blinded.
+
+talent_chemistery_poison_name=Create Poison Potion 
+talent_chemistery_poison_head=^special_tC^[Good]
+talent_chemistery_fire_name=Create Fire Water 
+talent_chemistery_fire_head=^special_tC^[Good]
+talent_chemistery_holy_name=Create Holy Water 
+talent_chemistery_holy_head=^special_tC^[Good]
+talent_chemistery_flash_name=Create Shock Grenade 
+talent_chemistery_flash_head=^special_tC^[Good]
+talent_chemistery_buster_name=Create Energy Drink 
+talent_chemistery_buster_head=^special_tC^[Good]
+talent_chemistery_hint=^special_t^<gen=chemistery_hint>
+
+crafting_flash=Creates <color=255,255,255> 1-2 </color> Shock Grenades.
+crafting_fire=Creates <color=255,255,255> 1-2 </color> bottles of Fire Water.
+crafting_poison=Creates <color=255,255,255> 1-2 </color> bottles of Poison. 
+crafting_holy=Creates <color=255,255,255> 1-2 </color> bottles of Holy Water. 
+crafting_buster=Creates <color=255,255,255> 1-2 </color> Energy Drinks. 
+
+talent_energobuster_name=Energy Drink 
+talent_energobuster_head=^special_tC^[Good]
+talent_energobuster_hint=^special_t^Consume an energy drink, and receives an additional [ap] Action Points.
+
+// DS
+cpi_firemental_feat=Demon, Fire Elemental, Soars.
+cpi_priestess_blood_feat=Demon, Lightly Armored, Blood Priestess, Beauty.
+
+light_armor_header=^def_hint_t0^Light Armor
+light_armor_hint=^def_hint_t1^10% Physical Damage Resistance
+
+priestess_blood_header=^def_hint_t0^Blood Priestess
+priestess_blood_hint=^def_hint_t1^Base attacks and the <label=special_demoness_long_name> talent have a 15% chance of applying a <label=effect_bleed_name> effect to the target.
+
+

@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_footman_feat
-  features_hints=armor_header/armor_hint
+  features_hints=armor_header/armor_hint,fire_resistance_header/fire_resistance_hint,cold_resistance_header/cold_resistance_hint
   race=human
   cost=70
   level=2
@@ -14,19 +14,20 @@ arena_params {
   defense=16
   defenseup=4
   initiative=3
-  speed=3
+  speed=1
   hitpoint=32
   krit=8
   movetype=0
   hitback=1
   hitbackprotect=0
-  attacks=moveattack,moveattack2
+  attacks=moveattack,moveattack2,run
   features=armor,humanoid
   resistances {
     physical=20
     poison=0
     magic=0
-    fire=0
+    fire=15
+    cold=15
   }
   moveattack {
     ad_factor=1
@@ -34,11 +35,24 @@ arena_params {
       physical=4,5
     }
   }
+  run {
+    class=scripted
+    reload=4
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=1-2
+    }
+  }
   moveattack2 {
     class=moveattack
     hinthead=special_footman_head
     hint=special_footman_hint
-    moves=5
     reload=3
     base_attack=0
     require_skill=traning:1

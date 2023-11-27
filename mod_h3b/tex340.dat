@@ -1,0 +1,452 @@
+TEX340 {
+  block {
+    filename=itm_attack.png
+    in_tex_pos=0,0
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,32
+  }
+  block {
+    filename=itm_bleeding.png
+    in_tex_pos=16,0
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=32,32
+  }
+  block {
+    filename=itm_burn.png
+    in_tex_pos=32,0
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=64,32
+  }
+  block {
+    filename=itm_count.png
+    in_tex_pos=48,0
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=96,32
+  }
+  block {
+    filename=itm_damage.png
+    in_tex_pos=64,0
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=128,32
+  }
+  block {
+    filename=itm_defense.png
+    in_tex_pos=80,0
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=160,32
+  }
+  block {
+    filename=itm_dmg_fire.png
+    in_tex_pos=96,0
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=192,32
+  }
+  block {
+    filename=itm_dmg_magic.png
+    in_tex_pos=0,16
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=224,32
+  }
+  block {
+    filename=itm_dmg_physical.png
+    in_tex_pos=16,16
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=256,32
+  }
+  block {
+    filename=itm_dmg_poison.png
+    in_tex_pos=32,16
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=288,32
+  }
+  block {
+    filename=itm_duration.png
+    in_tex_pos=48,16
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=320,32
+  }
+  block {
+    filename=itm_experience.png
+    in_tex_pos=64,16
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=352,32
+  }
+  block {
+    filename=itm_fear.png
+    in_tex_pos=80,16
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=384,32
+  }
+  block {
+    filename=itm_freeze.png
+    in_tex_pos=96,16
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=416,32
+  }
+  block {
+    filename=itm_gold.png
+    in_tex_pos=0,32
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=448,32
+  }
+  block {
+    filename=itm_health.png
+    in_tex_pos=16,32
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=480,32
+  }
+  block {
+    filename=itm_holy.png
+    in_tex_pos=32,32
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=512,32
+  }
+  block {
+    filename=itm_initiative.png
+    in_tex_pos=48,32
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=544,32
+  }
+  block {
+    filename=itm_intellect.png
+    in_tex_pos=64,32
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=576,32
+  }
+  block {
+    filename=itm_krit.png
+    in_tex_pos=80,32
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=608,32
+  }
+  block {
+    filename=itm_leadership.png
+    in_tex_pos=96,32
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=640,32
+  }
+  block {
+    filename=itm_mana.png
+    in_tex_pos=0,48
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=672,32
+  }
+  block {
+    filename=itm_melee.png
+    in_tex_pos=16,48
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=704,32
+  }
+  block {
+    filename=itm_moral_n1.png
+    in_tex_pos=32,48
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=736,32
+  }
+  block {
+    filename=itm_moral_n2.png
+    in_tex_pos=48,48
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=768,32
+  }
+  block {
+    filename=itm_moral_n3.png
+    in_tex_pos=64,48
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=800,32
+  }
+  block {
+    filename=itm_moral_p1.png
+    in_tex_pos=80,48
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=832,32
+  }
+  block {
+    filename=itm_moral_p2.png
+    in_tex_pos=96,48
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=864,32
+  }
+  block {
+    filename=itm_moral_p3.png
+    in_tex_pos=0,64
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=896,32
+  }
+  block {
+    filename=itm_poison.png
+    in_tex_pos=16,64
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=928,32
+  }
+  block {
+    filename=itm_power.png
+    in_tex_pos=32,64
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=960,32
+  }
+  block {
+    filename=itm_race_demon.png
+    in_tex_pos=48,64
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=992,32
+  }
+  block {
+    filename=itm_race_dwarf.png
+    in_tex_pos=64,64
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1024,32
+  }
+  block {
+    filename=itm_race_elf.png
+    in_tex_pos=80,64
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1056,32
+  }
+  block {
+    filename=itm_race_human.png
+    in_tex_pos=96,64
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1088,32
+  }
+  block {
+    filename=itm_race_lizard.png
+    in_tex_pos=0,80
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1120,32
+  }
+  block {
+    filename=itm_race_neutral.png
+    in_tex_pos=16,80
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1152,32
+  }
+  block {
+    filename=itm_race_orc.png
+    in_tex_pos=32,80
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1184,32
+  }
+  block {
+    filename=itm_race_undead.png
+    in_tex_pos=48,80
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1216,32
+  }
+  block {
+    filename=itm_rage.png
+    in_tex_pos=64,80
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1248,32
+  }
+  block {
+    filename=itm_ranged.png
+    in_tex_pos=80,80
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1280,32
+  }
+  block {
+    filename=itm_rune_magic.png
+    in_tex_pos=96,80
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1312,32
+  }
+  block {
+    filename=itm_rune_might.png
+    in_tex_pos=0,96
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1344,32
+  }
+  block {
+    filename=itm_rune_mind.png
+    in_tex_pos=16,96
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1376,32
+  }
+  block {
+    filename=itm_scroll.png
+    in_tex_pos=32,96
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1408,32
+  }
+  block {
+    filename=itm_shock.png
+    in_tex_pos=48,96
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1440,32
+  }
+  block {
+    filename=itm_speed.png
+    in_tex_pos=64,96
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1472,32
+  }
+  block {
+    filename=itm_spell.png
+    in_tex_pos=80,96
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1504,32
+  }
+  block {
+    filename=itm_stun.png
+    in_tex_pos=96,96
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1536,32
+  }
+  block {
+    filename=itm_dmg_cold_wotn.png
+    in_tex_pos=0,112
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1568,32
+  }
+  block {
+    filename=itm_race_viking.png
+    in_tex_pos=16,112
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1600,32
+  }
+  block {
+    filename=itm_race_ice_elf.png
+    in_tex_pos=32,112
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1632,32
+  }
+  block {
+    filename=itm_race_lizard_undead.png
+    in_tex_pos=48,112
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1664,32
+  }
+  block {
+    filename=itm_dmg_lightning.png
+    in_tex_pos=64,112
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1696,32
+  }
+  block {
+    filename=itm_dmg_cold.png
+    in_tex_pos=80,112
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1728,32
+  }
+  block {
+    filename=itm_dmg_astral.png
+    in_tex_pos=96,112
+    in_tex_size=16,16
+    geom_pos=0,0
+    geom_size=1,1
+    mask=1760,32
+  }
+  texture_size=112,128
+}
+

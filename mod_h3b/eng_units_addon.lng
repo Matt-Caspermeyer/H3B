@@ -1,0 +1,40 @@
+// Races
+inf_lizard_race_head=Scraggs
+inf_lizard_race_hint=Scaly and cold-blooded inhabitants from Endoria's past. Long thought to be extinct and are also known as the Pangolins.<br>Scraggs despise the Titans and since they have long been extinct on Endoria, they are indifferent to all races or troops when it comes to morale.
+
+// AP
+cpn_griffin2=Royal Griffin
+cpsn_griffin2=Royal Griffins 
+
+cpn_griffin_spirit=Angelic Guard
+cpsn_griffin_spirit=Angelic Guards
+
+cpn_demon2=Executioner
+cpsn_demon2=Executioners 
+
+cpn_droideka=Repair Droid
+cpsn_droideka=Repair Droids
+
+cpn_droideka_guard=Guard Droid
+cpsn_droideka_guard=Guard Droids
+
+cpn_miner2=Foreman
+cpsn_miner2=Foremen 
+
+// CW
+cpn_ingeneer=Engineer 
+cpsn_ingeneer=Engineers 
+
+// DS
+cpn_firemental=Demon Spark
+cpsn_firemental=Demon Sparks
+
+cpn_priestess_blood=Blood Priestess
+cpsn_priestess_blood=Blood Priestesses
+
+hint_morale_dragon=Dragon presence in the army.
+hint_morale_griffin=<label=cpsn_griffin2> in the presence of the Royal Army.
+hint_morale_lizard=<label=inf_lizard_race_head> presence in the army.
+hint_morale_tirex=Tirex presence in the army.
+hint_morale_orc=Presence of orcs in the army.
+

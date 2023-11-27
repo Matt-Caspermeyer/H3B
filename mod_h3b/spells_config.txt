@@ -1,0 +1,219 @@
+spell_dispell {
+  profit=1
+}
+
+spell_healing {
+  profit=1
+}
+
+spell_defenseless {
+  profit=1
+}
+
+spell_stone_skin {
+  profit=1
+}
+
+spell_last_hero {
+  profit=1
+}
+
+spell_dragon_arrow {
+  profit=2
+}
+
+spell_magic_axe {
+  profit=2
+}
+
+spell_bless {
+  profit=2
+}
+
+spell_adrenalin {
+  profit=3
+}
+
+spell_pacifism {
+  profit=3
+}
+
+spell_dragon_slayer {
+  profit=3
+}
+
+spell_phoenix {
+  profit=3
+}
+
+spell_gifts {
+  profit=3
+}
+
+spell_demon_slayer {
+  profit=4
+}
+
+spell_lightning {
+  profit=4
+}
+
+spell_resurrection {
+  profit=4
+}
+
+spell_divine_armor {
+  profit=4
+}
+
+spell_holy_rain {
+  profit=5
+}
+
+spell_accuracy {
+  profit=1
+}
+
+spell_haste {
+  profit=1
+}
+
+spell_slow {
+  profit=1
+}
+
+spell_reaction {
+  profit=1
+}
+
+spell_berserker {
+  profit=2
+}
+
+spell_shroud {
+  profit=2
+}
+
+spell_pain_mirror {
+  profit=2
+}
+
+spell_target {
+  profit=3
+}
+
+spell_magic_source {
+  profit=2
+}
+
+spell_trap {
+  profit=2
+}
+
+spell_invisibility {
+  profit=3
+}
+
+spell_ghost_sword {
+  profit=3
+}
+
+spell_phantom {
+  profit=3
+}
+
+spell_teleport {
+  profit=3
+}
+
+spell_pygmy {
+  profit=4
+}
+
+spell_blind {
+  profit=4
+}
+
+spell_hypnosis {
+  profit=5
+}
+
+spell_geyser {
+  profit=5
+}
+
+spell_fire_arrow {
+  profit=1
+}
+
+spell_smile_skull {
+  profit=1
+}
+
+spell_scare {
+  profit=1
+}
+
+spell_oil_fog {
+  profit=2
+}
+
+spell_plague {
+  profit=2
+}
+
+spell_fire_breath {
+  profit=2
+}
+
+spell_magic_bondage {
+  profit=2
+}
+
+spell_ice_serpent {
+  profit=3
+}
+
+spell_fire_ball {
+  profit=3
+}
+
+spell_sacrifice {
+  profit=3
+}
+
+spell_weakness {
+  profit=3
+}
+
+spell_evilbook {
+  profit=3
+}
+
+spell_kamikaze {
+  profit=3
+}
+
+spell_crue_fate {
+  profit=4
+}
+
+spell_ram {
+  profit=4
+}
+
+spell_demonologist {
+  profit=4
+}
+
+spell_fire_rain {
+  profit=4
+}
+
+spell_necromancy {
+  profit=4
+}
+
+spell_armageddon {
+  profit=5
+}

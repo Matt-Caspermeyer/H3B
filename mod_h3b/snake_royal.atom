@@ -5,7 +5,7 @@ main {
 }
 arena_params {
   features_label=cpi_snake_royal_feat
-  features_hints=no_retaliation_header/no_retaliation_hint,poisonous_header/poisonous_hint,poison_immunity_header/poison_immunity_hint
+  features_hints=night_sight_header/night_sight_hint,forest_camo_header/forest_camo_hint,no_retaliation_header/no_retaliation_hint,poisonous_header/poisonous_hint,poison_immunity_header/poison_immunity_hint,cold_weakness_header/cold_weakness_hint,winter_frailty_header/winter_frailty_hint
   race=neutral
   cost=220
   level=3
@@ -14,20 +14,21 @@ arena_params {
   defense=18
   defenseup=3
   initiative=6
-  speed=3
+  speed=2
   hitpoint=52
   movetype=0
   krit=25
   posthitmaster=features_poison
   hitback=1
   hitbackprotect=1
-  attacks=moveattack,longattack
+  attacks=moveattack,longattack,run
   features=beast,nonecro,poison_immunitet
   resistances {
     physical=10
     poison=80
     magic=0
     fire=0
+    cold=-50
   }
   moveattack {
     ad_factor=1
@@ -38,9 +39,22 @@ arena_params {
       poison=30
     }
   }
+  run {
+    class=scripted
+    reload=3
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=2-3
+    }
+  }
   longattack {
     class=scripted
-    moves=8
     reload=2
     picture=BA1_Special_Rush_
     picture_small=BA1_Special_Rush_small.png
@@ -56,6 +70,21 @@ arena_params {
     }
     custom_params {
       poison=100
+    }
+  }
+  arena_bonuses {
+    1 {
+      logbits=dungeon
+      daytime=8
+      attack=50%
+    }
+    2 {
+      logbits=forest
+      defense=50%
+    }
+    3 {
+      logbits=winter
+      health=-25%
     }
   }
 }

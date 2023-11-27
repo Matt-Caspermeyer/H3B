@@ -1,0 +1,164 @@
+main {
+  class=army
+  model=griffin_kaghem.bma
+  turn_speed=2.0
+  walk_speed=1.5
+  run_speed=3.5
+  aggro_sound=griffin_aggro
+  infobox {
+    hint=enemy_hint
+  }
+  spawnscale=0.9
+  cullcat=0
+}
+scripts {
+  idle=default_idle
+  scenario=army_scenario
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=griffin_idle.bsa/fr:25:50
+  rare=griffin_rare.bsa/fr:25:50
+  victory=griffin_victory.bsa/fr:25:50
+  move=griffin_walk_uni.bsa/fr:41:50
+  run=griffin_move_uni.bsa/fr:33:66
+  death=griffin_death.bsa/fr:25:50
+  attack=griffin_attack.bsa/fr:25:50/r:0:18
+  lost=/t:1:1:rare
+  rancor=griffin_rancor.bsa/fr:25:50
+  @death {
+    20.0=alpha/0/10
+  }
+}
+collisions {
+  ground=0.8
+  test1=1
+  test2=4
+  test3=8
+  test4=11
+}
+editor {
+  align=grid/0/0/0.1/0.1
+  spawnscale=1.0
+  scale=0.7:1.5
+  angle=0:1:360
+  logicunit {
+    typeflags=vars,capture
+    name=army_griffin
+    props=army
+    capture {
+      traps=army_walker_example
+    }
+  }
+}
+vars {
+  fov=180
+}
+attachments {
+  1 {
+    coord=0/0.34999999/0/0/-0/0/1
+    particle {
+      trans=0/-0/0/0.69999999
+      bboxtop=true
+      logic_state=1
+      file=ui_aggro_a.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      bboxtop=true
+      logic_state=1
+      file=ui_aggro_b.ptb
+    }
+    particle {
+      trans=0/-0/0/0.69999999
+      bboxtop=true
+      logic_state=1
+      file=ui_aggro_c.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      bboxtop=true
+      logic_state=2
+      file=ui_lost_a.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      bboxtop=true
+      logic_state=2
+      file=ui_lost_b.ptb
+    }
+    particle {
+      trans=0/-0/0/0.5
+      bboxtop=true
+      logic_state=2
+      file=ui_lost_c.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=3
+      file=ui_shop.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=4
+      file=ui_quest.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=4
+      file=ui_quest_star.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=4
+      file=ui_quest_starlet.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest_star.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest_starlet.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=5
+      file=ui_quest_ring.ptb
+    }
+    particle {
+      trans=0/-0/0/0.80000001
+      bboxtop=true
+      logic_state=6
+      file=ui_sleep.ptb
+    }
+    particle {
+      logic_state=1
+      file=ui_aggro_rune.ptb
+    }
+  }
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=army_griffin_attack
+      fadetime=60
+    }
+  }
+}

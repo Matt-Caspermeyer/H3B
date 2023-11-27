@@ -38,7 +38,12 @@ Uninstallation:
 Notes:
 ------
 
-1. This mod was developed using the Gamer's Gate V1.7 version of King's Bounty: The Legend.
+1. This mod was developed using the Gamer's Gate V1.7 (Build 35,396) version of King's Bounty: The Legend.
+  a. If you have a different version of the game, then it is possible that not all features of the mod will work.
+  b. For example, I also have the GoG version of the game and it is V1.7 (Build 35,234) and:
+    i.   There is a bug with the Game.LocType LUA Library function that causes LUA execution stop due to some internal error. All features that use LUA scripts to implement location logic has been commented out to prevent the game from crashing / having problems.
+    ii.  It does not support the damage hint displays for the Spirit abilities that I added in Beta 2013-12-25 and later versions of this mod.
+    iii. Please email the company you got Build 35,234 from and request they update to Build 35,396.
 2. I have not tried it with other versions.
 3. This mod uses the English localizations using both the "eng_" and "en_" prefixes for the localization files.
   a. As mentioned above, only one of those files is needed to play the game.
@@ -164,6 +169,955 @@ Windows 8 Comments
 * Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
 * So this release is mostly bug fixes, but there are some new features as well.
 
+Version 1.0 2021-MM-DD
+*.ATOM - altered the movement points of a lot of units and added the run ability to quite a few more atoms and the action points are now variable
+  ^ Most biped units move just 1 or 2 movement points, but have the run ability to make up for it and it is also reloadable
+  ^ Snakes have either 1 or 2 movement points (but can run)
+  ^ Spiders have 2 movement points (but can run)
+  ^ Most 4-legged units move 3 movement points (and can run)
+  ^ Most flyers move 5 or more movement points
+  ^ Most other units that could run before now have variable AP
+  ^ Ogre's rage ability now has variable AP (and they can run now)
+  ^ Increased dwarf unit resistance since they all move just 1 movement point now (they can run, though) and gave them Magic Resistance
+  ^ Implemented the Cold Resistance Type in LOGIC.TXT and have updated units that have a Cold Resistance value to their *.ATOM
+  ^ Snakes now have Night Sight and receive a defense bonus in forests, but have reduced health in winter arenas.
+  ^ ARCHMAGE.ATOM - fixed issues with shock no longer working for Archmages - thanks @SlickDragon! (when I added Blue Dragons, I broke Archmage's shock):
+    %  Removed the level= custom parameter from their moveattack section (now they can't shock with melee any more)
+    %  Added level=5 custom parameter to their lightning section (now they can shock with their ranged attack again)
+  ^ WOLF.ATOM: Werewolf Elves in Wolf form now have their own Werewolf Cry which affects level 3 units
+  ^ Changed Phoenix damage (all 3) to be 25% astral / 75% fire (instead of 50 / 50 before)
+  ^ Increased Physical Resistance and Fire Resistance for Footmen, Horsemen, and Knights
+  ^ Increased Physical Resistance of Black Knights
+  ^ The following units are now furious (always retaliating to attacks):
+    $ All Barbarians, Bears, and Cerberi
+  ^ Thorns (Thorn Hunters, Thorn Warriors, and Royal Thorns) now rejuvenate 10% of their lost stack hp each turn
+  ^ Cyclops recover 25% of their lost hp each turn
+*.CHAT - I currently don't have these put in as players can just run away from the dragon if it's too tough
+  ^ These two deal with the changes to the increase in difficulty on impossible allowing the starting Dragon to be defeated (with the default 10 Knight's and Horsemen it was possible that the Dragon was unbeatable).
+    % 1405621286.chat - increased Iron Richard's +Leadership to allow for 15 Knights and Horsemen
+    % 1329609773.chat - Iron Richard now removes the same leadership added as above
+*.DAT
+  ^ ITEXTURES.DAT - added new TEX340.DAT to include list
+  ^ TEX340.DAT - new DDS icon data file for the item bonus icons
+*.DDS
+  ^ TEX340.DDS - new picture file that contains the item bonus icons (i.e. attack, defense, etc.)
+*.LNG - added all of the LNG's from my English Grammar mod
+    ^ EN(G)_BATTLE.LNG
+      % Added new features to the combat log
+    ^ EN(G)_CHAT_0814853819_0185019267.LNG (Lady Beaulla) - fixed misspelling: honer -> honor
+    ^ EN(G)_CHAT_1920750196_1155319803.LNG (Furious Paladin) - "but no I don't remember... so what's" -> "but no, I don't remember... so, what's" (thanks to Dohi64)
+    ^ EN(G)_ITEMS.LNG - grammar fixes (some of these are from my grammar patch that forked and others provided by Dohi64)
+      % "strike it couple of" -> "strike it a couple of" (thanks to Dohi64)
+      % "image of the skull and the crossbones" -> "image of a skull and crossbones"
+      % "The ordinary golden" -> "An ordinary golden" (thanks to Dohi64)
+      % "with a straw" -> "with straw" & "even of teeth" -> "even teeth"
+      % "trident more" -> "trident is more" x3
+      % "This is item" -> "This item"
+      % "are still sometimes still used" -> "are sometimes still"
+    ^ EN(G)_CREDITS.LNG - updated the credits for beta testers! Pretty much if you provided comments in the forum then I included you in the credits:
+      % @bacchus1974
+      % @Gza
+      % @Helios
+      % @jorko80
+      % @Kiras
+      % @Nevar
+      % @ShuiMienLung
+      % @SirLancelot
+      % @Sir Whiskers
+      % @SlickDragon
+      % @Zepdog
+    ^ EN(G)_HERO.LNG - added bonuses to descriptions for the following on the hero screen:
+      % Gold
+      % Rage
+      % Mana
+    ^ EN(G)_ITEMS_BONUS.LNG - new file that contains all the labels for the auto-generated item bonuses
+    ^ EN(G)_SKILLS.LNG
+      % Added Summon Dragonfly to the list of talents affected by the Glory skill
+      % Clarified Frenzy description a little bit
+      % Skill Healer:
+        $ (Level 3) now lists the bonus for Bless as two possibilities, whichever is greater (see SPELL_EFFECTS.LUA)
+	$ Added Recovery and Rejuvenation to the list of abilities increased by it
+      % Skill Necromancy (Level 3) now lists the bonus for Weakness as two possibilities, whichever is greater (see SPELL_EFFECTS.LUA)
+    ^ EN(G)_SPELLS.LNG
+      % Bless now maximizes the target's damage for all attacks and allows use of talents at maximum capability
+      % Weakness now minimizes the target's damage for all attacks and allows use of talents at minimum capability
+      % Added updates to spell descriptions where the number of targets could change as a function of level
+    ^ EN(G)_UNITS.LNG
+      % Leadership reduction bonus is now shown on the unit card
+      % Added new multi-unit descriptions for combined units:
+        $ cpsn_sprites - all sprites (Sprites & Lake Fairies)
+	$ cpsn_unicorns - all unicorns (Unicorns & Black Unicorns)
+	$ cpsn_zombies - all zombies (Zombies & Decaying Zombies)
+	$ cpsn_ghosts - all ghosts (Ghosts & Cursed Ghosts)
+	$ cpsn_imps - all imps (Imps and Scoffer Imps)
+	$ cpsn_barbarians - all barbarians (Barbarians & Berserkers)
+	$ cpsn_dragonflies - all dragonflies (Fire & Lake Dragonflies)
+	$ cpsn_snakes - all level 2 snakes (Snakes & Swamp Snakes)
+	$ cpsn_bears - all level 3 bears (Bears & Ancient Bears)
+    ^ EN(G)_UNIT_FEATURES.LNG
+      % Updated descriptions to include changes to snakes
+      % Added new features:
+        $ Recovery for Cyclops
+	$ Rejuvenation for all Thorns
+    ^ EN(G)_UNIT_SPECIALS.LNG
+      % Updated description of Bless to include changes (see EN(G)_SPELLS.LNG)
+    ^ EN(G)_WINDOWS.LNG
+      $ Updated hints on the loading screen for the new features
+      $ Changed version ID
+    ^ TEMPLATES.LNG
+      % Added new macros to "left_t" template for displaying the additional information identified in EN(G)_HERO.LNG
+      % Added weakness macro to "skills_tPar" template to display the bonus to the weakness spell in the Necromancy skill description (see EN(G)_SKILLS.LNG)
+      % Added new sp_lead_unit macro to def_hint_t1 template for showing the leadership reduction bonus on the unit card
+      % Added new bonuses macro to items_tM to auto generate all item bonuses
+*.LUA
+  & ARENA.LUA
+    ^ ***BUG*** Fixed issue that only affected Paladins: the Holy Rage Attack bonus would cause the Evil Book to apply 2x damage to Undead and Demons when casting damage causing spells on these targets
+    ^ ***NEW*** Function correct_damage_minmax now is used to apply Bless / Weakness bonuses to talents and abilities (see EN(G)_SPELLS.LNG)
+    ^ ***FIX*** I think I was double dipping on the Morale and Attack / Defense / Critical Hit penalties during long combats and so I've commented out the code that was changing the 3 latter parameters and now am relying solely on the Morale penalty to affect the other 3
+    ^ New! Added logic for the new Werewolf Cry
+    ^ Beautiful units now only have a 50% and Cute units a 25% chance of being struck by humanoid troops
+    ^ New! Haas's influence now spreads far and wide and there is a chance of a unit's map difficulty bonus being doubled at the start of combat & the unit always retaliating
+      % As an example of this, if you're fighting in Marshan Swamp Impossible, the difficulty bonus is 0.5 and the map bonus is 0.0625 for a total of 0.5625. The 0.0625 could now double to 0.135 for a total of 0.635.
+      % The chance of this happening is diff_k * maplocK in LOGIC.TXT (0.5625 * 1e4 = 5625) out of maplocPct in LOGIC.TXT (25000) or about 1/5 of the units could be affected in Marshan Swamp. Chance for the number of units affected goes up by map location difficulty.
+  & ITEMS_HINT.LUA
+    ^ Due to the change in CONFIG.TXT to include ITEMS.TXT (and hence its includes) now the function brute_force_get_params can use Game.Config to get egg parameters when the Object library is not available
+    ^ New function: gen_item_bonus_fight_hint that autogenerates the item "fight" bonuses
+    ^ New function: gen_item_bonus_mod_hint that autogenerates the item "mod" bonuses
+  & LOGIC.LUA - total hints is now 185
+  & LOGIC_HERO.LUA - implemented new levelup parameter, sp_counter, functions:
+    ^ Function hero_sp_counter: implemented the logic to parse through the sp_counter list
+    ^ Function levelup_counter: generic function that adds a value to a counter or limit
+    ^ The spell's level (i.e. profit) is now used to divide into the chance of getting that spell at start (so for example if spell_chance = 15 and profit = 5, then there is only a 15 / 5 = 3% chance of getting that spell at the start of that game)
+  & SKILLS.LUA
+    ^ ***FIX*** Added Blue Dragons to leadership reduction list for Glory Skill (note that this change either requires a restart or for you to have remaining points in your Glory skill since this code only runs when selecting a skill (note that you'll be missing part of the bonus if you already have a point or two in this skill))
+    ^ Updated function skill_param to output changes to Healer and Necromancy (see EN(G)_SKILLS.LNG)
+  & SPECIAL_ATTACKS.LUA
+    ^ ***BUG*** AI Black Dragons were still landing on your troops with the WotN code, and so I added logic for all the functions to default to the TL logic if they are controlled by the computer
+    ^ Summon functions now use the new common function in SPELLS.LUA to apply your hero's leadership reduction bonuses to summon talents:
+      % special_cast_thorn
+      % special_cast_bear
+      % special_cast_demon
+      % special_summon_plant
+      % special_summon_dragonfly
+    ^ Updated talent functions so that they implement the changes to Bless / Weakness (see EN(G)_SPELLS.LNG)
+    ^ ***BUG*** I screwed up on the implementation of a change to the special_bless_attack thereby breaking Priest's Bless and Inquisitor's Holy Rage - now it's fixed!
+    ^ New! Added new Werewolf Cry functions
+    ^ ***BUG*** There was an issue with transforming units where it was possible that their special difficulty bonus was not reapplied after transforming and I think I now have this fixed!
+  & SPECIAL_HINT.LUA
+    ^ Updated function gen_special_hint to include changes to Bless / Weakness (see EN(G)_SPELLS.LNG)
+    ^ Due to the issues with sp_lvl_inc, I needed to change the bonus name to sp_lev_inc
+  & SPELL_EFFECTS.LUA
+    ^ ***FIX*** Function effect_bless_weakness_attack: added belligerent input so that the bonus to either Bless or Weakness is only carried out if the caster is human
+    ^ ***NEW*** Function apply_bless_weakness_bonus: now either adds  bonus or  bonus*10%, whichever is greater
+  & SPELLS.LUA
+    ^ New function, common_get_leadership_bonus, for applying hero leadership reduction bonuses (sp_lead_unit_<atom>) to summoning spells / abilities
+    ^ sp_lead_unit_<demon_atom> bonus now applies to Demon Portal
+    ^ ***FIX*** Spell functions spell_weakness_attack and spell_bless_attack now pass the belligerent into their common function so that the bonus is only applied if the caster is human (see SPELL_EFFECTS.LUA)
+    ^ Function common_freeze_attack: cold_fear has been replaced with the unit's actual cold resistance
+    ^ ***FIX*** Commented out the Critical Hit increase for spell_reaction_attack since the Morale bonus should account for the Critical Hit increase
+    ^ The following spells can be cast on 1, 3, or all targets based on spell level:
+      % Stone Skin, Bless, Helplessness, Dragon & Demon Slayer, Battle Cry, Precision, Haste, Slow, Magic Shackles, Weakness, and Doom
+    ^ The Following spells can be cast on 1, 1, or 3 targets based on spell level:
+      % Divine Armor, Blind, and Fear
+    ^ Updated Life Light so that it can now be cast on 3, 7, and 19 targets depending on its level
+    ^ Trap can now be cast on 1, 3 (triangular), and 3 (line) squares depending on its level
+  & SPELLS_COMMON.LUA
+    ^ Updated selection functions to handle number of targets changes
+  & SPELLS_POWER.LUA
+    ^ ***NEW*** function get_ehero_spell_bonus - this function allows the addition of a new spell parameter in SPELLS.TXT, ehero_bonus, that effectively implements a spell power modifier (which the enemy hero files don't have)
+    ^ ***FIX*** Glory was supposed to increase the leadership value for the Demonologist and Hypnosis spells, but it wasn't doing this and now I've added the proper Glory Leadership bonus to these spells for your hero
+    ^ ***NEW*** Function int_dur:
+      % Now has updated description for the Bless / Weakness bonuses to include changes in SPELL_EFFECTS.LUA
+      % Added new description for item bonuses (this had been omitted before)
+    ^ Due to the issues with sp_lvl_inc, I needed to change the bonus name to sp_lev_inc
+  & TEXT_GEN.LUA
+    ^ Implemented addition of the changes to EN(G)_HERO.LNG Hero Screen to display Gold, Rage, and Mana bonuses with the description when pointing at them with the mouse
+    ^ Implemented changes to gen_lead_count to also compute and show the leadership reduction bonus on the unit card
+  & UNIT_FEATURES.LUA	
+    ^ Function special_bowman:
+      % Updated the special_bowman function to take into account the arrows=1 custom parameter for all their ranged attacks to properly show / do damage
+      % Removed bonus applicators for burn, freeze, and arrows since they are meant to be identifiers
+      % Organized the function to properly show / perform damage based on which attack the Bowman is using
+    ^ Function special_archer:
+      % Did similar to special_bowman to ensure that modifiers aren't used for parameters that are set to specific values
+      % Added "special_difficulty" to the list of bonuses not dispelled by the Archer Dispel skill
+*.TXT
+  & BABY TXT's - numbered all fight filters (where appropriate) so that their bonuses may be auto generated, affects:
+    ^ DIANA_BABIES.TXT
+    ^ FEANORA_BABIES.TXT
+      % ***BUG*** made an error in the sp_rage_battle bonus that affected 9 babies - it has now been corrected
+      % ***BUG*** made an error in the intellect bonus that affected 10 babies - it has now been corrected
+      % kid_bron and kid_arlach - added Werewolf Elves and Werewolves to their bonuses
+    ^ GERDA_BABIES.TXT
+      % ***BUG*** made an error in the sp_rage_battle bonus that affected 12 babies - it has now been corrected
+    ^ MIRABELLA_BABIES.TXT
+      % ***BUG*** made an error in the sp_rage_battle bonus that affected 11 babies - it has now been corrected
+    ^ NEOKA_BABIES.TXT
+    ^ ORCELYN_BABIES.TXT
+    ^ RINA_BABIES.TXT
+      % ***BUG*** made an error in the sp_rage_battle bonus that affected 11 babies - it has now been corrected
+      % ***BUG*** made an error in the intellect bonus that affected 7 babies - it has now been corrected
+    ^ XEONA_BABIES.TXT
+  & CONFIG.TXT
+    ^ Now includes ITEMS.TXT which in turn includes a lot of files - there appears to be no change in performance (so far as I can tell from including all of ITEMS.TXT and its includes in the Game.Config data structure)
+    ^ The above allows leverage of the Game.Config to enumerate any list included and so this opens up the possibility of being able to autogenerate item descriptions amongst other things
+  & HERO.TXT
+    ^ New levelup parameter, sp_counter:
+      % Extensible list of the form: sp_counter=sp_counter1_group1,pct,value1-value2,type|sp_counter2_group1,pct,value1-value2,type;sp_counter1_group2,pct,value1-value2,type;sp_counter1_group3,pct,value1-value2,type|sp_counter2_group3,pct,value1-value2,type|sp_counter3_group3,pct,value1-value2,type;...
+      % Note that pct is normalized to the sum of all pct's (i.e. it does not need to add to 100)
+      % Note that with value1-value2, value2 may be omitted if the value doesn't have variance
+      % Type is either "count" or "limit"
+    ^ Implements sp_counter such that now during levelup, a hero will get a +1 in either rage decrease on the map (sp_rage_map) or mana increase on the map (sp_mana_map_prc)
+      % Warriors are:
+        $ 67% chance of +1 to sp_rage_map (average at level 30 is +20 or 20% slower rage drain)
+        $ 33% chance of +1 to sp_mana_map_prc (average at level 30 is +10 or 10% faster mana recovery)
+      % Paladins are:
+        $ 50% chance of +1 to sp_rage_map (average at level 30 is +15 or 15% slower rage drain)
+        $ 50% chance of +1 to sp_mana_map_prc (average at level 30 is +15 or 15% faster mana recovery)
+      % Mages are:
+        $ 33% chance of +1 to sp_rage_map (average at level 30 is +10 or 10% slower rage drain)
+        $ 67% chance of +1 to sp_mana_map_prc (average at level 30 is +20 or 20% faster mana recovery)
+      % Note that these are in addition to any item or skill bonuses to these counters
+  & ITEMS.TXT
+    ^ ***FIX*** rahha_shield (Rahha's Shield) - added Blue Dragons to the list of dragons that the shield can produce
+    ^ ***FIX*** demetrios1,2,3 (all levels - Demetrius, Class 1, 2, & 3) now applies the leadership reduction to Fire Spiders (since they are Demon troops and I had overlooked this in the past)
+    ^ ***NEW*** in order to auto generate item descriptions, each fight item (for multiple bonuses) must be numbered
+    ^ Items that increase rage inflow now use the bonus sp_rage_battle_inflow to delineate them from sp_rage_battle_prc, which is now only used for items that convert mana into rage (for example, this affect the item rage_spear)
+  & LOGIC.TXT - these changes either make easy difficulty level easier or hard and impossible difficulty levels harder:
+    ^ Easy:
+      % Enemy units have 75% (was 100%) of nominal statistics
+      % Enemy hero spell power is 75% (was 100%) of nominal
+      % Round at which mana gain is 1/2: 35 (was 30); 1/4: 50 (was 40)
+      % Boss attack and hitpoints are 75% (was 100%) of nominal
+      % When dying, the hero now gets 125% (was 100%) of money
+    ^ Hard:
+      % Hero experience gain is 50% (was 70%)
+      % Enemy power is 150% (was 130%)
+      % Spirit experience gain is 75% (was 85%)
+      % Money gain is 75% (was 77%)
+      % Rage gain during combat is 75% (was 85%)
+      % Rage decreases 25% (was 20%) faster on the map
+      % Mana recharges 25% (was 20%) slower on the map
+      % Enemy units have 125% (was 110%) of nominal statistics
+      % Enemy hero spell power is 125% (was 110%) of nominal
+      % Boss attack and hitpoints are 150% (were 140%) of nominal
+    ^ Impossible:
+      % Hero experience gain is 25% (was 30%)
+      % Enemy power is 200% (was 170%)
+      % Spirit experience gain is 50% (was 70%)
+      % Money gain is 50% (was 60%)
+      % Rage gain during combat is 50% (was 70%)
+      % Enemy units have 150% (was 125%) of nominal statistics
+      % Enemy hero spell power is 150% (was 125%) of nominal
+    ^ Added 2 new parameters for the Haas Map Location Difficulty Bonus
+      % maplocK - this is the gain applied to the chance that this will happen
+      % maplocPct - this is the chance that the Haas bonus can be applied and goes with maplocK above
+    ^ Implemented actual Cold Resistance, note that cold damage does not display correctly, so right now it is pretty much just another resistance type
+  & MORALE.TXT
+    ^ ***FIX*** Added Blue Dragons to +1 Morale unit list for Diplomacy Level 2
+  & SKILLS.TXT
+    ^ ***FIX*** Added Blue Dragons to Dark Commander skill bonuses
+    ^ ***BUG*** I did not implement the level 3 Tolerance +6 Resist All bonus properly (now it's fixed!) - thanks @SlickDragon!
+  & SPECIALS.TXT
+    ^ New! Added Werewolf Cry special ability (which is a more powerful version of the Wolf Cry)
+  & SPECIAL_PARAMS.TXT
+    ^ (Technically not used, but) sp_lev_inc_resurrection -> sp_lvl_inc_resurrection (all the other bonuses like this are this way)
+    ^ Okay, I tried the above and it would cause new games to crash! So now all sp_lvl_inc bonuses are sp_lev_inc bonuses since naming all the bonuses those names does not cause new games to crash and makes all the names consistent. Now I just have to fix where these are used in the LUA files...
+    ^ New! Added new sp_... for the Werewolf Cry
+  & SPELLS.TXT
+    ^ Demon Portal (spell_demonologist) - power is now 5, 10, 20 (was 10, 20, 40) this still gives over 100% of Leadership for really high-power mages
+    ^ Evil Book (spell_evilbook) - mana is now 15 (was 10) for level 1 (levels 2 and 3 via formula)
+    ^ ***NEW*** parameter, ehero_bonus:
+      % That is of the form: actor_number:bonus (multiple enemy heroes are separated by commas, i.e. actor1_number:bonus,actor2_number:bonus)
+      % The actor numbers are in EN(G)_ACTORS.LNG
+      % Implements spell power mod functionality for enemy heroes since they technically didn't have this capability in their .HERO file
+      % Note that it is now possible to give enemy hero spell power bonuses, for example, all enemy Demon(ess) heroes have a bonus to Demon Portal that restores the power to 10, 20, 40 only for them
+      % Current Enemy Hero Spell Bonuses:
+        $ Resurrection: Zelum:27, Puppeteer:16
+       	$ Berserker: Igdym Urkurshak:18, Bagud:29
+       	$ Hypnosis: Aha:25, Heo:15
+	       $ Fire Ball: Baal:27, Raab Sotten: 25
+	       $ Evil Book: Book of Evil:23
+	       $ Demonologist: Isshara, Deira Oman, Xeona, Baal, and Raab Sotten: all 100
+	       $ Fire Rain: Isshara:25, Deira Oman:24, Xeona:23
+	       $ Necromancy: Ambrosius:27, Zelberra:23, Ehno Partes:23, Ruin Guy:14, Necromancer Neirum:20, Duke Helm:10, Katana:26, General Karador:50, Egirra:7, Sir Amber:26, Kemilho:30, Tiberius:12
+    ^ Updated spells for multiple targets based on level (see above in SPELLS.LUA for those spells affected)
+    ^ Updated Price, Mana, and Crystals for the above changes
+  & WIFES.TXT
+    ^ Numbered all fight filters (where appropriate) so that their bonuses may be auto generated
+    ^ Rina - added peasants, pirates, and sea dogs to her bonuses
+    ^ Feanora - added Werewolf Elves and Werewolves to her bonuses
+    ^ For wives with attack / defense bonuses, the bonuses are now:
+      % Level 2: +4
+      % Level 3: +9
+      % Level 4: +16
+      % Level 5: +25
+  & Various baby TXT's - added cold damage resistance for those babies where applicable:
+    ^ DIANA_BABIES.TXT - Fafner
+    ^ FEANORA_BABIES.TXT - Bron
+    ^ GERDA_BABIES.TXT - Ajit, Clancy, Thorgrim, Ufretin
+    ^ ORCELYN_BABIES.TXT - Krellion, Saurug
+    ^ RINA_BABIES.TXT - Straker
+    ^ XEONA_BABIES.TXT - Ignatius
+
+Version Beta 2014-06-01
+*.ATOM
+  & BEHOLDER.ATOM - +15% Magic Resistance (since classed as a mage)
+  & BEHOLDER2.ATOM - +20% Magic Resistance (since classed as a mage)
+  & BLACKKNIGHT.ATOM - +25% Fire Resistance (similar to horseman and knight)
+  & DRUID.ATOM - +25% Poison Resistance (familiar with poisons common in nature)
+  & PRIEST.ATOM
+    ^ Poison Resistance: +15 was 0 (being holy, they have personal fortitude to resist damage common with the Undead)
+    ^ Magic Resistance: +20 was 10
+  & PRIEST2.ATOM
+    ^ Poison Resistance: +20 was 0 (similar to Priest)
+    ^ Magic Resistance: +25 was 10
+  & SHAMAN.ATOM
+    ^ Poison Resistance: +25 was 10 (similar to Druid poison knowledge)
+    ^ Magic Resistance: +20 was 0
+  & Undead ATOM's - receive -50% magic resistance for level 1, half that for level 2, and so on (rounding to the nearest 5% where applicable) (except ghosts, which are -100% and Necromancers who are not affected):
+    ^ -50%
+      % ARCHER.ATOM
+      % SKELETON.ATOM
+      % SPIDER_UNDEAD.ATOM
+    ^ -25%
+      % ZOMBIE.ATOM
+      % ZOMBIE2.ATOM
+    ^ -10%
+      % BAT.ATOM
+      % VAMPIRE.ATOM
+    ^ -5%
+      % BAT2.ATOM
+      % BLACKKNIGHT.ATOM
+      % VAMPIRE2.ATOM
+*.CHAT
+  & 1183480135.CHAT (Archmage Rezo)
+    ^ Now increases your mana limit based on the number of potions you give him (note that if you have an item that increases your mana limit it may appear that you get a larger increase, but this is actually due to the bonus):
+      % +1 for 1 mana potion
+      % +2 for 2 mana potions
+      % +7 for 5 mana potions
+      % +15 for 10 mana potions
+  & 1195220771.CHAT (Chief Engineer Debat)
+    ^ Added capability to exchange runes of different types for the other
+    ^ Exhanges rates are very favorable:
+      % 2 for 1
+      % 3 for 2
+      % 4 for 3
+  & 1594798170.CHAT (Maria) - updated snaps to add more trading options if you want to exchange 1, 2, 5, or 10 Dragonfly Wings for Magic Crystals
+  & 1986778263.CHAT (Shaman Karrakh) (if you don't kill him)
+    ^ Now increases your rage limit based on the number of potions you give him (note that if you have an item that increases your rage limit it may appear that you get a larger increase, but this is actually due to the bonus):
+      % +1 for 1 rage potion
+      % +2 for 2 rage potions
+      % +7 for 5 rage potions
+      % +15 for 10 rage potions
+*.LNG
+  & CHAT's - added additional dialog for changes to *.CHAT indicated above
+    ^ EN(G)_CHAT_0013319904_1594798170.LNG (Maria)
+    ^ EN(G)_CHAT_1067500631_1183480135.LNG (Archmage Rezo)
+    ^ EN(G)_CHAT_1957388512_1195220771.LNG (Chief Engineer Debat)
+    ^ EN(G)_CHAT_2079420493_1986778263.LNG (Shaman Karrakh)
+  & EN(G)_SPELLS.LNG - updated Life Light description to match changes in SPELLS.LUA & SPELLS.TXT
+  & EN(G)_UNITS.LNG
+    ^ Updated race Undead description to include changes to Undead ATOM's
+    ^ Updated race Orc to add a description about additional resistances (which they've had for a long time)
+    ^ Updated race Dwarf to add a description about additional resistances (which they've had for a long time)
+  & EN(G)_UNITS_FEATURES.LNG - updated to include ATOM changes above
+*.LUA
+  & ARENA.LUA
+    ^ Added changes to int_dur function calls to include new enemy hero bonus
+    ^ Added damage time shift parameter (technically nil) due to res_dur function input list changes (see SPELLS_POWER.LUA)
+    ^ ***BUG FIX*** Due to issues with how I had implemented the Critical Hit / Res All bonuses from your (enemy) Hero's Attack / Defense, I've now implemented these bonuses by modificators so that the standard LUA library functions will have the correct values (before these functions would return the unmodified parameter (like res_dur, for example), which was incorrect):
+      % Critical Hit from your (enemy) Hero's Attack is applied as a modificator in the arena
+      % Resistance from your (enemy) Hero's Defense is applied as a modificator in the arena
+    ^ Commented out Attack.log messages for arena location type, time of day, and spell cast AI
+  & COMBAT_LOG.LUA
+    ^ Holy Rain hint updated to include changes in SPELLS.LUA and hint fixed to be formatted properly
+  & LOGIC.LUA - total hints is now 167
+  & SPECIAL_ATTACKS.LUA
+    ^ ***BUG FIX*** the Black Dragon AI did not work with the WotN Dragon Power ability so now if it it controlled by a human I use the WotN code, otherwise I use the original code for the AI
+    ^ The way I was doing the Shaman totem initiative resulted in too high of initiative bonuses for their totems, now it is the 1/5 power of their health (before the health was divided by 2000 specified in their ATOM)
+    ^ Updated summoning functions to apply Hero Attack / Defense bonuses changed in ARENA.LUA & TEXT_GEN.LUA
+    ^ ***BUG FIX*** When the Griffin uses its split ability, the split troop now receives the difficulty level bonus if the parent troop had this bonus applied previously
+    ^ New function, tal_dur, that is the talent resistance duration check function similar to res_dur. The target's resistance can now affect the talent or effect duration
+    ^ Added tal_dur check to many unit talents (usually self cast talents are not affected by target's own resistance) to increase / decrease talent duration based on target's resistance
+    ^ ***FIX*** function special_battle_mage_attack now properly applies the critical hit bonus (note that error is in the original game code so I inherited this bug)
+  & SPECIAL_HINT.LUA
+    ^ Updated Shaman totem hint per changes above in SPECIAL_ATTACKS.LUA
+  & SPELLS.LUA
+    ^ Added changes to int_dur function calls to include new enemy hero bonus
+    ^ Updated all res_dur function calls to include damage time shift parameter
+    ^ Holy Rain
+      % Now resurrects targets
+      % Targets include golems (Cyclops) and magic immune creatures (Black / Blue Dragons) (per the description)
+      % Targets exclude special_summon_bonus (i.e. Phoenix and Evil Book) (and Demons still)
+      % Heal and Undead Damage changed (see SPELLS.TXT changes)
+    ^ Updated summoning spell functions to apply (enemY) Hero Attack / Defense bonuses changed in ARENA.LUA & TEXT_GEN.LUA
+  & SPELL_EFFECTS.LUA
+    ^ Updated all res_dur function calls to include damage time shift parameter
+  & SPELLS_POWER.LUA
+    ^ Enemy hero spell power is now increased by the difficulty level and map location bonus
+    ^ Enemy hero infliction chance is now increased by the difficulty level and map location bonus
+    ^ Enemy hero spell duration is now increased by the difficulty level and map location bonus
+    ^ Function res_dur now accepts a damage time shift input to display the log text in the right sequence
+  & SPIRIT_SLIME.LUA - added tal_dur to abilities whose duration is affected by the target's resistance
+  & SPIRIT_THEROCK.LUA - added tal_dur to abilities whose duration is affected by the target's resistance
+  & TEXT_GEN.LUA - with the changes to the (enemy) Hero Attack / Defense bonuses, these changes deal with display of the unit card
+    ^ Function gen_unit_krit now only manually applies this bonus outside of combat
+    ^ Function gen_unit_res now only manually applies this bonus outside of combat
+  & UNIT_FEATURES.LUA
+    ^ Added tal_dur check to many unit features, where applicable
+    ^ Bowman cold arrow now uses common_freeze_attack for duration and common_freeze_im_vul for damage / rage gain
+*.TXT
+  & LOGIC.TXT - new "espell" parameter that SPELLS_POWER.LUA uses to scale enemy hero spell parameters based on difficulty level (set to same as eunit, but parameter is independent)
+  & SPELLS.TXT
+    ^ Spell power / mana / crystals rebalancing (due to the number of changes that have occured since these changes were originally made) - note that cost and level increases are changed per formula
+    ^ Mana for level 1 has been determined by sorting the spells versus their mana cost and seeing if I'd be willing to spend more / less mana for spells higher / lower on the list
+    ^ Dispel (spell_dispell) - mana for all levels is essentially the average of the spells it can dispell at the level
+    ^ Helplessness (spell_defenseless) - power is now 5,10,10 (was 10,20,20) (this is to prevent maxing out power, except for only the highlest level spell casters with awesome power bonuses)
+    ^ Stone Skin (spell_stone_skin)
+      % Power is now 5,10,10 (was 10,20,20) (this is to prevent maxing out power, except for only the highlest level spell casters with awesome power bonuses)
+      % Mana is now 5,8,40 was 4,7,35 (levels 2 and 3 via formula)
+    ^ Enchanted Hero (spell_last_hero) - mana costs updated since it is the average of all the spells it can cast
+    ^ Dragon Arrows (spell_dragon_arrow) - mana reduced from 10 to 7 for level 1 (other levels via formula)
+    ^ Bless (spell_bless) - mana for level 1 reduced from 3 to 2 (other levels via formula)
+    ^ Phoenix (spell_phoenix) - mana is now 20,40,80 was 15,30,60 (Phoenix has dramatically improved so these values are more representative of its power now)
+    ^ Gift (spell_gift) - mana for level 1 is now 11 was 14 (other levels via formula)
+    ^ Divine Armor (spell_divine_armor)
+      % Power is now 3,6,9 was 5,10,15 (this is to prevent maxing out resist all, except for only the highlest level spell casters with awesome power bonuses)
+      % Mana for level 1 is now 12 was 15 (other levels via formula)
+    ^ Life Light (spell_holy_rain) - I've been wanting to add a resurrection ability to Life Light for a long time. It is, in essence, very similar to the Paladin Prayer ability in the newer KB games.
+      % rephits is now 50 was 75
+      % prc_damage is now 750 was 300 (matched with rephits decrease and mana increase so damage per mana is slightly higher than before)
+      % Now that spell resurrects, mana for level 1 is now 15 was 10 (other levels via formula)
+    ^ Precision (spell_accuracy) - mana for mass is now 2.5 times level 2 instead of 5 (so it assumes that only half of your troops out of 5 (the normal mass multiplier) are eligible)
+    ^ Battle Cry (spell_reaction) - mana for level 1 reduced from 4 to 3 (other levels via formula)
+    ^ Mana Spring (spell_mana_source) - mana for level 1 increased from 5 to 6 (other levels via formula)
+    ^ Phantom (spell_phantom) - mana for level 1 changed from 15 to 14 (other levels via formula)
+    ^ Pygmy (spell_pygmy)
+      % Power is now 5,10,15 was 5,10,20 (this is to prevent maxing out power, except for only the highlest level spell casters with awesome power bonuses)
+      % Mana for level 1 is now 15 was 10 (other levels via formula)
+    ^ Blind (spell_blind) - mana for level 1 is now 13 was 15 (other levels via formula)
+    ^ Hypnosis (spell_blind) - mana for level 2 and 3 has been updated to their proper values
+    ^ Fear (spell_scare) - mana for level 1 is now 11 was 9 (other levels via formula)
+    ^ Plague (spell_plague)
+      % Power is now 5,10,15 was 5,10,20 (this is to prevent maxing out power, except for only the highlest level spell casters with awesome power bonuses)
+      % Mana for level 1 is now 17 was 11 (other levels via formula)
+    ^ Hell Breath (spell_fire_breath) - mana for level 1 is now 5 was 4 (other levels via formula)
+    ^ Magic Shackles (spell_magic_bondage) - mana for level 1 is now 7 was 6 (other levels via formula)
+    ^ Weakness (spell_weakness) - mana for level 1 reduced from 3 to 2 (other levels via formula)
+    ^ Doom (spell_crue_fate) - mana for level 1 is now 9 was 8 (other levels via formula)
+    ^ Sheep (spell_ram) - mana for level 1 reduced from 22 to 19 (other levels via formula)
+    ^ Demon Portal (spell_demonologist) - mana for level 1 changed from 15 to 13 (other levels via formula)
+    ^ Armageddon (spell_armageddon)
+      % prc_damage is now 5,10,15 was 5,10,20 (this is to prevent maxing out damage reduction, except for only the highlest level spell casters with awesome power bonuses)
+      % Mana for level 1 is now 25 was 20 (other levels via formula)
+
+
+Version Beta 2014-05-11
+*.ATOM
+  & BLACKRAGON.ATOM
+    ^ Added WotN functions to allow selection of the path of the Dragon's Power of Fire talent just like the AI uses
+*.LUA
+  & ITEMS_HINT.LUA
+    ^ There's a situation when after talking to an NPC in a castle that they add a container (such as an egg, seed, etc.) and the Obj.get_param library function is unable to acquire the container parameters for displaying the container variant text. So I added code to brute force set the Obj.get_params if they are returning empty strings by setting the values to what they should be in ITEMS_MONSTER.TXT. The unfortunate part of this is that if I change something in ITEMS_MONSTER.TXT, then I have to change it here as well, but at least I've gotten around this problem now.
+  & SPECIAL_ATTACKS.LUA
+    ^ New WotN function special_blackdragon_firepower_attack for implementing the damage caused by Power of Fire (I integrated my changes of the function special_blackdragon_firepower (which is the original script attack) into the WotN function).
+    ^ New WotN function special_blackdragon_firepower_calccells that is the new script_calccells for the Power of Fire talent (I added a text description to aid you in what to do)
+    ^ New WotN function special_blackdragon_firepower_highlight that highlights the cells as you click your Power of Fire path (note that the original function has the same name so it has been commented out).
+    ^ New WotN fucntion hint_dmg_blackdragon_firepower that shows the damage to targets as you layout your path of destruction when using Power of Fire
+  & SPIRITS_HINT.LUA ***BUG*** - fixed error with experience computation when your spirits are level 1 for the experience hint during combat.
+*.CHAT
+  & 1422394811.CHAT (Carl Leonard) - Now includes extra snaps and logic for selling griffin eggs to get crystals!
+  & 1348067287.CHAT (Dragon Attah) - Now includes extra snaps and logic for selling bone dragon eggs to get crystals!
+  & 686733070.CHAT (Gelena Attahskaya) - Now includes extra snaps and logic for selling dragon eggs to get crystals!
+  & 920168865.CHAT (Priest Owein) - Now includes extra snaps and logic for selling skeleton coffins to get crystals!
+  & 1155319803.CHAT (Furious Paladin) - Now includes extra snaps and logic for selling vampire coffins to get crystals!
+*.LNG
+  & EN(G)_BATTLE
+    ^ Added bmsg_firepower_1 and 2 for aiding you in selecting the Black Dragon's Talent, Power of Fire, path.
+  & EN(G)_CHAT_0002578364_1422394811.LNG (Carl Leonard) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_0353666255_1348067287.LNG (Dragon Attah) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_0389231472_0686733070.LNG (Gelena Attahskaya) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_0997083665_0920168865.LNG (Priest Owein) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_1920750196_1155319803.LNG (Furious Paladin) - added additional dialog for changes to *.CHAT indicated above
+  & These changes are just to give you a reminder of how many of the container you need in case you forgot and you don't have enough
+    ^ EN(G)_CHAT_0814853819_0185019267.LNG (Lady Beaulla) - added reminders for the exchange rate to dialog options when you don't have enough to trade
+    ^ EN(G)_CHAT_1000228560_0460900476.LNG (Frogus Bogis) - added reminders for the exchange rate to dialog options when you don't have enough to trade
+    ^ EN(G)_CHAT_1056215454_1378754138.LNG (Old Chvakah) - added reminders for the exchange rate to dialog options when you don't have enough to trade
+    ^ EN(G)_CHAT_1107629933_0248920890.LNG (Milk Woman, Wilma) - added reminders for the exchange rate to dialog options when you don't have enough to trade
+    ^ EN(G)_CHAT_1237766457_0111145785.LNG (Witch Helga) - added reminders for the exchange rate to dialog options when you don't have enough to trade
+
+
+Version Beta 2014-05-08
+*.ATOM
+  & ARCHMAGE.ATOM - added level=4 custom param since features_shock has been updated to work with blue dragons
+  & Bear ATOM's
+    ^ Increase in hitpoints, critical hit and some resistances
+    ^ Have a new ability: Maul that has a chance to stun and / or cause bleeding in the target
+    ^ BEAR.ATOM
+      % Health: 60 -> 80
+      % Resistance:
+        $ Physical: 0 -> 5
+	$ Poison: 0 -> 5
+      % Critical Hit: 20 -> 30
+    ^ BEAR2.ATOM
+      % Health: 70 -> 95
+      % Resistance:
+	$ Poison: 0 -> 5
+      % Critical Hit: 30 -> 40
+    ^ BEAR_WHITE.ATOM
+      % Health: 120 -> 190
+      % Resistance:
+	$ Poison: 0 -> 5
+      % Critical Hit: 30 -> 40
+  & ARMY_BLUEDRAGON.ATOM - implents the blue dragon army map atom, based on the red dragon and Drahha army map atoms.
+  & BLUEDRAGON.ATOM New Unit! Thanks to Sir Whiskers for providing brain storming ideas
+    ^ Blue Dragons have the following abilities:
+      % Move attack
+        $ Does half fire and half astral lightning damage that is the long2 attack like Black and Red Dragons
+	$ Has a 50% chance to burn and a 50% chance to shock targets
+	$ Damage is 60 - 70 fire and astral (total is 120 - 140)
+	$ Effects all creatures regardless of level
+      % Can summon Dragonflies, 25 to 40% of their leadership (this idea was provided by Sir Whiskers)
+      % Has a "Zap" attack that is similar to the Bone Dragon Poison cloud attack.
+      % Gives morale bonus to Dragonflies
+      % Discharge - 25% chance to discharge "Zap" attack when being struck
+      % Aversion - other dragons dislike them, reducing the morale of those dragons.
+      % For other info, see the ATOM file
+  & BLUE_DRAGON_EGG01.ATOM - based on the sapfir (sapphire or blue egg that Welbewooll has you get in Ultrax) egg
+    ^ Implements the blue dragon egg as an item that can be added to the map.
+    ^ There may be more work to do here, but since technically it doesn't exist in the game it is probably okay.
+  & BONEDRAGON.ATOM - base attack is now 50% poison and 50% physical and they have a 25% chance to cause poison when attacking / counterattacking
+  & CYLCOP.ATOM - stone throw attack now does 200% damage to obstacles, barriers, and gremlin towers
+  & DRYAD.ATOM - sleep now is a charge of 1 (i.e. no longer reloadable)
+  & ATOM's with the Dragon Arrow ability (ARCHER, BOWMAN, ELF, ELF2) - damage is now x2 of their normal throw ability
+  & Plant Summoning ATOM's - these changes will give the enemy roughly the same summoning percent on impossible and max map difficulty (so they really mostly affect your summoning)
+    ^ DRYAD.ATOM - reduced summoning from 30-55% to 20-40%
+    ^ ENT.ATOM - reduced summoning from 30-50% to 20-35%
+    ^ ENT2.ATOM - reduced summoning from 35-55% to 25-40%
+    ^ KINGTHORN.ATOM - reduced summoning from 75-95% to 50-60%
+    ^ THORN.ATOM - reduced summoning from 80-90% to 55-65%
+    ^ THORN_WARRIOR.ATOM - reduced summoning from 80-90% to 55-65%
+  & Undead ATOM's - receive -25% health in daylight (excludes cemeteries, dungeons, and lava):
+    ^ ARCHER.ATOM
+    ^ BAT.ATOM
+    ^ BAT2.ATOM
+    ^ BLACKKNIGHT.ATOM
+    ^ BONEDRAGON.ATOM
+    ^ GHOST.ATOM - receive -50% health in daylight
+    ^ GHOST2.ATOM - receive -50% health in daylight
+    ^ NECROMANT.ATOM
+    ^ SKELETON.ATOM
+    ^ SPIDER_UNDEAD.ATOM
+    ^ VAMPIRE.ATOM
+    ^ VAMPIRE2.ATOM
+    ^ ZOMBIE.ATOM
+    ^ ZOMBIE2.ATOM
+    ^ Note: even though I've listed the above atoms, the capability was done with a subturn function due to limitations of the ATOM's arena bonus section
+  & Unicorn ATOM's:
+    ^ Horn of Light now has a chance to blind enemy troops when attacking or counter-attacking (chance is doubled for beholders, demons, and the undead and duration +1 and doubled again if combat takes place in the evening or at night or undergound and another +1 duration as well)
+    ^ Have a magic aura that either adds magic resistance to all allies (Unicorns) or subtracts magic resistance from all enemies (Black Unicorn)
+    ^ UNICORN.ATOM
+      % Blind chance is 15% (x2 vs beholders, cyclopses, demons, & undead and then x2 again for evening / night combat)
+      % Magic aura is +20 magic resistance to all allies (except Unicorns and Black Unicorns)
+    ^ UNICORN2.ATOM
+      % Blind chance is 20% (x2 vs beholders, cyclopses, demons, & undead and then x2 again for evening / night combat)
+      % Magic curse is -30 magic resistance to all enemies (except Unicorns and Black Unicorns)
+  & This batch of changes deal with the fact that since I changed some unit abilities to be reloadable, the Gift spell is far less important. Now I've changed some reloadable skills back to charged skills so that Gift is now more desirable for long combats:
+    ^ ALCHEMIST.ATOM (note that reload time is still enforced)
+      % throw1 - moves=2
+      % throw2 - moves=2
+      % throw3 - moves=2
+    ^ DRUID.ATOM (note that reload time is still enforced) - cast bear moves=2
+    ^ ENT.ATOM (note that reload time is still enforced) - summonplant1 moves=2
+*.CHAT
+  & 185019267.CHAT (Lady Beaulla) - Now includes extra snaps and logic for selling ent seeds to get crystals!
+  & 248920890.CHAT (Milk Woman, Wilma) - Now includes extra snaps and logic for selling thorn seeds to get crystals!
+  & 460900476.CHAT (Frogus Bogis) - Now includes extra snaps and logic for selling dragonfly eggs to get crystals!
+  & 1378754138.CHAT (Old Chvakha) - Now includes extra snaps and logic for selling spider eggs to get crystals!
+  & 111145785.CHAT (Witch Helga) - Now includes extra snaps and logic for selling snake eggs to get crystals!
+  & 1567022839.CHAT (Dragon Drahha) - Now includes extra snaps and logic for selling dragon eggs to get runes!
+*.LOC:
+  & Arena LOC's - most of these changes have to do with stricter enforcement of the logbits (terrain) for applying bonuses / penalties more correctly, especially with the Undead health penalty during daylight
+    ^ ACASTLE_KARADOR.ARENA.LOC - logbits 1 (cemetery) -> 5 (cemetery & dungeon)
+    ^ ADARION4_MAGICTOWER.ARENA.LOC - logbits 0 -> 4 (dungeon), even though this is above ground it is still considered dungeon because it is dark inside
+    ^ ADARION_1_COAST_1.ARENA.LOC - logbits 16 (sea) -> 24 (sea & forest)
+    ^ ADARION_1_FOREST_4.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ ADARION_1_LAKE_1.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ ADARION_1_LAKE_2.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ ADARION_1_LAKE_3.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ ADARION_2_KINGTOMB.ARENA.LOC - logbits 0 -> 5 (cemetery & dungeon), this is part of the old King's Castle in Verlon Forest and so parts of the castle apply both of these bonuses to the Undead making them very tough
+    ^ ADARION_2_ROAD_2.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ ADARION_3_DEADLAND_1.ARENA.LOC - logbits 1 (cemetery) -> 9 (cemetery & forest)
+    ^ AELLINIA_BOOK.ARENA.LOC - logbits 1 (cemetery) -> 9 (cemetery & forest)
+    ^ AELLINIA_1_COAST_1.ARENA.LOC - logbits 16 (sea) -> 24 (sea & forest)
+    ^ AELLINIA_1_FOREST_3.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ AELLINIA_1_FOREST_4.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ AISLAND_1_BRIDGE_1.ARENA.LOC - logbits 16 (sea) -> 24 (sea & forest)
+    ^ AKORDAR_DEMONROAD.ARENA.LOC - logbits 0 -> 4 (dungeon), this is the underground sea area
+    ^ AITEM_DEMON01.ARENA.LOC - logbits 0 -> 2 (lava)
+    ^ AITEM_DEMON02.ARENA.LOC - logbits 0 -> 2 (lava)
+    ^ AITEM_DWARF_01.ARENA.LOC - logbits 0 -> 32 (winter)
+    ^ AITEM_DWARF_02.ARENA.LOC - logbits 0 -> 32 (winter)
+    ^ AITEM_ELF_01.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ AITEM_ELF_02.ARENA.LOC - logbits 0 -> 8 (forest)
+    ^ AITEM_UNDEAD_01.ARENA.LOC - logbits 0 -> 5 (cemetery & dungeon)
+    ^ AITEM_UNDEAD_02.ARENA.LOC - logbits 0 -> 5 (cemetery & dungeon)
+    ^ AUNDEAD_BLACKMOUNTAINS.ARENA.LOC - logbits 0 -> 1 (cemetery)
+    ^ AUNDEAD_BOOK.ARENA.LOC - logbits 0 -> 9 (cemetery & forest)
+    ^ AUNDEAD_COAST.ARENA.LOC - logbits 16 (sea) -> 25 (sea, forest, & cemetery)
+    ^ AUNDEAD_DRAGONDUNGEON1.ARENA.LOC - logbits 4 (dungeon) -> 5 (cemetery & dungeon)
+    ^ AUNDEAD_DRAGONDUNGEON2.ARENA.LOC - logbits 4 (dungeon) -> 5 (cemetery & dungeon)
+    ^ AUNDEAD_ISLAND.ARENA.LOC - logbits 16 (sea) -> 17 (sea & cemetery)
+    ^ AUNDEAD_REDMOUNTAINS.ARENA.LOC - logbits 0 -> 1 (cemetery)
+    ^ DEADLAND_02_ARENA.ARENA.LOC - logbits 1 (cemetery) -> 9 (cemetery & forest)
+  & DEMON_1_EMBRYOS.LOC (Demonis)
+    ^ building_demon04 (Welbewooll's shop)
+      % Now always sells 1 to 5 Blue Dragon Eggs
+      % Now always sells 1 to 5 Blue Dragons
+      % Has an additional chance to sell 5 to 10 Blue Dragons
+    ^ army_demon (embyro_1) - now has a chance to spawn Blue Dragons in the army
+    ^ Baal's Army - now has a chance to spawn Blue Dragons with the second variant
+    ^ army_demon (embyro_2) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_23) - now has a chance to spawn Blue Dragons in the army
+    ^ Xeona's Army - now has a chance to spawn Blue Dragons with the second variant
+    ^ army_demon (embyro_42) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_46) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_51) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_52) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_63) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_64) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_67) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_74) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_75) - now has a chance to spawn Blue Dragons in the army
+    ^ army_demon (embyro_76) - now has a chance to spawn Blue Dragons in the army
+  & DEMON_ULTRAX.EMBRYOS.LOC (only affects new games)
+    ^ army_blackdragon (embyro_1) - now has a chance to spawn Blue Dragons in the army
+    ^ army_reddragon (embyro_12) - now has a chance to spawn Blue Dragons in the army
+    ^ army_blackdragon (embyro_13) - now has a chance to spawn Blue Dragons in the army
+  & ELLINIA_1_LABIRINT_1.EMBRYOS.LOC (only affects new games)
+    ^ Dragon Shop:
+      % Now has a 25% chance to sell Blue Dragon Eggs (2:10)
+      % Now always sells 10 to 20 Blue Dragons
+  & ELLINIA_1_LABIRINT_2.EMBRYOS.LOC (only affects new games)
+    ^ (only affects new games) - ***CRASH*** fixed mispelling of "cereberus" - should be spelled cerberus (thanks to Sir_Whiskers for pointing this out!).
+    ^ Skaar's Shop:
+      % Now has a 50% chance to sell Blue Dragon Eggs (1:5)
+      % Now always sells an additional either 10 to 20 Black, Blue, or Red Dragons (even chance)
+    ^ Giant Shop:
+      % Now has a 50% chance to sell Blue Dragon Eggs (2:5)
+      % Chance to sell either Black or Red Dragons is now those two or Blue Dragons (same number)
+    ^ Dragon Averr (army_greendragon (embryo_21)) now has a chance to spawn Blue Dragons in the army
+    ^ Dragon Wirz (army_greendragon (embryo_22)) now has a chance to spawn Blue Dragons in the army
+  & ELLINIA_1_LABIRINT_3.EMBRYOS.LOC
+    ^ Dragon Shop:
+      % Now has a 25% chance to sell Blue Dragon Eggs (1:5)
+      % Chance to sell either Black or Red Dragons is now either Black or Blue Dragons
+      % Additional chance to sell either 10 to 20 Blue or Red Dragons
+      % Alternate chance is now 5 to 10 Blue Dragons (was nothing before) (the other alternate is still the same: Black, Bone, or Red Dragons)
+    ^ Dragon Reige (army_reddragon (embryo_39)) now has a chance to spawn Blue Dragons in the army
+    ^ Dragon Ferr (army_reddragon (embryo_5)) now has a chance to spawn Blue Dragons in the army
+  & GREMLIN_CASTLE.EMBRYOS.LOC (only affects new games) - now you get one of each type of dragon (instead of 1 Bone and 2 Black)
+    ^ Changed bonedragon_egg01 (Bone Dragon egg) -> dragon_egg01 (Green Dragon egg)
+    ^ Changed (first) blackdragon_egg01 (Black Dragon egg) -> red_dragon_egg01 (Red Dragon egg)
+    ^ army_blackdragon (embyro_13) - now has a chance to spawn Blue Dragons in the army
+    ^ army_blackdragon (embyro_19) - now has a chance to spawn Blue Dragons in the army
+    ^ army_necromant (embyro_24) - now has a chance to spawn Blue Dragons in the army
+    ^ army_necromant (embyro_25) - now has a chance to spawn Blue Dragons in the army
+    ^ army_goblin2 (embyro_33) - now has a chance to spawn Blue Dragons in one of the army choices
+    ^ army_goblin2 (embyro_53) - now has a chance to spawn Blue Dragons in one of the army choices
+  & KORDAR_2.EMBRYOS.LOC (only affects new games) - Raab Sotten's army now has a chance (33%) to spawn Blue Dragons in the Dragon Army choice
+  & TURTLE_HEAD.EMBRYOS.LOC (only affects new games)
+    ^ Cruel Haas's army: 100% chance of Bone Dragons is now either Blue or Bone Dragons
+    ^ Cruel Haas's army: 100% chance of either Fire Dragonflies, Black, Bone, Green, or Red Dragons now adds Blue Dragons to the list
+*.LNG
+  & EN(G)_BATTLE
+    ^ add_blog_snarl_1, 2 -> snarled changed to ensnarled
+    ^ added add_blog_blind_ and add_block_purblind_ macros for (Black) Unicorns new ability
+    ^ added for when the (Black) Unicorns blind and fear targets:
+      % add_blog_blind_fear_ normal message
+      % add_blog_purblind_fear_ +1 blind duration
+      % add_blog_blind_frightened_ +1 scare duration
+      % add_blog_purblind_frightened_ +1 blind and scare duration
+    ^ added for when the Bears stun and bleed targets:
+      % add_blog_stunned_bleeding_ normal message
+      % add_blog_dazed_bleeding_ +1 stun duration
+      % add_blog_stunned_hemoraging_ +1 bleeding duration
+      % add_blog_dazed_hemoraging_ +1 stune and bleeding duration
+    ^ added add_blog_manaburn_ for when Green Dragons mana burn your hero
+  & EN(G)_CHAT_0814853819_0185019267.LNG (Lady Beaulla) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_1000228560_0460900476.LNG (Frogus Bogis) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_1056215454_1378754138.LNG (Old Chvakah) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_1107629933_0248920890.LNG (Milk Woman, Wilma) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_1237766457_0111145785.LNG (Witch Helga) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_1253377691_1567022839.LNG (Dragon Drahha) - added additional dialog for changes to *.CHAT indicated above
+  & EN(G)_CHAT_1315394584_0068736578.LNG (Diana) - fixed spelling errors coarse -> course
+  & EN(G)_ITEMS.LNG
+    ^ Added Blue Dragon Egg labels
+  & EN(G)_SKILLS.LNG
+    ^ Updated Tolerance skill for changes (see MORALE.TXT)
+    ^ Updated Mega Mage skill for changes (see SKILLS.TXT)
+  & EN(G)_SPELLS.LNG
+    ^ Highlighted in red the mana_rage_gain_k effect on Magic Spring
+    ^ Altered Ice Snake and Geyser descriptions to include changes for Fire Immune and Demon targets as noted below
+    ^ Updated Dragon Arrow description to include changes above (see Dragon Arrow ATOM's).
+  & EN(G)_SPIRITS.LNG
+    ^ Added hint for possibility of rage or mana burn if an enemy picks up your Lina Charger
+    ^ Highlighted in red the mana_rage_gain_k effect on Lina's Chargers and Reaper's Rage Gain
+    ^ Added Fire Immune and Demon target description to Ice Thorns
+  & EN(G)_UNITS.LNG 
+    ^ Added Blue Dragon labels
+    ^ Changed Black Dragons's Dragon Power description to match the changes made in UNIT_FEATURES.LUA.
+  & EN(G)_UNITS_SPECIALS.LNG
+    ^ Green Dragon Mana Source now mana burns the target troop's hero if they do not have a hero controlling them and mention that it is affected by combat duration (due to mana_rage_gain_k)
+  & EN(G)_UNITS_FEATURES.LNG
+    ^ Changed (Black) Unicorn's Horn of Light description to include blind and fear chance
+    ^ Added new (Black) Unicorn's Magical Aura / Curse feature
+    ^ Change Cyclop's stone_thrower to include changes made above
+  & EN(G)_WIVES.LNG
+    ^ Changed the children postambles so that the line break is leading rather than trailing
+    ^ Added itm_kid_fire_spells, _attack_, and _defense_ spell labels to delineate spell lists better
+  & EN(G)_WINDOWS.LNG
+    ^ Added more tips
+    ^ Fixed errors in previous tips (for example, Shamans pointed out by Sir_Whiskers)
+  & TEMPLATES.LNG
+    ^ <br> next line codes are now controlled in the childs macro instead of ITEMS_HINT.LUA (<br> are now leading instead of trailing - improves children bonus display by eliminating blank lines at the end of the bonus description)
+    ^ Added some new color macros so that I could show the mana_rage_gain_k effect language in red, for example
+    ^ Fixed attack and defense spell templates (i.e. Deemer)
+*.LUA
+  & ARENA.LUA
+    ^ ***BUG*** Fixed issue with casting Stone Skin multiple times in a row (was due to Pentagram casts and the fact that it somehow does not register as a pawn even though it is classified as one)
+    ^ ***BUG*** Fixed issue with enemy Priests casting Healing on their own Undead troops thereby damaging them
+    ^ Enemy unit talents that cause damage are now effected by the difficulty level / map bonus
+    ^ Added logic to ai_solver for enemy units to consider picking up chargers if they can so they can rage or mana burn you
+    ^ Major revision to Spell Casting AI:
+      $ Fixed bugs - Geyser was not computing probability correctly (Jorko80 pointed this out a long time ago, but didn't realize it was a bug until now)
+      $ A lot more data is collected on the ally and enemy units to aid in spell probability computation
+      $ Probability computation for a spell is more pertinent to the situation for which the spell is being used
+    ^ I had made a change previously where if an enemy (your) unit was incapcitated (i.e. sleep, unconscious, blind) that the AI would leave them alone until as long as the duration of the spell was greater than 1 turn. Sounded reasonable, however, if there was no one else to attack, the AI would keeping moving the troop back and forth until it ran out of movement even if attacking the incapacitated troop was their only option. So I've made a change where this doesn't happen any more.
+    ^ Gremlin Towers now amplify exp / gold based on their level
+    ^ Added chance to get more dragonfly wings if you actually fight dragonflies:
+      $ Chance to get wings is the sqrt( number killed )
+      $ Number of wings is sqrt( chance )
+    ^ Added Blue Dragon's summondragonfly to summon logic and zap to poison_cloud and gain_mana logic
+  & COMBAT_LOG.LUA
+    ^ Implemented changes to Ice Snake (see SPELLS.LUA changes)
+  & ITEMS_HINT.LUA
+    ^ Removed the <br> "next line" codes since they are now controlled in TEMPLATES.LNG
+    ^ Added fire_, attack_, and defense_ as variants to spell bonus templates to identify spell groups better
+  & LOGIC.LUA - total hints is now 164
+  & SPECIAL_ATTACKS.LUA
+    ^ Implemented changes to talent functions to implement difficulty level bonus to enemy units when using talents
+    ^ Green Dragon's special_gain_mana now mana burns enemy hero's if they don't have one (otherwise works same as before)
+  & SPECIAL_HINT.LUA - all enemy unit talents are effected by the difficulty level bonus / map bonus, including:
+    ^ Damage
+    ^ Action points when running
+    ^ Curative powers
+    ^ Duration of effects
+    ^ Infliction chances (i.e. burning, poison, etc.)
+    ^ Health of summoned totems
+    ^ Percent of summons
+    ^ Effect power, bonuses, etc.
+    ^ Penalties are reduced (i.e. the new Undead Health penalty is reduced by this)
+    ^ More...
+  & SPELLS.LUA
+    ^ The (Ancient) Ent's Tree of Life ability can no longer be dispelled.
+    ^ Freeze immune units can no longer be frozen
+    ^ Ice Snake now ignores half of the target's physical reistance and amplifies damage based on half of the target's fire resistance if they are either Fire Immune or Demons (otherwise it is same as before)
+    ^ Mana Spring function spell_magic_source_attack now has a new boolean input to let it know if it is being called by Enchanted Hero or not. The way I implemented Enchanted Hero is that it casts spells at the power of the time of the Enchanted Hero cast. So this meant if you cast Enchanted Hero on your troop on turn 9 and then on turn mana / rage increase dropped to 50%, it would cast Mana Spring on your troop at full power. However, if you cast Mana Spring on your troop on turn 10, then that would be at the current mana / rage gain increase. This boolean now discerns between the two situations and allows Mana Spring to be cast appropriately.
+  & SPELLS_POWER.LUA
+    ^ Made changes to function res_dur so that it can work with the Spell Casting AI in ARENA.LUA
+    ^ ***BUG*** Fixed limits on Armageddon spell 0 to 95 is now 5 to 100 (they were set backwards - thanks to Kiras for pointing this out!)
+  & SPIRIT_LINA.LUA
+    ^ Chargers - now rage or mana burn your hero if they are picked up by enemy troops not controlled by an enemy hero. So don't let them pick up your Chargers!
+    ^ Similar to Ice Snake, Ice Thorns now amplify damage to Fire Immune and Demons in the same way
+  & TEXTGEN.LUA - fixed double dipping on the display of your Hero Resistance bonus due to their Defense during combat (i.e. if your bonus was +2% it would show as +4% in combat even though it was still just +2%)
+  & UNIT_FEATURES.LUA
+    ^ ***BUG*** Bear's Hibernation now checks to ensure that the bear is not unconscious
+    ^ ***BUG*** Fixed broken features_stun path for Snakes / Cyclops
+    ^ ***BUG*** Archers' Black Arrow can no longer dispel summons' "special_summon_bonus" (thanks to Kiras for pointing this out!)
+    ^ Implemented changes to talent functions to implement difficulty level bonus to enemy units when using talents
+    ^ Implemented features_undead_penalty function to apply Undead health penalty bonuses
+    ^ Implemented changes to Horn of Light
+    ^ Added magic aura / curse Unicorn functions
+    ^ Added check on a lot of the functions to ensure that the stack is not killed when applying a feature
+    ^ Soul draining and Vampirism are only 50% effective during daylight (morning and afternoon, and are not affected if combat is in a cemetery, lava, or underground)
+    ^ Implemented Undead health penalty function for daylight (and not cemetery, lava, or dungeon)
+    ^ Added boolean to the call for spell_magic_source_attack per changes above to correctly cast Mana Spring from Enchanted Hero.
+    ^ Black Dragon's now is -2 initiative to level 1 and 2 troops (and remains -1 initiative to level 3 and 4 troops)
+*.TXT
+  & BABY TXT's - Ugg! All these errors deal with a typo copied from place to place nerco -> necro! Doh! Thanks Windows 8.1!
+    ^ DIANA_BABIES.TXT
+      % ***BUG*** 3 errors! Fixed typo nerco -> necro (for necromant ATOM reference)
+      % Added bonuses for blue dragons where applicable
+    ^ FEANORA_BABIES.TXT
+      % ***BUG*** 7 errors! Fixed typo nerco -> necro (for necromant ATOM reference)
+      % Added bonuses for blue dragons where applicable
+    ^ GERDA_BABIES.TXT
+      % ***BUG*** 1 error! Fixed typo nerco -> necro (for necromant ATOM reference)
+      % Added bonuses for blue dragons where applicable
+    ^ MIRABELLA_BABIES.TXT
+      % ***BUG*** 10 errors! Fixed typo nerco -> necro (for necromant ATOM reference)
+      % Added bonuses for blue dragons where applicable
+    ^ NEOKA_BABIES.TXT
+      % ***BUG*** 18 errors! Fixed typo nerco -> necro (for necromant ATOM reference)
+      % Added bonuses for blue dragons where applicable
+    ^ ORCELYN_BABIES.TXT
+      % ***BUG*** 7 errors! Fixed typo nerco -> necro (for necromant ATOM reference)
+      % Added bonuses for blue dragons where applicable
+    ^ RINA_BABIES.TXT
+      % ***BUG*** 15 errors!
+        $ Fixed typo nerco -> necro (for necromant ATOM reference)
+        $ Fixed typo sp_lead_unit_nercomant -> sp_lead_unit_necromant (which means previously that Necromancer Leadership Reduction was not working!)
+      % Added bonuses for blue dragons where applicable
+    ^ XEONA_BABIES.TXT
+      % ***BUG*** 9 errors! Fixed typo sp_lead_unit_nercomant -> sp_lead_unit_necromant (which means previously that Necromancer Leadership Reduction was not working!)
+      % ***BUG*** Changed Deemer's Rage Increase from +40% -> +20%
+      % Changed Deemer's Attack / Spell bonus from +10% -> +5%
+      % Added bonuses for blue dragons where applicable
+  & ITEMS.TXT
+    ^ Added bluedragons to items that would affect them
+  & ITEMS_MONSTER.TXT
+    ^ Added new container - Blue Dragon Eggs!
+    ^ Made unit range consistent with leadership for all variants:
+      % snake: 1-3 -> 2-4, snake_green: 1-3 -> 2-4
+      % vampire: 1-3 -> 2-4
+  & MORALE.TXT
+    ^ -2 Morale (was -1) from Robber's negated by Tolerance level 2
+    ^ -2 Morale from Giants to Green Dragons negated by Tolerance level 3
+    ^ +1 Morale from Green Dragons to Giants negated by Tolerance level 3 (I guess they are no longer as happy since they can't eat 'em)
+    ^ Blue Dragons:
+      % -2 Morale to Green & Red Dragons negated by Tolerance level 3
+      % -1 Morale to Black Dragons negated by Tolerance level 2
+      % +2 Morale to Fire / Lake Dragonflies
+  & PARAMS.TXT
+    ^ In order to get the dragonfly wings to show up in the combat screen I added a dummy parameter, dfly_wng, so that you'd at least see its picture when you were awarded dragonfly wings. I tried to show the number that you get, but it somehow doesn't format on the screen properly. So I just show the wings picture and you'll have to check your inventory to see how many you got for now...
+  & SKILLS.TXT
+    ^ Evil Book now gets Mega Mage bonuses
+    ^ Tolerance now removes penalties for other units (i.e. Robbers, Green Dragons / Giants, etc.)
+
+Version Beta 2014-01-28
+*.LNG
+  & EN(G)_WINDOWS.LNG
+    ^ Corrected a few errors in the original tips
+    ^ Removed duplicate hint #44
+*.LUA
+  & Fixed issues with not converting act_spell_param outputs to numbers:
+    ^ BOSS.LUA - dmg_min and dmg_max for effect_spider_poison_attack may have been strings instead of numbers, although since this was in the original game it may not have been a problem
+    ^ SPELLS.LUA - level for post_spell_plague may have been a string, although not sure if this was a problem
+    ^ UNIT_FEATURES.LUA - this one was a problem and was causing Mana Spring cast from Enchanted Hero to give your hero mana instead of the enemy hero - belligerent check from spell parameter needed to be converted to a number
+  & LOGIC.LUA - the new mod hints I added were not being used because it seems like the hint counting did not work so I manually set it to the maximum number of hints that are in EN(G)_WINDOWS.LNG so that it would show my new hints
+
+
+Version Beta 2014-01-01
+*.ATOM
+  & CANNONER.ATOM
+    ^ Triple shot: Added Fatt_Shade's idea for damage to surrounding troops, although I added friendly damage.
+    ^ Normal shot: now does 50% damage to surrounding troops (friendly fire)
+    ^ All shots have no range limit and no penalty
+    ^ Added camera shake to both attacks! :-)
+  & Spirit ATOMS: (DEATH, LINA, SLIME, THEROCK) - simplified upgrade criteria
+    ^ DEATH.ATOM - removed 1 rest reduction level from time back and black hole and replaced with 1 rage reduction level
+    ^ LINA.ATOM
+      % Removed 1 rest reduction level from gizmo and replaced with 1 rage reduction level
+      % Orb:
+        $ Now causes damage when cast upon landing via a quake similar to the Giant ability and the damage reduction per hex away from the landing point decreases with increasing attack level
+	$ Attack and Defense upgrades now only increase attack and defense capability (before there was a slight increase to the opposite statistic)
+	$ Roll damage per hex now increases with increasing attack level
+	$ Knocks the target back 1 cell if possible
+      % Added always hint flag for orb and devatron to show the damage hint
+    ^ SLIME.ATOM
+      $ Dramatically improved Poison Cloud:
+        # Does immediate damage to the targets plus the damage by the cloud later
+	# Has the specified chance to poison the targets (note that higher levels can "super" poison the targets due to its high and repetitive damage)
+      $ Evil Shoal:
+        # Now has a chance to cause fear in the target (normal fear immunities apply)
+	# Now shows the damage hint!
+      $ Swamp Poison now has the duration specified
+    ^ THEROCK.ATOM - lump, rockfall, and quake now all have their duration specified
+  & DEVATRON_THROW.ATOM - improved the damage animation
+  & DRUID.ATOM - new ability: Revive Beast (2 charges) - resurrects beasts (i.e. bears, wolves, etc.)
+  & ENT & ENT2.ATOM - added movetype custom parameter to moveattack to include movement type = -2 (Ghosts and Cursed Ghosts)
+  & GIANT.ATOM - quake now does 200% damage to structures (obstacles, barriers, and towers)
+  & KINGTHORN.ATOM - included movement type = -2 (Ghosts and Cursed Ghosts) in the movetype entangle custom parameter
+  & ORB.ATOM - added ground shake particles for shaking the ground when the Ice Ball lands per the changes to Ice Ball above
+  & SLIMEFOG.ATOM - the fog damage is no longer affected by the attack of the cloud / defense of the target
+*.LNG
+  & EN(G)_BATTLE.LNG
+    ^ Added new log for showing the recharge enemy attacks message.
+    ^ Added "fightened" log for when Evil Shoal causes fear and the unit already has it, it will add +1 to the duration of current
+  & EN(G)_ITEMS.LNG - fixed Carl Leonar -> Carl Leonard
+  & EN(G)_SPIRITS.LNG
+    ^ Added changes to descriptions and level ups based on all the atom and other features added
+  & EN(G)_UNITS_SPECIALS.LNG 
+    ^ Updated Cannoneer Salvo to include half damage to surrounding troops, friend or foe.
+    ^ Update Giant Quake to include 200% damage to structures
+    ^ Added new druid Beast Revive name, header, and hint
+    ^ Added warning_revive for new Druid ability
+  & EN(G)_UNITS_FEATURES.LNG
+    ^ Added separate Siege Gun header / hint for Cannoners per their update
+    ^ Added Knockback header / hint
+  & EN(G)_WINDOWS.LNG
+    ^ Updated version number
+    ^ Added many new screen tips to show new features of the mod
+  & TEMPLATES.LNG
+    ^ Updated spirit templates to accommodate changes in ATOMs
+    ^ Fixed Feanora template Werewolves -> Graywolves
+*.LUA
+  & ARENA.LUA
+    ^ Fixed issue with improperly using the wrong spell level if the enemy hero's spells happened to be higher than I thought
+    ^ Set min_score to 0 so that all spells have a chance to cast. I originally put this in to prevent spells with very low probabilities from being cast, but it seems like there could be quite a few lower level enemy heroes with really low scores and so they'd end up skipping turns not casting spells.
+    ^ Critical Hit difficulty level bonus is now additive since a lot of unit's Critical Hit is really low. So now enemies will "krit" a lot more often on harder difficulty levels...
+  & COMBAT_LOG.LUA
+    ^ Added damage hint for Rage Skills:
+      % Poison Cloud
+      % Ice Ball (see above)
+      % Evil Shoal
+      % Ice Thorns
+  & ITEMS_HINT.LUA - fixed issue with text description for wives having their first child
+  & SPECIAL_ATTACKS - added change to Giant's Quake damage to structures as identified above
+  & SPELL_COMMON.LUA
+    ^ Calccells for Royal Thorn's Entangle now checks for a comma-delimited list of movement types (this is to include Ghosts / Cursed Ghosts) - Thanks to jorko80 for pointing this out!
+    ^ Function common_cell_apply_damage can now return the dead from act_damage
+  & SPIRIT_LINA.LUA
+    ^ Ice Thorns now:
+      % Uses common_freeze_attack to be consistent with Geyser and Ice Serpent - Thanks to jork80 for pointing this out!
+      % Uses its duration (was using a constant of 3, but had created variable duration in the past)
+      % Affects the Undead (not sure why I had it this way before)
+      % Improved the damage animation
+    ^ Ice Ball now:
+      % Damages enemies like the Giant's quake upon casting
+      % Has variable roll damage increase
+      % Knocks targets back 1 cell if possible
+  & SPIRIT_SLIME.LUA
+    ^ Implemented changes as specified in the ATOM changes above
+    ^ Implemented changes to show the damage of Evil Shoal
+  & SPIRIT_THEROCK.LUA - implemented changes as specified in the ATOM changes above
+  & TEXTGEN.LUA - added new function for generating the Ice Ball's roll damage for its feature hint
+  & UNIT_FEATURES.LUA
+    ^ features_entangle (Entangle) now also checks for a comma-delimited list of movement types (this is to include Ghosts / Cursed Ghosts) - Thanks to jorko80 for pointing this out!
+    ^ Re-ordered features_entangle boolean logic checks to optimize logic for speed / efficiency
+    ^ Fixed error with special_priest where the holy effect was being shown when moving the cursor over enemies
+*.TXT
+  & LOGIC.TXT - added new parameter, rndrecharge, for determining when enemy attacks are automatically recharged based on difficulty level.
+  & SPELLS.TXT - Ice Snake is now an Order spell
+
+Version: Beta 2013-06-02
+*.TXT
+  & ITEMS_MONSTER.TXT - forgot to fix the Bone Dragon 1 unit per 2 egg issue - now this is fixed!
+
+
+Version: Beta 2013-05-26
+*.CHAT
+  & 79826769.chat - fixed Orcelyn's chat dialogue for when she initiates conversation to have a child (thanks to Nevar for pointing this out!)
+  & 68736578.chat - fixed Diana's chat dialogue for when she initiates conversation to have a child (thanks to Nevar for pointing this out!)
+*.LNG
+  & EN(G)_CHAT_1379826769_0079826769.LNG - updated Orcelyn's dialogue such that the proper question and answer appear when she initiates the conversation to have a child as well as fixed duplicate answer on your response that was causing her to have a child in only 5 turns (thanks to Nevar for pointing this out!)
+  & EN(G)_CHAT_1315394584_0068736578.LNG - updated Diana's dialogue such that the proper question and answer appear when she initiates the conversation to have a child as well as fixed duplicate answer on your response that was causing her to have a child in only 5 turns (thanks to Nevar for pointing this out!)
+*.LUA
+  & ITEMS_HINT_LUA - fixed wife baby macro so that it only shows the victories until next baby when sex == "1". When your wife initiates the conversation and you say "no", sex is set to "2" and I was checking before for it ~= "0", which is what it is if you don't ask for a child (thanks to Nevar for pointing out the problem above as it helped me fix this, too!)
+
+
 Version: Beta 2013-05-18
 *.ATOM
   & SLIME.ATOM
@@ -177,7 +1131,7 @@ Version: Beta 2013-05-18
   ENG_ITEMS.LNG - updated description for Griffin and Dragon Eggs so that they are now just like the other containers (and have a range)
 *.LUA
   & ARENA.LUA
-    ^ Fixed error with Shroud spell that was causing a crash (thanks to Jorko80 and Sir Whiskers for pointing this out!)
+    ^ Fixed error with Shroud spell that was causing a crash when cast by heroes such as Martin Vodash and Dirty Butory (thanks to Jorko80 and Sir Whiskers for pointing this out!)
     ^ Added AI spell function for Shroud so that it selects the optimal location to cast (was using the generic bonus spell code before, which is where the above error was as well)
     ^ Changed score for AI damage spells to include number of kills so that the AI focuses more on killing your units
   & ITEM_USE.LUA

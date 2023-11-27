@@ -1,0 +1,227 @@
+main {
+  class=chesspiece
+  model=peasant.bma
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_peasant_feat
+  features_hints=comradeship_header/comradeship_hint
+  race=human
+  cost=10
+  level=1
+  leadership=5
+  attack=1
+  defense=1
+  defenseup=1
+  initiative=3
+  speed=2
+  hitpoint=5
+  krit=10
+  movetype=0
+  hitback=1
+  hitbackprotect=0
+  attacks=moveattack,run
+  features=humanoid
+  resistances {
+    physical=0
+    poison=0
+    magic=0
+    fire=0
+  }
+  moveattack {
+    ad_factor=1
+    damage {
+      physical=1,2
+    }
+  }
+  run {
+    class=scripted
+    reload=3
+    hinthead=special_run_head
+    hint=special_run_hint
+    endmove=0
+    script_attack=special_run
+    script_calccells=
+    picture_small=BA1_Run_small.png
+    picture=BA1_Run_
+    custom_params {
+      ap=1-2
+    }
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+  subturn_modificators=features_feeling_of_comradeship
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=peasant_idle.bsa/fr:25:50
+  rare=peasant_rare.bsa/fr:25:50
+  attack=peasant_attack.bsa/fr:35:50
+  move=peasant_move.bsa/fr:25:50
+  start=peasant_start.bsa/fr:25:50
+  stop=peasant_stop.bsa/fr:25:50
+  clock=peasant_clock.bsa/fr:40:80
+  contra=peasant_contra.bsa/fr:40:80
+  clock2=peasant_2clock.bsa/fr:40:80
+  contra2=peasant_2contra.bsa/fr:40:80
+  lturn=peasant_lturn.bsa/fr:25:50
+  rturn=peasant_rturn.bsa/fr:25:50
+  damage=peasant_damage.bsa/fr:25:50
+  slew=peasant_slew.bsa/fr:35:70
+  rush=peasant_rush.bsa/fr:35:70
+  death=peasant_death.bsa/fr:25:50
+  respawn=peasant_respawn.bsa/fr:25:50
+  happy=peasant_victory.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  teleout=peasant_idle.bsa/fr:25:50/r:40:75
+  telein=peasant_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    15.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @rush {
+    15.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=attack
+      frame=0.01
+      file=peasant_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.01
+      file=peasant_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      frame=0.01
+      file=peasant_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      frame=0.01
+      file=peasant_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      frame=0.01
+      file=peasant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      frame=0.01
+      file=peasant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      frame=0.01
+      file=peasant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      frame=0.01
+      file=peasant_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      frame=0.01
+      file=peasant_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      frame=0.01
+      file=peasant_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      frame=0.01
+      file=peasant_damage
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      frame=0.01
+      file=peasant_slew
+      fadetime=60
+    }
+    sound {
+      animation=rush
+      frame=0.01
+      file=peasant_rush
+      fadetime=60
+    }
+    sound {
+      animation=death
+      frame=0.01
+      file=peasant_death
+      fadetime=60
+    }
+  }
+}
+prefetch {
+  peasant_idle.bsa=file
+  peasant_rare.bsa=file
+  peasant_attack.bsa=file
+  peasant_move.bsa=file
+  peasant_start.bsa=file
+  peasant_stop.bsa=file
+  peasant_clock.bsa=file
+  peasant_contra.bsa=file
+  peasant_2clock.bsa=file
+  peasant_2contra.bsa=file
+  peasant_lturn.bsa=file
+  peasant_rturn.bsa=file
+  peasant_damage.bsa=file
+  peasant_death.bsa=file
+  peasant_respawn.bsa=file
+  peasant_victory.bsa=file
+  peasant_rush.bsa=file
+}

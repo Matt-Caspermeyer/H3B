@@ -1,0 +1,22 @@
+add_blog_summon_egg_2=^blog_td0^[name] hatches, and [special2] appear on the battlefield: [g][special][/c].
+add_blog_summon_egg_1=^blog_td0^[name] hatches, and [special2] appear on the battlefield.
+
+add_blog_place_1=^blog_td0^[name] places [saname] on the battlefield.
+add_blog_place_2=^blog_td0^[names] place [saname] on the battlefield.
+
+add_blog_summon_01=^blog_td0^[name] summons allies, calling forth [g][special][/c] [special2].
+add_blog_summon_02=^blog_td0^[names] summon allies, calling forth [g][special][/c] [special2].
+
+add_blog_summon_3=^blog_td0^[name] creates a magical tower, receiving [special].
+
+add_blog_summon_4=^blog_td0^[name] summons a detachment of Lizardmen.
+
+add_blog_summon_5=^blog_td0^[name] summons a troop of demons.
+
+add_blog_summon_1=^blog_td0^[name] summons allies. [targeta] appear: [g][special][/c].
+
+add_blog_summon2_1=^blog_td0^[name] summons allies up. [special] appear: [g][special2][/c].
+add_blog_summon_2=^blog_td0^[names] summon allies up. [targeta] appear: [g][special][/c]. 
+
+add_blog_clear_bonus=^blog_td0^[name]: the effect placed on the troop dissipates instantly!
+

@@ -185,8 +185,10 @@ feat_bleeding {
     attack_cursor=magicstick
   }
   params {
-    duration=1
+    duration=3
     power=30 //%
+    damage=5-15
+    typedmg=physical
     type=penalty
   }
   levels {}
@@ -498,6 +500,34 @@ special_wolf_cry {
     power=50
     level=2
     race=human
+    type=penalty
+  }
+  levels {}
+}
+
+// New! Werewolf Cry
+special_werewolf_cry {
+  category=s
+  hide=1
+  icon=s_overtime_bless.png
+  hint_config=object_spell
+  school=2
+  hint=special_werewolf_cry_small
+  hint_header=special_werewolf_cry_head
+  
+  attack=scripted
+  
+  scripted {
+    script_attack=special_werewolf_cry_attack
+    script_calccells=
+    attack_cursor=magicstick
+    nfeatures=mind_immunitet
+  }
+  params {
+    duration=3
+    power=60
+    level=3
+    race=elf
     type=penalty
   }
   levels {}

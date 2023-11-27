@@ -1,0 +1,239 @@
+main {
+  class=chesspiece
+  model=griffin.bma
+  bboxanim=1
+  cullcat=0
+}
+arena_params {
+  features_label=cpi_griffin_feat
+  features_hints=flies_header/flies_hint,tireless_header/tireless_hint,magic_resistance_header/magic_resistance_hint,cold_resistance_header/cold_resistance_hint
+  race=neutral
+  cost=260
+  level=3
+  leadership=80
+  attack=18
+  defense=18
+  defenseup=5
+  initiative=5
+  speed=5
+  hitpoint=90
+  movetype=2
+  krit=12
+  hitback=2
+  hitbackprotect=0
+  attacks=moveattack,split
+  features=beast
+  resistances {
+    physical=10
+    poison=0
+    magic=20
+    fire=0
+    cold=20
+  }
+  moveattack {
+    ad_factor=1
+    usefly=4
+    damage {
+      physical=5,10
+    }
+  }
+  split {
+    class=scripted
+    script_attack=special_griffin_split
+    script_calccells=calccells_griffin_split
+    attack_cursor=magicstick
+    picture=BA1_Ungroup_
+    picture_small=BA1_Ungroup_small.png
+    hinthead=special_split_head
+    hint=special_split_hint
+    endmove=0
+  }
+}
+scripts {
+  scenario=default_scenario
+  idle=default_idle
+  subturn_modificators=griffin_check_split
+}
+animations {
+  idle=/t:1:4:idlemain:1:1:rarelist
+  rarelist=/fwd:1:rare
+  idlemain=griffin_idle.bsa/fr:25:50
+  rare=griffin_rare.bsa/fr:25:50
+  attack=griffin_attack.bsa/fr:25:50
+  move=griffin_move.bsa/fr:35:70
+  start=griffin_start.bsa/fr:35:70
+  stop=griffin_stop.bsa/fr:35:70
+  clock=griffin_clock.bsa/fr:40:80
+  contra=griffin_contra.bsa/fr:40:80
+  clock2=griffin_2clock.bsa/fr:40:80
+  contra2=griffin_2contra.bsa/fr:40:80
+  lturn=griffin_lturn.bsa/fr:35:70
+  rturn=griffin_rturn.bsa/fr:35:70
+  damage=griffin_damage.bsa/fr:25:50
+  takeoff=griffin_takeoff.bsa/fr:35:70
+  flight=griffin_flight.bsa/fr:35:70
+  descent=griffin_descent.bsa/fr:35:70
+  ldivert=griffin_ldivert.bsa/fr:35:70
+  rdivert=griffin_rdivert.bsa/fr:35:70
+  slew=griffin_slew.bsa/fr:35:70
+  death=griffin_death.bsa/fr:25:50
+  respawn=griffin_respawn.bsa/fr:25:50
+  happy=griffin_victory.bsa/fr:25:50
+  victory=/fwd:0.6:happy:1:idlemain:1:rare
+  teleout=griffin_idle.bsa/fr:25:50/r:40:75
+  telein=griffin_idle.bsa/fr:25:50/r:0:35
+  cursor=/fwd:1:rare
+  special=griffin_damage.bsa/fr:15:15
+  @teleout {
+    10.0=alpha/1/25
+  }
+  @telein {
+    10.0=alpha/0/25
+  }
+  @attack {
+    18.0?x=
+    0.0=cam
+  }
+  @damage {
+    2.0?x=
+    0.0=cam
+  }
+  @death {
+    2.0?x=
+    0.0=cam
+  }
+  @appear {
+    1.0=alpha/1/29
+  }
+}
+editor {
+  align=chessboard
+  scale=1
+  angle=30,90,150,210,270,330
+  animations {
+    default=scn_idle
+    0=scn_walk
+    1=scn_attack,scn_damage
+    2=scn_cast,scn_damage
+    5=scn_rush,scn_damage
+    6=scn_all_fly
+    7=scn_rare
+    4=scn_damage
+    3=scn_all
+  }
+}
+attachments {
+  1 {
+    sound {
+      animation=attack
+      file=griffin_attack
+      fadetime=60
+    }
+    sound {
+      animation=move
+      frame=0.1
+      file=griffin_move
+      fadetime=60
+    }
+    sound {
+      animation=start
+      file=griffin_start
+      fadetime=60
+    }
+    sound {
+      animation=stop
+      file=griffin_stop
+      fadetime=60
+    }
+    sound {
+      animation=clock
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=clock2
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=contra2
+      file=griffin_clocont
+      fadetime=60
+    }
+    sound {
+      animation=lturn
+      file=griffin_turn
+      fadetime=60
+    }
+    sound {
+      animation=rturn
+      file=griffin_turn
+      fadetime=60
+    }
+    sound {
+      animation=damage
+      file=griffin_damage
+      fadetime=60
+    }
+    sound {
+      animation=takeoff
+      file=griffin_takeoff
+      fadetime=60
+    }
+    sound {
+      animation=flight
+      frame=0.1
+      file=griffin_flight
+      fadetime=60
+    }
+    sound {
+      animation=descent
+      file=griffin_descent
+      fadetime=60
+    }
+    sound {
+      animation=ldivert
+      file=griffin_divert
+      fadetime=60
+    }
+    sound {
+      animation=rdivert
+      file=griffin_divert
+      fadetime=60
+    }
+    sound {
+      animation=slew
+      file=griffin_slew
+      fadetime=60
+    }
+    sound {
+      animation=death
+      file=griffin_death
+      fadetime=60
+    }
+    sound {
+      animation=victory
+      file=griffin_victory
+      fadetime=60
+    }
+  }
+  1 {
+    aspawn {
+      animation=special
+      frame=0/11
+      restart=true
+      atag=griffin_split
+    }
+    particle {
+      trans=0/0.1/0/0/-0/0/0.5
+      animation=special
+      frame=0/5
+      file=attack_archmage_accum.ptb
+    }
+  }
+}

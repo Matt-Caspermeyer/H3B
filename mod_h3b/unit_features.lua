@@ -601,6 +601,32 @@ function features_rooted_onremove( caa )
 end
 
 
+-- New AP / CW function for Demons
+function features_giveap( damage, addrage, attacker, receiver, minmax, userdata, hitbacking )
+
+	 if minmax == 0
+  and damage > 0
+  and not hitbacking
+	 and Attack.act_ap( receiver ) == 0
+	 and Attack.act_name( attacker ) ~= "brontor_thorns"
+  and damage < Attack.act_totalhp( receiver ) then
+		  if Game.CurLocRand( 1, 100 ) < 50 then
+   			Attack.act_again( receiver, true )
+   			Attack.act_ap( receiver, apply_difficulty_level_talent_bonus( Game.Random( 2,3 ) ) )
+   			Attack.atom_spawn( receiver, 0, "effect_demonfury", Attack.angleto( receiver ), true )
+
+    		if Attack.act_size( receiver ) > 1 then 
+     			Attack.log( receiver, 0.001, "add_blog_giveap_2", "name", blog_side_unit( receiver ) )
+    		else 
+     			Attack.log( receiver, 0.001, "add_blog_giveap_1", "name", blog_side_unit( receiver ) )
+    		end 
+  		end
+	 end
+
+ 	return damage
+end
+
+
 function features_looter(damage,addrage,attacker,receiver,minmax,userdata,hitbacking)
 	
 	if (minmax==0) then
@@ -1358,43 +1384,46 @@ end
 -- ***********************************************
 
 function special_bowman( damage, addrage, attacker, receiver, minmax )
-	 local freeze_im = 0.75 --25%
- 	local freeze = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "freeze" ) ) )
-  freeze = effect_chance( freeze, "effect", "freeze" )
-	 local dragon = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "dragon" ) ) )
-	
- 	if dragon == 1 then	
-	  	return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
- 	end 
+  local arrows = tonum( Attack.get_custom_param( "arrows" ) )
 
- 	if minmax == 0 and damage ~= 0 then -- damage=0 когда мы промахиваемся
-		  local burn = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "burn" ) )
-
-    if burn ~= nil
-    and damage > 0
-    and damage < Attack.act_totalhp( receiver ) then
-      burn = effect_chance( burn, "effect", "burn" )
-    		--	if burn==nil then burn=100 end
-    		--	if freeze==nil then freeze=100 end
-      local duration = apply_difficulty_level_talent_bonus( 3 )
-      duration = tal_dur( 0.1, receiver, duration, "fire", "penalty" )
-      common_fire_burn_attack( receiver, burn, 0, duration, damage, true )
-      duration = apply_difficulty_level_talent_bonus( 3 )
-      common_freeze_attack( receiver, "throw3", freeze, 0, duration )
+  if arrows == 1 then
+    local dragon = tonum( Attack.get_custom_param( "dragon" ) )
+	   
+    if dragon == 1 then	
+      return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
     end
-	 end
 
- 	if freeze > 0 then
-  		local new_damage = common_freeze_im_vul( receiver, damage )
-  		addrage = addrage * new_damage / damage
-    damage = new_damage
+    local freeze = tonum( Attack.get_custom_param( "freeze" ) )
+
+    if minmax == 0
+    and damage ~= 0 then -- damage=0 когда мы промахиваемся
+      if damage > 0
+      and damage < Attack.act_totalhp( receiver ) then
+        local burn = tonum( Attack.get_custom_param( "burn" ) )
+        local duration = apply_difficulty_level_talent_bonus( 3 )
+
+        if freeze == 100 then
+          common_freeze_attack( receiver, "throw3", freeze, 0, duration )
+        elseif burn == 100 then
+          burn = effect_chance( burn, "effect", "burn" )
+          duration = tal_dur( 0.1, receiver, duration, "fire", "penalty" )
+          common_fire_burn_attack( receiver, burn, 0, duration, damage, true )
+        end
+      end
+    end
+
+    local dragon = Attack.get_custom_param( "dragon" )
+
+    if dragon == "1" then
+      return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
+    end
+
+    if freeze > 0 then
+      local new_damage = common_freeze_im_vul( receiver, damage )
+      addrage = addrage * new_damage / damage
+      damage = new_damage
+    end
   end
-
- 	local dragon = Attack.get_custom_param( "dragon" )
-
-  if dragon == "1" then
-  		return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
- 	end 
 
   return damage, addrage
 end
@@ -1419,57 +1448,64 @@ end
 -- ***********************************************
 
 function special_archer( damage, addrage, attacker, receiver, minmax )
-	 local dragon = tonumber( Attack.get_custom_param( "dragon" ) )
+  local arrows = tonum( Attack.get_custom_param( "arrows" ) )
+
+  if arrows == 1 then
+			 local dragon = tonumber( Attack.get_custom_param( "dragon" ) )
 	
- 	if dragon == 1 then	
-	  	return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
- 	end 
+		 	if dragon == 1 then	
+			  	return feat_dragon_arrow( damage, addrage, attacker, receiver, minmax )
+		 	end 
 
- 	if ( minmax == 0 )
-  and damage > 0
-  and damage < Attack.act_totalhp( receiver ) then
-	   local poison = tonum( apply_difficulty_level_talent_bonus( Attack.get_custom_param( "poison" ) ) )
-   	local tranc = tonum( Attack.get_custom_param( "tranc" ) )
-   	local spell_name = ""
-    --	if burn==nil then burn=100 end 
-    --	if freeze==nil then freeze=100 end
-    local poison_res = Attack.act_get_res( receiver, "poison" )
-   	local rnd = Game.Random( 99 )
-    local poison_chance = math.min( 100, poison * ( 1 - poison_res / 100 ) )
-    local poison_damage = damage * poison_chance / 200
+		 	if ( minmax == 0 )
+		  and damage > 0
+		  and damage < Attack.act_totalhp( receiver ) then
+			   local poison = tonum( Attack.get_custom_param( "poison" ) )
+		
+      if poison > 0 then
+				    local poison_res = Attack.act_get_res( receiver, "poison" )
+				   	local rnd = Game.Random( 99 )
+				    local poison_chance = math.min( 100, poison * ( 1 - poison_res / 100 ) )
+				    local poison_damage = damage * poison_chance / 200
 
-    if rnd < poison_chance
-    and not Attack.act_feature( receiver, "golem" )
-    and not Attack.act_feature( receiver, "poison_immunitet" ) then
-      local duration = apply_difficulty_level_talent_bonus( 3 )
-      duration = tal_dur( 0.1, receiver, duration, "poison", "penalty" )
-    	 effect_poison_attack( receiver, 0, duration, poison_damage, poison_damage )
-    end 
-
-    if tranc > 0 then
-      local spells_to_delete = {}
-     	local spell_count = Attack.act_spell_count( receiver )
-
-      for i = 0, spell_count - 1 do 
-      	 spell_name = Attack.act_spell_name( receiver, i )
-      	 local spell_type = Logic.obj_par( spell_name, "type" )
-
-      	 if spell_type == "bonus"
-        and string.find( spell_name, "^totem_" ) == nil
-        and string.find( spell_name, "special_summon_bonus" ) == nil then 
-     					table.insert( spells_to_delete, spell_name );
-  	 	  	end 
-    		end 
-
-    		local spell_del_count = table.getn( spells_to_delete )
-
-    		if spell_del_count > 0 then
-     			local del_spell = Game.Random( 1, spell_del_count )
-     			Attack.act_del_spell( receiver, spells_to_delete[ del_spell ] )
-    		  Attack.act_damage_addlog( receiver, "add_blog_unbaff_" )
-    		  Attack.log_special( "<label=" .. spells_to_delete[ del_spell ] .. "_name>" ) -- работает  
-     			Attack.atom_spawn( receiver, 0, "magic_dispel", 0, true )
+				    if rnd < poison_chance
+				    and not Attack.act_feature( receiver, "golem" )
+				    and not Attack.act_feature( receiver, "poison_immunitet" ) then
+				      local duration = apply_difficulty_level_talent_bonus( 3 )
+				      duration = tal_dur( 0.1, receiver, duration, "poison", "penalty" )
+				    	 effect_poison_attack( receiver, 0, duration, poison_damage, poison_damage )
+				    end
       end
+
+		   	local tranc = tonum( Attack.get_custom_param( "tranc" ) )
+
+		    if tranc > 0 then
+				   	local spell_name = ""
+		      local spells_to_delete = {}
+		     	local spell_count = Attack.act_spell_count( receiver )
+
+		      for i = 0, spell_count - 1 do 
+		      	 spell_name = Attack.act_spell_name( receiver, i )
+		      	 local spell_type = Logic.obj_par( spell_name, "type" )
+
+		      	 if spell_type == "bonus"
+		        and string.find( spell_name, "^totem_" ) == nil
+		        and string.find( spell_name, "special_difficulty" ) == nil
+		        and string.find( spell_name, "special_summon_bonus" ) == nil then 
+		     					table.insert( spells_to_delete, spell_name );
+		  	 	  	end 
+		    		end 
+
+		    		local spell_del_count = table.getn( spells_to_delete )
+
+		    		if spell_del_count > 0 then
+		     			local del_spell = Game.Random( 1, spell_del_count )
+		     			Attack.act_del_spell( receiver, spells_to_delete[ del_spell ] )
+		    		  Attack.act_damage_addlog( receiver, "add_blog_unbaff_" )
+		    		  Attack.log_special( "<label=" .. spells_to_delete[ del_spell ] .. "_name>" ) -- работает  
+		     			Attack.atom_spawn( receiver, 0, "magic_dispel", 0, true )
+		      end
+		    end
     end
 	 end 
 	
@@ -1491,39 +1527,48 @@ function features_bleeding( damage, addrage, attacker, receiver, minmax, userdat
     and not hitbacking and Attack.act_enemy( receiver )
     and not Attack.act_feature( receiver, "pawn" )
     and not Attack.act_feature( receiver, "boss" ) then
-      local power = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "power" ) ) -- назначаем бонус
-      local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "duration" ) )
-      duration = apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_bleeding", false )
-      duration = tal_dur( 0.1, receiver, duration, "physical", "penalty" )
-      local bleeding_res = Attack.act_get_res( receiver, "physical" )
-      power = math.min( 80, power - bleeding_res )
+      local bleed = apply_difficulty_level_talent_bonus( Attack.get_custom_param( "bleed" ) )
 
-      if power > 0 then
-        local duration_old
-        duration_old = tonumber( Attack.act_spell_duration( receiver, "feat_lump_bleeding" ) )
-        local message = "add_blog_bleeding_"
+					 if bleed == nil then
+					   bleed = 100
+						end
 
-        if duration_old ~=nil and duration_old ~= 0 then
-          if duration_old - duration > 0 then
-            power = math.min( 80, power + duration_old - duration )
-          end
-          duration = math.max( duration, duration_old ) + 1
-          message = "add_blog_hemoraging_"
-        end
-  
-     			Attack.act_del_spell( receiver, "feat_bleeding" )
-        Attack.act_apply_spell_begin( receiver, "feat_bleeding", duration, false )
-    				Attack.act_apply_par_spell( "attack", 0, -power, 0, duration, false )
-    				Attack.act_apply_par_spell( "defense", 0, -power, 0, duration, false )
-        Attack.act_apply_spell_end()
-   			  Attack.act_damage_addlog( receiver, message )
-    	   Attack.log_special( blog_side_unit( receiver, -1 ) ) -- работает
-      end
+					 if bleed > Game.Random( 99 ) then
+		      local power = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "power" ) ) -- назначаем бонус
+		      local duration = apply_difficulty_level_talent_bonus( Logic.obj_par( "feat_bleeding", "duration" ) )
+		      duration = apply_hero_duration_bonus( receiver, duration, "sp_duration_feat_bleeding", false )
+		      duration = tal_dur( 0.1, receiver, duration, "physical", "penalty" )
+		      local bleeding_res = Attack.act_get_res( receiver, "physical" )
+		      power = math.min( 80, power - bleeding_res )
+
+		      if power > 0 then
+		        local duration_old
+		        duration_old = tonumber( Attack.act_spell_duration( receiver, "feat_lump_bleeding" ) )
+		        local message = "add_blog_bleeding_"
+
+		        if duration_old ~=nil and duration_old ~= 0 then
+		          if duration_old - duration > 0 then
+		            power = math.min( 80, power + duration_old - duration )
+		          end
+		          duration = math.max( duration, duration_old ) + 1
+		          message = "add_blog_hemoraging_"
+		        end
+		  
+		     			Attack.act_del_spell( receiver, "feat_bleeding" )
+		        Attack.act_apply_spell_begin( receiver, "feat_bleeding", duration, false )
+		    				Attack.act_apply_par_spell( "attack", 0, -power, 0, duration, false )
+		    				Attack.act_apply_par_spell( "defense", 0, -power, 0, duration, false )
+		        Attack.act_apply_spell_end()
+		   			  Attack.act_damage_addlog( receiver, message )
+		    	   Attack.log_special( blog_side_unit( receiver, -1 ) ) -- работает
+		      end
+					 end
   		end 
   end 
 
   return damage, addrage
 end
+
 
 -- ***********************************************
 -- * Атаки алхимика в комплексе
@@ -1856,6 +1901,76 @@ function features_regeneration()
 
   return true
 end
+
+-- New! Recovery for plants
+function features_rejuvenation()
+	 if Attack.cell_need_resurrect( 0 ) then
+    local health = Attack.act_get_par( 0, "health" )
+    local count_init = Attack.act_initsize( 0 )
+    local total_init_hp = health * count_init
+    local hp_tot = Attack.act_totalhp( 0 )
+    local need_heal_hp = total_init_hp - hp_tot
+    local count_1 = Attack.act_size( 0 )
+    local hp_1 = Attack.act_hp( 0 )
+
+    local heal = get_add_gain_bonus( common_apply_skill_bonus( apply_difficulty_level_talent_bonus( 10 ), "healer" ), "heal_respawn" )
+    heal = correct_damage_minmax( Attack.get_caa( 0 ), heal, heal )
+    local actual_heal_hp = round( need_heal_hp * heal / 100 )
+    Attack.act_aseq( 0, "cure" )
+    local a = Attack.atom_spawn( 0, 0, "effect_total_cure" )
+    Attack.cell_resurrect( 0, actual_heal_hp, 0 )
+    Attack.log_label( "add_blog_rejuv_1" ) -- работает
+    Attack.act_aseq( 0, "idle" )	
+    local count_2 = Attack.act_size( 0 )
+    local hp_2 = Attack.act_hp( 0 )
+   
+ 			if Attack.act_size( 0 ) > 0 then 
+	  			Attack.log( "add_blog_rejuv_2", "name", blog_side_unit( 0 ) )
+ 			else 
+	  			Attack.log( "add_blog_rejuv_1", "name", blog_side_unit( 0 ) )
+ 			end 
+
+--[[    if count_1 < count_2 then
+      Attack.act_damage_addlog( 0, "res_" )
+      Attack.log_special( count_2 - count_1 )
+    elseif count_1 > count_2
+    or ( hp_1 == 0
+    and count_1 == count_2 ) then
+      Attack.act_damage_addlog( 0, "res_" )
+      Attack.log_special( count_2 )
+    elseif hp_1 < hp_2
+    and hp_1 ~= 0 then --
+      Attack.act_damage_addlog( 0, "cur_" )
+      Attack.log_special( hp_2 - hp_1 )
+    end]]
+  end 
+
+  return true
+end
+
+
+-- New! Recovery
+function features_recovery()
+	 if Attack.act_need_cure( 0 ) then
+	   local cur_hp = Attack.act_hp( 0 )
+	   local max_hp = Attack.act_get_par( 0, "health" )
+				Attack.atom_spawn( 0, 0, "effect_total_cure" )
+				--dmgts = Attack.aseq_time("hll_priest_heal_post", "y")
+    local heal = round( get_add_gain_bonus( common_apply_skill_bonus( apply_difficulty_level_talent_bonus( 25 ), "healer" ), "heal_respawn" ) )
+				Attack.act_cure( 0, round( ( max_hp - cur_hp ) * heal / 100 ), 0 )
+    Attack.log_label( "add_blog_recov_1" ) -- работает
+    Attack.act_aseq( 0, "idle" )	
+
+ 			if Attack.act_size( 0 ) > 0 then 
+	  			Attack.log( "add_blog_recov_2", "name", blog_side_unit( 0 ) )
+ 			else 
+	  			Attack.log( "add_blog_recov_1", "name", blog_side_unit( 0 ) )
+ 			end 
+  end 
+
+  return true
+end
+
 
 function features_auto_dispell( tend )
 		if takeoff_spells( 0, "penalty" ) then 		

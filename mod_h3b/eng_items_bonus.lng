@@ -1,0 +1,366 @@
+fight_bonus_filter_belligerent_ally=^?^Allied
+fight_bonus_filter_belligerent_enemy=^?^Enemy
+fight_bonus_filter_daytime=^?^during
+fight_bonus_filter_level=^?^Level
+fight_bonus_filter_level_less_than=^?^less than
+fight_bonus_filter_level_greater_than=^?^greater than
+fight_bonus_filter_level_less_than_or_equal=^?^less than or equal to
+fight_bonus_filter_level_greater_than_or_equal=^?^greater than or equal to
+fight_bonus_filter_loctype=^?^Location =
+fight_bonus_filter_loc_cemetery=^?^Cemetery
+fight_bonus_filter_loc_dungeon=^?^Dungeon
+fight_bonus_filter_loc_forest=^?^Forest
+fight_bonus_filter_loc_lava=^?^Lava
+fight_bonus_filter_loc_sea=^?^Sea
+fight_bonus_filter_loc_winter=^?^Winter
+fight_bonus_filter_troop=^?^Troops
+fight_bonus_filter_melee=^?^<image=itm_melee.png> Melee Troops
+fight_bonus_filter_ranged=^?^<image=itm_ranged.png> Ranged Troops
+fight_bonus_mod_3=^?^ (of base)
+fight_bonus_mod_4=^?^ (of current)
+fight_bonus_mod_for=^?^for 
+fight_bonus_mod_round1=^?^ round <image=itm_duration.png>
+fight_bonus_mod_round2=^?^ rounds <image=itm_duration.png>
+fight_bonus_mod_until=^?^ until hit
+fight_bonus_mod_dbonus=^?^ Damage <image=itm_damage.png>
+fight_bonus_mod_rbonus=^?^ Resistance
+fight_bonus_mod_astral=^?^ Astral
+fight_bonus_mod_cold=^?^ Cold <image=itm_dmg_cold.png>
+fight_bonus_mod_fire=^?^ Fire <image=itm_dmg_fire.png>
+fight_bonus_mod_magic=^?^ Magic <image=itm_dmg_magic.png>
+fight_bonus_mod_physical=^?^ Physical <image=itm_dmg_physical.png>
+fight_bonus_mod_poison=^?^ Poison <image=itm_dmg_poison.png>
+fight_bonus_mod_attack=^?^ Attack <image=itm_attack.png>
+fight_bonus_mod_defense=^?^ Defense <image=itm_defense.png>
+fight_bonus_mod_health=^?^ Health <image=itm_health.png>
+fight_bonus_mod_hitback=^?^ Unlimited Retaliation
+fight_bonus_mod_initiative=^?^ Initiative <image=itm_initiative.png>
+fight_bonus_mod_krit=^?^ Critical Hit <image=itm_krit.png>
+fight_bonus_mod_moral=^?^ Morale <image=itm_moral_p1.png>
+fight_bonus_mod_moral_p1=^?^ Morale <image=itm_moral_p1.png>
+fight_bonus_mod_moral_p2=^?^ Morale <image=itm_moral_p2.png>
+fight_bonus_mod_moral_p3=^?^ Morale <image=itm_moral_p3.png>
+fight_bonus_mod_moral_n1=^?^ Morale <image=itm_moral_n1.png>
+fight_bonus_mod_moral_n2=^?^ Morale <image=itm_moral_n2.png>
+fight_bonus_mod_moral_n3=^?^ Morale <image=itm_moral_n3.png>
+fight_bonus_mod_speed=^?^ Speed <image=itm_speed.png>
+mod_bonus_attack=^?^<image=itm_attack.png> Attack:
+mod_bonus_booksize=^?^<image=itm_scroll.png> Scrolls (Maximum in Spellbook):
+mod_bonus_defense=^?^<image=itm_defense.png> Defense:
+mod_bonus_leadership=^?^<image=itm_leadership.png> Leadership:
+mod_bonus_intellect=^?^<image=itm_intellect.png> Intellect:
+mod_bonus_mana=^?^<image=itm_mana.png> Mana:
+mod_bonus_rage=^?^<image=itm_rage.png> Rage:
+mod_bonus_spell=^?^<image=itm_spell.png>
+mod_bonus_sp_add_ap_ogre_rage=^?^<label=special_ogre_rage_name> - Action Points
+mod_bonus_sp_add_ap_run=^?^<label=special_ogre_rage_name> - Run Action Points
+mod_bonus_sp_add_burn_firepower=^?^
+mod_bonus_sp_add_burn_fire_shot=^?^
+mod_bonus_sp_add_burn_firethrow=^?^
+mod_bonus_sp_add_burn_rail=^?^
+mod_bonus_sp_add_burn_throw2=^?^
+mod_bonus_sp_add_damage_bless=^?^Max Damage or Ability
+mod_bonus_sp_add_damage_weakness=^?^Min Damage or Ability
+mod_bonus_sp_add_dragonslayer_krugom=^?^
+mod_bonus_sp_add_freeze_throw3=^?^
+mod_bonus_sp_add_heal_cast_sacrifice=^?^
+mod_bonus_sp_add_heal_cure=^?^
+mod_bonus_sp_add_heal_respawn=^?^
+mod_bonus_sp_add_health_ice_totem=^?^
+mod_bonus_sp_add_health_protective_totem=^?^
+mod_bonus_sp_add_holy_throw3=^?^
+mod_bonus_sp_add_HP_rooted=^?^
+mod_bonus_sp_add_infliction_burn=^?^
+mod_bonus_sp_add_infliction_freeze=^?^
+mod_bonus_sp_add_infliction_poison=^?^
+mod_bonus_sp_add_infliction_shock=^?^
+mod_bonus_sp_add_infliction_stun=^?^
+mod_bonus_sp_add_k_animate_dead=^?^
+mod_bonus_sp_add_k_beast_training=^?^
+mod_bonus_sp_add_k_cast_bear=^?^
+mod_bonus_sp_add_k_cast_demon=^?^
+mod_bonus_sp_add_k_cast_thorn=^?^
+mod_bonus_sp_add_k_charm=^?^
+mod_bonus_sp_add_k_quake=^?^
+mod_bonus_sp_add_k_summonplant=^?^
+mod_bonus_sp_add_k_summonplant2=^?^
+mod_bonus_sp_add_k_level_beast_training=^?^
+mod_bonus_sp_add_k_level_cast_sleep=^?^
+mod_bonus_sp_add_krit_battle_mage=^?^
+mod_bonus_sp_add_krit_special_battle_mage_attack=^?^
+mod_bonus_sp_add_penalty_armageddon=^?^
+mod_bonus_sp_add_penalty_battle_mage=^?^
+mod_bonus_sp_add_penalty_berserk=^?^
+mod_bonus_sp_add_penalty_pacifism=^?^
+mod_bonus_sp_add_penalty_special_battle_mage_attack=^?^
+mod_bonus_sp_add_penalty_stone_skin=^?^
+mod_bonus_sp_add_poison_throw1=^?^
+mod_bonus_sp_add_periphery_damage_fire_ball=^?^
+mod_bonus_sp_add_periphery_damage_ice_serpent=^?^
+mod_bonus_sp_add_power_accuracy=^?^
+mod_bonus_sp_add_power_adrenalin=^?^
+mod_bonus_sp_add_power_armageddon=^?^
+mod_bonus_sp_add_power_badabum=^?^
+mod_bonus_sp_add_power_battle_mage=^?^
+mod_bonus_sp_add_power_berserk=^?^
+mod_bonus_sp_add_power_berserker=^?^
+mod_bonus_sp_add_power_blood=^?^
+mod_bonus_sp_add_power_demonologist=^?^
+mod_bonus_sp_add_power_demon_slayer=^?^
+mod_bonus_sp_add_power_divine_armor=^?^
+mod_bonus_sp_add_power_dragon_slayer=^?^
+mod_bonus_sp_add_power_fire_arrow=^?^
+mod_bonus_sp_add_power_fire_ball=^?^
+mod_bonus_sp_add_power_fire_rain=^?^
+mod_bonus_sp_add_power_geyser=^?^
+mod_bonus_sp_add_power_ghost_sword=^?^
+mod_bonus_sp_add_power_haste=^?^
+mod_bonus_sp_add_power_healing=^?^
+mod_bonus_sp_add_power_holy_rain=^?^
+mod_bonus_sp_add_power_hypnosis=^?^
+mod_bonus_sp_add_power_ice_serpent=^?^
+mod_bonus_sp_add_power_kamikaze=^?^
+mod_bonus_sp_add_power_lightning=^?^
+mod_bonus_sp_add_power_magic_axe=^?^
+mod_bonus_sp_add_power_magic_source=^?^
+mod_bonus_sp_add_power_necromancy=^?^
+mod_bonus_sp_add_power_ogre_rage=^?^
+mod_bonus_sp_add_power_oil_fog=^?^
+mod_bonus_sp_add_power_pacifism=^?^
+mod_bonus_sp_add_power_pain_mirror=^?^
+mod_bonus_sp_add_power_phantom=^?^
+mod_bonus_sp_add_power_plague=^?^
+mod_bonus_sp_add_power_resurrection=^?^
+mod_bonus_sp_add_power_sacrifice=^?^
+mod_bonus_sp_add_power_slow=^?^
+mod_bonus_sp_add_power_smile_skull=^?^
+mod_bonus_sp_add_power_special_battle_mage_attack=^?^
+mod_bonus_sp_add_power_stone_skin=^?^
+mod_bonus_sp_add_power_trap=^?^
+mod_bonus_sp_add_rage_holy_rage=^?^
+mod_bonus_sp_add_resist_rooted=^?^
+mod_bonus_sp_add_rush_dmg_inc_charge=^?^
+mod_bonus_sp_add_shock_battle_mage=^?^
+mod_bonus_sp_add_shock_lightning=^?^
+mod_bonus_sp_add_shock_special_archmage_lightning_attack=^?^
+mod_bonus_sp_add_shock_special_battle_mage_attack=^?^
+mod_bonus_sp_add_sleep_ray=^?^
+mod_bonus_sp_add_special_heal=^?^
+mod_bonus_sp_add_special_holy_rage=^?^
+mod_bonus_sp_addexp_battle=^?^Combat <image=itm_experience.png> Experience:
+mod_bonus_sp_addexp_spirit=^?^Spirit <image=itm_experience.png> Experience:
+mod_bonus_sp_addgold_battle=^?^Combat <image=itm_gold.png> Gold:
+mod_bonus_sp_addgold_chest=^?^Chest <image=itm_gold.png> Gold:
+mod_bonus_sp_attack_undead=^?^<image=itm_damage.png> Damage to the Undead:
+mod_bonus_sp_attack_dragon=^?^<image=itm_damage.png> Damage to Dragons:
+mod_bonus_sp_attack_demon=^?^<image=itm_damage.png> Damage to Demons:
+mod_bonus_sp_boots_speed=^?^Slowest Troop <image=itm_speed.png> Speed:
+mod_bonus_sp_chance_effect_blood=^?^
+mod_bonus_sp_chance_effect_burn=^?^
+mod_bonus_sp_chance_effect_charm=^?^
+mod_bonus_sp_chance_effect_corrosion=^?^
+mod_bonus_sp_chance_effect_curse=^?^
+mod_bonus_sp_chance_effect_freeze=^?^
+mod_bonus_sp_chance_effect_holy=^?^
+mod_bonus_sp_chance_effect_poison=^?^
+mod_bonus_sp_chance_effect_shock=^?^
+mod_bonus_sp_chance_effect_sleep=^?^
+mod_bonus_sp_chance_effect_slow=^?^
+mod_bonus_sp_chance_effect_stun=^?^
+mod_bonus_sp_chance_effect_weakness=^?^
+mod_bonus_sp_chance_feat_bleeding=^?^
+mod_bonus_sp_chance_feat_brutality=^?^
+mod_bonus_sp_chance_feat_increase_anger=^?^
+mod_bonus_sp_chance_feat_rabid=^?^
+mod_bonus_sp_dur_mod=^?^
+mod_bonus_sp_duration=^?^<image=itm_duration.png> Duration:
+mod_bonus_sp_duration_spell=^?^<image=itm_duration.png> Spell
+mod_bonus_sp_duration_accuracy=^?^
+mod_bonus_sp_duration_adrenalin=^?^
+mod_bonus_sp_duration_armageddon=^?^
+mod_bonus_sp_duration_berserker=^?^
+mod_bonus_sp_duration_bless=^?^
+mod_bonus_sp_duration_blind=^?^
+mod_bonus_sp_duration_crue_fate=^?^
+mod_bonus_sp_duration_defenseless=^?^
+mod_bonus_sp_duration_demon_slayer=^?^
+mod_bonus_sp_duration_divine_armor=^?^
+mod_bonus_sp_duration_dragon_slayer=^?^
+mod_bonus_sp_duration_effect_blood=^?^
+mod_bonus_sp_duration_effect_burn=^?^
+mod_bonus_sp_duration_effect_charm=^?^
+mod_bonus_sp_duration_effect_corrosion=^?^
+mod_bonus_sp_duration_effect_curse=^?^
+mod_bonus_sp_duration_effect_freeze=^?^
+mod_bonus_sp_duration_effect_holy=^?^
+mod_bonus_sp_duration_effect_poison=^?^
+mod_bonus_sp_duration_effect_shock=^?^
+mod_bonus_sp_duration_effect_sleep=^?^
+mod_bonus_sp_duration_effect_slow=^?^
+mod_bonus_sp_duration_effect_stun=^?^
+mod_bonus_sp_duration_effect_weakness=^?^
+mod_bonus_sp_duration_feat_bleeding=^?^
+mod_bonus_sp_duration_feat_brutality=^?^
+mod_bonus_sp_duration_feat_increase_anger=^?^
+mod_bonus_sp_duration_feat_rabid=^?^
+mod_bonus_sp_duration_fire_arrow=^?^
+mod_bonus_sp_duration_fire_ball=^?^
+mod_bonus_sp_duration_fire_breath=^?^
+mod_bonus_sp_duration_fire_rain=^?^
+mod_bonus_sp_duration_geyser=^?^
+mod_bonus_sp_duration_haste=^?^
+mod_bonus_sp_duration_holy_rain=^?^
+mod_bonus_sp_duration_hypnosis=^?^
+mod_bonus_sp_duration_ice_serpent=^?^
+mod_bonus_sp_duration_invisibility=^?^
+mod_bonus_sp_duration_last_hero=^?^
+mod_bonus_sp_duration_lightning=^?^
+mod_bonus_sp_duration_magic_bondage=^?^
+mod_bonus_sp_duration_magic_source=^?^
+mod_bonus_sp_duration_oil_fog=^?^
+mod_bonus_sp_duration_pacifism=^?^
+mod_bonus_sp_duration_phantom=^?^
+mod_bonus_sp_duration_plague=^?^
+mod_bonus_sp_duration_pygmy=^?^
+mod_bonus_sp_duration_ram=^?^
+mod_bonus_sp_duration_reaction=^?^
+mod_bonus_sp_duration_scare=^?^
+mod_bonus_sp_duration_shroud=^?^
+mod_bonus_sp_duration_slow=^?^
+mod_bonus_sp_duration_smile_skull=^?^
+mod_bonus_sp_duration_stone_skin=^?^
+mod_bonus_sp_duration_target=^?^
+mod_bonus_sp_duration_trap=^?^
+mod_bonus_sp_duration_weakness=^?^
+mod_bonus_sp_duration_ogre_rage=^?^
+mod_bonus_sp_duration_battle_mage=^?^
+mod_bonus_sp_duration_beast_training=^?^
+mod_bonus_sp_duration_berserk=^?^
+mod_bonus_sp_duration_blood=^?^
+mod_bonus_sp_duration_cast_sleep=^?^
+mod_bonus_sp_duration_charm=^?^
+mod_bonus_sp_duration_holy_rage=^?^
+mod_bonus_sp_duration_ray=^?^
+mod_bonus_sp_duration_rooted=^?^
+mod_bonus_sp_duration_special_aiming=^?^
+mod_bonus_sp_duration_special_battle_mage_attack=^?^
+mod_bonus_sp_duration_special_berserk=^?^
+mod_bonus_sp_duration_special_demoness_pentagramm=^?^
+mod_bonus_sp_duratoin_special_elf_song=^?^
+mod_bonus_sp_duration_special_haste=^?^
+mod_bonus_sp_duration_special_bless_attack=^?^
+mod_bonus_sp_duration_special_holy_rage=^?^
+mod_bonus_sp_duration_special_magic_shield=^?^
+mod_bonus_sp_duration_special_ogre_rage=^?^
+mod_bonus_sp_duration_special_plague=^?^
+mod_bonus_sp_duration_special_preparation=^?^
+mod_bonus_sp_duration_special_spider_web=^?^
+mod_bonus_sp_duration_special_stupid=^?^
+mod_bonus_sp_duration_special_wolf_cry=^?^
+mod_bonus_sp_gain_ap_ogre_rage=^?^
+mod_bonus_sp_gain_ap_run=^?^
+mod_bonus_sp_gain_burn_firepower=^?^
+mod_bonus_sp_gain_burn_fire_shot=^?^
+mod_bonus_sp_gain_burn_firethrow=^?^
+mod_bonus_sp_gain_burn_rail=^?^
+mod_bonus_sp_gain_burn_throw2=^?^
+mod_bonus_sp_gain_dragonslayer_krugom=^?^
+mod_bonus_sp_gain_freeze_throw3=^?^
+mod_bonus_sp_gain_heal_cast_sacrifice=^?^
+mod_bonus_sp_gain_heal_cure=^?^
+mod_bonus_sp_gain_heal_respawn=^?^
+mod_bonus_sp_gain_health_ice_totem=^?^
+mod_bonus_sp_gain_health_protective_totem=^?^
+mod_bonus_sp_gain_holy_throw3=^?^
+mod_bonus_sp_gain_HP_rooted=^?^
+mod_bonus_sp_gain_infliction=^?^Effect
+mod_bonus_sp_gain_infliction_chance=^?^Chance:
+mod_bonus_sp_gain_k_animate_dead=^?^
+mod_bonus_sp_gain_k_beast_training=^?^
+mod_bonus_sp_gain_k_cast_bear=^?^
+mod_bonus_sp_gain_k_cast_demon=^?^
+mod_bonus_sp_gain_k_cast_thorn=^?^
+mod_bonus_sp_gain_k_charm=^?^
+mod_bonus_sp_gain_k_level_beast_training=^?^
+mod_bonus_sp_gain_k_level_cast_sleep=^?^
+mod_bonus_sp_gain_k_quake=^?^
+mod_bonus_sp_gain_k_summonplant=^?^
+mod_bonus_sp_gain_k_summonplant2=^?^
+mod_bonus_sp_gain_krit_battle_mage=^?^
+mod_bonus_sp_gain_krit_special_battle_mage_attack=^?^
+mod_bonus_sp_gain_penalty_armageddon=^?^
+mod_bonus_sp_gain_penalty_battle_mage=^?^
+mod_bonus_sp_gain_penalty_berserk=^?^
+mod_bonus_sp_gain_penalty_pacifism=^?^
+mod_bonus_sp_gain_penalty_special_battle_mage_attack=^?^
+mod_bonus_sp_gain_periphery_damage_fire_ball=^?^
+mod_bonus_sp_gain_periphery_damage_ice_serpent=^?^
+mod_bonus_sp_gain_poison_throw1=^?^
+mod_bonus_sp_gain_power_skill=^?^Unit Skill
+mod_bonus_sp_gain_power_spell=^?^<image=itm_spell.png> Spell
+mod_bonus_sp_gain_power=^?^<image=itm_power.png> Power:
+mod_bonus_sp_gain_rush_dmg_inc_charge=^?^
+mod_bonus_sp_gain_shock_battle_mage=^?^
+mod_bonus_sp_gain_shock_lightning=^?^
+mod_bonus_sp_gain_shock_special_archmage_lightning_attack=^?^
+mod_bonus_sp_gain_shock_special_battle_mage_attack=^?^
+mod_bonus_sp_gain_sleep_ray=^?^
+mod_bonus_sp_gain_special_heal=^?^
+mod_bonus_sp_gain_special_holy_rage=^?^
+mod_bonus_sp_lead_unit=^?^<image=itm_leadership.png> Leadership Requirement
+mod_bonus_sp_lev_inc_armageddon=^?^
+mod_bonus_sp_lev_inc_fire_arrow=^?^
+mod_bonus_sp_lev_inc_fire_ball=^?^
+mod_bonus_sp_lev_inc_fire_rain=^?^
+mod_bonus_sp_lev_inc_geyser=^?^
+mod_bonus_sp_lev_inc_ghost_sword=^?^
+mod_bonus_sp_lev_inc_healing=^?^
+mod_bonus_sp_lev_inc_holy_rain=^?^
+mod_bonus_sp_lev_inc_ice_serpent=^?^
+mod_bonus_sp_lev_inc_kamikaze=^?^
+mod_bonus_sp_lev_inc_lightning=^?^
+mod_bonus_sp_lev_inc_oil_fog=^?^
+mod_bonus_sp_lev_inc_resurrection=^?^
+mod_bonus_sp_lev_inc_sacrifice=^?^
+mod_bonus_sp_lev_inc_smile_skull=^?^
+mod_bonus_sp_lev_inc_trap=^?^
+mod_bonus_sp_mana_battle=^?^<image=itm_mana.png> Mana per Round:
+mod_bonus_sp_mana_map_prc=^?^Faster <image=itm_mana.png> Mana Recovery on Map:
+mod_bonus_sp_power_effect=^?^Power
+mod_bonus_sp_power_effect_blood=^?^
+mod_bonus_sp_power_effect_burn=^?^
+mod_bonus_sp_power_effect_charm=^?^
+mod_bonus_sp_power_effect_corrosion=^?^
+mod_bonus_sp_power_effect_curse=^?^
+mod_bonus_sp_power_effect_freeze=^?^
+mod_bonus_sp_power_effect_holy=^?^
+mod_bonus_sp_power_effect_poison=^?^
+mod_bonus_sp_power_effect_shock=^?^
+mod_bonus_sp_power_effect_sleep=^?^
+mod_bonus_sp_power_effect_slow=^?^
+mod_bonus_sp_power_effect_stun=^?^
+mod_bonus_sp_power_effect_weakness=^?^
+mod_bonus_sp_power_inc=^?^
+mod_bonus_sp_power_int=^?^<image=itm_intellect.png> Intelligence Power (*)Bonus
+mod_bonus_sp_power_mod=^?^
+mod_bonus_sp_power_mod_for_prefix=^?^ (i.e. every
+mod_bonus_sp_power_mod_for_suffix=^?^ Intellect <image=itm_intellect.png>)
+mod_bonus_sp_special_attacks_horseman_charge=^?^
+mod_bonus_sp_special_attacks_thorn_gift=^?^
+mod_bonus_sp_rage_battle_prc_prefix=^?^At the Start of Combat, Converts
+mod_bonus_sp_rage_battle_prc_suffix=^?^of <image=itm_mana.png> Mana to <image=itm_rage.png> Rage.
+mod_bonus_sp_rage_battle=^?^<image=itm_rage.png> Rage per Round:
+mod_bonus_sp_rage_battle_inflow=^?^<image=itm_rage.png> Rage Influx:
+mod_bonus_sp_rage_map=^?^Slower <image=itm_rage.png> Rage Drain on Map:
+mod_bonus_sp_rage_predator_prefix=^?^During combat the Predator takes
+mod_bonus_sp_rage_predator_suffix=^?^points of <image=itm_rage.png> Rage and turns it into <image=itm_mana.png> Mana.
+mod_bonus_sp_spell_attack=^?^Attack Spells <color=0,187,232>(<label=spell_healing_name>, <label=spell_magic_axe_name>, <label=spell_dragon_slayer_name>, <label=spell_phoenix_name>, <label=spell_demon_slayer_name>, <label=spell_lightning_name>, <label=spell_holy_rain_name>, <label=spell_accuracy_name>, <label=spell_berserker_name>, <label=spell_pain_mirror_name>, <label=spell_trap_name>, <label=spell_ghost_sword_name>, <label=spell_geyser_name>, <label=spell_fire_arrow_name>, <label=spell_smile_skull_name>, <label=spell_oil_fog_name>, <label=spell_fire_breath_name>, <label=spell_ice_serpent_name>, <label=spell_fire_ball_name>, <label=spell_evilbook_name>, <label=spell_kamikaze_name>, <label=spell_fire_rain_name>, <label=spell_armageddon_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_defense=^?^Defense Spells <color=0,187,232>(<label=spell_stone_skin_name>, <label=spell_phoenix_name>, <label=spell_divine_armor_name>, <label=spell_magic_source_name>, <label=spell_evilbook_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_astral=^?^Astral Spells <color=0,187,232>(<label=spell_phoenix_name>, <label=spell_armageddon_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_fire=^?^Fire Spells <color=0,187,232>(<label=spell_phoenix_name>, <label=spell_fire_arrow_name>, <label=spell_oil_fog_name>, <label=spell_fire_breath_name>, <label=spell_fire_ball_name>, <label=spell_fire_rain_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_physical=^?^Physical Spells <color=0,187,232>(<label=spell_magic_axe_name>, <label=spell_trap_name>, <label=spell_ghost_sword_name>, <label=spell_geyser_name>, <label=spell_ice_serpent_name>, <label=spell_evilbook_name>, <label=spell_kamikaze_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_magic=^?^Magic Spells <color=0,187,232>(<label=spell_healing_name>, <label=spell_lightning_name>, <label=spell_holy_rain_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_poison=^?^Poison Spells <color=0,187,232>(<label=spell_smile_skull_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_holy=^?^Holy Spells <color=0,187,232>(<label=spell_healing_name>, <label=spell_resurrection_name>, <label=spell_divine_armor_name>, <label=spell_holy_rain_name>)</color> <image=itm_power.png> Power:
+mod_bonus_sp_spell_speed=^?^Spells <color=0,187,232><label=spell_haste_name> and <label=spell_slow_name></color> <image=itm_power.png> Power:
+mod_bonus_whichever_is_greater=^?^ (whichever is greater)

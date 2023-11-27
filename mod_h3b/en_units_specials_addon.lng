@@ -1,0 +1,49 @@
+special_encouragement_name=Cheer
+special_encouragement_head=^special_tC^[Good]
+special_encouragement_small=^special_t^Increases Attack and Initiative.
+special_encouragement_hint=^special_t^All elves and humans in the army receive a bonus of [power%] to their Attack and Initiative. Duration: [duration]. 
+
+special_sky_guard_name=Heavenly Guard
+special_sky_guard_head=^special_tC^[Good]
+special_sky_guard_hint=^special_t^Summons a Heavenly Guard troop to a random nearby cell. Total Leadership of the troop: [lsummon]. 
+
+special_execution_name=Execution
+special_execution_head=^special_tC^[Bad]
+special_execution_hint=^special_t^Brutally inflicts [damage] damage on an enemy troop. If the troop is destroyed entirely, all enemies temporarily lose 1 Initiative. In addition, enemies of levels 1-4 have a 50% probability of panicking.
+
+special_indignation_name=Outrage
+special_indignation_head=^special_tC^[Good]
+special_strike_name=Strike
+special_strike_head=^special_tC^[Good]
+special_indignation_small=^special_t^Striking angry miners and foremen receive an increase in their speed and initiative. The probability of a Critical Hit rises to 100%.
+special_strike_hint=^special_t^The Miners don't wish to fight! Their defense is increased by [bonus%] and all effects are removed. Miners stop countering enemy attacks.<br>All foremen are granted the effect of "Anger", which increases thir chance of Critical Hit, along with both Speed and Initiative.
+
+special_run_miner_name=Driver's Whip
+special_run_miner_head=^special_tC^[Good]
+special_run_miner_hint=^special_t^All miners in the army increase their Initiative and Speed by [ap]. The foreman continues his move.
+special_run_miner_small=^special_t^Increases speed and initiative. 
+
+special_repair_name=Repair
+special_repair_head=^special_tC^[Good]
+//special_repair_hint=^special_t^Repair damaged machinery, fixing the target for [cure] health units. 
+special_repair_hint=^special_t^Repairs nearby allied machinery, restoring [s]<gen=gen_repair_talent_hint>[/s] units of health.<br><color=132,132,132><label=label_accuracy_talent_bonus></color> 
+//label_accuracy_talent_bonus=+10% for every "Neatness" skill level of the hero
+
+special_harpoon_name=Harpoon
+special_harpoon_head=^special_tC^[Bad]
+special_harpoon_hint=^special_t^Droid harpoons an enemy standing in front of him at a distance of [s]2-5[/s] cells, causing it [damage] damage. Enemy cannot counter-attack.
+
+special_droid_flash_name=Beam of Light
+special_droid_flash_head=^special_tC^[Bad]
+special_droid_flash_hint=^special_t^Droid produces a beam of bright light in a given direction, for a distance of up to 3 cells. Undead units receive [damage] physical damage. Soldiers with night vision and Beholders are blinded, and all other creatures below level [s]5[/s] suffer a [power][s]%[/s] reduction in their Defense. The effect lasts for [duration] turns. 
+
+summon_droid_name=Create Droid 
+summon_droid_head=^special_tC^[Good]
+summon_droid_hint=^special_t^Engineer creates a random Droid troop in a neighboring cell.<br>Troop's total Leadership: <color=255,255,255><gen=ingeneer_summoned_droid_leadership></color>.<br><color=132,132,132><label=label_accuracy_talent_bonus></color> 
+add_blog_droid_summon_1=^blog_td0^[name] that some tinkering. Appear [targeta]: [g][special][/c]. 
+add_blog_droid_summon_2=^blog_td0^[name] is something the wizard. Appear [targeta]: [g][special][/c]. 
+
+blind_grenade_name=Shock Grenade
+blind_grenade_head=^special_tC^[Bad]
+blind_grenade_hint=^special_t^Throws a special mixture at the enemy. The target receives [fdamage] fire damage, and neighboring units of level [level] are blinded.
+

@@ -1,0 +1,30 @@
+{Y}{}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 11 elements
+{
+	{U}{uid} = {383868214}
+	{U}{au} = {191596303}  // Royal Thorn
+	{W}{h} = {ehero_system_hint_383868214}
+	{A}{ato} = {army_kingthorn}
+	{A}{sp} = {spell_last_hero}
+	{U}{le} = {1}
+	{U}{in} = {2}
+	{U}{ma} = {17}
+	{U}{atk} = {1}
+	{U}{de} = {3}
+	{Y}{fi}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{1} // 0 elements
+	{
+                // Race Bonus, 1 elements
+		{Y}{-N/A-}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 6 elements
+		{
+			{Y}{filter}, F_SORTED{0}, F_COMPACT_TAGS{1}, F_NONAMES{0} // 1 elements
+			{
+				{A}{belligerent} = {ally}
+				{A}{race} = {neutral}
+			}
+			{A}{pbonus} = {moral,1,0,0,-100,0,0}
+			{A}{dbonus} = {}
+			{A}{rbonus} = {}
+			{A}{attack_on} = {}
+			{A}{attack_off} = {}
+		}
+	}
+}

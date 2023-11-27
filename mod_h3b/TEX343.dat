@@ -1,0 +1,20 @@
+TEX343 {
+  block {
+    filename=ba1_encouragement_small.png
+    in_tex_pos=0,0
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=0,85
+  }
+  block {
+    filename=ba1_sky_guard_small.png
+    in_tex_pos=26,0
+    in_tex_size=26,26
+    geom_pos=0,0
+    geom_size=1,1
+    mask=85,85
+  }
+  texture_size=52,26
+}
+

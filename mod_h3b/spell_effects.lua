@@ -91,6 +91,21 @@ function effect_entangle_attack( target, pause, duration )
 end
 
 -- New function for applying the bless or weakness bonus
+--[[function apply_bless_weakness_bonus( unit, min_, max_ )
+  local bonus = Attack.val_restore( unit, "spell_bless_weakness_bonus" )
+
+  if bonus ~= nil
+  and bonus > 0 then
+    max_ = round( math.max( max_ + bonus, max_ * ( 1 + bonus / 10 ) ) )
+    min_ = max_
+  elseif bonus ~= nil
+  and bonus < 0 then
+    min_ = math.max( 1, round( math.min( min_ + bonus, min * ( 1 + bonus / 10 ) ) ) )
+    max_ = min_
+  end
+
+  return min_, max_
+end]]
 function apply_bless_weakness_bonus( target, bonus, duration )
   local resistances = {}
   local str_resistances = Game.Config( 'resistances' )
@@ -108,9 +123,19 @@ function apply_bless_weakness_bonus( target, bonus, duration )
 
     if min_damage_base > 0 then
       if bonus > 0 then
-        Attack.act_apply_dmgmax_spell( resistances[ i ], bonus, 0, 0, duration, false )
+        local max_damage_current, max_damage_base = Attack.act_get_dmg_max( target, resistances[ i ] )
+
+        if ( max_damage_current + bonus ) > ( max_damage_current * ( 1 + bonus / 10 ) ) then
+          Attack.act_apply_dmgmax_spell( resistances[ i ], bonus, 0, 0, duration, false )
+        else
+          Attack.act_apply_dmgmax_spell( resistances[ i ], 0, bonus * 10, 0, duration, false )
+        end
       else
-        Attack.act_apply_dmgmin_spell( resistances[ i ], bonus, 0, 0, duration, false )
+        if ( min_damage_current + bonus ) < ( min_damage_current * ( 1 + bonus / 10 ) ) then
+          Attack.act_apply_dmgmin_spell( resistances[ i ], bonus, 0, 0, duration, false )
+        else
+          Attack.act_apply_dmgmin_spell( resistances[ i ], 0, bonus * 10, 0, duration, false )
+        end
       end
     end
   end
@@ -119,7 +144,7 @@ function apply_bless_weakness_bonus( target, bonus, duration )
 end
 
 -- New function for applying the bless effect with a hero bonus
-function effect_bless_weakness_attack( target, spell, duration, dmgts, spawn_type, spawn )
+function effect_bless_weakness_attack( target, spell, duration, dmgts, spawn_type, spawn, belligerent )
   duration = res_dur( dmgts + 0.1, target, spell, duration, "magic" )
   Attack.act_del_spell( target, "spell_bless" )
   Attack.act_del_spell( target, "spell_weakness" )
@@ -132,35 +157,40 @@ function effect_bless_weakness_attack( target, spell, duration, dmgts, spawn_typ
 
   Attack.act_apply_spell_begin( target, spell, duration, false )
 
-  local bonus = tonumber( Logic.hero_lu_item( string.gsub( spell, "spell_", "sp_add_damage_" ), "count" ) )
-
-  if string.find( spell, "weakness" ) then
-    bonus = -bonus
-  end
-
-  local healer = tonumber( Logic.obj_par( spell, "healer" ) )
-  local sp_healer = 0
-  if healer == 1
-  and string.find( spell, "bless" ) then
-    sp_healer = math.max( 0, tonumber( Logic.hero_lu_skill( "healer" ) ) - 2 ) -- +1 for level 3
-  end
-
-  local necromancy = tonumber( Logic.obj_par( spell, "necromancy" ) )
-  local sp_necromancy = 0
-  if necromancy == 1
-  and string.find( spell, "weakness" ) then
-	  	sp_necromancy = math.max( 0, tonumber( Logic.hero_lu_skill( "necromancy" ) ) - 2 ) -- -1 for level 3
-  end
-
-  if bonus == nil then
-    bonus = 0
-  end
-
-  bonus = bonus + sp_healer - sp_necromancy
-
-  if bonus ~= nil
-  and bonus ~= 0 then
-    apply_bless_weakness_bonus( target, bonus, duration )
+  if belligerent == 1 then
+    local bonus = tonumber( Logic.hero_lu_item( string.gsub( spell, "spell_", "sp_add_damage_" ), "count" ) )
+  
+    if string.find( spell, "weakness" ) then
+      bonus = -bonus
+    end
+  
+    local healer = tonumber( Logic.obj_par( spell, "healer" ) )
+    local sp_healer = 0
+  
+    if healer == 1
+    and string.find( spell, "bless" ) then
+      sp_healer = math.max( 0, tonumber( Logic.hero_lu_skill( "healer" ) ) - 2 ) -- +1 for level 3
+    end
+  
+    local necromancy = tonumber( Logic.obj_par( spell, "necromancy" ) )
+    local sp_necromancy = 0
+  
+    if necromancy == 1
+    and string.find( spell, "weakness" ) then
+  	  	sp_necromancy = math.max( 0, tonumber( Logic.hero_lu_skill( "necromancy" ) ) - 2 ) -- -1 for level 3
+    end
+  
+    if bonus == nil then
+      bonus = 0
+    end
+  
+    bonus = bonus + sp_healer - sp_necromancy
+  
+    if bonus ~= nil
+    and bonus ~= 0 then
+      Attack.val_store( target, "spell_bless_weakness_bonus", bonus )
+      apply_bless_weakness_bonus( target, bonus, duration )
+    end
   end
 
   Attack.act_apply_spell_end()
@@ -737,12 +767,93 @@ end
 
 
 -- ***********************************************
+-- * New! Bleed
+-- ***********************************************
+function feat_bleed_attack( target, pause, duration, min_dmg, max_dmg )
+  --local target = Attack.get_target()
+	 if pause == nil then
+		  pause = 1
+	 end
+	
+ 	if target ~= nil
+  and Attack.get_caa( target ) ~= nil then
+  		local physicalresist = Attack.act_get_res( target, "physical" )
+  		if physicalresist < 80
+    and not string.find( Attack.act_name( target ), "orb" )
+    and not string.find( Attack.act_name( target ), "cyclop" )
+    and not Attack.act_feature( target, "boss,pawn,bone,plant,mech,physical_immunitet" ) then
+   			if duration == nil then
+    				duration = tonumber( Logic.obj_par( "feat_bleeding", "duration" ) )
+   			end
+
+      duration = apply_hero_duration_bonus( target, duration, "sp_duration_feat_bleeding", false )
+
+   			local power = tonumber( Logic.obj_par( "feat_bleeding", "power" ) )
+   			local defense = Attack.act_get_par( target, "defense" )
+      local dmg_min, dmg_max
+
+      if min_dmg == nil or max_dmg == nil then
+     			dmg_min, dmg_max = text_range_dec( Logic.obj_par( "feat_bleeding", "damage" ) )
+      else
+        dmg_min, dmg_max = min_dmg, max_dmg
+      end
+
+      dmg_min = dmg_min * ( 1 + physicalresist / ( 100 - physicalresist ) )
+      dmg_max = dmg_max * ( 1 + physicalresist / ( 100 - physicalresist ) )
+
+      local dmg_min_old, dmg_max_old, duration_old
+      dmg_min_old = tonumber( Attack.act_spell_param( target, "feat_bleeding", "dmg_min" ) )
+      dmg_max_old = tonumber( Attack.act_spell_param( target, "feat_bleeding", "dmg_max" ) )
+      duration_old = tonumber( Attack.act_spell_duration( target, "feat_bleeding" ) )
+
+      if dmg_min_old ~= nil then
+        dmg_min = dmg_min + dmg_min_old
+      end
+
+      if dmg_max_old ~= nil then
+        dmg_max = dmg_max + dmg_max_old
+      end
+
+      local message
+
+      if duration_old ~=nil and duration_old ~= 0 then
+        if duration_old - duration > 0 then
+          power = power + duration_old - duration
+        end
+
+        duration = math.max( duration, duration_old ) + 1
+        message = "add_blog_hemoraging_"
+      else
+        message = "add_blog_bleeding_"
+      end
+
+   			Attack.act_del_spell( target, "feat_bleeding" )
+   			Attack.act_apply_spell_begin( target, "feat_bleeding", duration, false )
+		    Attack.act_apply_par_spell( "attack", 0, -power, 0, duration, false )
+		    Attack.act_apply_par_spell( "defense", 0, -power, 0, duration, false )
+   			Attack.act_apply_par_spell( "defense", -defense / 100 * power , 0, 0, duration, false)
+   			Attack.act_apply_spell_end()
+   			Attack.act_spell_param( target, "feat_bleeding", "dmg_min", dmg_min, "dmg_max", dmg_max )
+   			Attack.atom_spawn( target, pause, "effect_bleeding", 0, true )
+   			Attack.act_damage_addlog( target, message )
+  		end
+ 	else
+    if target == nil then
+      apply_effect_damage( Attack.get_target(), min_dmg, max_dmg, "feat_bleeding", "damphysical", "physical", "bleeding" )
+  	 end
+	 end
+
+ 	return true
+end
+
+
+-- ***********************************************
 -- * Burn
 -- ***********************************************
 function effect_burn_attack( target, pause, duration, min_dmg, max_dmg )
   --local target = Attack.get_target()
-	 if pause==nil then
-		  pause=1
+	 if pause == nil then
+		  pause = 1
 	 end
 	
  	if target ~= nil
@@ -811,6 +922,7 @@ function effect_burn_attack( target, pause, duration, min_dmg, max_dmg )
 
  	return true
 end
+
 
 -- ***********************************************
 -- * Stun

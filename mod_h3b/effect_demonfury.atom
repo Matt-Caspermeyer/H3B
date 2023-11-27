@@ -1,0 +1,48 @@
+main {
+  class=throwable
+  speed=16
+  nodimming=true
+  ttl=2
+  cullcat=0
+}
+timekeys {
+  x=0.1
+}
+mutators {
+  frames {
+    frate=25.0
+    start=0.0
+    end=50.0
+  }
+}
+editor {
+  align=grid/0/0/0.1/0.1
+  spawnangle=0:1:360
+  angle=0:1:360
+  spawnscale=1.0
+  scale=0.1:2
+}
+attachments {
+  1 {
+    particle {
+      trans=-3.1415925/-0.00000009/-3.1415925/1
+      frame=1/22
+      file=eff_demon_arc.ptb
+    }
+    particle {
+      trans=1.04719758/-0/-3.1415925/1
+      frame=1/22
+      file=eff_demon_arc.ptb
+    }
+    particle {
+      trans=-1.04719782/-0.00000009/-3.1415925/0.99999982
+      frame=1/22
+      file=eff_demon_arc.ptb
+    }
+    particle {
+      trans=0/2.29999995/0/0/-0/0/1.5
+      frame=22/40
+      file=eff_demon_face.ptb
+    }
+  }
+}

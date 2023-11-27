@@ -1,0 +1,27 @@
+// Пост-эффект от ударов молнии. Это не заклинание
+effect_indecision {
+  category=s
+  hide=1
+  image=book_effect_shock.png   // не нужно для эффекта
+  icon=s_overtime_indecision.png
+  label=EN_shock
+  attack=scripted
+  hint_config=object_spell
+  school=3
+  hint=effect_indecision_hint
+  hint_header=effect_indecision_header
+  icon=book_effect_indecision.png        // не нужно для эффекта
+  
+  //  nfeatures=plant,golem
+  scripted {
+    ad_factor=0  // use attack/defense
+  }
+  params {
+    speedbonus=1
+    inbonus=1
+    duration=1
+    type=penalty
+  }
+  levels {}
+}
+
