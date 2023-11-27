@@ -66,8 +66,8 @@ spirit {
       level7=level:6,LV:>13/damage:physical:+2560:+3200,rage:+6,rest:+1,exp:+6,level:7,bleeding:+10
       rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
       rage2=rs:1,level:>6,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
-      rest1=rest:0,LV:>5,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>15,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest1=restlevel:0,level:>1,LV:>5,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=restlevel:1,LV:>15,rest:>1/rest:-1,exp:+4,restlevel:2
     }
   }
   wall {
@@ -84,11 +84,11 @@ spirit {
       level5=level:4/rage:+4,rest:+1,exp:+8,level:5,health:+4000,wall_def:+20,level:5,res_all:+10
       rage1=rs:0,level:>2,rage:>5/rage:-5,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,level:>4,rage:>10/rage:-10,rs:2,exp:+20,ragelevel:2
-      rest1=rest:0,LV:>6,rest:>1/rest:-1,exp:+4,restlevel:1
-      rest2=rest:1,LV:>16,rest:>1/rest:-1,exp:+8,restlevel:2
-      rest3=rest:1,LV:>26,rest:>1/rest:-1,exp:+12,restlevel:3
-      ttl1=ttl:0,LV>:7/ttl:9,rage:+5,rest:+1,exp:+10,ttllevel:1
-      ttl2=ttl:1,LV>:24/ttl:12,rage:+10,rest:+1,exp:+20,ttllevel:2
+      rest1=restlevel:0,level:>1,LV:>6,rest:>1/rest:-1,exp:+4,restlevel:1
+      rest2=restlevel:1,LV:>16,rest:>1/rest:-1,exp:+8,restlevel:2
+      rest3=restlevel:2,LV:>26,rest:>1/rest:-1,exp:+12,restlevel:3
+      ttl1=ttllevel:0,level:>1/ttl:+3,rage:+5,rest:+1,exp:+10,ttllevel:1
+      ttl2=ttllevel:1,level:>3/ttl:+3,rage:+10,rest:+1,exp:+20,ttllevel:2
     }
   }
   rockfall {
@@ -106,11 +106,11 @@ spirit {
       level7=level:6,LV:>18/damage:physical:+1000:+1050,rage:+12,rest:+1,exp:+12,level:7,stunning:+5
       rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
       rage2=rs:1,level:>5,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
-      square1=square:3,LV:>10/rage:+5,square:7,rest:+1,exp:+5,squarelevel:1
-      square2=square:7,LV:>15/rage:+10,square:19,rest:+1,exp:+10,squarelevel:2
-      rest1=rest:0,LV:>6,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>16,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>26,rest:>1/rest:-1,exp:+6,restlevel:3
+      square1=square:3,squarelevel:0,LV:>10/rage:+5,square:7,rest:+1,exp:+5,squarelevel:1
+      square2=square:7,squarelevel:1,LV:>15/rage:+10,square:19,rest:+1,exp:+10,squarelevel:2
+      rest1=restlevel:0,level:>1,LV:>6,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=restlevel:1,LV:>16,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=restlevel:2,LV:>26,rest:>1/rest:-1,exp:+6,restlevel:3
     }
   }
   quake {
@@ -130,10 +130,10 @@ spirit {
       level7=level:6,LV:>25/damage:physical:+600:+650,rage:+18,rest:+2,exp:+9,level:7,bleeding:+5
       rage1=rs:0,level:>3,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
       rage2=rs:1,level:>5,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
-      rest1=rest:0,LV:>10,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>20,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>30,rest:>1/rest:-1,exp:+6,restlevel:3
-      rest4=rest:3,LV:>40,rest:>1/rest:-1,exp:+8,restlevel:4
+      rest1=restlevel:0,level:>1,LV:>10,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=restlevel:1,LV:>20,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=restlevel:2,LV:>30,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=restlevel:3,LV:>40,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
 }

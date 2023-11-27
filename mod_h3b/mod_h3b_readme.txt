@@ -162,6 +162,30 @@ Windows 8 Comments
 * Because of this, I've found quite a few more bugs than I noticed than when I was developing on Windows 7.
 * So this release is mostly bug fixes, but there are some new features as well.
 
+Version: Beta 2013-03-03
+*.ATOM
+  & DEATH.ATOM
+    ^ Fixed errors in rest level increases that prevented it from being selected during levelup
+  & LINA.ATOM
+    ^ Fixed errors in rest level increases that prevented it from being selected during levelup
+  & SLIME.ATOM
+    ^ Fixed errors in rest level increases that prevented it from being selected during levelup
+    ^ Fixed errors in Cloud of Poison time level increases that prevented it from being selected during levelup
+  & THEROCK.ATOM
+    ^ Fixed errors in rest level increases that prevented it from being selected during levelup
+    ^ Fixed errors in Stone Wall time level increases that prevented it from being selected during levelup
+*.LNG
+  & EN(G)_SPELLS.LNG
+    ^ Mention that Holy Rain, Plague, and Armageddon can affect Magic Immune creatures.
+*.LUA
+  & SPELLS.LUA
+    ^ When I had added check for belligerent when Dispel was being auto cast by Enchanted Hero, I introduced a bug where normal Dispel was no longer working properly (i.e. level 3 Dispell was removing Penalty spells from enemies, not Bonus spells). I've now (hopefully) fixed the problem where both normal Dispel cast and Enchanted Hero auto cast Dispel work properly
+  & UNIT_FEATURES.LUA
+    ^ Added flag to receiver of Enchanted Hero Dispel auto cast such that spell_dispell_attack still works with Enchanted Hero
+*.TXT
+  & ARENA.TXT - had one too many spirit levels, now highest level is 51 @1,000,000 spirit experience
+
+
 Version: Beta 2013-02-24
 *.ATOM
   & DEATH.ATOM

@@ -1069,6 +1069,9 @@ function special_bonus_spell( attacker, receiver )
     if tmp_spells[ cast ] == spell_haste_attack
     or tmp_spells[ cast ] == spell_bless_attack then
       tmp_spells[ cast ]( level, dmgts, receiver, belligerent )
+    elseif tmp_spells[ cast ] == spell_dispell_attack then
+      Attack.val_store( receiver, "enchanted_hero_dispell", 1 )
+      tmp_spells[ cast ]( level, receiver, belligerent )
     else
       tmp_spells[ cast ]( level, receiver, belligerent, heroname )
     end

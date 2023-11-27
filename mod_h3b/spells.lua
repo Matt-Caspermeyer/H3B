@@ -1466,11 +1466,23 @@ function spell_dispell_attack( level, target, belligerent )
 	   else
      	local type
 
-	     if Attack.act_ally( target, belligerent ) then
-        type = "penalty" -- Remove all of their penalty-spell
-	     else
-        type = "bonus"
-      end -- с противника снимаем все bonus-заклинания
+      local enchanted_hero_dispell = Attack.val_restore( target, "enchanted_hero_dispell" )
+
+      if enchanted_hero_dispell == nil then
+  	     if Attack.act_ally( target ) then
+          type = "penalty" -- Remove all of their penalty-spell
+  	     else
+          type = "bonus"
+        end -- с противника снимаем все bonus-заклинания
+      else
+  	     if Attack.act_ally( target, belligerent ) then
+          type = "penalty" -- Remove all of their penalty-spell
+  	     else
+          type = "bonus"
+        end -- с противника снимаем все bonus-заклинания
+
+        Attack.val_store( target, "enchanted_hero_dispell", nil )
+      end
 
 		    if ( Attack.act_is_spell( target, "spell_hypnosis" )
       or Attack.act_is_spell( target, "effect_charm" ) )

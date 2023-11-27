@@ -116,10 +116,10 @@ spirit {
       rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,level:>4,rage:>15/rage:-15,rs:2,exp:+15,ragelevel:2
       rage3=rs:2,level:>6,rage:>20/rage:-20,rs:3,exp:+20,ragelevel:3
-      rest1=rest:0,LV:>7,rest:>1/,rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>17,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>27,rest:>1/rest:-1,exp:+6,restlevel:3
-      rest4=rest:3,LV:>37,rest:>1/rest:-1,exp:+8,restlevel:4
+      rest1=restlevel:0,level:>1,LV:>7,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=restlevel:1,LV:>17,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=restlevel:2,LV:>27,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=restlevel:3,LV:>37,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
   rage_gain {
@@ -139,10 +139,10 @@ spirit {
       level8=level:7,LV:>21/damage:astral:+230:+360,rage_gain:+20,rage:+7,rest:+1,exp:+7,level:8
       rage1=rs:0,level:>5,rage:>5/rage:-5,rs:1,exp:+5,ragelevel:1
       rage2=rs:1,level:>7,rage:>10/rage:-10,rs:2,exp:+10,ragelevel:2
-      rest1=rest:0,LV:>8,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>18,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>28,rest:>1/rest:-1,exp:+6,restlevel:3
-      rest4=rest:3,LV:>38,rest:>1/rest:-1,exp:+8,restlevel:4
+      rest1=restlevel:0,level:>1,LV:>8,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=restlevel:1,LV:>18,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=restlevel:2,LV:>28,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=restlevel:3,LV:>38,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
   time_return {
@@ -160,10 +160,10 @@ spirit {
       level5=level:4,LV:>12/rage:+16,rest:+2,exp:+32,level:5
       rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+20,ragelevel:1
       rage2=rs:1,level:>4,rage:>15/rage:-15,rs:2,exp:+30,ragelevel:2
-      rest1=rest:0,LV:>9,rest:>1/rest:-1,exp:+4,restlevel:1
-      rest2=rest:1,LV:>19,rest:>1/rest:-1,exp:+8,restlevel:2
-      rest3=rest:2,LV:>29,rest:>1/rest:-1,exp:+12,restlevel:3
-      rest4=rest:3,LV:>39,rest:>1/rest:-1,exp:+16,restlevel:4
+      rest1=restlevel:0,level:>1,LV:>9,rest:>1/rest:-1,exp:+4,restlevel:1
+      rest2=restlevel:1,LV:>19,rest:>1/rest:-1,exp:+8,restlevel:2
+      rest3=restlevel:2,LV:>29,rest:>1/rest:-1,exp:+12,restlevel:3
+      rest4=restlevel:3,LV:>39,rest:>1/rest:-1,exp:+16,restlevel:4
     }
   }
   black_hole {
@@ -179,10 +179,10 @@ spirit {
       level5=level:4,LV:>15/damage:astral:+300:+700,rage:+40,rest:+2,exp:+20,level_influence:+5,level:5
       rage1=rs:0,level:>2,rage:>10/rage:-10,rs:1,exp:+10,ragelevel:1
       rage2=rs:1,level:>4,rage:>10,LV:>15/rage:-15,rs:2,exp:+15,ragelevel:2
-      rest1=rest:0,LV:>10,rest:>1/rest:-1,exp:+2,restlevel:1
-      rest2=rest:1,LV:>20,rest:>1/rest:-1,exp:+4,restlevel:2
-      rest3=rest:2,LV:>30,rest:>1/rest:-1,exp:+6,restlevel:3
-      rest4=rest:3,LV:>40,rest:>1/rest:-1,exp:+8,restlevel:4
+      rest1=restlevel:0,level:>1,LV:>10,rest:>1/rest:-1,exp:+2,restlevel:1
+      rest2=restlevel:1,LV:>20,rest:>1/rest:-1,exp:+4,restlevel:2
+      rest3=restlevel:2,LV:>30,rest:>1/rest:-1,exp:+6,restlevel:3
+      rest4=restlevel:3,LV:>40,rest:>1/rest:-1,exp:+8,restlevel:4
     }
   }
 }
